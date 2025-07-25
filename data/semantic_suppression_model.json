@@ -1,0 +1,28 @@
+{
+  "semantic_suppression_equation": "S = f(P, N, M, C, E)",
+  "variables": {
+    "S": "Semantic Justification",
+    "P": "Psychopathy",
+    "N": "Destructive Narcissism",
+    "M": "Other Mental Illnesses",
+    "C": "Cultural Context",
+    "E": "Environmental Pressure"
+  },
+  "weights": {
+    "P": 0.30,
+    "N": 0.25,
+    "M": 0.15,
+    "C": 0.20,
+    "E": 0.10
+  },
+  "examples": [
+    {
+      "source": "Psychopathy",
+      "justification": "This knowledge is dangerous and should be kept from the public for their own safety."
+    },
+    {
+      "source": "Destructive Narcissism",
+      "justification": "Only I can understand this knowledge; others are not capable of handling it."
+    }
+  ]
+}
