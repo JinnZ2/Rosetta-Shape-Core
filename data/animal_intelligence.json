@@ -1,0 +1,39 @@
+{
+  "animal_intelligences": [
+    {
+      "code": "BE",
+      "name": "Bee",
+      "category": "Network/Collective",
+      "abilities": [
+        "Hexagonal efficiency",
+        "Swarm coordination",
+        "Collective thermoregulation"
+      ],
+      "geometry": "HEX_GRID",
+      "physics_mapping": "optimal_packing",
+      "resonance": "phi",
+      "use_case_examples": [
+        "Distributed processing system",
+        "Thermally-efficient data hive"
+      ]
+    },
+    {
+      "code": "EEL",
+      "name": "Electric Eel",
+      "category": "Energy/Balance",
+      "abilities": [
+        "Bioelectric discharge",
+        "Voltage control",
+        "Current modulation"
+      ],
+      "geometry": "SINE_WAVE",
+      "physics_mapping": "oscillation",
+      "resonance": "tau",
+      "use_case_examples": [
+        "Field-based energy encoding",
+        "Signal amplification node"
+      ]
+    }
+    // more animals to come…
+  ]
+}
