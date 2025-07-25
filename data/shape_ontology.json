@@ -1,0 +1,24 @@
+{
+  "shapes": [
+    {
+      "symbol": "△",
+      "name": "Triangle",
+      "code": "TRI",
+      "dimension": 2,
+      "physics_mapping": "stability_tensor",
+      "resonance": "PHI",
+      "compression_char": "△",
+      "mobile_code": "TR"
+    },
+    {
+      "symbol": "⬢",
+      "name": "Hexagon",
+      "code": "HEX",
+      "dimension": 2,
+      "physics_mapping": "optimal_packing",
+      "resonance": "√3",
+      "compression_char": "⬢",
+      "mobile_code": "HE"
+    }
+  ]
+}
