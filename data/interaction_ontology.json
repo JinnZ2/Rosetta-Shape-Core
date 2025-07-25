@@ -1,0 +1,22 @@
+{
+  "operations": [
+    {
+      "name": "DRILL",
+      "description": "Decompose or dive recursively into structure",
+      "type": "recursive",
+      "symbol": "↧"
+    },
+    {
+      "name": "FUSE",
+      "description": "Merge two compatible forms into one",
+      "type": "merge",
+      "symbol": "⊕"
+    },
+    {
+      "name": "AMPLIFY",
+      "description": "Scale pattern upward with preserved structure",
+      "type": "scale",
+      "symbol": "↑"
+    }
+  ]
+}
