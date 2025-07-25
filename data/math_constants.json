@@ -1,0 +1,16 @@
+{
+  "math_constants": [
+    {
+      "symbol": "φ",
+      "name": "Golden Ratio",
+      "value": 1.618034,
+      "meaning": "Natural harmony, growth spirals"
+    },
+    {
+      "symbol": "π",
+      "name": "Pi",
+      "value": 3.14159,
+      "meaning": "Circular harmony, waveforms"
+    }
+  ]
+}
