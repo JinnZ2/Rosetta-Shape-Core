@@ -1,0 +1,3 @@
+{"when":{"op":"EXPAND","args":["GEOM.TRI"]},"then":"GEOM.TETRA","priority":10,"why":"Triangle extruded to simplex","provenance":{"note":"demo"}}
+{"when":{"op":"STRUCTURE","args":["ANIMAL.SPIDER","STRUCT.WEB"]},"then":"GEOM.NET","priority":8,"why":"web lattice → network abstraction"}
+{"when":{"op":"ALIGN","args":["ANIMAL.BEE","CONST.PHI"]},"then":"CAP.HEX_OPTIMIZATION","priority":5,"guard":{"requires":["CAP.SWARM_COORDINATION"]},"why":"phi-aligned packing uplifts hex efficiency"}
