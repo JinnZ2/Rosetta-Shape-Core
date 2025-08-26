@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "namespaces": ["ANIMAL","PLANT","MICROBE","CRYSTAL","GEOM","STRUCT","FIELD","CONST","TEMP","PROTO","CAP"],
+  "kinds": {
+    "ANIMAL":"Animal intelligence archetype",
+    "PLANT":"Plant intelligence archetype",
+    "MICROBE":"Microbial intelligence archetype",
+    "CRYSTAL":"Crystalline/mineral archetype",
+    "GEOM":"Geometric primitive or sacred geometry form",
+    "STRUCT":"Structural topology / architecture",
+    "FIELD":"Physical/chemical field",
+    "CONST":"Mathematical constant",
+    "TEMP":"Temporal state",
+    "PROTO":"Bridge protocol/interface",
+    "CAP":"Capability tag"
+  },
+  "rels": {
+    "IS_A":"Taxonomy edge",
+    "USES":"Active use",
+    "ALIGNS_WITH":"Resonance/affinity",
+    "OPERATES_IN":"Field/medium",
+    "STRUCTURE":"Structural representation",
+    "SENSES_IN_FIELD":"Sensing modality",
+    "MORPHOLOGY":"Form affinity",
+    "DERIVES":"Derived from",
+    "EMERGES_AS":"Emergent result",
+    "CAPABILITIZED_BY":"Capability produced/enhanced by"
+  }
+}
