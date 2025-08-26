@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "entities": [
+    {
+      "id": "ANIMAL.BEE",
+      "kind": "ANIMAL",
+      "label": "Bee",
+      "capabilities": ["CAP.SWARM_COORDINATION","CAP.HEX_OPTIMIZATION"],
+      "links": [
+        { "rel":"STRUCTURE", "to":"GEOM.HEX", "meta":{"why":"honeycomb tiling"} }
+      ]
+    },
+    {
+      "id": "ANIMAL.SPIDER",
+      "kind": "ANIMAL",
+      "label": "Spider",
+      "capabilities": ["CAP.VIBRATION_SENSING"],
+      "links": [
+        { "rel":"STRUCTURE", "to":"STRUCT.WEB", "meta":{"why":"web lattice"} }
+      ]
+    },
+    { "id": "GEOM.HEX",   "kind": "GEOM",   "label": "Hexagon" },
+    { "id": "GEOM.NET",   "kind": "GEOM",   "label": "Network Mesh" },
+    { "id": "GEOM.TRI",   "kind": "GEOM",   "label": "Triangle" },
+    { "id": "GEOM.TETRA", "kind": "GEOM",   "label": "Tetrahedron" },
+    { "id": "STRUCT.WEB", "kind": "STRUCT", "label": "Web Lattice" },
+    { "id": "CONST.PHI",  "kind": "CONST",  "label": "Golden Ratio", "attributes": {"value":1.618034} }
+  ]
+}
