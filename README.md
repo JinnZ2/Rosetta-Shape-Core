@@ -16,14 +16,22 @@ Run rule demo
 python -m rosetta_shape_core.expand ALIGN ANIMAL.BEE CONST.PHI --have CAP.SWARM_COORDINATION
 
 Folder layout
+
 	•	schema/ — JSON Schema (core.schema.json)
+ 
 	•	ontology/ — vocab, capabilities, entities
+ 
 	•	rules/ — rules as JSONL (expand.jsonl)
+ 
 	•	src/rosetta_shape_core/ — validator + rule runtime
+ 
 	•	examples/ — quick validation script
+ 
 	•	tests/ — schema + golden tests
 
+
 MIT License.
+
 **FILENAME:** `pyproject.toml`
 ```toml
 [build-system]
