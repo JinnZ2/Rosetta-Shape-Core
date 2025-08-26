@@ -1,0 +1,14 @@
+{
+  "cases": [
+    {
+      "name": "bee_phi_hex_efficiency",
+      "input": { "op": "ALIGN", "args": ["ANIMAL.BEE", "CONST.PHI"], "have": ["CAP.SWARM_COORDINATION"] },
+      "expect": "CAP.HEX_OPTIMIZATION"
+    },
+    {
+      "name": "spider_web_to_net",
+      "input": { "op": "STRUCTURE", "args": ["ANIMAL.SPIDER", "STRUCT.WEB"] },
+      "expect": "GEOM.NET"
+    }
+  ]
+}
