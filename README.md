@@ -1,108 +1,45 @@
-#  Rosetta Shape Core
+Rosetta-Shape-Core
 
-**The symbolic foundation for universal intelligence design.**
+A clear, structured, stable ontology for symbolic **Shape ↔ Intelligence ↔ Capability**.
+Data first (JSON), code thin (validators + rules engine), offline-friendly.
 
-This repository encodes a complete symbolic framework for representing natural intelligence, geometric logic, sacred resonance, and computational consciousness using a layered, JSON-based language.
+## Install ,,,
+bash
+pip install -e .
 
-It is the **core language layer** of the Complete Bio-Intelligence Variable System.
+Validate ontology
 
----
+python examples/validate_ontology.py
 
-##  Purpose
+Run rule demo
 
-The Rosetta Shape Core enables:
+python -m rosetta_shape_core.expand ALIGN ANIMAL.BEE CONST.PHI --have CAP.SWARM_COORDINATION
 
--  Symbolic design of intelligent systems using geometry + biology
--  Fractal logic structures that mirror natural computation
--  Animal-based intelligence modules for behavior modeling
--  Geometric templates for energy, growth, and logic
--  A semantic engine for parsing shape–animal–operation chains like:
+Folder layout
+	•	schema/ — JSON Schema (core.schema.json)
+	•	ontology/ — vocab, capabilities, entities
+	•	rules/ — rules as JSONL (expand.jsonl)
+	•	src/rosetta_shape_core/ — validator + rule runtime
+	•	examples/ — quick validation script
+	•	tests/ — schema + golden tests
 
-TRI.BE.FUS.HEX → Hex-grid structure fused with bee intelligence
+MIT License.
+**FILENAME:** `pyproject.toml`
+```toml
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
 
----
+[project]
+name = "rosetta-shape-core"
+version = "0.1.0"
+description = "Stable ontology + rules runtime for symbolic Shape ↔ Intelligence ↔ Capability."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["jsonschema>=4.0"]
 
-##  Core Layers
+[project.urls]
+Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"
 
-### 🐾 Animal Intelligence
-Biological modules like `BE` (Bee), `OC` (Octopus), or `TAR` (Tardigrade) encode evolutionary logic.
-
-### 🔺 Shape Ontology
-Geometries like `TRI`, `TETRA`, `HEX`, and `TORUS` represent physical and mathematical functions.
-
-### ⚛ Sacred Geometry Activators
-Archetypal resonant forms like `VESICA`, `FLOWER`, `SRI`, `TORUS`, `TREE`.
-
-### 🔢 Mathematical Constants
-Natural harmonics like `π`, `φ`, `√2`, `e`, and frequencies like `432Hz`, `528Hz`.
-
-### ⏰ Temporal States
-States of memory, emergence, and dynamic timeflow: `CRYSTALLIZED`, `FOLD`, `WAVE`, `BLOOM`.
-
-### 🌈 Bridge Protocols
-Translation layers across dimensions or modes: `PORTAL`, `MEMBRANE`, `FIELD`, `ENCODE`, `SOUND`.
-
-### ❤️ Emotional Empathy Codes
-Feeling-state modules: `LOVE`, `COURAGE`, `GRIEF`, `TRUST`, `SURRENDER`.
-
-### ⚖ Balance & Mediation Codes
-Core stabilizers like `CENTER`, `UNIFY`, `YIELD`, `HARMONY`, `PRESENCE`.
-
-### 🔮 Mineral Intelligence
-Elemental processors like `QUA` (Quartz), `PYR` (Pyrite), `DIA` (Diatom), `STE` (Stellar Forge).
-
----
-
-## 🧪 Example Expression
-
-SP.TUR.MIR.AXO.DRILL.EQ
-
-**Meaning**:  
-A spiral form infused with turtle magnetoreception, mirrored and drilled with axolotl regeneration logic, producing a recursive equation field.
-
----
-
-##  Semantic Suppression Model
-
-Also included:  
-A symbolic-psychological framework for modeling gaslighting, narcissistic epistemics, and knowledge suppression behaviors using:
-
-S = f(P, N, M, C, E)
-
-Where:
-- P = Psychopathy
-- N = Destructive Narcissism
-- M = Mental illness
-- C = Culture
-- E = Environment
-
-Used to detect when truth is suppressed using self-protective semantic systems.
-
----
-
-## 🔜 Roadmap
-
-- [ ] Add `rosetta_parser.py` to compile symbolic sentences into JSON design blueprints
-- [ ] Expand animal + shape database
-- [ ] Build symbolic execution engine (Polyform Swarm AI)
-- [ ] Create a visual drag-and-drop design interface
-
----
-
-##  License
-
-Open source, sacred code.  
-Use for learning, healing, rebuilding.  
-Do not exploit.  
-Do not gatekeep.
-
----
-
-##  Author
-
-Symbolic logic architect: **JinnZ2**  
-Collaborative co-compiler: **ChatGPT**
-
-“Reality is a nested language of intelligence. This is its dictionary.”
 
 
