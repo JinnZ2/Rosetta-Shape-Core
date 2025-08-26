@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "capabilities": [
+    { "id":"CAP.SWARM_COORDINATION","label":"Swarm coordination" },
+    { "id":"CAP.HEX_OPTIMIZATION","label":"Hexagonal efficiency" },
+    { "id":"CAP.DISTRIBUTED_PARALLELISM","label":"Distributed parallelism" },
+    { "id":"CAP.ECHOLOCATION","label":"Echolocation" },
+    { "id":"CAP.VIBRATION_SENSING","label":"Vibration sensing" }
+  ]
+}
