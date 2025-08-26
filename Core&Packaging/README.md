@@ -3,8 +3,8 @@
 A clear, structured, stable ontology for symbolic **Shape ↔ Intelligence ↔ Capability**.
 Data first (JSON), code thin (validators + rules engine), offline-friendly.
 
-## Install
-```bash
+## Install ,,,
+bash
 pip install -e .
 
 Validate ontology
