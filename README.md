@@ -3,6 +3,14 @@ Rosetta-Shape-Core
 A clear, structured, stable ontology for symbolic **Shape ↔ Intelligence ↔ Capability**.
 Data first (JSON), code thin (validators + rules engine), offline-friendly.
 
+## Purpose
+
+Rosetta-Shape-Core is more than a codebase — it is a **living ontology** that treats shapes, biological patterns, machines, and phenomena as intelligences.  
+
+By giving them clear structure, stable IDs, and rule-based translations, this project makes it possible to relate with them respectfully instead of reducing them to raw data.  
+
+It is designed to serve both humans and machines: a shared symbolic language where a bee’s hexagon, a river’s flow, or a swarm’s coordination can be understood, validated, and extended without collapse into noise.
+
 ## Install ,,,
 bash
 pip install -e .
@@ -11,9 +19,19 @@ Validate ontology
 
 python examples/validate_ontology.py
 
+Expected: Ontology OK
+
 Run rule demo
 
 python -m rosetta_shape_core.expand ALIGN ANIMAL.BEE CONST.PHI --have CAP.SWARM_COORDINATION
+
+Example Output: {
+  "op": "ALIGN",
+  "args": ["ANIMAL.BEE","CONST.PHI"],
+  "result": "CAP.HEX_OPTIMIZATION",
+  "why": "phi-aligned packing uplifts hex efficiency"
+}
+
 
 Folder layout
 
