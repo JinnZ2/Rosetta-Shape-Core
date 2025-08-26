@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rosetta-shape-core/schema/core.schema.json",
+  "title": "Rosetta Core Ontology Schema",
+  "type": "object",
+  "required": ["version", "entities"],
+  "properties": {
+    "version": { "type": "string" },
+    "generated_at": { "type": "string" },
+    "entities": { "type": "array", "items": { "$ref": "#/$defs/Entity" } }
+  },
+  "$defs": {
+    "ID": {
+      "type": "string",
+      "pattern": "^(ANIMAL|PLANT|MICROBE|CRYSTAL|GEOM|STRUCT|FIELD|CONST|TEMP|PROTO|CAP)\\.[A-Z0-9_]+$"
+    },
+    "Rel": {
+      "type": "string",
+      "enum": ["IS_A","USES","ALIGNS_WITH","OPERATES_IN","STRUCTURE","SENSES_IN_FIELD","MORPHOLOGY","DERIVES","EMERGES_AS","CAPABILITIZED_BY"]
+    },
+    "Link": {
+      "type": "object",
+      "required": ["rel","to"],
+      "properties": {
+        "rel": { "$ref": "#/$defs/Rel" },
+        "to":  { "$ref": "#/$defs/ID" },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "weight": { "type": "number" },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+            "why": { "type": "string" },
+            "source": { "type": "string" }
+          }
+        }
+      }
+    },
+    "Entity": {
+      "type": "object",
+      "required": ["id","kind","label"],
+      "properties": {
+        "id":   { "$ref": "#/$defs/ID" },
+        "kind": { "type": "string", "enum": ["ANIMAL","PLANT","MICROBE","CRYSTAL","GEOM","STRUCT","FIELD","CONST","TEMP","PROTO","CAP"] },
+        "label": { "type": "string" },
+        "aliases": { "type": "array", "items": { "type": "string" } },
+        "attributes": { "type": "object" },
+        "capabilities": { "type": "array", "items": { "$ref": "#/$defs/ID" } },
+        "provenance": { "type": "object", "properties": { "source": { "type": "string" }, "note": { "type": "string" } } },
+        "updated_at": { "type": "string" },
+        "links": { "type": "array", "items": { "$ref": "#/$defs/Link" } }
+      }
+    }
+  }
+}
