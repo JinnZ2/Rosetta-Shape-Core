@@ -5,11 +5,16 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write   # <-- allow commit/push from Actions
+
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -19,14 +24,20 @@ jobs:
       - name: Generate placeholder outputs
         run: |
           echo '{ "repo": "${{ github.repository }}", "generated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)", "files": [] }' > AI_INDEX.json
-          echo "# AI Notes" > AI_NOTES.md
-          echo "- Repo: ${{ github.repository }}" >> AI_NOTES.md
-          echo "- Generated: $(date -u)" >> AI_NOTES.md
+          {
+            echo "# AI Notes"
+            echo "- Repo: ${{ github.repository }}"
+            echo "- Generated: $(date -u)"
+          } > AI_NOTES.md
 
       - name: Commit outputs
         run: |
           git config user.name "ai-integrator-bot"
           git config user.email "actions@github.com"
           git add AI_INDEX.json AI_NOTES.md || true
-          git diff --staged --quiet || git commit -m "add AI_INDEX.json + AI_NOTES.md"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "add AI_INDEX.json + AI_NOTES.md"
+            git push
+          fi
