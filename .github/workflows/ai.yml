@@ -29,7 +29,14 @@ jobs:
           echo "# AI Notes" > AI_NOTES.md
           echo "- Repo: ${{ github.repository }}" >> AI_NOTES.md
           echo "- Generated: $(date -u)" >> AI_NOTES.md
-
+          
+      - name: List all files and dirs
+        run: |
+          echo "# Repo File List" > FILE_LIST.md
+          find . -type f | sort >> FILE_LIST.md
+          echo "# Repo Directory List" > DIR_LIST.md
+          find . -type d | sort >> DIR_LIST.md
+          
       - name: Commit outputs
         run: |
           git config user.name "ai-integrator-bot"
