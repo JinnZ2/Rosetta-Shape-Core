@@ -1,0 +1,163 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AI Index Schema",
+  "type": "object",
+  "properties": {
+    "repo": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "lang": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "e.g., core, config, test, doc, build, script"
+          },
+          "imports": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "exports": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "hotspots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "path",
+          "size"
+        ]
+      }
+    },
+    "topology": {
+      "type": "object",
+      "properties": {
+        "modules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "description": "import, include, calls"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ]
+          }
+        }
+      }
+    },
+    "resilience": {
+      "type": "object",
+      "properties": {
+        "redundancy_patterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fallback_branches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "error_doctrine": {
+          "type": "string",
+          "description": "How errors degrade gracefully"
+        },
+        "possibility_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "hypothesis": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "number"
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "counter_evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "next_checks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "hypothesis",
+              "confidence"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "repo",
+    "generated_at",
+    "files"
+  ]
+}
