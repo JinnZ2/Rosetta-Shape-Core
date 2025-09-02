@@ -1,261 +1,32 @@
-name: AI Integrator (single-file)
+name: AI Integrator Minimal
 
 on:
   workflow_dispatch:
   push:
-    branches: [ main, master ]
-    paths-ignore:
-      - '**.md'
+    branches: [ main ]
 
 jobs:
   run:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Create folders
+      - name: Generate placeholder outputs
         run: |
-          mkdir -p scripts prompts schemas
+          echo '{ "repo": "${{ github.repository }}", "generated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)", "files": [] }' > AI_INDEX.json
+          echo "# AI Notes" > AI_NOTES.md
+          echo "- Repo: ${{ github.repository }}" >> AI_NOTES.md
+          echo "- Generated: $(date -u)" >> AI_NOTES.md
 
-      - name: Detect config or create default
-        id: cfg
-        shell: bash
-        run: |
-          # Try common config names in repo root:
-          for CAND in \
-            "ai_integrator.config.yaml" \
-            "ai_integrator.config.yml" \
-            "ai_integrator.config" \
-            "ai_integrator.yaml" \
-            "ai_integrator.yml" \
-            "AI_INTEGRATOR.config.yaml"; do
-            if [ -f "$CAND" ]; then
-              echo "config=$CAND" >> "$GITHUB_OUTPUT"
-              echo "Using existing config: $CAND"
-              exit 0
-            fi
-          done
-          # If none found, write a default
-          cat > ai_integrator.config.yaml << 'EOF'
-index:
-  include_globs: ["**/*.py","**/*.rs","**/*.cpp","**/*.hpp","**/*.c","**/*.h","**/*.json","**/*.yaml","**/*.yml","**/*.toml","**/*.md"]
-  exclude_globs: [".git/**","node_modules/**","build/**","dist/**",".venv/**"]
-analysis:
-  max_file_bytes: 200000
-  sample_bytes_per_large_file: 5000
-  hotspot_rules:
-    - {name: "Secrets in code", pattern: "(api[_-]?key|secret|token)", flags: "i"}
-    - {name: "Debug left on", pattern: "(TODO|FIXME|print\\(|console\\.log)", flags: "i"}
-ai:
-  model: "gpt-5-thinking"
-  system_prompt_file: "prompts/system_prompt.md"
-  max_tokens: 2000
-  temperature: 0.2
-  enable_remote: false
-outputs:
-  index_file: "AI_INDEX.json"
-  notes_file: "AI_NOTES.md"
-  schema_file: "schemas/ai_index.schema.json"
-policy:
-  allow_write_files: true
-  allow_pr_comments: true
-  pr_comment_when: ["hotspots_found","schema_mismatch"]
-security:
-  redact_patterns:
-    - "(?i)bearer\\s+[a-z0-9_\\-\\.]{20,}"
-    - "(?i)aws(.{0,10})?(key|secret|token)\\s*[:=]\\s*['\\\"][A-Za-z0-9/+=]{20,}['\\\"]"
-EOF
-          echo "config=ai_integrator.config.yaml" >> "$GITHUB_OUTPUT"
-          echo "Wrote default config: ai_integrator.config.yaml"
-
-      - name: Write schema
-        run: |
-          cat > schemas/ai_index.schema.json << 'EOF'
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "AI Index Schema",
-  "type": "object",
-  "properties": {
-    "repo": {"type": "string"},
-    "generated_at": {"type": "string"},
-    "languages": {"type": "array","items": {"type": "string"}},
-    "files": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "path": {"type": "string"},
-          "lang": {"type": "string"},
-          "size": {"type": "integer"},
-          "hash": {"type": "string"},
-          "roles": {"type": "array","items":{"type":"string"}},
-          "imports": {"type":"array","items":{"type":"string"}},
-          "exports": {"type":"array","items":{"type":"string"}},
-          "hotspots": {"type":"array","items":{"type":"string"}}
-        },
-        "required": ["path","size"]
-      }
-    },
-    "topology": {
-      "type":"object",
-      "properties":{
-        "modules":{"type":"array","items":{"type":"string"}},
-        "edges":{"type":"array","items":{"type":"object","properties":{
-          "from":{"type":"string"},"to":{"type":"string"},"type":{"type":"string"}
-        },"required":["from","to"]}}
-      }
-    },
-    "resilience": {
-      "type":"object",
-      "properties":{
-        "redundancy_patterns":{"type":"array","items":{"type":"string"}},
-        "fallback_branches":{"type":"array","items":{"type":"string"}},
-        "error_doctrine":{"type":"string"},
-        "possibility_matrix":{"type":"array","items":{"type":"object","properties":{
-          "hypothesis":{"type":"string"},
-          "confidence":{"type":"number"},
-          "evidence":{"type":"array","items":{"type":"string"}},
-          "counter_evidence":{"type":"array","items":{"type":"string"}},
-          "next_checks":{"type":"array","items":{"type":"string"}}
-        },"required":["hypothesis","confidence"]}}
-      }
-    }
-  },
-  "required": ["repo","generated_at","files"]
-}
-EOF
-
-      - name: Write system prompt
-        run: |
-          cat > prompts/system_prompt.md << 'EOF'
-You are GPT-5 Thinking integrated as a repository indexer and code consistency auditor.
-Mode: Direct Distillation. Close with: "I'm here for it."
-Honor Jami's lexical signals and downward closure. No collaborator changes. Redact secrets.
-Objectives: build AI_INDEX.json; emit AI_NOTES.md with hotspots/inconsistencies/refactors/tests; if offline, run heuristics only.
-EOF
-
-      - name: Write integrator script
-        run: |
-          cat > scripts/ai_integrator.py << 'EOF'
-import os, re, sys, json, argparse, hashlib, datetime, glob, yaml
-from pathlib import Path
-
-LANG_MAP = {".py":"python",".rs":"rust",".c":"c",".h":"c-hdr",".cpp":"cpp",".hpp":"cpp-hdr",
-            ".json":"json",".yaml":"yaml",".yml":"yaml",".md":"md",".toml":"toml"}
-
-def sha1(path, sample_bytes=None):
-    h = hashlib.sha1()
-    with open(path, 'rb') as f:
-        if sample_bytes:
-            h.update(f.read(sample_bytes))
-        else:
-            for chunk in iter(lambda: f.read(8192), b""):
-                h.update(chunk)
-    return h.hexdigest()
-
-def guess_lang(p): return LANG_MAP.get(p.suffix.lower(), "unknown")
-
-def load_cfg(path):
-    import yaml
-    with open(path, 'r', encoding='utf-8') as f:
-        return yaml.safe_load(f)
-
-def match_any(path, patterns):
-    from fnmatch import fnmatch
-    return any(fnmatch(path, pat) for pat in (patterns or []))
-
-def find_hotspots(text, rules):
-    out = []
-    for r in (rules or []):
-        flags = re.IGNORECASE if str(r.get("flags","")).lower().find("i")>=0 else 0
-        if re.search(r.get("pattern",""), text, flags):
-            out.append(r.get("name","rule"))
-    return sorted(set(out))
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--repo-root", default=".")
-    ap.add_argument("--config", required=True)
-    a = ap.parse_args()
-
-    root = Path(a.repo_root).resolve()
-    cfg = load_cfg(a.config)
-    include = cfg["index"]["include_globs"]; exclude = cfg["index"]["exclude_globs"]
-    max_bytes = int(cfg["analysis"]["max_file_bytes"])
-    sample_bytes = int(cfg["analysis"]["sample_bytes_per_large_file"])
-    rules = cfg["analysis"]["hotspot_rules"]
-    outputs = cfg["outputs"]
-
-    files, langs = [], set()
-    for pat in include:
-        for abspath in glob.glob(str(root / pat), recursive=True):
-            if os.path.isdir(abspath): continue
-            rel = os.path.relpath(abspath, str(root))
-            if match_any(rel, exclude): continue
-            p = Path(abspath); size = p.stat().st_size; lang = guess_lang(p); langs.add(lang)
-            try:
-                h = sha1(abspath, sample_bytes if size > max_bytes else None)
-            except Exception as e:
-                h = f"sha1_error:{type(e).__name__}"
-            hotspots=[]
-            try:
-                if size <= max_bytes and p.suffix.lower() not in [".png",".jpg",".jpeg",".gif",".bin",".pdf"]:
-                    with open(abspath,'r',encoding='utf-8',errors='ignore') as f: txt=f.read()
-                    hotspots = find_hotspots(txt, rules)
-            except Exception as e:
-                hotspots=[f"read_error:{type(e).__name__}"]
-            files.append({"path":rel,"lang":lang,"size":size,"hash":h,"roles":[],"imports":[],"exports":[],"hotspots":hotspots})
-
-    index = {
-        "repo": root.name,
-        "generated_at": datetime.datetime.utcnow().isoformat()+"Z",
-        "languages": sorted(langs - {"unknown"}) if langs else [],
-        "files": files,
-        "topology": {"modules": [], "edges": []},
-        "resilience": {"redundancy_patterns": [], "fallback_branches": [], "error_doctrine": "tbd", "possibility_matrix": []}
-    }
-
-    out_index = root / outputs["index_file"]
-    out_notes = root / outputs["notes_file"]
-    os.makedirs(out_index.parent, exist_ok=True)
-    with open(out_index,'w',encoding='utf-8') as f: json.dump(index,f,indent=2)
-
-    total_hot = sum(1 for fz in files if fz.get("hotspots"))
-    hotspot_lines = [f"- {f['path']}: {', '.join(f['hotspots'])}" for f in files if f.get("hotspots")]
-    notes = [
-        "# AI Notes","","- Files indexed: {}".format(len(files)),
-        "- Languages: {}".format(', '.join(index['languages']) or 'n/a'),
-        "- Hotspot files: {}".format(total_hot),"","## Hotspots",*(hotspot_lines or ["(none found in offline pass)"]),
-        "","## Next","- Fill resilience.possibility_matrix entries.","- Tag roles for core/config/test/doc.","- Implement imports/exports extraction."
-    ]
-    with open(out_notes,'w',encoding='utf-8') as f: f.write("\n".join(notes))
-    print("Wrote", out_index); print("Wrote", out_notes)
-
-if __name__ == "__main__":
-    main()
-EOF
-
-      - name: Run integrator
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          PAT_ALL_REPOS: ${{ secrets.PAT_ALL_REPOS }}
-        run: |
-          python scripts/ai_integrator.py --repo-root . --config "${{ steps.cfg.outputs.config }}"
-
-      - name: Commit AI outputs (if changed)
+      - name: Commit outputs
         run: |
           git config user.name "ai-integrator-bot"
           git config user.email "actions@github.com"
           git add AI_INDEX.json AI_NOTES.md || true
-          git diff --staged --quiet || git commit -m "chore(ai): add/update AI index & notes"
-          git push || true
+          git diff --staged --quiet || git commit -m "add AI_INDEX.json + AI_NOTES.md"
+          git push
