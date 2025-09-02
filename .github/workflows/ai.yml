@@ -24,11 +24,9 @@ jobs:
           python-version: '3.11'
 
       - name: Run AI Integrator
+        run: |      - name: Run AI Integrator
         run: |
-          echo '{ "repo": "${{ github.repository }}", "generated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)", "files": [] }' > AI_INDEX.json
-          echo "# AI Notes" > AI_NOTES.md
-          echo "- Repo: ${{ github.repository }}" >> AI_NOTES.md
-          echo "- Generated: $(date -u)" >> AI_NOTES.md
+          python scripts/ai_integrator.py --repo-root . --config ai_integrator.config.yaml
           
       - name: List all files and dirs
         run: |
