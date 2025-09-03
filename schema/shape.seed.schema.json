@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Shape Seed",
+  "type": "object",
+  "required": ["id","version","geometry","field","glyphs","animals"],
+  "properties": {
+    "id": {"type":"string"},
+    "version": {"type":"integer"},
+    "geometry": {
+      "type":"object",
+      "required":["type","dimensions","orientation","material"],
+      "properties": {
+        "type":{"type":"string"},
+        "dimensions":{"type":"integer","minimum":1,"maximum":4},
+        "orientation":{"type":"string"},
+        "material":{"type":"string"}
+      }
+    },
+    "field": {
+      "type":"object",
+      "required":["property","actions"],
+      "properties": {
+        "property":{"type":"string"},
+        "actions":{"type":"array","items":{"type":"string"}}
+      }
+    },
+    "glyphs": {"type":"array","items":{"type":"string"}},
+    "animals": {"type":"array","items":{"type":"string"}},
+    "importance": {"type":"string"},
+    "notes": {"type":"string"}
+  }
+}
