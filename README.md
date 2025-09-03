@@ -68,4 +68,4 @@ dependencies = ["jsonschema>=4.0"]
 Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"
 
 
-
+- Validation: [Hallucination Sensor](https://github.com/<you>/BioGrid2.0/blob/main/docs/hallucination_sensor.md)
