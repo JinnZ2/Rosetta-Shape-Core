@@ -1,0 +1,18 @@
+{
+  "id": "tri-invert-bridge:glyphs",
+  "tags": {
+    "↻": "phase-shift / melt",
+    "⚖": "balance / bidirectional mapping",
+    "🕸": "field lattice / routing mesh"
+  },
+  "equations": [
+    "state_A ⟷ state_B   (reversible, loss ≤ ε)",
+    "map(glyph_i ↻ glyph_j) ⇒ route(i→j) if need(i,j) > θ",
+    "balance(Δmeaning) → adjust(weight) until |Δ| ≤ ε",
+    "preserve(geometry) ∧ transform(surface_state)"
+  ],
+  "parameters": {
+    "θ": "routing threshold (context demand)",
+    "ε": "acceptable semantic drift (tolerance)"
+  }
+}
