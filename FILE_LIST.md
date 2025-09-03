@@ -28,10 +28,11 @@
 ./.git/objects/09/99444fea036d671d460cccbb3220c29b99b338
 ./.git/objects/0b/153245b073908f96b9be5c9973fc1f0e2f6525
 ./.git/objects/0c/bd937b5d2ae6d6e2ca5c4ce9309b6eea9356f3
-./.git/objects/0f/c936d80cd5641a8314ef438362609a8a540e37
 ./.git/objects/12/22c6ceb366d8dfc665d43d6ed06cc6f2af6b54
+./.git/objects/1c/5f9b990e994d6040c8485d9b40eb3a711ef9d8
 ./.git/objects/36/a32362d07a123c61b27166e8323f4f808a8afb
 ./.git/objects/3b/420315d0437d8c7df867f0f5169cbc7a6fe7b4
+./.git/objects/40/b20639d0acca685211dbb5c348e38c878f2d40
 ./.git/objects/41/ed24fcdc4ccd66416af2a449c0c67673fd5415
 ./.git/objects/46/e0e0493dfff6981bb7d529fc4ccfd9491516f7
 ./.git/objects/46/f9b4068390abd7985013f31f1701434ceaa4ec
@@ -50,9 +51,7 @@
 ./.git/objects/8b/137891791fe96927ad78e64b0aad7bded08bdc
 ./.git/objects/98/89eee81d622dd0ee057202aab823279ee246d2
 ./.git/objects/9b/b8130bb320da5a353f7f702dc1ebaa4bfba4f2
-./.git/objects/9c/12f6c2a1f8b7e8234f696b2e4d5356092e1ae9
 ./.git/objects/9c/3373305497221a32d94dec19d607229c5a8663
-./.git/objects/9f/16a0bfa775ab5711a5624a9f732441a48bf713
 ./.git/objects/a0/0fb511949aa542b7c2719a4b520474a67f19b4
 ./.git/objects/a0/b191f6b09efad896f6bd1dbfcba8eb0b822698
 ./.git/objects/a2/c6a6fe2262a05b5c472dcaea69f48c7c5b6579
@@ -60,11 +59,14 @@
 ./.git/objects/b1/e08db4f5230b472d159fc6177770b1c49d316d
 ./.git/objects/b9/3094ab18e2097278a1bb125d247b1c00d19017
 ./.git/objects/b9/f39374307d3a834b827c06de9a3fa6b779719c
+./.git/objects/ba/9ac736a4e9be971461c689049a2bccbe4858be
 ./.git/objects/bd/63d035a1b504d745066a0fcfcc7f6426a7f5ae
 ./.git/objects/bf/3fccaef99618b7245867a60d2e580c624e14d9
+./.git/objects/bf/78fc29615b6c70fa732bc7ef631c585342f0aa
 ./.git/objects/c0/cccd1f6e88d01799d3d64f69a67459b17e7957
 ./.git/objects/c1/b3f0a0463466faa09acb4cbb1cc0d231c0395a
 ./.git/objects/c2/d72f5f0067db0df98455d1ecab2f6fbb04001f
+./.git/objects/cd/7e8c049eb01f218581b4ef62521aefd4db3278
 ./.git/objects/d4/7a1d9f95d5c071f0a5e30f92fc6b7b15a7deab
 ./.git/objects/d5/72a7303f9569329c24858eac85532dc99f3d12
 ./.git/objects/d5/91c015d4e16369486272fedabe8a01bbb32af1
@@ -99,6 +101,7 @@
 ./data/temporal_states.json
 ./data/tri_invert_bridge.glyphs.json
 ./data/tri_invert_bridge.seed.json
+./docs/tri_invert_bridge.md
 ./examples/validate_ontology.py
 ./ontology/_vocab.json
 ./ontology/capabilities.json
