@@ -29,11 +29,11 @@
 ./.git/objects/0b/153245b073908f96b9be5c9973fc1f0e2f6525
 ./.git/objects/0c/bd937b5d2ae6d6e2ca5c4ce9309b6eea9356f3
 ./.git/objects/12/22c6ceb366d8dfc665d43d6ed06cc6f2af6b54
+./.git/objects/18/9826f444fb4775c2f3ffefec1710b6c636c825
+./.git/objects/26/3e8c4dc3b09fe2f7d7a2ff6f8bf781bc3064eb
 ./.git/objects/36/a32362d07a123c61b27166e8323f4f808a8afb
 ./.git/objects/3b/420315d0437d8c7df867f0f5169cbc7a6fe7b4
-./.git/objects/3b/a93269a0c197a00500c80bfa6491cd2e695a85
 ./.git/objects/41/ed24fcdc4ccd66416af2a449c0c67673fd5415
-./.git/objects/44/7af1c048c66e0bcb41328643c12505dd01b072
 ./.git/objects/46/e0e0493dfff6981bb7d529fc4ccfd9491516f7
 ./.git/objects/46/f9b4068390abd7985013f31f1701434ceaa4ec
 ./.git/objects/4b/6ce3d6e7bb5b0601eff7efb05d62c88a6ab852
@@ -45,12 +45,11 @@
 ./.git/objects/75/d7a30376c2634f1d3298de7625a90458b97f1e
 ./.git/objects/7f/712fdc54e712118d493781b365aac60da34395
 ./.git/objects/81/8a0e28248575e1c31009f98a1e14a1deae959e
-./.git/objects/84/4f720e512ac4dded04a4c9802bb821cb6401c6
 ./.git/objects/85/df008cb75aa51e4c04c513fde515676128fc78
 ./.git/objects/8b/137891791fe96927ad78e64b0aad7bded08bdc
+./.git/objects/8b/b999e3e1ca802524dc05858356ddff1da3df25
 ./.git/objects/98/89eee81d622dd0ee057202aab823279ee246d2
 ./.git/objects/9b/b8130bb320da5a353f7f702dc1ebaa4bfba4f2
-./.git/objects/9c/10381d6a3a2b274b6ddaddf6036f704a92531b
 ./.git/objects/9c/3373305497221a32d94dec19d607229c5a8663
 ./.git/objects/a0/0fb511949aa542b7c2719a4b520474a67f19b4
 ./.git/objects/a0/b191f6b09efad896f6bd1dbfcba8eb0b822698
@@ -70,9 +69,11 @@
 ./.git/objects/d6/f743e4a779c18a094ee9570c49f6af066b9abc
 ./.git/objects/d8/46f92ab0e3e17269e4d66364463baa0f35eb68
 ./.git/objects/d8/900447bb1c61635e17adf3b3cfec0051770675
+./.git/objects/e0/ac69a3a04108e592cceed541a1252676884be1
 ./.git/objects/e2/c58c195554e40d9d6695fdfe90e63b746a65c8
 ./.git/objects/e7/c07c02fbb728b39ea9d8b3c6f3981e18495031
 ./.git/objects/e7/ec4f221d0776b0dfc1ecf724f0393b8d63682b
+./.git/objects/f2/32ac93ee56522558c0ded7f6e2e80d6fee6b6c
 ./.git/objects/fa/862346569e9c1cb8e4db8c2cfe372f918b48e8
 ./.git/objects/fd/486086d02bedd5be9941421def5353366551fb
 ./.git/refs/heads/main
@@ -95,6 +96,7 @@
 ./data/semantic_suppression_model.json
 ./data/shape_ontology.json
 ./data/temporal_states.json
+./data/tri_invert_bridge.seed.json
 ./examples/validate_ontology.py
 ./ontology/_vocab.json
 ./ontology/capabilities.json
