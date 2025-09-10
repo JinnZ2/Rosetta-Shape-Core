@@ -28,7 +28,7 @@ Polyhedral (shapes) ⇄ Emotions (sensors) ⇄ Defense (glyphs) ⇄ Audit (proto
 
 Create `schema/shape.schema.json`:
 
-```json
+`json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Rosetta Shape",
@@ -156,3 +156,12 @@ Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"
 
 
 - Validation: [Hallucination Sensor](https://github.com/<you>/BioGrid2.0/blob/main/docs/hallucination_sensor.md)
+
+
+## 📚 Index
+
+- **Shapes** → [`/shapes`](shapes) (machine-readable, schema: `schema/shape.schema.json`)
+- **Bridges** → [`/bridges/rosetta-bridges.json`](bridges/rosetta-bridges.json)
+- **Atlas (staged)** → after running `./fieldlink-pull.sh`, see [`.fieldlink/merge_stage`](.fieldlink/merge_stage)
+- **Protocols** → [`/protocols`](protocols)
+- **Scripts** → [`/scripts/validate.sh`](scripts/validate.sh)
