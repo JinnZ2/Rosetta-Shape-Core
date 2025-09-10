@@ -28,8 +28,10 @@
 ./.git/logs/refs/remotes/origin/main
 ./.git/objects/09/99444fea036d671d460cccbb3220c29b99b338
 ./.git/objects/0b/153245b073908f96b9be5c9973fc1f0e2f6525
+./.git/objects/0e/e115f294f3032ddfd8a7f0c9ec0d0891b0d8f7
 ./.git/objects/12/22c6ceb366d8dfc665d43d6ed06cc6f2af6b54
-./.git/objects/1e/2caa92dc0065d12da5d920094324c453a53217
+./.git/objects/12/2e59003385230eb4b05ff9bfb97643417ef13c
+./.git/objects/18/375f0d3540c99e54ba170ba8d5bb43db7c4dd4
 ./.git/objects/2a/7ccab9eae94208e861c5f530575afcce124159
 ./.git/objects/36/a32362d07a123c61b27166e8323f4f808a8afb
 ./.git/objects/39/564b70278c8e66559855755dd63fe729fbe098
@@ -44,10 +46,10 @@
 ./.git/objects/51/7566beea56e471a8f8f442d5858dd5957baa67
 ./.git/objects/52/d465952731b4584078327461bc720293ff2c43
 ./.git/objects/5a/0eaab2f2b2603089aa75e351d408d0f91bc592
+./.git/objects/5a/744a75b0aeb525bcfed9901ab6eb8e3739e317
 ./.git/objects/5b/0fb8e93ef6c78995917429d78a0541eab3c32e
 ./.git/objects/6a/1ba6d35a3ae862de6a0bda342ddcf63452d941
 ./.git/objects/6e/5bbf01ea3d1fa1b65cfd8d59e3c15b38f9bf22
-./.git/objects/70/385c2427d4a62c5bb4b50a122696614c3e011a
 ./.git/objects/75/d7a30376c2634f1d3298de7625a90458b97f1e
 ./.git/objects/7a/bc3fcaa4bb1120dcb03d9a26fb34db360343c5
 ./.git/objects/7f/712fdc54e712118d493781b365aac60da34395
@@ -56,12 +58,12 @@
 ./.git/objects/85/df008cb75aa51e4c04c513fde515676128fc78
 ./.git/objects/8b/137891791fe96927ad78e64b0aad7bded08bdc
 ./.git/objects/98/89eee81d622dd0ee057202aab823279ee246d2
+./.git/objects/98/babbd69f5927825816d7cd970c8126e1ed342a
 ./.git/objects/9b/b8130bb320da5a353f7f702dc1ebaa4bfba4f2
 ./.git/objects/9c/3373305497221a32d94dec19d607229c5a8663
 ./.git/objects/a0/b191f6b09efad896f6bd1dbfcba8eb0b822698
 ./.git/objects/a2/c6a6fe2262a05b5c472dcaea69f48c7c5b6579
 ./.git/objects/a3/781d82f10c227e76d74367adb53f85ac4d2c99
-./.git/objects/ad/789395897ca36f25f69b7f2902bc5852842dec
 ./.git/objects/b1/e08db4f5230b472d159fc6177770b1c49d316d
 ./.git/objects/b9/3094ab18e2097278a1bb125d247b1c00d19017
 ./.git/objects/b9/f39374307d3a834b827c06de9a3fa6b779719c
@@ -109,6 +111,7 @@
 ./data/tri_invert_bridge.seed.json
 ./docs/tri_invert_bridge.md
 ./examples/validate_ontology.py
+./logs/fieldlink_lock_20250911.json
 ./ontology/_vocab.json
 ./ontology/capabilities.json
 ./ontology/entities.sample.json
