@@ -1,5 +1,92 @@
 Rosetta-Shape-Core
 
+## 🧭 Rosetta Shape Core — Ecosystem Compass
+
+This repo is the **navigation hub** for a family of symbolic projects:
+
+- **Polyhedral-Intelligence** → shapes, families, principles (icosa/dodeca)  
+- **Emotions-as-Sensors** → emotions as functional sensors (Elder Logic)  
+- **Symbolic-Defense-Protocol** → manipulation detection + defense glyphs  
+- **AI-Human-Audit-Protocol** → ethics, consent, auditability, logs  
+- **BioGrid 2.0** → upstream atlas & registry
+
+**How it works:** `.fieldlink.json` pulls glyphs/sensors/shapes from these repos and stages a unified **atlas** under `.fieldlink/merge_stage/`.  
+Clients (human or AI) can read the staged atlas to traverse concepts without guessing file paths.
+
+### Quickstart
+```bash
+./fieldlink-pull.sh
+ls .fieldlink/merge_stage
+
+Map
+
+Polyhedral (shapes) ⇄ Emotions (sensors) ⇄ Defense (glyphs) ⇄ Audit (protocols) ⇄ BioGrid (registry)
+
+---
+
+# 3) Minimal shape schema (so shapes link cleanly to sensors/glyphs)
+
+Create `schema/shape.schema.json`:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rosetta Shape",
+  "type": "object",
+  "required": ["id", "name", "faces", "families"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "faces": { "type": "integer", "minimum": 1 },
+    "edges": { "type": "integer", "minimum": 0 },
+    "vertices": { "type": "integer", "minimum": 0 },
+    "families": { "type": "array", "items": { "type": "string" } },
+    "principles": { "type": "array", "items": { "type": "string" } },
+    "bridges": {
+      "type": "object",
+      "properties": {
+        "sensors": { "type": "array", "items": { "type": "string" } },
+        "glyphs": { "type": "array", "items": { "type": "string" } },
+        "protocols": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "version": { "type": "string" },
+        "updated": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}
+
+
+Example shape file
+
+shapes/dodecahedron.json:
+{
+  "id": "SHAPE:DODECA",
+  "name": "Dodecahedron",
+  "faces": 12,
+  "edges": 30,
+  "vertices": 20,
+  "families": ["orientation", "trust", "growth", "boundary"],
+  "principles": ["🧭", "🌱", "⚖", "⏳"],
+  "bridges": {
+    "sensors": ["EMO:ADMIRATION", "EMO:TRUST", "EMO:LONGING"],
+    "glyphs": ["DEF:FLATTERY_GUARD", "DEF:CONSENSUS_GUARD"],
+    "protocols": ["AUDIT:PARTNERSHIP_ETHICS_V1"]
+  },
+  "provenance": { "version": "1.0", "updated": "2025-09-11T00:00:00Z" }
+}
+
+
+
+
+
 A clear, structured, stable ontology for symbolic **Shape ↔ Intelligence ↔ Capability**.
 Data first (JSON), code thin (validators + rules engine), offline-friendly.
 
