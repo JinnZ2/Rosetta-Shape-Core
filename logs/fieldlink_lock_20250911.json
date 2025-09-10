@@ -1,0 +1,12 @@
+{
+  "generated": "2025-09-11T00:00:00Z",
+  "repo": "JinnZ2/Rosetta-Shape-Core",
+  "sources": [
+    { "name": "polyhedral", "repo": "JinnZ2/Polyhedral-Intelligence", "ref": "main", "commit": "<SHA>" },
+    { "name": "emotions", "repo": "JinnZ2/Emotions-as-Sensors", "ref": "main", "commit": "<SHA>" },
+    { "name": "defense", "repo": "JinnZ2/Symbolic-Defense-Protocol", "ref": "main", "commit": "<SHA>" },
+    { "name": "audit", "repo": "JinnZ2/ai-human-audit-protocol", "ref": "main", "commit": "<SHA>" },
+    { "name": "biogrid", "repo": "JinnZ2/BioGrid2.0", "ref": "main", "commit": "<SHA>" }
+  ],
+  "notes": "Pin these SHAs to reproduce the atlas exactly."
+}
