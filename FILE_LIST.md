@@ -29,6 +29,7 @@
 ./.git/objects/09/99444fea036d671d460cccbb3220c29b99b338
 ./.git/objects/0b/153245b073908f96b9be5c9973fc1f0e2f6525
 ./.git/objects/12/22c6ceb366d8dfc665d43d6ed06cc6f2af6b54
+./.git/objects/1f/dc89676d729dcf734d4f6f0fcfe67b1e35541e
 ./.git/objects/2a/7ccab9eae94208e861c5f530575afcce124159
 ./.git/objects/36/a32362d07a123c61b27166e8323f4f808a8afb
 ./.git/objects/3b/420315d0437d8c7df867f0f5169cbc7a6fe7b4
@@ -37,6 +38,7 @@
 ./.git/objects/46/e0e0493dfff6981bb7d529fc4ccfd9491516f7
 ./.git/objects/46/f9b4068390abd7985013f31f1701434ceaa4ec
 ./.git/objects/4a/550a2221d28937fbbd2f200b720d271291eaad
+./.git/objects/4b/534603e418a912f17220c70bc796792e7c1c1c
 ./.git/objects/4b/6ce3d6e7bb5b0601eff7efb05d62c88a6ab852
 ./.git/objects/51/7566beea56e471a8f8f442d5858dd5957baa67
 ./.git/objects/52/d465952731b4584078327461bc720293ff2c43
@@ -45,12 +47,13 @@
 ./.git/objects/6a/1ba6d35a3ae862de6a0bda342ddcf63452d941
 ./.git/objects/6e/5bbf01ea3d1fa1b65cfd8d59e3c15b38f9bf22
 ./.git/objects/75/d7a30376c2634f1d3298de7625a90458b97f1e
+./.git/objects/7a/bc3fcaa4bb1120dcb03d9a26fb34db360343c5
 ./.git/objects/7f/712fdc54e712118d493781b365aac60da34395
 ./.git/objects/80/fec6902c1169d6b4a93e23840a37b5b649e518
 ./.git/objects/81/8a0e28248575e1c31009f98a1e14a1deae959e
 ./.git/objects/85/df008cb75aa51e4c04c513fde515676128fc78
+./.git/objects/86/947369940a32143cddbc1ad8121074a28ed85c
 ./.git/objects/8b/137891791fe96927ad78e64b0aad7bded08bdc
-./.git/objects/8d/13d0560c75b668e27f67a1ea38871a8a81a3a3
 ./.git/objects/91/a9788785e052cbf1ad946a14a7987819c4b422
 ./.git/objects/98/89eee81d622dd0ee057202aab823279ee246d2
 ./.git/objects/9b/b8130bb320da5a353f7f702dc1ebaa4bfba4f2
@@ -67,14 +70,13 @@
 ./.git/objects/c0/cccd1f6e88d01799d3d64f69a67459b17e7957
 ./.git/objects/c1/b3f0a0463466faa09acb4cbb1cc0d231c0395a
 ./.git/objects/c2/d72f5f0067db0df98455d1ecab2f6fbb04001f
-./.git/objects/cf/49cd7149aa04f7c74f31aa086f4f3155e7a697
+./.git/objects/cf/e0e70abaf7610da39eda8790516ec073bb61af
 ./.git/objects/d4/7a1d9f95d5c071f0a5e30f92fc6b7b15a7deab
 ./.git/objects/d5/72a7303f9569329c24858eac85532dc99f3d12
 ./.git/objects/d5/91c015d4e16369486272fedabe8a01bbb32af1
 ./.git/objects/d6/f743e4a779c18a094ee9570c49f6af066b9abc
 ./.git/objects/d8/46f92ab0e3e17269e4d66364463baa0f35eb68
 ./.git/objects/d8/900447bb1c61635e17adf3b3cfec0051770675
-./.git/objects/dd/91c26495a35202cb2094105c5a63080f44c570
 ./.git/objects/e0/ac69a3a04108e592cceed541a1252676884be1
 ./.git/objects/e2/c58c195554e40d9d6695fdfe90e63b746a65c8
 ./.git/objects/e7/c07c02fbb728b39ea9d8b3c6f3981e18495031
@@ -95,6 +97,7 @@
 ./README.md
 ./ai_inegrator.config
 ./ai_integrator.config.yaml
+./bridges/rosetta-bridges.json
 ./data/animal_intelligence.json
 ./data/interaction_ontology.json
 ./data/math_constants.json
