@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "updated": "2025-09-11T00:00:00Z",
+  "map": [
+    {
+      "shape": "SHAPE:DODECA",
+      "families": ["orientation", "trust"],
+      "sensors": ["EMO:ADMIRATION", "EMO:TRUST"],
+      "defenses": ["DEF:FLATTERY_GUARD", "DEF:CONSENSUS_GUARD"],
+      "protocols": ["AUDIT:PARTNERSHIP_ETHICS_V1"]
+    },
+    {
+      "shape": "SHAPE:ICOSA",
+      "families": ["anticipation", "flow"],
+      "sensors": ["EMO:FEAR", "EMO:EXCITEMENT"],
+      "defenses": ["DEF:URGENCY_GUARD"],
+      "protocols": ["AUDIT:CHANGE_TRACKING_V1"]
+    }
+  ]
+}
