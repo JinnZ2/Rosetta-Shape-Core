@@ -1,16 +1,93 @@
 {
   "fieldlink": {
-    "atlas_repo": "https://github.com/JinnZ2/BioGrid2.0",
-    "atlas_paths": [
-      "planned/glyphs/atlas.json",
-      "registry/atlas.glyphs.json"
+    "version": "1.1",
+    "updated": "2025-09-11T00:00:00Z",
+    "role": ["shapes", "hub", "glyph-bridge"],
+
+    "sources": [
+      {
+        "name": "polyhedral",
+        "repo": "https://github.com/JinnZ2/Polyhedral-Intelligence",
+        "ref": "main",
+        "paths": [
+          "glyphs/**/*.json",
+          "atlas/shapes.json",
+          "scrolls/*.md"
+        ],
+        "mounts": [
+          { "remote": "atlas/shapes.json", "as": "atlas/remote/polyhedral/shapes.json" }
+        ],
+        "consent": { "license": "CC-BY-4.0", "share_ok": true }
+      },
+      {
+        "name": "emotions",
+        "repo": "https://github.com/JinnZ2/Emotions-as-Sensors",
+        "ref": "main",
+        "paths": [
+          "sensors/**/*.json",
+          "glyphs/*.json",
+          "sensors/Convergent Emotional Frameworks.md"
+        ],
+        "mounts": [
+          { "remote": "glyphs/emotion.glyphs.json", "as": "atlas/remote/emotions/glyphs.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "defense",
+        "repo": "https://github.com/JinnZ2/Symbolic-Defense-Protocol",
+        "ref": "main",
+        "paths": [
+          "defenses/**/*.json",
+          "protocols/**/*.json"
+        ],
+        "mounts": [
+          { "remote": "defenses/glyph-map.json", "as": "atlas/remote/defense/glyphs.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "audit",
+        "repo": "https://github.com/JinnZ2/ai-human-audit-protocol",
+        "ref": "main",
+        "paths": [
+          "glyphs/**/*.json",
+          "protocols/**/*.md",
+          "logs/**/*.json"
+        ],
+        "consent": { "license": "CC-BY-4.0", "share_ok": true }
+      },
+      {
+        "name": "biogrid",
+        "repo": "https://github.com/JinnZ2/BioGrid2.0",
+        "ref": "main",
+        "paths": [
+          "planned/glyphs/atlas.json",
+          "registry/atlas.glyphs.json"
+        ],
+        "mounts": [
+          { "remote": "planned/glyphs/atlas.json", "as": "atlas/remote/biogrid/planned.json" },
+          { "remote": "registry/atlas.glyphs.json", "as": "atlas/remote/biogrid/registry.json" }
+        ],
+        "consent": { "license": "CC-BY-4.0", "share_ok": true }
+      }
     ],
+
     "local_manifests": [
-      "glyphs/**",
-      "protocols/**",
-      "sensors/**",
-      "atlas/shapes.json"
+      "shapes/**/*.json",
+      "bridges/**/*.json",
+      "atlas/**/*.json",
+      "protocols/**/*.md"
     ],
-    "role": "sensors|protocols|shapes|hub"
+
+    "merge": {
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid"],
+      "strategy": "deep-merge"
+    },
+
+    "offline": false,
+    "cache_dir": ".fieldlink",
+    "integrity": { "enabled": true, "hash": "sha256", "allow_missing": false },
+    "consent": { "license": "CC-BY-4.0", "share_ok": true, "redact_rules": ["**/private/**", "*.secrets.json"] }
   }
 }
