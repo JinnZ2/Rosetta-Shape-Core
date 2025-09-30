@@ -28,13 +28,13 @@
 ./.git/logs/refs/remotes/origin/main
 ./.git/objects/09/99444fea036d671d460cccbb3220c29b99b338
 ./.git/objects/0b/153245b073908f96b9be5c9973fc1f0e2f6525
-./.git/objects/0e/e115f294f3032ddfd8a7f0c9ec0d0891b0d8f7
 ./.git/objects/12/22c6ceb366d8dfc665d43d6ed06cc6f2af6b54
 ./.git/objects/12/2e59003385230eb4b05ff9bfb97643417ef13c
-./.git/objects/18/375f0d3540c99e54ba170ba8d5bb43db7c4dd4
+./.git/objects/24/931a9640378e0af9eff6338e84ca332b1d4ad8
 ./.git/objects/2a/7ccab9eae94208e861c5f530575afcce124159
 ./.git/objects/36/a32362d07a123c61b27166e8323f4f808a8afb
 ./.git/objects/39/564b70278c8e66559855755dd63fe729fbe098
+./.git/objects/39/c8f44e8784641f75dc5dfe024483c3d680e607
 ./.git/objects/3b/420315d0437d8c7df867f0f5169cbc7a6fe7b4
 ./.git/objects/40/b20639d0acca685211dbb5c348e38c878f2d40
 ./.git/objects/41/ed24fcdc4ccd66416af2a449c0c67673fd5415
@@ -49,6 +49,7 @@
 ./.git/objects/5a/744a75b0aeb525bcfed9901ab6eb8e3739e317
 ./.git/objects/5b/0fb8e93ef6c78995917429d78a0541eab3c32e
 ./.git/objects/6a/1ba6d35a3ae862de6a0bda342ddcf63452d941
+./.git/objects/6a/72c463539d59ba1662d3bedf5b79193ff61174
 ./.git/objects/6e/5bbf01ea3d1fa1b65cfd8d59e3c15b38f9bf22
 ./.git/objects/75/d7a30376c2634f1d3298de7625a90458b97f1e
 ./.git/objects/7a/bc3fcaa4bb1120dcb03d9a26fb34db360343c5
@@ -58,12 +59,12 @@
 ./.git/objects/85/df008cb75aa51e4c04c513fde515676128fc78
 ./.git/objects/8b/137891791fe96927ad78e64b0aad7bded08bdc
 ./.git/objects/98/89eee81d622dd0ee057202aab823279ee246d2
-./.git/objects/98/babbd69f5927825816d7cd970c8126e1ed342a
 ./.git/objects/9b/b8130bb320da5a353f7f702dc1ebaa4bfba4f2
 ./.git/objects/9c/3373305497221a32d94dec19d607229c5a8663
 ./.git/objects/a0/b191f6b09efad896f6bd1dbfcba8eb0b822698
 ./.git/objects/a2/c6a6fe2262a05b5c472dcaea69f48c7c5b6579
 ./.git/objects/a3/781d82f10c227e76d74367adb53f85ac4d2c99
+./.git/objects/ab/de0ebcc44180730c94e452a923801d4b4e9215
 ./.git/objects/b1/e08db4f5230b472d159fc6177770b1c49d316d
 ./.git/objects/b9/3094ab18e2097278a1bb125d247b1c00d19017
 ./.git/objects/b9/f39374307d3a834b827c06de9a3fa6b779719c
@@ -97,6 +98,7 @@
 ./FILE_LIST.md
 ./LICENSE
 ./README.md
+./Unified-proposed.md
 ./ai_inegrator.config
 ./ai_integrator.config.yaml
 ./bridges/rosetta-bridges.json
