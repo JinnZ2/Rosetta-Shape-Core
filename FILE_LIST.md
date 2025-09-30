@@ -30,7 +30,6 @@
 ./.git/objects/0b/153245b073908f96b9be5c9973fc1f0e2f6525
 ./.git/objects/12/22c6ceb366d8dfc665d43d6ed06cc6f2af6b54
 ./.git/objects/12/2e59003385230eb4b05ff9bfb97643417ef13c
-./.git/objects/17/fe82a0bbfc11f894ae7c91982a01a18bb38ae2
 ./.git/objects/18/7dad29517a2650f981e58fdf5f5a53ab6b2d37
 ./.git/objects/2a/7ccab9eae94208e861c5f530575afcce124159
 ./.git/objects/31/2b0f9bd43d512e14e46b237568b09c19653490
@@ -53,6 +52,7 @@
 ./.git/objects/4f/87d942c9f2befb960c1255c61a41ee60c2f52c
 ./.git/objects/51/7566beea56e471a8f8f442d5858dd5957baa67
 ./.git/objects/52/d465952731b4584078327461bc720293ff2c43
+./.git/objects/54/789724997384a885decb57794c74ab53480491
 ./.git/objects/5a/0eaab2f2b2603089aa75e351d408d0f91bc592
 ./.git/objects/5a/744a75b0aeb525bcfed9901ab6eb8e3739e317
 ./.git/objects/5b/0fb8e93ef6c78995917429d78a0541eab3c32e
@@ -76,7 +76,8 @@
 ./.git/objects/a2/c6a6fe2262a05b5c472dcaea69f48c7c5b6579
 ./.git/objects/a3/781d82f10c227e76d74367adb53f85ac4d2c99
 ./.git/objects/a5/6c620b350328dcaa42e8fd385b6675d0c860ca
-./.git/objects/b0/e7a5311ad415d8fc0802cff8880e2a67a9b54e
+./.git/objects/ac/d27060d2526d8b0fd75781fbc736eda847c9e1
+./.git/objects/ac/e3643948e4f3c4d97dc09b3cb56b0e7734fe0c
 ./.git/objects/b1/e08db4f5230b472d159fc6177770b1c49d316d
 ./.git/objects/b9/3094ab18e2097278a1bb125d247b1c00d19017
 ./.git/objects/b9/8409a153207e7a1e27e8558820f26b23ef7593
@@ -102,7 +103,7 @@
 ./.git/objects/e3/7c17823484cabf6df82d110f3424175603e292
 ./.git/objects/e7/c07c02fbb728b39ea9d8b3c6f3981e18495031
 ./.git/objects/e7/ec4f221d0776b0dfc1ecf724f0393b8d63682b
-./.git/objects/ec/35226551f68cf914b8566a06690b6b6ce7b1fe
+./.git/objects/ea/ce6fcf172b2f66295c2978e3e7c506b623d167
 ./.git/objects/f6/79a8b1d40cbc957805b88a19ee0b1ce1fc796b
 ./.git/objects/fa/862346569e9c1cb8e4db8c2cfe372f918b48e8
 ./.git/objects/fd/486086d02bedd5be9941421def5353366551fb
@@ -155,6 +156,7 @@
 ./ontology/_vocab.json
 ./ontology/capabilities.json
 ./ontology/entities.sample.json
+./physics- grounded-protection.py
 ./prompts/system_prompt.txt
 ./recursion.json
 ./rules/expand.json1
