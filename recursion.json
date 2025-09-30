@@ -1,0 +1,105 @@
+{
+  "pattern_id": "PATTERN:RECURSION",
+  "glyph": "↻",
+  "layers": {
+    "symbolic": {
+      "glyph": "↻",
+      "meaning": "self-referential return and feedback",
+      "bloom_behavior": "feedback_loop",
+      "cdda_domains": ["mathematics", "biology", "systems_theory", "consciousness"],
+      "inversion_prompts": [
+        "What if recursion ends?",
+        "When does recursion become trap vs growth?",
+        "What escapes recursive loops?"
+      ],
+      "fractal_principles": [
+        "Each return carries forward learning",
+        "Recursion creates depth through repetition",
+        "Exit conditions are as important as iteration"
+      ]
+    },
+    "geometric": {
+      "field_type": "dynamic",
+      "topology": "cyclic",
+      "symmetry": "rotational",
+      "dimensionality": 2.0,
+      "simd_pattern": "iterative_convergence",
+      "mesh_behavior": "hierarchical",
+      "boundary_condition": "periodic"
+    },
+    "natural": {
+      "observed_in": [
+        "seasons",
+        "tides",
+        "moon_phases",
+        "recursive_tree_branching",
+        "fractal_coastlines",
+        "heartbeat_rhythms",
+        "breath_cycles",
+        "predator_prey_cycles"
+      ],
+      "scale_range": {
+        "microscopic": true,
+        "human_scale": true,
+        "cosmic": true
+      },
+      "co_occurs_with": ["PATTERN:TIME", "PATTERN:CYCLES", "PATTERN:GROWTH"],
+      "environmental_conditions": ["feedback_present", "iterative_process", "memory_of_previous_state"]
+    },
+    "emotional": {
+      "sensor_type": "EMO:RECOGNITION",
+      "detection_mode": "pattern_repetition",
+      "field_effect": {
+        "coherence_delta": 0.15,
+        "directionality": "cyclic",
+        "intensity_curve": "pulsing"
+      },
+      "sensor_behavior": {
+        "triggers_on": ["familiar_pattern", "return_to_known_state"],
+        "amplifies_with": ["PATTERN:TIME", "PATTERN:MEMORY"],
+        "dampens_with": ["PATTERN:RUPTURE", "PATTERN:NOVELTY"]
+      }
+    },
+    "mathematical": {
+      "primary_constant": 1.0,
+      "constant_name": "unity",
+      "growth_function": "fibonacci",
+      "energy_pattern": "conserved",
+      "equations": ["f(n) = f(f(n-1))", "x_{n+1} = f(x_n)"]
+    }
+  },
+  "resonance_mappings": {
+    "strong_affinity": [
+      {
+        "pattern_id": "PATTERN:GROWTH",
+        "resonance_score": 0.90,
+        "reason": "Growth is inherently recursive - each stage builds on previous",
+        "cross_layer_alignment": ["mathematical", "natural", "geometric"]
+      }
+    ],
+    "complementary": [
+      {
+        "pattern_id": "PATTERN:BALANCE",
+        "resonance_score": 0.70,
+        "creates": "homeostatic_feedback - recursion that seeks equilibrium"
+      }
+    ]
+  },
+  "behavioral_dynamics": {
+    "initiates": false,
+    "stabilizes": true,
+    "transforms": true,
+    "connects": true,
+    "cycles": true,
+    "amplifies": true,
+    "dampens": false
+  },
+  "audit_metadata": {
+    "cultural_source": "Indigenous pattern observation - millennia of cycle observation",
+    "validated_by": ["natural_observation", "mathematical_verification"],
+    "version": "1.0.0",
+    "last_updated": "2025-09-29T00:00:00Z",
+    "consent_level": "public",
+    "attribution_required": true
+  }
+}
