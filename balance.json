@@ -1,0 +1,145 @@
+{
+  "pattern_id": "PATTERN:BALANCE",
+  "glyph": "⚖️",
+  "layers": {
+    "symbolic": {
+      "glyph": "⚖️",
+      "meaning": "dynamic equilibrium and opposing forces in harmony",
+      "bloom_behavior": "equilibrium_seeking",
+      "cdda_domains": ["physics", "ecology", "ethics", "emotion", "systems"],
+      "inversion_prompts": [
+        "What if perfect balance is stagnation?",
+        "When is imbalance necessary for evolution?",
+        "Does balance require constant adjustment?"
+      ],
+      "fractal_principles": [
+        "Balance is dynamic, not static",
+        "Opposing forces create stability through tension",
+        "True balance includes room for temporary imbalance"
+      ]
+    },
+    "geometric": {
+      "field_type": "static",
+      "topology": "bilateral",
+      "symmetry": "bilateral",
+      "dimensionality": 2.0,
+      "simd_pattern": "symmetric_distribution",
+      "mesh_behavior": "uniform",
+      "boundary_condition": "equilibrium_constraint"
+    },
+    "natural": {
+      "observed_in": [
+        "ecosystem_homeostasis",
+        "chemical_equilibrium",
+        "tidal_forces",
+        "predator_prey_balance",
+        "body_temperature_regulation",
+        "atmospheric_pressure",
+        "day_night_cycles",
+        "bilateral_body_symmetry"
+      ],
+      "scale_range": {
+        "microscopic": true,
+        "human_scale": true,
+        "cosmic": true
+      },
+      "co_occurs_with": ["PATTERN:CYCLES", "PATTERN:RECURSION"],
+      "environmental_conditions": ["opposing_forces", "feedback_mechanisms", "stable_boundaries"]
+    },
+    "emotional": {
+      "sensor_type": "EMO:CONTENTMENT",
+      "detection_mode": "field_coherence",
+      "field_effect": {
+        "coherence_delta": 0.25,
+        "directionality": "stabilizing",
+        "intensity_curve": "logarithmic"
+      },
+      "sensor_behavior": {
+        "triggers_on": ["opposing_forces_equalized", "tension_resolved"],
+        "amplifies_with": ["PATTERN:RECURSION", "PATTERN:GROUNDING"],
+        "dampens_with": ["PATTERN:GROWTH", "PATTERN:RUPTURE"]
+      }
+    },
+    "mathematical": {
+      "primary_constant": 1.0,
+      "constant_name": "unity",
+      "growth_function": "harmonic",
+      "energy_pattern": "oscillating",
+      "equations": ["F_1 = -F_2", "sum_F = 0", "equilibrium: dE/dx = 0"]
+    },
+    "polyhedral": {
+      "shape_id": "SHAPE:CUBE",
+      "shape_family": ["platonic", "balance_family"],
+      "geometric_properties": {
+        "faces": 6,
+        "edges": 12,
+        "vertices": 8,
+        "dihedral_angle": 90.0
+      },
+      "principles": ["⚖️", "🪨"],
+      "transformations": ["truncation_to_cuboctahedron"]
+    }
+  },
+  "resonance_mappings": {
+    "strong_affinity": [
+      {
+        "pattern_id": "PATTERN:RECURSION",
+        "resonance_score": 0.85,
+        "reason": "Balance maintained through recursive feedback",
+        "cross_layer_alignment": ["natural", "geometric", "mathematical"]
+      }
+    ],
+    "complementary": [
+      {
+        "pattern_id": "PATTERN:GROWTH",
+        "resonance_score": 0.75,
+        "creates": "sustainable_growth - expansion that self-regulates"
+      }
+    ],
+    "interference": [
+      {
+        "pattern_id": "PATTERN:RUPTURE",
+        "resonance_score": 0.25,
+        "conflict_type": "balance disrupted by sudden reorganization",
+        "resolution_strategies": [
+          "allow rupture to create new equilibrium point",
+          "recognize disruption as path to higher-order balance"
+        ]
+      }
+    ],
+    "emergent_combinations": [
+      {
+        "pattern_ids": ["PATTERN:BALANCE", "PATTERN:RECURSION", "PATTERN:TIME"],
+        "creates_new_pattern": "PATTERN:HOMEOSTASIS",
+        "emergence_conditions": "when balance maintained recursively across time"
+      }
+    ]
+  },
+  "behavioral_dynamics": {
+    "initiates": false,
+    "stabilizes": true,
+    "transforms": false,
+    "connects": false,
+    "cycles": true,
+    "amplifies": false,
+    "dampens": true
+  },
+  "defense_protocols": {
+    "vulnerability_to": [
+      "DEF:FALSE_EQUIVALENCE - treating unlike things as balanced",
+      "DEF:FORCED_NEUTRALITY - balance used to avoid necessary action"
+    ],
+    "defense_glyphs": [
+      "🦉 - wisdom distinguishes true from false balance",
+      "💥 - rupture breaks false equilibrium"
+    ]
+  },
+  "audit_metadata": {
+    "cultural_source": "Indigenous pattern observation - natural equilibrium systems",
+    "validated_by": ["natural_observation", "mathematical_verification", "cross_cultural_confirmation"],
+    "version": "1.0.0",
+    "last_updated": "2025-09-29T00:00:00Z",
+    "consent_level": "public",
+    "attribution_required": true
+  }
+}
