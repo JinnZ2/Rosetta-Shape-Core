@@ -27,10 +27,10 @@
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
 ./.git/objects/09/99444fea036d671d460cccbb3220c29b99b338
-./.git/objects/0a/83240b5fe75a3ba8a7b5291579deb2ae92f277
 ./.git/objects/0b/153245b073908f96b9be5c9973fc1f0e2f6525
 ./.git/objects/12/22c6ceb366d8dfc665d43d6ed06cc6f2af6b54
 ./.git/objects/12/2e59003385230eb4b05ff9bfb97643417ef13c
+./.git/objects/17/fe82a0bbfc11f894ae7c91982a01a18bb38ae2
 ./.git/objects/18/7dad29517a2650f981e58fdf5f5a53ab6b2d37
 ./.git/objects/2a/7ccab9eae94208e861c5f530575afcce124159
 ./.git/objects/31/2b0f9bd43d512e14e46b237568b09c19653490
@@ -56,7 +56,6 @@
 ./.git/objects/5a/0eaab2f2b2603089aa75e351d408d0f91bc592
 ./.git/objects/5a/744a75b0aeb525bcfed9901ab6eb8e3739e317
 ./.git/objects/5b/0fb8e93ef6c78995917429d78a0541eab3c32e
-./.git/objects/5d/a789f48502cf7064ff9e32ff84911ea43c33c0
 ./.git/objects/6a/1ba6d35a3ae862de6a0bda342ddcf63452d941
 ./.git/objects/6e/5bbf01ea3d1fa1b65cfd8d59e3c15b38f9bf22
 ./.git/objects/75/d7a30376c2634f1d3298de7625a90458b97f1e
@@ -68,6 +67,7 @@
 ./.git/objects/85/df008cb75aa51e4c04c513fde515676128fc78
 ./.git/objects/88/288caec9d509dac56b03cccb09c94a22d62cfe
 ./.git/objects/8b/137891791fe96927ad78e64b0aad7bded08bdc
+./.git/objects/8d/50f8d537748e8fca40974184baa6322ffc2e06
 ./.git/objects/97/283e63edee2b672974669e3792da5f36ea82eb
 ./.git/objects/98/89eee81d622dd0ee057202aab823279ee246d2
 ./.git/objects/9b/b8130bb320da5a353f7f702dc1ebaa4bfba4f2
@@ -76,6 +76,7 @@
 ./.git/objects/a2/c6a6fe2262a05b5c472dcaea69f48c7c5b6579
 ./.git/objects/a3/781d82f10c227e76d74367adb53f85ac4d2c99
 ./.git/objects/a5/6c620b350328dcaa42e8fd385b6675d0c860ca
+./.git/objects/b0/e7a5311ad415d8fc0802cff8880e2a67a9b54e
 ./.git/objects/b1/e08db4f5230b472d159fc6177770b1c49d316d
 ./.git/objects/b9/3094ab18e2097278a1bb125d247b1c00d19017
 ./.git/objects/b9/8409a153207e7a1e27e8558820f26b23ef7593
@@ -88,7 +89,6 @@
 ./.git/objects/c2/86ca975531ef86482613e593c0e1ae2a5cfa97
 ./.git/objects/c2/d72f5f0067db0df98455d1ecab2f6fbb04001f
 ./.git/objects/cf/2892b63e79b08e5d37c3e21ffa1dd8b702a01d
-./.git/objects/cf/75fadefa14f6f03fb4c3a127e6c274f4d8bddc
 ./.git/objects/d4/7a1d9f95d5c071f0a5e30f92fc6b7b15a7deab
 ./.git/objects/d5/72a7303f9569329c24858eac85532dc99f3d12
 ./.git/objects/d5/91c015d4e16369486272fedabe8a01bbb32af1
@@ -102,6 +102,7 @@
 ./.git/objects/e3/7c17823484cabf6df82d110f3424175603e292
 ./.git/objects/e7/c07c02fbb728b39ea9d8b3c6f3981e18495031
 ./.git/objects/e7/ec4f221d0776b0dfc1ecf724f0393b8d63682b
+./.git/objects/ec/35226551f68cf914b8566a06690b6b6ce7b1fe
 ./.git/objects/f6/79a8b1d40cbc957805b88a19ee0b1ce1fc796b
 ./.git/objects/fa/862346569e9c1cb8e4db8c2cfe372f918b48e8
 ./.git/objects/fd/486086d02bedd5be9941421def5353366551fb
@@ -131,6 +132,7 @@
 ./Unified Bridge Integration.md
 ./Unified Bridge Schema1.md
 ./Unified Cultural computation.md
+./Unified Grounding System.md
 ./Unified Pattern Bridge Schema.json
 ./Unified-proposed.md
 ./ai_inegrator.config
