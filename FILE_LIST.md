@@ -30,7 +30,6 @@
 ./.git/objects/0b/153245b073908f96b9be5c9973fc1f0e2f6525
 ./.git/objects/12/22c6ceb366d8dfc665d43d6ed06cc6f2af6b54
 ./.git/objects/12/2e59003385230eb4b05ff9bfb97643417ef13c
-./.git/objects/1c/b35ec82ae6997cde7c872f70638636742f4db9
 ./.git/objects/2a/7ccab9eae94208e861c5f530575afcce124159
 ./.git/objects/31/2b0f9bd43d512e14e46b237568b09c19653490
 ./.git/objects/36/a32362d07a123c61b27166e8323f4f808a8afb
@@ -47,6 +46,7 @@
 ./.git/objects/4f/87d942c9f2befb960c1255c61a41ee60c2f52c
 ./.git/objects/51/7566beea56e471a8f8f442d5858dd5957baa67
 ./.git/objects/52/d465952731b4584078327461bc720293ff2c43
+./.git/objects/54/4e9d45054ee4ae5fa1629ba6cc88760710fc36
 ./.git/objects/5a/0eaab2f2b2603089aa75e351d408d0f91bc592
 ./.git/objects/5a/744a75b0aeb525bcfed9901ab6eb8e3739e317
 ./.git/objects/5b/0fb8e93ef6c78995917429d78a0541eab3c32e
@@ -59,17 +59,17 @@
 ./.git/objects/81/8a0e28248575e1c31009f98a1e14a1deae959e
 ./.git/objects/85/df008cb75aa51e4c04c513fde515676128fc78
 ./.git/objects/8b/137891791fe96927ad78e64b0aad7bded08bdc
+./.git/objects/94/f1bcb2f1c2d661bd47a6b725b7a015ac0aa7ad
 ./.git/objects/98/89eee81d622dd0ee057202aab823279ee246d2
-./.git/objects/9b/1166ecf8c1fd850eef4dc8cadcca8006b8a470
 ./.git/objects/9b/b8130bb320da5a353f7f702dc1ebaa4bfba4f2
 ./.git/objects/9c/3373305497221a32d94dec19d607229c5a8663
 ./.git/objects/a0/b191f6b09efad896f6bd1dbfcba8eb0b822698
 ./.git/objects/a2/c6a6fe2262a05b5c472dcaea69f48c7c5b6579
 ./.git/objects/a3/781d82f10c227e76d74367adb53f85ac4d2c99
-./.git/objects/b0/7af575824ef62ed1b7ef85c7e6c9005eefa5f1
 ./.git/objects/b1/e08db4f5230b472d159fc6177770b1c49d316d
 ./.git/objects/b9/3094ab18e2097278a1bb125d247b1c00d19017
 ./.git/objects/b9/f39374307d3a834b827c06de9a3fa6b779719c
+./.git/objects/ba/46c594462ead7fa5be074ea89b6bb122f016d3
 ./.git/objects/bd/63d035a1b504d745066a0fcfcc7f6426a7f5ae
 ./.git/objects/bf/3fccaef99618b7245867a60d2e580c624e14d9
 ./.git/objects/bf/78fc29615b6c70fa732bc7ef631c585342f0aa
@@ -84,6 +84,7 @@
 ./.git/objects/d8/900447bb1c61635e17adf3b3cfec0051770675
 ./.git/objects/e0/ac69a3a04108e592cceed541a1252676884be1
 ./.git/objects/e2/c58c195554e40d9d6695fdfe90e63b746a65c8
+./.git/objects/e3/7c17823484cabf6df82d110f3424175603e292
 ./.git/objects/e7/c07c02fbb728b39ea9d8b3c6f3981e18495031
 ./.git/objects/e7/ec4f221d0776b0dfc1ecf724f0393b8d63682b
 ./.git/objects/f6/79a8b1d40cbc957805b88a19ee0b1ce1fc796b
@@ -122,6 +123,7 @@
 ./ontology/capabilities.json
 ./ontology/entities.sample.json
 ./prompts/system_prompt.txt
+./recursion.json
 ./rules/expand.json1
 ./schema/ai_index.schema.json
 ./schema/core.schema.json
