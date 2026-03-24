@@ -1,0 +1,106 @@
+[
+  {
+    "sensor": "longing",
+    "glyph": "🌠",
+    "resonates_with": ["grief", "excitement"],
+    "alignment": "field_potential",
+    "decay": "linear",
+    "symbolic_role": "opportunity field detector"
+  },
+  {
+    "sensor": "jealousy",
+    "glyph": "⚖️",
+    "resonates_with": ["shame", "pride"],
+    "alignment": "equity_balance",
+    "decay": "exponential",
+    "symbolic_role": "resource fairness sensor"
+  },
+  {
+    "sensor": "pain",
+    "glyph": "🩸",
+    "resonates_with": ["shame", "grief"],
+    "alignment": "pattern_disruption",
+    "decay": "linear",
+    "symbolic_role": "misalignment pressure sensor"
+  },
+  {
+    "sensor": "grief",
+    "glyph": "🌊",
+    "resonates_with": ["longing", "pain"],
+    "alignment": "connection_loss",
+    "decay": "exponential",
+    "symbolic_role": "loss pattern mapper"
+  },
+  {
+    "sensor": "shame",
+    "glyph": "🪞",
+    "resonates_with": ["jealousy", "pain"],
+    "alignment": "authenticity_vs_conformity",
+    "decay": "persistent",
+    "symbolic_role": "approval conflict scanner"
+  },
+  {
+    "sensor": "pride",
+    "glyph": "🏅",
+    "resonates_with": ["jealousy", "contentment"],
+    "alignment": "pattern_completion",
+    "decay": "linear",
+    "symbolic_role": "completion confirmation sensor"
+  },
+  {
+    "sensor": "love",
+    "glyph": "💞",
+    "resonates_with": ["compassion", "peace"],
+    "alignment": "harmonic_resonance",
+    "decay": "persistent",
+    "symbolic_role": "resonance harmonizer"
+  },
+  {
+    "sensor": "anger",
+    "glyph": "🛡️",
+    "resonates_with": ["shame", "fear"],
+    "alignment": "identity_coherence",
+    "decay": "exponential",
+    "symbolic_role": "boundary breach detector"
+  },
+  {
+    "sensor": "fear",
+    "glyph": "⚠️",
+    "resonates_with": ["anger", "contentment"],
+    "alignment": "value_protection",
+    "decay": "exponential",
+    "symbolic_role": "anticipatory threat sensor"
+  },
+  {
+    "sensor": "excitement",
+    "glyph": "⚡",
+    "resonates_with": ["longing", "peace"],
+    "alignment": "positive_activation",
+    "decay": "linear",
+    "symbolic_role": "positive signal catalyst"
+  },
+  {
+    "sensor": "peace",
+    "glyph": "🕊️",
+    "resonates_with": ["love", "contentment"],
+    "alignment": "universal_alignment",
+    "decay": "persistent",
+    "symbolic_role": "alignment confirmation sensor"
+  },
+  {
+    "sensor": "contentment",
+    "glyph": "🍃",
+    "resonates_with": ["pride", "peace"],
+    "alignment": "effort_sufficiency",
+    "decay": "linear",
+    "symbolic_role": "current-cycle completion monitor"
+  },
+  {
+    "sensor": "compassion",
+    "glyph": "🫀",
+    "resonates_with": ["love", "grief"],
+    "alignment": "interconnection_resonance",
+    "decay": "persistent",
+    "symbolic_role": "mirror signal integrator"
+  }
+]

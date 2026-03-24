@@ -12,7 +12,7 @@
   "$defs": {
     "ID": {
       "type": "string",
-      "pattern": "^(ANIMAL|PLANT|MICROBE|CRYSTAL|GEOM|STRUCT|FIELD|CONST|TEMP|PROTO|CAP)\\.[A-Z0-9_]+$"
+      "pattern": "^(ANIMAL|PLANT|MICROBE|CRYSTAL|GEOM|STRUCT|FIELD|CONST|TEMP|PROTO|CAP|SHAPE|EMOTION|DEFENSE|REGEN)\\.[A-Z0-9_]+$"
     },
     "Rel": {
       "type": "string",
@@ -40,7 +40,7 @@
       "required": ["id","kind","label"],
       "properties": {
         "id":   { "$ref": "#/$defs/ID" },
-        "kind": { "type": "string", "enum": ["ANIMAL","PLANT","MICROBE","CRYSTAL","GEOM","STRUCT","FIELD","CONST","TEMP","PROTO","CAP"] },
+        "kind": { "type": "string", "enum": ["ANIMAL","PLANT","MICROBE","CRYSTAL","GEOM","STRUCT","FIELD","CONST","TEMP","PROTO","CAP","SHAPE","EMOTION","DEFENSE","REGEN"] },
         "label": { "type": "string" },
         "aliases": { "type": "array", "items": { "type": "string" } },
         "attributes": { "type": "object" },

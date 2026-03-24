@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "description": "Canonical ID registry — maps each namespace to its authoritative source repo and validation rules",
+  "id_format": "NAMESPACE.ENTITY_ID (dot-delimited, uppercase)",
+  "registry": {
+    "ANIMAL":  { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Animal intelligence archetypes" },
+    "PLANT":   { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Plant intelligence archetypes" },
+    "MICROBE": { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Microbial intelligence archetypes" },
+    "CRYSTAL": { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Crystalline/mineral archetypes" },
+    "GEOM":    { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Geometric primitives and sacred geometry" },
+    "STRUCT":  { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Structural topology/architecture" },
+    "FIELD":   { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Physical/chemical fields" },
+    "CONST":   { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Mathematical constants" },
+    "TEMP":    { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Temporal states" },
+    "PROTO":   { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Bridge protocols/interfaces" },
+    "CAP":     { "source": "Rosetta-Shape-Core", "path": "ontology/", "description": "Capability tags" },
+    "SHAPE":   { "source": "Rosetta-Shape-Core", "path": "shapes/", "description": "Polyhedral and geometric shape entities" },
+    "EMOTION": { "source": "Emotions-as-Sensors", "path": "sensors/", "description": "Emotion-as-sensor archetypes" },
+    "DEFENSE": { "source": "Symbolic-Defense-Protocol", "path": "defenses/", "description": "Symbolic defense patterns" },
+    "REGEN":   { "source": "Regenerative-Intelligence-Core", "path": "ontology/", "description": "Regenerative intelligence patterns" }
+  }
+}

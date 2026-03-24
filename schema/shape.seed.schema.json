@@ -1,5 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rosetta-shape-core/schema/shape.seed.schema.json",
   "title": "Shape Seed",
   "type": "object",
   "required": ["id","version","geometry","field","glyphs","animals"],

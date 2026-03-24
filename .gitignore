@@ -2,3 +2,9 @@ __pycache__/
 *.pyc
 .venv/
 .env/
+*.egg-info/
+dist/
+build/
+.fieldlink/repos/
+.fieldlink/merge_stage/
+.pytest_cache/

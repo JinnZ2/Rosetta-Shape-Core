@@ -70,6 +70,21 @@
           { "remote": "registry/atlas.glyphs.json", "as": "atlas/remote/biogrid/registry.json" }
         ],
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
+      },
+      {
+        "name": "regen",
+        "repo": "https://github.com/JinnZ2/Regenerative-Intelligence-Core",
+        "ref": "main",
+        "paths": [
+          "ontology/**/*.json",
+          "patterns/**/*.json",
+          "cycles/**/*.json"
+        ],
+        "mounts": [
+          { "remote": "ontology/regen-entities.json", "as": "atlas/remote/regen/entities.json" },
+          { "remote": "patterns/regen-patterns.json", "as": "atlas/remote/regen/patterns.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
       }
     ],
 
@@ -81,7 +96,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen"],
       "strategy": "deep-merge"
     },
 

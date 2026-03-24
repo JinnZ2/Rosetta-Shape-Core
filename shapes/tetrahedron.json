@@ -1,0 +1,16 @@
+{
+  "id": "SHAPE.TETRA",
+  "name": "Tetrahedron",
+  "faces": 4,
+  "edges": 6,
+  "vertices": 4,
+  "families": ["fire", "stability", "foundation"],
+  "polyhedral": { "maps_to": "simplex foundation" },
+  "bridges": {
+    "sensors": ["anger", "pride"],
+    "defenses": ["def.se.01", "def.fr.03"],
+    "protocols": [],
+    "bridge_glyphs": ["🛡️", "🏅"]
+  },
+  "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
+}

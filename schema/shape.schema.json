@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rosetta-shape-core/schema/shape.schema.json",
+  "title": "Rosetta Shape",
+  "type": "object",
+  "required": ["id", "name", "faces", "families"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^SHAPE\\.[A-Z0-9_]+$" },
+    "name": { "type": "string" },
+    "faces": { "type": "integer", "minimum": 1 },
+    "edges": { "type": "integer", "minimum": 0 },
+    "vertices": { "type": "integer", "minimum": 0 },
+    "families": { "type": "array", "items": { "type": "string" } },
+    "principles": { "type": "array", "items": { "type": "string" } },
+    "polyhedral": {
+      "type": "object",
+      "required": ["maps_to"],
+      "properties": {
+        "maps_to": { "type": "string" },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "bridges": {
+      "type": "object",
+      "properties": {
+        "sensors": { "type": "array", "items": { "type": "string" } },
+        "glyphs": { "type": "array", "items": { "type": "string" } },
+        "protocols": { "type": "array", "items": { "type": "string" } },
+        "defenses": { "type": "array", "items": { "type": "string" } },
+        "audit_glyphs": { "type": "array", "items": { "type": "string" } },
+        "bridge_glyphs": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "version": { "type": "string" },
+        "updated": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

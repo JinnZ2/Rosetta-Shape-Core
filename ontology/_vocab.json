@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "namespaces": ["ANIMAL","PLANT","MICROBE","CRYSTAL","GEOM","STRUCT","FIELD","CONST","TEMP","PROTO","CAP"],
+  "namespaces": ["ANIMAL","PLANT","MICROBE","CRYSTAL","GEOM","STRUCT","FIELD","CONST","TEMP","PROTO","CAP","SHAPE","EMOTION","DEFENSE","REGEN"],
   "kinds": {
     "ANIMAL":"Animal intelligence archetype",
     "PLANT":"Plant intelligence archetype",
@@ -12,7 +12,11 @@
     "CONST":"Mathematical constant",
     "TEMP":"Temporal state",
     "PROTO":"Bridge protocol/interface",
-    "CAP":"Capability tag"
+    "CAP":"Capability tag",
+    "SHAPE":"Polyhedral or geometric shape entity",
+    "EMOTION":"Emotion-as-sensor archetype",
+    "DEFENSE":"Symbolic defense pattern",
+    "REGEN":"Regenerative intelligence pattern"
   },
   "rels": {
     "IS_A":"Taxonomy edge",

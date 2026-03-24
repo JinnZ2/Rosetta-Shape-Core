@@ -23,8 +23,11 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install dependencies
+        run: |
+          pip install pyyaml jsonschema
+
       - name: Run AI Integrator
-        run: |      - name: Run AI Integrator
         run: |
           python scripts/ai_integrator.py --repo-root . --config ai_integrator.config.yaml
           

@@ -1,0 +1,17 @@
+{
+  "id": "SHAPE.CUBE",
+  "name": "Cube (Hexahedron)",
+  "faces": 6,
+  "edges": 12,
+  "vertices": 8,
+  "families": ["earth", "structure", "containment"],
+  "polyhedral": { "maps_to": "structural containment" },
+  "bridges": {
+    "sensors": ["peace", "contentment"],
+    "defenses": ["def.de.12", "def.ap.08"],
+    "protocols": ["symbolic_protocol_v1.0"],
+    "audit_glyphs": ["SAF:BAL", "SAF:RESOLVE"],
+    "bridge_glyphs": ["🕊️", "🍃"]
+  },
+  "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
+}

@@ -68,7 +68,7 @@
       "equations": ["F_1 = -F_2", "sum_F = 0", "equilibrium: dE/dx = 0"]
     },
     "polyhedral": {
-      "shape_id": "SHAPE:CUBE",
+      "shape_id": "SHAPE.CUBE",
       "shape_family": ["platonic", "balance_family"],
       "geometric_properties": {
         "faces": 6,

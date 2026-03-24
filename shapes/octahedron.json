@@ -1,0 +1,17 @@
+{
+  "id": "SHAPE.OCTA",
+  "name": "Octahedron",
+  "faces": 8,
+  "edges": 12,
+  "vertices": 6,
+  "families": ["air", "balance", "integration"],
+  "polyhedral": { "maps_to": "dual of cube — balance/integration" },
+  "bridges": {
+    "sensors": ["compassion", "love"],
+    "defenses": ["def.ap.09", "def.fr.10"],
+    "protocols": ["symbolic_protocol_v1.0"],
+    "audit_glyphs": ["SAF:PRIV", "SAF:PROG"],
+    "bridge_glyphs": ["🫀", "💞"]
+  },
+  "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
+}
