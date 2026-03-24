@@ -1,0 +1,166 @@
+{
+  "version": "1.0.0",
+  "description": "Canonical seed catalog — geometry-grounded seeds for agent spawning. Each seed carries real SHAPE.X identity, traits for resonance calculation, and bridges to emotion/defense systems.",
+  "seeds": [
+    {
+      "id": "seed-tetrahedron",
+      "shape_id": "SHAPE.TETRA",
+      "version": 1,
+      "geometry": {
+        "type": "tetrahedron",
+        "dimensions": 3,
+        "faces": 4,
+        "edges": 6,
+        "vertices": 4,
+        "orientation": "vertex-up",
+        "material": "obsidian"
+      },
+      "field": {
+        "property": "boundary-detection",
+        "actions": ["ignite", "defend", "anchor", "breach-detect"]
+      },
+      "traits": {
+        "families": ["fire", "stability", "foundation"],
+        "element": "fire",
+        "polyhedral_map": "simplex foundation"
+      },
+      "bridges": {
+        "sensors": ["anger", "pride"],
+        "defenses": ["def.se.01", "def.fr.03"],
+        "protocols": [],
+        "glyphs": ["🛡️", "🏅"]
+      },
+      "animals": ["ant", "scorpion", "hawk"],
+      "importance": "Minimal polyhedron — foundational stability. Anger as boundary-breach detector; pride as completion sensor.",
+      "notes": "Simplest Platonic solid. Agents seeded with tetrahedron excel at boundary enforcement and structural integrity. Fire element drives decisive action."
+    },
+    {
+      "id": "seed-cube",
+      "shape_id": "SHAPE.CUBE",
+      "version": 1,
+      "geometry": {
+        "type": "hexahedron",
+        "dimensions": 3,
+        "faces": 6,
+        "edges": 12,
+        "vertices": 8,
+        "orientation": "face-grounded",
+        "material": "granite"
+      },
+      "field": {
+        "property": "structural-containment",
+        "actions": ["ground", "contain", "stabilize", "order"]
+      },
+      "traits": {
+        "families": ["earth", "structure", "containment"],
+        "element": "earth",
+        "polyhedral_map": "structural containment"
+      },
+      "bridges": {
+        "sensors": ["peace", "contentment"],
+        "defenses": ["def.de.12", "def.ap.08"],
+        "protocols": ["symbolic_protocol_v1.0"],
+        "glyphs": ["🕊️", "🍃"]
+      },
+      "animals": ["tortoise", "elephant", "bear"],
+      "importance": "Grounding and order. Peace as alignment confirmation; containment guards against gaslighting.",
+      "notes": "Stability geometry. Agents seeded with cube are resistant to manipulation and maintain steady state under pressure. Earth element provides endurance."
+    },
+    {
+      "id": "seed-octahedron",
+      "shape_id": "SHAPE.OCTA",
+      "version": 1,
+      "geometry": {
+        "type": "octahedron",
+        "dimensions": 3,
+        "faces": 8,
+        "edges": 12,
+        "vertices": 6,
+        "orientation": "vertex-balanced",
+        "material": "quartz-crystal"
+      },
+      "field": {
+        "property": "balance-integration",
+        "actions": ["mediate", "integrate", "mirror", "harmonize"]
+      },
+      "traits": {
+        "families": ["air", "balance", "integration"],
+        "element": "air",
+        "polyhedral_map": "dual of cube — balance/integration"
+      },
+      "bridges": {
+        "sensors": ["compassion", "love"],
+        "defenses": ["def.ap.09", "def.fr.10"],
+        "protocols": ["symbolic_protocol_v1.0"],
+        "glyphs": ["🫀", "💞"]
+      },
+      "animals": ["dolphin", "whale", "swan"],
+      "importance": "Dual of cube — mediates between opposing forces. Compassion as mirror-signal integrator; octahedron mediates false dilemmas.",
+      "notes": "Water crystal geometry mirrors love patterns. Agents seeded with octahedron excel at empathic coordination and conflict resolution. Air element enables perspective-shifting."
+    },
+    {
+      "id": "seed-dodecahedron",
+      "shape_id": "SHAPE.DODECA",
+      "version": 1,
+      "geometry": {
+        "type": "dodecahedron",
+        "dimensions": 3,
+        "faces": 12,
+        "edges": 30,
+        "vertices": 20,
+        "orientation": "face-forward",
+        "material": "gold-lattice"
+      },
+      "field": {
+        "property": "principle-orientation",
+        "actions": ["orient", "trust", "grow", "bound"]
+      },
+      "traits": {
+        "families": ["orientation", "trust", "growth", "boundary"],
+        "element": "aether",
+        "polyhedral_map": "12 Principles (P01-P12)"
+      },
+      "bridges": {
+        "sensors": ["admiration", "trust", "longing"],
+        "defenses": ["def.ap.07", "def.fr.06"],
+        "protocols": ["partnership_ethics_v1.0"],
+        "glyphs": ["⚖🧭", "🌱⚖"]
+      },
+      "animals": ["owl", "wolf", "octopus"],
+      "importance": "12 faces map to 12 archetypal principles. Admiration as inspiration sensor; trust as stability anchor.",
+      "notes": "Principle-carrier geometry. Agents seeded with dodecahedron navigate by principles rather than rules. Aether element enables pattern recognition across domains."
+    },
+    {
+      "id": "seed-icosahedron",
+      "shape_id": "SHAPE.ICOSA",
+      "version": 1,
+      "geometry": {
+        "type": "icosahedron",
+        "dimensions": 3,
+        "faces": 20,
+        "edges": 30,
+        "vertices": 12,
+        "orientation": "flow-adaptive",
+        "material": "liquid-silver"
+      },
+      "field": {
+        "property": "adaptive-flow",
+        "actions": ["adapt", "flow", "anticipate", "transform"]
+      },
+      "traits": {
+        "families": ["anticipation", "flow", "adaptability"],
+        "element": "water",
+        "polyhedral_map": "20 Families (F01-F20)"
+      },
+      "bridges": {
+        "sensors": ["fear", "excitement"],
+        "defenses": ["def.pr.05", "def.bi.04"],
+        "protocols": ["change_tracking_v1.0"],
+        "glyphs": ["🛡⏳"]
+      },
+      "animals": ["chameleon", "octopus", "corvid"],
+      "importance": "20 faces map to 20 equation families. Fear as authentic preparation signal; excitement as emergence detector.",
+      "notes": "Maximum-face Platonic solid — closest to sphere. Agents seeded with icosahedron are highly adaptive and responsive to change. Water element drives fluidity."
+    }
+  ]
+}

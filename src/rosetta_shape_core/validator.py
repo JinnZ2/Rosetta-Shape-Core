@@ -5,6 +5,7 @@ from jsonschema import Draft202012Validator
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 ONTOLOGY_SCHEMA = json.loads((ROOT / "schema" / "core.schema.json").read_text(encoding="utf-8"))
 SHAPE_SCHEMA = json.loads((ROOT / "schema" / "shape.schema.json").read_text(encoding="utf-8"))
+SEED_SCHEMA = json.loads((ROOT / "schema" / "shape.seed.schema.json").read_text(encoding="utf-8"))
 
 
 # ---------------------------------------------------------------------------
@@ -99,6 +100,32 @@ def validate_bridges():
 
 
 # ---------------------------------------------------------------------------
+# Seed catalog validation (new)
+# ---------------------------------------------------------------------------
+
+def validate_seeds():
+    """Validate seed catalog entries against shape.seed.schema and check shape_id refs."""
+    errors = []
+    catalog_file = ROOT / "data" / "seed-catalog.json"
+    if not catalog_file.exists():
+        return errors
+
+    data = json.loads(catalog_file.read_text(encoding="utf-8"))
+    _, shape_ids = load_shapes()
+    v = Draft202012Validator(SEED_SCHEMA)
+
+    for seed in data.get("seeds", []):
+        for err in v.iter_errors(seed):
+            errors.append(f"  seed {seed.get('id', '?')}: {err.message}")
+        # Check that shape_id references a real shape
+        shape_ref = seed.get("shape_id", "")
+        if shape_ref and shape_ref not in shape_ids:
+            errors.append(f"  seed {seed.get('id', '?')}: shape_id {shape_ref} not found in shapes/")
+
+    return errors
+
+
+# ---------------------------------------------------------------------------
 # Cross-repo reference validation (new)
 # ---------------------------------------------------------------------------
 
@@ -185,6 +212,11 @@ def validate_files():
     if bridge_errs:
         all_errors.append("Bridge errors:")
         all_errors.extend(bridge_errs)
+
+    seed_errs = validate_seeds()
+    if seed_errs:
+        all_errors.append("Seed catalog errors:")
+        all_errors.extend(seed_errs)
 
     cross_errs = validate_cross_refs()
     if cross_errs:
