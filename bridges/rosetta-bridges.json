@@ -70,14 +70,14 @@
       "shape": "SHAPE.OCTA",
       "polyhedral": {
         "maps_to": "dual of cube — balance/integration",
-        "note": "8 faces — mediates between opposing forces"
+        "note": "8 faces — mediates between opposing forces; 6 vertices map to seed-physics amplitude directions"
       },
       "families": ["air", "structure", "balance", "integration"],
       "sensors": ["compassion", "love"],
       "sensor_glyphs": ["🫀", "💞"],
       "defenses": ["def.ap.09", "def.fr.10"],
       "defense_names": ["Sympathy Hardship Appeal", "False Dilemma"],
-      "protocols": ["symbolic_protocol_v1.0"],
+      "protocols": ["symbolic_protocol_v1.0", "seed_growth_v1.0"],
       "audit_glyphs": ["SAF:PRIV", "SAF:PROG"],
       "bridge_scroll": "compassion as mirror-signal integrator; octahedron mediates false dilemmas"
     }
