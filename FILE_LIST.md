@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-4f46845061088526ca2d5ae01a545cc4d416582d.idx
-./.git/objects/pack/pack-4f46845061088526ca2d5ae01a545cc4d416582d.pack
-./.git/objects/pack/pack-4f46845061088526ca2d5ae01a545cc4d416582d.rev
+./.git/objects/pack/pack-cc7cc1b9003ab500f83cafee2dbfe92b97503cd2.idx
+./.git/objects/pack/pack-cc7cc1b9003ab500f83cafee2dbfe92b97503cd2.pack
+./.git/objects/pack/pack-cc7cc1b9003ab500f83cafee2dbfe92b97503cd2.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -48,6 +48,7 @@
 ./ai_integrator.config.yaml
 ./atlas/remote/biogrid/planned.json
 ./atlas/remote/biogrid/registry.json
+./atlas/remote/biomachine/bridge_map.json
 ./atlas/remote/emotions/glyphs.json
 ./atlas/remote/fractal-compass/bloom_logic.json
 ./atlas/remote/fractal-compass/felt.json
