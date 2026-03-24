@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-2c9d5be7e6f750360d0cc2e9e681c4b04c7fe301.idx
-./.git/objects/pack/pack-2c9d5be7e6f750360d0cc2e9e681c4b04c7fe301.pack
-./.git/objects/pack/pack-2c9d5be7e6f750360d0cc2e9e681c4b04c7fe301.rev
+./.git/objects/pack/pack-51237225e57ae714566c026f6955bbfb7fa3fdd9.idx
+./.git/objects/pack/pack-51237225e57ae714566c026f6955bbfb7fa3fdd9.pack
+./.git/objects/pack/pack-51237225e57ae714566c026f6955bbfb7fa3fdd9.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -53,6 +53,7 @@
 ./balance.json
 ./bridges/rosetta-bridges.json
 ./data/animal_intelligence.json
+./data/essence-traits.json
 ./data/interaction_ontology.json
 ./data/math_constants.json
 ./data/sacred_geometry.json
