@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-b9430565434f7f27fd6c428a1c09be243b08bcd4.idx
-./.git/objects/pack/pack-b9430565434f7f27fd6c428a1c09be243b08bcd4.pack
-./.git/objects/pack/pack-b9430565434f7f27fd6c428a1c09be243b08bcd4.rev
+./.git/objects/pack/pack-53c60f99b241ef2a622b554d341011984fa59b93.idx
+./.git/objects/pack/pack-53c60f99b241ef2a622b554d341011984fa59b93.pack
+./.git/objects/pack/pack-53c60f99b241ef2a622b554d341011984fa59b93.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -50,6 +50,10 @@
 ./atlas/remote/biogrid/registry.json
 ./atlas/remote/defense/glyphs.json
 ./atlas/remote/emotions/glyphs.json
+./atlas/remote/mandala/connect.json
+./atlas/remote/mandala/glyphs.json
+./atlas/remote/mandala/sensors.json
+./atlas/remote/mandala/shapes.json
 ./balance.json
 ./bridges/rosetta-bridges.json
 ./data/animal_intelligence.json
