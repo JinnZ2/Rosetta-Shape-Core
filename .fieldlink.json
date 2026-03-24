@@ -9,6 +9,7 @@
         "name": "polyhedral",
         "repo": "https://github.com/JinnZ2/Polyhedral-Intelligence",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "atlas_schema.json",
           "protocols.json",
@@ -28,19 +29,25 @@
         "name": "emotions",
         "repo": "https://github.com/JinnZ2/Emotions-as-Sensors",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "sensors/**/*.json",
-          "sensors/convergent-emotional-frameworks.md"
+          "sensors/convergent-emotional-frameworks.md",
+          "atlas/emotions.json",
+          "glyphs/emotion.glyphs.json"
         ],
         "mounts": [
-          { "remote": "sensors/glyph-map.json", "as": "atlas/remote/emotions/glyphs.json" }
+          { "remote": "sensors/glyph-map.json", "as": "atlas/remote/emotions/glyphs.json" },
+          { "remote": "atlas/emotions.json", "as": "atlas/remote/emotions/atlas.json", "status": "planned" },
+          { "remote": "glyphs/emotion.glyphs.json", "as": "atlas/remote/emotions/emotion_glyphs.json", "status": "planned" }
         ],
-        "consent": { "license": "MIT", "share_ok": true }
+        "consent": { "license": "CC0-1.0", "share_ok": true }
       },
       {
         "name": "defense",
         "repo": "https://github.com/JinnZ2/Symbolic-Defense-Protocol",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "defenses/*.json",
           "defenses/schema.json",
@@ -74,9 +81,13 @@
         "name": "biogrid",
         "repo": "https://github.com/JinnZ2/BioGrid2.0",
         "ref": "main",
+        "direction": "bidirectional",
+        "shared_interface": "atlas/shapes.json",
+        "glyph_gate": "⬟↔️📐",
         "paths": [
           "planned/glyphs/atlas.json",
-          "registry/atlas.glyphs.json"
+          "registry/atlas.glyphs.json",
+          "data/*.glyphs.json"
         ],
         "mounts": [
           { "remote": "planned/glyphs/atlas.json", "as": "atlas/remote/biogrid/planned.json" },
@@ -88,6 +99,7 @@
         "name": "regen",
         "repo": "https://github.com/JinnZ2/Regenerative-Intelligence-Core",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "Modules/**/*.py",
           "protocols/**/*.py",
@@ -156,9 +168,23 @@
         "consent": { "license": "MIT", "share_ok": true }
       },
       {
+        "name": "biomachine-ecology",
+        "repo": "https://github.com/JinnZ2/Biomachine-Ecology",
+        "ref": "main",
+        "paths": [
+          "fieldlink_atlas/rosetta/BRIDGE_MAP.json",
+          "modules/**/*.json"
+        ],
+        "mounts": [
+          { "remote": "fieldlink_atlas/rosetta/BRIDGE_MAP.json", "as": "atlas/remote/biomachine/bridge_map.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
         "name": "mandala",
         "repo": "https://github.com/JinnZ2/Mandala-Computing",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "atlas/**/*.json",
           "protocols/**/*.json",
@@ -169,6 +195,33 @@
           { "remote": "atlas/glyphs/mandala.json", "as": "atlas/remote/mandala/glyphs.json" },
           { "remote": "protocols/connect.json", "as": "atlas/remote/mandala/connect.json" },
           { "remote": "sensors/multi_layer.json", "as": "atlas/remote/mandala/sensors.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "living-intelligence",
+        "repo": "https://github.com/JinnZ2/Living-Intelligence-Database",
+        "ref": "main",
+        "direction": "bidirectional",
+        "synergy_triangle": {
+          "nodes": [
+            { "id": "ROSETTA_SHAPE", "role": "shape · translation matrix", "signature": "ROSETTA_DECODE_τ_CORE" },
+            { "id": "BIOGRID2", "role": "energy · mesh routing", "signature": "BIOGRID_MESH_φ_PULSE" },
+            { "id": "POLY_INT", "role": "shape · vertex-edge-face", "signature": "POLY_VERTEX_√3_EMERGE" }
+          ],
+          "edges": [
+            { "from": "ROSETTA_SHAPE", "to": "BIOGRID2", "type": "synergy" },
+            { "from": "ROSETTA_SHAPE", "to": "POLY_INT", "type": "synergy" },
+            { "from": "BIOGRID2", "to": "POLY_INT", "type": "synergy" }
+          ]
+        },
+        "paths": [
+          "atlas/**/*.json",
+          "entities/**/*.json",
+          "protocols/**/*.json"
+        ],
+        "mounts": [
+          { "remote": "atlas/living_intelligence.json", "as": "atlas/remote/living-intelligence/atlas.json", "status": "planned" }
         ],
         "consent": { "license": "MIT", "share_ok": true }
       }
@@ -182,7 +235,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "mandala"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "living-intelligence"],
       "strategy": "deep-merge"
     },
 
