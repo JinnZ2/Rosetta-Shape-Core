@@ -5,6 +5,7 @@ from rosetta_shape_core.validator import (
     validate_shapes,
     validate_bridges,
     validate_seeds,
+    validate_fieldlink,
     load_shapes,
 )
 from rosetta_shape_core.seeds import (
@@ -68,6 +69,24 @@ def test_all_shapes_have_required_bridge_fields():
         bridges = data.get("bridges", {})
         assert "sensors" in bridges, f"{fname} missing bridges.sensors"
         assert "defenses" in bridges, f"{fname} missing bridges.defenses"
+
+
+def test_fieldlink_topology():
+    """Fieldlink JSON is valid, sources are in merge order, no duplicates."""
+    import json
+    fl = json.loads((ROOT / ".fieldlink.json").read_text(encoding="utf-8"))
+    sources = fl["fieldlink"]["sources"]
+    merge_order = fl["fieldlink"]["merge"]["order"]
+    # Every source in merge order
+    for s in sources:
+        assert s["name"] in merge_order, f"{s['name']} not in merge.order"
+    # No duplicate names
+    names = [s["name"] for s in sources]
+    assert len(names) == len(set(names)), f"Duplicate source names: {names}"
+    # All staged mount files are valid JSON
+    errs = validate_fieldlink()
+    mount_errs = [e for e in errs if "mount missing" not in e]
+    assert mount_errs == [], f"Fieldlink errors: {mount_errs}"
 
 
 def test_full_validation():

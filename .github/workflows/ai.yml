@@ -25,7 +25,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyyaml jsonschema
+          pip install pyyaml jsonschema pytest -e .
+
+      - name: Run tests
+        run: |
+          python -m pytest tests/ -v
 
       - name: Run AI Integrator
         run: |

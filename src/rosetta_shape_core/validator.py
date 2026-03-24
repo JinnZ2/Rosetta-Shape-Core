@@ -191,6 +191,59 @@ def _load_staged_ids(source_key):
 
 
 # ---------------------------------------------------------------------------
+# Fieldlink topology validation
+# ---------------------------------------------------------------------------
+
+def validate_fieldlink():
+    """Validate .fieldlink.json: structure, mount sync, and source consistency."""
+    errors = []
+    fl_file = ROOT / ".fieldlink.json"
+    if not fl_file.exists():
+        return errors  # no fieldlink, nothing to validate
+
+    try:
+        data = json.loads(fl_file.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"  .fieldlink.json: invalid JSON — {exc}"]
+
+    fl = data.get("fieldlink", {})
+    sources = fl.get("sources", [])
+    merge_order = fl.get("merge", {}).get("order", [])
+
+    # Check: every source name appears in merge order
+    source_names = [s["name"] for s in sources]
+    for name in source_names:
+        if name not in merge_order:
+            errors.append(f"  fieldlink: source '{name}' not in merge.order")
+
+    # Check: no duplicate source names
+    seen = set()
+    for name in source_names:
+        if name in seen:
+            errors.append(f"  fieldlink: duplicate source name '{name}'")
+        seen.add(name)
+
+    # Check: mounts point to files that exist in atlas/remote/
+    # (only for sources with mounts, not exports which are runtime-generated)
+    for source in sources:
+        for mount in source.get("mounts", []):
+            local_path = ROOT / mount["as"]
+            if not local_path.exists():
+                errors.append(
+                    f"  fieldlink: mount missing — {source['name']}: {mount['as']}"
+                )
+            elif local_path.suffix == ".json":
+                try:
+                    json.loads(local_path.read_text(encoding="utf-8"))
+                except json.JSONDecodeError as exc:
+                    errors.append(
+                        f"  fieldlink: invalid JSON in mount — {mount['as']}: {exc}"
+                    )
+
+    return errors
+
+
+# ---------------------------------------------------------------------------
 # Unified entry point
 # ---------------------------------------------------------------------------
 
@@ -223,8 +276,22 @@ def validate_files():
         all_errors.append("Cross-repo reference errors:")
         all_errors.extend(cross_errs)
 
+    fieldlink_errs = validate_fieldlink()
+    # Separate mount-missing (warnings) from structural errors (fatal)
+    fl_warnings = [e for e in fieldlink_errs if "mount missing" in e]
+    fl_errors = [e for e in fieldlink_errs if "mount missing" not in e]
+    if fl_errors:
+        all_errors.append("Fieldlink topology errors:")
+        all_errors.extend(fl_errors)
+
     if all_errors:
         raise SystemExit("Validation failed:\n" + "\n".join(all_errors))
+
+    if fl_warnings:
+        import sys
+        print("Fieldlink warnings (non-fatal):", file=sys.stderr)
+        for w in fl_warnings:
+            print(w, file=sys.stderr)
 
 
 if __name__ == "__main__":

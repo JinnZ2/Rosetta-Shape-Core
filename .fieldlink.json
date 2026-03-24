@@ -94,9 +94,9 @@
           "Docs/**/*.md"
         ],
         "exports": [
-          { "runtime": "symbolic_seed_library.json", "as": "atlas/remote/regen/seed_library.json" },
-          { "runtime": "elder_archive.json", "as": "atlas/remote/regen/elder_archive.json" },
-          { "runtime": "evolution_history.json", "as": "atlas/remote/regen/evolution_history.json" }
+          { "runtime": "symbolic_seed_library.json", "as": "atlas/remote/regen/seed_library.json", "status": "planned" },
+          { "runtime": "elder_archive.json", "as": "atlas/remote/regen/elder_archive.json", "status": "planned" },
+          { "runtime": "evolution_history.json", "as": "atlas/remote/regen/evolution_history.json", "status": "planned" }
         ],
         "bridge_modules": [
           "protocols/rosetta_bridge.py",
@@ -115,8 +115,8 @@
           "configs/*.yaml"
         ],
         "exports": [
-          { "runtime": "manifold_invariants.json", "as": "atlas/remote/geometric-manifold/invariants.json" },
-          { "runtime": "basin_topology.json", "as": "atlas/remote/geometric-manifold/topology.json" }
+          { "runtime": "manifold_invariants.json", "as": "atlas/remote/geometric-manifold/invariants.json", "status": "planned" },
+          { "runtime": "basin_topology.json", "as": "atlas/remote/geometric-manifold/topology.json", "status": "planned" }
         ],
         "consent": { "license": "CC0-1.0", "share_ok": true }
       },
