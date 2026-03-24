@@ -9,7 +9,7 @@
   "bridges": {
     "sensors": ["compassion", "love"],
     "defenses": ["def.ap.09", "def.fr.10"],
-    "protocols": ["symbolic_protocol_v1.0"],
+    "protocols": ["symbolic_protocol_v1.0", "seed_growth_v1.0", "mandala_compute_v1.0"],
     "audit_glyphs": ["SAF:PRIV", "SAF:PROG"],
     "bridge_glyphs": ["🫀", "💞"]
   },

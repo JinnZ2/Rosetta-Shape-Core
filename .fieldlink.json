@@ -85,6 +85,23 @@
           { "remote": "patterns/regen-patterns.json", "as": "atlas/remote/regen/patterns.json" }
         ],
         "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "mandala",
+        "repo": "https://github.com/JinnZ2/Mandala-Computing",
+        "ref": "main",
+        "paths": [
+          "atlas/**/*.json",
+          "glyphs/**/*.json",
+          "protocols/**/*.json",
+          "sensors/**/*.json"
+        ],
+        "mounts": [
+          { "remote": "atlas/shapes.json", "as": "atlas/remote/mandala/shapes.json" },
+          { "remote": "glyphs/mandala.json", "as": "atlas/remote/mandala/glyphs.json" },
+          { "remote": "protocols/connect.json", "as": "atlas/remote/mandala/connect.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
       }
     ],
 
@@ -96,7 +113,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "mandala"],
       "strategy": "deep-merge"
     },
 
