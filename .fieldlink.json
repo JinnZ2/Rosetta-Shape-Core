@@ -9,6 +9,7 @@
         "name": "polyhedral",
         "repo": "https://github.com/JinnZ2/Polyhedral-Intelligence",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "atlas_schema.json",
           "protocols.json",
