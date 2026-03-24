@@ -47,6 +47,7 @@
         "name": "defense",
         "repo": "https://github.com/JinnZ2/Symbolic-Defense-Protocol",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "defenses/*.json",
           "defenses/schema.json",
@@ -195,6 +196,21 @@
           { "remote": "sensors/multi_layer.json", "as": "atlas/remote/mandala/sensors.json" }
         ],
         "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "living-intelligence",
+        "repo": "https://github.com/JinnZ2/Living-Intelligence-Database",
+        "ref": "main",
+        "direction": "bidirectional",
+        "paths": [
+          "atlas/**/*.json",
+          "entities/**/*.json",
+          "protocols/**/*.json"
+        ],
+        "mounts": [
+          { "remote": "atlas/living_intelligence.json", "as": "atlas/remote/living-intelligence/atlas.json", "status": "planned" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
       }
     ],
 
@@ -206,7 +222,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "living-intelligence"],
       "strategy": "deep-merge"
     },
 
