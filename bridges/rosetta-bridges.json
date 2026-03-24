@@ -29,7 +29,7 @@
         "maps_to": "20 Families (F01-F20)",
         "note": "Icosahedron faces correspond to equation families"
       },
-      "families": ["anticipation", "flow"],
+      "families": ["anticipation", "flow", "growth"],
       "sensors": ["fear", "excitement"],
       "sensor_glyphs": ["⚠️", "⚡"],
       "defenses": ["def.pr.05", "def.bi.04"],
@@ -43,7 +43,7 @@
         "maps_to": "simplex foundation",
         "note": "Minimal polyhedron — foundational stability"
       },
-      "families": ["fire", "stability", "foundation"],
+      "families": ["fire", "stability", "foundation", "boundary"],
       "sensors": ["anger", "pride"],
       "sensor_glyphs": ["🛡️", "🏅"],
       "defenses": ["def.se.01", "def.fr.03"],
@@ -57,7 +57,7 @@
         "maps_to": "structural containment",
         "note": "6 faces — grounding, order, boundary"
       },
-      "families": ["earth", "structure", "containment"],
+      "families": ["earth", "stability", "structure", "containment"],
       "sensors": ["peace", "contentment"],
       "sensor_glyphs": ["🕊️", "🍃"],
       "defenses": ["def.de.12", "def.ap.08"],
@@ -72,7 +72,7 @@
         "maps_to": "dual of cube — balance/integration",
         "note": "8 faces — mediates between opposing forces"
       },
-      "families": ["air", "balance", "integration"],
+      "families": ["air", "structure", "balance", "integration"],
       "sensors": ["compassion", "love"],
       "sensor_glyphs": ["🫀", "💞"],
       "defenses": ["def.ap.09", "def.fr.10"],

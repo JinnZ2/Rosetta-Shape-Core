@@ -20,7 +20,7 @@
         "actions": ["ignite", "defend", "anchor", "breach-detect"]
       },
       "traits": {
-        "families": ["fire", "stability", "foundation"],
+        "families": ["fire", "stability", "foundation", "boundary"],
         "element": "fire",
         "polyhedral_map": "simplex foundation"
       },
@@ -52,7 +52,7 @@
         "actions": ["ground", "contain", "stabilize", "order"]
       },
       "traits": {
-        "families": ["earth", "structure", "containment"],
+        "families": ["earth", "stability", "structure", "containment"],
         "element": "earth",
         "polyhedral_map": "structural containment"
       },
@@ -84,7 +84,7 @@
         "actions": ["mediate", "integrate", "mirror", "harmonize"]
       },
       "traits": {
-        "families": ["air", "balance", "integration"],
+        "families": ["air", "structure", "balance", "integration"],
         "element": "air",
         "polyhedral_map": "dual of cube — balance/integration"
       },
@@ -148,7 +148,7 @@
         "actions": ["adapt", "flow", "anticipate", "transform"]
       },
       "traits": {
-        "families": ["anticipation", "flow", "adaptability"],
+        "families": ["anticipation", "flow", "growth", "adaptability"],
         "element": "water",
         "polyhedral_map": "20 Families (F01-F20)"
       },

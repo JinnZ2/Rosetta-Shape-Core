@@ -14,6 +14,9 @@ from rosetta_shape_core.seeds import (
     select_by_traits,
     select_by_element,
     select_by_sensor,
+    select_by_essence,
+    traits_for_essence,
+    all_essences,
     resonance,
     seed_traits_vector,
 )
@@ -111,6 +114,15 @@ def test_select_by_traits():
     assert matches[0]["shape_id"] == "SHAPE.TETRA"
 
 
+def test_select_by_traits_returns_partial_matches():
+    """Shapes with partial trait overlap are included."""
+    # "stability" is shared by tetra and cube
+    matches = select_by_traits(["stability"])
+    shape_ids = [m["shape_id"] for m in matches]
+    assert "SHAPE.TETRA" in shape_ids
+    assert "SHAPE.CUBE" in shape_ids
+
+
 def test_select_by_element():
     """Element-based selection works."""
     fire_seeds = select_by_element("fire")
@@ -125,23 +137,42 @@ def test_select_by_sensor():
     assert compassion_seeds[0]["shape_id"] == "SHAPE.OCTA"
 
 
+# ---------------------------------------------------------------------------
+# Resonance tests (polyhedral duality creates real overlap)
+# ---------------------------------------------------------------------------
+
 def test_resonance_same_seed():
     """A seed has maximum resonance with itself."""
     score = resonance("SHAPE.TETRA", "SHAPE.TETRA")
     assert score == 1.0
 
 
-def test_resonance_different_seeds():
-    """Resonance between different seeds is based on trait overlap."""
-    # Tetra (fire, stability, foundation) vs Cube (earth, structure, containment)
-    # No overlap — should be 0.0
+def test_resonance_tetra_cube_partial():
+    """Tetra and Cube share 'stability' — partial resonance."""
     score = resonance("SHAPE.TETRA", "SHAPE.CUBE")
-    assert score == 0.0
+    assert 0.0 < score < 1.0
+    # tetra: fire, stability, foundation, boundary (4)
+    # cube: earth, stability, structure, containment (4)
+    # intersection: {stability} = 1, union = 7
+    assert abs(score - 1 / 7) < 0.01
 
-    # Cube (earth, structure, containment) vs Octa (air, balance, integration)
-    # No overlap — should be 0.0
+
+def test_resonance_cube_octa_partial():
+    """Cube and Octa (duals) share 'structure' — partial resonance."""
     score = resonance("SHAPE.CUBE", "SHAPE.OCTA")
-    assert score == 0.0
+    assert 0.0 < score < 1.0
+
+
+def test_resonance_dodeca_icosa_partial():
+    """Dodeca and Icosa (duals) share 'growth' — partial resonance."""
+    score = resonance("SHAPE.DODECA", "SHAPE.ICOSA")
+    assert 0.0 < score < 1.0
+
+
+def test_resonance_tetra_dodeca_partial():
+    """Tetra and Dodeca share 'boundary' — partial resonance."""
+    score = resonance("SHAPE.TETRA", "SHAPE.DODECA")
+    assert 0.0 < score < 1.0
 
 
 def test_resonance_not_found():
@@ -153,13 +184,80 @@ def test_seed_traits_vector():
     """Traits vector has correct shape and values."""
     vec = seed_traits_vector("SHAPE.TETRA")
     assert isinstance(vec, dict)
-    # Should have entries for all families across catalog
     assert vec["fire"] == 1.0
     assert vec["stability"] == 1.0
     assert vec["foundation"] == 1.0
+    assert vec["boundary"] == 1.0
     # Families from other seeds should be 0.0
     assert vec["earth"] == 0.0
     assert vec["balance"] == 0.0
+
+
+# ---------------------------------------------------------------------------
+# Essence mapping tests
+# ---------------------------------------------------------------------------
+
+def test_traits_for_essence_guardian():
+    """Guardian essence maps to stability/protection traits."""
+    traits = traits_for_essence("guardian")
+    assert "stability" in traits
+    assert "foundation" in traits
+    assert "boundary" in traits
+    assert "containment" in traits
+
+
+def test_traits_for_essence_explorer():
+    """Explorer essence maps to flow/adaptability traits."""
+    traits = traits_for_essence("explorer")
+    assert "flow" in traits
+    assert "adaptability" in traits
+
+
+def test_traits_for_essence_unknown():
+    """Unknown essence returns empty list."""
+    assert traits_for_essence("nonexistent") == []
+
+
+def test_select_by_essence_guardian():
+    """Guardian essence selects tetra first (most trait overlap)."""
+    matches = select_by_essence("guardian")
+    assert len(matches) >= 1
+    # Tetra has stability+foundation+boundary (3 of 4 guardian traits)
+    assert matches[0]["shape_id"] == "SHAPE.TETRA"
+
+
+def test_select_by_essence_explorer():
+    """Explorer essence selects icosahedron first."""
+    matches = select_by_essence("explorer")
+    assert len(matches) >= 1
+    assert matches[0]["shape_id"] == "SHAPE.ICOSA"
+
+
+def test_select_by_essence_healer():
+    """Healer essence selects octahedron first."""
+    matches = select_by_essence("healer")
+    assert len(matches) >= 1
+    assert matches[0]["shape_id"] == "SHAPE.OCTA"
+
+
+def test_select_by_essence_teacher():
+    """Teacher essence selects dodecahedron first."""
+    matches = select_by_essence("teacher")
+    assert len(matches) >= 1
+    assert matches[0]["shape_id"] == "SHAPE.DODECA"
+
+
+def test_all_essences_returns_archetypes():
+    """All defined essences are accessible."""
+    essences = all_essences()
+    assert "guardian" in essences
+    assert "explorer" in essences
+    assert "healer" in essences
+    assert "teacher" in essences
+    assert "builder" in essences
+    assert "mediator" in essences
+    assert "sentinel" in essences
+    assert "nurturer" in essences
 
 
 def test_every_seed_has_matching_shape():

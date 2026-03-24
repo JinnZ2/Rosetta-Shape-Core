@@ -13,16 +13,22 @@ Usage:
     # Select seeds whose traits overlap with desired families
     matches = select_by_traits(["stability", "balance"])
 
+    # Essence-driven selection (what the kernel does)
+    traits = traits_for_essence("guardian")  # → ["stability", "foundation", ...]
+    seed = select_by_traits(traits)[0]       # → tetrahedron
+
     # Compute trait-based resonance between two seeds
-    score = resonance("SHAPE.TETRA", "SHAPE.CUBE")
+    score = resonance("SHAPE.TETRA", "SHAPE.CUBE")  # → partial overlap
 """
 from __future__ import annotations
 import json, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 CATALOG_PATH = ROOT / "data" / "seed-catalog.json"
+ESSENCE_PATH = ROOT / "data" / "essence-traits.json"
 
 _catalog_cache: dict | None = None
+_essence_cache: dict | None = None
 
 
 def _load_catalog() -> list[dict]:
@@ -88,6 +94,48 @@ def select_by_sensor(sensor_name: str) -> list[dict]:
             x.lower() for x in s.get("bridges", {}).get("sensors", [])
         ]
     ]
+
+
+def _load_essences() -> dict:
+    global _essence_cache
+    if _essence_cache is not None:
+        return _essence_cache
+    data = json.loads(ESSENCE_PATH.read_text(encoding="utf-8"))
+    _essence_cache = data["essences"]
+    return _essence_cache
+
+
+def traits_for_essence(essence: str) -> list[str]:
+    """Map an agent essence (archetype) to trait families.
+
+    The kernel's SeedSelector calls this to translate a role like
+    "guardian" into ["stability", "foundation", "boundary", "containment"],
+    then passes the result to select_by_traits().
+
+    Returns an empty list if the essence is unknown.
+    """
+    essences = _load_essences()
+    entry = essences.get(essence.lower())
+    if entry is None:
+        return []
+    return list(entry["traits"])
+
+
+def all_essences() -> dict[str, dict]:
+    """Return all known essences with their traits and primary shapes."""
+    return dict(_load_essences())
+
+
+def select_by_essence(essence: str) -> list[dict]:
+    """Select seeds for an agent essence — combines traits_for_essence + select_by_traits.
+
+    This is the one-call replacement for random.choice() in the kernel:
+        seed = select_by_essence("guardian")[0]
+    """
+    traits = traits_for_essence(essence)
+    if not traits:
+        return []
+    return select_by_traits(traits)
 
 
 def resonance(shape_a: str, shape_b: str) -> float:
