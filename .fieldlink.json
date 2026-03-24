@@ -182,6 +182,7 @@
         "name": "mandala",
         "repo": "https://github.com/JinnZ2/Mandala-Computing",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "atlas/**/*.json",
           "protocols/**/*.json",
