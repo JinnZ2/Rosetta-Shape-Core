@@ -2,32 +2,94 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://rosetta-shape-core/schema/shape.seed.schema.json",
   "title": "Shape Seed",
+  "description": "Canonical seed format for geometry-grounded agent spawning. Links seeds to SHAPE.X ontology IDs, carries traits for resonance calculation, and bridges to emotion sensors and defense protocols.",
   "type": "object",
-  "required": ["id","version","geometry","field","glyphs","animals"],
+  "required": ["id", "shape_id", "version", "geometry", "field", "traits"],
   "properties": {
-    "id": {"type":"string"},
-    "version": {"type":"integer"},
+    "id": {
+      "type": "string",
+      "description": "Unique seed identifier (kebab-case)"
+    },
+    "shape_id": {
+      "type": "string",
+      "pattern": "^SHAPE\\.[A-Z0-9_]+$",
+      "description": "Reference to canonical SHAPE.X ontology ID"
+    },
+    "version": { "type": "integer", "minimum": 1 },
     "geometry": {
-      "type":"object",
-      "required":["type","dimensions","orientation","material"],
+      "type": "object",
+      "required": ["type", "dimensions", "faces"],
       "properties": {
-        "type":{"type":"string"},
-        "dimensions":{"type":"integer","minimum":1,"maximum":4},
-        "orientation":{"type":"string"},
-        "material":{"type":"string"}
-      }
+        "type": { "type": "string", "description": "Geometric type name" },
+        "dimensions": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "faces": { "type": "integer", "minimum": 1 },
+        "edges": { "type": "integer", "minimum": 0 },
+        "vertices": { "type": "integer", "minimum": 0 },
+        "orientation": { "type": "string" },
+        "material": { "type": "string" }
+      },
+      "additionalProperties": false
     },
     "field": {
-      "type":"object",
-      "required":["property","actions"],
+      "type": "object",
+      "required": ["property", "actions"],
       "properties": {
-        "property":{"type":"string"},
-        "actions":{"type":"array","items":{"type":"string"}}
-      }
+        "property": { "type": "string", "description": "Primary field property this seed operates in" },
+        "actions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Actions this seed can perform"
+        }
+      },
+      "additionalProperties": false
     },
-    "glyphs": {"type":"array","items":{"type":"string"}},
-    "animals": {"type":"array","items":{"type":"string"}},
-    "importance": {"type":"string"},
-    "notes": {"type":"string"}
-  }
+    "traits": {
+      "type": "object",
+      "required": ["families", "element"],
+      "properties": {
+        "families": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Symbolic families from shape definition (used for resonance calculation)"
+        },
+        "element": { "type": "string", "description": "Classical element affinity" },
+        "polyhedral_map": { "type": "string", "description": "What this shape maps to in polyhedral framework" }
+      },
+      "additionalProperties": false
+    },
+    "bridges": {
+      "type": "object",
+      "properties": {
+        "sensors": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Emotion sensors this seed can perceive through"
+        },
+        "defenses": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Defense protocols this seed activates"
+        },
+        "protocols": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Audit protocols this seed follows"
+        },
+        "glyphs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Bridge glyphs for symbolic communication"
+        }
+      },
+      "additionalProperties": false
+    },
+    "animals": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Animal intelligence archetypes associated with this seed"
+    },
+    "importance": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
 }
