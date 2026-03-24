@@ -250,6 +250,41 @@
           "src/phi_calculator.py"
         ],
         "consent": { "license": "CC0-1.0", "share_ok": true }
+      },
+      {
+        "name": "universal-redesign",
+        "repo": "https://github.com/JinnZ2/Universal-Redesign-Algorithm-",
+        "ref": "main",
+        "direction": "bidirectional",
+        "paths": [
+          "schema/**/*.json",
+          "plans/**/*.json",
+          "atlas/**/*.json"
+        ],
+        "mounts": [
+          { "remote": "schema/redesign.schema.json", "as": "atlas/remote/universal-redesign/schema.json" },
+          { "remote": "plans/energy_grid.example.json", "as": "atlas/remote/universal-redesign/energy_grid.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "symbolic-sensor-suite",
+        "repo": "https://github.com/JinnZ2/Symbolic-sensor-suite",
+        "ref": "main",
+        "direction": "bidirectional",
+        "paths": [
+          "sensors/**/*.json",
+          "glyphs/**/*.json",
+          "seed/sensors/**/*.json",
+          "BRAID_CORE.json",
+          "REALITY_STABILITY_CORE.json"
+        ],
+        "mounts": [
+          { "remote": "sensors/core/truth_sensors_index.json", "as": "atlas/remote/symbolic-sensors/truth_index.json" },
+          { "remote": "glyphs/glyph-dictionary.json", "as": "atlas/remote/symbolic-sensors/glyph_dictionary.json" },
+          { "remote": "BRAID_CORE.json", "as": "atlas/remote/symbolic-sensors/braid_core.json" }
+        ],
+        "consent": { "license": "CC-BY-4.0", "share_ok": true }
       }
     ],
 
@@ -261,7 +296,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "living-intelligence", "soms"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "living-intelligence", "soms", "universal-redesign", "symbolic-sensor-suite"],
       "strategy": "deep-merge"
     },
 
