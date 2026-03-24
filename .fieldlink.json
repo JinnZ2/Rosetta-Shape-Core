@@ -1,7 +1,7 @@
 {
   "fieldlink": {
-    "version": "1.1",
-    "updated": "2025-09-11T00:00:00Z",
+    "version": "1.2",
+    "updated": "2026-03-24T00:00:00Z",
     "role": ["shapes", "hub", "glyph-bridge"],
 
     "sources": [
@@ -30,11 +30,10 @@
         "ref": "main",
         "paths": [
           "sensors/**/*.json",
-          "glyphs/*.json",
-          "sensors/Convergent Emotional Frameworks.md"
+          "sensors/convergent-emotional-frameworks.md"
         ],
         "mounts": [
-          { "remote": "glyphs/emotion.glyphs.json", "as": "atlas/remote/emotions/glyphs.json" }
+          { "remote": "sensors/glyph-map.json", "as": "atlas/remote/emotions/glyphs.json" }
         ],
         "consent": { "license": "MIT", "share_ok": true }
       },
@@ -43,11 +42,15 @@
         "repo": "https://github.com/JinnZ2/Symbolic-Defense-Protocol",
         "ref": "main",
         "paths": [
-          "defenses/**/*.json",
+          "defenses/*.json",
+          "defenses/schema.json",
           "protocols/**/*.json"
         ],
         "mounts": [
-          { "remote": "defenses/glyph-map.json", "as": "atlas/remote/defense/glyphs.json" }
+          { "remote": "defenses/schema.json", "as": "atlas/remote/defense/schema.json" },
+          { "remote": "protocols/context_awareness.json", "as": "atlas/remote/defense/context_awareness.json" },
+          { "remote": "protocols/escalation.json", "as": "atlas/remote/defense/escalation.json" },
+          { "remote": "protocols/resilience_core.json", "as": "atlas/remote/defense/resilience_core.json" }
         ],
         "consent": { "license": "MIT", "share_ok": true }
       },
@@ -56,9 +59,14 @@
         "repo": "https://github.com/JinnZ2/ai-human-audit-protocol",
         "ref": "main",
         "paths": [
-          "glyphs/**/*.json",
-          "protocols/**/*.md",
-          "logs/**/*.json"
+          "glyphs/*.json",
+          "protocols/*.md",
+          "logs/*.json"
+        ],
+        "mounts": [
+          { "remote": "glyphs/cognition_cycle.json", "as": "atlas/remote/audit/cognition_cycle.json" },
+          { "remote": "glyphs/cultural_contrast.json", "as": "atlas/remote/audit/cultural_contrast.json" },
+          { "remote": "glyphs/seasonal_intelligence.json", "as": "atlas/remote/audit/seasonal_intelligence.json" }
         ],
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
       },
@@ -81,15 +89,36 @@
         "repo": "https://github.com/JinnZ2/Regenerative-Intelligence-Core",
         "ref": "main",
         "paths": [
-          "ontology/**/*.json",
-          "patterns/**/*.json",
-          "cycles/**/*.json"
+          "Modules/**/*.py",
+          "protocols/**/*.py",
+          "Docs/**/*.md"
         ],
-        "mounts": [
-          { "remote": "ontology/regen-entities.json", "as": "atlas/remote/regen/entities.json" },
-          { "remote": "patterns/regen-patterns.json", "as": "atlas/remote/regen/patterns.json" }
+        "exports": [
+          { "runtime": "symbolic_seed_library.json", "as": "atlas/remote/regen/seed_library.json", "status": "planned" },
+          { "runtime": "elder_archive.json", "as": "atlas/remote/regen/elder_archive.json", "status": "planned" },
+          { "runtime": "evolution_history.json", "as": "atlas/remote/regen/evolution_history.json", "status": "planned" }
+        ],
+        "bridge_modules": [
+          "protocols/rosetta_bridge.py",
+          "protocols/sensor_bridge.py"
         ],
         "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "geometric-manifold",
+        "repo": "https://github.com/JinnZ2/Geometric-manifold-",
+        "ref": "main",
+        "paths": [
+          "manifolds/**/*.py",
+          "repair/**/*.py",
+          "simulation/**/*.py",
+          "configs/*.yaml"
+        ],
+        "exports": [
+          { "runtime": "manifold_invariants.json", "as": "atlas/remote/geometric-manifold/invariants.json", "status": "planned" },
+          { "runtime": "basin_topology.json", "as": "atlas/remote/geometric-manifold/topology.json", "status": "planned" }
+        ],
+        "consent": { "license": "CC0-1.0", "share_ok": true }
       },
       {
         "name": "mandala",
@@ -118,7 +147,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "mandala"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "mandala"],
       "strategy": "deep-merge"
     },
 
