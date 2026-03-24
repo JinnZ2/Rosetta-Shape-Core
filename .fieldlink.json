@@ -221,6 +221,26 @@
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
       },
       {
+        "name": "geo-binary-bridge",
+        "repo": "https://github.com/JinnZ2/Geometric-to-Binary-Computational-Bridge",
+        "ref": "main",
+        "direction": "bidirectional",
+        "paths": [
+          "bridges/*.json",
+          "glyph_to_geometric_bridge.json",
+          "examples/*.json",
+          "Silicon/fabrication_pathway_schema.json",
+          "Silicon/octahedral_state_encoder.json"
+        ],
+        "mounts": [
+          { "remote": "bridges/geobin-bridges.json", "as": "atlas/remote/geo-binary-bridge/bridges.json" },
+          { "remote": "glyph_to_geometric_bridge.json", "as": "atlas/remote/geo-binary-bridge/glyph_to_geometric.json" },
+          { "remote": "Silicon/fabrication_pathway_schema.json", "as": "atlas/remote/geo-binary-bridge/fabrication_schema.json" },
+          { "remote": "Silicon/octahedral_state_encoder.json", "as": "atlas/remote/geo-binary-bridge/octahedral_encoder.json" }
+        ],
+        "consent": { "license": "CC-BY-4.0", "share_ok": true }
+      },
+      {
         "name": "universal-redesign",
         "repo": "https://github.com/JinnZ2/Universal-Redesign-Algorithm-",
         "ref": "main",
@@ -273,7 +293,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "universal-redesign", "living-intelligence"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "living-intelligence"],
       "strategy": "deep-merge"
     },
 
