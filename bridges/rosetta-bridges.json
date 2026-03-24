@@ -15,6 +15,27 @@
       "sensors": ["EMO:FEAR", "EMO:EXCITEMENT"],
       "defenses": ["DEF:URGENCY_GUARD"],
       "protocols": ["AUDIT:CHANGE_TRACKING_V1"]
+    },
+    {
+      "shape": "SHAPE:TETRA",
+      "families": ["fire", "stability", "foundation"],
+      "sensors": ["EMO:DETERMINATION", "EMO:FOCUS"],
+      "defenses": ["DEF:DISTRACTION_GUARD"],
+      "protocols": []
+    },
+    {
+      "shape": "SHAPE:CUBE",
+      "families": ["earth", "structure", "containment"],
+      "sensors": ["EMO:SAFETY", "EMO:BELONGING"],
+      "defenses": ["DEF:CHAOS_GUARD", "DEF:BOUNDARY_GUARD"],
+      "protocols": ["AUDIT:CONTAINMENT_ETHICS_V1"]
+    },
+    {
+      "shape": "SHAPE:OCTA",
+      "families": ["air", "balance", "integration"],
+      "sensors": ["EMO:SERENITY", "EMO:ACCEPTANCE"],
+      "defenses": ["DEF:POLARIZATION_GUARD"],
+      "protocols": ["AUDIT:MEDIATION_ETHICS_V1"]
     }
   ]
 }
