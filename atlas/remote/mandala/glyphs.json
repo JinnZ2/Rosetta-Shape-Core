@@ -1,0 +1,57 @@
+{
+  "schema": "mandala-computing/glyphs@1.0",
+  "description": "Glyph mappings for Mandala Computing. Each octahedral state, problem type, and energy concept is assigned a symbolic glyph for cross-repo translation via Rosetta-Shape-Core.",
+
+  "octahedral_state_glyphs": [
+    {"state": 0, "glyph": "octahedron.+x",  "unicode": "\u2295", "meaning": "Positive x-axis alignment"},
+    {"state": 1, "glyph": "octahedron.-x",  "unicode": "\u2296", "meaning": "Negative x-axis alignment"},
+    {"state": 2, "glyph": "octahedron.+y",  "unicode": "\u2297", "meaning": "Positive y-axis alignment"},
+    {"state": 3, "glyph": "octahedron.-y",  "unicode": "\u2298", "meaning": "Negative y-axis alignment"},
+    {"state": 4, "glyph": "octahedron.+z",  "unicode": "\u2299", "meaning": "Positive z-axis alignment"},
+    {"state": 5, "glyph": "octahedron.-z",  "unicode": "\u229A", "meaning": "Negative z-axis alignment"},
+    {"state": 6, "glyph": "octahedron.diag-a", "unicode": "\u229B", "meaning": "Diagonal superposition A"},
+    {"state": 7, "glyph": "octahedron.diag-b", "unicode": "\u229C", "meaning": "Diagonal superposition B"}
+  ],
+
+  "problem_type_glyphs": [
+    {"type": "FACTORIZATION",  "glyph": "mandala.factor",   "unicode": "\u2234", "meaning": "Decompose integer into prime factors via bipartite tensor"},
+    {"type": "SAT",            "glyph": "mandala.satisfy",   "unicode": "\u22A8", "meaning": "Satisfy boolean clause set via energy minimization"},
+    {"type": "TSP",            "glyph": "mandala.circuit",   "unicode": "\u21BA", "meaning": "Find optimal circuit through city ring topology"},
+    {"type": "GRAPH_COLORING", "glyph": "mandala.color",     "unicode": "\u25C9", "meaning": "Assign colors to graph nodes without neighbor conflict"},
+    {"type": "OPTIMIZATION",   "glyph": "mandala.minimize",  "unicode": "\u2207", "meaning": "Minimize energy landscape to find global optimum"}
+  ],
+
+  "energy_glyphs": {
+    "ground_state":   {"glyph": "energy.ground",   "unicode": "\u23DA", "meaning": "Minimum energy configuration — the solution"},
+    "thermal":        {"glyph": "energy.thermal",   "unicode": "\u2668", "meaning": "Thermal fluctuation for Metropolis-Hastings exploration"},
+    "coupling":       {"glyph": "energy.coupling",  "unicode": "\u2194", "meaning": "Inter-cell coupling via FRET dipole interaction"},
+    "annealing":      {"glyph": "energy.anneal",    "unicode": "\u2935", "meaning": "Temperature descent schedule for convergence"}
+  },
+
+  "structural_glyphs": {
+    "fractal_ring":   {"glyph": "structure.ring",    "unicode": "\u25CE", "meaning": "Concentric fractal ring at PHI-scaled depth"},
+    "mandala_bloom":  {"glyph": "structure.bloom",   "unicode": "\u2740", "meaning": "Expansion of symbol core into nested fractal structure"},
+    "phi_ratio":      {"glyph": "constant.phi",      "unicode": "\u03C6", "meaning": "Golden ratio 1.618... — fundamental scaling constant"},
+    "hilbert_8":      {"glyph": "quantum.hilbert8",  "unicode": "\u2117", "meaning": "8-dimensional Hilbert space for qubit-octit states"}
+  },
+
+  "cuneiform_layer": {
+    "description": "Ancient symbolic mappings from .fieldlink.json multilingual layer.",
+    "mappings": [
+      {"symbol": "\uD809\uDC01", "glyph": "cuneiform.fractal",   "meaning": "Fractal/Mandala pattern"},
+      {"symbol": "\uD809\uDC38", "glyph": "cuneiform.dimension",  "meaning": "Dimensional layers"},
+      {"symbol": "\uD809\uDE7D", "glyph": "cuneiform.waveform",   "meaning": "Waveform energy function"}
+    ]
+  },
+
+  "rosetta_translation": {
+    "description": "How these glyphs map to Rosetta-Shape-Core concepts.",
+    "shape_to_glyph": {
+      "vertex": "octahedral_state_glyphs[*]",
+      "edge": "energy_glyphs.coupling",
+      "face": "structural_glyphs.fractal_ring",
+      "solid": "structural_glyphs.mandala_bloom"
+    },
+    "directionality": "bidirectional — Rosetta can read these glyphs and Mandala can import Rosetta shape definitions"
+  }
+}

@@ -92,14 +92,14 @@
         "ref": "main",
         "paths": [
           "atlas/**/*.json",
-          "glyphs/**/*.json",
           "protocols/**/*.json",
           "sensors/**/*.json"
         ],
         "mounts": [
           { "remote": "atlas/shapes.json", "as": "atlas/remote/mandala/shapes.json" },
-          { "remote": "glyphs/mandala.json", "as": "atlas/remote/mandala/glyphs.json" },
-          { "remote": "protocols/connect.json", "as": "atlas/remote/mandala/connect.json" }
+          { "remote": "atlas/glyphs/mandala.json", "as": "atlas/remote/mandala/glyphs.json" },
+          { "remote": "protocols/connect.json", "as": "atlas/remote/mandala/connect.json" },
+          { "remote": "sensors/multi_layer.json", "as": "atlas/remote/mandala/sensors.json" }
         ],
         "consent": { "license": "MIT", "share_ok": true }
       }

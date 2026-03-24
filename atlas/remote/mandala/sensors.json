@@ -1,0 +1,91 @@
+{
+  "schema": "mandala-computing/sensors@1.0",
+  "description": "Sensor layer definitions for monitoring mandala computation. Each sensor reads a specific observable from the computation state and emits structured data.",
+
+  "sensors": [
+    {
+      "id": "energy.total",
+      "type": "scalar",
+      "unit": "dimensionless",
+      "source": "MandalaComputer.compute_total_energy()",
+      "description": "Total system energy: sum of cell energies and coupling energies.",
+      "range": {"min": null, "max": null},
+      "interpretation": "Lower is better. Ground state = solution found."
+    },
+    {
+      "id": "energy.delta",
+      "type": "scalar",
+      "unit": "dimensionless",
+      "source": "relax_step() dE computation",
+      "description": "Energy change from most recent state transition.",
+      "interpretation": "Negative = system relaxing toward solution. Near-zero = converged."
+    },
+    {
+      "id": "temperature",
+      "type": "scalar",
+      "unit": "dimensionless",
+      "source": "Metropolis-Hastings T parameter",
+      "description": "Current temperature controlling exploration vs exploitation.",
+      "interpretation": "High T = exploration. Low T = exploitation. Annealing decreases T over time."
+    },
+    {
+      "id": "convergence.rate",
+      "type": "scalar",
+      "unit": "energy/step",
+      "source": "Computed from energy history",
+      "description": "Rate of energy decrease over recent relaxation steps.",
+      "interpretation": "Approaching zero = system is near equilibrium."
+    },
+    {
+      "id": "symmetry.octahedral",
+      "type": "distribution",
+      "unit": "count[8]",
+      "source": "Histogram of cell states 0-7",
+      "description": "Distribution of octahedral states across all cells.",
+      "interpretation": "Uniform = disordered. Peaked = ordered/solution-like."
+    },
+    {
+      "id": "coupling.network",
+      "type": "graph",
+      "unit": "adjacency with weights",
+      "source": "Cell neighbor lists + FRET coupling strengths",
+      "description": "Weighted graph of inter-cell coupling strengths.",
+      "interpretation": "Strong edges = tightly coupled subsystems. Clusters = problem structure."
+    },
+    {
+      "id": "quantum.fidelity",
+      "type": "scalar",
+      "unit": "probability",
+      "source": "QuantumMandalaComputer state overlap",
+      "description": "Overlap between current quantum state and target ground state.",
+      "range": {"min": 0.0, "max": 1.0},
+      "interpretation": "1.0 = perfect solution. Only available in quantum mode."
+    },
+    {
+      "id": "quantum.entanglement",
+      "type": "scalar",
+      "unit": "bits",
+      "source": "Von Neumann entropy of reduced density matrix",
+      "description": "Entanglement entropy between quantum cells.",
+      "interpretation": "High = cells are quantum-correlated. Relevant for quantum advantage."
+    }
+  ],
+
+  "layers": {
+    "description": "Sensors are organized into layers for different monitoring granularities.",
+    "classical": ["energy.total", "energy.delta", "temperature", "convergence.rate", "symmetry.octahedral", "coupling.network"],
+    "quantum": ["quantum.fidelity", "quantum.entanglement"],
+    "structural": ["symmetry.octahedral", "coupling.network"],
+    "diagnostic": ["energy.delta", "convergence.rate", "temperature"]
+  },
+
+  "emit_format": {
+    "description": "Standardized output format for sensor readings.",
+    "example": {
+      "sensor_id": "energy.total",
+      "timestamp_step": 42,
+      "value": -3.14159,
+      "metadata": {"num_cells": 11, "depth": 4}
+    }
+  }
+}
