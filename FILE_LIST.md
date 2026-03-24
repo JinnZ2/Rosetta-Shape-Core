@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-2914016bec1ce88f1c269834bff6a488e5d09fdd.idx
-./.git/objects/pack/pack-2914016bec1ce88f1c269834bff6a488e5d09fdd.pack
-./.git/objects/pack/pack-2914016bec1ce88f1c269834bff6a488e5d09fdd.rev
+./.git/objects/pack/pack-2c9d5be7e6f750360d0cc2e9e681c4b04c7fe301.idx
+./.git/objects/pack/pack-2c9d5be7e6f750360d0cc2e9e681c4b04c7fe301.pack
+./.git/objects/pack/pack-2c9d5be7e6f750360d0cc2e9e681c4b04c7fe301.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -56,6 +56,7 @@
 ./data/interaction_ontology.json
 ./data/math_constants.json
 ./data/sacred_geometry.json
+./data/seed-catalog.json
 ./data/semantic_suppression_model.json
 ./data/shape_ontology.json
 ./data/temporal_states.json
@@ -102,6 +103,7 @@
 ./shapes/tetrahedron.json
 ./src/rosetta_shape_core/__init__.py
 ./src/rosetta_shape_core/expand.py
+./src/rosetta_shape_core/seeds.py
 ./src/rosetta_shape_core/validator.py
 ./tests/golden/examples.json
 ./tests/test_schema.py
