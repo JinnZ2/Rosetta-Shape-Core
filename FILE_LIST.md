@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-29c8a91b631d6c7134c7bd552c1d2fa90c7052ed.idx
-./.git/objects/pack/pack-29c8a91b631d6c7134c7bd552c1d2fa90c7052ed.pack
-./.git/objects/pack/pack-29c8a91b631d6c7134c7bd552c1d2fa90c7052ed.rev
+./.git/objects/pack/pack-4f46845061088526ca2d5ae01a545cc4d416582d.idx
+./.git/objects/pack/pack-4f46845061088526ca2d5ae01a545cc4d416582d.pack
+./.git/objects/pack/pack-4f46845061088526ca2d5ae01a545cc4d416582d.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -49,6 +49,11 @@
 ./atlas/remote/biogrid/planned.json
 ./atlas/remote/biogrid/registry.json
 ./atlas/remote/emotions/glyphs.json
+./atlas/remote/fractal-compass/bloom_logic.json
+./atlas/remote/fractal-compass/felt.json
+./atlas/remote/fractal-compass/glyph_set.json
+./atlas/remote/fractal-compass/mandelbrot.json
+./atlas/remote/fractal-compass/seed_glyph.json
 ./atlas/remote/mandala/connect.json
 ./atlas/remote/mandala/glyphs.json
 ./atlas/remote/mandala/sensors.json
