@@ -99,6 +99,7 @@
         "name": "regen",
         "repo": "https://github.com/JinnZ2/Regenerative-Intelligence-Core",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "Modules/**/*.py",
           "protocols/**/*.py",
