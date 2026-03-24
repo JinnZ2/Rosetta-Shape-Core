@@ -244,6 +244,157 @@ def validate_fieldlink():
 
 
 # ---------------------------------------------------------------------------
+# Cross-repo mesh integrity validation
+# ---------------------------------------------------------------------------
+
+def validate_mesh():
+    """Validate the full fieldlink mesh: bidirectional consistency, mount
+    cross-references, synergy triangle integrity, and entity reachability.
+
+    This is the "nervous system" check — it walks every peer relationship
+    and verifies that the staged data is coherent across the ecosystem.
+    """
+    errors = []
+    fl_file = ROOT / ".fieldlink.json"
+    if not fl_file.exists():
+        return errors
+
+    try:
+        data = json.loads(fl_file.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"  mesh: .fieldlink.json invalid JSON — {exc}"]
+
+    fl = data.get("fieldlink", {})
+    sources = fl.get("sources", [])
+
+    # --- 1. Direction completeness: flag any source still missing direction ---
+    for s in sources:
+        if "direction" not in s:
+            errors.append(
+                f"  mesh: source '{s['name']}' has no direction declared "
+                f"(expected 'bidirectional')"
+            )
+
+    # --- 2. Mount entity cross-check: IDs in mounted files should not
+    #     collide with local IDs (namespace hygiene) ---
+    local_entities, local_ids = load_entities()
+    _, local_shape_ids = load_shapes()
+    all_local = local_ids | local_shape_ids
+
+    remote_ids_by_source = {}
+    remote_dir = ROOT / "atlas" / "remote"
+    if remote_dir.exists():
+        for source_dir in sorted(remote_dir.iterdir()):
+            if not source_dir.is_dir():
+                continue
+            ids = set()
+            for p in source_dir.glob("*.json"):
+                try:
+                    rdata = json.loads(p.read_text(encoding="utf-8"))
+                except json.JSONDecodeError:
+                    errors.append(f"  mesh: bad JSON in {p.relative_to(ROOT)}")
+                    continue
+                # Remote files may be dicts or arrays
+                if isinstance(rdata, list):
+                    for item in rdata:
+                        if isinstance(item, dict) and "id" in item:
+                            ids.add(item["id"])
+                elif isinstance(rdata, dict):
+                    for e in rdata.get("entities", []):
+                        if isinstance(e, dict) and "id" in e:
+                            ids.add(e["id"])
+                    if "id" in rdata and isinstance(rdata["id"], str):
+                        ids.add(rdata["id"])
+                    for entry in rdata.get("map", []):
+                        if isinstance(entry, dict) and "id" in entry:
+                            ids.add(entry["id"])
+            remote_ids_by_source[source_dir.name] = ids
+
+    all_remote = set()
+    for ids in remote_ids_by_source.values():
+        all_remote |= ids
+
+    # Check for ID collisions between different remote sources
+    seen_remote = {}
+    for source_name, ids in remote_ids_by_source.items():
+        for eid in ids:
+            if eid in seen_remote and seen_remote[eid] != source_name:
+                errors.append(
+                    f"  mesh: ID '{eid}' claimed by both "
+                    f"'{seen_remote[eid]}' and '{source_name}'"
+                )
+            seen_remote[eid] = source_name
+
+    # --- 3. Synergy triangle validation ---
+    for s in sources:
+        triangle = s.get("synergy_triangle")
+        if not triangle:
+            continue
+        node_ids = {n["id"] for n in triangle.get("nodes", [])}
+        edges = triangle.get("edges", [])
+        # Every edge endpoint must be a declared node
+        for edge in edges:
+            for endpoint in ("from", "to"):
+                if edge.get(endpoint) not in node_ids:
+                    errors.append(
+                        f"  mesh: synergy triangle in '{s['name']}' has edge "
+                        f"endpoint '{edge.get(endpoint)}' not in nodes {node_ids}"
+                    )
+        # Triangle must have exactly 3 edges for 3 nodes
+        if len(node_ids) == 3 and len(edges) != 3:
+            errors.append(
+                f"  mesh: synergy triangle in '{s['name']}' has "
+                f"{len(edges)} edges, expected 3"
+            )
+
+    # --- 4. Mount-to-source alignment: every mount dir should map to a source ---
+    source_names = {s["name"] for s in sources}
+    if remote_dir.exists():
+        for source_dir in remote_dir.iterdir():
+            if not source_dir.is_dir():
+                continue
+            # Fuzzy match: dir may be a short alias of the source name
+            # e.g. dir "biomachine" matches source "biomachine-ecology"
+            matched = False
+            dn = source_dir.name.replace("-", "").replace("_", "").lower()
+            for sname in source_names:
+                sn = sname.replace("-", "").replace("_", "").lower()
+                if sn == dn or sn.startswith(dn) or dn.startswith(sn):
+                    matched = True
+                    break
+            if not matched:
+                errors.append(
+                    f"  mesh: atlas/remote/{source_dir.name}/ has no "
+                    f"matching source in .fieldlink.json"
+                )
+
+    # --- 5. Cross-mesh entity reachability: links targeting remote namespaces
+    #     should be resolvable in staged remote data ---
+    registry_file = ROOT / "ontology" / "_id_registry.json"
+    if registry_file.exists():
+        registry = json.loads(registry_file.read_text(encoding="utf-8"))["registry"]
+        external_ns = {
+            ns for ns, info in registry.items()
+            if info.get("source") != "Rosetta-Shape-Core"
+        }
+        reachable = all_local | all_remote
+        unreachable = []
+        for e in local_entities:
+            for link in e.get("links", []):
+                target = link["to"]
+                ns = target.split(".")[0] if "." in target else ""
+                if ns in external_ns and target not in reachable:
+                    unreachable.append((e["id"], target))
+        if unreachable:
+            for src_id, tgt_id in unreachable:
+                errors.append(
+                    f"  mesh: {src_id} -> {tgt_id} unreachable in staged data"
+                )
+
+    return errors
+
+
+# ---------------------------------------------------------------------------
 # Unified entry point
 # ---------------------------------------------------------------------------
 
@@ -284,13 +435,22 @@ def validate_files():
         all_errors.append("Fieldlink topology errors:")
         all_errors.extend(fl_errors)
 
+    mesh_errs = validate_mesh()
+    # Direction-missing is a warning (peers may still be setting up)
+    mesh_warnings = [e for e in mesh_errs if "no direction" in e]
+    mesh_errors = [e for e in mesh_errs if "no direction" not in e]
+    if mesh_errors:
+        all_errors.append("Mesh integrity errors:")
+        all_errors.extend(mesh_errors)
+
     if all_errors:
         raise SystemExit("Validation failed:\n" + "\n".join(all_errors))
 
-    if fl_warnings:
+    all_warnings = fl_warnings + mesh_warnings
+    if all_warnings:
         import sys
-        print("Fieldlink warnings (non-fatal):", file=sys.stderr)
-        for w in fl_warnings:
+        print("Warnings (non-fatal):", file=sys.stderr)
+        for w in all_warnings:
             print(w, file=sys.stderr)
 
 
