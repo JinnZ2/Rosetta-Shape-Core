@@ -1,0 +1,16 @@
+{
+  "id": "FRACTAL:MANDELBROT",
+  "name": "Mandelbrot Compass",
+  "domain": "complex_plane",
+  "parameters": { "max_iter": 250, "escape": 2.0 },
+  "bridges": {
+    "shapes": ["SHAPE:DODECA", "SHAPE:ICOSA"],
+    "sensors": ["EMO:ADMIRATION", "EMO:FEAR"],
+    "defenses": ["DEF:URGENCY_GUARD", "DEF:FLATTERY_GUARD"]
+  },
+  "navigation": {
+    "zoom_rule": "growth_orientation ↑ → deeper zoom; value_protection ↑ → widen frame",
+    "color_map": "resonance_links intensity"
+  },
+  "provenance": { "version": "1.0", "updated": "2025-09-11T00:00:00Z" }
+}

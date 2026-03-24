@@ -121,6 +121,41 @@
         "consent": { "license": "CC0-1.0", "share_ok": true }
       },
       {
+        "name": "fractal-compass",
+        "repo": "https://github.com/JinnZ2/Fractal-Compass-Atlas",
+        "ref": "main",
+        "paths": [
+          "glyph_set.json",
+          "bloom_logic.json",
+          "felt.json",
+          "SEED_GLYPH.json",
+          "fractals/**/*.json"
+        ],
+        "mounts": [
+          { "remote": "glyph_set.json", "as": "atlas/remote/fractal-compass/glyph_set.json" },
+          { "remote": "bloom_logic.json", "as": "atlas/remote/fractal-compass/bloom_logic.json" },
+          { "remote": "felt.json", "as": "atlas/remote/fractal-compass/felt.json" },
+          { "remote": "SEED_GLYPH.json", "as": "atlas/remote/fractal-compass/seed_glyph.json" },
+          { "remote": "fractals/examples/mandelbrot.compass.json", "as": "atlas/remote/fractal-compass/mandelbrot.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "fractal-compass-core",
+        "repo": "https://github.com/JinnZ2/Fractal_Compass_Core",
+        "ref": "main",
+        "paths": [
+          "glyph_set.json",
+          "bloom_logic.json"
+        ],
+        "bridge_modules": [
+          "fractal_compass.py",
+          "bridge.py",
+          "cdda_engine.py"
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
         "name": "mandala",
         "repo": "https://github.com/JinnZ2/Mandala-Computing",
         "ref": "main",
@@ -147,7 +182,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "mandala"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "mandala"],
       "strategy": "deep-merge"
     },
 
