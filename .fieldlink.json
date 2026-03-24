@@ -28,14 +28,19 @@
         "name": "emotions",
         "repo": "https://github.com/JinnZ2/Emotions-as-Sensors",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "sensors/**/*.json",
-          "sensors/convergent-emotional-frameworks.md"
+          "sensors/convergent-emotional-frameworks.md",
+          "atlas/emotions.json",
+          "glyphs/emotion.glyphs.json"
         ],
         "mounts": [
-          { "remote": "sensors/glyph-map.json", "as": "atlas/remote/emotions/glyphs.json" }
+          { "remote": "sensors/glyph-map.json", "as": "atlas/remote/emotions/glyphs.json" },
+          { "remote": "atlas/emotions.json", "as": "atlas/remote/emotions/atlas.json", "status": "planned" },
+          { "remote": "glyphs/emotion.glyphs.json", "as": "atlas/remote/emotions/emotion_glyphs.json", "status": "planned" }
         ],
-        "consent": { "license": "MIT", "share_ok": true }
+        "consent": { "license": "CC0-1.0", "share_ok": true }
       },
       {
         "name": "defense",
