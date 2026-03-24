@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "description": "Mapping of Polyhedral-Intelligence equation families to the Five-Field Maintenance Framework",
+    "link_back": "https://github.com/JinnZ2/JinnZ2/vault/tree/main/Five-Field-Framework",
+    "version": "1.0"
+  },
+  "fields": {
+    "chemical": {
+      "description": "Parameter families governing baseline constants and stability.",
+      "families": ["F01", "F02", "F03", "F04"]
+    },
+    "emotional": {
+      "description": "Response and bifurcation families defining sensitivity and harmonization.",
+      "families": ["F05", "F06", "F07", "F08"]
+    },
+    "cognitive": {
+      "description": "Coupling and synchronization families handling multi-observer coordination.",
+      "families": ["F09", "F10", "F11"]
+    },
+    "dream": {
+      "description": "Emergence and attractor families executing maintenance and synthesis.",
+      "families": ["F12", "F13", "F14", "F15", "F16", "F17"]
+    },
+    "symbolic": {
+      "description": "Encoding and projection families translating mathematics into glyphs and applied design.",
+      "families": ["F18", "F19", "F20"]
+    }
+  },
+  "coupling_logic": "chemical → emotional → cognitive → dream → symbolic → feedback to chemical"
+}
