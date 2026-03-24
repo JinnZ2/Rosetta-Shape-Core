@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-27a9894a816909921802e4c1c4fa82f275a957f4.idx
-./.git/objects/pack/pack-27a9894a816909921802e4c1c4fa82f275a957f4.pack
-./.git/objects/pack/pack-27a9894a816909921802e4c1c4fa82f275a957f4.rev
+./.git/objects/pack/pack-29c8a91b631d6c7134c7bd552c1d2fa90c7052ed.idx
+./.git/objects/pack/pack-29c8a91b631d6c7134c7bd552c1d2fa90c7052ed.pack
+./.git/objects/pack/pack-29c8a91b631d6c7134c7bd552c1d2fa90c7052ed.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -48,7 +48,6 @@
 ./ai_integrator.config.yaml
 ./atlas/remote/biogrid/planned.json
 ./atlas/remote/biogrid/registry.json
-./atlas/remote/defense/glyphs.json
 ./atlas/remote/emotions/glyphs.json
 ./atlas/remote/mandala/connect.json
 ./atlas/remote/mandala/glyphs.json
