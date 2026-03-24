@@ -1,0 +1,81 @@
+{
+  "schema": "mandala-computing/shapes@1.0",
+  "description": "Machine-readable geometric primitives for Mandala Computing. Maps octahedral states, fractal ring topology, and energy couplings to consumable data for cross-repo fieldlink.",
+
+  "constants": {
+    "PHI": 1.618033988749895,
+    "FRET_CUTOFF": 4.854101966249685,
+    "OCTAHEDRAL_STATES": 8,
+    "COUPLING_EXPONENT": 6
+  },
+
+  "octahedral_angles": [
+    {"state": 0, "theta": 0.0,          "phi_angle": 0.0,          "label": "+x"},
+    {"state": 1, "theta": 3.14159265,   "phi_angle": 0.0,          "label": "-x"},
+    {"state": 2, "theta": 1.57079633,   "phi_angle": 0.0,          "label": "+y"},
+    {"state": 3, "theta": 1.57079633,   "phi_angle": 3.14159265,   "label": "-y"},
+    {"state": 4, "theta": 1.57079633,   "phi_angle": 1.57079633,   "label": "+z"},
+    {"state": 5, "theta": 1.57079633,   "phi_angle": 4.71238898,   "label": "-z"},
+    {"state": 6, "theta": 0.78539816,   "phi_angle": 0.78539816,   "label": "diagonal-a"},
+    {"state": 7, "theta": 2.35619449,   "phi_angle": 3.92699082,   "label": "diagonal-b"}
+  ],
+
+  "fractal_ring_schema": {
+    "description": "At depth d, generate floor(PHI^(d+1)) cells at radius PHI^d, equally spaced in angle.",
+    "formula": {
+      "num_cells": "floor(PHI^(depth+1))",
+      "radius": "PHI^depth",
+      "angle_i": "2*pi*i / num_cells"
+    },
+    "example_depths": [
+      {"depth": 0, "num_cells": 1, "radius": 1.0},
+      {"depth": 1, "num_cells": 2, "radius": 1.618},
+      {"depth": 2, "num_cells": 4, "radius": 2.618},
+      {"depth": 3, "num_cells": 6, "radius": 4.236},
+      {"depth": 4, "num_cells": 11, "radius": 6.854}
+    ]
+  },
+
+  "energy_model": {
+    "coupling": {
+      "formula": "J * sin(|s_i - s_j| * pi / 4)^2",
+      "description": "Coupling energy between neighbor cells based on octahedral state difference."
+    },
+    "fret": {
+      "formula": "1 / r^6",
+      "cutoff": 4.854101966249685,
+      "description": "Dipole interaction strength decays as inverse sixth power of distance."
+    },
+    "metropolis": {
+      "accept_rule": "dE < 0 ? always : exp(-dE / T)",
+      "description": "Metropolis-Hastings acceptance criterion for state transitions."
+    }
+  },
+
+  "problem_types": [
+    {"id": "FACTORIZATION",   "encoding": "bipartite_tensor", "min_cells": 2},
+    {"id": "SAT",             "encoding": "clause_graph",     "min_cells": "num_variables"},
+    {"id": "TSP",             "encoding": "ring_topology",    "min_cells": "num_cities"},
+    {"id": "GRAPH_COLORING",  "encoding": "adjacency_map",    "min_cells": "num_nodes"},
+    {"id": "OPTIMIZATION",    "encoding": "direct_landscape", "min_cells": "varies"}
+  ],
+
+  "quantum_extension": {
+    "hilbert_dim": 8,
+    "state_label": "qubit-octit",
+    "annealing_schedule": "H(t) = (1-s(t))*H_initial + s(t)*H_problem",
+    "factorization_space": 64,
+    "factorization_note": "Two-cell system: 8*8 = 64 dimensional Hilbert space."
+  },
+
+  "rosetta_hooks": {
+    "description": "Entry points for Rosetta-Shape-Core to translate mandala primitives into its shape language.",
+    "shape_map": {
+      "octahedron": "8-vertex symmetric solid, maps to 8 computational states",
+      "fractal_ring": "Nested concentric rings with PHI-scaled radii",
+      "coupling_edge": "Weighted edge between neighbor cells, strength ~ 1/r^6"
+    },
+    "export_formats": ["json", "python-dict"],
+    "source_modules": ["mandala_computer.py", "quantum_mandala.py", "mandala_simulator.py"]
+  }
+}

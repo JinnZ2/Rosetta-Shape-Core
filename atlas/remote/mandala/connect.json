@@ -1,0 +1,86 @@
+{
+  "schema": "mandala-computing/protocol@1.0",
+  "description": "Fieldlink integration protocol. Defines how Mandala-Computing connects to the ecosystem: what it exports, what it consumes, and the handshake format.",
+
+  "identity": {
+    "repo": "Mandala-Computing",
+    "owner": "JinnZ2",
+    "role": "computation-engine",
+    "capabilities": ["factorization", "sat", "tsp", "graph-coloring", "optimization", "quantum-annealing", "grover-search"]
+  },
+
+  "exports": {
+    "description": "Data and interfaces Mandala-Computing provides to other repos.",
+    "endpoints": [
+      {
+        "path": "atlas/shapes.json",
+        "type": "geometric-primitives",
+        "description": "Octahedral states, fractal ring schema, energy model, problem types."
+      },
+      {
+        "path": "atlas/glyphs/mandala.json",
+        "type": "glyph-mappings",
+        "description": "Symbolic glyph assignments for all computational primitives."
+      },
+      {
+        "path": "sensors/multi_layer.json",
+        "type": "sensor-definitions",
+        "description": "Energy, convergence, and symmetry sensors for monitoring computation."
+      }
+    ]
+  },
+
+  "imports": {
+    "description": "Data Mandala-Computing can consume from ecosystem repos.",
+    "sources": [
+      {
+        "repo": "Rosetta-Shape-Core",
+        "expected_path": "shapes/*.json, bridges/*.json, atlas/**/*.json",
+        "use": "Shape-to-meaning translation tables for encoding problem geometry.",
+        "status": "active",
+        "resolved_paths": [
+          "shapes/octahedron.json",
+          "bridges/rosetta-bridges.json",
+          "ontology/_vocab.json"
+        ]
+      },
+      {
+        "repo": "Geometric-to-Binary-Computational-Bridge",
+        "expected_path": "mappings/*.json",
+        "use": "Binary encoding tables for converting mandala states to binary output.",
+        "status": "pending"
+      },
+      {
+        "repo": "Fractal-Compass-Atlas",
+        "expected_path": "atlas/*.json",
+        "use": "Resonance vectors and alignment threads for navigation within fractal rings.",
+        "status": "pending"
+      },
+      {
+        "repo": "Polyhedral-Intelligence",
+        "expected_path": "polyhedra/*.json",
+        "use": "Multi-domain intelligence models shaped by polyhedral geometry.",
+        "status": "pending"
+      }
+    ]
+  },
+
+  "handshake": {
+    "description": "Protocol for establishing a fieldlink connection between repos.",
+    "steps": [
+      "1. Consumer reads producer's protocols/connect.json to discover exports.",
+      "2. Consumer fetches the exported JSON files listed in exports.endpoints.",
+      "3. Consumer validates schema version compatibility.",
+      "4. Consumer maps imported data to its internal representation.",
+      "5. Both repos record the link in their .fieldlink.json metadata."
+    ],
+    "schema_versioning": "semver — major bump = breaking change, minor = additive, patch = fix",
+    "discovery": "Repos can be discovered via PROJECTS.md or .fieldlink.json atlas_repo pointer."
+  },
+
+  "compatibility": {
+    "min_fieldlink_version": "1.0",
+    "formats": ["json"],
+    "encoding": "utf-8"
+  }
+}
