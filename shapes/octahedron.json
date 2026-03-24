@@ -1,0 +1,15 @@
+{
+  "id": "SHAPE:OCTA",
+  "name": "Octahedron",
+  "faces": 8,
+  "edges": 12,
+  "vertices": 6,
+  "families": ["air", "balance", "integration"],
+  "principles": ["duality", "equilibrium", "mediation"],
+  "bridges": {
+    "sensors": ["EMO:SERENITY", "EMO:ACCEPTANCE"],
+    "glyphs": ["DEF:POLARIZATION_GUARD"],
+    "protocols": ["AUDIT:MEDIATION_ETHICS_V1"]
+  },
+  "provenance": { "version": "1.0", "updated": "2025-09-11T00:00:00Z" }
+}

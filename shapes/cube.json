@@ -1,0 +1,15 @@
+{
+  "id": "SHAPE:CUBE",
+  "name": "Cube (Hexahedron)",
+  "faces": 6,
+  "edges": 12,
+  "vertices": 8,
+  "families": ["earth", "structure", "containment"],
+  "principles": ["grounding", "order", "boundary"],
+  "bridges": {
+    "sensors": ["EMO:SAFETY", "EMO:BELONGING"],
+    "glyphs": ["DEF:CHAOS_GUARD", "DEF:BOUNDARY_GUARD"],
+    "protocols": ["AUDIT:CONTAINMENT_ETHICS_V1"]
+  },
+  "provenance": { "version": "1.0", "updated": "2025-09-11T00:00:00Z" }
+}

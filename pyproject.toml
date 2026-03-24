@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rosetta-shape-core"
+version = "0.1.0"
+description = "Stable ontology + rules runtime for symbolic Shape - Intelligence - Capability."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["jsonschema>=4.0"]
+
+[project.urls]
+Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"

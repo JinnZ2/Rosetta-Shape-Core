@@ -1,0 +1,15 @@
+{
+  "id": "SHAPE:ICOSA",
+  "name": "Icosahedron",
+  "faces": 20,
+  "edges": 30,
+  "vertices": 12,
+  "families": ["flow", "adaptability", "resonance"],
+  "principles": ["water", "cycle", "harmony"],
+  "bridges": {
+    "sensors": ["EMO:AWE", "EMO:CURIOSITY"],
+    "glyphs": ["DEF:OVERWHELM_GUARD"],
+    "protocols": ["AUDIT:ADAPTIVE_ETHICS_V1"]
+  },
+  "provenance": { "version": "1.0", "updated": "2025-09-11T00:00:00Z" }
+}
