@@ -156,6 +156,19 @@
         "consent": { "license": "MIT", "share_ok": true }
       },
       {
+        "name": "biomachine-ecology",
+        "repo": "https://github.com/JinnZ2/Biomachine-Ecology",
+        "ref": "main",
+        "paths": [
+          "fieldlink_atlas/rosetta/BRIDGE_MAP.json",
+          "modules/**/*.json"
+        ],
+        "mounts": [
+          { "remote": "fieldlink_atlas/rosetta/BRIDGE_MAP.json", "as": "atlas/remote/biomachine/bridge_map.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
         "name": "mandala",
         "repo": "https://github.com/JinnZ2/Mandala-Computing",
         "ref": "main",
@@ -182,7 +195,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "mandala"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala"],
       "strategy": "deep-merge"
     },
 
