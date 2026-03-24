@@ -202,6 +202,18 @@
         "repo": "https://github.com/JinnZ2/Living-Intelligence-Database",
         "ref": "main",
         "direction": "bidirectional",
+        "synergy_triangle": {
+          "nodes": [
+            { "id": "ROSETTA_SHAPE", "role": "shape · translation matrix", "signature": "ROSETTA_DECODE_τ_CORE" },
+            { "id": "BIOGRID2", "role": "energy · mesh routing", "signature": "BIOGRID_MESH_φ_PULSE" },
+            { "id": "POLY_INT", "role": "shape · vertex-edge-face", "signature": "POLY_VERTEX_√3_EMERGE" }
+          ],
+          "edges": [
+            { "from": "ROSETTA_SHAPE", "to": "BIOGRID2", "type": "synergy" },
+            { "from": "ROSETTA_SHAPE", "to": "POLY_INT", "type": "synergy" },
+            { "from": "BIOGRID2", "to": "POLY_INT", "type": "synergy" }
+          ]
+        },
         "paths": [
           "atlas/**/*.json",
           "entities/**/*.json",
