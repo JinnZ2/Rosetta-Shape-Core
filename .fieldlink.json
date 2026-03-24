@@ -80,9 +80,13 @@
         "name": "biogrid",
         "repo": "https://github.com/JinnZ2/BioGrid2.0",
         "ref": "main",
+        "direction": "bidirectional",
+        "shared_interface": "atlas/shapes.json",
+        "glyph_gate": "⬟↔️📐",
         "paths": [
           "planned/glyphs/atlas.json",
-          "registry/atlas.glyphs.json"
+          "registry/atlas.glyphs.json",
+          "data/*.glyphs.json"
         ],
         "mounts": [
           { "remote": "planned/glyphs/atlas.json", "as": "atlas/remote/biogrid/planned.json" },
