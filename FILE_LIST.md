@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-ec334ac079808a6f7e53954747376f1b288f5998.idx
-./.git/objects/pack/pack-ec334ac079808a6f7e53954747376f1b288f5998.pack
-./.git/objects/pack/pack-ec334ac079808a6f7e53954747376f1b288f5998.rev
+./.git/objects/pack/pack-b9430565434f7f27fd6c428a1c09be243b08bcd4.idx
+./.git/objects/pack/pack-b9430565434f7f27fd6c428a1c09be243b08bcd4.pack
+./.git/objects/pack/pack-b9430565434f7f27fd6c428a1c09be243b08bcd4.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -88,6 +88,8 @@
 ./physics_grounded_protection.py
 ./prompts/system_prompt.txt
 ./protocols/README.md
+./protocols/mandala-compute-protocol.md
+./protocols/seed-growth-protocol.md
 ./pyproject.toml
 ./recursion.json
 ./rules/expand.jsonl
