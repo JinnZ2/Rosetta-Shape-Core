@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "id": "0001",
+      "title": "Resonant Honeycomb Infrastructure",
+      "glyph": "◇⚙➝〰〰〰⬡ᘯᘰ⇑◧",
+      "tags": ["matter", "engineering", "resonance", "bee-intelligence", "infrastructure"]
+    },
+    {
+      "id": "0002",
+      "title": "Echolocating Autonomy",
+      "glyph": "⋮⋯⋮▁▃▅∿◉∙∙●🦇🐬ᘯᘰ⇑◧",
+      "tags": ["cognition", "statistical", "consciousness", "emergence", "bat", "dolphin", "robotics"]
+    },
+    {
+      "id": "0003",
+      "title": "Family Node Manufacturing",
+      "glyph": "⚙➝⬡⟳⒮⇑◉ᘯᘰ▁▃▅∿◧",
+      "tags": ["manufacturing", "resilience", "distributed-economy", "family-nodes", "ecology"]
+    }
+  ]
+}

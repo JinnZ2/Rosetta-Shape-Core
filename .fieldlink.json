@@ -10,12 +10,17 @@
         "repo": "https://github.com/JinnZ2/Polyhedral-Intelligence",
         "ref": "main",
         "paths": [
-          "glyphs/**/*.json",
-          "atlas/shapes.json",
-          "scrolls/*.md"
+          "atlas_schema.json",
+          "protocols.json",
+          "five_field_schema_map.json",
+          "atlas_index.json",
+          "entries/*.json"
         ],
         "mounts": [
-          { "remote": "atlas/shapes.json", "as": "atlas/remote/polyhedral/shapes.json" }
+          { "remote": "atlas_schema.json", "as": "atlas/remote/polyhedral/atlas_schema.json" },
+          { "remote": "protocols.json", "as": "atlas/remote/polyhedral/protocols.json" },
+          { "remote": "five_field_schema_map.json", "as": "atlas/remote/polyhedral/five_field_map.json" },
+          { "remote": "atlas_index.json", "as": "atlas/remote/polyhedral/atlas_index.json" }
         ],
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
       },

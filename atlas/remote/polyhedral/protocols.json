@@ -1,0 +1,38 @@
+{
+  "families": [
+    { "id": "F01", "name": "Resonance", "symbol": "≡≡≡", "equations": [] },
+    { "id": "F02", "name": "Flow", "symbol": "↻", "equations": [] },
+    { "id": "F03", "name": "Information", "symbol": "⊗", "equations": [] },
+    { "id": "F04", "name": "Life", "symbol": "••••", "equations": [] },
+    { "id": "F05", "name": "Energy-Thermo", "symbol": "△≈", "equations": [] },
+    { "id": "F06", "name": "Cognition", "symbol": "⋯⋯", "equations": [] },
+    { "id": "F07", "name": "Earth-Cosmos", "symbol": "◯", "equations": [] },
+    { "id": "F08", "name": "Matter", "symbol": "◆", "equations": [] },
+    { "id": "F09", "name": "Geometry", "symbol": "☆", "equations": [] },
+    { "id": "F10", "name": "Particle", "symbol": "⚪", "equations": [] },
+    { "id": "F11", "name": "Engineering", "symbol": "⚙", "equations": [] },
+    { "id": "F12", "name": "Networks", "symbol": "⬡", "equations": [] },
+    { "id": "F13", "name": "Reaction", "symbol": "⇑", "equations": [] },
+    { "id": "F14", "name": "Measurement", "symbol": "↕", "equations": [] },
+    { "id": "F15", "name": "Navigation", "symbol": "◆→", "equations": [] },
+    { "id": "F16", "name": "Consciousness", "symbol": "◎", "equations": [] },
+    { "id": "F17", "name": "Turbulence", "symbol": "ᘯᘰ", "equations": [] },
+    { "id": "F18", "name": "Relativity", "symbol": "⊗≡", "equations": [] },
+    { "id": "F19", "name": "Statistical", "symbol": "▁▃▅∿", "equations": [] },
+    { "id": "F20", "name": "Topology", "symbol": "∞", "equations": [] }
+  ],
+  "principles": [
+    { "id": "P01", "name": "Symmetry", "symbol": "⧖", "equations": [] },
+    { "id": "P02", "name": "Conservation", "symbol": "↺", "equations": [] },
+    { "id": "P03", "name": "Relativity", "symbol": "⊗", "equations": [] },
+    { "id": "P04", "name": "Duality", "symbol": "◑", "equations": [] },
+    { "id": "P05", "name": "Emergence", "symbol": "●●", "equations": [] },
+    { "id": "P06", "name": "Resonance", "symbol": "∿", "equations": [] },
+    { "id": "P07", "name": "Continuity", "symbol": "⎯", "equations": [] },
+    { "id": "P08", "name": "Quantization", "symbol": "▭", "equations": [] },
+    { "id": "P09", "name": "Proportion", "symbol": "▯", "equations": [] },
+    { "id": "P10", "name": "Uncertainty", "symbol": "◧", "equations": [] },
+    { "id": "P11", "name": "Transformation", "symbol": "↻", "equations": [] },
+    { "id": "P12", "name": "Unity", "symbol": "◎", "equations": [] }
+  ]
+}
