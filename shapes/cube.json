@@ -4,7 +4,7 @@
   "faces": 6,
   "edges": 12,
   "vertices": 8,
-  "families": ["earth", "structure", "containment"],
+  "families": ["earth", "stability", "structure", "containment"],
   "polyhedral": { "maps_to": "structural containment" },
   "bridges": {
     "sensors": ["peace", "contentment"],

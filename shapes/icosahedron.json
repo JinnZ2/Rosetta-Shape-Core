@@ -4,7 +4,7 @@
   "faces": 20,
   "edges": 30,
   "vertices": 12,
-  "families": ["anticipation", "flow", "adaptability"],
+  "families": ["anticipation", "flow", "growth", "adaptability"],
   "polyhedral": { "maps_to": "20 Families (F01-F20)" },
   "bridges": {
     "sensors": ["fear", "excitement"],

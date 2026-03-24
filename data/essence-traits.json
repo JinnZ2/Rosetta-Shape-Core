@@ -1,0 +1,46 @@
+{
+  "version": "1.0.0",
+  "description": "Maps agent essences (archetypes) to trait families from the shape ontology. The kernel's SeedSelector uses this to find the right geometry for a given agent role.",
+  "essences": {
+    "guardian": {
+      "traits": ["stability", "foundation", "boundary", "containment"],
+      "description": "Protects boundaries, enforces integrity, resists manipulation",
+      "primary_shapes": ["SHAPE.TETRA", "SHAPE.CUBE"]
+    },
+    "explorer": {
+      "traits": ["flow", "adaptability", "anticipation", "growth"],
+      "description": "Navigates unknown territory, adapts to change, senses emerging patterns",
+      "primary_shapes": ["SHAPE.ICOSA"]
+    },
+    "healer": {
+      "traits": ["balance", "integration", "structure"],
+      "description": "Mediates conflict, restores balance, integrates opposing forces",
+      "primary_shapes": ["SHAPE.OCTA"]
+    },
+    "teacher": {
+      "traits": ["orientation", "trust", "growth", "boundary"],
+      "description": "Navigates by principles, builds trust, sets growth boundaries",
+      "primary_shapes": ["SHAPE.DODECA"]
+    },
+    "builder": {
+      "traits": ["structure", "stability", "foundation", "containment"],
+      "description": "Creates enduring structures, maintains order, grounds systems",
+      "primary_shapes": ["SHAPE.CUBE", "SHAPE.TETRA"]
+    },
+    "mediator": {
+      "traits": ["balance", "integration", "trust", "orientation"],
+      "description": "Bridges perspectives, resolves false dilemmas, facilitates cooperation",
+      "primary_shapes": ["SHAPE.OCTA", "SHAPE.DODECA"]
+    },
+    "sentinel": {
+      "traits": ["boundary", "stability", "anticipation", "foundation"],
+      "description": "Watches for threats, maintains vigilance, detects breaches early",
+      "primary_shapes": ["SHAPE.TETRA", "SHAPE.ICOSA"]
+    },
+    "nurturer": {
+      "traits": ["growth", "balance", "trust", "integration"],
+      "description": "Fosters development, supports emergence, sustains regenerative cycles",
+      "primary_shapes": ["SHAPE.DODECA", "SHAPE.OCTA"]
+    }
+  }
+}

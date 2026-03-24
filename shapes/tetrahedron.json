@@ -4,7 +4,7 @@
   "faces": 4,
   "edges": 6,
   "vertices": 4,
-  "families": ["fire", "stability", "foundation"],
+  "families": ["fire", "stability", "foundation", "boundary"],
   "polyhedral": { "maps_to": "simplex foundation" },
   "bridges": {
     "sensors": ["anger", "pride"],

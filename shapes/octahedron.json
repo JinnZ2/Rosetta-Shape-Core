@@ -4,7 +4,7 @@
   "faces": 8,
   "edges": 12,
   "vertices": 6,
-  "families": ["air", "balance", "integration"],
+  "families": ["air", "structure", "balance", "integration"],
   "polyhedral": { "maps_to": "dual of cube — balance/integration" },
   "bridges": {
     "sensors": ["compassion", "love"],
