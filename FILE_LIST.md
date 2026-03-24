@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-53c60f99b241ef2a622b554d341011984fa59b93.idx
-./.git/objects/pack/pack-53c60f99b241ef2a622b554d341011984fa59b93.pack
-./.git/objects/pack/pack-53c60f99b241ef2a622b554d341011984fa59b93.rev
+./.git/objects/pack/pack-27a9894a816909921802e4c1c4fa82f275a957f4.idx
+./.git/objects/pack/pack-27a9894a816909921802e4c1c4fa82f275a957f4.pack
+./.git/objects/pack/pack-27a9894a816909921802e4c1c4fa82f275a957f4.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -54,6 +54,10 @@
 ./atlas/remote/mandala/glyphs.json
 ./atlas/remote/mandala/sensors.json
 ./atlas/remote/mandala/shapes.json
+./atlas/remote/polyhedral/atlas_index.json
+./atlas/remote/polyhedral/atlas_schema.json
+./atlas/remote/polyhedral/five_field_map.json
+./atlas/remote/polyhedral/protocols.json
 ./balance.json
 ./bridges/rosetta-bridges.json
 ./data/animal_intelligence.json
