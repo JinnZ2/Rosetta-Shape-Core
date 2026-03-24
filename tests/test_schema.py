@@ -6,6 +6,7 @@ from rosetta_shape_core.validator import (
     validate_bridges,
     validate_seeds,
     validate_fieldlink,
+    validate_mesh,
     load_shapes,
 )
 from rosetta_shape_core.seeds import (
@@ -87,6 +88,39 @@ def test_fieldlink_topology():
     errs = validate_fieldlink()
     mount_errs = [e for e in errs if "mount missing" not in e]
     assert mount_errs == [], f"Fieldlink errors: {mount_errs}"
+
+
+def test_mesh_integrity():
+    """Cross-repo mesh: no ID collisions, synergy triangles valid, mounts aligned."""
+    errs = validate_mesh()
+    # Filter out direction warnings (peers may still be setting up)
+    hard_errs = [e for e in errs if "no direction" not in e]
+    assert hard_errs == [], f"Mesh errors: {hard_errs}"
+
+
+def test_mesh_all_sources_bidirectional():
+    """Every fieldlink source declares a direction."""
+    fl = json.loads((ROOT / ".fieldlink.json").read_text(encoding="utf-8"))
+    sources = fl["fieldlink"]["sources"]
+    missing = [s["name"] for s in sources if "direction" not in s]
+    assert missing == [], f"Sources without direction: {missing}"
+
+
+def test_mesh_synergy_triangle_well_formed():
+    """Synergy triangles have 3 nodes and 3 edges with valid endpoints."""
+    fl = json.loads((ROOT / ".fieldlink.json").read_text(encoding="utf-8"))
+    for s in fl["fieldlink"]["sources"]:
+        tri = s.get("synergy_triangle")
+        if not tri:
+            continue
+        nodes = tri.get("nodes", [])
+        edges = tri.get("edges", [])
+        node_ids = {n["id"] for n in nodes}
+        assert len(nodes) == 3, f"{s['name']}: expected 3 nodes, got {len(nodes)}"
+        assert len(edges) == 3, f"{s['name']}: expected 3 edges, got {len(edges)}"
+        for edge in edges:
+            assert edge["from"] in node_ids, f"bad from: {edge['from']}"
+            assert edge["to"] in node_ids, f"bad to: {edge['to']}"
 
 
 def test_full_validation():

@@ -65,6 +65,7 @@
         "name": "audit",
         "repo": "https://github.com/JinnZ2/ai-human-audit-protocol",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "glyphs/*.json",
           "protocols/*.md",
@@ -120,6 +121,7 @@
         "name": "geometric-manifold",
         "repo": "https://github.com/JinnZ2/Geometric-manifold-",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "manifolds/**/*.py",
           "repair/**/*.py",
@@ -136,6 +138,7 @@
         "name": "fractal-compass",
         "repo": "https://github.com/JinnZ2/Fractal-Compass-Atlas",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "glyph_set.json",
           "bloom_logic.json",
@@ -156,6 +159,7 @@
         "name": "fractal-compass-core",
         "repo": "https://github.com/JinnZ2/Fractal_Compass_Core",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "glyph_set.json",
           "bloom_logic.json"
@@ -171,6 +175,7 @@
         "name": "biomachine-ecology",
         "repo": "https://github.com/JinnZ2/Biomachine-Ecology",
         "ref": "main",
+        "direction": "bidirectional",
         "paths": [
           "fieldlink_atlas/rosetta/BRIDGE_MAP.json",
           "modules/**/*.json"
