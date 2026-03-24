@@ -5,11 +5,12 @@
   "edges": 30,
   "vertices": 12,
   "families": ["anticipation", "flow", "adaptability"],
-  "principles": ["water", "cycle", "harmony"],
+  "polyhedral": { "maps_to": "20 Families (F01-F20)" },
   "bridges": {
-    "sensors": ["EMO:FEAR", "EMO:EXCITEMENT"],
-    "glyphs": ["DEF:URGENCY_GUARD"],
-    "protocols": ["AUDIT:CHANGE_TRACKING_V1"]
+    "sensors": ["fear", "excitement"],
+    "defenses": ["def.pr.05", "def.bi.04"],
+    "protocols": ["change_tracking_v1.0"],
+    "bridge_glyphs": ["🛡⏳"]
   },
-  "provenance": { "version": "1.0", "updated": "2025-09-11T00:00:00Z" }
+  "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
 }

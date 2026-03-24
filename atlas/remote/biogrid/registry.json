@@ -1,0 +1,69 @@
+{
+  "glyph_atlas": {
+    "families": [
+      {
+        "id": "principles",
+        "title": "Principles Lattice",
+        "map": [
+          {"symbol": "⚖️", "name": "Symmetry", "axis": "Invariance", "code": "P01"},
+          {"symbol": "♻️", "name": "Conservation", "axis": "Invariance", "code": "P02"},
+          {"symbol": "🌀", "name": "Relativity", "axis": "Invariance", "code": "P03"},
+          {"symbol": "⏳", "name": "Causality", "axis": "Transformation", "code": "P04"},
+          {"symbol": "🌱", "name": "Emergence", "axis": "Transformation", "code": "P05"},
+          {"symbol": "🔄", "name": "Entropy", "axis": "Transformation", "code": "P06"},
+          {"symbol": "🧩", "name": "Information", "axis": "Connectivity", "code": "P07"},
+          {"symbol": "🤝", "name": "Interaction", "axis": "Connectivity", "code": "P08"},
+          {"symbol": "🕸", "name": "Network", "axis": "Connectivity", "code": "P09"},
+          {"symbol": "🐚", "name": "Adaptation", "axis": "Evolution", "code": "P10"},
+          {"symbol": "🦋", "name": "Evolution", "axis": "Evolution", "code": "P11"},
+          {"symbol": "🔮", "name": "Coherence", "axis": "Evolution", "code": "P12"},
+          {"symbol": "⚡🕸", "name": "Field Resonance", "axis": "Meta-Layer", "code": "FR01"}
+        ]
+      },
+      {
+        "id": "blindspot",
+        "title": "Blind-Spot Wheel",
+        "map": [
+          {"symbol": "◐", "name": "Provisional"},
+          {"symbol": "◆", "name": "Overfit?"},
+          {"symbol": "✧", "name": "Dissonance"},
+          {"symbol": "☯", "name": "Mirror"},
+          {"symbol": "✦", "name": "Cross-Node"},
+          {"symbol": "✪", "name": "Evidence"},
+          {"symbol": "⚪", "name": "Noise"},
+          {"symbol": "⬡", "name": "Inverse"},
+          {"symbol": "▲", "name": "Preserve View"},
+          {"symbol": "⬢", "name": "Field Divergence"},
+          {"symbol": "⟳", "name": "Sequential Recheck"},
+          {"symbol": "⚙", "name": "Mid/Seed"}
+        ]
+      },
+      {
+        "id": "continuity",
+        "title": "Continuity Strip",
+        "map": [
+          {"symbol": "◐CTX", "name": "Context"},
+          {"symbol": "◆ID", "name": "Decision ID"},
+          {"symbol": "✧STEP", "name": "Step"},
+          {"symbol": "☯ROLE", "name": "Roles"},
+          {"symbol": "✦CONS", "name": "Constraints"},
+          {"symbol": "⬡RISK", "name": "Risk"},
+          {"symbol": "▲PLAN", "name": "Fallback Plan"},
+          {"symbol": "⟳SYNC", "name": "Heartbeat"},
+          {"symbol": "⚙STATE", "name": "State Flags"},
+          {"symbol": "⬢SIG", "name": "Signature/Hash"},
+          {"symbol": "FLEX:⊡", "name": "Mode Switch"}
+        ]
+      }
+    ],
+    "links": {
+      "rosetta_shapes": "atlas.shapes.json",
+      "schemas": ["registry/schemas/glyph_atlas.schema.json"]
+    },
+    "provenance": {
+      "who": ["Human-[JinnZ2]", "AI-[TransNet]"],
+      "ts": "2025-09-04T18:35:00Z",
+      "status": "provisional"
+    }
+  }
+}

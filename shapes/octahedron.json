@@ -5,11 +5,13 @@
   "edges": 12,
   "vertices": 6,
   "families": ["air", "balance", "integration"],
-  "principles": ["duality", "equilibrium", "mediation"],
+  "polyhedral": { "maps_to": "dual of cube — balance/integration" },
   "bridges": {
-    "sensors": ["EMO:SERENITY", "EMO:ACCEPTANCE"],
-    "glyphs": ["DEF:POLARIZATION_GUARD"],
-    "protocols": ["AUDIT:MEDIATION_ETHICS_V1"]
+    "sensors": ["compassion", "love"],
+    "defenses": ["def.ap.09", "def.fr.10"],
+    "protocols": ["symbolic_protocol_v1.0"],
+    "audit_glyphs": ["SAF:PRIV", "SAF:PROG"],
+    "bridge_glyphs": ["🫀", "💞"]
   },
-  "provenance": { "version": "1.0", "updated": "2025-09-11T00:00:00Z" }
+  "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
 }

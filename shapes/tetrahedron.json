@@ -5,11 +5,12 @@
   "edges": 6,
   "vertices": 4,
   "families": ["fire", "stability", "foundation"],
-  "principles": ["simplex", "strength", "origin"],
+  "polyhedral": { "maps_to": "simplex foundation" },
   "bridges": {
-    "sensors": ["EMO:DETERMINATION", "EMO:FOCUS"],
-    "glyphs": ["DEF:DISTRACTION_GUARD"],
-    "protocols": []
+    "sensors": ["anger", "pride"],
+    "defenses": ["def.se.01", "def.fr.03"],
+    "protocols": [],
+    "bridge_glyphs": ["🛡️", "🏅"]
   },
-  "provenance": { "version": "1.0", "updated": "2025-09-11T00:00:00Z" }
+  "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
 }
