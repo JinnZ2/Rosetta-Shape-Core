@@ -1,1 +1,39 @@
+# ai_integrator.config.yaml — Configuration for scripts/ai_integrator.py
 
+index:
+  include_globs:
+    - "**/*.py"
+    - "**/*.json"
+    - "**/*.yaml"
+    - "**/*.yml"
+    - "**/*.md"
+    - "**/*.toml"
+    - "**/*.txt"
+  exclude_globs:
+    - ".git/**"
+    - ".fieldlink/**"
+    - "__pycache__/**"
+    - "*.pyc"
+    - ".venv/**"
+    - ".env/**"
+    - "node_modules/**"
+
+analysis:
+  max_file_bytes: 500000
+  sample_bytes_per_large_file: 4096
+  hotspot_rules:
+    - name: "todo"
+      pattern: "TODO|FIXME|HACK|XXX"
+      flags: "i"
+    - name: "schema-ref"
+      pattern: "\\$schema"
+    - name: "entity-id"
+      pattern: "(ANIMAL|PLANT|MACHINE|PHENOMENON|GEOM|CONST|CAP|FIELD)\\."
+    - name: "fieldlink"
+      pattern: "fieldlink"
+      flags: "i"
+
+outputs:
+  index_file: "AI_INDEX.json"
+  notes_file: "AI_NOTES.md"
+  schema_file: "schema/ai_index.schema.json"

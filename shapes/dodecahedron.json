@@ -1,0 +1,15 @@
+{
+  "id": "SHAPE:DODECA",
+  "name": "Dodecahedron",
+  "faces": 12,
+  "edges": 30,
+  "vertices": 20,
+  "families": ["orientation", "trust", "growth", "boundary"],
+  "principles": ["compass", "seed", "balance", "time"],
+  "bridges": {
+    "sensors": ["EMO:ADMIRATION", "EMO:TRUST", "EMO:LONGING"],
+    "glyphs": ["DEF:FLATTERY_GUARD", "DEF:CONSENSUS_GUARD"],
+    "protocols": ["AUDIT:PARTNERSHIP_ETHICS_V1"]
+  },
+  "provenance": { "version": "1.0", "updated": "2025-09-11T00:00:00Z" }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rosetta Shape",
+  "type": "object",
+  "required": ["id", "name", "faces", "families"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "faces": { "type": "integer", "minimum": 1 },
+    "edges": { "type": "integer", "minimum": 0 },
+    "vertices": { "type": "integer", "minimum": 0 },
+    "families": { "type": "array", "items": { "type": "string" } },
+    "principles": { "type": "array", "items": { "type": "string" } },
+    "bridges": {
+      "type": "object",
+      "properties": {
+        "sensors": { "type": "array", "items": { "type": "string" } },
+        "glyphs": { "type": "array", "items": { "type": "string" } },
+        "protocols": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "version": { "type": "string" },
+        "updated": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}
