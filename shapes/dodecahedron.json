@@ -1,5 +1,5 @@
 {
-  "id": "SHAPE:DODECA",
+  "id": "SHAPE.DODECA",
   "name": "Dodecahedron",
   "faces": 12,
   "edges": 30,

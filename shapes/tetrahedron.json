@@ -1,5 +1,5 @@
 {
-  "id": "SHAPE:TETRA",
+  "id": "SHAPE.TETRA",
   "name": "Tetrahedron",
   "faces": 4,
   "edges": 6,

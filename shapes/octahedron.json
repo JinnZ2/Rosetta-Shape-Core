@@ -1,5 +1,5 @@
 {
-  "id": "SHAPE:OCTA",
+  "id": "SHAPE.OCTA",
   "name": "Octahedron",
   "faces": 8,
   "edges": 12,

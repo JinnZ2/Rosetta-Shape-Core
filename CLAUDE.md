@@ -10,6 +10,7 @@ This repo also acts as a **navigation hub** for a family of related projects, or
 - **Symbolic-Defense-Protocol** — manipulation detection + defense glyphs
 - **AI-Human-Audit-Protocol** — ethics, consent, auditability
 - **BioGrid 2.0** — upstream atlas & registry
+- **Regenerative-Intelligence-Core** — regenerative patterns, cycles, ontology
 
 ## Tech Stack
 
@@ -64,9 +65,10 @@ python -m pytest tests/
 
 ## Key Conventions
 
-- **Entity IDs** use dot-namespaced format: `ANIMAL.BEE`, `CONST.PHI`, `GEOM.TRI`, `CAP.SWARM_COORDINATION`
-- **Namespaces** defined in `ontology/_vocab.json`: ANIMAL, PLANT, MACHINE, PHENOMENON, GEOM, CONST, CAP, FIELD
-- **Relationship types**: MIRRORS, AMPLIFIES, CONSTRAINS, EMERGES_FROM, BRIDGES_TO
+- **Entity IDs** use dot-namespaced format: `ANIMAL.BEE`, `CONST.PHI`, `GEOM.TRI`, `SHAPE.TETRA`, `CAP.SWARM_COORDINATION`
+- **Namespaces** defined in `ontology/_vocab.json`: ANIMAL, PLANT, MICROBE, CRYSTAL, GEOM, STRUCT, FIELD, CONST, TEMP, PROTO, CAP, SHAPE, EMOTION, DEFENSE, REGEN
+- **Canonical ID registry**: `ontology/_id_registry.json` maps each namespace to its authoritative source repo
+- **Relationship types**: IS_A, USES, ALIGNS_WITH, OPERATES_IN, STRUCTURE, SENSES_IN_FIELD, MORPHOLOGY, DERIVES, EMERGES_AS, CAPABILITIZED_BY
 - **File naming**: snake_case for code/config, kebab-case for JSON data, dot-separated for schemas
 - **All schema files** use JSON Schema 2020-12 (`$schema: "https://json-schema.org/draft/2020-12/schema"`)
 - **Rules** are stored as JSONL (one JSON object per line) in `rules/expand.jsonl`
@@ -76,7 +78,7 @@ python -m pytest tests/
 - **Data-first**: JSON schemas define the contract; Python code is a thin validator + rule engine
 - **Offline-friendly**: No network calls required for core validation/expansion
 - **Fieldlink orchestration**: `.fieldlink.json` defines how to pull and merge data from sibling repos into `.fieldlink/merge_stage/`
-- **Referential integrity**: `validator.py` checks that all `links[*].to` references resolve to existing entity IDs
+- **Referential integrity**: `validator.py` checks ontology links, shape schemas, bridge references, and cross-repo refs
 - **Rule priority**: Rules in `expand.jsonl` are sorted by descending `priority`; first match wins
 - **Guards**: Rules can require capabilities via `guard.requires` — the subject entity (or `--have` flags) must satisfy them
 
@@ -91,8 +93,10 @@ python -m pytest tests/
 ## Workflow: Adding a New Shape
 
 1. Create a JSON file in `shapes/` following `schema/shape.schema.json`
-2. Include: id, name, faces, edges, vertices, families, bridges
-3. Bridge to sensors, glyphs, and protocols as needed
+2. Use `SHAPE.X` dot-format for the ID (e.g., `SHAPE.DODECA`)
+3. Include: id, name, faces, edges, vertices, families, polyhedral, bridges
+4. Bridges must include: sensors, defenses, protocols, bridge_glyphs (audit_glyphs optional)
+5. Run `python examples/validate_ontology.py` to verify schema + bridge integrity
 
 ## Do Not
 

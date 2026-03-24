@@ -1,5 +1,5 @@
 {
-  "id": "SHAPE:CUBE",
+  "id": "SHAPE.CUBE",
   "name": "Cube (Hexahedron)",
   "faces": 6,
   "edges": 12,
