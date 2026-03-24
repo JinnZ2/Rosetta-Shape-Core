@@ -1,7 +1,7 @@
 {
   "fieldlink": {
     "version": "1.2",
-    "updated": "2026-03-24T00:00:00Z",
+    "updated": "2026-03-24T12:00:00Z",
     "role": ["shapes", "hub", "glyph-bridge"],
 
     "sources": [
@@ -204,6 +204,39 @@
         "consent": { "license": "MIT", "share_ok": true }
       },
       {
+        "name": "symbolic-sensor-suite",
+        "repo": "https://github.com/JinnZ2/Symbolic-sensor-suite",
+        "ref": "main",
+        "direction": "bidirectional",
+        "paths": [
+          "sensors/**/*.json",
+          "seed/sensors/**/*.json",
+          "glyphs/glyph-dictionary.json"
+        ],
+        "mounts": [
+          { "remote": "sensors/core/truth_sensors_index.json", "as": "atlas/remote/symbolic-sensor-suite/truth_sensors.json" },
+          { "remote": "glyphs/glyph-dictionary.json", "as": "atlas/remote/symbolic-sensor-suite/glyphs.json" },
+          { "remote": "seed/sensors/fractal_boundary.json", "as": "atlas/remote/symbolic-sensor-suite/seed/fractal_boundary.json" }
+        ],
+        "consent": { "license": "CC-BY-4.0", "share_ok": true }
+      },
+      {
+        "name": "universal-redesign",
+        "repo": "https://github.com/JinnZ2/Universal-Redesign-Algorithm-",
+        "ref": "main",
+        "direction": "bidirectional",
+        "paths": [
+          "schema/redesign.schema.json",
+          "plans/**/*.json",
+          "docs/**/*.md"
+        ],
+        "mounts": [
+          { "remote": "schema/redesign.schema.json", "as": "atlas/remote/universal-redesign/schema.json" },
+          { "remote": "plans/energy_grid.example.json", "as": "atlas/remote/universal-redesign/energy_grid.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
         "name": "living-intelligence",
         "repo": "https://github.com/JinnZ2/Living-Intelligence-Database",
         "ref": "main",
@@ -240,7 +273,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "living-intelligence"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "universal-redesign", "living-intelligence"],
       "strategy": "deep-merge"
     },
 
