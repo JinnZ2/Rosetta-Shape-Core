@@ -229,6 +229,27 @@
           { "remote": "atlas/living_intelligence.json", "as": "atlas/remote/living-intelligence/atlas.json", "status": "planned" }
         ],
         "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "soms",
+        "repo": "https://github.com/JinnZ2/Sovereign-Octahedral-Mandala-Substrate-SOMS-",
+        "ref": "main",
+        "direction": "bidirectional",
+        "paths": [
+          "src/**/*.py",
+          "data/**/*",
+          "atlas/**/*.json"
+        ],
+        "exports": [
+          { "runtime": "energy_landscape.json", "as": "atlas/remote/soms/energy_landscape.json", "status": "planned" },
+          { "runtime": "phi_sovereignty.json", "as": "atlas/remote/soms/phi_sovereignty.json", "status": "planned" }
+        ],
+        "bridge_modules": [
+          "src/octahedral_physics.py",
+          "src/mandala_structure.py",
+          "src/phi_calculator.py"
+        ],
+        "consent": { "license": "CC0-1.0", "share_ok": true }
       }
     ],
 
@@ -240,7 +261,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "living-intelligence"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "living-intelligence", "soms"],
       "strategy": "deep-merge"
     },
 
