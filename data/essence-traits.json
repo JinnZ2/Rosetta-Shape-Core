@@ -41,6 +41,16 @@
       "traits": ["growth", "balance", "trust", "integration"],
       "description": "Fosters development, supports emergence, sustains regenerative cycles",
       "primary_shapes": ["SHAPE.DODECA", "SHAPE.OCTA"]
+    },
+    "observer": {
+      "traits": ["balance", "structure", "stability", "integration"],
+      "description": "Watches from the center, mediates through presence, maintains equilibrium",
+      "primary_shapes": ["SHAPE.OCTA"]
+    },
+    "weaver": {
+      "traits": ["orientation", "trust", "growth", "boundary"],
+      "description": "Connects patterns across domains, transcends boundaries, unifies disparate systems",
+      "primary_shapes": ["SHAPE.DODECA"]
     }
   }
 }

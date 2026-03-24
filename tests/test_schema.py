@@ -9,6 +9,7 @@ from rosetta_shape_core.validator import (
 )
 from rosetta_shape_core.seeds import (
     all_seeds,
+    all_shape_ids,
     get_seed,
     get_seed_by_name,
     select_by_traits,
@@ -86,6 +87,15 @@ def test_all_seeds_returns_five():
     assert shape_ids == {"SHAPE.TETRA", "SHAPE.CUBE", "SHAPE.OCTA", "SHAPE.DODECA", "SHAPE.ICOSA"}
 
 
+def test_all_shape_ids():
+    """all_shape_ids() returns sorted list of all shape IDs."""
+    ids = all_shape_ids()
+    assert len(ids) == 5
+    assert ids == sorted(ids)  # sorted
+    for expected in ["SHAPE.TETRA", "SHAPE.CUBE", "SHAPE.OCTA", "SHAPE.ICOSA", "SHAPE.DODECA"]:
+        assert expected in ids
+
+
 def test_get_seed_by_shape_id():
     """Can look up each seed by its SHAPE.X ID."""
     seed = get_seed("SHAPE.TETRA")
@@ -116,7 +126,6 @@ def test_select_by_traits():
 
 def test_select_by_traits_returns_partial_matches():
     """Shapes with partial trait overlap are included."""
-    # "stability" is shared by tetra and cube
     matches = select_by_traits(["stability"])
     shape_ids = [m["shape_id"] for m in matches]
     assert "SHAPE.TETRA" in shape_ids
@@ -138,7 +147,7 @@ def test_select_by_sensor():
 
 
 # ---------------------------------------------------------------------------
-# Resonance tests (polyhedral duality creates real overlap)
+# Resonance tests (Jaccard + polyhedral topology bonuses)
 # ---------------------------------------------------------------------------
 
 def test_resonance_same_seed():
@@ -147,32 +156,60 @@ def test_resonance_same_seed():
     assert score == 1.0
 
 
-def test_resonance_tetra_cube_partial():
-    """Tetra and Cube share 'stability' — partial resonance."""
+def test_resonance_tetra_cube_bridge():
+    """Tetra and Cube: Jaccard overlap (stability) + bridge bonus."""
     score = resonance("SHAPE.TETRA", "SHAPE.CUBE")
-    assert 0.0 < score < 1.0
     # tetra: fire, stability, foundation, boundary (4)
     # cube: earth, stability, structure, containment (4)
-    # intersection: {stability} = 1, union = 7
-    assert abs(score - 1 / 7) < 0.01
+    # Jaccard: 1/7 ≈ 0.143 + bridge bonus 0.08 ≈ 0.223
+    assert 0.2 < score < 0.3
 
 
-def test_resonance_cube_octa_partial():
-    """Cube and Octa (duals) share 'structure' — partial resonance."""
+def test_resonance_cube_octa_duality():
+    """Cube and Octa (duals): Jaccard overlap (structure) + duality bonus."""
     score = resonance("SHAPE.CUBE", "SHAPE.OCTA")
-    assert 0.0 < score < 1.0
+    # cube: earth, stability, structure, containment (4)
+    # octa: air, structure, balance, integration (4)
+    # Jaccard: 1/7 ≈ 0.143 + duality bonus 0.15 ≈ 0.293
+    assert 0.25 < score < 0.35
 
 
-def test_resonance_dodeca_icosa_partial():
-    """Dodeca and Icosa (duals) share 'growth' — partial resonance."""
+def test_resonance_dodeca_icosa_duality():
+    """Dodeca and Icosa (duals): Jaccard overlap (growth) + duality bonus."""
     score = resonance("SHAPE.DODECA", "SHAPE.ICOSA")
-    assert 0.0 < score < 1.0
+    # Jaccard + 0.15 duality
+    assert 0.2 < score < 0.4
 
 
-def test_resonance_tetra_dodeca_partial():
-    """Tetra and Dodeca share 'boundary' — partial resonance."""
+def test_resonance_tetra_dodeca_bridge():
+    """Tetra and Dodeca: Jaccard overlap (boundary) + bridge bonus."""
     score = resonance("SHAPE.TETRA", "SHAPE.DODECA")
-    assert 0.0 < score < 1.0
+    # Jaccard + 0.08 bridge
+    assert 0.1 < score < 0.3
+
+
+def test_resonance_duality_stronger_than_bridge():
+    """Duality bonus (0.15) is stronger than bridge bonus (0.08)."""
+    dual = resonance("SHAPE.CUBE", "SHAPE.OCTA")
+    bridge = resonance("SHAPE.TETRA", "SHAPE.CUBE")
+    assert dual > bridge
+
+
+def test_resonance_no_topology_no_bonus():
+    """Tetra and Icosa have no topology connection — Jaccard only."""
+    score = resonance("SHAPE.TETRA", "SHAPE.ICOSA")
+    # No trait overlap, no topology → 0.0
+    assert score == 0.0
+
+
+def test_resonance_symmetry():
+    """resonance(A, B) == resonance(B, A)."""
+    assert resonance("SHAPE.TETRA", "SHAPE.CUBE") == resonance("SHAPE.CUBE", "SHAPE.TETRA")
+
+
+def test_resonance_capped_at_one():
+    """Resonance never exceeds 1.0."""
+    assert resonance("SHAPE.TETRA", "SHAPE.TETRA") <= 1.0
 
 
 def test_resonance_not_found():
@@ -180,17 +217,39 @@ def test_resonance_not_found():
     assert resonance("SHAPE.TETRA", "SHAPE.NONEXISTENT") == 0.0
 
 
-def test_seed_traits_vector():
-    """Traits vector has correct shape and values."""
-    vec = seed_traits_vector("SHAPE.TETRA")
-    assert isinstance(vec, dict)
-    assert vec["fire"] == 1.0
-    assert vec["stability"] == 1.0
-    assert vec["foundation"] == 1.0
-    assert vec["boundary"] == 1.0
-    # Families from other seeds should be 0.0
-    assert vec["earth"] == 0.0
-    assert vec["balance"] == 0.0
+# ---------------------------------------------------------------------------
+# Trait vector tests (tuple format for kernel compatibility)
+# ---------------------------------------------------------------------------
+
+def test_seed_traits_vector_returns_tuple():
+    """Traits vector returns (list[int], list[str]) tuple."""
+    result = seed_traits_vector("SHAPE.TETRA")
+    assert isinstance(result, tuple)
+    assert len(result) == 2
+    vector, labels = result
+    assert isinstance(vector, list)
+    assert isinstance(labels, list)
+    assert len(vector) == len(labels)
+
+
+def test_seed_traits_vector_values():
+    """Traits vector has 1 for shape's families, 0 for others."""
+    vector, labels = seed_traits_vector("SHAPE.TETRA")
+    assert labels == sorted(labels)  # sorted
+    # Tetra has: fire, stability, foundation, boundary
+    for fam in ["fire", "stability", "foundation", "boundary"]:
+        idx = labels.index(fam)
+        assert vector[idx] == 1, f"Expected 1 for {fam}"
+    for fam in ["earth", "balance", "flow"]:
+        idx = labels.index(fam)
+        assert vector[idx] == 0, f"Expected 0 for {fam}"
+
+
+def test_seed_traits_vector_unknown():
+    """Unknown shape returns empty tuple."""
+    vector, labels = seed_traits_vector("SHAPE.FAKE")
+    assert vector == []
+    assert labels == []
 
 
 # ---------------------------------------------------------------------------
@@ -213,6 +272,20 @@ def test_traits_for_essence_explorer():
     assert "adaptability" in traits
 
 
+def test_traits_for_essence_observer():
+    """Observer essence (kernel vocabulary) maps to balance/structure traits."""
+    traits = traits_for_essence("observer")
+    assert "balance" in traits
+    assert "structure" in traits
+
+
+def test_traits_for_essence_weaver():
+    """Weaver essence (kernel vocabulary) maps to orientation/trust traits."""
+    traits = traits_for_essence("weaver")
+    assert "orientation" in traits
+    assert "trust" in traits
+
+
 def test_traits_for_essence_unknown():
     """Unknown essence returns empty list."""
     assert traits_for_essence("nonexistent") == []
@@ -222,7 +295,6 @@ def test_select_by_essence_guardian():
     """Guardian essence selects tetra first (most trait overlap)."""
     matches = select_by_essence("guardian")
     assert len(matches) >= 1
-    # Tetra has stability+foundation+boundary (3 of 4 guardian traits)
     assert matches[0]["shape_id"] == "SHAPE.TETRA"
 
 
@@ -247,17 +319,29 @@ def test_select_by_essence_teacher():
     assert matches[0]["shape_id"] == "SHAPE.DODECA"
 
 
+def test_select_by_essence_observer():
+    """Observer essence (kernel) selects octahedron first."""
+    matches = select_by_essence("observer")
+    assert len(matches) >= 1
+    assert matches[0]["shape_id"] == "SHAPE.OCTA"
+
+
+def test_select_by_essence_weaver():
+    """Weaver essence (kernel) selects dodecahedron first."""
+    matches = select_by_essence("weaver")
+    assert len(matches) >= 1
+    assert matches[0]["shape_id"] == "SHAPE.DODECA"
+
+
 def test_all_essences_returns_archetypes():
-    """All defined essences are accessible."""
+    """All defined essences are accessible — both Rosetta and kernel vocabularies."""
     essences = all_essences()
-    assert "guardian" in essences
-    assert "explorer" in essences
-    assert "healer" in essences
-    assert "teacher" in essences
-    assert "builder" in essences
-    assert "mediator" in essences
-    assert "sentinel" in essences
-    assert "nurturer" in essences
+    # Rosetta vocabulary
+    for name in ["guardian", "explorer", "healer", "teacher", "builder", "mediator", "sentinel", "nurturer"]:
+        assert name in essences
+    # Kernel vocabulary
+    for name in ["observer", "weaver"]:
+        assert name in essences
 
 
 def test_every_seed_has_matching_shape():

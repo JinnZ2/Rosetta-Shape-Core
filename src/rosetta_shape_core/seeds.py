@@ -17,8 +17,11 @@ Usage:
     traits = traits_for_essence("guardian")  # → ["stability", "foundation", ...]
     seed = select_by_traits(traits)[0]       # → tetrahedron
 
-    # Compute trait-based resonance between two seeds
-    score = resonance("SHAPE.TETRA", "SHAPE.CUBE")  # → partial overlap
+    # Compute trait-based resonance between two seeds (includes topology)
+    score = resonance("SHAPE.TETRA", "SHAPE.CUBE")  # → Jaccard + bridge bonus
+
+    # Get all shape IDs (kernel compatibility)
+    ids = all_shape_ids()  # → ["SHAPE.CUBE", "SHAPE.DODECA", ...]
 """
 from __future__ import annotations
 import json, pathlib
@@ -31,6 +34,31 @@ _catalog_cache: dict | None = None
 _essence_cache: dict | None = None
 
 
+# ---------------------------------------------------------------------------
+# Polyhedral topology (duality and bridge connections)
+# ---------------------------------------------------------------------------
+# Cube ↔ Octahedron: duals (vertices of one = faces of other)
+# Dodecahedron ↔ Icosahedron: duals
+# Tetrahedron: self-dual, bridges to Cube (stability) and Dodeca (boundary)
+
+_DUALITY_PAIRS = {
+    frozenset({"SHAPE.CUBE", "SHAPE.OCTA"}),
+    frozenset({"SHAPE.DODECA", "SHAPE.ICOSA"}),
+}
+
+_BRIDGE_CONNECTIONS = {
+    frozenset({"SHAPE.TETRA", "SHAPE.CUBE"}),
+    frozenset({"SHAPE.TETRA", "SHAPE.DODECA"}),
+}
+
+_DUALITY_BONUS = 0.15
+_BRIDGE_BONUS = 0.08
+
+
+# ---------------------------------------------------------------------------
+# Data loading
+# ---------------------------------------------------------------------------
+
 def _load_catalog() -> list[dict]:
     global _catalog_cache
     if _catalog_cache is not None:
@@ -40,9 +68,30 @@ def _load_catalog() -> list[dict]:
     return data["seeds"]
 
 
+def _load_essences() -> dict:
+    global _essence_cache
+    if _essence_cache is not None:
+        return _essence_cache
+    data = json.loads(ESSENCE_PATH.read_text(encoding="utf-8"))
+    _essence_cache = data["essences"]
+    return _essence_cache
+
+
+# ---------------------------------------------------------------------------
+# Seed lookup
+# ---------------------------------------------------------------------------
+
 def all_seeds() -> list[dict]:
     """Return all seeds in the catalog."""
     return list(_load_catalog())
+
+
+def all_shape_ids() -> list[str]:
+    """Return all known shape ontology IDs.
+
+    Kernel compatibility: rosetta_bridge.py calls this to enumerate shapes.
+    """
+    return sorted(s["shape_id"] for s in _load_catalog())
 
 
 def get_seed(shape_id: str) -> dict | None:
@@ -60,6 +109,10 @@ def get_seed_by_name(name: str) -> dict | None:
             return seed
     return None
 
+
+# ---------------------------------------------------------------------------
+# Selection
+# ---------------------------------------------------------------------------
 
 def select_by_traits(desired_families: list[str]) -> list[dict]:
     """Select seeds whose trait families overlap with desired families.
@@ -96,14 +149,9 @@ def select_by_sensor(sensor_name: str) -> list[dict]:
     ]
 
 
-def _load_essences() -> dict:
-    global _essence_cache
-    if _essence_cache is not None:
-        return _essence_cache
-    data = json.loads(ESSENCE_PATH.read_text(encoding="utf-8"))
-    _essence_cache = data["essences"]
-    return _essence_cache
-
+# ---------------------------------------------------------------------------
+# Essence mapping
+# ---------------------------------------------------------------------------
 
 def traits_for_essence(essence: str) -> list[str]:
     """Map an agent essence (archetype) to trait families.
@@ -138,11 +186,22 @@ def select_by_essence(essence: str) -> list[dict]:
     return select_by_traits(traits)
 
 
-def resonance(shape_a: str, shape_b: str) -> float:
-    """Compute trait-based resonance between two seeds.
+# ---------------------------------------------------------------------------
+# Resonance (Jaccard + polyhedral topology)
+# ---------------------------------------------------------------------------
 
-    Returns a float in [0.0, 1.0] based on Jaccard similarity of
-    trait families. This replaces random.uniform() with a real signal.
+def resonance(shape_a: str, shape_b: str) -> float:
+    """Compute resonance between two seeds.
+
+    Score = Jaccard similarity on trait families + topology bonuses:
+      - Identical shapes: 1.0
+      - Polyhedral duals (cube↔octa, dodeca↔icosa): Jaccard + 0.15
+      - Bridge connections (tetra↔cube, tetra↔dodeca): Jaccard + 0.08
+      - No trait overlap, no topology: 0.0
+
+    The duality bonus reflects complementary resonance — dual shapes share
+    deep structural relationship (vertices↔faces) even when their trait
+    families don't fully overlap.
 
     Returns 0.0 if either seed is not found.
     """
@@ -154,32 +213,45 @@ def resonance(shape_a: str, shape_b: str) -> float:
     families_a = set(f.lower() for f in seed_a.get("traits", {}).get("families", []))
     families_b = set(f.lower() for f in seed_b.get("traits", {}).get("families", []))
 
-    if not families_a and not families_b:
-        return 0.0
+    union = families_a | families_b
+    jaccard = len(families_a & families_b) / len(union) if union else 0.0
 
-    intersection = len(families_a & families_b)
-    union = len(families_a | families_b)
-    return intersection / union if union > 0 else 0.0
+    # Topology bonuses
+    pair = frozenset({shape_a, shape_b})
+    bonus = 0.0
+    if pair in _DUALITY_PAIRS:
+        bonus = _DUALITY_BONUS
+    elif pair in _BRIDGE_CONNECTIONS:
+        bonus = _BRIDGE_BONUS
+
+    return round(min(jaccard + bonus, 1.0), 4)
 
 
-def seed_traits_vector(shape_id: str) -> dict[str, float]:
-    """Return a trait vector for a seed, suitable for dot-product resonance.
+# ---------------------------------------------------------------------------
+# Trait vectors
+# ---------------------------------------------------------------------------
 
-    Keys are all known families across the catalog, values are 1.0 if
-    the seed has that family, 0.0 otherwise. The kernel can use this
-    for more sophisticated resonance calculations.
+def seed_traits_vector(shape_id: str) -> tuple[list[int], list[str]]:
+    """Return a binary trait vector for a seed.
+
+    Returns:
+        (vector, labels) where vector[i] = 1 if shape has labels[i], else 0.
+        Returns ([], []) if shape is unknown.
+
+    Kernel compatibility: rosetta_bridge.py expects tuple(list, list) format.
     """
-    # Collect all families across catalog
     all_families: set[str] = set()
     for seed in _load_catalog():
         for f in seed.get("traits", {}).get("families", []):
             all_families.add(f.lower())
 
+    labels = sorted(all_families)
     target = get_seed(shape_id)
     if not target:
-        return {f: 0.0 for f in sorted(all_families)}
+        return ([], [])
 
     target_families = set(
         f.lower() for f in target.get("traits", {}).get("families", [])
     )
-    return {f: (1.0 if f in target_families else 0.0) for f in sorted(all_families)}
+    vector = [1 if f in target_families else 0 for f in labels]
+    return (vector, labels)
