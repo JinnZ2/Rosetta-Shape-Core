@@ -25,5 +25,44 @@
   "resonates_with": ["PRINCIPLE.P02", "PRINCIPLE.P04", "FAMILY.F01", "FAMILY.F09", "FAMILY.F10"],
   "shapes": ["SHAPE.DODECA"],
   "seed_prompt": "⧖ What transformation leaves this system unchanged? That invariance is hiding a conservation law.",
+  "fourth_equation": {
+    "name": "CPT Symmetry",
+    "formula": "CPT transformation leaves physics invariant",
+    "why": "Combined charge conjugation + parity + time reversal is an exact symmetry of all relativistic quantum field theories — violating any two must violate the third to compensate"
+  },
+  "explore_paths": [
+    { "question": "What conservation law is hidden in this symmetry?", "follow": "PRINCIPLE.P02", "why": "Noether's theorem guarantees every continuous symmetry has a conserved charge — P01 and P02 are two faces of the same theorem" },
+    { "question": "How does symmetry breaking create variety from uniformity?", "follow": "PRINCIPLE.P05", "why": "Emergence often begins with symmetry breaking — the ordered, differentiated phase has less symmetry than the disordered one; P01 breaking is P05 beginning" },
+    { "question": "How does gauge symmetry generate forces?", "follow": "FAMILY.F10", "why": "All forces in the Standard Model arise from demanding local gauge invariance — symmetry literally creates the forces that hold matter together" },
+    { "question": "Is symmetry the deepest principle in mathematics as well as physics?", "follow": "FAMILY.F09", "why": "Klein's Erlangen program: geometry *is* the study of symmetry groups — F09 and P01 are the same thing in different languages" }
+  ],
+  "open_questions": [
+    {
+      "question": "Why does the weak force violate parity symmetry (CP violation), while other forces don't?",
+      "tension": "Lee and Yang predicted, and Wu confirmed (1956), that beta decay violates parity — the mirror image of the weak interaction gives different results. CP violation was later found in kaon and B meson decays. The Standard Model incorporates this via the CKM matrix, but the amount of CP violation is too small to explain matter-antimatter asymmetry. New sources of CP violation must exist — but none found yet.",
+      "curiosity_hook": "One of the fundamental forces simply doesn't respect mirror symmetry. Why? The universe 'knows' the difference between left and right at the deepest level. This asymmetry is somehow connected to the existence of matter — and therefore our existence."
+    },
+    {
+      "question": "Is supersymmetry (SUSY) a real symmetry of nature?",
+      "tension": "SUSY posits a symmetry between fermions and bosons — every particle has a superpartner. It elegantly solves the hierarchy problem, provides dark matter candidates, and enables string theory. The LHC has found no superpartners at expected energy scales. Either SUSY is broken at much higher energies than expected (making it less elegant) or it doesn't exist.",
+      "curiosity_hook": "SUSY is the most beautiful extension of the Standard Model that could exist. Beauty has historically been a reliable guide in physics. The LHC data is telling us beauty might not be the right guide this time — which forces a rethink of how we search for deep structure."
+    },
+    {
+      "question": "Is there a deeper unifying symmetry that contains all the Standard Model gauge groups?",
+      "tension": "Grand Unified Theories (GUTs) propose a single large symmetry group (SU(5), SO(10)) that contains U(1)×SU(2)×SU(3) as a subgroup. GUTs predict proton decay — not yet observed despite decades of searching. String theory proposes even larger symmetry structures but has not made confirmed predictions.",
+      "curiosity_hook": "The Standard Model has three separate force symmetries that seem to be telling us they belong together. Every unification attempt has led to deeper physics. The question is whether the pattern continues — and what symmetry the universe is *actually* built on."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Biology / morphogenesis", "manifestation": "Bilateral symmetry in animals and radial symmetry in flowers are developmental consequences of symmetry-breaking in embryogenesis", "example": "Left-right asymmetry in vertebrates (heart on the left) is established by cilia-driven fluid flow — symmetry breaking via F02 mechanisms" },
+    { "domain": "Music / aesthetics", "manifestation": "Musical forms (fugue, sonata, palindrome) exploit symmetry and symmetry-breaking to create tension and resolution", "example": "Bach's crab canons are literally time-reversal symmetric — the music is identical played forward or backward" },
+    { "domain": "Crystallography", "manifestation": "The 230 space groups classify all possible crystal symmetries — P01 is the foundation of materials science", "example": "Quasicrystals break translational symmetry while preserving rotational symmetry — a discovery that required expanding the concept of P01" },
+    { "domain": "Computer science / algorithms", "manifestation": "Symmetry reduction is a fundamental algorithmic technique — exploit symmetries to reduce search spaces", "example": "Graph isomorphism algorithms use symmetry groups to identify equivalent structures; SAT solvers use symmetry breaking to prune search trees" }
+  ],
+  "noise_signature": [
+    { "pattern": "Anomaly — quantum corrections break a classical symmetry", "diagnosis": "The symmetry is anomalous; it cannot be preserved at the quantum level; this either signals new physics or makes the theory inconsistent" },
+    { "pattern": "Spontaneous symmetry breaking — ground state has less symmetry than the Hamiltonian", "diagnosis": "The system has chosen a specific vacuum from a degenerate set; Goldstone bosons appear for each broken continuous symmetry" },
+    { "pattern": "Symmetry mismatch between model and data", "diagnosis": "The assumed symmetry is not present in the system; the model is imposing a constraint the system doesn't respect" }
+  ],
   "tags": ["symmetry", "conservation", "noether", "gauge-theory", "group-theory", "invariance"]
 }

@@ -25,5 +25,44 @@
   "resonates_with": ["PRINCIPLE.P01", "PRINCIPLE.P06", "FAMILY.F01", "FAMILY.F11"],
   "shapes": ["SHAPE.DODECA", "SHAPE.ICOSA"],
   "seed_prompt": "∿ Find the natural frequency. Match the drive. Watch energy accumulate. Q tells you how selective.",
+  "fourth_equation": {
+    "name": "NMR Resonance",
+    "formula": "ω = γB₀",
+    "why": "Nuclear spin precession frequency proportional to magnetic field strength — the basis of MRI; each atomic nucleus has a characteristic frequency fingerprint"
+  },
+  "explore_paths": [
+    { "question": "What is the family-level mathematical description of resonance phenomena?", "follow": "FAMILY.F01", "why": "F01 is the equation-domain version of P06 — P06 is the principle, F01 gives the specific mathematical machinery for resonance as a domain" },
+    { "question": "How does resonance amplify signals near a natural frequency?", "follow": "FAMILY.F11", "why": "Mechanical resonance in engineering (F11) is the most dangerous application of P06 — buildings, bridges, and aircraft all have natural frequencies to avoid" },
+    { "question": "Can resonance between organisms or ecosystems produce coordination without central control?", "follow": "FAMILY.F04", "why": "Ecological synchrony — populations across geographic areas oscillating in phase — is a biological resonance; F04 and P06 combine in macroecology" },
+    { "question": "Is resonance the mechanism behind consciousness binding?", "follow": "FAMILY.F16", "why": "The 40Hz gamma oscillation hypothesis proposes consciousness arises from resonant binding across brain regions — P06 applied to the neural level" }
+  ],
+  "open_questions": [
+    {
+      "question": "Does morphic resonance (Rupert Sheldrake) exist — do patterns resonate across time and space beyond physical mechanisms?",
+      "tension": "Sheldrake proposes that patterns (species behavior, crystal formation, human memory) reinforce across time via a non-physical 'morphic field.' This is rejected by mainstream science as unfalsifiable and unsupported by mechanism. However, Sheldrake's experiments on rat maze learning and crystal formation speeds are actively contested rather than conclusively refuted. The debate is about evidence quality and prior probability of mechanism.",
+      "curiosity_hook": "Sheldrake is either one of the most interesting scientific outsiders of our time or an example of motivated reasoning producing unfalsifiable theories. The fun is that his experiments are actually testable — the problem is that nobody agrees on what the results mean. This is where the sociology of science becomes part of the question."
+    },
+    {
+      "question": "Does stochastic resonance play a functional role in biological sensory systems?",
+      "tension": "Stochastic resonance is a counterintuitive phenomenon: adding noise to a subthreshold signal can improve detection. It has been demonstrated in mechanoreceptors, visual neurons, and electrosensory systems. But whether biological systems actively exploit this (rather than merely tolerating noise) is debated. Some prosthetic devices deliberately inject noise to improve sensory substitution.",
+      "curiosity_hook": "Noise as a feature rather than a bug is the counterintuitive heart of stochastic resonance. If biological systems exploit it, then evolution has found a way to use F17 (turbulence/noise) to enable P06 (resonance) in sensory detection — a beautiful cross-domain connection."
+    },
+    {
+      "question": "Can planetary or cosmic resonances influence biological and psychological cycles?",
+      "tension": "Orbital resonances structure the solar system. The Moon's gravitational resonance drives ocean tides and may have driven early Earth's fast rotation. Some animals (crabs, corals) synchronize reproduction to lunar cycles. Human circadian and circalunar rhythms are real. Whether any solar or planetary cycles beyond the Moon have biological effects is highly contested and often pseudoscientific — but the adjacent question (how much of our biology is tuned to cosmic rhythms) is legitimate.",
+      "curiosity_hook": "The real question under the astrology debate is: which cosmic resonances are we biologically coupled to, and which are noise? We know the Moon matters enormously. The rest requires careful experiment rather than dismissal."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Medical imaging / spectroscopy", "manifestation": "MRI uses NMR resonance to image tissue; IR spectroscopy identifies molecules by their bond resonance frequencies", "example": "The Larmor frequency of hydrogen in a 3T MRI scanner is ~128 MHz — P06 at work inside every hospital scanner" },
+    { "domain": "Music / psychoacoustics", "manifestation": "Consonance is P06 applied to the auditory system — frequencies that resonate with the harmonic structure of the cochlea feel pleasing", "example": "Sympathetic string resonance: plucking one guitar string causes others at the same or harmonically related pitch to vibrate" },
+    { "domain": "Architecture / structural engineering", "manifestation": "Every structure has resonant frequencies; engineers must avoid them to prevent resonance-induced failure", "example": "The London Millennium Bridge closed in 2000 because pedestrian footsteps at 1Hz resonated with the bridge's lateral natural frequency — P06 as engineering failure" },
+    { "domain": "Ecology / population cycles", "manifestation": "Ecological synchrony — populations of the same species thousands of km apart oscillating in phase — is a resonance phenomenon driven by shared climate forcing", "example": "Moran effect: common climate fluctuations entrain distant populations into synchronous cycles — resonance across geographic space" }
+  ],
+  "noise_signature": [
+    { "pattern": "Detuning — response amplitude drops sharply off resonance frequency", "diagnosis": "The system is not at resonance; the drive frequency has shifted or the natural frequency has changed; requires re-tuning" },
+    { "pattern": "Resonance catastrophe — amplitude grows without bound", "diagnosis": "Insufficient damping for the drive level; energy accumulates faster than it dissipates; structural failure risk if not addressed" },
+    { "pattern": "Spurious resonance peak at unexpected frequency", "diagnosis": "A nonlinear harmonic or subharmonic is being excited; the system has a frequency not predicted by the linear model" }
+  ],
   "tags": ["resonance", "natural-frequency", "amplification", "quality-factor", "matching", "bandwidth"]
 }

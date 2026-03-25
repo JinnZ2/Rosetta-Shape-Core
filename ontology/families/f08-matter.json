@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F05", "FAMILY.F06", "FAMILY.F07"],
   "seed_prompt": "◆ What phase is this system in? Where is the critical point? Symmetry breaks here.",
+  "fourth_equation": {
+    "name": "London Equation",
+    "formula": "∇×J_s = -(n_s e²/m)B",
+    "why": "Perfect diamagnetism in superconductors — the Meissner effect: superconducting currents spontaneously arise to expel all magnetic flux"
+  },
+  "explore_paths": [
+    { "question": "What causes phase transitions at a deeper level?", "follow": "PRINCIPLE.P01", "why": "Phase transitions are symmetry-breaking events — the ordered phase has less symmetry than the disordered one; Noether connects this to what is gained and lost" },
+    { "question": "How does matter transition relate to emergence?", "follow": "PRINCIPLE.P05", "why": "Superconductivity, magnetism, and superfluidity are all emergent collective states — none exists in individual particles" },
+    { "question": "What is the quantum field description of matter?", "follow": "FAMILY.F10", "why": "Condensed matter physics and particle physics are converging — topological insulators and anyons are described by the same quantum field theories as elementary particles" },
+    { "question": "How does energy flow through different phases of matter?", "follow": "FAMILY.F05", "why": "Phase transitions are thermodynamic events — the Clausius-Clapeyron equation and latent heat connect F08 and F05" }
+  ],
+  "open_questions": [
+    {
+      "question": "What is the mechanism behind high-temperature superconductivity in cuprates and new materials?",
+      "tension": "Conventional BCS superconductivity is well understood (phonon-mediated Cooper pairing). High-Tc superconductors (discovered 1986) superconduct at up to 135K — still cold, but a dramatic improvement. The pairing mechanism is unknown after 40 years of intense research. Candidates include spin fluctuations, resonating valence bonds, and strange metal phases.",
+      "curiosity_hook": "Room-temperature superconductivity would transform civilization — lossless power transmission, cheap MRI, levitating trains. The mechanism remains one of condensed matter physics' deepest unsolved problems."
+    },
+    {
+      "question": "Is LK-99 (or any material) a room-temperature, ambient-pressure superconductor?",
+      "tension": "In 2023, Korean researchers claimed LK-99 was a room-temperature superconductor. Global replication attempts failed. But the episode revealed how hungry the field is and how easily anomalous signals mislead. Ranga Dias' earlier claims (also retracted) followed a similar pattern. The question of whether such a material is even theoretically possible is contested.",
+      "curiosity_hook": "The frequency of false claims in this field itself reveals something interesting — the incentive structure and measurement challenges of superconductivity research create a specific kind of scientific error pattern."
+    },
+    {
+      "question": "What is dark energy and does it have a material explanation?",
+      "tension": "~68% of the universe's energy density is 'dark energy' driving accelerating expansion. Candidates: cosmological constant (vacuum energy, but quantum field theory predicts a value 10^120 times too large — the worst prediction in physics); quintessence (a dynamical scalar field); modified gravity. No experimental distinction has been made.",
+      "curiosity_hook": "The cosmological constant problem is the biggest numerical discrepancy between theory and observation in all of science. Something is catastrophically wrong with our understanding of vacuum energy."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Materials science / technology", "manifestation": "Every technological material is a phase of matter engineered for specific properties — semiconductors, ceramics, polymers, alloys", "example": "Silicon's bandgap (a quantum phase property) is the physical basis of all modern computing" },
+    { "domain": "Geology / planetary science", "manifestation": "Earth's interior has multiple phases of iron and silicates under extreme pressure; phase transitions drive plate tectonics", "example": "The solid inner core / liquid outer core boundary is a phase transition that drives Earth's magnetic field" },
+    { "domain": "Cooking / food science", "manifestation": "Cooking is applied phase transition science — melting, crystallization, denaturation, emulsification", "example": "Tempering chocolate is precise phase transition control: cooling to nucleate specific crystal polymorphs of cocoa butter" },
+    { "domain": "Neuroscience", "manifestation": "Neural tissue is a soft condensed matter system; membrane phase transitions affect ion channel gating and anesthetic action", "example": "Meyer-Overton rule: anesthetic potency correlates with lipid membrane solubility — anesthesia as a membrane phase effect" }
+  ],
+  "noise_signature": [
+    { "pattern": "Hysteresis — system state depends on history, not just current conditions", "diagnosis": "The system has multiple stable phases; which one it occupies depends on which transition path was taken" },
+    { "pattern": "Critical opalescence — scattering diverges near phase transition", "diagnosis": "Fluctuations span all length scales at the critical point; the system cannot 'decide' which phase to be in" },
+    { "pattern": "Residual resistivity plateau — resistance stops decreasing as temperature drops", "diagnosis": "Impurity scattering dominates; the material has defects that limit electron mean free path regardless of temperature" }
+  ],
   "tags": ["phase-transition", "superconductivity", "magnetism", "crystal", "critical-point", "symmetry-breaking"]
 }

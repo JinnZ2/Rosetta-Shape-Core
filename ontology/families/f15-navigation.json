@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA", "SHAPE.DODECA"],
   "five_field_neighbors": ["FAMILY.F12", "FAMILY.F13", "FAMILY.F14", "FAMILY.F16", "FAMILY.F17"],
   "seed_prompt": "◆→ What is the curvature of the space? Geodesic first, then optimal estimate. Where does the path want to go?",
+  "fourth_equation": {
+    "name": "Haversine Formula",
+    "formula": "d = 2r arcsin(√[sin²(Δφ/2) + cos φ₁ cos φ₂ sin²(Δλ/2)])",
+    "why": "Great-circle distance on a sphere from two lat/lon coordinates — the correct geodesic formula that GPS navigation uses internally"
+  },
+  "explore_paths": [
+    { "question": "How does navigation relate to the curvature of the space being navigated?", "follow": "FAMILY.F09", "why": "The geodesic equation (F15) is derived from the geometry (F09) — navigation on curved surfaces requires differential geometry" },
+    { "question": "Can navigation principles describe how minds move through conceptual space?", "follow": "FAMILY.F06", "why": "Cognitive maps (Tolman), concept spaces (Gärdenfors), and attention as navigation through mental landscapes all apply F15 to F06" },
+    { "question": "How do biological navigators (birds, bees, humans) exploit physical signals?", "follow": "FAMILY.F01", "why": "Bird magnetic compass, bee waggle dance, and place cells all use resonance and oscillation as navigational signals — F01 enables F15 in biology" },
+    { "question": "Is there an optimal path through uncertainty?", "follow": "PRINCIPLE.P10", "why": "The Kalman filter is optimal under Gaussian noise; in non-Gaussian or adversarial environments the optimal navigator is unknown — uncertainty bounds navigation" }
+  ],
+  "open_questions": [
+    {
+      "question": "How do birds navigate across continents using magnetic fields, and does it involve quantum mechanics?",
+      "tension": "Birds possess a cryptochrome-based magnetic compass in their eyes. The radical pair mechanism proposes that quantum entanglement between electrons in cryptochrome molecules is modulated by the Earth's magnetic field. Ritz et al. showed the compass is disrupted by radiofrequency fields — consistent with quantum coherence. However, quantum effects in warm, wet biological tissue seem thermodynamically implausible (the same argument raised against F01's quantum coherence in biology).",
+      "curiosity_hook": "A quantum compass in a bird's eye that uses entanglement to detect magnetic field direction — if real, it's the most practically important quantum biological effect discovered. The mechanism is genuinely uncertain."
+    },
+    {
+      "question": "Can AI systems navigate open-ended, non-stationary environments without explicit reward functions?",
+      "tension": "Reinforcement learning agents navigate via reward maximization. But open-ended environments have changing goals, sparse rewards, and no fixed objective. Intrinsic motivation (curiosity-driven exploration) and world models partially address this. Whether a general navigation principle for open-ended intelligence exists is an open AI research question.",
+      "curiosity_hook": "The most capable human navigators — explorers, scientists, entrepreneurs — navigate without explicit reward functions. They follow curiosity. This is the question of whether curiosity can be formalized as a navigation strategy."
+    },
+    {
+      "question": "Do humans (and other animals) have a navigation system for abstract concept spaces as well as physical space?",
+      "tension": "Place cells and grid cells in the hippocampus navigate physical space. Recent experiments show similar neural activity during navigation of conceptual and social spaces. But whether the same computational system underlies both, or whether this is superficial analogy, is contested. The 'cognitive map' hypothesis (Tolman, 1948) keeps being vindicated and challenged.",
+      "curiosity_hook": "If the hippocampus navigates all spaces — physical, conceptual, temporal, social — then navigation is not a specific faculty but a general-purpose intelligence module. This would explain a lot about how memory and reasoning work."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Neuroscience / cognitive science", "manifestation": "Place cells, grid cells, and head direction cells in the hippocampus form a biological GPS — navigation algorithms implemented in neurons", "example": "O'Keefe & Moser's Nobel-winning work: grid cells fire in hexagonal arrays that tile space, forming a coordinate system for navigation" },
+    { "domain": "Robotics / autonomous systems", "manifestation": "SLAM (Simultaneous Localization and Mapping) uses Kalman filtering and particle filters to build maps while navigating them", "example": "Mars rovers navigate autonomously using stereo vision and particle filter-based SLAM — F15 at planetary scale" },
+    { "domain": "Genetics / evolutionary biology", "manifestation": "Evolution navigates fitness landscapes — the traveling through genotype space toward higher fitness is a navigation problem", "example": "Directed evolution (Nobel 2018) uses F15-style search strategies to navigate protein sequence space for desired functions" },
+    { "domain": "Storytelling / narrative", "manifestation": "Stories navigate characters through problem spaces; narrative arcs are geodesics in dramatic possibility space", "example": "Hero's journey frameworks map navigation through transformation — departure, ordeal, return is a path through conceptual space" }
+  ],
+  "noise_signature": [
+    { "pattern": "Dead reckoning drift — position estimate diverges from true position over time", "diagnosis": "Accumulated integration error without correction; the navigator needs an external fix to reset accumulated drift" },
+    { "pattern": "GPS spoofing — plausible false position signals accepted as true", "diagnosis": "The measurement model is correct but the inputs are adversarial; the filter has no way to detect deception without cross-validation" },
+    { "pattern": "Local minimum trap — optimizer settles in a suboptimal solution and cannot escape", "diagnosis": "The navigation landscape has basins that the algorithm cannot distinguish from the global optimum; exploration is needed" }
+  ],
   "tags": ["geodesic", "path-planning", "kalman-filter", "estimation", "optimization", "navigation"]
 }

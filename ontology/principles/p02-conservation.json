@@ -25,5 +25,44 @@
   "resonates_with": ["PRINCIPLE.P01", "PRINCIPLE.P07", "FAMILY.F02", "FAMILY.F05", "FAMILY.F19"],
   "shapes": ["SHAPE.DODECA"],
   "seed_prompt": "↺ List what is conserved. These are the invariants that bound all possible trajectories.",
+  "fourth_equation": {
+    "name": "Momentum Conservation",
+    "formula": "Σ pᵢ = constant",
+    "why": "Total momentum of an isolated system is unchanged — a direct consequence of spatial translation symmetry via Noether's theorem"
+  },
+  "explore_paths": [
+    { "question": "Where do conservation laws come from?", "follow": "PRINCIPLE.P01", "why": "Noether's theorem: every conservation law is the shadow of a symmetry. P02 and P01 are inseparable — understanding one requires the other" },
+    { "question": "Is energy conserved in an expanding universe?", "follow": "FAMILY.F18", "why": "In GR, global energy conservation is not straightforwardly defined — F18 is where P02 becomes subtle and possibly breaks down at cosmological scale" },
+    { "question": "How do conservation laws bound what is physically possible?", "follow": "FAMILY.F05", "why": "The first and second laws of thermodynamics are conservation laws (energy) + a directionality law (entropy); F05 is P02 applied with an arrow" },
+    { "question": "What is conserved in information processing?", "follow": "FAMILY.F03", "why": "Landauer's principle: information is physical, and erasing it costs energy — information processing has a conservation law hidden inside it" }
+  ],
+  "open_questions": [
+    {
+      "question": "Is energy globally conserved in general relativity and cosmology?",
+      "tension": "In special relativity and flat spacetime, energy conservation is exact. In GR, there is no general global energy conservation theorem — the energy of a gravitational field is not well-defined. Photons lose energy as the universe expands (cosmological redshift) with no obvious destination. Sean Carroll argues this energy is genuinely not conserved. Others define pseudo-tensors to rescue conservation. The debate is technical but real.",
+      "curiosity_hook": "The most fundamental conservation law in physics may fail at the largest scales. If true, it means our local experience of conservation is a contingent fact about the local structure of spacetime, not a universal truth."
+    },
+    {
+      "question": "Are there undiscovered conservation laws — quantities we haven't noticed that are conserved?",
+      "tension": "Every symmetry predicts a conservation law. We may not have found all symmetries. String theory and its compactifications predict many new U(1) symmetries, implying new conserved charges. Dark matter candidates often carry new conserved quantum numbers. The history of physics includes discovering new conservation laws (lepton number, baryon number, color charge) — more may await.",
+      "curiosity_hook": "We only know about conservation laws we have thought to look for. The possibility of unknown conserved quantities means there may be structure in the universe we are not yet tracking. What are we missing?"
+    },
+    {
+      "question": "Can conservation laws be violated by quantum gravity at the Planck scale?",
+      "tension": "Black holes may violate global conservation laws — if a baryon falls in and Hawking radiation carries it out as thermal radiation, baryon number is not conserved. Wormholes are speculated to violate charge conservation at the topological level. These are conjectured violations that quantum gravity might permit or require — currently untestable.",
+      "curiosity_hook": "The laws we use as foundations might be approximations valid below the Planck scale. At the most fundamental level, the universe might not respect any conservation laws at all — and all of P02 might be emergent."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Ecology / resource economics", "manifestation": "Mass and energy are conserved in ecosystems — trophic efficiency limits how much energy transfers between levels", "example": "Only ~10% of energy transfers between trophic levels; conservation means food webs have a hard limit on their length" },
+    { "domain": "Engineering / system design", "manifestation": "Conservation laws are the strongest constraints in engineering — you cannot violate them; all design happens within them", "example": "Bridge design: loads must be balanced (force conservation); circuits: KVL/KCL are conservation laws; heat exchangers: first law applied" },
+    { "domain": "Economics / accounting", "manifestation": "Double-entry bookkeeping enforces a conservation law: every credit has a corresponding debit; balance sheets balance by definition", "example": "The money supply in a closed system is conserved — creation of money requires a corresponding liability" },
+    { "domain": "Biology / homeostasis", "manifestation": "Biological homeostasis is conservation enforcement — temperature, pH, glucose are held constant against disturbances", "example": "The kidney maintains constant blood composition through selective conservation and excretion — a conservation machine" }
+  ],
+  "noise_signature": [
+    { "pattern": "Energy balance violation in a model — outputs don't equal inputs plus stored", "diagnosis": "There is a hidden pathway, an unmodeled process, or a measurement error; conservation is never wrong — the model is" },
+    { "pattern": "Perpetual motion machine claim", "diagnosis": "The claim violates P02; before disproving it with experiment, check the accounting — there is always a hidden energy source or a measurement error" },
+    { "pattern": "Invariant quantity drifting in simulation", "diagnosis": "Numerical integration is accumulating error; a symplectic or energy-conserving integrator is required to preserve the conserved quantity" }
+  ],
   "tags": ["conservation", "energy", "momentum", "charge", "angular-momentum", "invariant"]
 }

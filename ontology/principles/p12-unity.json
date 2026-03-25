@@ -25,5 +25,44 @@
   "resonates_with": ["PRINCIPLE.P01", "PRINCIPLE.P02", "FAMILY.F10", "FAMILY.F18", "FAMILY.F20"],
   "shapes": ["SHAPE.DODECA"],
   "seed_prompt": "◎ What two descriptions are secretly one? Find the unifying frame. The identity element is always present.",
+  "fourth_equation": {
+    "name": "Electroweak Unification",
+    "formula": "SU(2) × U(1) → electromagnetic + weak",
+    "why": "Glashow-Salam-Weinberg unification: two apparently different forces are one force described by a larger symmetry group — broken at low energies into the two forces we observe"
+  },
+  "explore_paths": [
+    { "question": "What is the most unified description of all fundamental forces?", "follow": "PRINCIPLE.P01", "why": "Every unification in physics works by finding a larger symmetry group — P12 and P01 are linked by the Weinberg-Salam-Glashow pattern: bigger symmetry = more unity" },
+    { "question": "Is consciousness unified? Does the sense of a single self require a unity principle?", "follow": "FAMILY.F16", "why": "The binding problem in F16 asks how disparate neural processes unify into a single experience — it is P12 applied to consciousness" },
+    { "question": "Is mathematical unity the same as physical unity?", "follow": "FAMILY.F20", "why": "F20 (topology) shows that radically different-looking spaces can be equivalent — topological unity mirrors physical unification; the same mathematics describes different physics" },
+    { "question": "Can all known physics eventually be unified in a single theory?", "follow": "FAMILY.F10", "why": "Grand unification and string theory attempt to unite F10's Standard Model with gravity — whether this is possible is the deepest open question in physics" }
+  ],
+  "open_questions": [
+    {
+      "question": "Will there ever be a Theory of Everything (ToE) — a single framework unifying all physics?",
+      "tension": "Weinberg (Dreams of a Final Theory) argues yes — the pattern of successive unifications suggests a final unification is achievable. Smolin (The Trouble with Physics) argues string theory has failed and we need new ideas. Ellis and Silk argue untestable string theory and multiverse are 'postmodern physics' that abandons scientific method. The debate is partly philosophical: what counts as unification, and what counts as a scientific theory?",
+      "curiosity_hook": "The history of physics is a sequence of unifications: electricity + magnetism, thermodynamics + statistical mechanics, special relativity + electromagnetism, electroweak. The pattern suggests a final unification is coming. But the last step (quantum mechanics + gravity) has resisted for a century. Either the pattern continues or we are at the edge of what unification can achieve."
+    },
+    {
+      "question": "Is the mathematical unity of the universe evidence that mathematics is the fundamental structure of reality (Mathematical Universe Hypothesis — Tegmark)?",
+      "tension": "Tegmark proposes that all mathematically consistent structures exist as physical realities — our universe is just one structure in an infinite ensemble. This is the most radical version of P12: reality *is* mathematics. Critics argue it's untestable and dissolves the distinction between existence and logical possibility. But Tegmark's view is a natural endpoint of the 'unreasonable effectiveness of mathematics' observation.",
+      "curiosity_hook": "If Tegmark is right, then doing mathematics is literally exploring the multiverse. Every consistent mathematical structure is a physical reality. This would make P12 not just a principle but the ultimate fact about existence. It is the most ambitious possible version of unity."
+    },
+    {
+      "question": "Does the unity of consciousness — the single 'I' that experiences — require a specific physical substrate, or is it substrate-independent?",
+      "tension": "Functionalism: any system with the right computational structure would have unified consciousness. Biological naturalism (Searle): consciousness requires specific causal powers of biological neurons; silicon cannot unify consciousness. IIT: unity (high Φ) is substrate-independent but architecture-specific — certain network architectures achieve unity and others do not. The question is both philosophical and empirical.",
+      "curiosity_hook": "The unity of self — the fact that all your experiences right now feel like they belong to one 'you' — is either a physical fact about your neurons or a computational fact about how information is integrated. This question determines whether AI systems can ever have genuine unified experience or only functional approximations of it."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Philosophy / ontology", "manifestation": "Monism (all is one substance — mind, matter, or something neutral) is P12 as metaphysics; Western and Eastern traditions independently arrived at unity as a fundamental principle", "example": "Spinoza's one substance (God/Nature), Advaita Vedanta's non-duality, and Tegmark's Mathematical Universe are P12 applied to the question of what exists" },
+    { "domain": "Ecology / systems biology", "manifestation": "Gaia hypothesis (Lovelock): Earth is a self-regulating unified system in which life, atmosphere, and geology are coupled — biological P12", "example": "Oxygen levels, ocean salinity, and temperature are all regulated by biological feedback — the planet as a unified homeostatic system" },
+    { "domain": "Organizational theory", "manifestement": "Organizational culture is the unity principle of an institution — the shared meaning that makes individual actions cohere into collective behavior", "example": "Mergers that fail at cultural integration destroy unity even when economic synergies are real — P12 failure at the organizational level" },
+    { "domain": "Art / aesthetics", "manifestation": "Artistic unity — the sense that all elements of a work serve a single purpose — is the aesthetic expression of P12; great art has nothing superfluous", "example": "Beethoven's 5th opens with a 4-note motif that permeates all four movements — unity across time, texture, and transformation" }
+  ],
+  "noise_signature": [
+    { "pattern": "Unification attempt that requires more assumptions than it saves", "diagnosis": "The proposed unity is not real unity — adding epicycles to make theories agree produces formal unification without conceptual unity" },
+    { "pattern": "Identity element missing — group has no neutral action", "diagnosis": "The algebraic structure is not a group; unitality has been violated; the mathematical object is weaker than assumed" },
+    { "pattern": "Reductio breaks the unity — the unified theory predicts something that contradicts known results", "diagnosis": "The unification is incorrect or incomplete; incompatibility at the boundary reveals where the two frameworks cannot actually be reconciled" }
+  ],
   "tags": ["unification", "identity", "wholeness", "maxwell", "mass-energy", "convergence"]
 }

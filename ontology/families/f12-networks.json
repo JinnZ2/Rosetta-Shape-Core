@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F13", "FAMILY.F14", "FAMILY.F15", "FAMILY.F16", "FAMILY.F17"],
   "seed_prompt": "⬡ Map the hubs. Is this network robust to random failure but fragile to hub attack? Find the percolation threshold.",
+  "fourth_equation": {
+    "name": "Clustering Coefficient",
+    "formula": "C = (3 × # triangles)/(# connected triples)",
+    "why": "Measures local cohesion — how likely are two neighbors of a node to also be neighbors of each other? High C means clustered communities; low C means tree-like structure"
+  },
+  "explore_paths": [
+    { "question": "How does information propagate through networks?", "follow": "FAMILY.F03", "why": "Network topology determines channel capacity, bottlenecks, and broadcast reach — the structure of F12 sets the limits of F03" },
+    { "question": "What happens when a network approaches a critical connectivity threshold?", "follow": "PRINCIPLE.P05", "why": "The percolation transition is an emergence event — below the threshold, only isolated clusters; above it, a giant connected component suddenly spans the whole system" },
+    { "question": "How does flow move through a network?", "follow": "FAMILY.F02", "why": "Max-flow/min-cut in networks is the discrete version of fluid flow — the bottleneck theorem is the network analog of fluid dynamics" },
+    { "question": "Can network topology describe consciousness?", "follow": "FAMILY.F16", "why": "Brain connectivity (connectome) is a network science problem; graph-theoretic measures of brain networks correlate with cognitive function and disorders" }
+  ],
+  "open_questions": [
+    {
+      "question": "How does influence actually spread through social networks — is it threshold cascades, or diffusion?",
+      "tension": "Watts-Dodds threshold model predicts cascades when enough neighbors adopt a behavior. Centola's experiments show behavior spreads better through clustered networks with redundant ties. But simple contagion (disease, information) spreads faster through weak ties (Granovetter). These two dynamics coexist and are hard to distinguish empirically.",
+      "curiosity_hook": "Every social media platform, every public health intervention, every political campaign depends on this question. The mechanism determines everything about intervention design — and it's still genuinely contested."
+    },
+    {
+      "question": "Can connectome analysis (brain network topology) predict cognitive function or psychiatric disorders?",
+      "tension": "The Human Connectome Project mapped brain connectivity at unprecedented resolution. Some graph-theoretic measures (small-world topology, rich-club organization) correlate with intelligence and predict disorders like schizophrenia. But connectome → function mapping is far from deterministic. Lesion studies show surprising plasticity — the same network graph can support different functions.",
+      "curiosity_hook": "The brain is the most complex network we know of. Whether its topology *determines* its function or merely *enables* it is the deep question — and answering it would transform both neuroscience and AI."
+    },
+    {
+      "question": "Do scale-free networks actually exist in nature, or is this an artifact of how we measure them?",
+      "tension": "Barabási's preferential attachment model predicts scale-free (power law degree) networks. Scale-free topology was claimed in the internet, protein networks, citation networks, and social networks. Broido & Clauset (2019) reanalyzed hundreds of networks and found very few are truly scale-free — most are better fit by log-normal or other distributions.",
+      "curiosity_hook": "A highly influential result in network science may have been a statistical artifact. The debate is ongoing and methodological — which highlights how the choice of statistical test shapes what 'universals' we think we find in nature."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Epidemiology", "manifestation": "Disease spreads through contact networks; network topology determines R₀ and the effectiveness of targeted vaccination", "example": "Targeting hubs (superspreaders) for vaccination is orders of magnitude more efficient than random vaccination" },
+    { "domain": "Ecology / food webs", "manifestation": "Ecosystems are networks of trophic interactions; network robustness determines ecosystem stability after species loss", "example": "Keystone species are network hubs — removing them triggers cascading failures disproportionate to their biomass" },
+    { "domain": "Finance / systemic risk", "manifestation": "Financial institutions form a network; contagion in 2008 spread through interbank lending networks like a percolation cascade", "example": "Too-big-to-fail is a network topology problem — systemically important nodes whose failure would fragment the financial network" },
+    { "domain": "Language / semantics", "manifestation": "Semantic networks and word association graphs have small-world and scale-free properties that constrain meaning retrieval", "example": "Word retrieval times in free association follow network distance in semantic graphs — meaning is a network phenomenon" }
+  ],
+  "noise_signature": [
+    { "pattern": "Cascade failure — removal of one node triggers successive failures across the network", "diagnosis": "The network is scale-free and the removed node was a hub; robust to random failure but fragile to targeted attack" },
+    { "pattern": "Network fragmentation — connected component splits into isolated islands", "diagnosis": "Edge removal has crossed the percolation threshold; global connectivity is lost" },
+    { "pattern": "Eigenvalue gap collapse — Laplacian spectral gap shrinks toward zero", "diagnosis": "The network is becoming poorly connected; diffusion and synchronization will slow or fail" }
+  ],
   "tags": ["graph-theory", "scale-free", "hub", "percolation", "laplacian", "community"]
 }

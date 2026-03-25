@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F02", "FAMILY.F03", "FAMILY.F04"],
   "seed_prompt": "≡≡≡ What frequency does this system prefer? Find the natural voice; coupling and coherence follow.",
+  "fourth_equation": {
+    "name": "Wave Equation (1D Standing Wave)",
+    "formula": "y(x,t) = A sin(kx) cos(ωt)",
+    "why": "Spatial and temporal oscillation multiply — the frozen pattern of resonance made visible"
+  },
+  "explore_paths": [
+    { "question": "What happens when resonance breaks down?", "follow": "FAMILY.F17", "why": "Turbulence is what resonance looks like when coupling fails and phase-lock dissolves" },
+    { "question": "Can resonance generate awareness?", "follow": "FAMILY.F16", "why": "Neural gamma oscillations and phase-locking are candidate mechanisms for conscious binding" },
+    { "question": "What is the governing principle behind why resonance exists at all?", "follow": "PRINCIPLE.P06", "why": "Resonance as principle abstracts from specific equations to the universal matching condition" },
+    { "question": "How does resonance carry information?", "follow": "FAMILY.F03", "why": "Resonant frequencies are natural encodings — Fourier decomposition reveals the information content of any resonant system" }
+  ],
+  "open_questions": [
+    {
+      "question": "Do Schumann resonances (Earth's electromagnetic cavity ~7.83 Hz) actually influence human brainwaves?",
+      "tension": "Correlations exist in the data but causation is fiercely debated. The amplitude of Schumann resonances at the scalp is tiny compared to neural noise — yet some researchers find statistically significant coupling.",
+      "curiosity_hook": "If true, the biosphere is literally tuned to a planetary resonance. If false, it's a beautiful example of how pattern-matching can fool even careful scientists."
+    },
+    {
+      "question": "Is synchrony in neural oscillations causal for consciousness, or merely correlational?",
+      "tension": "Binding-by-synchrony theory (gamma ~40Hz) is widely cited but contested. Disrupting synchrony sometimes disrupts perception; sometimes it doesn't. The hard problem of whether synchrony *produces* experience vs just *correlates with* it remains open.",
+      "curiosity_hook": "This question sits at the exact intersection of F01 and F16 — and the answer has implications for what artificial systems could ever be aware."
+    },
+    {
+      "question": "Can quantum coherence survive long enough in warm, wet biological systems to serve a functional role?",
+      "tension": "Penrose-Hameroff propose quantum resonance in microtubules underlies consciousness. Mainstream neuroscience considers this thermodynamically implausible. Recent photosynthesis research showed unexpectedly long-lived quantum coherence in biological systems — reopening the debate.",
+      "curiosity_hook": "The disagreement is between physics (decoherence timescales) and biology (observed coherence). Something in the middle might be right — and if so, it changes everything about how we understand biological intelligence."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Music theory", "manifestation": "Consonance and dissonance arise from harmonic frequency ratios — resonance is why some chords feel resolved and others tense", "example": "Perfect fifth = 3:2 ratio; its consonance is a physical fact before it is an aesthetic one" },
+    { "domain": "Architecture / acoustics", "manifestation": "Buildings have resonant modes; the Tacoma Narrows Bridge collapsed when wind drove its natural frequency", "example": "Cathedral design implicitly tunes resonance for sustain and reverb" },
+    { "domain": "Chemistry / spectroscopy", "manifestation": "NMR and IR spectroscopy identify molecules by their resonant absorption frequencies", "example": "Each bond type has a characteristic stretch frequency — a molecular fingerprint via resonance" },
+    { "domain": "Ecology", "manifestation": "Predator-prey cycles can phase-lock into synchronized oscillations across large territories", "example": "Canadian lynx-snowshoe hare cycles show resonance-like entrainment across geographically separated populations" }
+  ],
+  "noise_signature": [
+    { "pattern": "Beats — slow amplitude modulation when two near-identical frequencies interfere", "diagnosis": "Coupling exists but detuning is present; the system is seeking but hasn't found phase-lock" },
+    { "pattern": "Resonance catastrophe — amplitude grows unboundedly in undamped driven systems", "diagnosis": "Insufficient damping; the system cannot dissipate the energy accumulating at its natural frequency" },
+    { "pattern": "Decoherence — phase relationship decays over time", "diagnosis": "External noise or thermal fluctuations are destroying the coherence that resonance requires" }
+  ],
   "tags": ["standing-wave", "synchronization", "harmonics", "phase-lock", "coupling"]
 }

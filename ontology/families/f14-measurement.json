@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F12", "FAMILY.F13", "FAMILY.F15", "FAMILY.F16", "FAMILY.F17"],
   "seed_prompt": "↕ Propagate the error first. Then ask: how many independent dimensionless groups govern this system?",
+  "fourth_equation": {
+    "name": "Standard Deviation",
+    "formula": "σ = √[Σ(xᵢ - μ)²/N]",
+    "why": "RMS deviation from the mean — the fundamental measure of spread; all of statistical inference is built on top of this"
+  },
+  "explore_paths": [
+    { "question": "Is there a fundamental quantum limit to how precisely anything can be measured?", "follow": "PRINCIPLE.P10", "why": "The Heisenberg uncertainty principle is the ultimate floor on measurement precision for conjugate pairs — F14 hits its hard limit in P10" },
+    { "question": "How does measurement relate to information?", "follow": "FAMILY.F03", "why": "Every measurement extracts information from a system; Fisher information measures how much information an experiment can extract about a parameter" },
+    { "question": "Does the act of measurement change what is being measured?", "follow": "PRINCIPLE.P04", "why": "In quantum mechanics, measurement collapses the wavefunction — duality means you can only measure one of two complementary properties at a time" },
+    { "question": "What happens when a system measures itself?", "follow": "FAMILY.F16", "why": "Self-measurement and self-modeling are features of conscious systems — the boundary between F14 and F16 is where reflexive awareness begins" }
+  ],
+  "open_questions": [
+    {
+      "question": "Can the act of measurement change what is being measured in non-quantum systems? (Observer effects beyond physics)",
+      "tension": "In quantum mechanics, wavefunction collapse is a real physical effect. But observer effects appear in social science (Hawthorne effect), ecology (tagged animals change behavior), and economics (publishing economic forecasts changes behavior). The question is whether these are all the same phenomenon or superficially similar but mechanistically distinct.",
+      "curiosity_hook": "If observer effects are universal — if measurement always disturbs what it measures — then the scientific ideal of objective measurement-without-disturbance is never fully achievable. Every methodology section in every paper is secretly a measurement theory."
+    },
+    {
+      "question": "What is the minimum meaningful unit of measurement? Is the Planck length physically meaningful?",
+      "tension": "The Planck length (~10^-35 m) is where quantum gravity effects should dominate. Some theories (loop quantum gravity) predict it as a fundamental discreteness; others (string theory) work with it as a scale but not a lattice. No experiment remotely approaches this scale. Whether it represents a physical minimum or just a dimensional coincidence is genuinely unknown.",
+      "curiosity_hook": "If the Planck length is the smallest meaningful measurement, then measurement itself has a granularity — the universe is not a continuum but a pixelated image at extreme zoom. This would fundamentally change F09 (geometry)."
+    },
+    {
+      "question": "Can we have a complete theory of measurement errors, including systematic and unknown unknowns?",
+      "tension": "Statistical error propagation handles random errors. Systematic errors can be modeled if their sources are known. But 'unknown unknowns' — errors whose source isn't recognized — have no formal treatment. The replication crisis in science is partly a systematic measurement error crisis.",
+      "curiosity_hook": "Every scientific result is only as good as its error model. The replication crisis revealed that many researchers didn't know what they didn't know about their measurement instruments. This is F14 at its philosophical edge."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Metrology / standards", "manifestation": "The SI system is a global agreement on measurement units; the 2019 redefinition anchored all units to fundamental constants", "example": "The kilogram is now defined via Planck's constant h — connecting measurement to quantum physics at the most fundamental level" },
+    { "domain": "Social science / psychology", "manifestation": "Psychometrics attempts to measure latent quantities (intelligence, happiness, pain) that have no direct physical analog", "example": "IQ is a measurement of 'something' that correlates with outcomes but whose construct validity is perpetually debated — F14 applied to the unmeasurable" },
+    { "domain": "Finance / risk", "manifestation": "Value at Risk, volatility, and stress testing are measurement frameworks for financial risk — uncertainty propagation applied to portfolios", "example": "The 2008 crisis partly resulted from risk models that underestimated tail correlations — systematic measurement error with global consequences" },
+    { "domain": "Medical diagnosis", "manifestation": "Sensitivity, specificity, and receiver operating characteristic (ROC) curves are measurement theory applied to diagnostic tests", "example": "A test with 99% specificity still produces mostly false positives when screening for a rare disease — the measurement framework reveals the paradox" }
+  ],
+  "noise_signature": [
+    { "pattern": "Systematic bias — all measurements consistently off in one direction", "diagnosis": "Instrument calibration error, experimental design flaw, or confounding variable; random error averaging does not fix this" },
+    { "pattern": "Precision without accuracy — tight cluster far from true value", "diagnosis": "High repeatability but wrong calibration; a precise wrong answer; the instrument is self-consistent but not truth-tracking" },
+    { "pattern": "Aliasing — high-frequency signal appears as low-frequency artifact", "diagnosis": "Sampling rate is below Nyquist frequency; the measurement is aliased; temporal resolution is insufficient for the signal" }
+  ],
   "tags": ["uncertainty", "error-propagation", "signal-noise", "dimensional-analysis", "calibration", "statistics"]
 }

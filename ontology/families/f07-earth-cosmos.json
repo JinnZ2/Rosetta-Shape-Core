@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F05", "FAMILY.F06", "FAMILY.F08"],
   "seed_prompt": "◯ Find the central mass. All motion curves around it. Period and radius are bound.",
+  "fourth_equation": {
+    "name": "Tidal Force",
+    "formula": "ΔF ∝ (2GMm/r³)Δr",
+    "why": "Differential gravity across an extended body — the same mechanism raises ocean tides, tears apart comets, and stretches galaxies in close encounters"
+  },
+  "explore_paths": [
+    { "question": "What is spacetime actually made of at the deepest level?", "follow": "FAMILY.F18", "why": "F07 describes gravity phenomenologically; F18 (relativity) reveals gravity is spacetime curvature — the same phenomena, different depth of description" },
+    { "question": "What governs the large-scale structure of cosmic matter?", "follow": "FAMILY.F12", "why": "Galaxy clusters form a cosmic web — a network structure governed by the same scale-free topology as other F12 networks" },
+    { "question": "What proportion governs planetary and stellar scales?", "follow": "PRINCIPLE.P09", "why": "Bode's law, planetary resonances, and stellar mass-luminosity relations all express deep proportional regularities in cosmic structure" },
+    { "question": "How does the cosmos relate to what we can know?", "follow": "PRINCIPLE.P10", "why": "The cosmic horizon, dark energy, and quantum gravity all impose fundamental limits on observation — F07 and P10 converge at the edge of the knowable universe" }
+  ],
+  "open_questions": [
+    {
+      "question": "What is dark matter?",
+      "tension": "~27% of the universe's energy density is 'dark matter' — inferred from galaxy rotation curves, gravitational lensing, and structure formation. Candidates include WIMPs, axions, sterile neutrinos, and primordial black holes. Decades of direct detection experiments have found nothing. Some physicists propose modifying gravity (MOND) instead of adding new particles.",
+      "curiosity_hook": "The thing we know least about is the most abundant form of matter. The diversity of competing explanations reflects genuine uncertainty — this is one of the most open questions in all of science."
+    },
+    {
+      "question": "Is the universe fine-tuned for life? (The Anthropic Principle debate)",
+      "tension": "The fundamental constants (fine structure constant, proton-to-electron mass ratio, cosmological constant) appear to be tuned to values that permit complex chemistry and life. Change them slightly and stars don't form, or atoms don't exist. Three explanations compete: (1) multiverse — all values exist, we observe the ones compatible with observers; (2) deeper theory — the constants are determined by as-yet-unknown physics; (3) it's just a selection effect with no further explanation.",
+      "curiosity_hook": "This question genuinely cannot be resolved without either discovering the multiverse (possibly impossible) or finding the deeper theory. It's the intersection of cosmology, philosophy, and the question of why anything exists at all."
+    },
+    {
+      "question": "What existed before the Big Bang, or is that question meaningless?",
+      "tension": "Hawking's no-boundary proposal says asking what came before the Big Bang is like asking what's north of the North Pole — time itself began at the singularity. Penrose's Conformal Cyclic Cosmology proposes the Big Bang was the 'Big Crunch' of a prior universe. Eternal inflation suggests the Big Bang was a local event in a much larger inflating spacetime.",
+      "curiosity_hook": "Every answer either requires accepting that time has a beginning (philosophically uncomfortable) or positing an infinite pre-existing substrate (equally uncomfortable). There is no comfortable answer — only more interesting questions."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Biology / evolution", "manifestation": "Cosmic events shape evolution: asteroid impacts cause mass extinctions; solar cycles affect climate; tidal forces drove early Earth's fast rotation which may have driven circadian rhythms", "example": "The Chicxulub impactor (66 Mya) reset the evolutionary trajectory of complex life on Earth" },
+    { "domain": "Navigation / GPS", "manifestation": "GPS satellites require general relativistic corrections — without accounting for spacetime curvature, GPS would drift 10 km/day", "example": "Time dilation from both velocity (special relativity) and altitude (general relativity) must be compensated in every satellite clock" },
+    { "domain": "Mythology / calendrics", "manifestation": "Every human culture built its calendar around celestial mechanics — Kepler's laws were implicit in every agricultural society", "example": "Stonehenge, the Maya Long Count, and the Egyptian calendar all encode orbital mechanics in stone and number" },
+    { "domain": "Tidal biology", "manifestation": "Intertidal ecosystems are structured entirely by tidal force periodicity; many marine organisms have internal clocks tuned to tidal cycles", "example": "Fiddler crab activity peaks at predicted low tides even in constant laboratory conditions — tidal rhythms internalized" }
+  ],
+  "noise_signature": [
+    { "pattern": "Orbital decay — satellite altitude dropping over time", "diagnosis": "Atmospheric drag is removing orbital energy; the orbit is not truly ballistic; a correction force is needed" },
+    { "pattern": "Chaotic orbital evolution — long-term unpredictability in multi-body systems", "diagnosis": "Three-body and n-body interactions produce sensitive dependence; Laplace's dream of perfect prediction fails here" },
+    { "pattern": "Tidal disruption — smaller body torn apart by differential gravitational forces", "diagnosis": "Body has crossed the Roche limit; tidal force exceeds the body's own self-gravity" }
+  ],
   "tags": ["gravity", "orbital-mechanics", "kepler", "tidal-force", "celestial", "inverse-square"]
 }

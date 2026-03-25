@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F01", "FAMILY.F02", "FAMILY.F03"],
   "seed_prompt": "•••• Growth, coupling, saturation. Where is the carrying capacity? Who eats whom?",
+  "fourth_equation": {
+    "name": "Hill Equation",
+    "formula": "θ = [L]ⁿ/(K_d + [L]ⁿ)",
+    "why": "Cooperative binding: the steepness exponent n measures how sharply a molecular switch flips — the basis of biological threshold responses"
+  },
+  "explore_paths": [
+    { "question": "What distinguishes life from chemistry?", "follow": "FAMILY.F13", "why": "Autocatalytic reaction networks are the chemical precondition for life — the boundary between F13 and F04 is where life begins" },
+    { "question": "What governs when a population collapses vs recovers?", "follow": "PRINCIPLE.P05", "why": "Ecological tipping points are phase transitions — F04 dynamics near carrying capacity exhibit critical slowing down, a hallmark of P05" },
+    { "question": "How does life process information and adapt?", "follow": "FAMILY.F06", "why": "Evolution is a learning algorithm; neural systems are life's highest expression of information-guided adaptation" },
+    { "question": "How does energy constrain what life can do?", "follow": "FAMILY.F05", "why": "Metabolic rate, body size, and lifespan all follow thermodynamic scaling laws — life plays by thermodynamic rules" }
+  ],
+  "open_questions": [
+    {
+      "question": "What is the minimal definition of life? Are viruses alive? Are prions?",
+      "tension": "The standard criteria (metabolism, reproduction, homeostasis, evolution) exclude viruses (no metabolism outside a host) but viruses clearly evolve and replicate. Prions replicate without nucleic acids. Autopoiesis theory (Maturana & Varela) offers a different boundary. No consensus exists.",
+      "curiosity_hook": "The edge of life is the most interesting part — it's where the category system breaks down and reveals that 'life' may be a continuum, not a binary."
+    },
+    {
+      "question": "Did life arise once or multiple times on Earth?",
+      "tension": "All known life shares the same genetic code, suggesting a single origin (LUCA — Last Universal Common Ancestor). But the genetic code might be universal because it outcompeted alternatives, not because alternatives never existed. We have no fossil record of 'shadow biospheres' that may have existed and gone extinct.",
+      "curiosity_hook": "If life arose multiple times independently, it's probably common in the universe. If once, it might be a near-miracle. The stakes of this question are astronomical."
+    },
+    {
+      "question": "Can life exist with radically different chemistry — silicon-based, arsenic-based, or in non-aqueous solvents?",
+      "tension": "Silicon can form long chains like carbon, but Si-Si bonds are weaker and SiO₂ is solid (unlike CO₂ gas). Arsenic-based life was briefly claimed in 2010 (GFAJ-1 bacteria) but later refuted. Titan's liquid methane lakes are theoretically habitable for life using H₂ instead of O₂.",
+      "curiosity_hook": "Our entire sample of life is one data point — carbon/water/Earth. Every time we assume our chemistry is the only possible chemistry, we're making an enormous extrapolation."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Economics", "manifestation": "Market growth follows logistic curves; boom-bust cycles echo predator-prey oscillations", "example": "Technology adoption curves are S-curves (logistic growth); market crashes show Lotka-Volterra-like predator dynamics" },
+    { "domain": "Epidemiology", "manifestation": "SIR models of disease spread are directly derived from Lotka-Volterra ecology", "example": "R₀ (basic reproduction number) maps directly to α/γ in the Lotka-Volterra system" },
+    { "domain": "Evolutionary algorithms / AI", "manifestation": "Genetic algorithms use selection, mutation, and crossover — the three operators of biological evolution", "example": "Fitness landscapes in evolutionary computation are direct analogues of ecological fitness landscapes" },
+    { "domain": "Organizational theory", "manifestation": "Organizations grow logistically, compete ecologically, and face carrying capacity in market share", "example": "The 'innovator's dilemma' is a predator-prey dynamic where new species (startups) displace incumbents" }
+  ],
+  "noise_signature": [
+    { "pattern": "Overshoot and collapse — population exceeds carrying capacity then crashes", "diagnosis": "Delayed feedback; the system's regulation mechanism is too slow relative to its growth rate" },
+    { "pattern": "Competitive exclusion — one species drives another to zero", "diagnosis": "Niche overlap is total; no partitioning exists; diversity collapses to monoculture" },
+    { "pattern": "Enzyme inhibition — reaction rate plateaus far below V_max", "diagnosis": "Inhibitor is competing with substrate or allosterically blocking the enzyme gateway" }
+  ],
   "tags": ["ecology", "population", "catalysis", "metabolism", "oscillation", "s-curve"]
 }

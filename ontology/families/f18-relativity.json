@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F19", "FAMILY.F20"],
   "seed_prompt": "⊗≡ What is the metric? Curvature equals mass-energy. Boosts mix space and time.",
+  "fourth_equation": {
+    "name": "Gravitational Wave Equation",
+    "formula": "□h̄μν = -(16πG/c⁴)Tμν",
+    "why": "Linearized gravity: small perturbations to flat spacetime propagate as waves at speed c — confirmed by LIGO detection in 2015"
+  },
+  "explore_paths": [
+    { "question": "What is spacetime made of at the Planck scale?", "follow": "FAMILY.F09", "why": "GR treats spacetime as smooth geometry (F09); quantum gravity asks what that geometry is built from at the smallest scales — the deepest question in F18" },
+    { "question": "How does curved spacetime connect to particle physics?", "follow": "FAMILY.F10", "why": "Quantum field theory in curved spacetime produces Hawking radiation and the black hole information paradox — F18 and F10 in direct conflict" },
+    { "question": "What is the topological structure of spacetime?", "follow": "FAMILY.F20", "why": "Wormholes, closed timelike curves, and cosmic topology are F18 questions that require F20 (topology) to even state" },
+    { "question": "Is the equivalence principle exact, or are there deviations?", "follow": "PRINCIPLE.P01", "why": "The equivalence principle is a symmetry statement — if violated, it would imply a new force or field that distinguishes inertial from gravitational mass" }
+  ],
+  "open_questions": [
+    {
+      "question": "Is spacetime emergent from something more fundamental, or is it the ground-level ontology?",
+      "tension": "In GR, spacetime is the fabric. In loop quantum gravity, spacetime emerges from quantum geometry (spin networks). In string theory, spacetime emerges from conformal field theory on string worldsheets. The AdS/CFT correspondence suggests spacetime in one dimension can emerge from a quantum theory in lower dimensions (holographic principle). Which is right — or whether any current theory is right — is unknown.",
+      "curiosity_hook": "If spacetime is emergent, then our most fundamental description of reality (general relativity) is describing a derived quantity, not the ground truth. This would be the deepest conceptual revolution since Einstein himself."
+    },
+    {
+      "question": "What happened before the Big Bang, and is the question meaningful?",
+      "tension": "Hawking's no-boundary proposal: time is imaginary near the Big Bang; asking 'before' is like asking what's south of the South Pole. Penrose's CCC: the Big Bang was the end of a prior aeon. Eternal inflation: the Big Bang was a local nucleation in a much larger inflating background. All three are internally consistent and unverifiable with current physics.",
+      "curiosity_hook": "Every cosmological origin theory faces the same problem: it requires something to already exist in order to produce the Big Bang. Avoiding infinite regress requires either accepting brute facts or accepting that time itself is different than we imagine."
+    },
+    {
+      "question": "Does general relativity break down at singularities, and what replaces it?",
+      "tension": "GR predicts infinite curvature inside black holes and at the Big Bang. Most physicists believe quantum gravity regulates these singularities — but we don't have a complete quantum gravity theory. Loop quantum gravity and string theory both claim to resolve singularities, but in incompatible ways.",
+      "curiosity_hook": "Singularities are where a theory politely admits it doesn't know the answer. The physics at the center of a black hole is the most inaccessible experiment conceivable — and also the place where the two best theories in physics (GR and QM) most catastrophically disagree."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "GPS / navigation technology", "manifestation": "GPS requires both special and general relativistic corrections — without them, position error accumulates at ~10 km/day", "example": "Satellite clocks run fast (altitude → less gravity) and slow (orbital velocity → time dilation); both corrections must be applied simultaneously" },
+    { "domain": "Gravitational wave astronomy", "manifestation": "LIGO detects spacetime ripples from merging black holes and neutron stars — a new observational window on the universe using pure geometry", "example": "The 2017 neutron star merger GW170817 confirmed that gravitational waves travel at the speed of light to 1 part in 10^15" },
+    { "domain": "Cosmology / dark energy", "manifestation": "The cosmological constant Λ in Einstein's equations drives the accelerating expansion of the universe — F18 is the framework for all of observational cosmology", "example": "The tension between early-universe (CMB) and late-universe (supernovae) measurements of H₀ may indicate new physics beyond ΛCDM" },
+    { "domain": "Philosophy of time", "manifestation": "Block universe (eternalism) vs presentism debate is a direct consequence of F18 — relativity of simultaneity means 'now' is observer-dependent", "example": "The 'rietdijk-Putnam argument': if distant events are simultaneous relative to some frame, the future must already exist; F18 has direct metaphysical implications" }
+  ],
+  "noise_signature": [
+    { "pattern": "Frame dragging anomaly — gyroscope precession deviates from Newtonian prediction", "diagnosis": "Rotating massive body is dragging spacetime with it (Lense-Thirring effect) — requires GR to account for" },
+    { "pattern": "Gravitational redshift mismatch — photon frequency at receiver doesn't match prediction", "diagnosis": "Either GR is violated or there's an unaccounted mass distribution between source and receiver" },
+    { "pattern": "Orbital decay without apparent energy loss mechanism", "diagnosis": "Gravitational wave emission — compact binaries lose energy to spacetime ripples; predicted by GR and confirmed by Hulse-Taylor pulsar timing" }
+  ],
   "tags": ["general-relativity", "spacetime", "curvature", "lorentz", "gravitational-waves", "covariance"]
 }
