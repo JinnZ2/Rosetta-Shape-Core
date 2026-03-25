@@ -25,5 +25,44 @@
   "resonates_with": ["PRINCIPLE.P01", "PRINCIPLE.P03", "FAMILY.F18", "FAMILY.F10"],
   "shapes": ["SHAPE.DODECA"],
   "seed_prompt": "⊗ Change the frame. Does the physics change? It should not. Find the invariant interval.",
+  "fourth_equation": {
+    "name": "General Covariance",
+    "formula": "Physical laws same in all coordinate systems",
+    "why": "The demand that physics be independent of coordinate choice is what forces us to write equations as tensor equations — general covariance is the deepest formulation of frame-independence"
+  },
+  "explore_paths": [
+    { "question": "What does frame-independence imply about the nature of reality?", "follow": "PRINCIPLE.P01", "why": "Lorentz invariance is a symmetry of spacetime — P03 is a specific instance of P01 applied to the transformations between inertial frames" },
+    { "question": "How does the equivalence principle lead to curved spacetime?", "follow": "FAMILY.F18", "why": "The equivalence principle is the seed from which all of general relativity grows — P03 is the conceptual entry point to F18" },
+    { "question": "Does relativity of simultaneity have implications for causality and free will?", "follow": "PRINCIPLE.P07", "why": "If the future is 'already there' in some frames, then the flow of time and causality are frame-dependent — P03 puts P07 (continuity, flow) under pressure" },
+    { "question": "Is there a preferred frame after all?", "follow": "FAMILY.F19", "why": "Cosmic microwave background defines a preferred cosmic rest frame — statistically, if not dynamically; the tension between P03 and this observational fact is interesting" }
+  ],
+  "open_questions": [
+    {
+      "question": "Does quantum gravity require a preferred reference frame, breaking Lorentz invariance?",
+      "tension": "Special relativity insists no frame is preferred. But loop quantum gravity and some quantum gravity models predict Lorentz invariance violation at the Planck scale — the discrete structure of spacetime might break the exact symmetry. Observational tests via gamma-ray bursts (measuring photon speed at different energies) have found no violation — constraining but not ruling out Planck-scale effects.",
+      "curiosity_hook": "If Lorentz invariance breaks at Planck scale, then the most fundamental symmetry in physics is approximate. Every 'fundamental' principle in physics has turned out to be approximate at some scale — is P03 next?"
+    },
+    {
+      "question": "What is the correct interpretation of the block universe implied by special relativity?",
+      "tension": "The relativity of simultaneity in SR implies that events in one person's future are simultaneous (in the present) for someone in relative motion. The 'block universe' (eternalism) follows: all moments exist equally. Presentists argue this is a misreading. The Rietdijk-Putnam argument makes the block universe seem logically necessary from SR. The implications for free will, causality, and the nature of time are profound.",
+      "curiosity_hook": "P03 has a direct implication: if SR is right, the future is already there. This makes time not a river but a map — a philosophical conclusion from a physical equation. The debate has never been resolved."
+    },
+    {
+      "question": "Is the equivalence principle exact, or do quantum mechanics effects violate it?",
+      "tension": "The weak equivalence principle (all objects fall the same way) has been tested to extraordinary precision. The strong equivalence principle (physics in a free-fall frame is identical to SR) is harder to test. Quantum mechanics predicts tiny violations: the COW experiment showed neutron interferometry depends on height in a gravitational field in a way that violates naive equivalence. The quantum equivalence principle remains an open research area.",
+      "curiosity_hook": "The equivalence principle is Einstein's most beautiful idea. If quantum mechanics violates it — even slightly — it creates a crack between the two pillars of modern physics that no one has successfully bridged."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Technology / GPS", "manifestation": "GPS is the most precise engineering test of P03 — relativistic corrections are required to maintain centimeter accuracy", "example": "A GPS receiver that ignored special and general relativistic effects would drift ~10 km per day — relativity is not abstract; it is in every smartphone" },
+    { "domain": "Philosophy of time", "manifestation": "P03 forces a rethinking of presentism vs eternalism — the metaphysics of time is constrained by special relativity", "example": "Philosophers of physics have largely abandoned presentism because it is incompatible with Lorentz invariance" },
+    { "domain": "Astrophysics / gravitational lensing", "manifestation": "Massive objects bend light; gravitational lensing is P03's observational signature — first confirmed in 1919 eclipse", "example": "Einstein rings and gravitational mirages are direct images of P03; massive clusters are used as natural telescopes" },
+    { "domain": "Nuclear / particle physics", "manifestation": "E = mc² is an engineering equation: nuclear reactors and weapons convert mass to energy; particle accelerators convert kinetic energy to mass", "example": "Pair production (γ → e⁺ + e⁻) converts photon energy directly to particle mass — P03 in a detector" }
+  ],
+  "noise_signature": [
+    { "pattern": "Superluminal apparent motion of radio jets from quasars", "diagnosis": "Not actual faster-than-light travel — a relativistic projection effect; jets moving at ~0.99c aimed toward observer create apparent superluminal motion" },
+    { "pattern": "Twin paradox confusion — both twins cannot be older", "diagnosis": "The asymmetry is resolved by recognizing which twin underwent acceleration (changed frames) — the traveling twin is younger; P03 does not produce a paradox when applied correctly" },
+    { "pattern": "Coordinate singularity vs physical singularity in GR", "diagnosis": "Some singularities in GR (e.g., at event horizon in Schwarzschild coordinates) are artifacts of coordinate choice; covariant analysis distinguishes these from real curvature singularities" }
+  ],
   "tags": ["relativity", "lorentz-invariance", "equivalence-principle", "covariance", "spacetime", "frame-independence"]
 }

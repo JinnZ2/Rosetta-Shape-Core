@@ -25,5 +25,44 @@
   "resonates_with": ["PRINCIPLE.P04", "PRINCIPLE.P10", "FAMILY.F10", "FAMILY.F08"],
   "shapes": ["SHAPE.DODECA"],
   "seed_prompt": "▭ What are the allowed levels? Find the quantum number. Transitions follow selection rules.",
+  "fourth_equation": {
+    "name": "Charge Quantization",
+    "formula": "Q = ne (n ∈ ℤ)",
+    "why": "All observable charges are integer multiples of the elementary charge e — a fundamental discreteness that Dirac showed follows if magnetic monopoles exist anywhere in the universe"
+  },
+  "explore_paths": [
+    { "question": "Why is energy quantized — what is the deeper reason for discreteness?", "follow": "PRINCIPLE.P07", "why": "Quantization often arises from boundary conditions imposed on continuous waves — standing wave conditions force integer multiples; P07 (continuity) with closed boundary → P08 (quantization)" },
+    { "question": "How does quantization relate to uncertainty?", "follow": "PRINCIPLE.P10", "why": "The discreteness of quantum levels and the uncertainty principle are both consequences of the non-commutativity of quantum observables — P08 and P10 are entangled" },
+    { "question": "Is time quantized?", "follow": "FAMILY.F18", "why": "Planck time (~5×10^-44 s) is the scale at which quantum gravitational effects should dominate — whether time itself is discrete at this scale is an open question connecting F18 and P08" },
+    { "question": "Can quantized systems emulate continuous ones exactly?", "follow": "FAMILY.F03", "why": "Shannon sampling theorem: a continuous signal can be exactly reconstructed from discrete samples if sampling rate > 2× bandwidth — discrete can represent continuous perfectly under conditions" }
+  ],
+  "open_questions": [
+    {
+      "question": "Why is spacetime apparently not quantized in the way energy and charge are?",
+      "tension": "Energy comes in photons (quanta), charge in electrons, angular momentum in ℏ. But spacetime in GR is continuous. Quantum gravity theories predict Planck-scale discreteness, but the mechanism differs: LQG (discrete area/volume eigenstates), causal sets (discrete events), string theory (minimum length from string size). No single accepted mechanism exists.",
+      "curiosity_hook": "Every other observable is quantized. Spacetime seems to resist. This inconsistency is the central tension of modern physics — and it may mean that either spacetime is fundamentally different from other observables, or that our description of spacetime is simply wrong at small scales."
+    },
+    {
+      "question": "Is Planck's constant h truly fundamental, or does it emerge from something deeper?",
+      "tension": "The 2019 SI redefinition made h an exact defined value (6.62607015×10^-34 J·s) rather than a measured one — anchoring all quantum measurements to it. But why h has its specific value is unknown. String theory and varying-constant theories allow for different h values in different regions or epochs. Whether h is a brute fact or derivable from deeper theory is open.",
+      "curiosity_hook": "The size of the quantum — the grain of all quantum discreteness — is set by a number whose origin is unknown. If h were different, atoms would have different sizes, chemistry would be different, life would be different or impossible. The question of why h equals what it equals is as deep as asking why anything exists."
+    },
+    {
+      "question": "Can continuous classical systems exactly simulate quantum behavior, or is quantum computation fundamentally more powerful?",
+      "tension": "BPP vs BQP complexity: can quantum computers solve problems that classical computers cannot (in polynomial time)? Shor's algorithm and Grover's algorithm show quantum speedups for specific problems. Whether quantum computers provide general exponential speedup over classical computers for all problems is unknown. The Church-Turing thesis extended to physics says quantum mechanics is the real model of computation.",
+      "curiosity_hook": "If quantum computers are genuinely more powerful than classical ones for some problems, then quantization (P08) creates a computational advantage — discrete quantum superposition can explore possibility spaces that continuous classical systems cannot. Discreteness as computational power."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Chemistry / atomic structure", "manifestation": "Quantized energy levels are why atoms have discrete spectral lines — P08 is why chemistry exists as a science (different elements have different spectra)", "example": "The hydrogen spectrum (Balmer, Lyman, Paschen series) directly maps quantized electron transitions — P08 made visible" },
+    { "domain": "Computing / digital systems", "manifestation": "Digital computation is built on quantization — bits are 0 or 1, never in between; ADCs quantize continuous signals; P08 as engineering choice", "example": "8-bit audio (256 levels) vs 24-bit (16 million levels) — quantization error as audible noise; bit depth is engineering P08" },
+    { "domain": "Music / scales and tuning", "manifestation": "Equal temperament divides the octave into 12 equal semitones — a quantization of pitch space; just intonation uses exact frequency ratios instead", "example": "The piano keyboard is a quantization device — it forces discrete pitches from what is actually a continuous frequency continuum" },
+    { "domain": "Neuroscience", "manifestation": "The action potential is a biological quantum — all-or-nothing threshold response; neurons quantize their output to discrete spikes", "example": "Neural spike timing and rate coding are both discretized representations of continuous sensory inputs — biological P08" }
+  ],
+  "noise_signature": [
+    { "pattern": "Quantization noise — staircasing artifacts in digitized signal", "diagnosis": "Resolution is insufficient for the signal; the discretization interval is too coarse; increase bit depth or sampling rate" },
+    { "pattern": "Tunneling through classically forbidden barrier", "diagnosis": "A particle has appeared where classical mechanics says it cannot be; quantum discreteness and wave nature allow probability leakage through barriers" },
+    { "pattern": "Selection rule violation — forbidden transition observed", "diagnosis": "A higher-order process, relativistic correction, or external perturbation has enabled a normally forbidden quantum transition; not a violation but a higher-order effect" }
+  ],
   "tags": ["quantization", "discrete", "energy-levels", "planck", "quantum-numbers", "zero-point"]
 }

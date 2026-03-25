@@ -25,5 +25,44 @@
   "resonates_with": ["PRINCIPLE.P10", "PRINCIPLE.P01", "FAMILY.F03", "FAMILY.F10"],
   "shapes": ["SHAPE.DODECA", "SHAPE.OCTA"],
   "seed_prompt": "◑ What is the dual of this description? Sharpen one side and the other blurs. Both are real.",
+  "fourth_equation": {
+    "name": "Time-Energy Duality",
+    "formula": "Δt ΔE ≥ ℏ/2",
+    "why": "Time and energy are complementary: short-lived states have large energy uncertainty; a perfectly monochromatic wave (definite energy) must last forever (infinite time)"
+  },
+  "explore_paths": [
+    { "question": "Are there dualities in string theory that suggest all physical theories are dual to each other?", "follow": "PRINCIPLE.P12", "why": "S-duality, T-duality, and AdS/CFT are string theory dualities suggesting different-looking theories are secretly the same — the ultimate expression of P04 in P12" },
+    { "question": "How does duality relate to uncertainty?", "follow": "PRINCIPLE.P10", "why": "Heisenberg uncertainty is a direct consequence of duality — conjugate pairs cannot simultaneously be sharp; P04 and P10 are two descriptions of the same quantum reality" },
+    { "question": "Is the mind-body relationship a form of duality?", "follow": "FAMILY.F16", "why": "Consciousness studies face a hard duality: physical descriptions and experiential descriptions seem irreducibly different; whether they are genuinely dual or one reduces to the other is the hard problem" },
+    { "question": "How does wave-particle duality connect to measurement?", "follow": "FAMILY.F14", "why": "The wave or particle nature of a quantum object depends on how you measure it — F14 and P04 are deeply entangled; the observer's choice of measurement determines which aspect is revealed" }
+  ],
+  "open_questions": [
+    {
+      "question": "Is wave-particle duality a feature of reality itself, or of our limited measurement apparatus?",
+      "tension": "Copenhagen says it's meaningless to ask what an electron 'is' between measurements — only observables are real. Bohmian mechanics says the particle is always a particle, guided by a pilot wave — duality is an artifact of our limited knowledge. Many-worlds says both the wave and particle aspects are fully real. All interpretations agree on predictions; they disagree profoundly on what is real.",
+      "curiosity_hook": "This is not a solved question dressed up as open. After 100 years, physicists who work with quantum mechanics daily disagree about what it means. The interpretations differ in their implications for consciousness, free will, the nature of reality, and whether we can ever know what is 'really happening.'"
+    },
+    {
+      "question": "Are string theory dualities (S-duality, T-duality, AdS/CFT) evidence that all physical theories are dual faces of one underlying structure?",
+      "tension": "AdS/CFT (Maldacena, 1997) is the most precise duality: a gravitational theory in 5D anti-de Sitter space is exactly equivalent to a 4D conformal field theory without gravity. This is extraordinary — gravity and quantum field theory are dual descriptions of the same thing. Whether this generalizes to the real world (which is not anti-de Sitter) is unknown.",
+      "curiosity_hook": "If all physical theories are secretly dual to each other, then the question of which theory is 'right' dissolves — they are all correct descriptions of the same reality from different angles. This would be the ultimate vindication of P04 as a deep principle."
+    },
+    {
+      "question": "Does complementarity extend beyond physics — are there fundamentally dual aspects of all complex systems?",
+      "tension": "Niels Bohr applied complementarity to biology (life/mechanism), psychology (consciousness/behavior), and even ethics. Some see this as profound generalization; others see it as metaphorical overreach. Information processing systems do have dual descriptions (algorithm vs physical implementation; software vs hardware) that resist reduction to one another.",
+      "curiosity_hook": "If P04 is a universal principle of complex description rather than a specifically quantum fact, then every deep description of every deep system will have an irreducible complementary twin. This would make P04 one of the most broadly applicable principles in the ontology."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Cognitive science", "manifestation": "System 1/System 2 (Kahneman) are complementary descriptions of thought — fast/slow, intuitive/deliberate cannot both be fully active simultaneously", "example": "The dual-process framework maps to wave-particle duality: measuring one mode suppresses the other" },
+    { "domain": "Economics / game theory", "manifestation": "Primal-dual problems in optimization: every minimization has a dual maximization; LP duality is exact", "example": "The shadow prices in linear programming are the dual variables — primal and dual solutions always exist together and illuminate each other" },
+    { "domain": "Photography / optics", "manifestation": "The diffraction limit of a lens is a direct consequence of wave-particle duality — spatial resolution and angular resolution are complementary", "example": "A pinhole camera has perfect angular resolution but terrible spatial resolution — complementarity at macroscale" },
+    { "domain": "Literature / narrative", "manifestation": "Every story has a dual reading: the literal plot and the symbolic meaning — they illuminate each other but neither reduces to the other", "example": "Moby Dick as literal whale hunt and as metaphysics — suppressing either reading impoverishes the work" }
+  ],
+  "noise_signature": [
+    { "pattern": "Which-path information leaked — interference pattern disappears", "diagnosis": "Duality is enforced: if you know which path (particle behavior), the interference (wave behavior) must vanish; the two are mutually exclusive" },
+    { "pattern": "Model collapse — two complementary descriptions forced into one", "diagnosis": "Reductionism applied where it doesn't hold; the dual aspect has been suppressed, creating a model that is half-blind to the system" },
+    { "pattern": "Perfect localization in both position and momentum", "diagnosis": "Impossible — violates the uncertainty relation; if claimed, the measurement has an error or the interpretation is wrong" }
+  ],
   "tags": ["duality", "complementarity", "wave-particle", "uncertainty", "quantum", "symmetry"]
 }

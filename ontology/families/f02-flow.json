@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F01", "FAMILY.F03", "FAMILY.F04"],
   "seed_prompt": "↻ Trace the streamlines. Where does viscosity lose to inertia? The transition point is where complexity lives.",
+  "fourth_equation": {
+    "name": "Vorticity Equation",
+    "formula": "∂ω/∂t + (u·∇)ω = (ω·∇)u + ν∇²ω",
+    "why": "Vorticity (rotation) is stretched and tilted by the flow itself — the mechanism behind energy cascade in turbulence"
+  },
+  "explore_paths": [
+    { "question": "What happens when flow loses its order entirely?", "follow": "FAMILY.F17", "why": "Turbulence is high-Re flow past the breakdown point — F02 sets up the transition, F17 lives in the chaos beyond" },
+    { "question": "What conservation law underlies flow continuity?", "follow": "PRINCIPLE.P07", "why": "The continuity equation is the conservation-of-mass backbone of all fluid dynamics" },
+    { "question": "How does flow carry information or life?", "follow": "FAMILY.F04", "why": "Metabolic networks, lymphatic systems, and ecosystems all use flow as their transport substrate" },
+    { "question": "How do networks route flow optimally?", "follow": "FAMILY.F12", "why": "Graph-theoretic flow (max-flow/min-cut) is the discrete analog of fluid flow through networks" }
+  ],
+  "open_questions": [
+    {
+      "question": "Do smooth solutions to the Navier-Stokes equations always exist in 3D? (Millennium Prize Problem — $1M unsolved)",
+      "tension": "In 2D, smooth solutions are proven to exist. In 3D, it's unknown whether solutions can develop infinite velocities (blow-up) in finite time. Most physicists assume smoothness; mathematicians are not so sure.",
+      "curiosity_hook": "One of the seven Millennium Prize Problems. The gap between physical intuition ('flows stay smooth') and mathematical proof is a 150-year-old scandal in applied mathematics."
+    },
+    {
+      "question": "Is there a deeper mathematical structure to turbulence, or is it irreducibly complex?",
+      "tension": "Kolmogorov's 1941 theory gave the -5/3 energy spectrum but assumed isotropy and homogeneity. Real turbulence is intermittent — energy is distributed in fractal bursts, not smoothly. Multifractal models fit better but have no first-principles derivation.",
+      "curiosity_hook": "Feynman called turbulence 'the most important unsolved problem in classical physics.' The question of whether it has an elegant deep structure or is genuinely irreducible is still wide open."
+    },
+    {
+      "question": "Does the brain use fluid dynamics (the glymphatic system) as a cleaning and information-routing mechanism during sleep?",
+      "tension": "The glymphatic system (discovered ~2013) flushes cerebrospinal fluid through brain tissue during sleep, clearing metabolic waste. Whether this also serves an information-routing or memory-consolidation function is actively debated.",
+      "curiosity_hook": "If the brain 'thinks' partly through fluid flow dynamics, the boundary between F02 and F16 may be much blurrier than assumed."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Cardiovascular biology", "manifestation": "Blood flow is a fluid dynamics problem; turbulent flow in arteries causes damage and plaque formation", "example": "Stenosis creates turbulence downstream; Reynolds number predicts where plaques form" },
+    { "domain": "Urban planning / traffic", "manifestation": "Vehicle traffic follows flow equations; jams are phase transitions analogous to laminar-to-turbulent transition", "example": "Traffic density above critical threshold → stop-and-go waves that propagate backward without cause" },
+    { "domain": "Economics / supply chains", "manifestation": "Goods, money, and information flow through networks with conservation laws and bottlenecks", "example": "The bullwhip effect in supply chains is a fluid-like oscillation amplified upstream" },
+    { "domain": "Atmosphere / climate", "manifestation": "Jet streams, ocean currents, and weather systems are all governed by Navier-Stokes at planetary scale", "example": "Rossby waves in the jet stream follow the same vorticity equations as laboratory flows" }
+  ],
+  "noise_signature": [
+    { "pattern": "Stagnation — flow velocity drops to zero upstream of an obstacle", "diagnosis": "Boundary layer separation; the system is hitting a structural obstacle it cannot navigate around" },
+    { "pattern": "Recirculation zones — flow reverses locally behind obstacles", "diagnosis": "Energy is being trapped rather than transported; vortex shedding may begin" },
+    { "pattern": "Cavitation — vapor bubbles form in fast-moving low-pressure regions", "diagnosis": "Bernoulli's equation taken to an extreme; the system is tearing itself apart at pressure minima" }
+  ],
   "tags": ["fluid-dynamics", "momentum", "vorticity", "laminar", "turbulence-threshold"]
 }

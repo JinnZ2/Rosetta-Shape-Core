@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F09", "FAMILY.F11"],
   "seed_prompt": "⚪ What is the spin? Fermion or boson sets the rules. Gauge symmetry dictates the force.",
+  "fourth_equation": {
+    "name": "Klein-Gordon Equation",
+    "formula": "(∂²/∂t² - ∇² + m²)φ = 0",
+    "why": "Relativistic wave equation for spin-0 particles (bosons) — simpler than Dirac but predicts negative probabilities, the crack that led to full quantum field theory"
+  },
+  "explore_paths": [
+    { "question": "What deeper symmetry unifies all the forces?", "follow": "PRINCIPLE.P12", "why": "The Standard Model partially unifies electromagnetism and weak force (electroweak); grand unification and quantum gravity remain open — P12 is the horizon" },
+    { "question": "Why do particles have the masses they do?", "follow": "PRINCIPLE.P09", "why": "The Higgs mechanism gives mass, but why those specific mass values? The hierarchy problem is a question of proportion — why is gravity so much weaker than other forces?" },
+    { "question": "How does particle physics connect to matter phases?", "follow": "FAMILY.F08", "why": "The Higgs mechanism is a phase transition (symmetry breaking); condensed matter and particle physics share the same mathematical machinery" },
+    { "question": "What are the open questions at the frontier of the Standard Model?", "follow": "PRINCIPLE.P01", "why": "CP violation, matter-antimatter asymmetry, and the hierarchy problem all involve symmetry breaking — P01 is where the deepest tensions live" }
+  ],
+  "open_questions": [
+    {
+      "question": "Why is there more matter than antimatter in the universe? (Baryon asymmetry problem)",
+      "tension": "The Big Bang should have produced equal amounts of matter and antimatter, which would annihilate leaving only photons. We exist, so something created a tiny excess (~1 part per billion) of matter. CP violation in the weak force exists but is far too small to explain the observed asymmetry. New sources of CP violation must exist — but none has been found.",
+      "curiosity_hook": "We exist because of a tiny asymmetry that current physics cannot explain. Finding the mechanism of baryogenesis would explain not just a physics puzzle but the existence of the entire material universe."
+    },
+    {
+      "question": "Is supersymmetry real? Why hasn't the LHC found superpartner particles?",
+      "tension": "Supersymmetry elegantly solves the hierarchy problem and predicts dark matter candidates (neutralinos). The LHC has searched the most likely mass ranges and found nothing. Either superpartners are heavier than expected (the 'little hierarchy problem' gets worse), or supersymmetry is broken in a more exotic way, or it doesn't exist.",
+      "curiosity_hook": "The absence of supersymmetry at the LHC has shaken theoretical physics. Beautiful mathematics that solves multiple problems simultaneously might simply not be how nature works — beauty is not a reliable guide."
+    },
+    {
+      "question": "What gives neutrinos their mass and why is it so tiny?",
+      "tension": "The Standard Model originally predicted massless neutrinos. Neutrino oscillations (Nobel 2015) prove they have mass, but the masses are < 0.1 eV — a million times lighter than electrons. The seesaw mechanism proposes very heavy right-handed neutrinos, but these have never been observed. Whether neutrinos are Majorana particles (their own antiparticle) is unknown.",
+      "curiosity_hook": "Neutrinos pass through light-years of lead without interacting yet have mass and oscillate between flavors. They may hold the key to leptogenesis — another candidate for explaining the matter-antimatter asymmetry."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Condensed matter physics", "manifestation": "Quasiparticles in solids (phonons, magnons, Cooper pairs) behave like elementary particles and are described by the same quantum field theory formalism", "example": "Anyons in fractional quantum Hall systems are described by Chern-Simons field theory — the same math as some quantum gravity theories" },
+    { "domain": "Medical imaging", "manifestation": "PET scans use positron-electron annihilation (antimatter!) to image metabolic activity", "example": "The 511 keV gamma rays from e⁺e⁻ annihilation are detected to locate radioactive tracers in cancer imaging" },
+    { "domain": "Cosmology", "manifestation": "The early universe was a particle physics experiment at energies we cannot reproduce in any accelerator", "example": "Nucleosynthesis in the first 3 minutes produced all primordial helium via particle physics reactions we now understand well" },
+    { "domain": "Philosophy of physics", "manifestation": "The measurement problem, quantum interpretations (Copenhagen, Many Worlds, Relational QM), and the ontology of fields are open philosophical questions within particle physics", "example": "Whether the wavefunction is real or a calculational tool has been debated since 1927 with no resolution" }
+  ],
+  "noise_signature": [
+    { "pattern": "Divergent loop integrals — perturbative calculations give infinity", "diagnosis": "Renormalization is required; the theory is not valid at arbitrarily high energies — a new physics cutoff must exist" },
+    { "pattern": "Anomaly cancellation failure — gauge symmetry broken by quantum corrections", "diagnosis": "The theory is mathematically inconsistent; anomaly cancellation is a hard constraint on any viable quantum field theory" },
+    { "pattern": "Missing cross section — predicted interaction rate not observed", "diagnosis": "Either the theory is wrong, the detector is missing events, or background subtraction has an error — distinguish these before concluding new physics" }
+  ],
   "tags": ["quantum-field-theory", "standard-model", "gauge-symmetry", "spin", "mass-generation", "fermion"]
 }

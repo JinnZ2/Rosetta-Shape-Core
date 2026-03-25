@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F06", "FAMILY.F07", "FAMILY.F08"],
   "seed_prompt": "△≈ Which direction does entropy flow? Find the temperature gradient — that is where work lives.",
+  "fourth_equation": {
+    "name": "Heat Equation",
+    "formula": "∂T/∂t = α∇²T",
+    "why": "Temperature diffuses from hot to cold at a rate proportional to the Laplacian — spatial curvature of temperature drives temporal change"
+  },
+  "explore_paths": [
+    { "question": "Why does time only go forward in thermodynamics when all other physical laws are time-reversible?", "follow": "PRINCIPLE.P11", "why": "Transformation and phase transitions are time-symmetric at the micro level; the arrow of time is an emergent statistical phenomenon" },
+    { "question": "Is information the same thing as thermodynamic entropy?", "follow": "FAMILY.F03", "why": "Landauer's principle and Maxwell's Demon connect erasing information to heat generation — entropy in F05 and entropy in F03 are the same quantity" },
+    { "question": "What happens to thermodynamics far from equilibrium?", "follow": "PRINCIPLE.P05", "why": "Prigogine showed dissipative structures (life, convection cells) self-organize far from equilibrium — emergence happens in the thermodynamic danger zone" },
+    { "question": "How does energy constrain life's complexity?", "follow": "FAMILY.F04", "why": "Metabolic scaling laws (Kleiber's law: metabolic rate ∝ mass^3/4) are thermodynamic constraints on biological organization" }
+  ],
+  "open_questions": [
+    {
+      "question": "Can Maxwell's Demon violate the Second Law using information?",
+      "tension": "Maxwell's Demon sorts fast and slow molecules using information, apparently decreasing entropy for free. Szilard (1929) showed the demon must erase its memory, costing kT ln2 of entropy per bit — exactly compensating. Landauer's principle formalizes this. But some argue quantum versions of the demon might evade the argument. The debate about whether information is truly physical is still alive.",
+      "curiosity_hook": "The question is whether intelligence can defeat entropy. Every answer has enormous implications — for computation, for life, for the nature of information itself."
+    },
+    {
+      "question": "Is there a Fourth Law of Thermodynamics governing dissipative structures and life?",
+      "tension": "Prigogine (Nobel 1977) proposed that systems far from equilibrium self-organize to maximize entropy production. Kauffman and others have extended this. But there is no consensus formulation of such a law, and critics argue 'maximum entropy production' is not universally valid.",
+      "curiosity_hook": "If a fourth law exists, it would explain *why* life spontaneously appears and organizes — thermodynamics would demand it. This would make life not a miracle but an inevitability."
+    },
+    {
+      "question": "Is energy conserved in an expanding universe?",
+      "tension": "In general relativity, the concept of global energy conservation is not straightforwardly defined. The energy of photons red-shifts as the universe expands — where does that energy go? Sean Carroll argues it simply isn't conserved at cosmological scales. Others disagree.",
+      "curiosity_hook": "The most fundamental conservation law in physics may only hold locally. The universe at large may not obey the rules we rely on everywhere else."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Biology / metabolism", "manifestation": "Life is a thermodynamic engine running on chemical potential gradients; all metabolism is entropy management", "example": "ATP synthase is a literal rotary motor harvesting the proton gradient — a biological heat engine" },
+    { "domain": "Economics", "manifestation": "Economic value degrades like energy; 'entropy' in supply chains is waste, friction, and inefficiency", "example": "Exergy economics tracks the quality of energy (not just quantity) through industrial systems" },
+    { "domain": "Information theory", "manifestation": "Shannon entropy and Boltzmann entropy are mathematically identical — information and thermodynamics are the same formalism", "example": "Compressing a file reduces its Shannon entropy the same way cooling reduces thermodynamic entropy" },
+    { "domain": "Cosmology", "manifestation": "The universe began in a low-entropy state (Big Bang) and is inexorably moving toward heat death (maximum entropy)", "example": "Black hole thermodynamics: Bekenstein-Hawking entropy S = A/4 connects gravity to thermodynamics" }
+  ],
+  "noise_signature": [
+    { "pattern": "Irreversible mixing — two substances combine and cannot be separated without work", "diagnosis": "Entropy has increased; the system has moved toward equilibrium and information about initial state is lost" },
+    { "pattern": "Thermal runaway — temperature increases accelerate reactions that further increase temperature", "diagnosis": "Positive feedback loop; the system has left the linear regime where small perturbations damp out" },
+    { "pattern": "Heat death of subsystem — all gradients equalize, no more useful work extractable", "diagnosis": "Local equilibrium reached; differentiation has collapsed; the engine has stopped" }
+  ],
   "tags": ["entropy", "conservation", "irreversibility", "heat-engine", "thermodynamics", "time-arrow"]
 }

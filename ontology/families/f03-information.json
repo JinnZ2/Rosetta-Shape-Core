@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F01", "FAMILY.F02", "FAMILY.F04"],
   "seed_prompt": "⊗ Measure the surprise. Entropy first, then ask: what is shared between these two signals?",
+  "fourth_equation": {
+    "name": "Kullback-Leibler Divergence",
+    "formula": "D_KL(P‖Q) = Σᵢ P(i) log[P(i)/Q(i)]",
+    "why": "Measures how much information is lost when approximating distribution P with Q — the cost of being wrong about the world's distribution"
+  },
+  "explore_paths": [
+    { "question": "Is information physical — does it have mass or energy?", "follow": "FAMILY.F05", "why": "Landauer's principle connects erasing one bit to a minimum heat release kT ln2 — thermodynamics and information are the same thing" },
+    { "question": "How does information relate to uncertainty at the quantum level?", "follow": "PRINCIPLE.P10", "why": "Shannon entropy and von Neumann entropy are deeply related; quantum information extends classical info theory into superposition" },
+    { "question": "What is the information capacity of a mind or brain?", "follow": "FAMILY.F16", "why": "Integrated information (Φ) is an information-theoretic measure of consciousness — F03 provides the mathematical toolkit" },
+    { "question": "How does information flow through networks?", "follow": "FAMILY.F12", "why": "Network topology determines information routing capacity, bottlenecks, and broadcast reach" }
+  ],
+  "open_questions": [
+    {
+      "question": "Is information more fundamental than matter and energy? ('It from Bit' — John Wheeler)",
+      "tension": "Wheeler proposed that physical reality is fundamentally informational — particles and fields emerge from yes/no answers to binary questions. Most physicists consider this metaphysically provocative but scientifically untestable. Verlinde's entropic gravity partially revives it.",
+      "curiosity_hook": "If true, physics is a branch of information theory. If false, information is just a useful human abstraction. The question cuts to the deepest nature of reality."
+    },
+    {
+      "question": "What happens to information that falls into a black hole? (The Black Hole Information Paradox)",
+      "tension": "Hawking (1974) showed black holes radiate thermally and eventually evaporate — but thermal radiation carries no information, implying the information of infalling matter is destroyed. This violates quantum unitarity. Hawking later partially conceded; Hawking radiation may be subtly correlated. The Page curve and island formula are recent partial resolutions — but the paradox is not fully closed.",
+      "curiosity_hook": "The smartest physicists in the world have disagreed about this for 50 years. It sits at the intersection of quantum mechanics, general relativity, and thermodynamics — every attempt to resolve it reveals new tensions."
+    },
+    {
+      "question": "Does the universe compute? Is physical evolution equivalent to a universal computation?",
+      "tension": "Wolfram argues the universe is a cellular automaton and everything is computational. Lloyd estimates the universe has performed ~10^120 operations. Most physicists resist — computation requires an interpreter, and the universe has none. But the math of quantum circuits maps suspiciously well to physical processes.",
+      "curiosity_hook": "If the universe computes, then understanding it and simulating it converge. If not, there's something about physical reality that transcends any formal system."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Genetics / molecular biology", "manifestation": "DNA is a literal information storage medium; genetic regulatory networks perform logical computation", "example": "The lac operon is a biological if-then statement; gene expression is information processing at molecular scale" },
+    { "domain": "Economics", "manifestation": "Markets aggregate distributed information into prices (Hayek's price system as information processor)", "example": "Efficient market hypothesis: prices reflect all available information — market as F03 channel" },
+    { "domain": "Neuroscience", "manifestation": "Neural coding translates sensory input into spike trains; rate coding vs temporal coding debate is an information theory question", "example": "A neuron's information capacity is bounded by Shannon's channel capacity formula" },
+    { "domain": "Language / linguistics", "manifestation": "Languages compress meaning with minimal redundancy; Zipf's law in word frequency follows information-theoretic predictions", "example": "Common words are short because they're high-frequency — optimal compression minimizes expected description length" }
+  ],
+  "noise_signature": [
+    { "pattern": "Equivocation — receiver cannot reliably decode sender's message", "diagnosis": "Channel noise exceeds the SNR threshold; capacity has been exceeded or encoding is suboptimal" },
+    { "pattern": "Redundancy explosion — message length grows without adding information", "diagnosis": "Inefficient encoding; system is describing the same thing multiple ways rather than compressing" },
+    { "pattern": "Mutual information collapse — two correlated signals become independent", "diagnosis": "The channel between them has been severed or corrupted; shared structure has been lost" }
+  ],
   "tags": ["entropy", "information-theory", "channel-capacity", "mutual-information", "coding"]
 }

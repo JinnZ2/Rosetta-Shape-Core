@@ -25,5 +25,44 @@
   "resonates_with": ["PRINCIPLE.P11", "PRINCIPLE.P05", "FAMILY.F04", "FAMILY.F12", "FAMILY.F17"],
   "shapes": ["SHAPE.DODECA", "SHAPE.ICOSA"],
   "seed_prompt": "●● What are the local rules? Run them. What global pattern emerges that no local rule specified?",
+  "fourth_equation": {
+    "name": "Conway's Game of Life",
+    "formula": "Cell state = f(neighbors)",
+    "why": "4 local rules produce unbounded computational complexity — universal Turing computation emerges from the simplest possible update rule on a 2D grid"
+  },
+  "explore_paths": [
+    { "question": "Is consciousness strongly emergent or weakly emergent?", "follow": "FAMILY.F16", "why": "Weak emergence: higher-level properties are in principle derivable from lower level; strong emergence: genuinely new properties that cannot be reduced. The hard problem of consciousness is the question of whether F16 is strongly emergent from F08/F10." },
+    { "question": "How does emergence relate to phase transitions?", "follow": "FAMILY.F08", "why": "The most precise examples of emergence are phase transitions in condensed matter — superconductivity, magnetism, and superfluidity all involve properties that simply don't exist below the transition" },
+    { "question": "What is the simplest system that shows true emergence?", "follow": "FAMILY.F13", "why": "Autocatalytic chemical networks are the simplest systems where emergence is life-like — properties of the network are not present in any individual molecule" },
+    { "question": "Can emergence be quantified?", "follow": "FAMILY.F03", "why": "Information-theoretic measures of emergence (Tononi's Φ, Ay's causal emergence) use F03 (mutual information, synergy) to measure how much more a whole is than the sum of its parts" }
+  ],
+  "open_questions": [
+    {
+      "question": "Does strong emergence actually exist, or is all emergence weak (in principle reducible)?",
+      "tension": "Weak emergence: higher-level properties follow from lower-level rules, even if the derivation is practically impossible. Strong emergence: higher-level properties are genuinely irreducible — not in principle derivable from lower-level descriptions. Most physicists are eliminativists (weak emergence only). Chalmers argues consciousness is strongly emergent. The debate is whether 'in principle reducible' means anything in practice.",
+      "curiosity_hook": "If strong emergence exists, then the universe has genuinely new things at each level of organization — physics cannot in principle explain biology, and biology cannot explain consciousness. If it doesn't exist, the universe is in principle computable from its initial conditions. The stakes could not be higher."
+    },
+    {
+      "question": "Why do some complex systems self-organize to critical points (SOC) without external tuning?",
+      "tension": "Bak's sandpile model showed some systems spontaneously evolve to the critical state — avalanches of all sizes, power-law distributions. But many systems that should show SOC don't. And some systems that do show power laws are not at critical points. The conditions for SOC, and whether it's truly universal, remain debated.",
+      "curiosity_hook": "Self-organized criticality would explain why power laws are everywhere in nature — brains, earthquakes, solar flares, economies. If SOC is a universal attractor, then all complex systems are trying to live at the edge of a phase transition. The edge is where emergence is most productive."
+    },
+    {
+      "question": "Can life emerge spontaneously from chemistry given enough time and the right conditions?",
+      "tension": "Oparin-Haldane primordial soup and hydrothermal vent hypotheses give different answers. Miller-Urey synthesis produced amino acids but not self-replication. The gap between 'complex chemistry' and 'minimal life' has not been bridged in the laboratory. The probability is unknown — which means we cannot say whether life is a near-inevitable emergent phenomenon or an extremely rare accident.",
+      "curiosity_hook": "This is P05 applied to the most important emergence event in Earth's history. If life is inevitable (Kauffman's autocatalytic sets), the universe is full of life. If it's a near-miracle, we might be alone. The question is not resolved, and the answer changes everything."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Urban planning / sociology", "manifestation": "Cities emerge from individual decisions with no master plan; Jane Jacobs showed organic urban growth produces better outcomes than designed cities", "example": "Traffic patterns, slang, fashion, and economic clusters all emerge from local interactions — P05 in human social systems" },
+    { "domain": "Artificial life / AI", "manifestation": "Evolutionary algorithms and cellular automata demonstrate that complex adaptive behavior emerges from simple rules", "example": "Boids (Reynolds, 1987): three simple flocking rules produce behavior indistinguishable from real bird flocks — emergence from simulation" },
+    { "domain": "Economics", "manifestation": "Markets, prices, and economic order emerge from individual exchanges without central planning (Hayek's spontaneous order)", "example": "The price of a commodity at any moment reflects millions of distributed decisions — emergent information aggregation" },
+    { "domain": "Immunology", "manifestation": "Immune memory and adaptive response emerge from clonal selection without any individual cell 'knowing' the history", "example": "The immune system is an emergent AI that learns from experience without a central nervous system" }
+  ],
+  "noise_signature": [
+    { "pattern": "Complexity collapse — emergent properties vanish when system size drops below threshold", "diagnosis": "The system has left the regime where emergence is possible; critical mass for self-organization has not been reached" },
+    { "pattern": "Pattern freezing — system locks into a fixed attractor and stops generating novelty", "diagnosis": "Self-organized criticality has been lost; the system is now in an ordered phase; too much stability has killed emergence" },
+    { "pattern": "Cascading failure larger than expected — small perturbation causes total collapse", "diagnosis": "The system was near criticality; the power-law distribution of failure sizes means truly catastrophic events are possible; critical slowing-down was the warning" }
+  ],
   "tags": ["emergence", "self-organization", "criticality", "phase-transition", "power-law", "complexity"]
 }

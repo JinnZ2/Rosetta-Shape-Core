@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F18", "FAMILY.F20"],
   "seed_prompt": "▁▃▅∿ Build the partition function. All thermodynamics follows. Fluctuations are not noise — they are signal.",
+  "fourth_equation": {
+    "name": "Heat Capacity",
+    "formula": "C_V = (∂U/∂T)_V = k β² ⟨(ΔE)²⟩",
+    "why": "Heat capacity equals energy fluctuations — the fluctuation-response theorem in action; bigger fluctuations mean more capacity to store thermal energy"
+  },
+  "explore_paths": [
+    { "question": "Why does averaging over microscopic randomness give exact macroscopic laws?", "follow": "PRINCIPLE.P05", "why": "Statistical mechanics is the mechanism behind thermodynamic emergence — F19 is how P05 works quantitatively for physical systems" },
+    { "question": "How does the partition function connect to information theory?", "follow": "FAMILY.F03", "why": "The free energy F = -kT ln Z is proportional to the Shannon entropy of the Boltzmann distribution — statistical mechanics and information theory are the same mathematical framework" },
+    { "question": "What happens to statistical mechanics far from equilibrium?", "follow": "FAMILY.F05", "why": "Fluctuation theorems (Jarzynski, Crooks) extend the second law to small non-equilibrium systems — the frontier of F19 is where F05 becomes uncertain" },
+    { "question": "Can statistical methods describe the distribution of ideas or memes?", "follow": "FAMILY.F12", "why": "Network epidemics and information cascades have statistical mechanical analogs — the Ising model applied to social networks is a direct F19-F12 bridge" }
+  ],
+  "open_questions": [
+    {
+      "question": "Why is the microscopic world time-reversible but the macroscopic world has an arrow of time?",
+      "tension": "Every microscopic law (Newton, Schrödinger, Maxwell) is time-symmetric — running the movie backward gives valid physics. Yet thermodynamics is irreversible. Boltzmann showed that entropy increase is statistically overwhelmingly probable from low-entropy initial conditions. But why did the universe start in a low-entropy state? This is the 'past hypothesis' — assumed but not explained.",
+      "curiosity_hook": "The arrow of time is not in the fundamental laws — it's in the initial conditions of the universe. We have time's arrow because the Big Bang was improbably ordered, and we are still living in the shadow of that original improbability."
+    },
+    {
+      "question": "Does non-equilibrium statistical mechanics have the same universal structure as equilibrium?",
+      "tension": "Equilibrium statistical mechanics is complete and elegant (partition function → all thermodynamics). Non-equilibrium (living systems, driven flows, active matter) lacks an equivalent universal framework. Prigogine's minimum entropy production principle, Jarzynski's equality, and GENERIC formalism are partial answers. Whether a complete non-equilibrium theory exists is open.",
+      "curiosity_hook": "Life is a non-equilibrium phenomenon — living systems are the most important application of non-equilibrium statistical mechanics, and we don't have a complete theory of them. This is the frontier where physics meets biology most urgently."
+    },
+    {
+      "question": "Can quantum fluctuations at the Planck scale explain the low entropy of the early universe?",
+      "tension": "Penrose (Weyl curvature hypothesis) argues the Big Bang's low entropy is a special initial condition that quantum gravity must explain. Eternal inflation generates regions of the universe from quantum fluctuations — some have low entropy by chance. Boltzmann brains (random thermal fluctuations producing observers) are a disturbing implication of infinite eternal inflation. No consensus.",
+      "curiosity_hook": "If Boltzmann brains are more probable than evolved brains, then any cosmological model implying them is probably wrong. This is a genuinely absurd-sounding argument that is taken seriously in cosmology — a sign that statistical mechanics at cosmological scales produces deeply weird conclusions."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Machine learning / AI", "manifestation": "Training a neural network is statistical mechanics: gradient descent finds low-energy states of a loss landscape; temperature (learning rate) controls exploration", "example": "Simulated annealing uses the Boltzmann distribution explicitly — cooling slowly finds better minima; exactly the physics of crystallization" },
+    { "domain": "Finance / econophysics", "manifestation": "The Black-Scholes option pricing model is derived from statistical mechanics; stock prices as Brownian motion", "example": "The Ising model applied to market crashes reproduces stylized facts (fat tails, volatility clustering) better than Gaussian models" },
+    { "domain": "Biology / protein folding", "manifestation": "Protein folding is a statistical mechanical problem — the native state is the free energy minimum of the conformational landscape", "example": "AlphaFold effectively solved the protein structure prediction problem — implicitly using the principles of F19 to navigate the energy landscape" },
+    { "domain": "Sociology / opinion dynamics", "manifestation": "Voter models, Ising-based opinion formation, and phase transitions in social consensus all apply F19 to collective human behavior", "example": "Political polarization as a phase transition: above a critical social temperature, consensus is possible; below it, the system locks into opposing domains" }
+  ],
+  "noise_signature": [
+    { "pattern": "Non-Gaussian tails — distribution shows more extreme events than Boltzmann predicts", "diagnosis": "System is not in thermal equilibrium, or has long-range correlations; power-law distributions suggest criticality or anomalous diffusion" },
+    { "pattern": "Ergodicity breaking — time averages don't equal ensemble averages", "diagnosis": "The system is trapped in a subspace and doesn't explore all accessible states; glasses, jammed systems, and some biological systems are non-ergodic" },
+    { "pattern": "Entropy production spike — sudden increase in irreversibility", "diagnosis": "System has undergone an irreversible process; information has been erased; a transition far from equilibrium has occurred" }
+  ],
   "tags": ["statistical-mechanics", "partition-function", "boltzmann", "fluctuation-dissipation", "ensemble", "equilibrium"]
 }

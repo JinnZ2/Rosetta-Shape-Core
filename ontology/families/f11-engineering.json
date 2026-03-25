@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA", "SHAPE.CUBE"],
   "five_field_neighbors": ["FAMILY.F09", "FAMILY.F10"],
   "seed_prompt": "⚙ Where is the error? Build the feedback loop. Elastic now — how close to yield?",
+  "fourth_equation": {
+    "name": "Euler-Bernoulli Beam",
+    "formula": "EI(∂⁴w/∂x⁴) = q(x)",
+    "why": "Beam deflection under distributed load — the structural workhorse: stiffness (EI) resists the fourth spatial derivative of displacement"
+  },
+  "explore_paths": [
+    { "question": "What is the information-theoretic limit on computational efficiency?", "follow": "FAMILY.F03", "why": "Landauer's principle and reversible computing ask whether engineering can approach zero-energy computation — thermodynamics bounds all engineering" },
+    { "question": "How does feedback control relate to biological regulation?", "follow": "FAMILY.F04", "why": "Homeostasis is PID control implemented in biochemistry — glucose regulation, body temperature, and blood pressure all use the same controller architecture" },
+    { "question": "What happens when an engineered system is pushed past its elastic limit?", "follow": "PRINCIPLE.P11", "why": "Plastic deformation and structural failure are phase transitions — P11 (transformation) describes the irreversible state change at yield" },
+    { "question": "Can engineering principles produce antifragile systems?", "follow": "PRINCIPLE.P05", "why": "Emergence and self-organization suggest a different engineering paradigm — systems that improve under stress rather than resist it" }
+  ],
+  "open_questions": [
+    {
+      "question": "Is there a physical lower bound on energy consumption in computation? (Landauer's principle and reversible computing)",
+      "tension": "Landauer (1961) showed erasing one bit requires kT ln2 of energy. Reversible computing in principle performs calculations without erasing bits — approaching zero energy. In practice, no reversible computer has been built that beats conventional ones. Whether Landauer's limit is the true floor or just one contribution is debated.",
+      "curiosity_hook": "If Landauer's bound is the real floor, then intelligence has a minimum thermodynamic cost. The most efficient mind possible is still a heat engine. This connects F11 and F05 in a deep way."
+    },
+    {
+      "question": "Can we engineer truly antifragile systems — systems that gain from disorder rather than just resist it?",
+      "tension": "Taleb's antifragility concept argues that some systems improve under stress (muscles, immune systems, some economies). Traditional engineering optimizes for robustness (withstand stress) or resilience (recover from stress). Designing for antifragility requires embracing variance rather than minimizing it — a fundamentally different paradigm.",
+      "curiosity_hook": "Biological systems are antifragile in ways engineered systems are not. The gap is either a design philosophy difference or a deep structural difference between living and non-living systems."
+    },
+    {
+      "question": "Can a space elevator ever be built, and what material would make it possible?",
+      "tension": "A space elevator requires a cable with specific strength-to-weight ratio exceeding anything that currently exists. Carbon nanotubes theoretically qualify — but manufacturing macroscopic defect-free CNT cables has not been achieved. The gravitational and engineering constraints are exact; the materials challenge is what remains.",
+      "curiosity_hook": "The physics is solved; the engineering is not. This is a pure materials problem disguised as an impossibility — a reminder that 'impossible' often means 'we haven't built the right material yet.'"
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Biology / physiology", "manifestation": "Bone, muscle, and tendon obey engineering mechanics; biomechanics is the application of F11 to living structures", "example": "Bone remodels along lines of principal stress (Wolff's law) — biological structure self-optimizes its engineering" },
+    { "domain": "Economics / control theory", "manifestation": "Central banks use PID-like control (interest rates as the control signal) to stabilize economic systems", "example": "The Taylor Rule for monetary policy is explicitly a proportional-integral controller of inflation and output" },
+    { "domain": "Ecology", "manifestation": "Ecosystem management is a control theory problem — interventions have delays, overshoots, and unintended feedback", "example": "Yellowstone wolf reintroduction triggered trophic cascades that changed river morphology — a massive unintended feedback effect" },
+    { "domain": "Architecture / resilience", "manifestation": "Base isolation, tuned mass dampers, and active control systems apply F11 to protect buildings from earthquakes", "example": "The Taipei 101 skyscraper has a 660-ton pendulum tuned mass damper that reduces wind-induced sway by 40%" }
+  ],
+  "noise_signature": [
+    { "pattern": "Resonance in a mechanical structure — unexpected oscillation at a specific frequency", "diagnosis": "External forcing matches a structural natural frequency; the system is accumulating rather than dissipating energy" },
+    { "pattern": "Control system oscillation — output overshoots and oscillates around setpoint", "diagnosis": "Controller gains are too high; the system is over-correcting; reduce K_p or increase damping" },
+    { "pattern": "Creep — slow continuous deformation under constant load below yield stress", "diagnosis": "Long-term material flow; the elastic model breaks down over time; viscoelastic behavior dominates" }
+  ],
   "tags": ["control-theory", "feedback", "elasticity", "pid", "circuits", "structural-mechanics"]
 }

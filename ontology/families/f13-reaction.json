@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F12", "FAMILY.F14", "FAMILY.F15", "FAMILY.F16", "FAMILY.F17"],
   "seed_prompt": "⇑ What is the activation barrier? At what temperature does this ignite? Is the product self-catalytic?",
+  "fourth_equation": {
+    "name": "Transition State Theory",
+    "formula": "k = (k_BT/h)e^(-ΔG‡/RT)",
+    "why": "Rate constant from free energy of activation — the Boltzmann factor weighing the probability of reaching the transition state"
+  },
+  "explore_paths": [
+    { "question": "Where does chemistry end and life begin?", "follow": "FAMILY.F04", "why": "Autocatalytic reaction networks are the chemical precondition for self-replication — the boundary between F13 and F04 is the origin of life" },
+    { "question": "How does temperature set the pace of all reactions?", "follow": "FAMILY.F05", "why": "The Arrhenius equation is a thermodynamic result — activation energy and thermal fluctuations (kT) are F05 quantities governing F13 rates" },
+    { "question": "Can reaction networks compute?", "follow": "FAMILY.F06", "why": "Chemical reaction networks can implement Boolean logic and even universal computation — living cells compute via reaction networks" },
+    { "question": "What catalysts might transform what is chemically possible?", "follow": "PRINCIPLE.P11", "why": "Catalysis is transformation without transformation — the catalyst lowers the barrier without itself being transformed; a living instance of P11" }
+  ],
+  "open_questions": [
+    {
+      "question": "Did life begin with RNA first (RNA world), metabolism first, or something else entirely?",
+      "tension": "RNA world (Crick, Orgel): RNA both stores information and catalyzes reactions — the first self-replicating molecule. Metabolism first (Wächtershäuser, Russell): proto-metabolic cycles on mineral surfaces created the chemical preconditions before any replicator. Lipid world: membrane compartments came first. No laboratory has successfully created self-replicating RNA from scratch under plausible prebiotic conditions.",
+      "curiosity_hook": "This is the origin of life question dressed in chemistry. Every proposed solution has a 'chicken-and-egg' problem. RNA needs proteins to replicate efficiently; proteins need RNA to be encoded. The first autocatalytic set had to solve this without any of the existing machinery."
+    },
+    {
+      "question": "Can artificial protocells (synthetic minimal cells) be built from scratch?",
+      "tension": "The Venter Institute synthesized a cell with a minimal genome (JCVI-syn3.0, 473 genes). But this used an existing cell chassis — the cytoplasm was provided. Building a cell purely from defined chemical components in a lipid vesicle with self-replication has not been achieved. The gap between having all the parts and having a working system is the fundamental challenge.",
+      "curiosity_hook": "If we can build a cell, we understand life. If we cannot, we are missing something fundamental. The attempt itself has revealed how many 'simple' components turn out to be irreducibly complex systems."
+    },
+    {
+      "question": "Is there a universal mechanism for autocatalytic set formation, or is it chemistry-specific?",
+      "tension": "Kauffman's autocatalytic sets theory proposes that above a critical complexity threshold, a set of molecules will spontaneously form a self-catalyzing network. Criticisms: the probability estimates assume random catalysis, which may not apply to real chemistry. Some experimental autocatalytic sets have been found, but whether they scale is unknown.",
+      "curiosity_hook": "If Kauffman is right, life's origin was not improbable but inevitable above a chemical complexity threshold — the universe is literally autocatalytic. The stakes of this question are enormous."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Industrial chemistry / manufacturing", "manifestation": "The Haber-Bosch process (nitrogen fixation) feeds half the world's population — arguably the most impactful reaction network in human history", "example": "Without the iron catalyst in Haber-Bosch, Earth could support maybe 4 billion people; the catalyst is civilization" },
+    { "domain": "Pharmacology", "manifestation": "Drug action is reaction kinetics — binding, inhibition, and catalysis of biological reaction networks", "example": "Enzyme inhibitors (aspirin, statins, ACE inhibitors) work by competing with substrate for the active site or blocking it allosterically" },
+    { "domain": "Atmospheric chemistry / climate", "manifestation": "Ozone depletion and greenhouse gas cycles are global-scale reaction networks with their own kinetics and catalysts", "example": "CFCs catalyze ozone destruction with rate constants amplified by polar stratospheric clouds — a tiny amount does enormous damage" },
+    { "domain": "Neuroscience", "manifestation": "Neurotransmitter synthesis, release, and degradation are reaction kinetics problems; drug action on synaptic chemistry is F13 applied to the brain", "example": "SSRIs inhibit serotonin reuptake by blocking the transporter protein — reaction kinetics of mood" }
+  ],
+  "noise_signature": [
+    { "pattern": "Runaway reaction — temperature rises faster than heat can be removed", "diagnosis": "Positive thermal feedback; Arrhenius acceleration is outpacing cooling; risk of explosion or decomposition" },
+    { "pattern": "Inhibition plateau — reaction rate drops far below expected maximum", "diagnosis": "Product inhibition, substrate depletion, or catalyst poisoning; the system has accumulated a stopper" },
+    { "pattern": "Induction period — long delay before reaction starts despite conditions being met", "diagnosis": "Chain reaction: requires a critical concentration of initiating species; below the threshold, nothing happens; above it, rapid ignition" }
+  ],
   "tags": ["kinetics", "activation-energy", "catalysis", "autocatalysis", "rate-law", "temperature"]
 }

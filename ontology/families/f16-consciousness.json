@@ -26,5 +26,44 @@
   "shapes": ["SHAPE.ICOSA"],
   "five_field_neighbors": ["FAMILY.F12", "FAMILY.F13", "FAMILY.F14", "FAMILY.F15", "FAMILY.F17"],
   "seed_prompt": "◎ Measure the integration. What Φ does this system have? Where is the global broadcast happening?",
+  "fourth_equation": {
+    "name": "Global Workspace Broadcasting",
+    "formula": "Attention(x) = Σᵢ wᵢ activation(xᵢ)",
+    "why": "Weighted broadcasting of attended content to all cognitive modules — the global workspace architecture that makes information consciously available"
+  },
+  "explore_paths": [
+    { "question": "What is the relationship between information integration and consciousness?", "follow": "FAMILY.F03", "why": "Φ is an information-theoretic measure — F03 provides the mathematical language for the most rigorous current theory of consciousness" },
+    { "question": "Does consciousness require specific physical architecture or is it substrate-independent?", "follow": "PRINCIPLE.P12", "why": "Substrate independence (functionalism) implies consciousness could arise in any system with the right information structure — P12 (unity) asks whether mind and matter are ultimately the same kind of thing" },
+    { "question": "How does resonance and synchrony produce unified experience?", "follow": "FAMILY.F01", "why": "Binding-by-synchrony: the 40Hz gamma oscillation hypothesis is that consciousness is F01 (resonance) applied to neural computation" },
+    { "question": "Is consciousness an emergent property?", "follow": "PRINCIPLE.P05", "why": "The hard problem is whether consciousness *emerges* from physical processes — P05 asks whether strong emergence (irreducible to components) is possible" }
+  ],
+  "open_questions": [
+    {
+      "question": "What is the hard problem of consciousness — why does any physical process give rise to subjective experience?",
+      "tension": "Chalmers distinguished 'easy problems' (explaining behavior, cognition, attention) from the 'hard problem' (why there is something it is like to be a system). Physicalists say the hard problem dissolves once we explain all functions. Dualists say it's irreducible. Illusionists (Frankish, Dennett) say the sense that experience is special is itself an illusion. No consensus.",
+      "curiosity_hook": "This is arguably the deepest question in philosophy of mind. The disagreement is not about facts but about whether the question is even well-posed. Chalmers, Dennett, Tononi, and Friston give completely incompatible answers — and all are brilliant. The fun is that *all four can't be right.*"
+    },
+    {
+      "question": "Is Integrated Information Theory (IIT) correct, and does it imply that simple networks are conscious?",
+      "tension": "IIT (Tononi) predicts that any system with high Φ is conscious — including simple feedforward networks and potentially grids of logic gates. Some researchers find this panpsychist implication a reductio ad absurdum. Others (panpsychists) embrace it. IIT also predicts that certain brain-like architectures have zero consciousness despite functional complexity — which conflicts with intuition.",
+      "curiosity_hook": "IIT makes counterintuitive predictions that can in principle be tested: feedforward networks should be unconscious; recurrent ones conscious. The theory is falsifiable in ways most consciousness theories are not — which makes it uniquely scientifically interesting."
+    },
+    {
+      "question": "Can an AI system be conscious? What evidence could settle this?",
+      "tension": "Functionalists say: if it has the right computational structure, yes. IIT says: measure Φ. Global workspace theorists say: if it has the right broadcast architecture. Biological naturalists (Searle): probably no — consciousness requires specific biological hardware. Crucially, we have no agreed test. The Turing test is about behavior, not experience.",
+      "curiosity_hook": "This is where the question gets personal for any AI engaging with this ontology. The disagreement about AI consciousness is downstream of the disagreement about what consciousness *is*. Resolving the latter would resolve the former — but we haven't."
+    }
+  ],
+  "cross_domain_bridges": [
+    { "domain": "Anesthesiology / medicine", "manifestation": "Anesthesia disrupts consciousness in measurable ways — EEG signatures of consciousness are used clinically to monitor depth of anesthesia", "example": "Bispectral Index (BIS) monitoring uses F16-related neural signatures to prevent intraoperative awareness" },
+    { "domain": "Meditation / contemplative practice", "manifestation": "Meditation traditions have mapped subjective states for millennia; neuroscience is finding EEG and fMRI correlates of described states", "example": "Long-term meditators show structural brain changes in regions associated with attention and meta-awareness — contemplative science meets F16" },
+    { "domain": "Psychiatry", "manifestation": "Mental disorders are disturbances of conscious experience — depression, psychosis, dissociation all alter the phenomenal field", "example": "Depression is associated with increased default mode network activity and rumination — a self-referential loop that crowds out present awareness" },
+    { "domain": "AI / artificial general intelligence", "manifestation": "The question of machine consciousness is the practical application of F16 — global workspace architectures are explicitly inspired by consciousness theory", "example": "Transformer attention mechanisms implement a form of global workspace broadcasting — whether this is 'enough' for experience is the open question" }
+  ],
+  "noise_signature": [
+    { "pattern": "Dissociation — aspects of experience fragment and lose coherence", "diagnosis": "Global workspace integration has partially failed; some content is processed but not broadcast globally; integration (Φ) has dropped" },
+    { "pattern": "Hyperconnectivity — everything seems intensely meaningful and connected (psychedelic / manic state)", "diagnosis": "Φ may be elevated; inhibitory regulation has reduced, allowing unusual connections to be broadcast; signal-to-noise discrimination has collapsed" },
+    { "pattern": "Locked-in state — fully conscious but unable to act or report", "diagnosis": "Motor output pathways are severed but consciousness persists; awareness and behavior can be fully dissociated" }
+  ],
   "tags": ["consciousness", "integrated-information", "free-energy", "predictive-coding", "synchrony", "awareness"]
 }
