@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "description": "Maps qualitative shape families (used in shapes/*.json) to quantitative equation families (F01-F20) and principles (P01-P12). Allows seed AIs to navigate from symbolic description to mathematical domain.",
+  "qualitative_to_families": {
+    "fire":        { "maps_to": ["FAMILY.F05", "FAMILY.F13"], "note": "Energy-Thermo and Reaction — heat, activation, transformation" },
+    "stability":   { "maps_to": ["FAMILY.F08", "FAMILY.F11"], "note": "Matter phase order and Engineering structural response" },
+    "foundation":  { "maps_to": ["FAMILY.F09", "FAMILY.F11"], "note": "Geometry as ground truth and Engineering as load-bearing" },
+    "boundary":    { "maps_to": ["FAMILY.F09", "FAMILY.F07"], "note": "Geometric boundary conditions and orbital/tidal edge effects" },
+    "earth":       { "maps_to": ["FAMILY.F07", "FAMILY.F08"], "note": "Planetary/cosmic scale and material phase properties" },
+    "structure":   { "maps_to": ["FAMILY.F09", "FAMILY.F11", "FAMILY.F12"], "note": "Geometry, Engineering, and Network topology" },
+    "containment": { "maps_to": ["FAMILY.F08", "FAMILY.F09"], "note": "Material phases contain/bound and geometric closure" },
+    "air":         { "maps_to": ["FAMILY.F02", "FAMILY.F17"], "note": "Flow dynamics and chaotic turbulence" },
+    "balance":     { "maps_to": ["PRINCIPLE.P01", "PRINCIPLE.P02"], "note": "Symmetry and Conservation as balance archetypes" },
+    "integration": { "maps_to": ["PRINCIPLE.P12", "FAMILY.F16"], "note": "Unity and Consciousness as integration archetypes" },
+    "orientation": { "maps_to": ["FAMILY.F15", "FAMILY.F09"], "note": "Navigation and Geometry as orientation frameworks" },
+    "trust":       { "maps_to": ["FAMILY.F16", "FAMILY.F06"], "note": "Consciousness (integrated awareness) and Cognition (learned patterns)" },
+    "growth":      { "maps_to": ["FAMILY.F04", "PRINCIPLE.P05"], "note": "Life dynamics and Emergence — growth from simple rules" },
+    "anticipation":{ "maps_to": ["FAMILY.F06", "FAMILY.F16"], "note": "Cognition (predictive modeling) and Consciousness (anticipatory awareness)" },
+    "flow":        { "maps_to": ["FAMILY.F02", "FAMILY.F17"], "note": "Flow dynamics and turbulent/chaotic flow" },
+    "adaptability":{ "maps_to": ["FAMILY.F04", "PRINCIPLE.P05", "PRINCIPLE.P11"], "note": "Life, Emergence, and Transformation — flexible response to change" }
+  },
+  "shape_profiles": {
+    "SHAPE.TETRA": {
+      "qualitative": ["fire", "stability", "foundation", "boundary"],
+      "equation_families": ["FAMILY.F05", "FAMILY.F13", "FAMILY.F08", "FAMILY.F11", "FAMILY.F09", "FAMILY.F07"],
+      "primary_principles": ["PRINCIPLE.P02", "PRINCIPLE.P09"]
+    },
+    "SHAPE.CUBE": {
+      "qualitative": ["earth", "stability", "structure", "containment"],
+      "equation_families": ["FAMILY.F07", "FAMILY.F08", "FAMILY.F09", "FAMILY.F11", "FAMILY.F12"],
+      "primary_principles": ["PRINCIPLE.P01", "PRINCIPLE.P02"]
+    },
+    "SHAPE.OCTA": {
+      "qualitative": ["air", "structure", "balance", "integration"],
+      "equation_families": ["FAMILY.F02", "FAMILY.F17", "FAMILY.F09", "FAMILY.F11", "FAMILY.F12", "FAMILY.F16"],
+      "primary_principles": ["PRINCIPLE.P01", "PRINCIPLE.P04", "PRINCIPLE.P12"]
+    },
+    "SHAPE.DODECA": {
+      "qualitative": ["orientation", "trust", "growth", "boundary"],
+      "equation_families": ["FAMILY.F15", "FAMILY.F09", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07"],
+      "maps_to_principles": ["PRINCIPLE.P01","PRINCIPLE.P02","PRINCIPLE.P03","PRINCIPLE.P04","PRINCIPLE.P05","PRINCIPLE.P06","PRINCIPLE.P07","PRINCIPLE.P08","PRINCIPLE.P09","PRINCIPLE.P10","PRINCIPLE.P11","PRINCIPLE.P12"]
+    },
+    "SHAPE.ICOSA": {
+      "qualitative": ["anticipation", "flow", "growth", "adaptability"],
+      "equation_families": ["FAMILY.F06", "FAMILY.F16", "FAMILY.F02", "FAMILY.F17", "FAMILY.F04"],
+      "maps_to_families": ["FAMILY.F01","FAMILY.F02","FAMILY.F03","FAMILY.F04","FAMILY.F05","FAMILY.F06","FAMILY.F07","FAMILY.F08","FAMILY.F09","FAMILY.F10","FAMILY.F11","FAMILY.F12","FAMILY.F13","FAMILY.F14","FAMILY.F15","FAMILY.F16","FAMILY.F17","FAMILY.F18","FAMILY.F19","FAMILY.F20"]
+    }
+  }
+}

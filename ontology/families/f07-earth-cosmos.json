@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F07",
+  "name": "Earth-Cosmos",
+  "symbol": "◯",
+  "five_field": "emotional",
+  "domain": "Planetary motion, orbital mechanics, celestial dynamics, tidal forces",
+  "core_insight": "Gravity organizes matter across scales via inverse-square attraction. Orbital motion balances gravitational pull against inertia. Tidal forces arise from differential gravity — the same mechanism that shapes galaxies and raises ocean tides.",
+  "key_equations": [
+    {
+      "name": "Newton's Gravitation",
+      "formula": "F = G(m₁m₂)/r²",
+      "why": "Universal attraction: every mass pulls every other; falls off as distance squared"
+    },
+    {
+      "name": "Kepler's Third Law",
+      "formula": "T² = (4π²/GM)a³",
+      "why": "Orbital period locked to semi-major axis — the cosmic clock equation"
+    },
+    {
+      "name": "Orbital Velocity",
+      "formula": "v = √(GM/r)",
+      "why": "Speed needed to stay in circular orbit — balance between gravity and centrifugal tendency"
+    }
+  ],
+  "resonates_with": ["FAMILY.F18", "FAMILY.F08", "PRINCIPLE.P02", "PRINCIPLE.P09"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F05", "FAMILY.F06", "FAMILY.F08"],
+  "seed_prompt": "◯ Find the central mass. All motion curves around it. Period and radius are bound.",
+  "tags": ["gravity", "orbital-mechanics", "kepler", "tidal-force", "celestial", "inverse-square"]
+}

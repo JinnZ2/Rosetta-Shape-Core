@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F14",
+  "name": "Measurement",
+  "symbol": "↕",
+  "five_field": "dream",
+  "domain": "Uncertainty quantification, calibration, error propagation, dimensional analysis",
+  "core_insight": "Every measurement carries uncertainty that propagates through calculations. Dimensionless groups (Buckingham Pi) reveal the minimum number of independent parameters in a physical system. Signal-to-noise ratio is the fundamental quality metric across all sensing domains.",
+  "key_equations": [
+    {
+      "name": "Uncertainty Propagation",
+      "formula": "δf = √[Σᵢ(∂f/∂xᵢ)²(δxᵢ)²]",
+      "why": "How input errors combine to bound the error in derived quantities — essential for any model validation"
+    },
+    {
+      "name": "Signal-to-Noise Ratio",
+      "formula": "SNR = P_signal/P_noise",
+      "why": "Universal quality index: determines the minimum detectable signal in any sensing or communication system"
+    },
+    {
+      "name": "Buckingham Pi Theorem",
+      "formula": "n - k independent dimensionless groups",
+      "why": "Reduces n variables with k fundamental dimensions to minimal dimensionless governing parameters"
+    }
+  ],
+  "resonates_with": ["FAMILY.F03", "FAMILY.F19", "PRINCIPLE.P10", "PRINCIPLE.P09"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F12", "FAMILY.F13", "FAMILY.F15", "FAMILY.F16", "FAMILY.F17"],
+  "seed_prompt": "↕ Propagate the error first. Then ask: how many independent dimensionless groups govern this system?",
+  "tags": ["uncertainty", "error-propagation", "signal-noise", "dimensional-analysis", "calibration", "statistics"]
+}

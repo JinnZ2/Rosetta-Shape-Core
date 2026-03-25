@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F17",
+  "name": "Turbulence",
+  "symbol": "ᘯᘰ",
+  "five_field": "dream",
+  "domain": "Chaos, sensitive dependence, fractal cascades, strange attractors",
+  "core_insight": "Chaotic systems are deterministic yet unpredictable beyond their Lyapunov horizon. Energy cascades from large eddies to small following a universal -5/3 power law. Bifurcation sequences have universal constants (Feigenbaum) — chaos is structured at a deep level.",
+  "key_equations": [
+    {
+      "name": "Lorenz Attractor",
+      "formula": "x' = σ(y - x); y' = x(ρ - z) - y; z' = xy - βz",
+      "why": "Archetypical strange attractor: bounded, non-periodic, sensitive to initial conditions"
+    },
+    {
+      "name": "Kolmogorov Turbulence Scaling",
+      "formula": "E(k) ∝ k^(-5/3)",
+      "why": "Energy spectrum of fully developed turbulence: universal regardless of fluid or forcing scale"
+    },
+    {
+      "name": "Feigenbaum Constants",
+      "formula": "δ ≈ 4.669; α ≈ 2.5029",
+      "why": "Universal ratios governing period-doubling route to chaos — same for any smooth 1D map"
+    }
+  ],
+  "resonates_with": ["FAMILY.F02", "FAMILY.F17", "FAMILY.F19", "PRINCIPLE.P10", "PRINCIPLE.P05"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F12", "FAMILY.F13", "FAMILY.F14", "FAMILY.F15", "FAMILY.F16"],
+  "seed_prompt": "ᘯᘰ Compute the Lyapunov exponent. Positive means chaos. The attractor has structure — find its fractal dimension.",
+  "tags": ["chaos", "strange-attractor", "sensitive-dependence", "turbulence", "fractal", "bifurcation"]
+}

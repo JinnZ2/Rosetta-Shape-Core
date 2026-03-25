@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F04",
+  "name": "Life",
+  "symbol": "••••",
+  "five_field": "chemical",
+  "domain": "Population dynamics, metabolic networks, genetic regulation, ecological cycles",
+  "core_insight": "Life oscillates between exponential growth and bounded saturation, always coupled to its environment. Catalysis is the key: enzymes lower barriers without being consumed. Predator-prey cycles show that life's stability is dynamic, not static.",
+  "key_equations": [
+    {
+      "name": "Logistic Growth",
+      "formula": "dN/dt = rN(1 - N/K)",
+      "why": "Intrinsic growth rate tempered by carrying capacity — the fundamental bounded-growth law"
+    },
+    {
+      "name": "Lotka-Volterra Equations",
+      "formula": "dx/dt = αx - βxy; dy/dt = δxy - γy",
+      "why": "Predator-prey oscillation: populations cycle endlessly without equilibrium"
+    },
+    {
+      "name": "Michaelis-Menten Kinetics",
+      "formula": "v = (V_max[S])/(K_m + [S])",
+      "why": "Enzyme saturation: rate plateaus when substrate floods — reveals catalytic architecture"
+    }
+  ],
+  "resonates_with": ["FAMILY.F13", "FAMILY.F05", "PRINCIPLE.P05", "PRINCIPLE.P02"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F01", "FAMILY.F02", "FAMILY.F03"],
+  "seed_prompt": "•••• Growth, coupling, saturation. Where is the carrying capacity? Who eats whom?",
+  "tags": ["ecology", "population", "catalysis", "metabolism", "oscillation", "s-curve"]
+}

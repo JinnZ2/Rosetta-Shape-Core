@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F20",
+  "name": "Topology",
+  "symbol": "∞",
+  "five_field": "symbolic",
+  "domain": "Topological invariants, knot theory, homotopy groups, manifolds",
+  "core_insight": "Topology classifies shapes by properties that survive continuous deformation. The Euler characteristic distinguishes surfaces; homotopy groups classify how loops wrap around holes. Knot invariants (Jones polynomial) detect knotting without coordinates — pure relational geometry.",
+  "key_equations": [
+    {
+      "name": "Euler Characteristic",
+      "formula": "χ = V - E + F",
+      "why": "Topological invariant for polyhedra: same for any triangulation of the same surface (sphere χ=2, torus χ=0)"
+    },
+    {
+      "name": "Fundamental Group",
+      "formula": "π₁(X,x₀) = [loops at x₀]/homotopy",
+      "why": "Classifies how loops wrap: trivial for sphere, ℤ for circle — detects holes without coordinates"
+    },
+    {
+      "name": "Jones Polynomial",
+      "formula": "t^(-1)V(L₊) - tV(L₋) = (t^(1/2) - t^(-1/2))V(L₀)",
+      "why": "Knot invariant via skein relation: distinguishes trefoil from unknot, detects chirality"
+    }
+  ],
+  "resonates_with": ["FAMILY.F09", "FAMILY.F18", "PRINCIPLE.P01", "PRINCIPLE.P12"],
+  "shapes": ["SHAPE.ICOSA", "SHAPE.DODECA", "SHAPE.TETRA", "SHAPE.CUBE", "SHAPE.OCTA"],
+  "five_field_neighbors": ["FAMILY.F18", "FAMILY.F19"],
+  "seed_prompt": "∞ Compute χ. What loops exist? Topology survives all deformation — find what cannot be smoothed away.",
+  "tags": ["topology", "euler-characteristic", "homotopy", "knot-theory", "invariant", "manifold"]
+}

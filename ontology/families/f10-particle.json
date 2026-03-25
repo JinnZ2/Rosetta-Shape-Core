@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F10",
+  "name": "Particle",
+  "symbol": "⚪",
+  "five_field": "cognitive",
+  "domain": "Standard Model, quantum field theory, gauge bosons, fermions",
+  "core_insight": "Particles are excitations of quantum fields. Spin determines statistics: fermions exclude, bosons condense. Mass comes from symmetry breaking via the Higgs mechanism. Forces are mediated by gauge bosons — quantized field disturbances obeying local symmetry.",
+  "key_equations": [
+    {
+      "name": "Dirac Equation",
+      "formula": "(iγ^μ∂_μ - m)ψ = 0",
+      "why": "Relativistic quantum equation for spin-½ particles — predicts antimatter and spin naturally"
+    },
+    {
+      "name": "Higgs Mechanism",
+      "formula": "V(φ) = -μ²|φ|² + λ|φ|⁴",
+      "why": "Mexican-hat potential: symmetry breaks at minimum, giving mass to W/Z bosons"
+    },
+    {
+      "name": "Yang-Mills Field Strength",
+      "formula": "F^a_μν = ∂_μA^a_ν - ∂_νA^a_μ + gf^(abc)A^b_μA^c_ν",
+      "why": "Non-Abelian gauge field: self-interacting force carriers (gluons, W/Z bosons)"
+    }
+  ],
+  "resonates_with": ["FAMILY.F08", "FAMILY.F18", "PRINCIPLE.P01", "PRINCIPLE.P04"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F09", "FAMILY.F11"],
+  "seed_prompt": "⚪ What is the spin? Fermion or boson sets the rules. Gauge symmetry dictates the force.",
+  "tags": ["quantum-field-theory", "standard-model", "gauge-symmetry", "spin", "mass-generation", "fermion"]
+}

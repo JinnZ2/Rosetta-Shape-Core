@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P06",
+  "name": "Resonance",
+  "symbol": "∿",
+  "dodecahedron_face": 6,
+  "domain": "Resonant frequencies, quality factor, amplification, matching conditions",
+  "core_insight": "When driving frequency matches natural frequency, energy accumulates — small inputs produce large outputs. The quality factor Q measures sharpness: high-Q systems ring long but respond narrowly. Resonance is both amplifier and filter.",
+  "key_equations": [
+    {
+      "name": "Resonance Condition",
+      "formula": "ω_drive = ω_natural",
+      "why": "The matching condition: driving at natural frequency causes amplitude to grow without bound in undamped case"
+    },
+    {
+      "name": "Q Factor",
+      "formula": "Q = ω₀/Δω = stored energy/dissipated energy",
+      "why": "Higher Q = narrower bandwidth and longer ring-down time; quantifies resonance sharpness"
+    },
+    {
+      "name": "Orbital Resonance",
+      "formula": "T₁/T₂ = n/m (rational ratio)",
+      "why": "Planets lock orbital periods into integer ratios via gravitational resonance — structures the solar system"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P01", "PRINCIPLE.P06", "FAMILY.F01", "FAMILY.F11"],
+  "shapes": ["SHAPE.DODECA", "SHAPE.ICOSA"],
+  "seed_prompt": "∿ Find the natural frequency. Match the drive. Watch energy accumulate. Q tells you how selective.",
+  "tags": ["resonance", "natural-frequency", "amplification", "quality-factor", "matching", "bandwidth"]
+}

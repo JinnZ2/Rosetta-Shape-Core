@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F16",
+  "name": "Consciousness",
+  "symbol": "◎",
+  "five_field": "dream",
+  "domain": "Integrated information, global workspace, neural oscillations, predictive coding",
+  "core_insight": "Consciousness may be quantified as integrated information (Φ) — the degree to which a system generates more information as a whole than the sum of its parts. The brain broadcasts selected signals globally via a workspace mechanism. Awareness minimizes prediction error.",
+  "key_equations": [
+    {
+      "name": "Integrated Information (Φ)",
+      "formula": "Φ = min I(X₁^past; X₂^present|X₃^past)",
+      "why": "Measures irreducibility of a system's causal architecture — more Φ, more conscious"
+    },
+    {
+      "name": "Free Energy Principle",
+      "formula": "F = ⟨-ln P(s,ψ|m)⟩_Q(ψ|μ)",
+      "why": "Perception and action minimize surprise: the brain as a Bayesian prediction machine"
+    },
+    {
+      "name": "Phase-Locking Value",
+      "formula": "PLV = |⟨e^(i(θ₁(t)-θ₂(t)))⟩|",
+      "why": "Measures inter-region neural coherence — synchrony as a binding mechanism for consciousness"
+    }
+  ],
+  "resonates_with": ["FAMILY.F06", "FAMILY.F01", "FAMILY.F03", "PRINCIPLE.P05", "PRINCIPLE.P12"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F12", "FAMILY.F13", "FAMILY.F14", "FAMILY.F15", "FAMILY.F17"],
+  "seed_prompt": "◎ Measure the integration. What Φ does this system have? Where is the global broadcast happening?",
+  "tags": ["consciousness", "integrated-information", "free-energy", "predictive-coding", "synchrony", "awareness"]
+}

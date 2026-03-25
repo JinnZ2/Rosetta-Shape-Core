@@ -17,6 +17,8 @@
     "SHAPE":   { "source": "Rosetta-Shape-Core", "path": "shapes/", "description": "Polyhedral and geometric shape entities" },
     "EMOTION": { "source": "Emotions-as-Sensors", "path": "sensors/", "description": "Emotion-as-sensor archetypes" },
     "DEFENSE": { "source": "Symbolic-Defense-Protocol", "path": "defenses/", "description": "Symbolic defense patterns" },
-    "REGEN":   { "source": "Regenerative-Intelligence-Core", "path": "ontology/", "description": "Regenerative intelligence patterns" }
+    "REGEN":   { "source": "Regenerative-Intelligence-Core", "path": "ontology/", "description": "Regenerative intelligence patterns" },
+    "FAMILY":  { "source": "Rosetta-Shape-Core", "path": "ontology/families/", "description": "Equation-domain families F01-F20, mapped to icosahedron's 20 faces" },
+    "PRINCIPLE":{ "source": "Rosetta-Shape-Core", "path": "ontology/principles/", "description": "Foundational principles P01-P12, mapped to dodecahedron's 12 faces" }
   }
 }

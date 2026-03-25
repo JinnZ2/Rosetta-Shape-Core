@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0",
+  "description": "Seed AI navigation index for Rosetta-Shape-Core ontology. Pull this file first to orient, then fetch specific family/principle files by ID.",
+  "how_to_use": "1. Read this index. 2. Identify relevant FAMILY or PRINCIPLE IDs. 3. Fetch the individual file from ontology/families/ or ontology/principles/. 4. Use seed_prompt to activate the domain.",
+  "families": {
+    "count": 20,
+    "shape": "SHAPE.ICOSA (20 faces)",
+    "five_fields": {
+      "chemical":  ["FAMILY.F01","FAMILY.F02","FAMILY.F03","FAMILY.F04"],
+      "emotional": ["FAMILY.F05","FAMILY.F06","FAMILY.F07","FAMILY.F08"],
+      "cognitive": ["FAMILY.F09","FAMILY.F10","FAMILY.F11"],
+      "dream":     ["FAMILY.F12","FAMILY.F13","FAMILY.F14","FAMILY.F15","FAMILY.F16","FAMILY.F17"],
+      "symbolic":  ["FAMILY.F18","FAMILY.F19","FAMILY.F20"]
+    },
+    "registry": [
+      { "id": "FAMILY.F01", "name": "Resonance",      "symbol": "≡≡≡", "file": "ontology/families/f01-resonance.json",      "seed": "Harmonics, synchronization, phase-lock" },
+      { "id": "FAMILY.F02", "name": "Flow",            "symbol": "↻",   "file": "ontology/families/f02-flow.json",           "seed": "Fluid motion, vorticity, laminar vs turbulent" },
+      { "id": "FAMILY.F03", "name": "Information",     "symbol": "⊗",   "file": "ontology/families/f03-information.json",    "seed": "Shannon entropy, channel capacity, mutual information" },
+      { "id": "FAMILY.F04", "name": "Life",            "symbol": "••••","file": "ontology/families/f04-life.json",           "seed": "Population dynamics, catalysis, bounded growth" },
+      { "id": "FAMILY.F05", "name": "Energy-Thermo",   "symbol": "△≈",  "file": "ontology/families/f05-energy-thermo.json",  "seed": "Entropy, thermodynamic potentials, efficiency" },
+      { "id": "FAMILY.F06", "name": "Cognition",       "symbol": "⋯⋯",  "file": "ontology/families/f06-cognition.json",      "seed": "Neural learning, attractors, gradient descent" },
+      { "id": "FAMILY.F07", "name": "Earth-Cosmos",    "symbol": "◯",   "file": "ontology/families/f07-earth-cosmos.json",   "seed": "Orbital mechanics, gravity, tidal forces" },
+      { "id": "FAMILY.F08", "name": "Matter",          "symbol": "◆",   "file": "ontology/families/f08-matter.json",         "seed": "Phase transitions, superconductivity, critical points" },
+      { "id": "FAMILY.F09", "name": "Geometry",        "symbol": "☆",   "file": "ontology/families/f09-geometry.json",       "seed": "Curvature, topology, Gauss-Bonnet" },
+      { "id": "FAMILY.F10", "name": "Particle",        "symbol": "⚪",   "file": "ontology/families/f10-particle.json",       "seed": "Standard Model, gauge fields, Dirac equation" },
+      { "id": "FAMILY.F11", "name": "Engineering",     "symbol": "⚙",   "file": "ontology/families/f11-engineering.json",    "seed": "Control theory, feedback, structural mechanics" },
+      { "id": "FAMILY.F12", "name": "Networks",        "symbol": "⬡",   "file": "ontology/families/f12-networks.json",       "seed": "Graph theory, scale-free, percolation" },
+      { "id": "FAMILY.F13", "name": "Reaction",        "symbol": "⇑",   "file": "ontology/families/f13-reaction.json",       "seed": "Kinetics, activation energy, autocatalysis" },
+      { "id": "FAMILY.F14", "name": "Measurement",     "symbol": "↕",   "file": "ontology/families/f14-measurement.json",    "seed": "Uncertainty propagation, SNR, dimensional analysis" },
+      { "id": "FAMILY.F15", "name": "Navigation",      "symbol": "◆→",  "file": "ontology/families/f15-navigation.json",     "seed": "Geodesics, Kalman filter, shortest path" },
+      { "id": "FAMILY.F16", "name": "Consciousness",   "symbol": "◎",   "file": "ontology/families/f16-consciousness.json",  "seed": "Integrated information, free energy, phase-locking" },
+      { "id": "FAMILY.F17", "name": "Turbulence",      "symbol": "ᘯᘰ",  "file": "ontology/families/f17-turbulence.json",     "seed": "Chaos, Lorenz attractor, Kolmogorov scaling" },
+      { "id": "FAMILY.F18", "name": "Relativity",      "symbol": "⊗≡",  "file": "ontology/families/f18-relativity.json",     "seed": "Spacetime curvature, Lorentz transforms, gravitational waves" },
+      { "id": "FAMILY.F19", "name": "Statistical",     "symbol": "▁▃▅∿","file": "ontology/families/f19-statistical.json",   "seed": "Partition function, Boltzmann distribution, fluctuation-dissipation" },
+      { "id": "FAMILY.F20", "name": "Topology",        "symbol": "∞",   "file": "ontology/families/f20-topology.json",       "seed": "Euler characteristic, homotopy groups, knot invariants" }
+    ]
+  },
+  "principles": {
+    "count": 12,
+    "shape": "SHAPE.DODECA (12 faces)",
+    "registry": [
+      { "id": "PRINCIPLE.P01", "name": "Symmetry",       "symbol": "⧖", "file": "ontology/principles/p01-symmetry.json",       "seed": "Noether's theorem, gauge invariance, group representations" },
+      { "id": "PRINCIPLE.P02", "name": "Conservation",   "symbol": "↺", "file": "ontology/principles/p02-conservation.json",   "seed": "Energy, momentum, charge, angular momentum conserved" },
+      { "id": "PRINCIPLE.P03", "name": "Relativity",     "symbol": "⊗", "file": "ontology/principles/p03-relativity.json",     "seed": "Frame independence, equivalence principle, spacetime interval" },
+      { "id": "PRINCIPLE.P04", "name": "Duality",        "symbol": "◑", "file": "ontology/principles/p04-duality.json",        "seed": "Wave-particle, EM duality, conjugate pairs" },
+      { "id": "PRINCIPLE.P05", "name": "Emergence",      "symbol": "●●","file": "ontology/principles/p05-emergence.json",      "seed": "Self-organization, criticality, power laws" },
+      { "id": "PRINCIPLE.P06", "name": "Resonance",      "symbol": "∿", "file": "ontology/principles/p06-resonance.json",      "seed": "Natural frequency, Q factor, orbital resonance" },
+      { "id": "PRINCIPLE.P07", "name": "Continuity",     "symbol": "⎯", "file": "ontology/principles/p07-continuity.json",     "seed": "Flow conservation, no teleportation, smooth fields" },
+      { "id": "PRINCIPLE.P08", "name": "Quantization",   "symbol": "▭", "file": "ontology/principles/p08-quantization.json",   "seed": "Discrete levels, Planck relation, quantum numbers" },
+      { "id": "PRINCIPLE.P09", "name": "Proportion",     "symbol": "▯", "file": "ontology/principles/p09-proportion.json",     "seed": "Golden ratio, fine structure constant, harmonic ratios" },
+      { "id": "PRINCIPLE.P10", "name": "Uncertainty",    "symbol": "◧", "file": "ontology/principles/p10-uncertainty.json",    "seed": "Heisenberg bound, entropy, Gödel incompleteness" },
+      { "id": "PRINCIPLE.P11", "name": "Transformation", "symbol": "↻", "file": "ontology/principles/p11-transformation.json", "seed": "Fourier/Laplace transforms, phase transitions, basis change" },
+      { "id": "PRINCIPLE.P12", "name": "Unity",          "symbol": "◎", "file": "ontology/principles/p12-unity.json",          "seed": "Unification, identity element, E=mc², Maxwell" }
+    ]
+  },
+  "qualitative_map": "ontology/family_map.json",
+  "source_monolith": "atlas/remote/polyhedral/atlas_schema.json",
+  "noise_signatures": [
+    "turbulence → fractal signal (FAMILY.F17)",
+    "uncertainty → silence signal (PRINCIPLE.P10)",
+    "delay → relative time (FAMILY.F18)",
+    "error → hidden dimension (FAMILY.F14)",
+    "instability → emergent flexibility (PRINCIPLE.P05)"
+  ]
+}

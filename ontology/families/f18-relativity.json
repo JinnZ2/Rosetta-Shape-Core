@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F18",
+  "name": "Relativity",
+  "symbol": "⊗≡",
+  "five_field": "symbolic",
+  "domain": "Spacetime curvature, gravitational waves, Lorentz transformations, frame covariance",
+  "core_insight": "Space and time are one fabric; mass-energy curves it. All observers agree on spacetime intervals even when they disagree on space and time separately. Gravitational waves are ripples in spacetime geometry, carrying energy at the speed of light.",
+  "key_equations": [
+    {
+      "name": "Einstein Field Equations",
+      "formula": "Rμν - ½Rgμν + Λgμν = (8πG/c⁴)Tμν",
+      "why": "Curvature of spacetime (left) equals energy-momentum content (right) — gravity as geometry"
+    },
+    {
+      "name": "Lorentz Transformation",
+      "formula": "t' = γ(t - vx/c²); x' = γ(x - vt)",
+      "why": "How space and time coordinates transform between inertial frames moving at relative velocity v"
+    },
+    {
+      "name": "Minkowski Metric",
+      "formula": "ds² = -c²dt² + dx² + dy² + dz²",
+      "why": "Spacetime interval: invariant under all Lorentz boosts — the geometry of flat spacetime"
+    }
+  ],
+  "resonates_with": ["FAMILY.F07", "FAMILY.F10", "FAMILY.F20", "PRINCIPLE.P03", "PRINCIPLE.P01"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F19", "FAMILY.F20"],
+  "seed_prompt": "⊗≡ What is the metric? Curvature equals mass-energy. Boosts mix space and time.",
+  "tags": ["general-relativity", "spacetime", "curvature", "lorentz", "gravitational-waves", "covariance"]
+}

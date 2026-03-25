@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F11",
+  "name": "Engineering",
+  "symbol": "⚙",
+  "five_field": "cognitive",
+  "domain": "Stress/strain, circuit laws, control theory, structural mechanics",
+  "core_insight": "Physical systems respond linearly near equilibrium. Feedback loops are the core design tool: PID control corrects error proportionally, accumulatively, and predictively. Structure fails at the critical load where elastic response yields to plastic deformation.",
+  "key_equations": [
+    {
+      "name": "PID Controller",
+      "formula": "u(t) = K_p e(t) + K_i∫e(τ)dτ + K_d(de/dt)",
+      "why": "Universal feedback law: proportional corrects now, integral corrects drift, derivative anticipates"
+    },
+    {
+      "name": "Hooke's Law",
+      "formula": "σ = Eε",
+      "why": "Stress proportional to strain in elastic regime — the linear response foundation of all structural analysis"
+    },
+    {
+      "name": "Ohm's Law",
+      "formula": "V = IR",
+      "why": "Voltage, current, resistance: the circuit analog of all linear dissipative systems"
+    }
+  ],
+  "resonates_with": ["FAMILY.F02", "FAMILY.F12", "PRINCIPLE.P07", "PRINCIPLE.P06"],
+  "shapes": ["SHAPE.ICOSA", "SHAPE.CUBE"],
+  "five_field_neighbors": ["FAMILY.F09", "FAMILY.F10"],
+  "seed_prompt": "⚙ Where is the error? Build the feedback loop. Elastic now — how close to yield?",
+  "tags": ["control-theory", "feedback", "elasticity", "pid", "circuits", "structural-mechanics"]
+}

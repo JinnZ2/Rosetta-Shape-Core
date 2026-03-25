@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F02",
+  "name": "Flow",
+  "symbol": "↻",
+  "five_field": "chemical",
+  "domain": "Fluid motion, laminar flow, vorticity, boundary layers",
+  "core_insight": "Momentum and pressure trade off continuously. Flow is laminar until inertia overwhelms viscosity (Re >> 1); beyond that, order dissolves into turbulence. Vortices are the rotating memory of past flow.",
+  "key_equations": [
+    {
+      "name": "Navier-Stokes (Incompressible)",
+      "formula": "∂u/∂t + (u·∇)u = -∇p/ρ + ν∇²u + f; ∇·u = 0",
+      "why": "The master equation of fluid motion: inertia balanced by pressure gradient and viscous diffusion"
+    },
+    {
+      "name": "Reynolds Number",
+      "formula": "Re = ρvL/μ = vL/ν",
+      "why": "Single dimensionless number predicting laminar vs turbulent regime — the character of the flow"
+    },
+    {
+      "name": "Bernoulli's Equation",
+      "formula": "p + ½ρv² + ρgh = constant",
+      "why": "Energy conservation along a streamline: speed up, pressure drops"
+    }
+  ],
+  "resonates_with": ["FAMILY.F01", "FAMILY.F17", "PRINCIPLE.P07", "PRINCIPLE.P02"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F01", "FAMILY.F03", "FAMILY.F04"],
+  "seed_prompt": "↻ Trace the streamlines. Where does viscosity lose to inertia? The transition point is where complexity lives.",
+  "tags": ["fluid-dynamics", "momentum", "vorticity", "laminar", "turbulence-threshold"]
+}

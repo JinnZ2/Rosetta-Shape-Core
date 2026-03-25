@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P11",
+  "name": "Transformation",
+  "symbol": "↻",
+  "dodecahedron_face": 11,
+  "domain": "Fourier/Laplace transforms, phase transitions, coordinate changes, morphisms",
+  "core_insight": "Transformation changes the representation without changing the content. The Fourier transform reveals the frequency structure hidden in time-domain signals. Phase transitions are transformations of state where symmetry abruptly changes. The Legendre transform swaps variables, converting between conjugate descriptions.",
+  "key_equations": [
+    {
+      "name": "Fourier Transform",
+      "formula": "F(ω) = ∫ f(t)e^(-iωt) dt",
+      "why": "Converts time-domain signal to frequency-domain spectrum — the same information, different basis"
+    },
+    {
+      "name": "Phase Transition",
+      "formula": "∂G/∂T = -S; ∂²G/∂T² discontinuous",
+      "why": "Thermodynamic transformation: free energy's second derivative jumps at the transition point"
+    },
+    {
+      "name": "Legendre Transform",
+      "formula": "G(p) = f(x) - px where p = df/dx",
+      "why": "Swaps variable and its conjugate: converts internal energy to enthalpy, Lagrangian to Hamiltonian"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P01", "PRINCIPLE.P05", "FAMILY.F05", "FAMILY.F13", "FAMILY.F08"],
+  "shapes": ["SHAPE.DODECA"],
+  "seed_prompt": "↻ What is preserved under this transformation? Change the basis. The invariants are the truth.",
+  "tags": ["transformation", "fourier", "phase-transition", "legendre", "basis-change", "morphism"]
+}

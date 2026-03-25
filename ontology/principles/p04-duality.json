@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P04",
+  "name": "Duality",
+  "symbol": "◑",
+  "dodecahedron_face": 4,
+  "domain": "Wave-particle, electric-magnetic, position-momentum complementarity",
+  "core_insight": "Many systems have two complementary descriptions that are each incomplete but together exhaustive. You cannot simultaneously sharpen position and momentum; wave and particle; electric and magnetic — each pair is a dual. Choosing one representation hides the other.",
+  "key_equations": [
+    {
+      "name": "Wave-Particle Duality",
+      "formula": "E = hf; p = h/λ",
+      "why": "Particle energy tied to wave frequency; particle momentum to wave wavelength — neither description alone is sufficient"
+    },
+    {
+      "name": "Position-Momentum Duality",
+      "formula": "Δx Δp ≥ ℏ/2",
+      "why": "Heisenberg uncertainty as duality: tighter position means broader momentum spread, and vice versa"
+    },
+    {
+      "name": "Electric-Magnetic Duality",
+      "formula": "E → B; B → -E (in vacuum)",
+      "why": "Maxwell's equations are symmetric under swapping E and B — same physics, dual description"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P10", "PRINCIPLE.P01", "FAMILY.F03", "FAMILY.F10"],
+  "shapes": ["SHAPE.DODECA", "SHAPE.OCTA"],
+  "seed_prompt": "◑ What is the dual of this description? Sharpen one side and the other blurs. Both are real.",
+  "tags": ["duality", "complementarity", "wave-particle", "uncertainty", "quantum", "symmetry"]
+}

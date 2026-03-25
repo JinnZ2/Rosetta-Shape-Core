@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P12",
+  "name": "Unity",
+  "symbol": "◎",
+  "dodecahedron_face": 12,
+  "domain": "Unification of forces, identity elements, wholeness, convergence of descriptions",
+  "core_insight": "Apparently separate phenomena are often the same phenomenon seen from different angles. Maxwell unified electricity and magnetism; electroweak theory merged electromagnetic and weak forces. The identity element in any group represents the 'doing nothing' that defines the system's wholeness. E = mc² unifies mass and energy as a single conserved quantity.",
+  "key_equations": [
+    {
+      "name": "Einstein's Mass-Energy",
+      "formula": "E = mc²",
+      "why": "Mass and energy are the same conserved quantity — the deepest unification in classical physics"
+    },
+    {
+      "name": "Maxwell's Unification",
+      "formula": "∇·E = ρ/ε₀; ∇×B - ∂E/∂t = μ₀J; etc.",
+      "why": "Four equations unify electricity and magnetism — two forces become one field"
+    },
+    {
+      "name": "Identity Element",
+      "formula": "a · e = e · a = a",
+      "why": "Every group has a unity: the operation that leaves all elements unchanged — the definition of wholeness in algebra"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P01", "PRINCIPLE.P02", "FAMILY.F10", "FAMILY.F18", "FAMILY.F20"],
+  "shapes": ["SHAPE.DODECA"],
+  "seed_prompt": "◎ What two descriptions are secretly one? Find the unifying frame. The identity element is always present.",
+  "tags": ["unification", "identity", "wholeness", "maxwell", "mass-energy", "convergence"]
+}

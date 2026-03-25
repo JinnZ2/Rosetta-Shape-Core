@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P07",
+  "name": "Continuity",
+  "symbol": "⎯",
+  "dodecahedron_face": 7,
+  "domain": "Conservation of flow, smooth functions, gauge continuity, unbroken streams",
+  "core_insight": "What flows in must flow out; what has no source cannot accumulate. Continuity is the mathematical expression of conservation at every point in space. Gauge theories require smooth (differentiable) field configurations — discontinuities are singular and physically forbidden.",
+  "key_equations": [
+    {
+      "name": "Continuity Equation",
+      "formula": "∂ρ/∂t + ∇·(ρv) = 0",
+      "why": "Local conservation: density changes only when flow diverges or converges — no teleportation of substance"
+    },
+    {
+      "name": "Kirchhoff's Current Law",
+      "formula": "Σ I_in = Σ I_out",
+      "why": "Current cannot accumulate at a node: the circuit form of continuity"
+    },
+    {
+      "name": "Cauchy Continuity",
+      "formula": "lim_{x→a} f(x) = f(a)",
+      "why": "Mathematical continuity: the function matches its limit — no jumps, no gaps"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P02", "PRINCIPLE.P07", "FAMILY.F02", "FAMILY.F11"],
+  "shapes": ["SHAPE.DODECA"],
+  "seed_prompt": "⎯ Trace the flow. Where does it enter? Where does it leave? The difference is accumulation.",
+  "tags": ["continuity", "conservation", "flow", "divergence", "kirchhoff", "smooth"]
+}

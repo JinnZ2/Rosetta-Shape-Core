@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F05",
+  "name": "Energy-Thermo",
+  "symbol": "△≈",
+  "five_field": "emotional",
+  "domain": "Heat transfer, entropy, thermodynamic potentials, irreversibility",
+  "core_insight": "Energy is conserved but quality degrades. Entropy always increases in isolated systems — this is time's arrow. Efficiency is bounded by the temperature ratio of hot and cold reservoirs. Heat diffuses; it cannot spontaneously concentrate.",
+  "key_equations": [
+    {
+      "name": "Second Law (Entropy)",
+      "formula": "dS ≥ δQ/T",
+      "why": "Entropy cannot decrease in isolation — the universe's ratchet that defines past from future"
+    },
+    {
+      "name": "First Law of Thermodynamics",
+      "formula": "dU = δQ - δW",
+      "why": "Energy bookkeeping: internal energy changes by heat in minus work done"
+    },
+    {
+      "name": "Carnot Efficiency",
+      "formula": "η = 1 - T_c/T_h",
+      "why": "Maximum work extractable from a heat engine — depends only on temperature ratio"
+    }
+  ],
+  "resonates_with": ["FAMILY.F19", "FAMILY.F08", "PRINCIPLE.P02", "PRINCIPLE.P11"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F06", "FAMILY.F07", "FAMILY.F08"],
+  "seed_prompt": "△≈ Which direction does entropy flow? Find the temperature gradient — that is where work lives.",
+  "tags": ["entropy", "conservation", "irreversibility", "heat-engine", "thermodynamics", "time-arrow"]
+}
