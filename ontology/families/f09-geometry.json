@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F09",
+  "name": "Geometry",
+  "symbol": "☆",
+  "five_field": "cognitive",
+  "domain": "Euclidean and non-Euclidean theorems, curvature, symmetry groups, topology",
+  "core_insight": "Space has intrinsic properties measurable without embedding. Curvature determines whether parallel lines meet. The Euler characteristic is a topological invariant that survives any smooth deformation — the deepest fingerprint of a shape.",
+  "key_equations": [
+    {
+      "name": "Gaussian Curvature",
+      "formula": "K = κ₁κ₂",
+      "why": "Product of principal curvatures: intrinsic — survives bending without stretching"
+    },
+    {
+      "name": "Gauss-Bonnet Theorem",
+      "formula": "∫∫_M K dA + ∫_∂M κ_g ds = 2πχ(M)",
+      "why": "Total curvature of a surface equals 2π times its Euler characteristic — topology controls geometry"
+    },
+    {
+      "name": "Pythagorean Theorem",
+      "formula": "a² + b² = c²",
+      "why": "Foundational: right triangles, distance, and the metric structure of flat space"
+    }
+  ],
+  "resonates_with": ["FAMILY.F20", "FAMILY.F18", "PRINCIPLE.P01", "PRINCIPLE.P09"],
+  "shapes": ["SHAPE.ICOSA", "SHAPE.DODECA", "SHAPE.TETRA", "SHAPE.CUBE", "SHAPE.OCTA"],
+  "five_field_neighbors": ["FAMILY.F10", "FAMILY.F11"],
+  "seed_prompt": "☆ What is the Euler characteristic? Topology answers before geometry. Curvature lives in the surface itself.",
+  "tags": ["curvature", "topology", "symmetry", "differential-geometry", "invariant", "euclidean"]
+}

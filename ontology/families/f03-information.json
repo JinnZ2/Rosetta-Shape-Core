@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F03",
+  "name": "Information",
+  "symbol": "⊗",
+  "five_field": "chemical",
+  "domain": "Shannon entropy, coding theory, information measures, channel capacity",
+  "core_insight": "Information is surprise made measurable. Entropy quantifies ignorance; mutual information reveals shared structure between signals. Every channel has a capacity ceiling no code can exceed.",
+  "key_equations": [
+    {
+      "name": "Shannon Entropy",
+      "formula": "H(X) = -Σᵢ p(xᵢ) log₂ p(xᵢ)",
+      "why": "Baseline measure of uncertainty in a distribution — how many bits are needed on average"
+    },
+    {
+      "name": "Channel Capacity",
+      "formula": "C = B log₂(1 + S/N)",
+      "why": "Hard ceiling on reliable communication rate; more bandwidth or better signal/noise expands it"
+    },
+    {
+      "name": "Mutual Information",
+      "formula": "I(X;Y) = H(X) + H(Y) - H(X,Y)",
+      "why": "Measures how much knowing Y reduces uncertainty about X — quantifies dependency"
+    }
+  ],
+  "resonates_with": ["FAMILY.F06", "FAMILY.F16", "PRINCIPLE.P10", "PRINCIPLE.P03"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F01", "FAMILY.F02", "FAMILY.F04"],
+  "seed_prompt": "⊗ Measure the surprise. Entropy first, then ask: what is shared between these two signals?",
+  "tags": ["entropy", "information-theory", "channel-capacity", "mutual-information", "coding"]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F08",
+  "name": "Matter",
+  "symbol": "◆",
+  "five_field": "emotional",
+  "domain": "Phase transitions, crystal structures, superconductivity, material properties",
+  "core_insight": "Matter organizes into phases separated by transitions where symmetry breaks. Near a critical point, fluctuations span all scales. Electrons in solids form collective states — conductors, insulators, superconductors — defined by quantum correlations, not individual particles.",
+  "key_equations": [
+    {
+      "name": "Ising Model",
+      "formula": "H = -J Σ_⟨i,j⟩ sᵢsⱼ - h Σᵢ sᵢ",
+      "why": "Simplest model of phase transition: local spin alignment creates long-range order at critical T"
+    },
+    {
+      "name": "Drude Model",
+      "formula": "σ = ne²τ/m",
+      "why": "Conductivity from electron density and collision time — classical picture of metallic conduction"
+    },
+    {
+      "name": "BCS Gap Equation",
+      "formula": "Δ = λ∫₀^(ω_D) tanh(√(ξ² + Δ²)/(2k_BT))/√(ξ² + Δ²) dξ",
+      "why": "Self-consistent pairing gap in superconductors — collective quantum state that expels all resistance"
+    }
+  ],
+  "resonates_with": ["FAMILY.F05", "FAMILY.F10", "PRINCIPLE.P01", "PRINCIPLE.P05"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F05", "FAMILY.F06", "FAMILY.F07"],
+  "seed_prompt": "◆ What phase is this system in? Where is the critical point? Symmetry breaks here.",
+  "tags": ["phase-transition", "superconductivity", "magnetism", "crystal", "critical-point", "symmetry-breaking"]
+}

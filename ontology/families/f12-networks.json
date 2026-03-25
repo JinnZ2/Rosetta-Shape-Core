@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F12",
+  "name": "Networks",
+  "symbol": "⬡",
+  "five_field": "dream",
+  "domain": "Graph theory, scale-free networks, percolation, spectral analysis",
+  "core_insight": "Most real networks are scale-free: a few hubs dominate. Clustering reveals local community structure. Percolation defines the critical fraction of edges needed for global connectivity. The Laplacian spectrum encodes diffusion, vibration, and community structure simultaneously.",
+  "key_equations": [
+    {
+      "name": "Power Law Degree Distribution",
+      "formula": "P(k) ∝ k^(-γ)",
+      "why": "Scale-free topology: hubs exist because rich nodes attract more connections (preferential attachment)"
+    },
+    {
+      "name": "Laplacian Matrix",
+      "formula": "L = D - A",
+      "why": "Degree minus adjacency: eigenvalues encode connectivity, diffusion rates, and community structure"
+    },
+    {
+      "name": "Percolation Threshold",
+      "formula": "p_c ≈ 1/⟨k⟩",
+      "why": "Minimum edge probability for a giant connected component to span the network"
+    }
+  ],
+  "resonates_with": ["FAMILY.F15", "FAMILY.F03", "PRINCIPLE.P05", "PRINCIPLE.P07"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F13", "FAMILY.F14", "FAMILY.F15", "FAMILY.F16", "FAMILY.F17"],
+  "seed_prompt": "⬡ Map the hubs. Is this network robust to random failure but fragile to hub attack? Find the percolation threshold.",
+  "tags": ["graph-theory", "scale-free", "hub", "percolation", "laplacian", "community"]
+}

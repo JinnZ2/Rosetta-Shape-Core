@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "namespaces": ["ANIMAL","PLANT","MICROBE","CRYSTAL","GEOM","STRUCT","FIELD","CONST","TEMP","PROTO","CAP","SHAPE","EMOTION","DEFENSE","REGEN"],
+  "namespaces": ["ANIMAL","PLANT","MICROBE","CRYSTAL","GEOM","STRUCT","FIELD","CONST","TEMP","PROTO","CAP","SHAPE","EMOTION","DEFENSE","REGEN","FAMILY","PRINCIPLE"],
   "kinds": {
     "ANIMAL":"Animal intelligence archetype",
     "PLANT":"Plant intelligence archetype",
@@ -16,7 +16,9 @@
     "SHAPE":"Polyhedral or geometric shape entity",
     "EMOTION":"Emotion-as-sensor archetype",
     "DEFENSE":"Symbolic defense pattern",
-    "REGEN":"Regenerative intelligence pattern"
+    "REGEN":"Regenerative intelligence pattern",
+    "FAMILY":"Equation-domain family (F01-F20, icosahedron faces)",
+    "PRINCIPLE":"Foundational principle (P01-P12, dodecahedron faces)"
   },
   "rels": {
     "IS_A":"Taxonomy edge",

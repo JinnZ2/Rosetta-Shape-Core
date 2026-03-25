@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F01",
+  "name": "Resonance",
+  "symbol": "≡≡≡",
+  "five_field": "chemical",
+  "domain": "Harmonics, standing waves, synchronization, natural frequencies",
+  "core_insight": "Systems lock phase when driven at their natural frequency; energy accumulates, patterns freeze into standing form. Synchronization emerges when coupling overcomes detuning.",
+  "key_equations": [
+    {
+      "name": "Resonance Frequency",
+      "formula": "ω₀ = √(k/m)",
+      "why": "Every bounded system has a natural voice; drive it here and it sings loudly"
+    },
+    {
+      "name": "Kuramoto Model",
+      "formula": "θ̇ᵢ = ωᵢ + (K/N) Σⱼ sin(θⱼ - θᵢ)",
+      "why": "Collective synchronization: weak coupling across many oscillators creates coherent phase lock"
+    },
+    {
+      "name": "Fourier Series",
+      "formula": "f(t) = a₀/2 + Σₙ[aₙcos(nωt) + bₙsin(nωt)]",
+      "why": "Any periodic signal is a superposition of harmonics — reveals hidden resonant structure"
+    }
+  ],
+  "resonates_with": ["FAMILY.F02", "FAMILY.F16", "PRINCIPLE.P06", "PRINCIPLE.P01"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F02", "FAMILY.F03", "FAMILY.F04"],
+  "seed_prompt": "≡≡≡ What frequency does this system prefer? Find the natural voice; coupling and coherence follow.",
+  "tags": ["standing-wave", "synchronization", "harmonics", "phase-lock", "coupling"]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F13",
+  "name": "Reaction",
+  "symbol": "⇑",
+  "five_field": "dream",
+  "domain": "Chemical kinetics, catalysis, rate laws, autocatalysis",
+  "core_insight": "Reactions proceed when molecules have enough energy to cross the activation barrier. Temperature is the master accelerant. Autocatalytic reactions are self-amplifying — the product catalyzes its own formation, creating explosive growth from small beginnings.",
+  "key_equations": [
+    {
+      "name": "Arrhenius Equation",
+      "formula": "k = Ae^(-E_a/RT)",
+      "why": "Rate constant as function of temperature: activation energy and thermal fluctuations compete"
+    },
+    {
+      "name": "Mass Action Law",
+      "formula": "Rate = k[A]^m[B]^n",
+      "why": "Rate proportional to reactant concentrations raised to their order — the kinetics fingerprint"
+    },
+    {
+      "name": "Autocatalytic Reaction",
+      "formula": "A + B → 2B; Rate = k[A][B]",
+      "why": "Product catalyzes itself: exponential amplification, the chemical basis of life's self-replication"
+    }
+  ],
+  "resonates_with": ["FAMILY.F04", "FAMILY.F05", "PRINCIPLE.P11", "PRINCIPLE.P05"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F12", "FAMILY.F14", "FAMILY.F15", "FAMILY.F16", "FAMILY.F17"],
+  "seed_prompt": "⇑ What is the activation barrier? At what temperature does this ignite? Is the product self-catalytic?",
+  "tags": ["kinetics", "activation-energy", "catalysis", "autocatalysis", "rate-law", "temperature"]
+}

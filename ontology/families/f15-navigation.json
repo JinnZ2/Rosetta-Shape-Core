@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F15",
+  "name": "Navigation",
+  "symbol": "◆→",
+  "five_field": "dream",
+  "domain": "Geodesics, optimal path planning, estimation, GPS and guidance systems",
+  "core_insight": "The shortest path on a curved surface is a geodesic. Algorithms like Dijkstra find shortest paths in discrete graphs. The Kalman filter optimally estimates state by fusing noisy measurements with a dynamic model — the navigator's fundamental tool.",
+  "key_equations": [
+    {
+      "name": "Geodesic Equation",
+      "formula": "d²x^μ/ds² + Γ^μ_αβ(dx^α/ds)(dx^β/ds) = 0",
+      "why": "Straightest path on curved space: Christoffel symbols encode how space bends the trajectory"
+    },
+    {
+      "name": "Kalman Filter",
+      "formula": "x̂_k = x̂_k⁻ + K_k(z_k - Hx̂_k⁻)",
+      "why": "Optimal linear estimator: innovation (measurement minus prediction) corrected by Kalman gain"
+    },
+    {
+      "name": "Dijkstra's Algorithm",
+      "formula": "dist[v] = min(dist[v], dist[u] + weight(u,v))",
+      "why": "Greedy shortest-path on weighted graphs: relaxation guarantees optimal route"
+    }
+  ],
+  "resonates_with": ["FAMILY.F09", "FAMILY.F12", "PRINCIPLE.P07", "PRINCIPLE.P15"],
+  "shapes": ["SHAPE.ICOSA", "SHAPE.DODECA"],
+  "five_field_neighbors": ["FAMILY.F12", "FAMILY.F13", "FAMILY.F14", "FAMILY.F16", "FAMILY.F17"],
+  "seed_prompt": "◆→ What is the curvature of the space? Geodesic first, then optimal estimate. Where does the path want to go?",
+  "tags": ["geodesic", "path-planning", "kalman-filter", "estimation", "optimization", "navigation"]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P02",
+  "name": "Conservation",
+  "symbol": "↺",
+  "dodecahedron_face": 2,
+  "domain": "Energy, momentum, charge, angular momentum — quantities unchanged by system evolution",
+  "core_insight": "Conserved quantities are the skeleton of physics. What cannot change constrains everything else. Conservation laws are both diagnostic (find violations = new physics) and generative (they produce equations of motion via Noether's theorem).",
+  "key_equations": [
+    {
+      "name": "Energy Conservation",
+      "formula": "dE/dt = 0 (closed system)",
+      "why": "Total energy is fixed in an isolated system — the most universal constraint in physics"
+    },
+    {
+      "name": "Charge Conservation",
+      "formula": "∂ρ/∂t + ∇·J = 0",
+      "why": "Continuity equation: charge cannot be created or destroyed, only moved — the current-density form"
+    },
+    {
+      "name": "Angular Momentum Conservation",
+      "formula": "dL/dt = τ_external",
+      "why": "Changes only when external torque acts; explains gyroscopes, planetary orbits, and spinning dancers"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P01", "PRINCIPLE.P07", "FAMILY.F02", "FAMILY.F05", "FAMILY.F19"],
+  "shapes": ["SHAPE.DODECA"],
+  "seed_prompt": "↺ List what is conserved. These are the invariants that bound all possible trajectories.",
+  "tags": ["conservation", "energy", "momentum", "charge", "angular-momentum", "invariant"]
+}

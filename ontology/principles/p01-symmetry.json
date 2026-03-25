@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P01",
+  "name": "Symmetry",
+  "symbol": "⧖",
+  "dodecahedron_face": 1,
+  "domain": "Group theory, conservation laws, invariance under transformation",
+  "core_insight": "Every continuous symmetry of a physical system corresponds to a conserved quantity (Noether's theorem). Gauge symmetry — local invariance — is the deepest organizing principle of the Standard Model. Symmetry breaking is how variety emerges from uniformity.",
+  "key_equations": [
+    {
+      "name": "Noether's Theorem",
+      "formula": "Continuous symmetry → Conserved quantity",
+      "why": "Time-translation symmetry → energy conservation; spatial symmetry → momentum; rotational → angular momentum"
+    },
+    {
+      "name": "Gauge Symmetry",
+      "formula": "ψ → e^(iα(x))ψ; Aμ → Aμ + ∂μα",
+      "why": "Local phase invariance forces the existence of a gauge field — this is how forces arise from symmetry"
+    },
+    {
+      "name": "Group Representation",
+      "formula": "D(g₁g₂) = D(g₁)D(g₂)",
+      "why": "Symmetry operations form groups; representations classify all possible behaviors under that symmetry"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P02", "PRINCIPLE.P04", "FAMILY.F01", "FAMILY.F09", "FAMILY.F10"],
+  "shapes": ["SHAPE.DODECA"],
+  "seed_prompt": "⧖ What transformation leaves this system unchanged? That invariance is hiding a conservation law.",
+  "tags": ["symmetry", "conservation", "noether", "gauge-theory", "group-theory", "invariance"]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F19",
+  "name": "Statistical",
+  "symbol": "▁▃▅∿",
+  "five_field": "symbolic",
+  "domain": "Statistical mechanics, partition functions, fluctuations, equilibrium distributions",
+  "core_insight": "Macroscopic order emerges from microscopic randomness when averaged over enormous numbers. The partition function encodes all thermodynamic information. Fluctuations and dissipation are linked by the fluctuation-dissipation theorem — noise is the price of response.",
+  "key_equations": [
+    {
+      "name": "Partition Function",
+      "formula": "Z = Σᵢ e^(-Eᵢ/kT)",
+      "why": "Sum over all microstates weighted by Boltzmann factor — all thermodynamics derives from Z"
+    },
+    {
+      "name": "Boltzmann Distribution",
+      "formula": "P(E) = (1/Z)e^(-E/kT)",
+      "why": "Probability of microstate at energy E in thermal equilibrium: exponential suppression with energy"
+    },
+    {
+      "name": "Fluctuation-Dissipation Theorem",
+      "formula": "⟨A(t)B(0)⟩ = kT χ_AB(ω)",
+      "why": "Equilibrium fluctuations determine linear response: every dissipative process has corresponding noise"
+    }
+  ],
+  "resonates_with": ["FAMILY.F05", "FAMILY.F17", "PRINCIPLE.P10", "PRINCIPLE.P02"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F18", "FAMILY.F20"],
+  "seed_prompt": "▁▃▅∿ Build the partition function. All thermodynamics follows. Fluctuations are not noise — they are signal.",
+  "tags": ["statistical-mechanics", "partition-function", "boltzmann", "fluctuation-dissipation", "ensemble", "equilibrium"]
+}

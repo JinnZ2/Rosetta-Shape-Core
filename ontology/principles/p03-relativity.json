@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P03",
+  "name": "Relativity",
+  "symbol": "⊗",
+  "dodecahedron_face": 3,
+  "domain": "Lorentz invariance, equivalence principle, frame covariance, observer independence",
+  "core_insight": "The laws of physics are identical in all inertial frames; the speed of light is constant everywhere. Gravity and acceleration are locally indistinguishable. Physical laws must be written in covariant form — independent of the choice of coordinate system.",
+  "key_equations": [
+    {
+      "name": "Lorentz Invariance",
+      "formula": "s² = -c²t² + x² + y² + z² (invariant)",
+      "why": "The spacetime interval is the same for all inertial observers — the only observer-independent quantity"
+    },
+    {
+      "name": "Equivalence Principle",
+      "formula": "Gravitation ≡ Acceleration",
+      "why": "Gravity and inertia are locally identical — the foundational insight of general relativity"
+    },
+    {
+      "name": "Light Speed Constancy",
+      "formula": "c = constant in all frames",
+      "why": "The postulate that forces spacetime to warp: neither space nor time is absolute, only their combination"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P01", "PRINCIPLE.P03", "FAMILY.F18", "FAMILY.F10"],
+  "shapes": ["SHAPE.DODECA"],
+  "seed_prompt": "⊗ Change the frame. Does the physics change? It should not. Find the invariant interval.",
+  "tags": ["relativity", "lorentz-invariance", "equivalence-principle", "covariance", "spacetime", "frame-independence"]
+}

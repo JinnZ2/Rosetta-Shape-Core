@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P08",
+  "name": "Quantization",
+  "symbol": "▭",
+  "dodecahedron_face": 8,
+  "domain": "Discrete energy levels, quantum numbers, digital states, step-wise change",
+  "core_insight": "At microscopic scales, quantities come in discrete units. Energy, charge, angular momentum — all quantized. This discreteness is not a limitation but a structure: quantum numbers label states completely, and selection rules govern allowed transitions.",
+  "key_equations": [
+    {
+      "name": "Planck Relation",
+      "formula": "E = hf = ℏω",
+      "why": "The fundamental quantum: energy proportional to frequency. Light comes in photons of exactly this energy."
+    },
+    {
+      "name": "Quantum Harmonic Oscillator",
+      "formula": "E_n = ℏω(n + ½)",
+      "why": "Equally spaced energy ladder with zero-point energy ℏω/2 — no system can be truly at rest"
+    },
+    {
+      "name": "Angular Momentum Quantization",
+      "formula": "L = ℏ√(l(l+1)); L_z = mℏ",
+      "why": "Angular momentum magnitude and projection are discrete — defines the orbital structure of atoms"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P04", "PRINCIPLE.P10", "FAMILY.F10", "FAMILY.F08"],
+  "shapes": ["SHAPE.DODECA"],
+  "seed_prompt": "▭ What are the allowed levels? Find the quantum number. Transitions follow selection rules.",
+  "tags": ["quantization", "discrete", "energy-levels", "planck", "quantum-numbers", "zero-point"]
+}

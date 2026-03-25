@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P09",
+  "name": "Proportion",
+  "symbol": "▯",
+  "dodecahedron_face": 9,
+  "domain": "Golden ratio, harmonic ratios, dimensionless constants, scaling relations",
+  "core_insight": "Certain ratios recur across all scales and domains: φ (golden ratio) in growth and aesthetics, α (fine structure constant) in electromagnetism, harmonic integer ratios in music. Dimensionless constants encode the deep coupling strengths of nature — they cannot be derived, only measured.",
+  "key_equations": [
+    {
+      "name": "Golden Ratio",
+      "formula": "φ = (1 + √5)/2 ≈ 1.618",
+      "why": "Self-similar proportion: φ² = φ + 1; appears in phyllotaxis, Fibonacci sequences, Platonic solids"
+    },
+    {
+      "name": "Fine Structure Constant",
+      "formula": "α = e²/(4πε₀ℏc) ≈ 1/137",
+      "why": "Dimensionless coupling strength of electromagnetism — if it were slightly different, atoms could not exist"
+    },
+    {
+      "name": "Harmonic Series",
+      "formula": "f_n = nf₁ (n = 1, 2, 3…)",
+      "why": "Integer multiples of fundamental: the mathematical basis of musical consonance and spectral lines"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P01", "PRINCIPLE.P09", "FAMILY.F01", "FAMILY.F09"],
+  "shapes": ["SHAPE.DODECA", "SHAPE.ICOSA"],
+  "seed_prompt": "▯ What ratio governs this structure? Look for φ in the growth pattern. Find the dimensionless number.",
+  "tags": ["golden-ratio", "proportion", "dimensionless", "fine-structure-constant", "harmonics", "scaling"]
+}

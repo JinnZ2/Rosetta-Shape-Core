@@ -1,0 +1,30 @@
+{
+  "id": "FAMILY.F06",
+  "name": "Cognition",
+  "symbol": "⋯⋯",
+  "five_field": "emotional",
+  "domain": "Neural dynamics, learning rules, memory attractors, cognitive models",
+  "core_insight": "Learning is gradient descent on an error landscape. Memory is an attractor in state space. Neurons that fire together wire together. The sigmoid nonlinearity separates cognition from linear signal processing.",
+  "key_equations": [
+    {
+      "name": "Hebbian Learning",
+      "formula": "Δwᵢⱼ = η xᵢ xⱼ",
+      "why": "Co-activation strengthens connection — the molecular basis of associative memory"
+    },
+    {
+      "name": "Hopfield Network Energy",
+      "formula": "E = -½ΣᵢΣⱼ wᵢⱼsᵢsⱼ + Σᵢ θᵢsᵢ",
+      "why": "Memory as energy minimum: recall is downhill flow to a learned attractor"
+    },
+    {
+      "name": "Backpropagation",
+      "formula": "∂E/∂wᵢⱼ = (∂E/∂oⱼ)(∂oⱼ/∂netⱼ)(∂netⱼ/∂wᵢⱼ)",
+      "why": "Chain rule applied to layered networks: credit assignment across depth"
+    }
+  ],
+  "resonates_with": ["FAMILY.F03", "FAMILY.F16", "PRINCIPLE.P05", "PRINCIPLE.P06"],
+  "shapes": ["SHAPE.ICOSA"],
+  "five_field_neighbors": ["FAMILY.F05", "FAMILY.F07", "FAMILY.F08"],
+  "seed_prompt": "⋯⋯ What is the error signal? Follow the gradient. Where does the system settle?",
+  "tags": ["neural-network", "learning", "attractor", "memory", "gradient", "plasticity"]
+}

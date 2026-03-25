@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P05",
+  "name": "Emergence",
+  "symbol": "●●",
+  "dodecahedron_face": 5,
+  "domain": "Cellular automata, phase transitions, self-organization, complexity from simplicity",
+  "core_insight": "Complex global behavior arises from simple local rules with no central controller. Near critical points, systems become scale-invariant: the same patterns appear at every scale. Self-organized criticality describes how many natural systems spontaneously tune themselves to the edge of a phase transition.",
+  "key_equations": [
+    {
+      "name": "Critical Exponent",
+      "formula": "M ∝ (T_c - T)^β near phase transition",
+      "why": "Order parameter vanishes at critical temperature with universal exponent β — same for many different systems"
+    },
+    {
+      "name": "Power Law",
+      "formula": "P(x) ∝ x^(-α)",
+      "why": "Scale-free distributions: no characteristic size, heavy tails — signature of self-organized criticality"
+    },
+    {
+      "name": "Self-Organized Criticality",
+      "formula": "System → critical state without tuning",
+      "why": "Sandpile model: adding grains drives system to critical slope spontaneously, avalanches of all sizes"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P11", "PRINCIPLE.P05", "FAMILY.F04", "FAMILY.F12", "FAMILY.F17"],
+  "shapes": ["SHAPE.DODECA", "SHAPE.ICOSA"],
+  "seed_prompt": "●● What are the local rules? Run them. What global pattern emerges that no local rule specified?",
+  "tags": ["emergence", "self-organization", "criticality", "phase-transition", "power-law", "complexity"]
+}

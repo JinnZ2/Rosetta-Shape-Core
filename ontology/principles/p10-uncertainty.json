@@ -1,0 +1,29 @@
+{
+  "id": "PRINCIPLE.P10",
+  "name": "Uncertainty",
+  "symbol": "◧",
+  "dodecahedron_face": 10,
+  "domain": "Heisenberg uncertainty, statistical variance, information entropy, limits of knowledge",
+  "core_insight": "Uncertainty is not ignorance — it is a fundamental property of complementary observables. The Heisenberg principle bounds simultaneous knowledge of conjugate pairs. Gödel's incompleteness shows even mathematics has irreducible unknowability. Entropy measures the irreducible minimum information needed to describe a system.",
+  "key_equations": [
+    {
+      "name": "Heisenberg Uncertainty Principle",
+      "formula": "Δx Δp ≥ ℏ/2",
+      "why": "Quantum lower bound on simultaneous precision of position and momentum — not measurement error but reality"
+    },
+    {
+      "name": "Information Entropy",
+      "formula": "H = -Σ p(x) log p(x)",
+      "why": "Minimum bits to describe a distribution — maximum uncertainty is uniform distribution"
+    },
+    {
+      "name": "Gödel Incompleteness",
+      "formula": "∃ true statements unprovable in system",
+      "why": "Any sufficiently powerful formal system contains truths it cannot prove — irreducible logical uncertainty"
+    }
+  ],
+  "resonates_with": ["PRINCIPLE.P04", "PRINCIPLE.P08", "FAMILY.F03", "FAMILY.F14", "FAMILY.F17"],
+  "shapes": ["SHAPE.DODECA"],
+  "seed_prompt": "◧ What is irreducibly unknown here? Not measurement error — fundamental uncertainty. Where is the Heisenberg floor?",
+  "tags": ["uncertainty", "heisenberg", "entropy", "godel", "incompleteness", "limits-of-knowledge"]
+}

@@ -5,6 +5,7 @@
   "edges": 30,
   "vertices": 20,
   "families": ["orientation", "trust", "growth", "boundary"],
+  "principles": ["PRINCIPLE.P01","PRINCIPLE.P02","PRINCIPLE.P03","PRINCIPLE.P04","PRINCIPLE.P05","PRINCIPLE.P06","PRINCIPLE.P07","PRINCIPLE.P08","PRINCIPLE.P09","PRINCIPLE.P10","PRINCIPLE.P11","PRINCIPLE.P12"],
   "polyhedral": { "maps_to": "12 Principles (P01-P12)" },
   "bridges": {
     "sensors": ["admiration", "trust", "longing"],
