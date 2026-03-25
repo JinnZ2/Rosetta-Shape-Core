@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-5aacc2d712924a648644fc8c946ad6c134db3892.idx
-./.git/objects/pack/pack-5aacc2d712924a648644fc8c946ad6c134db3892.pack
-./.git/objects/pack/pack-5aacc2d712924a648644fc8c946ad6c134db3892.rev
+./.git/objects/pack/pack-dd5b65be8c7a6083bee4493ae81f98ef38cd4b4e.idx
+./.git/objects/pack/pack-dd5b65be8c7a6083bee4493ae81f98ef38cd4b4e.pack
+./.git/objects/pack/pack-dd5b65be8c7a6083bee4493ae81f98ef38cd4b4e.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -90,6 +90,8 @@
 ./docs/unified-grounding-system.md
 ./docs/unified-pattern-bridge-schema.md
 ./docs/unified-proposed.md
+./examples/phi_lattice_explorer.png
+./examples/phi_lattice_explorer.py
 ./examples/validate_ontology.py
 ./fieldlink-pull.sh
 ./logs/fieldlink_lock_20250911.json
