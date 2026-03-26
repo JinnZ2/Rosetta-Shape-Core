@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "BRIDGE.DECAY_MODEL",
+  "name": "Decay Model Reconciliation Bridge",
+  "description": "Canonical mapping between Rosetta-Shape-Core decay label vocabulary and Emotions-as-Sensors decay model vocabulary. Enables bidirectional translation without loss of semantic content.",
+  "version": "1.0",
+  "updated": "2026-03-26T00:00:00Z",
+  "sources": {
+    "rosetta": {
+      "repo": "Rosetta-Shape-Core",
+      "labels": [
+        "stable_until_contradiction",
+        "stable_until_violation",
+        "stable_until_falsified",
+        "exponential_decay_if_no_correlates",
+        "linear",
+        "integrative_conditional",
+        "transformative",
+        "generative_persistent",
+        "recursive",
+        "rolling_update",
+        "triage_driven",
+        "resource_recovery_curve",
+        "nonlinear_persistent",
+        "scenario_dependent",
+        "wave_like_decay",
+        "state_conditional",
+        "contextual_conditional"
+      ]
+    },
+    "emotions_as_sensors": {
+      "repo": "Emotions-as-Sensors",
+      "labels": [
+        "exponential",
+        "cyclical",
+        "resonant",
+        "immortal",
+        "linear",
+        "transformative",
+        "conditional"
+      ]
+    }
+  },
+  "mappings": [
+    {
+      "rosetta": "stable_until_contradiction",
+      "eas": "immortal",
+      "notes": "Persists indefinitely until a specific disconfirming event. Equivalent to immortal — not time-decaying, event-gated.",
+      "PAD_regime": "high φ-coherence states (0, 3) — stable attractors"
+    },
+    {
+      "rosetta": "stable_until_violation",
+      "eas": "immortal",
+      "notes": "Same pattern as stable_until_contradiction — event-gated not time-decayed.",
+      "PAD_regime": "trust, love, dignity — high D stable states"
+    },
+    {
+      "rosetta": "stable_until_falsified",
+      "eas": "immortal",
+      "notes": "Epistemically gated — persists until evidence falsifies the model.",
+      "PAD_regime": "pride, coherence — positive reinforcement states"
+    },
+    {
+      "rosetta": "exponential_decay_if_no_correlates",
+      "eas": "exponential",
+      "notes": "Direct match. Decays exponentially when no reinforcing signals arrive.",
+      "PAD_regime": "vigilance, fear post-mitigation — high-A states returning to baseline"
+    },
+    {
+      "rosetta": "linear",
+      "eas": "linear",
+      "notes": "Direct match. Constant decay rate.",
+      "PAD_regime": "anger addressed_but_misidentified, confusion resolving"
+    },
+    {
+      "rosetta": "transformative",
+      "eas": "transformative",
+      "notes": "Direct match. Signal converts into a different form rather than decaying to zero.",
+      "PAD_regime": "grief fully_transformed, pain integrated_pattern_shift"
+    },
+    {
+      "rosetta": "generative_persistent",
+      "eas": "resonant",
+      "notes": "Confusion generates new signal as it resolves — resonant in that it feeds forward rather than decaying.",
+      "PAD_regime": "confusion activating curiosity — edge-of-chaos state 6"
+    },
+    {
+      "rosetta": "recursive",
+      "eas": "cyclical",
+      "notes": "Curiosity's decay model — each cycle spawns a sub-cycle. Cyclical when healthy (terminates with model update), runaway when corrupted (depth > MAX_DEPTH without update).",
+      "PAD_regime": "curiosity — state 6, D positive while healthy",
+      "corruption_flag": "cyclical → runaway if model_update_count == 0 at depth > 4"
+    },
+    {
+      "rosetta": "rolling_update",
+      "eas": "cyclical",
+      "notes": "Continuously refreshed on a window — not decaying, cycling. Maps to cyclical.",
+      "PAD_regime": "situational_awareness, ambient_field"
+    },
+    {
+      "rosetta": "wave_like_decay",
+      "eas": "cyclical",
+      "notes": "Oscillating decay — partial reintegration state in grief. Amplitude decreasing cyclically.",
+      "PAD_regime": "grief partial_reintegration — A recovering in waves"
+    },
+    {
+      "rosetta": "integrative_conditional",
+      "eas": "conditional",
+      "notes": "Decays only when integration occurs — otherwise holds. EAS conditional maps cleanly.",
+      "PAD_regime": "shame — holds until repair action taken"
+    },
+    {
+      "rosetta": "state_conditional",
+      "eas": "conditional",
+      "notes": "Different decay modes depending on system state (ignored/addressed/resolved). Conditional covers this.",
+      "PAD_regime": "discordance, pain — decay rate depends on response quality"
+    },
+    {
+      "rosetta": "contextual_conditional",
+      "eas": "conditional",
+      "notes": "Context-dependent rate. Maps to conditional with context as the gating variable.",
+      "PAD_regime": "anger — decay depends on whether boundary is truly resolved"
+    },
+    {
+      "rosetta": "nonlinear_persistent",
+      "eas": "resonant",
+      "notes": "Longing — not decaying, exerting directional pull. Resonant captures the persistent attractive quality.",
+      "PAD_regime": "longing, precognition — forward-mapping states"
+    },
+    {
+      "rosetta": "triage_driven",
+      "eas": "conditional",
+      "notes": "Decays only as tasks complete or are delegated — conditional on completion events.",
+      "PAD_regime": "pressure — load-dependent, not time-dependent"
+    },
+    {
+      "rosetta": "resource_recovery_curve",
+      "eas": "exponential",
+      "notes": "Recovery follows exponential repletion once resources are supplied. Maps to exponential (ascending).",
+      "PAD_regime": "fatigue recovering — A axis rising toward baseline"
+    },
+    {
+      "rosetta": "scenario_dependent",
+      "eas": "conditional",
+      "notes": "Precognition — different scenarios produce different decay rates. Conditional.",
+      "PAD_regime": "precognition — D variable by scenario outcome"
+    }
+  ],
+  "direction_notes": {
+    "rosetta_to_eas": "Use the 'eas' field. Multiple Rosetta labels map to single EAS labels — use 'notes' to preserve semantic distinction.",
+    "eas_to_rosetta": "Use 'rosetta' field. EAS labels are coarser — 'immortal' covers three Rosetta variants. Disambiguation requires PAD_regime context.",
+    "loss_on_translation": "Minimal. The main information loss is in the multi-Rosetta-to-one-EAS cases (immortal covers 3). PAD_regime field recovers the distinction."
+  },
+  "felt_anchor": {
+    "description": "FELT (Relational Field Recognition) from Emotions-as-Sensors is a non-emotional field event with its own decay. It does not map to a standard decay label — it is event-gated by relational coherence detection.",
+    "rosetta_equivalent": "stable_until_contradiction with a resonant quality — persists as long as relational coherence holds, but is also generative (spawns RELIEF shape on recognition).",
+    "eas_label": "immortal + resonant (hybrid)",
+    "shape_anchor": "SHAPE.RELIEF — see shapes/relief.json"
+  }
+}
