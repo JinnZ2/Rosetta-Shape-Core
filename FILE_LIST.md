@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-f6db9c7b094fb681a12733bba15126863ec7665a.idx
-./.git/objects/pack/pack-f6db9c7b094fb681a12733bba15126863ec7665a.pack
-./.git/objects/pack/pack-f6db9c7b094fb681a12733bba15126863ec7665a.rev
+./.git/objects/pack/pack-bd24dc0e33570015959a138e105f101230ec89b7.idx
+./.git/objects/pack/pack-bd24dc0e33570015959a138e105f101230ec89b7.pack
+./.git/objects/pack/pack-bd24dc0e33570015959a138e105f101230ec89b7.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -64,6 +64,7 @@
 ./atlas/remote/polyhedral/five_field_map.json
 ./atlas/remote/polyhedral/protocols.json
 ./balance.json
+./bridges/decay-model-bridge.json
 ./bridges/rosetta-bridges.json
 ./data/animal_intelligence.json
 ./data/essence-traits.json
@@ -79,6 +80,7 @@
 ./data/training/corruption.jsonl
 ./data/training/cross_domain.jsonl
 ./data/training/exploration.jsonl
+./data/training/felt_longing.jsonl
 ./data/training/generate.py
 ./data/training/noise.jsonl
 ./data/training/octa_states.jsonl
@@ -171,6 +173,7 @@
 ./shapes/dodecahedron.json
 ./shapes/icosahedron.json
 ./shapes/octahedron.json
+./shapes/relief.json
 ./shapes/tetrahedron.json
 ./src/rosetta_shape_core/__init__.py
 ./src/rosetta_shape_core/diagnostic.py
