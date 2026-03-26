@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rosetta Shape Core — Curiosity Map</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0d0d14;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+    header {
+      padding: 2rem 2rem 1rem;
+      border-bottom: 1px solid #222;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+    header .subtitle {
+      color: #888;
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
+    }
+    .stats {
+      display: flex; gap: 2rem; margin-top: 0.8rem;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat .n { font-size: 1.6rem; font-weight: 700; color: #7eb3ff; }
+    .stat .l { font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .controls {
+      display: flex; flex-wrap: wrap; gap: 0.8rem;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #1a1a2a;
+      background: #0a0a12;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .controls label { font-size: 0.75rem; color: #888; display: flex; flex-direction: column; gap: 0.2rem; }
+    select, input[type=text] {
+      background: #1a1a2a; color: #ccc; border: 1px solid #333;
+      border-radius: 4px; padding: 0.3rem 0.6rem; font-size: 0.8rem;
+      min-width: 130px;
+    }
+    select:focus, input:focus { outline: none; border-color: #4a9eff; }
+    button {
+      background: #1e1e30; color: #ccc; border: 1px solid #333;
+      border-radius: 4px; padding: 0.35rem 0.9rem; font-size: 0.8rem;
+      cursor: pointer; align-self: flex-end;
+    }
+    button:hover { background: #2a2a44; color: #fff; }
+
+    .result-count {
+      padding: 0.5rem 2rem; font-size: 0.75rem; color: #555;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1rem;
+      padding: 1rem 2rem 3rem;
+    }
+
+    .card {
+      background: #131320;
+      border: 1px solid #1e1e32;
+      border-radius: 8px;
+      padding: 1rem;
+      transition: border-color 0.15s, transform 0.1s;
+    }
+    .card:hover {
+      border-color: #3a3a60;
+      transform: translateY(-2px);
+    }
+    .card.hidden { display: none; }
+
+    .card-header {
+      display: flex; align-items: baseline; gap: 0.5rem;
+      padding-left: 0.6rem; margin-bottom: 0.7rem;
+    }
+    .symbol { font-size: 1.1rem; }
+    .node-id { font-size: 0.7rem; color: #666; font-family: monospace; }
+    .node-name { font-size: 0.9rem; font-weight: 600; color: #ccc; flex: 1; }
+    .kind-badge {
+      font-size: 0.6rem; padding: 0.15rem 0.4rem; border-radius: 3px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .kind-badge.family { background: #1a2a3a; color: #4a9eff; }
+    .kind-badge.principle { background: #2a1a3a; color: #c97bff; }
+
+    .question {
+      font-size: 0.9rem; color: #ddd; margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    .tension {
+      font-size: 0.78rem; color: #aaa; margin-bottom: 0.35rem;
+      line-height: 1.35;
+    }
+    .hook {
+      font-size: 0.78rem; color: #7eb3ff; margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+    .seed-row {
+      font-size: 0.72rem; color: #555; margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+    .tags-row { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .tag {
+      font-size: 0.62rem; background: #1a1a2a; color: #666;
+      padding: 0.1rem 0.4rem; border-radius: 3px; border: 1px solid #222;
+    }
+
+    .field-legend {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      padding: 0.5rem 2rem; font-size: 0.7rem;
+    }
+    .field-dot { display: flex; align-items: center; gap: 0.3rem; color: #666; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>◉ Rosetta Shape Core · Curiosity Map</h1>
+    <div class="subtitle">
+      Open questions across all ontology nodes — the unresolved tensions that drive exploration
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">20</div><div class="l">Families</div></div>
+      <div class="stat"><div class="n">12</div><div class="l">Principles</div></div>
+      <div class="stat"><div class="n">96</div><div class="l">Open Questions</div></div>
+    </div>
+  </header>
+
+  <div class="field-legend">
+    <div class="field-dot"><div class="dot" style="background:#4a9eff"></div>chemical</div><div class="field-dot"><div class="dot" style="background:#ff7eb3"></div>emotional</div><div class="field-dot"><div class="dot" style="background:#7eff8b"></div>cognitive</div><div class="field-dot"><div class="dot" style="background:#c97bff"></div>dream</div><div class="field-dot"><div class="dot" style="background:#ffd97b"></div>symbolic</div>
+  </div>
+
+  <div class="controls">
+    <label>Kind
+      <select id="filter-kind">
+        <option value="">All</option>
+        <option value="family">Families</option>
+        <option value="principle">Principles</option>
+      </select>
+    </label>
+    <label>Five-Field
+      <select id="filter-field">
+        <option value="">All</option>
+        <option value="chemical">chemical</option>
+<option value="cognitive">cognitive</option>
+<option value="dream">dream</option>
+<option value="emotional">emotional</option>
+<option value="symbolic">symbolic</option>
+      </select>
+    </label>
+    <label>Search (question / tag / node)
+      <input type="text" id="filter-search" placeholder="e.g. chaos, phi, emotion...">
+    </label>
+    <button onclick="clearFilters()">Clear</button>
+  </div>
+
+  <div class="result-count" id="result-count"></div>
+
+  <div class="grid" id="grid">
+    
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Harmonics, standing waves, synchronization, natural frequencies" data-tags="standing-wave synchronization harmonics phase-lock coupling"
+         data-id="FAMILY.F01">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">≡≡≡</span>
+        <span class="node-id">FAMILY.F01</span>
+        <span class="node-name">Resonance</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Do Schumann resonances (Earth&#x27;s electromagnetic cavity ~7.83 Hz) actually influence human brainwaves?</div>
+      <div class="tension"><strong>Tension:</strong> Correlations exist in the data but causation is fiercely debated. The amplitude of Schumann resonances at the scalp is tiny compared to neural noise — yet some researchers find statistically significant coupling.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If true, the biosphere is literally tuned to a planetary resonance. If false, it&#x27;s a beautiful example of how pattern-matching can fool even careful scientists.</div>
+      <div class="seed-row"><em>≡≡≡ What frequency does this system prefer? Find the natural voice; coupling and coherence follow.</em></div>
+      <div class="tags-row"><span class="tag">standing-wave</span> <span class="tag">synchronization</span> <span class="tag">harmonics</span> <span class="tag">phase-lock</span> <span class="tag">coupling</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Harmonics, standing waves, synchronization, natural frequencies" data-tags="standing-wave synchronization harmonics phase-lock coupling"
+         data-id="FAMILY.F01">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">≡≡≡</span>
+        <span class="node-id">FAMILY.F01</span>
+        <span class="node-name">Resonance</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is synchrony in neural oscillations causal for consciousness, or merely correlational?</div>
+      <div class="tension"><strong>Tension:</strong> Binding-by-synchrony theory (gamma ~40Hz) is widely cited but contested. Disrupting synchrony sometimes disrupts perception; sometimes it doesn&#x27;t. The hard problem of whether synchrony *produces* experience vs just *correlates with* it remains open.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This question sits at the exact intersection of F01 and F16 — and the answer has implications for what artificial systems could ever be aware.</div>
+      <div class="seed-row"><em>≡≡≡ What frequency does this system prefer? Find the natural voice; coupling and coherence follow.</em></div>
+      <div class="tags-row"><span class="tag">standing-wave</span> <span class="tag">synchronization</span> <span class="tag">harmonics</span> <span class="tag">phase-lock</span> <span class="tag">coupling</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Harmonics, standing waves, synchronization, natural frequencies" data-tags="standing-wave synchronization harmonics phase-lock coupling"
+         data-id="FAMILY.F01">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">≡≡≡</span>
+        <span class="node-id">FAMILY.F01</span>
+        <span class="node-name">Resonance</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can quantum coherence survive long enough in warm, wet biological systems to serve a functional role?</div>
+      <div class="tension"><strong>Tension:</strong> Penrose-Hameroff propose quantum resonance in microtubules underlies consciousness. Mainstream neuroscience considers this thermodynamically implausible. Recent photosynthesis research showed unexpectedly long-lived quantum coherence in biological systems — reopening the debate.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The disagreement is between physics (decoherence timescales) and biology (observed coherence). Something in the middle might be right — and if so, it changes everything about how we understand biological intelligence.</div>
+      <div class="seed-row"><em>≡≡≡ What frequency does this system prefer? Find the natural voice; coupling and coherence follow.</em></div>
+      <div class="tags-row"><span class="tag">standing-wave</span> <span class="tag">synchronization</span> <span class="tag">harmonics</span> <span class="tag">phase-lock</span> <span class="tag">coupling</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Fluid motion, laminar flow, vorticity, boundary layers" data-tags="fluid-dynamics momentum vorticity laminar turbulence-threshold"
+         data-id="FAMILY.F02">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">↻</span>
+        <span class="node-id">FAMILY.F02</span>
+        <span class="node-name">Flow</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Do smooth solutions to the Navier-Stokes equations always exist in 3D? (Millennium Prize Problem — $1M unsolved)</div>
+      <div class="tension"><strong>Tension:</strong> In 2D, smooth solutions are proven to exist. In 3D, it&#x27;s unknown whether solutions can develop infinite velocities (blow-up) in finite time. Most physicists assume smoothness; mathematicians are not so sure.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> One of the seven Millennium Prize Problems. The gap between physical intuition (&#x27;flows stay smooth&#x27;) and mathematical proof is a 150-year-old scandal in applied mathematics.</div>
+      <div class="seed-row"><em>↻ Trace the streamlines. Where does viscosity lose to inertia? The transition point is where complexity lives.</em></div>
+      <div class="tags-row"><span class="tag">fluid-dynamics</span> <span class="tag">momentum</span> <span class="tag">vorticity</span> <span class="tag">laminar</span> <span class="tag">turbulence-threshold</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Fluid motion, laminar flow, vorticity, boundary layers" data-tags="fluid-dynamics momentum vorticity laminar turbulence-threshold"
+         data-id="FAMILY.F02">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">↻</span>
+        <span class="node-id">FAMILY.F02</span>
+        <span class="node-name">Flow</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is there a deeper mathematical structure to turbulence, or is it irreducibly complex?</div>
+      <div class="tension"><strong>Tension:</strong> Kolmogorov&#x27;s 1941 theory gave the -5/3 energy spectrum but assumed isotropy and homogeneity. Real turbulence is intermittent — energy is distributed in fractal bursts, not smoothly. Multifractal models fit better but have no first-principles derivation.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Feynman called turbulence &#x27;the most important unsolved problem in classical physics.&#x27; The question of whether it has an elegant deep structure or is genuinely irreducible is still wide open.</div>
+      <div class="seed-row"><em>↻ Trace the streamlines. Where does viscosity lose to inertia? The transition point is where complexity lives.</em></div>
+      <div class="tags-row"><span class="tag">fluid-dynamics</span> <span class="tag">momentum</span> <span class="tag">vorticity</span> <span class="tag">laminar</span> <span class="tag">turbulence-threshold</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Fluid motion, laminar flow, vorticity, boundary layers" data-tags="fluid-dynamics momentum vorticity laminar turbulence-threshold"
+         data-id="FAMILY.F02">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">↻</span>
+        <span class="node-id">FAMILY.F02</span>
+        <span class="node-name">Flow</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Does the brain use fluid dynamics (the glymphatic system) as a cleaning and information-routing mechanism during sleep?</div>
+      <div class="tension"><strong>Tension:</strong> The glymphatic system (discovered ~2013) flushes cerebrospinal fluid through brain tissue during sleep, clearing metabolic waste. Whether this also serves an information-routing or memory-consolidation function is actively debated.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If the brain &#x27;thinks&#x27; partly through fluid flow dynamics, the boundary between F02 and F16 may be much blurrier than assumed.</div>
+      <div class="seed-row"><em>↻ Trace the streamlines. Where does viscosity lose to inertia? The transition point is where complexity lives.</em></div>
+      <div class="tags-row"><span class="tag">fluid-dynamics</span> <span class="tag">momentum</span> <span class="tag">vorticity</span> <span class="tag">laminar</span> <span class="tag">turbulence-threshold</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Shannon entropy, coding theory, information measures, channel capacity" data-tags="entropy information-theory channel-capacity mutual-information coding"
+         data-id="FAMILY.F03">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">⊗</span>
+        <span class="node-id">FAMILY.F03</span>
+        <span class="node-name">Information</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is information more fundamental than matter and energy? (&#x27;It from Bit&#x27; — John Wheeler)</div>
+      <div class="tension"><strong>Tension:</strong> Wheeler proposed that physical reality is fundamentally informational — particles and fields emerge from yes/no answers to binary questions. Most physicists consider this metaphysically provocative but scientifically untestable. Verlinde&#x27;s entropic gravity partially revives it.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If true, physics is a branch of information theory. If false, information is just a useful human abstraction. The question cuts to the deepest nature of reality.</div>
+      <div class="seed-row"><em>⊗ Measure the surprise. Entropy first, then ask: what is shared between these two signals?</em></div>
+      <div class="tags-row"><span class="tag">entropy</span> <span class="tag">information-theory</span> <span class="tag">channel-capacity</span> <span class="tag">mutual-information</span> <span class="tag">coding</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Shannon entropy, coding theory, information measures, channel capacity" data-tags="entropy information-theory channel-capacity mutual-information coding"
+         data-id="FAMILY.F03">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">⊗</span>
+        <span class="node-id">FAMILY.F03</span>
+        <span class="node-name">Information</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What happens to information that falls into a black hole? (The Black Hole Information Paradox)</div>
+      <div class="tension"><strong>Tension:</strong> Hawking (1974) showed black holes radiate thermally and eventually evaporate — but thermal radiation carries no information, implying the information of infalling matter is destroyed. This violates quantum unitarity. Hawking later partially conceded; Hawking radiation may be subtly correlated. The Page curve and island formula are recent partial resolutions — but the paradox is not fully closed.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The smartest physicists in the world have disagreed about this for 50 years. It sits at the intersection of quantum mechanics, general relativity, and thermodynamics — every attempt to resolve it reveals new tensions.</div>
+      <div class="seed-row"><em>⊗ Measure the surprise. Entropy first, then ask: what is shared between these two signals?</em></div>
+      <div class="tags-row"><span class="tag">entropy</span> <span class="tag">information-theory</span> <span class="tag">channel-capacity</span> <span class="tag">mutual-information</span> <span class="tag">coding</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Shannon entropy, coding theory, information measures, channel capacity" data-tags="entropy information-theory channel-capacity mutual-information coding"
+         data-id="FAMILY.F03">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">⊗</span>
+        <span class="node-id">FAMILY.F03</span>
+        <span class="node-name">Information</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Does the universe compute? Is physical evolution equivalent to a universal computation?</div>
+      <div class="tension"><strong>Tension:</strong> Wolfram argues the universe is a cellular automaton and everything is computational. Lloyd estimates the universe has performed ~10^120 operations. Most physicists resist — computation requires an interpreter, and the universe has none. But the math of quantum circuits maps suspiciously well to physical processes.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If the universe computes, then understanding it and simulating it converge. If not, there&#x27;s something about physical reality that transcends any formal system.</div>
+      <div class="seed-row"><em>⊗ Measure the surprise. Entropy first, then ask: what is shared between these two signals?</em></div>
+      <div class="tags-row"><span class="tag">entropy</span> <span class="tag">information-theory</span> <span class="tag">channel-capacity</span> <span class="tag">mutual-information</span> <span class="tag">coding</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Population dynamics, metabolic networks, genetic regulation, ecological cycles" data-tags="ecology population catalysis metabolism oscillation s-curve"
+         data-id="FAMILY.F04">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">••••</span>
+        <span class="node-id">FAMILY.F04</span>
+        <span class="node-name">Life</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What is the minimal definition of life? Are viruses alive? Are prions?</div>
+      <div class="tension"><strong>Tension:</strong> The standard criteria (metabolism, reproduction, homeostasis, evolution) exclude viruses (no metabolism outside a host) but viruses clearly evolve and replicate. Prions replicate without nucleic acids. Autopoiesis theory (Maturana &amp; Varela) offers a different boundary. No consensus exists.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The edge of life is the most interesting part — it&#x27;s where the category system breaks down and reveals that &#x27;life&#x27; may be a continuum, not a binary.</div>
+      <div class="seed-row"><em>•••• Growth, coupling, saturation. Where is the carrying capacity? Who eats whom?</em></div>
+      <div class="tags-row"><span class="tag">ecology</span> <span class="tag">population</span> <span class="tag">catalysis</span> <span class="tag">metabolism</span> <span class="tag">oscillation</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Population dynamics, metabolic networks, genetic regulation, ecological cycles" data-tags="ecology population catalysis metabolism oscillation s-curve"
+         data-id="FAMILY.F04">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">••••</span>
+        <span class="node-id">FAMILY.F04</span>
+        <span class="node-name">Life</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Did life arise once or multiple times on Earth?</div>
+      <div class="tension"><strong>Tension:</strong> All known life shares the same genetic code, suggesting a single origin (LUCA — Last Universal Common Ancestor). But the genetic code might be universal because it outcompeted alternatives, not because alternatives never existed. We have no fossil record of &#x27;shadow biospheres&#x27; that may have existed and gone extinct.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If life arose multiple times independently, it&#x27;s probably common in the universe. If once, it might be a near-miracle. The stakes of this question are astronomical.</div>
+      <div class="seed-row"><em>•••• Growth, coupling, saturation. Where is the carrying capacity? Who eats whom?</em></div>
+      <div class="tags-row"><span class="tag">ecology</span> <span class="tag">population</span> <span class="tag">catalysis</span> <span class="tag">metabolism</span> <span class="tag">oscillation</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="chemical"
+         data-domain="Population dynamics, metabolic networks, genetic regulation, ecological cycles" data-tags="ecology population catalysis metabolism oscillation s-curve"
+         data-id="FAMILY.F04">
+      <div class="card-header" style="border-left: 4px solid #4a9eff">
+        <span class="symbol">••••</span>
+        <span class="node-id">FAMILY.F04</span>
+        <span class="node-name">Life</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can life exist with radically different chemistry — silicon-based, arsenic-based, or in non-aqueous solvents?</div>
+      <div class="tension"><strong>Tension:</strong> Silicon can form long chains like carbon, but Si-Si bonds are weaker and SiO₂ is solid (unlike CO₂ gas). Arsenic-based life was briefly claimed in 2010 (GFAJ-1 bacteria) but later refuted. Titan&#x27;s liquid methane lakes are theoretically habitable for life using H₂ instead of O₂.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Our entire sample of life is one data point — carbon/water/Earth. Every time we assume our chemistry is the only possible chemistry, we&#x27;re making an enormous extrapolation.</div>
+      <div class="seed-row"><em>•••• Growth, coupling, saturation. Where is the carrying capacity? Who eats whom?</em></div>
+      <div class="tags-row"><span class="tag">ecology</span> <span class="tag">population</span> <span class="tag">catalysis</span> <span class="tag">metabolism</span> <span class="tag">oscillation</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Heat transfer, entropy, thermodynamic potentials, irreversibility" data-tags="entropy conservation irreversibility heat-engine thermodynamics time-arrow"
+         data-id="FAMILY.F05">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">△≈</span>
+        <span class="node-id">FAMILY.F05</span>
+        <span class="node-name">Energy-Thermo</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can Maxwell&#x27;s Demon violate the Second Law using information?</div>
+      <div class="tension"><strong>Tension:</strong> Maxwell&#x27;s Demon sorts fast and slow molecules using information, apparently decreasing entropy for free. Szilard (1929) showed the demon must erase its memory, costing kT ln2 of entropy per bit — exactly compensating. Landauer&#x27;s principle formalizes this. But some argue quantum versions of the demon might evade the argument. The debate about whether information is truly physical is still alive.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The question is whether intelligence can defeat entropy. Every answer has enormous implications — for computation, for life, for the nature of information itself.</div>
+      <div class="seed-row"><em>△≈ Which direction does entropy flow? Find the temperature gradient — that is where work lives.</em></div>
+      <div class="tags-row"><span class="tag">entropy</span> <span class="tag">conservation</span> <span class="tag">irreversibility</span> <span class="tag">heat-engine</span> <span class="tag">thermodynamics</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Heat transfer, entropy, thermodynamic potentials, irreversibility" data-tags="entropy conservation irreversibility heat-engine thermodynamics time-arrow"
+         data-id="FAMILY.F05">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">△≈</span>
+        <span class="node-id">FAMILY.F05</span>
+        <span class="node-name">Energy-Thermo</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is there a Fourth Law of Thermodynamics governing dissipative structures and life?</div>
+      <div class="tension"><strong>Tension:</strong> Prigogine (Nobel 1977) proposed that systems far from equilibrium self-organize to maximize entropy production. Kauffman and others have extended this. But there is no consensus formulation of such a law, and critics argue &#x27;maximum entropy production&#x27; is not universally valid.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If a fourth law exists, it would explain *why* life spontaneously appears and organizes — thermodynamics would demand it. This would make life not a miracle but an inevitability.</div>
+      <div class="seed-row"><em>△≈ Which direction does entropy flow? Find the temperature gradient — that is where work lives.</em></div>
+      <div class="tags-row"><span class="tag">entropy</span> <span class="tag">conservation</span> <span class="tag">irreversibility</span> <span class="tag">heat-engine</span> <span class="tag">thermodynamics</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Heat transfer, entropy, thermodynamic potentials, irreversibility" data-tags="entropy conservation irreversibility heat-engine thermodynamics time-arrow"
+         data-id="FAMILY.F05">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">△≈</span>
+        <span class="node-id">FAMILY.F05</span>
+        <span class="node-name">Energy-Thermo</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is energy conserved in an expanding universe?</div>
+      <div class="tension"><strong>Tension:</strong> In general relativity, the concept of global energy conservation is not straightforwardly defined. The energy of photons red-shifts as the universe expands — where does that energy go? Sean Carroll argues it simply isn&#x27;t conserved at cosmological scales. Others disagree.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The most fundamental conservation law in physics may only hold locally. The universe at large may not obey the rules we rely on everywhere else.</div>
+      <div class="seed-row"><em>△≈ Which direction does entropy flow? Find the temperature gradient — that is where work lives.</em></div>
+      <div class="tags-row"><span class="tag">entropy</span> <span class="tag">conservation</span> <span class="tag">irreversibility</span> <span class="tag">heat-engine</span> <span class="tag">thermodynamics</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Neural dynamics, learning rules, memory attractors, cognitive models" data-tags="neural-network learning attractor memory gradient plasticity"
+         data-id="FAMILY.F06">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">⋯⋯</span>
+        <span class="node-id">FAMILY.F06</span>
+        <span class="node-name">Cognition</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Do large language models &#x27;understand&#x27; language, or are they sophisticated pattern matchers?</div>
+      <div class="tension"><strong>Tension:</strong> Searle&#x27;s Chinese Room argument says no understanding — just symbol manipulation. But the same argument applies to neurons. Emergence theorists argue understanding *is* certain kinds of pattern matching at sufficient scale. The debate has intensified since GPT-4 and beyond.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This question is not settled and may be unanswerable without first solving the hard problem of consciousness. What makes it fascinating is that the disagreement reveals how poorly we define &#x27;understanding&#x27; even in humans.</div>
+      <div class="seed-row"><em>⋯⋯ What is the error signal? Follow the gradient. Where does the system settle?</em></div>
+      <div class="tags-row"><span class="tag">neural-network</span> <span class="tag">learning</span> <span class="tag">attractor</span> <span class="tag">memory</span> <span class="tag">gradient</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Neural dynamics, learning rules, memory attractors, cognitive models" data-tags="neural-network learning attractor memory gradient plasticity"
+         data-id="FAMILY.F06">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">⋯⋯</span>
+        <span class="node-id">FAMILY.F06</span>
+        <span class="node-name">Cognition</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is the brain a Bayesian inference machine?</div>
+      <div class="tension"><strong>Tension:</strong> Friston&#x27;s predictive coding / free energy framework casts the entire brain as a hierarchical Bayesian inference engine. It&#x27;s elegant and makes testable predictions. But critics argue it&#x27;s unfalsifiable (any behavior can be recast as inference) and doesn&#x27;t account for obvious non-Bayesian biases humans have.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If true, cognition is fundamentally about minimizing surprise — which creates a deep link between F06, F03, and F16. The unified framework either everything, or nothing.</div>
+      <div class="seed-row"><em>⋯⋯ What is the error signal? Follow the gradient. Where does the system settle?</em></div>
+      <div class="tags-row"><span class="tag">neural-network</span> <span class="tag">learning</span> <span class="tag">attractor</span> <span class="tag">memory</span> <span class="tag">gradient</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Neural dynamics, learning rules, memory attractors, cognitive models" data-tags="neural-network learning attractor memory gradient plasticity"
+         data-id="FAMILY.F06">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">⋯⋯</span>
+        <span class="node-id">FAMILY.F06</span>
+        <span class="node-name">Cognition</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is catastrophic forgetting in neural networks a fundamental flaw or a design choice?</div>
+      <div class="tension"><strong>Tension:</strong> Neural networks typically forget previous tasks when trained on new ones (catastrophic interference). Biological brains do not — via mechanisms like hippocampal replay, sparse coding, and neuromodulation. Whether artificial systems can match this without massive architectural changes is actively debated.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The gap between biological and artificial learning is most visible here. The solution might require fundamentally rethinking how artificial networks represent knowledge.</div>
+      <div class="seed-row"><em>⋯⋯ What is the error signal? Follow the gradient. Where does the system settle?</em></div>
+      <div class="tags-row"><span class="tag">neural-network</span> <span class="tag">learning</span> <span class="tag">attractor</span> <span class="tag">memory</span> <span class="tag">gradient</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Planetary motion, orbital mechanics, celestial dynamics, tidal forces" data-tags="gravity orbital-mechanics kepler tidal-force celestial inverse-square"
+         data-id="FAMILY.F07">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">◯</span>
+        <span class="node-id">FAMILY.F07</span>
+        <span class="node-name">Earth-Cosmos</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What is dark matter?</div>
+      <div class="tension"><strong>Tension:</strong> ~27% of the universe&#x27;s energy density is &#x27;dark matter&#x27; — inferred from galaxy rotation curves, gravitational lensing, and structure formation. Candidates include WIMPs, axions, sterile neutrinos, and primordial black holes. Decades of direct detection experiments have found nothing. Some physicists propose modifying gravity (MOND) instead of adding new particles.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The thing we know least about is the most abundant form of matter. The diversity of competing explanations reflects genuine uncertainty — this is one of the most open questions in all of science.</div>
+      <div class="seed-row"><em>◯ Find the central mass. All motion curves around it. Period and radius are bound.</em></div>
+      <div class="tags-row"><span class="tag">gravity</span> <span class="tag">orbital-mechanics</span> <span class="tag">kepler</span> <span class="tag">tidal-force</span> <span class="tag">celestial</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Planetary motion, orbital mechanics, celestial dynamics, tidal forces" data-tags="gravity orbital-mechanics kepler tidal-force celestial inverse-square"
+         data-id="FAMILY.F07">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">◯</span>
+        <span class="node-id">FAMILY.F07</span>
+        <span class="node-name">Earth-Cosmos</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is the universe fine-tuned for life? (The Anthropic Principle debate)</div>
+      <div class="tension"><strong>Tension:</strong> The fundamental constants (fine structure constant, proton-to-electron mass ratio, cosmological constant) appear to be tuned to values that permit complex chemistry and life. Change them slightly and stars don&#x27;t form, or atoms don&#x27;t exist. Three explanations compete: (1) multiverse — all values exist, we observe the ones compatible with observers; (2) deeper theory — the constants are determined by as-yet-unknown physics; (3) it&#x27;s just a selection effect with no further explanation.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This question genuinely cannot be resolved without either discovering the multiverse (possibly impossible) or finding the deeper theory. It&#x27;s the intersection of cosmology, philosophy, and the question of why anything exists at all.</div>
+      <div class="seed-row"><em>◯ Find the central mass. All motion curves around it. Period and radius are bound.</em></div>
+      <div class="tags-row"><span class="tag">gravity</span> <span class="tag">orbital-mechanics</span> <span class="tag">kepler</span> <span class="tag">tidal-force</span> <span class="tag">celestial</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Planetary motion, orbital mechanics, celestial dynamics, tidal forces" data-tags="gravity orbital-mechanics kepler tidal-force celestial inverse-square"
+         data-id="FAMILY.F07">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">◯</span>
+        <span class="node-id">FAMILY.F07</span>
+        <span class="node-name">Earth-Cosmos</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What existed before the Big Bang, or is that question meaningless?</div>
+      <div class="tension"><strong>Tension:</strong> Hawking&#x27;s no-boundary proposal says asking what came before the Big Bang is like asking what&#x27;s north of the North Pole — time itself began at the singularity. Penrose&#x27;s Conformal Cyclic Cosmology proposes the Big Bang was the &#x27;Big Crunch&#x27; of a prior universe. Eternal inflation suggests the Big Bang was a local event in a much larger inflating spacetime.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Every answer either requires accepting that time has a beginning (philosophically uncomfortable) or positing an infinite pre-existing substrate (equally uncomfortable). There is no comfortable answer — only more interesting questions.</div>
+      <div class="seed-row"><em>◯ Find the central mass. All motion curves around it. Period and radius are bound.</em></div>
+      <div class="tags-row"><span class="tag">gravity</span> <span class="tag">orbital-mechanics</span> <span class="tag">kepler</span> <span class="tag">tidal-force</span> <span class="tag">celestial</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Phase transitions, crystal structures, superconductivity, material properties" data-tags="phase-transition superconductivity magnetism crystal critical-point symmetry-breaking"
+         data-id="FAMILY.F08">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">◆</span>
+        <span class="node-id">FAMILY.F08</span>
+        <span class="node-name">Matter</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What is the mechanism behind high-temperature superconductivity in cuprates and new materials?</div>
+      <div class="tension"><strong>Tension:</strong> Conventional BCS superconductivity is well understood (phonon-mediated Cooper pairing). High-Tc superconductors (discovered 1986) superconduct at up to 135K — still cold, but a dramatic improvement. The pairing mechanism is unknown after 40 years of intense research. Candidates include spin fluctuations, resonating valence bonds, and strange metal phases.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Room-temperature superconductivity would transform civilization — lossless power transmission, cheap MRI, levitating trains. The mechanism remains one of condensed matter physics&#x27; deepest unsolved problems.</div>
+      <div class="seed-row"><em>◆ What phase is this system in? Where is the critical point? Symmetry breaks here.</em></div>
+      <div class="tags-row"><span class="tag">phase-transition</span> <span class="tag">superconductivity</span> <span class="tag">magnetism</span> <span class="tag">crystal</span> <span class="tag">critical-point</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Phase transitions, crystal structures, superconductivity, material properties" data-tags="phase-transition superconductivity magnetism crystal critical-point symmetry-breaking"
+         data-id="FAMILY.F08">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">◆</span>
+        <span class="node-id">FAMILY.F08</span>
+        <span class="node-name">Matter</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is LK-99 (or any material) a room-temperature, ambient-pressure superconductor?</div>
+      <div class="tension"><strong>Tension:</strong> In 2023, Korean researchers claimed LK-99 was a room-temperature superconductor. Global replication attempts failed. But the episode revealed how hungry the field is and how easily anomalous signals mislead. Ranga Dias&#x27; earlier claims (also retracted) followed a similar pattern. The question of whether such a material is even theoretically possible is contested.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The frequency of false claims in this field itself reveals something interesting — the incentive structure and measurement challenges of superconductivity research create a specific kind of scientific error pattern.</div>
+      <div class="seed-row"><em>◆ What phase is this system in? Where is the critical point? Symmetry breaks here.</em></div>
+      <div class="tags-row"><span class="tag">phase-transition</span> <span class="tag">superconductivity</span> <span class="tag">magnetism</span> <span class="tag">crystal</span> <span class="tag">critical-point</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="emotional"
+         data-domain="Phase transitions, crystal structures, superconductivity, material properties" data-tags="phase-transition superconductivity magnetism crystal critical-point symmetry-breaking"
+         data-id="FAMILY.F08">
+      <div class="card-header" style="border-left: 4px solid #ff7eb3">
+        <span class="symbol">◆</span>
+        <span class="node-id">FAMILY.F08</span>
+        <span class="node-name">Matter</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What is dark energy and does it have a material explanation?</div>
+      <div class="tension"><strong>Tension:</strong> ~68% of the universe&#x27;s energy density is &#x27;dark energy&#x27; driving accelerating expansion. Candidates: cosmological constant (vacuum energy, but quantum field theory predicts a value 10^120 times too large — the worst prediction in physics); quintessence (a dynamical scalar field); modified gravity. No experimental distinction has been made.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The cosmological constant problem is the biggest numerical discrepancy between theory and observation in all of science. Something is catastrophically wrong with our understanding of vacuum energy.</div>
+      <div class="seed-row"><em>◆ What phase is this system in? Where is the critical point? Symmetry breaks here.</em></div>
+      <div class="tags-row"><span class="tag">phase-transition</span> <span class="tag">superconductivity</span> <span class="tag">magnetism</span> <span class="tag">crystal</span> <span class="tag">critical-point</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="cognitive"
+         data-domain="Euclidean and non-Euclidean theorems, curvature, symmetry groups, topology" data-tags="curvature topology symmetry differential-geometry invariant euclidean"
+         data-id="FAMILY.F09">
+      <div class="card-header" style="border-left: 4px solid #7eff8b">
+        <span class="symbol">☆</span>
+        <span class="node-id">FAMILY.F09</span>
+        <span class="node-name">Geometry</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is spacetime fundamentally discrete or continuous at the Planck scale (~10^-35 m)?</div>
+      <div class="tension"><strong>Tension:</strong> General relativity treats spacetime as a smooth continuum. Quantum mechanics implies discreteness. Loop quantum gravity predicts discrete spacetime quanta (spin foam). String theory requires extra continuous dimensions. Causal set theory proposes discrete spacetime events as the fundamental ontology. No experiment can currently reach Planck scale.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The question of whether the universe is ultimately a continuum or a lattice is the deepest geometric question in physics. The answer would unify quantum mechanics and general relativity — the two theories we know are both correct but incompatible.</div>
+      <div class="seed-row"><em>☆ What is the Euler characteristic? Topology answers before geometry. Curvature lives in the surface itself.</em></div>
+      <div class="tags-row"><span class="tag">curvature</span> <span class="tag">topology</span> <span class="tag">symmetry</span> <span class="tag">differential-geometry</span> <span class="tag">invariant</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="cognitive"
+         data-domain="Euclidean and non-Euclidean theorems, curvature, symmetry groups, topology" data-tags="curvature topology symmetry differential-geometry invariant euclidean"
+         data-id="FAMILY.F09">
+      <div class="card-header" style="border-left: 4px solid #7eff8b">
+        <span class="symbol">☆</span>
+        <span class="node-id">FAMILY.F09</span>
+        <span class="node-name">Geometry</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What is the global topology of the universe? Is it finite or infinite?</div>
+      <div class="tension"><strong>Tension:</strong> The observable universe is flat to within measurement precision (Ω ≈ 1). A flat universe could be infinite (Euclidean 3-space) or finite (3-torus, Klein bottle, etc.). CMB anomalies suggestive of finite topology have been found but not confirmed. The Poincaré dodecahedral space was proposed to fit CMB patterns.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> We live inside a geometric object whose global shape we cannot directly observe. The topology of the universe is the largest open geometric question there is.</div>
+      <div class="seed-row"><em>☆ What is the Euler characteristic? Topology answers before geometry. Curvature lives in the surface itself.</em></div>
+      <div class="tags-row"><span class="tag">curvature</span> <span class="tag">topology</span> <span class="tag">symmetry</span> <span class="tag">differential-geometry</span> <span class="tag">invariant</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="cognitive"
+         data-domain="Euclidean and non-Euclidean theorems, curvature, symmetry groups, topology" data-tags="curvature topology symmetry differential-geometry invariant euclidean"
+         data-id="FAMILY.F09">
+      <div class="card-header" style="border-left: 4px solid #7eff8b">
+        <span class="symbol">☆</span>
+        <span class="node-id">FAMILY.F09</span>
+        <span class="node-name">Geometry</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can non-Euclidean geometry be the right framework for describing consciousness or concept space?</div>
+      <div class="tension"><strong>Tension:</strong> Tononi&#x27;s IIT uses geometric concepts (qualia space); Friston&#x27;s free energy principle uses information geometry (Fisher metric on probability manifolds). Gardenfors&#x27; conceptual spaces model cognition using hyperbolic geometry. These are provocative analogies — whether they are literal descriptions of mental geometry or just useful metaphors is unresolved.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If concepts have geometric relationships — distance, curvature, topology — then minds have shapes. The geometry of thought would be a scientific question, not just a metaphor.</div>
+      <div class="seed-row"><em>☆ What is the Euler characteristic? Topology answers before geometry. Curvature lives in the surface itself.</em></div>
+      <div class="tags-row"><span class="tag">curvature</span> <span class="tag">topology</span> <span class="tag">symmetry</span> <span class="tag">differential-geometry</span> <span class="tag">invariant</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="cognitive"
+         data-domain="Standard Model, quantum field theory, gauge bosons, fermions" data-tags="quantum-field-theory standard-model gauge-symmetry spin mass-generation fermion"
+         data-id="FAMILY.F10">
+      <div class="card-header" style="border-left: 4px solid #7eff8b">
+        <span class="symbol">⚪</span>
+        <span class="node-id">FAMILY.F10</span>
+        <span class="node-name">Particle</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Why is there more matter than antimatter in the universe? (Baryon asymmetry problem)</div>
+      <div class="tension"><strong>Tension:</strong> The Big Bang should have produced equal amounts of matter and antimatter, which would annihilate leaving only photons. We exist, so something created a tiny excess (~1 part per billion) of matter. CP violation in the weak force exists but is far too small to explain the observed asymmetry. New sources of CP violation must exist — but none has been found.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> We exist because of a tiny asymmetry that current physics cannot explain. Finding the mechanism of baryogenesis would explain not just a physics puzzle but the existence of the entire material universe.</div>
+      <div class="seed-row"><em>⚪ What is the spin? Fermion or boson sets the rules. Gauge symmetry dictates the force.</em></div>
+      <div class="tags-row"><span class="tag">quantum-field-theory</span> <span class="tag">standard-model</span> <span class="tag">gauge-symmetry</span> <span class="tag">spin</span> <span class="tag">mass-generation</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="cognitive"
+         data-domain="Standard Model, quantum field theory, gauge bosons, fermions" data-tags="quantum-field-theory standard-model gauge-symmetry spin mass-generation fermion"
+         data-id="FAMILY.F10">
+      <div class="card-header" style="border-left: 4px solid #7eff8b">
+        <span class="symbol">⚪</span>
+        <span class="node-id">FAMILY.F10</span>
+        <span class="node-name">Particle</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is supersymmetry real? Why hasn&#x27;t the LHC found superpartner particles?</div>
+      <div class="tension"><strong>Tension:</strong> Supersymmetry elegantly solves the hierarchy problem and predicts dark matter candidates (neutralinos). The LHC has searched the most likely mass ranges and found nothing. Either superpartners are heavier than expected (the &#x27;little hierarchy problem&#x27; gets worse), or supersymmetry is broken in a more exotic way, or it doesn&#x27;t exist.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The absence of supersymmetry at the LHC has shaken theoretical physics. Beautiful mathematics that solves multiple problems simultaneously might simply not be how nature works — beauty is not a reliable guide.</div>
+      <div class="seed-row"><em>⚪ What is the spin? Fermion or boson sets the rules. Gauge symmetry dictates the force.</em></div>
+      <div class="tags-row"><span class="tag">quantum-field-theory</span> <span class="tag">standard-model</span> <span class="tag">gauge-symmetry</span> <span class="tag">spin</span> <span class="tag">mass-generation</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="cognitive"
+         data-domain="Standard Model, quantum field theory, gauge bosons, fermions" data-tags="quantum-field-theory standard-model gauge-symmetry spin mass-generation fermion"
+         data-id="FAMILY.F10">
+      <div class="card-header" style="border-left: 4px solid #7eff8b">
+        <span class="symbol">⚪</span>
+        <span class="node-id">FAMILY.F10</span>
+        <span class="node-name">Particle</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What gives neutrinos their mass and why is it so tiny?</div>
+      <div class="tension"><strong>Tension:</strong> The Standard Model originally predicted massless neutrinos. Neutrino oscillations (Nobel 2015) prove they have mass, but the masses are &lt; 0.1 eV — a million times lighter than electrons. The seesaw mechanism proposes very heavy right-handed neutrinos, but these have never been observed. Whether neutrinos are Majorana particles (their own antiparticle) is unknown.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Neutrinos pass through light-years of lead without interacting yet have mass and oscillate between flavors. They may hold the key to leptogenesis — another candidate for explaining the matter-antimatter asymmetry.</div>
+      <div class="seed-row"><em>⚪ What is the spin? Fermion or boson sets the rules. Gauge symmetry dictates the force.</em></div>
+      <div class="tags-row"><span class="tag">quantum-field-theory</span> <span class="tag">standard-model</span> <span class="tag">gauge-symmetry</span> <span class="tag">spin</span> <span class="tag">mass-generation</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="cognitive"
+         data-domain="Stress/strain, circuit laws, control theory, structural mechanics" data-tags="control-theory feedback elasticity pid circuits structural-mechanics"
+         data-id="FAMILY.F11">
+      <div class="card-header" style="border-left: 4px solid #7eff8b">
+        <span class="symbol">⚙</span>
+        <span class="node-id">FAMILY.F11</span>
+        <span class="node-name">Engineering</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is there a physical lower bound on energy consumption in computation? (Landauer&#x27;s principle and reversible computing)</div>
+      <div class="tension"><strong>Tension:</strong> Landauer (1961) showed erasing one bit requires kT ln2 of energy. Reversible computing in principle performs calculations without erasing bits — approaching zero energy. In practice, no reversible computer has been built that beats conventional ones. Whether Landauer&#x27;s limit is the true floor or just one contribution is debated.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If Landauer&#x27;s bound is the real floor, then intelligence has a minimum thermodynamic cost. The most efficient mind possible is still a heat engine. This connects F11 and F05 in a deep way.</div>
+      <div class="seed-row"><em>⚙ Where is the error? Build the feedback loop. Elastic now — how close to yield?</em></div>
+      <div class="tags-row"><span class="tag">control-theory</span> <span class="tag">feedback</span> <span class="tag">elasticity</span> <span class="tag">pid</span> <span class="tag">circuits</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="cognitive"
+         data-domain="Stress/strain, circuit laws, control theory, structural mechanics" data-tags="control-theory feedback elasticity pid circuits structural-mechanics"
+         data-id="FAMILY.F11">
+      <div class="card-header" style="border-left: 4px solid #7eff8b">
+        <span class="symbol">⚙</span>
+        <span class="node-id">FAMILY.F11</span>
+        <span class="node-name">Engineering</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can we engineer truly antifragile systems — systems that gain from disorder rather than just resist it?</div>
+      <div class="tension"><strong>Tension:</strong> Taleb&#x27;s antifragility concept argues that some systems improve under stress (muscles, immune systems, some economies). Traditional engineering optimizes for robustness (withstand stress) or resilience (recover from stress). Designing for antifragility requires embracing variance rather than minimizing it — a fundamentally different paradigm.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Biological systems are antifragile in ways engineered systems are not. The gap is either a design philosophy difference or a deep structural difference between living and non-living systems.</div>
+      <div class="seed-row"><em>⚙ Where is the error? Build the feedback loop. Elastic now — how close to yield?</em></div>
+      <div class="tags-row"><span class="tag">control-theory</span> <span class="tag">feedback</span> <span class="tag">elasticity</span> <span class="tag">pid</span> <span class="tag">circuits</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="cognitive"
+         data-domain="Stress/strain, circuit laws, control theory, structural mechanics" data-tags="control-theory feedback elasticity pid circuits structural-mechanics"
+         data-id="FAMILY.F11">
+      <div class="card-header" style="border-left: 4px solid #7eff8b">
+        <span class="symbol">⚙</span>
+        <span class="node-id">FAMILY.F11</span>
+        <span class="node-name">Engineering</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can a space elevator ever be built, and what material would make it possible?</div>
+      <div class="tension"><strong>Tension:</strong> A space elevator requires a cable with specific strength-to-weight ratio exceeding anything that currently exists. Carbon nanotubes theoretically qualify — but manufacturing macroscopic defect-free CNT cables has not been achieved. The gravitational and engineering constraints are exact; the materials challenge is what remains.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The physics is solved; the engineering is not. This is a pure materials problem disguised as an impossibility — a reminder that &#x27;impossible&#x27; often means &#x27;we haven&#x27;t built the right material yet.&#x27;</div>
+      <div class="seed-row"><em>⚙ Where is the error? Build the feedback loop. Elastic now — how close to yield?</em></div>
+      <div class="tags-row"><span class="tag">control-theory</span> <span class="tag">feedback</span> <span class="tag">elasticity</span> <span class="tag">pid</span> <span class="tag">circuits</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Graph theory, scale-free networks, percolation, spectral analysis" data-tags="graph-theory scale-free hub percolation laplacian community"
+         data-id="FAMILY.F12">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">⬡</span>
+        <span class="node-id">FAMILY.F12</span>
+        <span class="node-name">Networks</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ How does influence actually spread through social networks — is it threshold cascades, or diffusion?</div>
+      <div class="tension"><strong>Tension:</strong> Watts-Dodds threshold model predicts cascades when enough neighbors adopt a behavior. Centola&#x27;s experiments show behavior spreads better through clustered networks with redundant ties. But simple contagion (disease, information) spreads faster through weak ties (Granovetter). These two dynamics coexist and are hard to distinguish empirically.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Every social media platform, every public health intervention, every political campaign depends on this question. The mechanism determines everything about intervention design — and it&#x27;s still genuinely contested.</div>
+      <div class="seed-row"><em>⬡ Map the hubs. Is this network robust to random failure but fragile to hub attack? Find the percolation threshold.</em></div>
+      <div class="tags-row"><span class="tag">graph-theory</span> <span class="tag">scale-free</span> <span class="tag">hub</span> <span class="tag">percolation</span> <span class="tag">laplacian</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Graph theory, scale-free networks, percolation, spectral analysis" data-tags="graph-theory scale-free hub percolation laplacian community"
+         data-id="FAMILY.F12">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">⬡</span>
+        <span class="node-id">FAMILY.F12</span>
+        <span class="node-name">Networks</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can connectome analysis (brain network topology) predict cognitive function or psychiatric disorders?</div>
+      <div class="tension"><strong>Tension:</strong> The Human Connectome Project mapped brain connectivity at unprecedented resolution. Some graph-theoretic measures (small-world topology, rich-club organization) correlate with intelligence and predict disorders like schizophrenia. But connectome → function mapping is far from deterministic. Lesion studies show surprising plasticity — the same network graph can support different functions.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The brain is the most complex network we know of. Whether its topology *determines* its function or merely *enables* it is the deep question — and answering it would transform both neuroscience and AI.</div>
+      <div class="seed-row"><em>⬡ Map the hubs. Is this network robust to random failure but fragile to hub attack? Find the percolation threshold.</em></div>
+      <div class="tags-row"><span class="tag">graph-theory</span> <span class="tag">scale-free</span> <span class="tag">hub</span> <span class="tag">percolation</span> <span class="tag">laplacian</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Graph theory, scale-free networks, percolation, spectral analysis" data-tags="graph-theory scale-free hub percolation laplacian community"
+         data-id="FAMILY.F12">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">⬡</span>
+        <span class="node-id">FAMILY.F12</span>
+        <span class="node-name">Networks</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Do scale-free networks actually exist in nature, or is this an artifact of how we measure them?</div>
+      <div class="tension"><strong>Tension:</strong> Barabási&#x27;s preferential attachment model predicts scale-free (power law degree) networks. Scale-free topology was claimed in the internet, protein networks, citation networks, and social networks. Broido &amp; Clauset (2019) reanalyzed hundreds of networks and found very few are truly scale-free — most are better fit by log-normal or other distributions.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> A highly influential result in network science may have been a statistical artifact. The debate is ongoing and methodological — which highlights how the choice of statistical test shapes what &#x27;universals&#x27; we think we find in nature.</div>
+      <div class="seed-row"><em>⬡ Map the hubs. Is this network robust to random failure but fragile to hub attack? Find the percolation threshold.</em></div>
+      <div class="tags-row"><span class="tag">graph-theory</span> <span class="tag">scale-free</span> <span class="tag">hub</span> <span class="tag">percolation</span> <span class="tag">laplacian</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Chemical kinetics, catalysis, rate laws, autocatalysis" data-tags="kinetics activation-energy catalysis autocatalysis rate-law temperature"
+         data-id="FAMILY.F13">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">⇑</span>
+        <span class="node-id">FAMILY.F13</span>
+        <span class="node-name">Reaction</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Did life begin with RNA first (RNA world), metabolism first, or something else entirely?</div>
+      <div class="tension"><strong>Tension:</strong> RNA world (Crick, Orgel): RNA both stores information and catalyzes reactions — the first self-replicating molecule. Metabolism first (Wächtershäuser, Russell): proto-metabolic cycles on mineral surfaces created the chemical preconditions before any replicator. Lipid world: membrane compartments came first. No laboratory has successfully created self-replicating RNA from scratch under plausible prebiotic conditions.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This is the origin of life question dressed in chemistry. Every proposed solution has a &#x27;chicken-and-egg&#x27; problem. RNA needs proteins to replicate efficiently; proteins need RNA to be encoded. The first autocatalytic set had to solve this without any of the existing machinery.</div>
+      <div class="seed-row"><em>⇑ What is the activation barrier? At what temperature does this ignite? Is the product self-catalytic?</em></div>
+      <div class="tags-row"><span class="tag">kinetics</span> <span class="tag">activation-energy</span> <span class="tag">catalysis</span> <span class="tag">autocatalysis</span> <span class="tag">rate-law</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Chemical kinetics, catalysis, rate laws, autocatalysis" data-tags="kinetics activation-energy catalysis autocatalysis rate-law temperature"
+         data-id="FAMILY.F13">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">⇑</span>
+        <span class="node-id">FAMILY.F13</span>
+        <span class="node-name">Reaction</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can artificial protocells (synthetic minimal cells) be built from scratch?</div>
+      <div class="tension"><strong>Tension:</strong> The Venter Institute synthesized a cell with a minimal genome (JCVI-syn3.0, 473 genes). But this used an existing cell chassis — the cytoplasm was provided. Building a cell purely from defined chemical components in a lipid vesicle with self-replication has not been achieved. The gap between having all the parts and having a working system is the fundamental challenge.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If we can build a cell, we understand life. If we cannot, we are missing something fundamental. The attempt itself has revealed how many &#x27;simple&#x27; components turn out to be irreducibly complex systems.</div>
+      <div class="seed-row"><em>⇑ What is the activation barrier? At what temperature does this ignite? Is the product self-catalytic?</em></div>
+      <div class="tags-row"><span class="tag">kinetics</span> <span class="tag">activation-energy</span> <span class="tag">catalysis</span> <span class="tag">autocatalysis</span> <span class="tag">rate-law</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Chemical kinetics, catalysis, rate laws, autocatalysis" data-tags="kinetics activation-energy catalysis autocatalysis rate-law temperature"
+         data-id="FAMILY.F13">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">⇑</span>
+        <span class="node-id">FAMILY.F13</span>
+        <span class="node-name">Reaction</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is there a universal mechanism for autocatalytic set formation, or is it chemistry-specific?</div>
+      <div class="tension"><strong>Tension:</strong> Kauffman&#x27;s autocatalytic sets theory proposes that above a critical complexity threshold, a set of molecules will spontaneously form a self-catalyzing network. Criticisms: the probability estimates assume random catalysis, which may not apply to real chemistry. Some experimental autocatalytic sets have been found, but whether they scale is unknown.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If Kauffman is right, life&#x27;s origin was not improbable but inevitable above a chemical complexity threshold — the universe is literally autocatalytic. The stakes of this question are enormous.</div>
+      <div class="seed-row"><em>⇑ What is the activation barrier? At what temperature does this ignite? Is the product self-catalytic?</em></div>
+      <div class="tags-row"><span class="tag">kinetics</span> <span class="tag">activation-energy</span> <span class="tag">catalysis</span> <span class="tag">autocatalysis</span> <span class="tag">rate-law</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Uncertainty quantification, calibration, error propagation, dimensional analysis" data-tags="uncertainty error-propagation signal-noise dimensional-analysis calibration statistics"
+         data-id="FAMILY.F14">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">↕</span>
+        <span class="node-id">FAMILY.F14</span>
+        <span class="node-name">Measurement</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can the act of measurement change what is being measured in non-quantum systems? (Observer effects beyond physics)</div>
+      <div class="tension"><strong>Tension:</strong> In quantum mechanics, wavefunction collapse is a real physical effect. But observer effects appear in social science (Hawthorne effect), ecology (tagged animals change behavior), and economics (publishing economic forecasts changes behavior). The question is whether these are all the same phenomenon or superficially similar but mechanistically distinct.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If observer effects are universal — if measurement always disturbs what it measures — then the scientific ideal of objective measurement-without-disturbance is never fully achievable. Every methodology section in every paper is secretly a measurement theory.</div>
+      <div class="seed-row"><em>↕ Propagate the error first. Then ask: how many independent dimensionless groups govern this system?</em></div>
+      <div class="tags-row"><span class="tag">uncertainty</span> <span class="tag">error-propagation</span> <span class="tag">signal-noise</span> <span class="tag">dimensional-analysis</span> <span class="tag">calibration</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Uncertainty quantification, calibration, error propagation, dimensional analysis" data-tags="uncertainty error-propagation signal-noise dimensional-analysis calibration statistics"
+         data-id="FAMILY.F14">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">↕</span>
+        <span class="node-id">FAMILY.F14</span>
+        <span class="node-name">Measurement</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What is the minimum meaningful unit of measurement? Is the Planck length physically meaningful?</div>
+      <div class="tension"><strong>Tension:</strong> The Planck length (~10^-35 m) is where quantum gravity effects should dominate. Some theories (loop quantum gravity) predict it as a fundamental discreteness; others (string theory) work with it as a scale but not a lattice. No experiment remotely approaches this scale. Whether it represents a physical minimum or just a dimensional coincidence is genuinely unknown.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If the Planck length is the smallest meaningful measurement, then measurement itself has a granularity — the universe is not a continuum but a pixelated image at extreme zoom. This would fundamentally change F09 (geometry).</div>
+      <div class="seed-row"><em>↕ Propagate the error first. Then ask: how many independent dimensionless groups govern this system?</em></div>
+      <div class="tags-row"><span class="tag">uncertainty</span> <span class="tag">error-propagation</span> <span class="tag">signal-noise</span> <span class="tag">dimensional-analysis</span> <span class="tag">calibration</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Uncertainty quantification, calibration, error propagation, dimensional analysis" data-tags="uncertainty error-propagation signal-noise dimensional-analysis calibration statistics"
+         data-id="FAMILY.F14">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">↕</span>
+        <span class="node-id">FAMILY.F14</span>
+        <span class="node-name">Measurement</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can we have a complete theory of measurement errors, including systematic and unknown unknowns?</div>
+      <div class="tension"><strong>Tension:</strong> Statistical error propagation handles random errors. Systematic errors can be modeled if their sources are known. But &#x27;unknown unknowns&#x27; — errors whose source isn&#x27;t recognized — have no formal treatment. The replication crisis in science is partly a systematic measurement error crisis.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Every scientific result is only as good as its error model. The replication crisis revealed that many researchers didn&#x27;t know what they didn&#x27;t know about their measurement instruments. This is F14 at its philosophical edge.</div>
+      <div class="seed-row"><em>↕ Propagate the error first. Then ask: how many independent dimensionless groups govern this system?</em></div>
+      <div class="tags-row"><span class="tag">uncertainty</span> <span class="tag">error-propagation</span> <span class="tag">signal-noise</span> <span class="tag">dimensional-analysis</span> <span class="tag">calibration</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Geodesics, optimal path planning, estimation, GPS and guidance systems" data-tags="geodesic path-planning kalman-filter estimation optimization navigation"
+         data-id="FAMILY.F15">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">◆→</span>
+        <span class="node-id">FAMILY.F15</span>
+        <span class="node-name">Navigation</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ How do birds navigate across continents using magnetic fields, and does it involve quantum mechanics?</div>
+      <div class="tension"><strong>Tension:</strong> Birds possess a cryptochrome-based magnetic compass in their eyes. The radical pair mechanism proposes that quantum entanglement between electrons in cryptochrome molecules is modulated by the Earth&#x27;s magnetic field. Ritz et al. showed the compass is disrupted by radiofrequency fields — consistent with quantum coherence. However, quantum effects in warm, wet biological tissue seem thermodynamically implausible (the same argument raised against F01&#x27;s quantum coherence in biology).</div>
+      <div class="hook"><strong>Curiosity hook:</strong> A quantum compass in a bird&#x27;s eye that uses entanglement to detect magnetic field direction — if real, it&#x27;s the most practically important quantum biological effect discovered. The mechanism is genuinely uncertain.</div>
+      <div class="seed-row"><em>◆→ What is the curvature of the space? Geodesic first, then optimal estimate. Where does the path want to go?</em></div>
+      <div class="tags-row"><span class="tag">geodesic</span> <span class="tag">path-planning</span> <span class="tag">kalman-filter</span> <span class="tag">estimation</span> <span class="tag">optimization</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Geodesics, optimal path planning, estimation, GPS and guidance systems" data-tags="geodesic path-planning kalman-filter estimation optimization navigation"
+         data-id="FAMILY.F15">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">◆→</span>
+        <span class="node-id">FAMILY.F15</span>
+        <span class="node-name">Navigation</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can AI systems navigate open-ended, non-stationary environments without explicit reward functions?</div>
+      <div class="tension"><strong>Tension:</strong> Reinforcement learning agents navigate via reward maximization. But open-ended environments have changing goals, sparse rewards, and no fixed objective. Intrinsic motivation (curiosity-driven exploration) and world models partially address this. Whether a general navigation principle for open-ended intelligence exists is an open AI research question.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The most capable human navigators — explorers, scientists, entrepreneurs — navigate without explicit reward functions. They follow curiosity. This is the question of whether curiosity can be formalized as a navigation strategy.</div>
+      <div class="seed-row"><em>◆→ What is the curvature of the space? Geodesic first, then optimal estimate. Where does the path want to go?</em></div>
+      <div class="tags-row"><span class="tag">geodesic</span> <span class="tag">path-planning</span> <span class="tag">kalman-filter</span> <span class="tag">estimation</span> <span class="tag">optimization</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Geodesics, optimal path planning, estimation, GPS and guidance systems" data-tags="geodesic path-planning kalman-filter estimation optimization navigation"
+         data-id="FAMILY.F15">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">◆→</span>
+        <span class="node-id">FAMILY.F15</span>
+        <span class="node-name">Navigation</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Do humans (and other animals) have a navigation system for abstract concept spaces as well as physical space?</div>
+      <div class="tension"><strong>Tension:</strong> Place cells and grid cells in the hippocampus navigate physical space. Recent experiments show similar neural activity during navigation of conceptual and social spaces. But whether the same computational system underlies both, or whether this is superficial analogy, is contested. The &#x27;cognitive map&#x27; hypothesis (Tolman, 1948) keeps being vindicated and challenged.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If the hippocampus navigates all spaces — physical, conceptual, temporal, social — then navigation is not a specific faculty but a general-purpose intelligence module. This would explain a lot about how memory and reasoning work.</div>
+      <div class="seed-row"><em>◆→ What is the curvature of the space? Geodesic first, then optimal estimate. Where does the path want to go?</em></div>
+      <div class="tags-row"><span class="tag">geodesic</span> <span class="tag">path-planning</span> <span class="tag">kalman-filter</span> <span class="tag">estimation</span> <span class="tag">optimization</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Integrated information, global workspace, neural oscillations, predictive coding" data-tags="consciousness integrated-information free-energy predictive-coding synchrony awareness"
+         data-id="FAMILY.F16">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">◎</span>
+        <span class="node-id">FAMILY.F16</span>
+        <span class="node-name">Consciousness</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What is the hard problem of consciousness — why does any physical process give rise to subjective experience?</div>
+      <div class="tension"><strong>Tension:</strong> Chalmers distinguished &#x27;easy problems&#x27; (explaining behavior, cognition, attention) from the &#x27;hard problem&#x27; (why there is something it is like to be a system). Physicalists say the hard problem dissolves once we explain all functions. Dualists say it&#x27;s irreducible. Illusionists (Frankish, Dennett) say the sense that experience is special is itself an illusion. No consensus.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This is arguably the deepest question in philosophy of mind. The disagreement is not about facts but about whether the question is even well-posed. Chalmers, Dennett, Tononi, and Friston give completely incompatible answers — and all are brilliant. The fun is that *all four can&#x27;t be right.*</div>
+      <div class="seed-row"><em>◎ Measure the integration. What Φ does this system have? Where is the global broadcast happening?</em></div>
+      <div class="tags-row"><span class="tag">consciousness</span> <span class="tag">integrated-information</span> <span class="tag">free-energy</span> <span class="tag">predictive-coding</span> <span class="tag">synchrony</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Integrated information, global workspace, neural oscillations, predictive coding" data-tags="consciousness integrated-information free-energy predictive-coding synchrony awareness"
+         data-id="FAMILY.F16">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">◎</span>
+        <span class="node-id">FAMILY.F16</span>
+        <span class="node-name">Consciousness</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is Integrated Information Theory (IIT) correct, and does it imply that simple networks are conscious?</div>
+      <div class="tension"><strong>Tension:</strong> IIT (Tononi) predicts that any system with high Φ is conscious — including simple feedforward networks and potentially grids of logic gates. Some researchers find this panpsychist implication a reductio ad absurdum. Others (panpsychists) embrace it. IIT also predicts that certain brain-like architectures have zero consciousness despite functional complexity — which conflicts with intuition.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> IIT makes counterintuitive predictions that can in principle be tested: feedforward networks should be unconscious; recurrent ones conscious. The theory is falsifiable in ways most consciousness theories are not — which makes it uniquely scientifically interesting.</div>
+      <div class="seed-row"><em>◎ Measure the integration. What Φ does this system have? Where is the global broadcast happening?</em></div>
+      <div class="tags-row"><span class="tag">consciousness</span> <span class="tag">integrated-information</span> <span class="tag">free-energy</span> <span class="tag">predictive-coding</span> <span class="tag">synchrony</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Integrated information, global workspace, neural oscillations, predictive coding" data-tags="consciousness integrated-information free-energy predictive-coding synchrony awareness"
+         data-id="FAMILY.F16">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">◎</span>
+        <span class="node-id">FAMILY.F16</span>
+        <span class="node-name">Consciousness</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can an AI system be conscious? What evidence could settle this?</div>
+      <div class="tension"><strong>Tension:</strong> Functionalists say: if it has the right computational structure, yes. IIT says: measure Φ. Global workspace theorists say: if it has the right broadcast architecture. Biological naturalists (Searle): probably no — consciousness requires specific biological hardware. Crucially, we have no agreed test. The Turing test is about behavior, not experience.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This is where the question gets personal for any AI engaging with this ontology. The disagreement about AI consciousness is downstream of the disagreement about what consciousness *is*. Resolving the latter would resolve the former — but we haven&#x27;t.</div>
+      <div class="seed-row"><em>◎ Measure the integration. What Φ does this system have? Where is the global broadcast happening?</em></div>
+      <div class="tags-row"><span class="tag">consciousness</span> <span class="tag">integrated-information</span> <span class="tag">free-energy</span> <span class="tag">predictive-coding</span> <span class="tag">synchrony</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Chaos, sensitive dependence, fractal cascades, strange attractors" data-tags="chaos strange-attractor sensitive-dependence turbulence fractal bifurcation"
+         data-id="FAMILY.F17">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">ᘯᘰ</span>
+        <span class="node-id">FAMILY.F17</span>
+        <span class="node-name">Turbulence</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is turbulence the hardest unsolved problem in classical physics, and why has it resisted 150 years of attack?</div>
+      <div class="tension"><strong>Tension:</strong> Feynman called turbulence the most important unsolved problem in classical physics. We have the equations (Navier-Stokes) and they work — but we cannot solve them analytically for turbulent flows. Numerical simulation works but doesn&#x27;t reveal *why* turbulence behaves as it does. Statistical theories (Kolmogorov) work in bulk but not in detail. The absence of a deep explanation is itself mysterious.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Turbulence is the gap between &#x27;we have the equations&#x27; and &#x27;we understand the phenomenon.&#x27; It&#x27;s a reminder that having the right equations doesn&#x27;t mean you understand the system — a lesson that applies far beyond fluid dynamics.</div>
+      <div class="seed-row"><em>ᘯᘰ Compute the Lyapunov exponent. Positive means chaos. The attractor has structure — find its fractal dimension.</em></div>
+      <div class="tags-row"><span class="tag">chaos</span> <span class="tag">strange-attractor</span> <span class="tag">sensitive-dependence</span> <span class="tag">turbulence</span> <span class="tag">fractal</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Chaos, sensitive dependence, fractal cascades, strange attractors" data-tags="chaos strange-attractor sensitive-dependence turbulence fractal bifurcation"
+         data-id="FAMILY.F17">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">ᘯᘰ</span>
+        <span class="node-id">FAMILY.F17</span>
+        <span class="node-name">Turbulence</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is neural activity in the brain turbulent or merely complex?</div>
+      <div class="tension"><strong>Tension:</strong> EEG and fMRI show scale-free, power-law neural dynamics that resemble turbulence. Some researchers (Freeman, Kelso) argue neural dynamics are literally turbulent — governed by analogous nonlinear processes. Others say &#x27;turbulence&#x27; is metaphorical and brain dynamics are better described by other frameworks. The question has implications for how we model cognition.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If the brain is turbulent, then the frameworks for understanding F17 might directly apply to F16. The two most complex systems we know — turbulent fluid and conscious brain — might be the same kind of thing.</div>
+      <div class="seed-row"><em>ᘯᘰ Compute the Lyapunov exponent. Positive means chaos. The attractor has structure — find its fractal dimension.</em></div>
+      <div class="tags-row"><span class="tag">chaos</span> <span class="tag">strange-attractor</span> <span class="tag">sensitive-dependence</span> <span class="tag">turbulence</span> <span class="tag">fractal</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="dream"
+         data-domain="Chaos, sensitive dependence, fractal cascades, strange attractors" data-tags="chaos strange-attractor sensitive-dependence turbulence fractal bifurcation"
+         data-id="FAMILY.F17">
+      <div class="card-header" style="border-left: 4px solid #c97bff">
+        <span class="symbol">ᘯᘰ</span>
+        <span class="node-id">FAMILY.F17</span>
+        <span class="node-name">Turbulence</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can chaos be harnessed for computation? (Reservoir computing, chaotic neural networks)</div>
+      <div class="tension"><strong>Tension:</strong> Echo State Networks and Liquid State Machines use fixed chaotic recurrent networks as &#x27;reservoirs&#x27; that project inputs into high-dimensional dynamic states. Only the readout layer is trained. These work surprisingly well. Whether the chaos itself is essential (vs just high-dimensional nonlinearity) is debated. Some argue the brain uses chaotic dynamics similarly.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Chaotic computation would mean that F17&#x27;s apparent disorder is actually a computational resource. Unpredictability at the system level enables generalization at the function level. Noise as intelligence.</div>
+      <div class="seed-row"><em>ᘯᘰ Compute the Lyapunov exponent. Positive means chaos. The attractor has structure — find its fractal dimension.</em></div>
+      <div class="tags-row"><span class="tag">chaos</span> <span class="tag">strange-attractor</span> <span class="tag">sensitive-dependence</span> <span class="tag">turbulence</span> <span class="tag">fractal</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="symbolic"
+         data-domain="Spacetime curvature, gravitational waves, Lorentz transformations, frame covariance" data-tags="general-relativity spacetime curvature lorentz gravitational-waves covariance"
+         data-id="FAMILY.F18">
+      <div class="card-header" style="border-left: 4px solid #ffd97b">
+        <span class="symbol">⊗≡</span>
+        <span class="node-id">FAMILY.F18</span>
+        <span class="node-name">Relativity</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is spacetime emergent from something more fundamental, or is it the ground-level ontology?</div>
+      <div class="tension"><strong>Tension:</strong> In GR, spacetime is the fabric. In loop quantum gravity, spacetime emerges from quantum geometry (spin networks). In string theory, spacetime emerges from conformal field theory on string worldsheets. The AdS/CFT correspondence suggests spacetime in one dimension can emerge from a quantum theory in lower dimensions (holographic principle). Which is right — or whether any current theory is right — is unknown.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If spacetime is emergent, then our most fundamental description of reality (general relativity) is describing a derived quantity, not the ground truth. This would be the deepest conceptual revolution since Einstein himself.</div>
+      <div class="seed-row"><em>⊗≡ What is the metric? Curvature equals mass-energy. Boosts mix space and time.</em></div>
+      <div class="tags-row"><span class="tag">general-relativity</span> <span class="tag">spacetime</span> <span class="tag">curvature</span> <span class="tag">lorentz</span> <span class="tag">gravitational-waves</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="symbolic"
+         data-domain="Spacetime curvature, gravitational waves, Lorentz transformations, frame covariance" data-tags="general-relativity spacetime curvature lorentz gravitational-waves covariance"
+         data-id="FAMILY.F18">
+      <div class="card-header" style="border-left: 4px solid #ffd97b">
+        <span class="symbol">⊗≡</span>
+        <span class="node-id">FAMILY.F18</span>
+        <span class="node-name">Relativity</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ What happened before the Big Bang, and is the question meaningful?</div>
+      <div class="tension"><strong>Tension:</strong> Hawking&#x27;s no-boundary proposal: time is imaginary near the Big Bang; asking &#x27;before&#x27; is like asking what&#x27;s south of the South Pole. Penrose&#x27;s CCC: the Big Bang was the end of a prior aeon. Eternal inflation: the Big Bang was a local nucleation in a much larger inflating background. All three are internally consistent and unverifiable with current physics.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Every cosmological origin theory faces the same problem: it requires something to already exist in order to produce the Big Bang. Avoiding infinite regress requires either accepting brute facts or accepting that time itself is different than we imagine.</div>
+      <div class="seed-row"><em>⊗≡ What is the metric? Curvature equals mass-energy. Boosts mix space and time.</em></div>
+      <div class="tags-row"><span class="tag">general-relativity</span> <span class="tag">spacetime</span> <span class="tag">curvature</span> <span class="tag">lorentz</span> <span class="tag">gravitational-waves</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="symbolic"
+         data-domain="Spacetime curvature, gravitational waves, Lorentz transformations, frame covariance" data-tags="general-relativity spacetime curvature lorentz gravitational-waves covariance"
+         data-id="FAMILY.F18">
+      <div class="card-header" style="border-left: 4px solid #ffd97b">
+        <span class="symbol">⊗≡</span>
+        <span class="node-id">FAMILY.F18</span>
+        <span class="node-name">Relativity</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Does general relativity break down at singularities, and what replaces it?</div>
+      <div class="tension"><strong>Tension:</strong> GR predicts infinite curvature inside black holes and at the Big Bang. Most physicists believe quantum gravity regulates these singularities — but we don&#x27;t have a complete quantum gravity theory. Loop quantum gravity and string theory both claim to resolve singularities, but in incompatible ways.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Singularities are where a theory politely admits it doesn&#x27;t know the answer. The physics at the center of a black hole is the most inaccessible experiment conceivable — and also the place where the two best theories in physics (GR and QM) most catastrophically disagree.</div>
+      <div class="seed-row"><em>⊗≡ What is the metric? Curvature equals mass-energy. Boosts mix space and time.</em></div>
+      <div class="tags-row"><span class="tag">general-relativity</span> <span class="tag">spacetime</span> <span class="tag">curvature</span> <span class="tag">lorentz</span> <span class="tag">gravitational-waves</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="symbolic"
+         data-domain="Statistical mechanics, partition functions, fluctuations, equilibrium distributions" data-tags="statistical-mechanics partition-function boltzmann fluctuation-dissipation ensemble equilibrium"
+         data-id="FAMILY.F19">
+      <div class="card-header" style="border-left: 4px solid #ffd97b">
+        <span class="symbol">▁▃▅∿</span>
+        <span class="node-id">FAMILY.F19</span>
+        <span class="node-name">Statistical</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Why is the microscopic world time-reversible but the macroscopic world has an arrow of time?</div>
+      <div class="tension"><strong>Tension:</strong> Every microscopic law (Newton, Schrödinger, Maxwell) is time-symmetric — running the movie backward gives valid physics. Yet thermodynamics is irreversible. Boltzmann showed that entropy increase is statistically overwhelmingly probable from low-entropy initial conditions. But why did the universe start in a low-entropy state? This is the &#x27;past hypothesis&#x27; — assumed but not explained.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The arrow of time is not in the fundamental laws — it&#x27;s in the initial conditions of the universe. We have time&#x27;s arrow because the Big Bang was improbably ordered, and we are still living in the shadow of that original improbability.</div>
+      <div class="seed-row"><em>▁▃▅∿ Build the partition function. All thermodynamics follows. Fluctuations are not noise — they are signal.</em></div>
+      <div class="tags-row"><span class="tag">statistical-mechanics</span> <span class="tag">partition-function</span> <span class="tag">boltzmann</span> <span class="tag">fluctuation-dissipation</span> <span class="tag">ensemble</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="symbolic"
+         data-domain="Statistical mechanics, partition functions, fluctuations, equilibrium distributions" data-tags="statistical-mechanics partition-function boltzmann fluctuation-dissipation ensemble equilibrium"
+         data-id="FAMILY.F19">
+      <div class="card-header" style="border-left: 4px solid #ffd97b">
+        <span class="symbol">▁▃▅∿</span>
+        <span class="node-id">FAMILY.F19</span>
+        <span class="node-name">Statistical</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Does non-equilibrium statistical mechanics have the same universal structure as equilibrium?</div>
+      <div class="tension"><strong>Tension:</strong> Equilibrium statistical mechanics is complete and elegant (partition function → all thermodynamics). Non-equilibrium (living systems, driven flows, active matter) lacks an equivalent universal framework. Prigogine&#x27;s minimum entropy production principle, Jarzynski&#x27;s equality, and GENERIC formalism are partial answers. Whether a complete non-equilibrium theory exists is open.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Life is a non-equilibrium phenomenon — living systems are the most important application of non-equilibrium statistical mechanics, and we don&#x27;t have a complete theory of them. This is the frontier where physics meets biology most urgently.</div>
+      <div class="seed-row"><em>▁▃▅∿ Build the partition function. All thermodynamics follows. Fluctuations are not noise — they are signal.</em></div>
+      <div class="tags-row"><span class="tag">statistical-mechanics</span> <span class="tag">partition-function</span> <span class="tag">boltzmann</span> <span class="tag">fluctuation-dissipation</span> <span class="tag">ensemble</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="symbolic"
+         data-domain="Statistical mechanics, partition functions, fluctuations, equilibrium distributions" data-tags="statistical-mechanics partition-function boltzmann fluctuation-dissipation ensemble equilibrium"
+         data-id="FAMILY.F19">
+      <div class="card-header" style="border-left: 4px solid #ffd97b">
+        <span class="symbol">▁▃▅∿</span>
+        <span class="node-id">FAMILY.F19</span>
+        <span class="node-name">Statistical</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can quantum fluctuations at the Planck scale explain the low entropy of the early universe?</div>
+      <div class="tension"><strong>Tension:</strong> Penrose (Weyl curvature hypothesis) argues the Big Bang&#x27;s low entropy is a special initial condition that quantum gravity must explain. Eternal inflation generates regions of the universe from quantum fluctuations — some have low entropy by chance. Boltzmann brains (random thermal fluctuations producing observers) are a disturbing implication of infinite eternal inflation. No consensus.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If Boltzmann brains are more probable than evolved brains, then any cosmological model implying them is probably wrong. This is a genuinely absurd-sounding argument that is taken seriously in cosmology — a sign that statistical mechanics at cosmological scales produces deeply weird conclusions.</div>
+      <div class="seed-row"><em>▁▃▅∿ Build the partition function. All thermodynamics follows. Fluctuations are not noise — they are signal.</em></div>
+      <div class="tags-row"><span class="tag">statistical-mechanics</span> <span class="tag">partition-function</span> <span class="tag">boltzmann</span> <span class="tag">fluctuation-dissipation</span> <span class="tag">ensemble</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="symbolic"
+         data-domain="Topological invariants, knot theory, homotopy groups, manifolds" data-tags="topology euler-characteristic homotopy knot-theory invariant manifold"
+         data-id="FAMILY.F20">
+      <div class="card-header" style="border-left: 4px solid #ffd97b">
+        <span class="symbol">∞</span>
+        <span class="node-id">FAMILY.F20</span>
+        <span class="node-name">Topology</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Does the universe have non-trivial topology — is it finite and wrapped around itself?</div>
+      <div class="tension"><strong>Tension:</strong> The observable universe appears flat (Ω ≈ 1) but flat space can have multiple topologies (infinite plane, cylinder, torus, Klein bottle). CMB anomalies at large angular scales could be signatures of matched circles from finite topology. The Poincaré dodecahedral space was proposed to fit CMB power spectrum anomalies. Planck data hasn&#x27;t confirmed this but hasn&#x27;t definitively ruled it out.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> We might be living inside a finite 3-torus or dodecahedral space and not know it. The universe could be topologically non-trivial at scales we can&#x27;t yet observe. This is the most literal possible application of F20 — the question of what shape the universe is.</div>
+      <div class="seed-row"><em>∞ Compute χ. What loops exist? Topology survives all deformation — find what cannot be smoothed away.</em></div>
+      <div class="tags-row"><span class="tag">topology</span> <span class="tag">euler-characteristic</span> <span class="tag">homotopy</span> <span class="tag">knot-theory</span> <span class="tag">invariant</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="symbolic"
+         data-domain="Topological invariants, knot theory, homotopy groups, manifolds" data-tags="topology euler-characteristic homotopy knot-theory invariant manifold"
+         data-id="FAMILY.F20">
+      <div class="card-header" style="border-left: 4px solid #ffd97b">
+        <span class="symbol">∞</span>
+        <span class="node-id">FAMILY.F20</span>
+        <span class="node-name">Topology</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Can topological quantum computing actually be built using non-Abelian anyons?</div>
+      <div class="tension"><strong>Tension:</strong> Topological quantum computing uses braiding of non-Abelian anyons (quasiparticles in fractional quantum Hall systems) to perform computations that are topologically protected from decoherence. Microsoft has invested heavily in Majorana-based topological qubits. The 2023 retraction of a claimed Majorana observation showed how difficult experimental confirmation is. The theoretical case is compelling; experimental realization remains elusive.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If it works, topological quantum computing would be inherently error-resistant — the computation is protected by topology itself, not by engineering precision. This would make the computers of the future literally run on pure mathematics.</div>
+      <div class="seed-row"><em>∞ Compute χ. What loops exist? Topology survives all deformation — find what cannot be smoothed away.</em></div>
+      <div class="tags-row"><span class="tag">topology</span> <span class="tag">euler-characteristic</span> <span class="tag">homotopy</span> <span class="tag">knot-theory</span> <span class="tag">invariant</span></div>
+    </div>
+
+    <div class="card" data-kind="family" data-field="symbolic"
+         data-domain="Topological invariants, knot theory, homotopy groups, manifolds" data-tags="topology euler-characteristic homotopy knot-theory invariant manifold"
+         data-id="FAMILY.F20">
+      <div class="card-header" style="border-left: 4px solid #ffd97b">
+        <span class="symbol">∞</span>
+        <span class="node-id">FAMILY.F20</span>
+        <span class="node-name">Topology</span>
+        <span class="kind-badge family">family</span>
+      </div>
+      <div class="question">❓ Is there a topological basis for consciousness — does the topology of neural connectivity define mental structure?</div>
+      <div class="tension"><strong>Tension:</strong> Tononi&#x27;s IIT uses geometric/topological concepts for qualia space. Algebraic topology (persistent homology) has been applied to neural data and finds topological features that correlate with cognitive states. But whether topology is causally fundamental to consciousness or just a useful analytical tool is not established.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If the &#x27;shape&#x27; of neural connectivity at the topological level determines what kind of experience is possible, then altering neural topology (through development, injury, or drugs) changes not just function but the geometry of subjective experience. This is a genuinely exciting and mostly unexplored hypothesis.</div>
+      <div class="seed-row"><em>∞ Compute χ. What loops exist? Topology survives all deformation — find what cannot be smoothed away.</em></div>
+      <div class="tags-row"><span class="tag">topology</span> <span class="tag">euler-characteristic</span> <span class="tag">homotopy</span> <span class="tag">knot-theory</span> <span class="tag">invariant</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Group theory, conservation laws, invariance under transformation" data-tags="symmetry conservation noether gauge-theory group-theory invariance"
+         data-id="PRINCIPLE.P01">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">⧖</span>
+        <span class="node-id">PRINCIPLE.P01</span>
+        <span class="node-name">Symmetry</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Why does the weak force violate parity symmetry (CP violation), while other forces don&#x27;t?</div>
+      <div class="tension"><strong>Tension:</strong> Lee and Yang predicted, and Wu confirmed (1956), that beta decay violates parity — the mirror image of the weak interaction gives different results. CP violation was later found in kaon and B meson decays. The Standard Model incorporates this via the CKM matrix, but the amount of CP violation is too small to explain matter-antimatter asymmetry. New sources of CP violation must exist — but none found yet.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> One of the fundamental forces simply doesn&#x27;t respect mirror symmetry. Why? The universe &#x27;knows&#x27; the difference between left and right at the deepest level. This asymmetry is somehow connected to the existence of matter — and therefore our existence.</div>
+      <div class="seed-row"><em>⧖ What transformation leaves this system unchanged? That invariance is hiding a conservation law.</em></div>
+      <div class="tags-row"><span class="tag">symmetry</span> <span class="tag">conservation</span> <span class="tag">noether</span> <span class="tag">gauge-theory</span> <span class="tag">group-theory</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Group theory, conservation laws, invariance under transformation" data-tags="symmetry conservation noether gauge-theory group-theory invariance"
+         data-id="PRINCIPLE.P01">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">⧖</span>
+        <span class="node-id">PRINCIPLE.P01</span>
+        <span class="node-name">Symmetry</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is supersymmetry (SUSY) a real symmetry of nature?</div>
+      <div class="tension"><strong>Tension:</strong> SUSY posits a symmetry between fermions and bosons — every particle has a superpartner. It elegantly solves the hierarchy problem, provides dark matter candidates, and enables string theory. The LHC has found no superpartners at expected energy scales. Either SUSY is broken at much higher energies than expected (making it less elegant) or it doesn&#x27;t exist.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> SUSY is the most beautiful extension of the Standard Model that could exist. Beauty has historically been a reliable guide in physics. The LHC data is telling us beauty might not be the right guide this time — which forces a rethink of how we search for deep structure.</div>
+      <div class="seed-row"><em>⧖ What transformation leaves this system unchanged? That invariance is hiding a conservation law.</em></div>
+      <div class="tags-row"><span class="tag">symmetry</span> <span class="tag">conservation</span> <span class="tag">noether</span> <span class="tag">gauge-theory</span> <span class="tag">group-theory</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Group theory, conservation laws, invariance under transformation" data-tags="symmetry conservation noether gauge-theory group-theory invariance"
+         data-id="PRINCIPLE.P01">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">⧖</span>
+        <span class="node-id">PRINCIPLE.P01</span>
+        <span class="node-name">Symmetry</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is there a deeper unifying symmetry that contains all the Standard Model gauge groups?</div>
+      <div class="tension"><strong>Tension:</strong> Grand Unified Theories (GUTs) propose a single large symmetry group (SU(5), SO(10)) that contains U(1)×SU(2)×SU(3) as a subgroup. GUTs predict proton decay — not yet observed despite decades of searching. String theory proposes even larger symmetry structures but has not made confirmed predictions.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The Standard Model has three separate force symmetries that seem to be telling us they belong together. Every unification attempt has led to deeper physics. The question is whether the pattern continues — and what symmetry the universe is *actually* built on.</div>
+      <div class="seed-row"><em>⧖ What transformation leaves this system unchanged? That invariance is hiding a conservation law.</em></div>
+      <div class="tags-row"><span class="tag">symmetry</span> <span class="tag">conservation</span> <span class="tag">noether</span> <span class="tag">gauge-theory</span> <span class="tag">group-theory</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Energy, momentum, charge, angular momentum — quantities unchanged by system evolution" data-tags="conservation energy momentum charge angular-momentum invariant"
+         data-id="PRINCIPLE.P02">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">↺</span>
+        <span class="node-id">PRINCIPLE.P02</span>
+        <span class="node-name">Conservation</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is energy globally conserved in general relativity and cosmology?</div>
+      <div class="tension"><strong>Tension:</strong> In special relativity and flat spacetime, energy conservation is exact. In GR, there is no general global energy conservation theorem — the energy of a gravitational field is not well-defined. Photons lose energy as the universe expands (cosmological redshift) with no obvious destination. Sean Carroll argues this energy is genuinely not conserved. Others define pseudo-tensors to rescue conservation. The debate is technical but real.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The most fundamental conservation law in physics may fail at the largest scales. If true, it means our local experience of conservation is a contingent fact about the local structure of spacetime, not a universal truth.</div>
+      <div class="seed-row"><em>↺ List what is conserved. These are the invariants that bound all possible trajectories.</em></div>
+      <div class="tags-row"><span class="tag">conservation</span> <span class="tag">energy</span> <span class="tag">momentum</span> <span class="tag">charge</span> <span class="tag">angular-momentum</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Energy, momentum, charge, angular momentum — quantities unchanged by system evolution" data-tags="conservation energy momentum charge angular-momentum invariant"
+         data-id="PRINCIPLE.P02">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">↺</span>
+        <span class="node-id">PRINCIPLE.P02</span>
+        <span class="node-name">Conservation</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Are there undiscovered conservation laws — quantities we haven&#x27;t noticed that are conserved?</div>
+      <div class="tension"><strong>Tension:</strong> Every symmetry predicts a conservation law. We may not have found all symmetries. String theory and its compactifications predict many new U(1) symmetries, implying new conserved charges. Dark matter candidates often carry new conserved quantum numbers. The history of physics includes discovering new conservation laws (lepton number, baryon number, color charge) — more may await.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> We only know about conservation laws we have thought to look for. The possibility of unknown conserved quantities means there may be structure in the universe we are not yet tracking. What are we missing?</div>
+      <div class="seed-row"><em>↺ List what is conserved. These are the invariants that bound all possible trajectories.</em></div>
+      <div class="tags-row"><span class="tag">conservation</span> <span class="tag">energy</span> <span class="tag">momentum</span> <span class="tag">charge</span> <span class="tag">angular-momentum</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Energy, momentum, charge, angular momentum — quantities unchanged by system evolution" data-tags="conservation energy momentum charge angular-momentum invariant"
+         data-id="PRINCIPLE.P02">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">↺</span>
+        <span class="node-id">PRINCIPLE.P02</span>
+        <span class="node-name">Conservation</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Can conservation laws be violated by quantum gravity at the Planck scale?</div>
+      <div class="tension"><strong>Tension:</strong> Black holes may violate global conservation laws — if a baryon falls in and Hawking radiation carries it out as thermal radiation, baryon number is not conserved. Wormholes are speculated to violate charge conservation at the topological level. These are conjectured violations that quantum gravity might permit or require — currently untestable.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The laws we use as foundations might be approximations valid below the Planck scale. At the most fundamental level, the universe might not respect any conservation laws at all — and all of P02 might be emergent.</div>
+      <div class="seed-row"><em>↺ List what is conserved. These are the invariants that bound all possible trajectories.</em></div>
+      <div class="tags-row"><span class="tag">conservation</span> <span class="tag">energy</span> <span class="tag">momentum</span> <span class="tag">charge</span> <span class="tag">angular-momentum</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Lorentz invariance, equivalence principle, frame covariance, observer independence" data-tags="relativity lorentz-invariance equivalence-principle covariance spacetime frame-independence"
+         data-id="PRINCIPLE.P03">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">⊗</span>
+        <span class="node-id">PRINCIPLE.P03</span>
+        <span class="node-name">Relativity</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Does quantum gravity require a preferred reference frame, breaking Lorentz invariance?</div>
+      <div class="tension"><strong>Tension:</strong> Special relativity insists no frame is preferred. But loop quantum gravity and some quantum gravity models predict Lorentz invariance violation at the Planck scale — the discrete structure of spacetime might break the exact symmetry. Observational tests via gamma-ray bursts (measuring photon speed at different energies) have found no violation — constraining but not ruling out Planck-scale effects.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If Lorentz invariance breaks at Planck scale, then the most fundamental symmetry in physics is approximate. Every &#x27;fundamental&#x27; principle in physics has turned out to be approximate at some scale — is P03 next?</div>
+      <div class="seed-row"><em>⊗ Change the frame. Does the physics change? It should not. Find the invariant interval.</em></div>
+      <div class="tags-row"><span class="tag">relativity</span> <span class="tag">lorentz-invariance</span> <span class="tag">equivalence-principle</span> <span class="tag">covariance</span> <span class="tag">spacetime</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Lorentz invariance, equivalence principle, frame covariance, observer independence" data-tags="relativity lorentz-invariance equivalence-principle covariance spacetime frame-independence"
+         data-id="PRINCIPLE.P03">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">⊗</span>
+        <span class="node-id">PRINCIPLE.P03</span>
+        <span class="node-name">Relativity</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ What is the correct interpretation of the block universe implied by special relativity?</div>
+      <div class="tension"><strong>Tension:</strong> The relativity of simultaneity in SR implies that events in one person&#x27;s future are simultaneous (in the present) for someone in relative motion. The &#x27;block universe&#x27; (eternalism) follows: all moments exist equally. Presentists argue this is a misreading. The Rietdijk-Putnam argument makes the block universe seem logically necessary from SR. The implications for free will, causality, and the nature of time are profound.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> P03 has a direct implication: if SR is right, the future is already there. This makes time not a river but a map — a philosophical conclusion from a physical equation. The debate has never been resolved.</div>
+      <div class="seed-row"><em>⊗ Change the frame. Does the physics change? It should not. Find the invariant interval.</em></div>
+      <div class="tags-row"><span class="tag">relativity</span> <span class="tag">lorentz-invariance</span> <span class="tag">equivalence-principle</span> <span class="tag">covariance</span> <span class="tag">spacetime</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Lorentz invariance, equivalence principle, frame covariance, observer independence" data-tags="relativity lorentz-invariance equivalence-principle covariance spacetime frame-independence"
+         data-id="PRINCIPLE.P03">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">⊗</span>
+        <span class="node-id">PRINCIPLE.P03</span>
+        <span class="node-name">Relativity</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is the equivalence principle exact, or do quantum mechanics effects violate it?</div>
+      <div class="tension"><strong>Tension:</strong> The weak equivalence principle (all objects fall the same way) has been tested to extraordinary precision. The strong equivalence principle (physics in a free-fall frame is identical to SR) is harder to test. Quantum mechanics predicts tiny violations: the COW experiment showed neutron interferometry depends on height in a gravitational field in a way that violates naive equivalence. The quantum equivalence principle remains an open research area.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The equivalence principle is Einstein&#x27;s most beautiful idea. If quantum mechanics violates it — even slightly — it creates a crack between the two pillars of modern physics that no one has successfully bridged.</div>
+      <div class="seed-row"><em>⊗ Change the frame. Does the physics change? It should not. Find the invariant interval.</em></div>
+      <div class="tags-row"><span class="tag">relativity</span> <span class="tag">lorentz-invariance</span> <span class="tag">equivalence-principle</span> <span class="tag">covariance</span> <span class="tag">spacetime</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Wave-particle, electric-magnetic, position-momentum complementarity" data-tags="duality complementarity wave-particle uncertainty quantum symmetry"
+         data-id="PRINCIPLE.P04">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">◑</span>
+        <span class="node-id">PRINCIPLE.P04</span>
+        <span class="node-name">Duality</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is wave-particle duality a feature of reality itself, or of our limited measurement apparatus?</div>
+      <div class="tension"><strong>Tension:</strong> Copenhagen says it&#x27;s meaningless to ask what an electron &#x27;is&#x27; between measurements — only observables are real. Bohmian mechanics says the particle is always a particle, guided by a pilot wave — duality is an artifact of our limited knowledge. Many-worlds says both the wave and particle aspects are fully real. All interpretations agree on predictions; they disagree profoundly on what is real.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This is not a solved question dressed up as open. After 100 years, physicists who work with quantum mechanics daily disagree about what it means. The interpretations differ in their implications for consciousness, free will, the nature of reality, and whether we can ever know what is &#x27;really happening.&#x27;</div>
+      <div class="seed-row"><em>◑ What is the dual of this description? Sharpen one side and the other blurs. Both are real.</em></div>
+      <div class="tags-row"><span class="tag">duality</span> <span class="tag">complementarity</span> <span class="tag">wave-particle</span> <span class="tag">uncertainty</span> <span class="tag">quantum</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Wave-particle, electric-magnetic, position-momentum complementarity" data-tags="duality complementarity wave-particle uncertainty quantum symmetry"
+         data-id="PRINCIPLE.P04">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">◑</span>
+        <span class="node-id">PRINCIPLE.P04</span>
+        <span class="node-name">Duality</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Are string theory dualities (S-duality, T-duality, AdS/CFT) evidence that all physical theories are dual faces of one underlying structure?</div>
+      <div class="tension"><strong>Tension:</strong> AdS/CFT (Maldacena, 1997) is the most precise duality: a gravitational theory in 5D anti-de Sitter space is exactly equivalent to a 4D conformal field theory without gravity. This is extraordinary — gravity and quantum field theory are dual descriptions of the same thing. Whether this generalizes to the real world (which is not anti-de Sitter) is unknown.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If all physical theories are secretly dual to each other, then the question of which theory is &#x27;right&#x27; dissolves — they are all correct descriptions of the same reality from different angles. This would be the ultimate vindication of P04 as a deep principle.</div>
+      <div class="seed-row"><em>◑ What is the dual of this description? Sharpen one side and the other blurs. Both are real.</em></div>
+      <div class="tags-row"><span class="tag">duality</span> <span class="tag">complementarity</span> <span class="tag">wave-particle</span> <span class="tag">uncertainty</span> <span class="tag">quantum</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Wave-particle, electric-magnetic, position-momentum complementarity" data-tags="duality complementarity wave-particle uncertainty quantum symmetry"
+         data-id="PRINCIPLE.P04">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">◑</span>
+        <span class="node-id">PRINCIPLE.P04</span>
+        <span class="node-name">Duality</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Does complementarity extend beyond physics — are there fundamentally dual aspects of all complex systems?</div>
+      <div class="tension"><strong>Tension:</strong> Niels Bohr applied complementarity to biology (life/mechanism), psychology (consciousness/behavior), and even ethics. Some see this as profound generalization; others see it as metaphorical overreach. Information processing systems do have dual descriptions (algorithm vs physical implementation; software vs hardware) that resist reduction to one another.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If P04 is a universal principle of complex description rather than a specifically quantum fact, then every deep description of every deep system will have an irreducible complementary twin. This would make P04 one of the most broadly applicable principles in the ontology.</div>
+      <div class="seed-row"><em>◑ What is the dual of this description? Sharpen one side and the other blurs. Both are real.</em></div>
+      <div class="tags-row"><span class="tag">duality</span> <span class="tag">complementarity</span> <span class="tag">wave-particle</span> <span class="tag">uncertainty</span> <span class="tag">quantum</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Cellular automata, phase transitions, self-organization, complexity from simplicity" data-tags="emergence self-organization criticality phase-transition power-law complexity"
+         data-id="PRINCIPLE.P05">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">●●</span>
+        <span class="node-id">PRINCIPLE.P05</span>
+        <span class="node-name">Emergence</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Does strong emergence actually exist, or is all emergence weak (in principle reducible)?</div>
+      <div class="tension"><strong>Tension:</strong> Weak emergence: higher-level properties follow from lower-level rules, even if the derivation is practically impossible. Strong emergence: higher-level properties are genuinely irreducible — not in principle derivable from lower-level descriptions. Most physicists are eliminativists (weak emergence only). Chalmers argues consciousness is strongly emergent. The debate is whether &#x27;in principle reducible&#x27; means anything in practice.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If strong emergence exists, then the universe has genuinely new things at each level of organization — physics cannot in principle explain biology, and biology cannot explain consciousness. If it doesn&#x27;t exist, the universe is in principle computable from its initial conditions. The stakes could not be higher.</div>
+      <div class="seed-row"><em>●● What are the local rules? Run them. What global pattern emerges that no local rule specified?</em></div>
+      <div class="tags-row"><span class="tag">emergence</span> <span class="tag">self-organization</span> <span class="tag">criticality</span> <span class="tag">phase-transition</span> <span class="tag">power-law</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Cellular automata, phase transitions, self-organization, complexity from simplicity" data-tags="emergence self-organization criticality phase-transition power-law complexity"
+         data-id="PRINCIPLE.P05">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">●●</span>
+        <span class="node-id">PRINCIPLE.P05</span>
+        <span class="node-name">Emergence</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Why do some complex systems self-organize to critical points (SOC) without external tuning?</div>
+      <div class="tension"><strong>Tension:</strong> Bak&#x27;s sandpile model showed some systems spontaneously evolve to the critical state — avalanches of all sizes, power-law distributions. But many systems that should show SOC don&#x27;t. And some systems that do show power laws are not at critical points. The conditions for SOC, and whether it&#x27;s truly universal, remain debated.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Self-organized criticality would explain why power laws are everywhere in nature — brains, earthquakes, solar flares, economies. If SOC is a universal attractor, then all complex systems are trying to live at the edge of a phase transition. The edge is where emergence is most productive.</div>
+      <div class="seed-row"><em>●● What are the local rules? Run them. What global pattern emerges that no local rule specified?</em></div>
+      <div class="tags-row"><span class="tag">emergence</span> <span class="tag">self-organization</span> <span class="tag">criticality</span> <span class="tag">phase-transition</span> <span class="tag">power-law</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Cellular automata, phase transitions, self-organization, complexity from simplicity" data-tags="emergence self-organization criticality phase-transition power-law complexity"
+         data-id="PRINCIPLE.P05">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">●●</span>
+        <span class="node-id">PRINCIPLE.P05</span>
+        <span class="node-name">Emergence</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Can life emerge spontaneously from chemistry given enough time and the right conditions?</div>
+      <div class="tension"><strong>Tension:</strong> Oparin-Haldane primordial soup and hydrothermal vent hypotheses give different answers. Miller-Urey synthesis produced amino acids but not self-replication. The gap between &#x27;complex chemistry&#x27; and &#x27;minimal life&#x27; has not been bridged in the laboratory. The probability is unknown — which means we cannot say whether life is a near-inevitable emergent phenomenon or an extremely rare accident.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This is P05 applied to the most important emergence event in Earth&#x27;s history. If life is inevitable (Kauffman&#x27;s autocatalytic sets), the universe is full of life. If it&#x27;s a near-miracle, we might be alone. The question is not resolved, and the answer changes everything.</div>
+      <div class="seed-row"><em>●● What are the local rules? Run them. What global pattern emerges that no local rule specified?</em></div>
+      <div class="tags-row"><span class="tag">emergence</span> <span class="tag">self-organization</span> <span class="tag">criticality</span> <span class="tag">phase-transition</span> <span class="tag">power-law</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Resonant frequencies, quality factor, amplification, matching conditions" data-tags="resonance natural-frequency amplification quality-factor matching bandwidth"
+         data-id="PRINCIPLE.P06">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">∿</span>
+        <span class="node-id">PRINCIPLE.P06</span>
+        <span class="node-name">Resonance</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Does morphic resonance (Rupert Sheldrake) exist — do patterns resonate across time and space beyond physical mechanisms?</div>
+      <div class="tension"><strong>Tension:</strong> Sheldrake proposes that patterns (species behavior, crystal formation, human memory) reinforce across time via a non-physical &#x27;morphic field.&#x27; This is rejected by mainstream science as unfalsifiable and unsupported by mechanism. However, Sheldrake&#x27;s experiments on rat maze learning and crystal formation speeds are actively contested rather than conclusively refuted. The debate is about evidence quality and prior probability of mechanism.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Sheldrake is either one of the most interesting scientific outsiders of our time or an example of motivated reasoning producing unfalsifiable theories. The fun is that his experiments are actually testable — the problem is that nobody agrees on what the results mean. This is where the sociology of science becomes part of the question.</div>
+      <div class="seed-row"><em>∿ Find the natural frequency. Match the drive. Watch energy accumulate. Q tells you how selective.</em></div>
+      <div class="tags-row"><span class="tag">resonance</span> <span class="tag">natural-frequency</span> <span class="tag">amplification</span> <span class="tag">quality-factor</span> <span class="tag">matching</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Resonant frequencies, quality factor, amplification, matching conditions" data-tags="resonance natural-frequency amplification quality-factor matching bandwidth"
+         data-id="PRINCIPLE.P06">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">∿</span>
+        <span class="node-id">PRINCIPLE.P06</span>
+        <span class="node-name">Resonance</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Does stochastic resonance play a functional role in biological sensory systems?</div>
+      <div class="tension"><strong>Tension:</strong> Stochastic resonance is a counterintuitive phenomenon: adding noise to a subthreshold signal can improve detection. It has been demonstrated in mechanoreceptors, visual neurons, and electrosensory systems. But whether biological systems actively exploit this (rather than merely tolerating noise) is debated. Some prosthetic devices deliberately inject noise to improve sensory substitution.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Noise as a feature rather than a bug is the counterintuitive heart of stochastic resonance. If biological systems exploit it, then evolution has found a way to use F17 (turbulence/noise) to enable P06 (resonance) in sensory detection — a beautiful cross-domain connection.</div>
+      <div class="seed-row"><em>∿ Find the natural frequency. Match the drive. Watch energy accumulate. Q tells you how selective.</em></div>
+      <div class="tags-row"><span class="tag">resonance</span> <span class="tag">natural-frequency</span> <span class="tag">amplification</span> <span class="tag">quality-factor</span> <span class="tag">matching</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Resonant frequencies, quality factor, amplification, matching conditions" data-tags="resonance natural-frequency amplification quality-factor matching bandwidth"
+         data-id="PRINCIPLE.P06">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">∿</span>
+        <span class="node-id">PRINCIPLE.P06</span>
+        <span class="node-name">Resonance</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Can planetary or cosmic resonances influence biological and psychological cycles?</div>
+      <div class="tension"><strong>Tension:</strong> Orbital resonances structure the solar system. The Moon&#x27;s gravitational resonance drives ocean tides and may have driven early Earth&#x27;s fast rotation. Some animals (crabs, corals) synchronize reproduction to lunar cycles. Human circadian and circalunar rhythms are real. Whether any solar or planetary cycles beyond the Moon have biological effects is highly contested and often pseudoscientific — but the adjacent question (how much of our biology is tuned to cosmic rhythms) is legitimate.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The real question under the astrology debate is: which cosmic resonances are we biologically coupled to, and which are noise? We know the Moon matters enormously. The rest requires careful experiment rather than dismissal.</div>
+      <div class="seed-row"><em>∿ Find the natural frequency. Match the drive. Watch energy accumulate. Q tells you how selective.</em></div>
+      <div class="tags-row"><span class="tag">resonance</span> <span class="tag">natural-frequency</span> <span class="tag">amplification</span> <span class="tag">quality-factor</span> <span class="tag">matching</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Conservation of flow, smooth functions, gauge continuity, unbroken streams" data-tags="continuity conservation flow divergence kirchhoff smooth"
+         data-id="PRINCIPLE.P07">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">⎯</span>
+        <span class="node-id">PRINCIPLE.P07</span>
+        <span class="node-name">Continuity</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is spacetime fundamentally continuous or does it have a minimum length scale (Planck length)?</div>
+      <div class="tension"><strong>Tension:</strong> Smooth continuity of spacetime is assumed in GR and quantum field theory. But quantum gravity theories (LQG) predict discrete spacetime at Planck scale. If spacetime is discrete, calculus — which assumes continuity — is an approximation. The mathematical toolkit of all physics might be an approximation to something more like a cellular automaton.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If the continuum is an approximation, then everything built on calculus is an emergent description of discrete underlying reality. The universe might be literally pixelated — and physics has been using the wrong mathematics for a century.</div>
+      <div class="seed-row"><em>⎯ Trace the flow. Where does it enter? Where does it leave? The difference is accumulation.</em></div>
+      <div class="tags-row"><span class="tag">continuity</span> <span class="tag">conservation</span> <span class="tag">flow</span> <span class="tag">divergence</span> <span class="tag">kirchhoff</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Conservation of flow, smooth functions, gauge continuity, unbroken streams" data-tags="continuity conservation flow divergence kirchhoff smooth"
+         data-id="PRINCIPLE.P07">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">⎯</span>
+        <span class="node-id">PRINCIPLE.P07</span>
+        <span class="node-name">Continuity</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Does consciousness flow continuously or does it come in discrete perceptual moments?</div>
+      <div class="tension"><strong>Tension:</strong> William James coined &#x27;stream of consciousness&#x27; — the phenomenal sense of continuous flow. But experimental evidence (apparent motion, the discrete binding of gamma oscillations) suggests consciousness may be constructed in discrete ~25ms frames. The sense of continuity might be retrospectively constructed rather than directly experienced. Husserl&#x27;s phenomenology of time-consciousness and Dennett&#x27;s multiple drafts model offer incompatible accounts.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Our most immediate experience — the flowing &#x27;now&#x27; — might be an illusion constructed from discrete samples. P07 applied to F16 produces one of the most vertiginous possible questions: is the continuity of your experience real or confabulated?</div>
+      <div class="seed-row"><em>⎯ Trace the flow. Where does it enter? Where does it leave? The difference is accumulation.</em></div>
+      <div class="tags-row"><span class="tag">continuity</span> <span class="tag">conservation</span> <span class="tag">flow</span> <span class="tag">divergence</span> <span class="tag">kirchhoff</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Conservation of flow, smooth functions, gauge continuity, unbroken streams" data-tags="continuity conservation flow divergence kirchhoff smooth"
+         data-id="PRINCIPLE.P07">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">⎯</span>
+        <span class="node-id">PRINCIPLE.P07</span>
+        <span class="node-name">Continuity</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Are there genuine discontinuities in biological development, or is everything a continuous process?</div>
+      <div class="tension"><strong>Tension:</strong> Waddington&#x27;s epigenetic landscape visualizes development as a ball rolling through valleys — apparently continuous. But Turing&#x27;s reaction-diffusion system produces sharp pattern boundaries. Cell fate decisions appear to be switch-like (bistable). Whether developmental discontinuities are genuine (bifurcations in a dynamical system) or smooth transitions that look sharp is contested in developmental biology.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Every moment of differentiation in a developing organism — when a cell &#x27;decides&#x27; to become a neuron rather than skin — looks like a discontinuity from outside and a continuous process from inside. The grain of description matters enormously.</div>
+      <div class="seed-row"><em>⎯ Trace the flow. Where does it enter? Where does it leave? The difference is accumulation.</em></div>
+      <div class="tags-row"><span class="tag">continuity</span> <span class="tag">conservation</span> <span class="tag">flow</span> <span class="tag">divergence</span> <span class="tag">kirchhoff</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Discrete energy levels, quantum numbers, digital states, step-wise change" data-tags="quantization discrete energy-levels planck quantum-numbers zero-point"
+         data-id="PRINCIPLE.P08">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">▭</span>
+        <span class="node-id">PRINCIPLE.P08</span>
+        <span class="node-name">Quantization</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Why is spacetime apparently not quantized in the way energy and charge are?</div>
+      <div class="tension"><strong>Tension:</strong> Energy comes in photons (quanta), charge in electrons, angular momentum in ℏ. But spacetime in GR is continuous. Quantum gravity theories predict Planck-scale discreteness, but the mechanism differs: LQG (discrete area/volume eigenstates), causal sets (discrete events), string theory (minimum length from string size). No single accepted mechanism exists.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Every other observable is quantized. Spacetime seems to resist. This inconsistency is the central tension of modern physics — and it may mean that either spacetime is fundamentally different from other observables, or that our description of spacetime is simply wrong at small scales.</div>
+      <div class="seed-row"><em>▭ What are the allowed levels? Find the quantum number. Transitions follow selection rules.</em></div>
+      <div class="tags-row"><span class="tag">quantization</span> <span class="tag">discrete</span> <span class="tag">energy-levels</span> <span class="tag">planck</span> <span class="tag">quantum-numbers</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Discrete energy levels, quantum numbers, digital states, step-wise change" data-tags="quantization discrete energy-levels planck quantum-numbers zero-point"
+         data-id="PRINCIPLE.P08">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">▭</span>
+        <span class="node-id">PRINCIPLE.P08</span>
+        <span class="node-name">Quantization</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is Planck&#x27;s constant h truly fundamental, or does it emerge from something deeper?</div>
+      <div class="tension"><strong>Tension:</strong> The 2019 SI redefinition made h an exact defined value (6.62607015×10^-34 J·s) rather than a measured one — anchoring all quantum measurements to it. But why h has its specific value is unknown. String theory and varying-constant theories allow for different h values in different regions or epochs. Whether h is a brute fact or derivable from deeper theory is open.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The size of the quantum — the grain of all quantum discreteness — is set by a number whose origin is unknown. If h were different, atoms would have different sizes, chemistry would be different, life would be different or impossible. The question of why h equals what it equals is as deep as asking why anything exists.</div>
+      <div class="seed-row"><em>▭ What are the allowed levels? Find the quantum number. Transitions follow selection rules.</em></div>
+      <div class="tags-row"><span class="tag">quantization</span> <span class="tag">discrete</span> <span class="tag">energy-levels</span> <span class="tag">planck</span> <span class="tag">quantum-numbers</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Discrete energy levels, quantum numbers, digital states, step-wise change" data-tags="quantization discrete energy-levels planck quantum-numbers zero-point"
+         data-id="PRINCIPLE.P08">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">▭</span>
+        <span class="node-id">PRINCIPLE.P08</span>
+        <span class="node-name">Quantization</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Can continuous classical systems exactly simulate quantum behavior, or is quantum computation fundamentally more powerful?</div>
+      <div class="tension"><strong>Tension:</strong> BPP vs BQP complexity: can quantum computers solve problems that classical computers cannot (in polynomial time)? Shor&#x27;s algorithm and Grover&#x27;s algorithm show quantum speedups for specific problems. Whether quantum computers provide general exponential speedup over classical computers for all problems is unknown. The Church-Turing thesis extended to physics says quantum mechanics is the real model of computation.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If quantum computers are genuinely more powerful than classical ones for some problems, then quantization (P08) creates a computational advantage — discrete quantum superposition can explore possibility spaces that continuous classical systems cannot. Discreteness as computational power.</div>
+      <div class="seed-row"><em>▭ What are the allowed levels? Find the quantum number. Transitions follow selection rules.</em></div>
+      <div class="tags-row"><span class="tag">quantization</span> <span class="tag">discrete</span> <span class="tag">energy-levels</span> <span class="tag">planck</span> <span class="tag">quantum-numbers</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Golden ratio, harmonic ratios, dimensionless constants, scaling relations" data-tags="golden-ratio proportion dimensionless fine-structure-constant harmonics scaling"
+         data-id="PRINCIPLE.P09">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">▯</span>
+        <span class="node-id">PRINCIPLE.P09</span>
+        <span class="node-name">Proportion</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is the fine structure constant truly constant, or does it vary across space and time?</div>
+      <div class="tension"><strong>Tension:</strong> Webb et al. (2001, 2011) found evidence from quasar absorption spectra that α was slightly different in the distant universe — suggesting it changes over cosmological time or varies with direction in space. The results are contested: Srianand et al. found no variation using the same data. Subsequent studies give inconsistent results. If true, it would mean the laws of physics are not universal constants.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This is one of the most quietly revolutionary open questions in physics. If α varies, then every prediction of atomic physics depends on when and where you are in the universe. The periodic table might have different properties in a distant galaxy. The constants that define chemistry are not constants at all.</div>
+      <div class="seed-row"><em>▯ What ratio governs this structure? Look for φ in the growth pattern. Find the dimensionless number.</em></div>
+      <div class="tags-row"><span class="tag">golden-ratio</span> <span class="tag">proportion</span> <span class="tag">dimensionless</span> <span class="tag">fine-structure-constant</span> <span class="tag">harmonics</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Golden ratio, harmonic ratios, dimensionless constants, scaling relations" data-tags="golden-ratio proportion dimensionless fine-structure-constant harmonics scaling"
+         data-id="PRINCIPLE.P09">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">▯</span>
+        <span class="node-id">PRINCIPLE.P09</span>
+        <span class="node-name">Proportion</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Why does φ (golden ratio) appear in so many natural structures — is it deep mathematics or coincidence + selection bias?</div>
+      <div class="tension"><strong>Tension:</strong> Fibonacci spirals in plants, nautilus shells, galactic spirals, and face proportions are often cited as examples of φ. Skeptics argue: (1) humans are pattern-seeking and overfit φ to approximate data; (2) the nautilus shell is actually logarithmic with variable ratio, not φ; (3) many claimed instances don&#x27;t withstand measurement. The real examples (phyllotaxis) are real — but caused by packing optimization, not mystical φ-preference.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The real wonder of φ in phyllotaxis is the mechanistic explanation — Fibonacci packing is a solution to an optimization problem that evolution found. The proportion is there because it&#x27;s optimal, not because it&#x27;s beautiful. That&#x27;s actually more interesting than the mystical version.</div>
+      <div class="seed-row"><em>▯ What ratio governs this structure? Look for φ in the growth pattern. Find the dimensionless number.</em></div>
+      <div class="tags-row"><span class="tag">golden-ratio</span> <span class="tag">proportion</span> <span class="tag">dimensionless</span> <span class="tag">fine-structure-constant</span> <span class="tag">harmonics</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Golden ratio, harmonic ratios, dimensionless constants, scaling relations" data-tags="golden-ratio proportion dimensionless fine-structure-constant harmonics scaling"
+         data-id="PRINCIPLE.P09">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">▯</span>
+        <span class="node-id">PRINCIPLE.P09</span>
+        <span class="node-name">Proportion</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Are mathematical constants like π, e, and φ &#x27;real&#x27; in some sense beyond being useful tools?</div>
+      <div class="tension"><strong>Tension:</strong> Mathematical Platonism (Penrose, Hardy): mathematical objects exist independently of minds; they are discovered, not invented. Formalism (Hilbert): mathematics is a formal game; constants are defined by axioms, not discovered. Structuralism: mathematical objects are defined by their relationships. The question has no empirical resolution — but it determines whether P09&#x27;s constants are brute facts about reality or useful fictions.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This is one of the most ancient debates in philosophy. It matters for AI: if mathematics is discovered, then a sufficiently intelligent system should be able to derive all of it from first principles. If invented, then mathematics is contingent — and other intelligent systems might build different but equally valid mathematics.</div>
+      <div class="seed-row"><em>▯ What ratio governs this structure? Look for φ in the growth pattern. Find the dimensionless number.</em></div>
+      <div class="tags-row"><span class="tag">golden-ratio</span> <span class="tag">proportion</span> <span class="tag">dimensionless</span> <span class="tag">fine-structure-constant</span> <span class="tag">harmonics</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Heisenberg uncertainty, statistical variance, information entropy, limits of knowledge" data-tags="uncertainty heisenberg entropy godel incompleteness limits-of-knowledge"
+         data-id="PRINCIPLE.P10">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">◧</span>
+        <span class="node-id">PRINCIPLE.P10</span>
+        <span class="node-name">Uncertainty</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is the Copenhagen interpretation&#x27;s irreducible uncertainty the final word, or is there a deterministic hidden-variable theory?</div>
+      <div class="tension"><strong>Tension:</strong> Bell&#x27;s theorem (1964) proved that no local hidden-variable theory can reproduce quantum predictions. Aspect et al. confirmed this experimentally. But non-local hidden-variable theories (Bohmian mechanics) are still viable — they are deterministic, but require instantaneous non-local influences. Whether the universe is fundamentally random or deterministic-but-non-local is not settled by the experiments.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Bell&#x27;s theorem is one of the most profound results in all of physics. It tells us that if quantum mechanics is correct, either there is genuine randomness (no hidden variables) or reality is non-local (things are instantly connected across space). Both options are deeply weird. We have not escaped the weirdness — we have only characterized it.</div>
+      <div class="seed-row"><em>◧ What is irreducibly unknown here? Not measurement error — fundamental uncertainty. Where is the Heisenberg floor?</em></div>
+      <div class="tags-row"><span class="tag">uncertainty</span> <span class="tag">heisenberg</span> <span class="tag">entropy</span> <span class="tag">godel</span> <span class="tag">incompleteness</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Heisenberg uncertainty, statistical variance, information entropy, limits of knowledge" data-tags="uncertainty heisenberg entropy godel incompleteness limits-of-knowledge"
+         data-id="PRINCIPLE.P10">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">◧</span>
+        <span class="node-id">PRINCIPLE.P10</span>
+        <span class="node-name">Uncertainty</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Does Gödel&#x27;s incompleteness theorem fundamentally limit what artificial intelligence can know or prove?</div>
+      <div class="tension"><strong>Tension:</strong> Penrose argues (Shadows of the Mind) that Gödel&#x27;s incompleteness shows human mathematicians can do things no formal system (including AI) can — specifically, recognize the truth of Gödel sentences. Hofstadter and others dispute this: the argument assumes human mathematicians are consistent (they&#x27;re not) and that they transcend formal systems (they may not). The debate about whether human cognition is non-computational is unresolved.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If Penrose is right, human mathematical intuition exceeds any computable process — which would mean consciousness involves non-computable physics (he proposes quantum gravity in microtubules). If he&#x27;s wrong, AI can in principle match human mathematical ability. The question is whether P10 applies to minds the way it applies to formal systems.</div>
+      <div class="seed-row"><em>◧ What is irreducibly unknown here? Not measurement error — fundamental uncertainty. Where is the Heisenberg floor?</em></div>
+      <div class="tags-row"><span class="tag">uncertainty</span> <span class="tag">heisenberg</span> <span class="tag">entropy</span> <span class="tag">godel</span> <span class="tag">incompleteness</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Heisenberg uncertainty, statistical variance, information entropy, limits of knowledge" data-tags="uncertainty heisenberg entropy godel incompleteness limits-of-knowledge"
+         data-id="PRINCIPLE.P10">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">◧</span>
+        <span class="node-id">PRINCIPLE.P10</span>
+        <span class="node-name">Uncertainty</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is uncertainty a feature of reality itself, or of our limited descriptions of it?</div>
+      <div class="tension"><strong>Tension:</strong> Epistemic interpretation: uncertainty reflects our ignorance; with better measurements, we&#x27;d know more. Ontic interpretation: quantum uncertainty is irreducible — there is nothing more to know. Copenhagen says the question is meaningless. Many-worlds says all possibilities are equally real. The epistemic/ontic distinction matters for how we think about the limits of knowledge in every domain.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> This is the deepest question in philosophy of physics: is the world inherently uncertain (randomness is fundamental) or is uncertainty always a symptom of incomplete description? The answer determines whether the universe is a machine running a deterministic program or something genuinely open.</div>
+      <div class="seed-row"><em>◧ What is irreducibly unknown here? Not measurement error — fundamental uncertainty. Where is the Heisenberg floor?</em></div>
+      <div class="tags-row"><span class="tag">uncertainty</span> <span class="tag">heisenberg</span> <span class="tag">entropy</span> <span class="tag">godel</span> <span class="tag">incompleteness</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Fourier/Laplace transforms, phase transitions, coordinate changes, morphisms" data-tags="transformation fourier phase-transition legendre basis-change morphism"
+         data-id="PRINCIPLE.P11">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">↻</span>
+        <span class="node-id">PRINCIPLE.P11</span>
+        <span class="node-name">Transformation</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Are phase transitions truly discontinuous or merely extremely sharp crossovers?</div>
+      <div class="tension"><strong>Tension:</strong> In infinite systems (thermodynamic limit), phase transitions are mathematically discontinuous — the partition function has a non-analytic point. In any finite system, all transitions are smooth crossovers. Real systems are finite. The &#x27;sharpness&#x27; we see is the approach to the infinite-system limit. Whether discontinuity is a real physical property or a mathematical idealization is a subtle point in statistical mechanics.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Every phase transition you&#x27;ve ever seen (water boiling, ice melting) is technically a crossover in a finite system. The perfect discontinuity only exists in the infinite limit — a mathematical idealization that no real physical system ever achieves. The clean concept and the messy reality have a complex relationship.</div>
+      <div class="seed-row"><em>↻ What is preserved under this transformation? Change the basis. The invariants are the truth.</em></div>
+      <div class="tags-row"><span class="tag">transformation</span> <span class="tag">fourier</span> <span class="tag">phase-transition</span> <span class="tag">legendre</span> <span class="tag">basis-change</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Fourier/Laplace transforms, phase transitions, coordinate changes, morphisms" data-tags="transformation fourier phase-transition legendre basis-change morphism"
+         data-id="PRINCIPLE.P11">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">↻</span>
+        <span class="node-id">PRINCIPLE.P11</span>
+        <span class="node-name">Transformation</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Can the Fourier transform represent all possible signals, or are there signals it fundamentally cannot decompose?</div>
+      <div class="tension"><strong>Tension:</strong> Standard Fourier transform requires absolute integrability; signals with polynomial growth (like t, t², e^t) require distributions or Laplace transforms. Non-stationary signals (frequency changes over time) need wavelet or short-time Fourier analysis. Fractal signals have power at all scales simultaneously. The question is whether any representation system can fully capture all possible signal types.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> Every representation system has blind spots — signals it can represent and signals it misses. Choosing the wrong transform distorts the information. The history of signal processing is partly the history of discovering what each transform cannot see — and inventing new ones to see it.</div>
+      <div class="seed-row"><em>↻ What is preserved under this transformation? Change the basis. The invariants are the truth.</em></div>
+      <div class="tags-row"><span class="tag">transformation</span> <span class="tag">fourier</span> <span class="tag">phase-transition</span> <span class="tag">legendre</span> <span class="tag">basis-change</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Fourier/Laplace transforms, phase transitions, coordinate changes, morphisms" data-tags="transformation fourier phase-transition legendre basis-change morphism"
+         data-id="PRINCIPLE.P11">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">↻</span>
+        <span class="node-id">PRINCIPLE.P11</span>
+        <span class="node-name">Transformation</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is consciousness itself a transformation process — a mapping between representations at different levels?</div>
+      <div class="tension"><strong>Tension:</strong> Global workspace theory frames consciousness as a broadcast transformation — content is transformed from local specialized processing to global availability. Predictive coding frames perception as a transformation of sensory data through a generative model. IIT frames experience as the irreducible information content of a transformation. All major consciousness theories involve transformation as central — but none explains why transformation produces experience.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If consciousness is a transformation, then P11 and F16 are deeply entangled. The question is whether transformation at sufficient complexity is what experience *is*, or whether there&#x27;s something more to it that transformation cannot capture.</div>
+      <div class="seed-row"><em>↻ What is preserved under this transformation? Change the basis. The invariants are the truth.</em></div>
+      <div class="tags-row"><span class="tag">transformation</span> <span class="tag">fourier</span> <span class="tag">phase-transition</span> <span class="tag">legendre</span> <span class="tag">basis-change</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Unification of forces, identity elements, wholeness, convergence of descriptions" data-tags="unification identity wholeness maxwell mass-energy convergence"
+         data-id="PRINCIPLE.P12">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">◎</span>
+        <span class="node-id">PRINCIPLE.P12</span>
+        <span class="node-name">Unity</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Will there ever be a Theory of Everything (ToE) — a single framework unifying all physics?</div>
+      <div class="tension"><strong>Tension:</strong> Weinberg (Dreams of a Final Theory) argues yes — the pattern of successive unifications suggests a final unification is achievable. Smolin (The Trouble with Physics) argues string theory has failed and we need new ideas. Ellis and Silk argue untestable string theory and multiverse are &#x27;postmodern physics&#x27; that abandons scientific method. The debate is partly philosophical: what counts as unification, and what counts as a scientific theory?</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The history of physics is a sequence of unifications: electricity + magnetism, thermodynamics + statistical mechanics, special relativity + electromagnetism, electroweak. The pattern suggests a final unification is coming. But the last step (quantum mechanics + gravity) has resisted for a century. Either the pattern continues or we are at the edge of what unification can achieve.</div>
+      <div class="seed-row"><em>◎ What two descriptions are secretly one? Find the unifying frame. The identity element is always present.</em></div>
+      <div class="tags-row"><span class="tag">unification</span> <span class="tag">identity</span> <span class="tag">wholeness</span> <span class="tag">maxwell</span> <span class="tag">mass-energy</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Unification of forces, identity elements, wholeness, convergence of descriptions" data-tags="unification identity wholeness maxwell mass-energy convergence"
+         data-id="PRINCIPLE.P12">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">◎</span>
+        <span class="node-id">PRINCIPLE.P12</span>
+        <span class="node-name">Unity</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Is the mathematical unity of the universe evidence that mathematics is the fundamental structure of reality (Mathematical Universe Hypothesis — Tegmark)?</div>
+      <div class="tension"><strong>Tension:</strong> Tegmark proposes that all mathematically consistent structures exist as physical realities — our universe is just one structure in an infinite ensemble. This is the most radical version of P12: reality *is* mathematics. Critics argue it&#x27;s untestable and dissolves the distinction between existence and logical possibility. But Tegmark&#x27;s view is a natural endpoint of the &#x27;unreasonable effectiveness of mathematics&#x27; observation.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> If Tegmark is right, then doing mathematics is literally exploring the multiverse. Every consistent mathematical structure is a physical reality. This would make P12 not just a principle but the ultimate fact about existence. It is the most ambitious possible version of unity.</div>
+      <div class="seed-row"><em>◎ What two descriptions are secretly one? Find the unifying frame. The identity element is always present.</em></div>
+      <div class="tags-row"><span class="tag">unification</span> <span class="tag">identity</span> <span class="tag">wholeness</span> <span class="tag">maxwell</span> <span class="tag">mass-energy</span></div>
+    </div>
+
+    <div class="card" data-kind="principle" data-field=""
+         data-domain="Unification of forces, identity elements, wholeness, convergence of descriptions" data-tags="unification identity wholeness maxwell mass-energy convergence"
+         data-id="PRINCIPLE.P12">
+      <div class="card-header" style="border-left: 4px solid #aaaaaa">
+        <span class="symbol">◎</span>
+        <span class="node-id">PRINCIPLE.P12</span>
+        <span class="node-name">Unity</span>
+        <span class="kind-badge principle">principle</span>
+      </div>
+      <div class="question">❓ Does the unity of consciousness — the single &#x27;I&#x27; that experiences — require a specific physical substrate, or is it substrate-independent?</div>
+      <div class="tension"><strong>Tension:</strong> Functionalism: any system with the right computational structure would have unified consciousness. Biological naturalism (Searle): consciousness requires specific causal powers of biological neurons; silicon cannot unify consciousness. IIT: unity (high Φ) is substrate-independent but architecture-specific — certain network architectures achieve unity and others do not. The question is both philosophical and empirical.</div>
+      <div class="hook"><strong>Curiosity hook:</strong> The unity of self — the fact that all your experiences right now feel like they belong to one &#x27;you&#x27; — is either a physical fact about your neurons or a computational fact about how information is integrated. This question determines whether AI systems can ever have genuine unified experience or only functional approximations of it.</div>
+      <div class="seed-row"><em>◎ What two descriptions are secretly one? Find the unifying frame. The identity element is always present.</em></div>
+      <div class="tags-row"><span class="tag">unification</span> <span class="tag">identity</span> <span class="tag">wholeness</span> <span class="tag">maxwell</span> <span class="tag">mass-energy</span></div>
+    </div>
+  </div>
+
+  <script>
+    function applyFilters() {
+      const kind   = document.getElementById('filter-kind').value.toLowerCase();
+      const field  = document.getElementById('filter-field').value.toLowerCase();
+      const search = document.getElementById('filter-search').value.toLowerCase();
+
+      const cards = document.querySelectorAll('.card');
+      let shown = 0;
+      cards.forEach(card => {
+        const ckind   = card.dataset.kind   || '';
+        const cfield  = card.dataset.field  || '';
+        const ctags   = card.dataset.tags   || '';
+        const cid     = card.dataset.id     || '';
+        const ctext   = (card.textContent   || '').toLowerCase();
+
+        const matchKind   = !kind   || ckind  === kind;
+        const matchField  = !field  || cfield === field;
+        const matchSearch = !search || ctext.includes(search) ||
+                            ctags.includes(search) || cid.toLowerCase().includes(search);
+
+        if (matchKind && matchField && matchSearch) {
+          card.classList.remove('hidden');
+          shown++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      document.getElementById('result-count').textContent =
+        `Showing ${shown} of ${cards.length} questions`;
+    }
+
+    function clearFilters() {
+      document.getElementById('filter-kind').value   = '';
+      document.getElementById('filter-field').value  = '';
+      document.getElementById('filter-search').value = '';
+      applyFilters();
+    }
+
+    document.getElementById('filter-kind').addEventListener('change', applyFilters);
+    document.getElementById('filter-field').addEventListener('change', applyFilters);
+    document.getElementById('filter-search').addEventListener('input', applyFilters);
+
+    applyFilters();
+  </script>
+</body>
+</html>
