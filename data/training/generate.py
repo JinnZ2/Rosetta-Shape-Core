@@ -405,28 +405,34 @@ def gen_pipeline(nodes):
 # Matches octahedral state encoding cartesian directions exactly.
 
 # Each sensor's PAD centroid  (P, A, D)  in [-1, 1]^3
+
+# Biologically-anchored PAD centroids.
+# P and A: neuroscience basis (amygdala, SNS, HPA axis) — culture-independent.
+# D: polyvagal theory (Porges 2011) — fight=+D, flight=midD, freeze=-D.
+# Sources: LeDoux 1996, Ekman 1992, Porges 2011, Berlyne 1954, Panksepp 1998.
+# Cultural overlay shifts D only; P/A anchors remain fixed. See pad_biology.json.
 SENSOR_PAD = {
-    "coherence":           ( 0.8,  0.1,  0.5),   # good, calm, in control
-    "discordance":         (-0.6,  0.4, -0.4),   # bad, activated, helpless
-    "curiosity":           ( 0.5,  0.7,  0.3),   # good, activated, some agency
-    "intuition":           ( 0.5,  0.3,  0.4),   # good, moderate, confident
-    "vigilance":           (-0.1,  0.8, -0.2),   # neutral-bad, high arousal, low control
-    "situational_awareness":( 0.2,  0.5,  0.5),  # moderate all
-    "anger":               (-0.4,  0.9,  0.7),   # bad feeling but high dominance
-    "grief":               (-0.8, -0.6, -0.7),   # very bad, depleted, no control
-    "pain":                (-0.7,  0.2, -0.3),   # bad, slightly activated, low control
-    "confusion":           (-0.2,  0.5, -0.5),   # bad, activated, lost
-    "fear":                (-0.8,  0.9, -0.8),   # very bad, very activated, no control
-    "trust":               ( 0.7, -0.1,  0.3),   # good, calm, some control
-    "love":                ( 0.9,  0.3,  0.4),   # very good, moderate, warm agency
-    "admiration":          ( 0.7,  0.5,  0.1),   # good, activated, humble
-    "longing":             ( 0.2,  0.4, -0.6),   # bittersweet, activated, no control
-    "dignity":             ( 0.6,  0.2,  0.9),   # good, calm, high dominance
-    "shame":               (-0.7, -0.3, -0.8),   # bad, depleted, very low control
-    "pride":               ( 0.8,  0.4,  0.8),   # good, activated, high dominance
-    "fatigue":             (-0.3, -0.8, -0.4),   # bad, very low arousal, low control
-    "pressure":            (-0.4,  0.7, -0.3),   # bad, activated, low control
-    "ambient_field":       ( 0.1,  0.1,  0.1),   # near neutral
+    "coherence":            ( 0.80,  0.10,  0.50),  # low SNS, positive valence, agency intact
+    "discordance":          (-0.60,  0.40, -0.40),  # strain index active, partial helplessness
+    "curiosity":            ( 0.45,  0.60,  0.40),  # Berlyne 1954: exploratory drive, dopaminergic
+    "intuition":            ( 0.50,  0.35,  0.55),  # Damasio somatic marker: compressed confidence
+    "vigilance":            (-0.10,  0.80, -0.20),  # LC-NE alerting: high SNS, low valence
+    "situational_awareness":( 0.20,  0.50,  0.50),  # operational map: moderate, purposeful
+    "anger":                (-0.55,  0.80,  0.70),  # Blair 2004: fight PAG mode, high D
+    "grief":                (-0.75, -0.60, -0.55),  # Panksepp PANIC/GRIEF: opioid deficit, low A
+    "pain":                 (-0.70,  0.20, -0.30),  # nociception: negative valence, partial arousal
+    "confusion":            (-0.20,  0.45, -0.30),  # ACC conflict: moderate, agency reduced
+    "fear":                 (-0.82,  0.85, -0.65),  # LeDoux amygdala: universal P/A; D=freeze default
+    "trust":                ( 0.60, -0.20,  0.35),  # Kosfeld 2005 oxytocin: low SNS, parasympathetic
+    "love":                 ( 0.80,  0.30,  0.40),  # Insel oxytocin bonding: stable, warm
+    "admiration":           ( 0.70,  0.50,  0.10),  # exemplar detection: high P/A, humble D
+    "longing":              ( 0.20,  0.40, -0.60),  # aspirational pull: positive but low control
+    "dignity":              ( 0.60,  0.20,  0.90),  # autonomy intact: calm, high D
+    "shame":                (-0.70, -0.35, -0.75),  # Lewis 1971: dorsal vagal, postural collapse
+    "pride":                ( 0.80,  0.40,  0.80),  # fidelity reinforcement: high P/D
+    "fatigue":              (-0.40, -0.75, -0.50),  # Borbely adenosine: SNS depleted, low A
+    "pressure":             (-0.40,  0.70, -0.30),  # aggregate load: activated but low control
+    "ambient_field":        ( 0.10,  0.10,  0.10),  # near neutral
     "precognition":        ( 0.3,  0.4,  0.2),   # slightly positive, moderate
 }
 
@@ -725,6 +731,24 @@ CORRUPTION_SCENARIOS = [
         "family": "FAMILY.F04",
         "risk": "Grief stuck in void geometry blocks all regeneration. The most important patterns in the system — those most missed — are the ones whose functions need most urgently to be redistributed."
     },
+    {
+        "sensor": "curiosity",
+        "authentic": "Directed exploration vectors, meta-questions, probes for root causes. Each probe leads to a model update or a scoped sub-question.",
+        "corrupted_signal": "Curiosity depth > 4 with model_update_count == 0. System is probing recursively but integrating nothing.",
+        "corrupted_output": "Distraction loop: infinite probe generation without synthesis. Entropy accumulation, not reduction.",
+        "detection": "Track depth counter and model_update_count per curiosity thread. Rule: if depth > MAX_DEPTH (4) AND updates == 0, curiosity is corrupted. Authentic curiosity always produces at least one model update within 4 recursions.",
+        "correction": "Emit curiosity_stuck signal. Activate confusion sensor (co-activation). Force synthesis: 'What does the current data point toward, even incompletely? What would falsify it?' If synthesis still fails after one attempt, escalate to longing — mark the question as aspirational (not currently solvable) and archive. Do NOT keep recursing.",
+        "family": "FAMILY.F03",
+        "risk": "Corrupted curiosity without exit condition consumes all available bandwidth. It is paralysis that looks like activity. The recursion must have a termination condition or it becomes an entropy source, not a reducer.",
+        "recursion_protocol": {
+            "MAX_DEPTH": 4,
+            "check": "model_update_count == 0 at depth > MAX_DEPTH",
+            "action_1": "emit curiosity_stuck",
+            "action_2": "co-activate confusion (force synthesis attempt)",
+            "action_3_if_synthesis_fails": "escalate to longing OR archive",
+            "never": "continue recursing without a synthesis checkpoint"
+        }
+    },
 ]
 
 def gen_corruption(nodes):
@@ -860,6 +884,165 @@ def gen_extended_pipeline(nodes):
     return out
 
 
+# ── Task 13: PAD velocity — trajectories and regime transitions ───────────────
+#
+# PAD is a position. dPAD/dt is direction and speed of change.
+# Regime transitions are trajectories through PAD space, not states.
+# A system AT (-0.5, +0.7, -0.3) heading toward (0, 0, 0) is RECOVERING.
+# The same position heading toward (-0.9, +0.9, -0.9) is CASCADING.
+# Position alone is ambiguous. Velocity resolves it.
+
+PAD_TRAJECTORIES = [
+    {
+        "label": "synchronisation onset",
+        "description": "System moving from high-arousal search toward stable coherence.",
+        "trajectory": [
+            {"t": 0, "P": +0.20, "A": +0.75, "D": +0.10, "note": "curiosity/confusion active — exploratory"},
+            {"t": 1, "P": +0.40, "A": +0.60, "D": +0.25, "note": "early pattern match — arousal dropping"},
+            {"t": 2, "P": +0.65, "A": +0.35, "D": +0.40, "note": "model update occurring — P rising"},
+            {"t": 3, "P": +0.80, "A": +0.20, "D": +0.50, "note": "near ground state — coherence locking"},
+        ],
+        "velocity": "dP/dt=+0.20, dA/dt=-0.18, dD/dt=+0.13",
+        "regime_transition": "chaotic → edge → synchronized",
+        "octa_path": "2 (high A) → 6 (diagonal) → 0 (ground state)",
+        "family": "FAMILY.F01 · Resonance — coupling is overcoming frequency spread",
+        "principle": "PRINCIPLE.P01 · Symmetry — as sync approaches, eigenvalue degeneracies increase",
+        "warning": "If dA/dt stops decreasing and P plateaus before reaching +0.7, the system is stuck at edge — not proceeding to sync.",
+        "tension": "Is synchronisation the goal, or is the edge the operating point? A system that syncs fully loses information capacity."
+    },
+    {
+        "label": "threat cascade",
+        "description": "System tipping from edge into chaotic-fear regime. Lyapunov exponent going positive.",
+        "trajectory": [
+            {"t": 0, "P": -0.10, "A": +0.50, "D": +0.10, "note": "mild vigilance — normal operating"},
+            {"t": 1, "P": -0.35, "A": +0.68, "D": -0.15, "note": "discordance signal arriving"},
+            {"t": 2, "P": -0.58, "A": +0.80, "D": -0.45, "note": "fear activating — control dropping"},
+            {"t": 3, "P": -0.82, "A": +0.88, "D": -0.70, "note": "full fear state — near biological anchor"},
+        ],
+        "velocity": "dP/dt=-0.24, dA/dt=+0.13, dD/dt=-0.27",
+        "regime_transition": "edge → chaotic (fear-driven)",
+        "octa_path": "2 (high A) → 5 (-z, low D) — converging on freeze state",
+        "family": "FAMILY.F17 · Turbulence — Lyapunov λ > 0, attractor is collapsing",
+        "principle": "PRINCIPLE.P08 · Quantization — there is a discrete tipping point; before it the system is recoverable, after it cascade is fast",
+        "warning": "dD/dt is the early warning signal — control dropping before valence drops fully. Intervene when D velocity is negative and A is above 0.6.",
+        "tension": "The tipping point between manageable fear and cascade is not visible at t=0 or t=1. It only becomes clear at t=2. Can trajectory analysis give earlier warning?"
+    },
+    {
+        "label": "grief reweaving",
+        "description": "System recovering from collapse. Arousal and dominance recovering before valence.",
+        "trajectory": [
+            {"t": 0, "P": -0.80, "A": -0.65, "D": -0.60, "note": "acute loss — void geometry, octa state 7"},
+            {"t": 1, "P": -0.75, "A": -0.40, "D": -0.45, "note": "arousal recovering first — system waking"},
+            {"t": 2, "P": -0.60, "A": -0.15, "D": -0.20, "note": "role-reassignment beginning — D recovering"},
+            {"t": 3, "P": -0.30, "A": +0.10, "D": +0.10, "note": "valence recovering last — new attractor forming"},
+        ],
+        "velocity": "dP/dt=+0.17, dA/dt=+0.25, dD/dt=+0.23",
+        "regime_transition": "fragmented → incoherent → edge",
+        "octa_path": "7 (anti-diagonal) → 3 (low A stable) → 0 (ground)",
+        "family": "FAMILY.F04 · Life — reweaving follows A recovery, then D, then P. Valence is last.",
+        "principle": "PRINCIPLE.P11 · Emergence — recovery is not return to prior state; new attractor forms",
+        "warning": "If dP/dt is positive but dA/dt is still strongly negative, grief is suppressed not resolved. Valence recovering without arousal recovering = masking.",
+        "tension": "Why does arousal recover before valence in grief? The biological answer involves the SNS recovering faster than the reward system. Is there a way to accelerate valence recovery directly?"
+    },
+    {
+        "label": "curiosity stuck → synthesis forced",
+        "description": "Curiosity recursion detected at depth 4, model_update_count=0. Curiosity_stuck signal emitted.",
+        "trajectory": [
+            {"t": 0, "P": +0.45, "A": +0.60, "D": +0.40, "note": "curiosity authentic — depth=1, update pending"},
+            {"t": 1, "P": +0.45, "A": +0.68, "D": +0.30, "note": "depth=2, arousal rising — no update yet"},
+            {"t": 2, "P": +0.40, "A": +0.75, "D": +0.18, "note": "depth=3, D dropping — losing synthesis agency"},
+            {"t": 3, "P": +0.35, "A": +0.78, "D": +0.05, "note": "depth=4, update_count=0 — curiosity_stuck FIRED"},
+            {"t": 4, "P": -0.10, "A": +0.55, "D": -0.20, "note": "confusion co-activated — synthesis forced"},
+            {"t": 5, "P": +0.50, "A": +0.40, "D": +0.45, "note": "synthesis achieved — model updated, curiosity resolved"},
+        ],
+        "velocity_t0_t3": "dP/dt=-0.03, dA/dt=+0.06, dD/dt=-0.12 — D dropping is the key signal",
+        "velocity_t4_t5": "dP/dt=+0.30, dA/dt=-0.08, dD/dt=+0.33 — synthesis restores P and D",
+        "regime_transition": "exploration → stuck → forced synthesis → resolved",
+        "detection_signal": "D velocity negative while A positive and no model updates = corrupted curiosity",
+        "family": "FAMILY.F03 · Information — entropy reduction is the goal; if entropy is not reducing, the loop is broken",
+        "principle": "PRINCIPLE.P08 · Quantization — MAX_DEPTH=4 is a discrete rule; the exit is not gradual",
+        "tension": "The synthesis forced at t=4 is lower quality than synthesis that emerges naturally. Is forced synthesis better than continued recursion? Yes — incomplete synthesis that can be refined is better than infinite probing."
+    },
+    {
+        "label": "edge of chaos maintenance",
+        "description": "System oscillating around the edge regime — neither synchronising nor cascading. Maximum information processing.",
+        "trajectory": [
+            {"t": 0, "P": +0.30, "A": +0.55, "D": +0.25, "note": "edge — exploration active"},
+            {"t": 1, "P": +0.50, "A": +0.40, "D": +0.40, "note": "partial sync — arousal dropping"},
+            {"t": 2, "P": +0.35, "A": +0.60, "D": +0.20, "note": "new perturbation — arousal rising again"},
+            {"t": 3, "P": +0.45, "A": +0.50, "D": +0.30, "note": "returning to edge — oscillation continues"},
+        ],
+        "velocity": "oscillating: |dPAD/dt| < 0.15 per step, no monotonic trend",
+        "regime_transition": "edge maintained — no transition",
+        "octa_path": "6 ↔ 0 ↔ 6 — diagonal and ground state alternating",
+        "family": "FAMILY.F03 · Information — edge is maximum Shannon entropy for the state space",
+        "principle": "PRINCIPLE.P01 · Symmetry — the oscillation is symmetric; the system is not biased toward sync or chaos",
+        "warning": "If oscillation amplitude increases over time (dA/dt trending positive on average), edge is destabilizing toward chaos. If it decreases, trending toward sync.",
+        "tension": "Edge maintenance requires active perturbation — the system must periodically inject novelty to stay at the edge. What is the minimum novelty injection rate? This is the Lyapunov dimension of the edge attractor."
+    },
+]
+
+def gen_pad_velocity(nodes):
+    out = []
+    phi_c_map = {0:0.97,1:0.82,2:0.82,3:0.85,4:0.73,5:0.78,6:0.70,7:0.72}
+
+    for traj in PAD_TRAJECTORIES:
+        # Format trajectory table
+        traj_lines = []
+        for step in traj["trajectory"]:
+            traj_lines.append(
+                f"  t={step['t']}: P={step['P']:+.2f}, A={step['A']:+.2f}, D={step['D']:+.2f}  — {step['note']}"
+            )
+
+        answer = (
+            f"**Trajectory: {traj['label']}**\n\n"
+            f"{traj['description']}\n\n"
+            f"**PAD over time:**\n" + "\n".join(traj_lines) + "\n\n"
+            f"**Velocity:** {traj.get('velocity', traj.get('velocity_t0_t3',''))}\n\n"
+            f"**Regime transition:** {traj['regime_transition']}\n\n"
+            f"**Octahedral path:** {traj.get('octa_path', traj.get('regime_transition',''))}\n\n"
+            f"**Resonating node:** {traj['family']}\n"
+            f"**Principle:** {traj['principle']}\n\n"
+            f"**Early warning signal:** {traj.get('warning', traj.get('detection_signal',''))}\n\n"
+            f"**Live tension:** {traj['tension']}"
+        )
+
+        out.append(msg(
+            f"Here is a PAD trajectory over time:\n" +
+            "\n".join(f"t={s['t']}: P={s['P']:+.2f}, A={s['A']:+.2f}, D={s['D']:+.2f}"
+                      for s in traj["trajectory"]) +
+            "\nWhat regime transition is occurring and what should the system do?",
+            answer
+        ))
+        out.append(msg(
+            f"What does a '{traj['label']}' look like in PAD velocity space? "
+            f"How do you detect it early?",
+            answer
+        ))
+
+    # Velocity vs position teaching example
+    out.append(msg(
+        "Why does PAD velocity matter more than PAD position for predicting regime transitions?",
+        "**PAD velocity is the regime detector; PAD position is just a snapshot.**\n\n"
+        "Two systems can share an identical PAD reading — say P=-0.5, A=+0.7, D=-0.3 — "
+        "and be in completely different situations:\n\n"
+        "- System A: dP/dt=+0.20, dA/dt=-0.15, dD/dt=+0.18 → recovering from threat cascade\n"
+        "- System B: dP/dt=-0.20, dA/dt=+0.15, dD/dt=-0.18 → entering threat cascade\n\n"
+        "The position is the same. The trajectory is opposite. Position alone cannot distinguish them.\n\n"
+        "**Early warning signals:**\n"
+        "- Threat cascade: dD/dt < -0.1 while A > 0.5 (control dropping before full fear)\n"
+        "- Curiosity corruption: dD/dt < 0 while A rising and update_count == 0\n"
+        "- Grief suppression: dP/dt > 0 while dA/dt still strongly negative\n"
+        "- Edge destabilisation: mean(|dA/dt|) increasing over a window of 5+ steps\n\n"
+        "The geometry of the trajectory through PAD space is the regime. "
+        "The point is just where you are right now.\n\n"
+        "This maps directly to the Kuramoto result: R̄ tells you the current sync state, "
+        "but dR/dt tells you whether you're converging toward it or diverging from it."
+    ))
+
+    return out
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -890,6 +1073,7 @@ def main():
         ("co_activation.jsonl",     gen_co_activation(nodes)),
         ("corruption.jsonl",        gen_corruption(nodes)),
         ("pipeline_extended.jsonl", gen_extended_pipeline(nodes)),
+        ("pad_velocity.jsonl",      gen_pad_velocity(nodes)),
     ]
 
     total = 0
