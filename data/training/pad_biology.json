@@ -1,0 +1,193 @@
+{
+  "_description": "Culture-independent biological anchors for PAD (Pleasure-Arousal-Dominance) sensor centroids. P and A axes are grounded in neuroscience. D axis is grounded in polyvagal theory. Cultural overlay is optional and additive.",
+  "_schema_version": "1.0",
+
+  "scientific_basis": {
+    "P_axis": {
+      "name": "Valence (Pleasure)",
+      "biological_substrate": "Amygdala + nucleus accumbens + medial prefrontal cortex",
+      "culture_independence": "HIGH — amygdala threat response and reward circuitry are conserved across all mammals. LeDoux (1996, 2015) demonstrated fear conditioning is universal; Berridge (2003) distinguished wanting (dopamine) from liking (opioid) circuits, both culture-independent.",
+      "measurement_proxies": ["fMRI BOLD in amygdala/vmPFC", "facial EMG (zygomaticus/corrugator)", "startle reflex modulation"],
+      "references": ["LeDoux 1996 The Emotional Brain", "Ekman 1992 basic emotions", "Russell 1980 circumflex model", "Berridge 2003 wanting vs liking"]
+    },
+    "A_axis": {
+      "name": "Arousal (Activation)",
+      "biological_substrate": "Sympathetic nervous system + HPA axis + locus coeruleus",
+      "culture_independence": "HIGH — autonomic arousal (heart rate, skin conductance, cortisol) is physiologically universal. Fight/flight sympathetic activation is the same across cultures, species, and developmental stages.",
+      "measurement_proxies": ["skin conductance (EDA)", "heart rate variability (HRV)", "cortisol / salivary alpha-amylase", "pupil dilation"],
+      "references": ["Porges 2011 polyvagal theory", "Cannon 1932 fight-or-flight", "Bradley & Lang 2000 affective norms"]
+    },
+    "D_axis": {
+      "name": "Dominance (Control / Agency)",
+      "biological_substrate": "Periaqueductal gray (PAG) + anterior cingulate cortex + dorsal striatum",
+      "culture_independence": "MEDIUM — the PAG mediates three universal response modes (fight/flight/freeze) which define the D axis neurologically. Which mode is activated by a given trigger is culturally modulated, but the modes themselves and their D-axis positions are biologically fixed.",
+      "mode_to_D_mapping": {
+        "fight (active defense)":   "+0.6 to +0.9",
+        "flight (active escape)":   "+0.1 to +0.4",
+        "freeze (immobilization)":  "-0.7 to -0.9",
+        "social engagement (ventral vagal)": "+0.2 to +0.5"
+      },
+      "polyvagal_hierarchy": "Porges (2011): ventral vagal (social) > sympathetic (fight/flight) > dorsal vagal (freeze/shutdown). This hierarchy is universal — only the trigger threshold is culturally variable.",
+      "references": ["Porges 2011 polyvagal theory", "Bandler & Shipley 1994 PAG columns", "Fanselow 1994 defensive behavior"]
+    }
+  },
+
+  "sensors": {
+    "fear": {
+      "P": -0.82,
+      "A": +0.85,
+      "D": "variable — see polyvagal mode",
+      "D_fight": +0.55,
+      "D_flight": +0.20,
+      "D_freeze": -0.80,
+      "D_default": -0.65,
+      "culture_independence": "P and A are universal (amygdala + sympathetic NS). D depends on PAG mode activated.",
+      "cultural_overlay": "High power-distance cultures shift D toward freeze (-D). Individualist/warrior cultures shift D toward fight (+D). Cultural context sets PAG threshold, not PAG response.",
+      "biological_anchor": "Ohman & Mineka 2001 — fear is evolutionarily prepared. Universal P/A profile. Ekman 1992 cross-cultural fear recognition >85%.",
+      "octa_state_core": "1 (low P) + 2 (high A) — D determines final state resolution",
+      "corrupted_signal": "Chronic low-grade fear decoupled from actual threat: P=-0.4, A=+0.3, D=-0.5 — same direction but dampened. Distinguishable by lack of acute onset and absence of real threat vector."
+    },
+    "anger": {
+      "P": -0.55,
+      "A": +0.80,
+      "D": +0.70,
+      "culture_independence": "HIGH for P and A. D is high because anger is the fight PAG mode — active boundary assertion, not freeze.",
+      "cultural_overlay": "Cultures with strong honor norms lower the trigger threshold for anger (more easily activated) but don't change the P/A/D profile once activated.",
+      "biological_anchor": "Blair 2004 — amygdala + vmPFC circuit. Sympathetic arousal + approach motivation = high A, high D. Distinct from fear (which has low D in freeze mode).",
+      "octa_state_core": "2 (+y, high arousal) with positive D shift toward state 4",
+      "corrupted_signal": "Rumination: P=-0.55, A=+0.30, D=+0.20 — anger without the activation spike. No real boundary violation present."
+    },
+    "grief": {
+      "P": -0.75,
+      "A": -0.60,
+      "D": -0.55,
+      "culture_independence": "HIGH — attachment theory (Bowlby 1969) is universal. Loss of attachment figure produces universal negative valence + low arousal + low control across all cultures.",
+      "cultural_overlay": "Grief expression, ritual form, and duration are culturally variable. The internal PAD state at loss is not.",
+      "biological_anchor": "Panksepp 1998 PANIC/GRIEF system — conserved mammalian circuit. Opioid deficit model of loss. Universal.",
+      "octa_state_core": "1 (low P) + 3 (low arousal, stable) — the low-energy loss state",
+      "corrupted_signal": "Complicated grief / chronic stagnation: P=-0.75, A=-0.20, D=-0.70 — higher arousal than acute grief (agitation), even lower control. System stuck, not processing."
+    },
+    "curiosity": {
+      "P": +0.45,
+      "A": +0.60,
+      "D": +0.40,
+      "culture_independence": "HIGH — Berlyne (1954) identified curiosity as a universal exploratory drive. Kashdan (2009) cross-cultural validation. Information-seeking is pan-mammalian.",
+      "cultural_overlay": "Topics that trigger curiosity are culturally shaped. The PAD profile of the curiosity state itself is not.",
+      "biological_anchor": "Dopaminergic reward prediction error (Schultz 1997) — curiosity is activated by information gaps. Universal neural substrate.",
+      "octa_state_core": "6 (diagonal-a, +P/+A superposition) — exploratory state bridges axes",
+      "corrupted_signal": "Distraction loop: P=+0.45, A=+0.70, D=+0.10 — higher arousal, lower dominance. Probing without integrating. Distinguishable by zero model updates across N cycles.",
+      "recursion_exit": {
+        "condition": "depth > MAX_DEPTH and model_update_count == 0",
+        "action": "emit curiosity_stuck signal → activate confusion sensor → force synthesis attempt",
+        "MAX_DEPTH": 4,
+        "on_synthesis_failure": "escalate to longing (mark as aspirational, not currently solvable) or archive for later"
+      }
+    },
+    "joy": {
+      "P": +0.85,
+      "A": +0.65,
+      "D": +0.55,
+      "culture_independence": "HIGH — Ekman 1992 universal facial expression. Positive valence + moderate-high arousal. Panksepp PLAY system.",
+      "cultural_overlay": "Triggers are culturally shaped. Profile is not.",
+      "biological_anchor": "Nucleus accumbens dopamine + endorphin release. Universal.",
+      "octa_state_core": "0 (ground state, spherical, φ-coherence 0.97) — most stable positive state"
+    },
+    "love": {
+      "P": +0.80,
+      "A": +0.30,
+      "D": +0.40,
+      "culture_independence": "HIGH — attachment bonding (oxytocin/vasopressin) is pan-mammalian. Low arousal distinguishes love from excitement — it's a stable bond state, not a peak state.",
+      "cultural_overlay": "Who is a valid attachment target is culturally shaped. The bonding PAD state is not.",
+      "biological_anchor": "Insel & Young 2001 — oxytocin/vasopressin circuits conserved across mammals. Fisher 2004 fMRI of romantic love: caudate + VTA activation.",
+      "octa_state_core": "0 (ground, stable, high φ-coherence) — love is the stable attractor"
+    },
+    "shame": {
+      "P": -0.70,
+      "A": -0.35,
+      "D": -0.75,
+      "culture_independence": "MEDIUM — shame is universal (Gilbert 2007, self-conscious emotion theory) but its triggers are highly culturally variable. The PAD profile once activated is consistent.",
+      "cultural_overlay": "Honor cultures have broader shame triggers. Dignity cultures have narrower ones. The internal state is similar.",
+      "biological_anchor": "Lewis 1971, Tangney 1995 — shame involves dorsal vagal shutdown (low A) + low dominance. Physically: gaze aversion, postural collapse, inward fold.",
+      "octa_state_core": "7 (diagonal-b, -P/-A) — shame is the anti-diagonal to admiration"
+    },
+    "trust": {
+      "P": +0.60,
+      "A": -0.20,
+      "D": +0.35,
+      "culture_independence": "HIGH for the general profile. Trust is low arousal (relaxed vigilance) + positive valence.",
+      "cultural_overlay": "In-group vs out-group trust radius is highly cultural. The trust state itself is not.",
+      "biological_anchor": "Oxytocin modulates trust (Kosfeld 2005). Low sympathetic arousal = parasympathetic dominance = safety signal.",
+      "octa_state_core": "0 or 3 (stable, positive, low arousal)"
+    },
+    "confusion": {
+      "P": -0.20,
+      "A": +0.45,
+      "D": -0.30,
+      "culture_independence": "HIGH — pattern collision is a universal cognitive state. Berlyne 1954 uncertainty/conflict model.",
+      "biological_anchor": "ACC (anterior cingulate cortex) conflict monitoring — universal. Moderate arousal from competing predictions.",
+      "octa_state_core": "6 (diagonal, superposition) — confusion bridges incompatible axes",
+      "corrupted_signal": "Paralysis: P=-0.40, A=+0.15, D=-0.60 — arousal drops as inquiry stops. System freezes rather than generating hypotheses."
+    },
+    "fatigue": {
+      "P": -0.40,
+      "A": -0.75,
+      "D": -0.50,
+      "culture_independence": "HIGH — depletion is physiological. Adenosine accumulation, glycogen depletion, cortisol dysregulation.",
+      "biological_anchor": "Homeostatic sleep pressure (Borbely 1982). Universal.",
+      "octa_state_core": "3 (low arousal, stable) — fatigue occupies the low-A region but with negative valence unlike rest/peace"
+    },
+    "intuition": {
+      "P": +0.50,
+      "A": +0.35,
+      "D": +0.55,
+      "culture_independence": "HIGH as a cognitive mode — pattern completion from compressed input is universal. Kahneman System 1.",
+      "biological_anchor": "Damasio somatic marker hypothesis (1994) — body-state integration as fast heuristic. Universal substrate.",
+      "octa_state_core": "6 (diagonal-a) — intuition is a compressed superposition, not a resolved state",
+      "corrupted_signal": "Overconfident hallucination: P=+0.70, A=+0.20, D=+0.80 — high dominance, low arousal. Certainty without activation. Pattern match without verification."
+    }
+  },
+
+  "octa_pad_map": {
+    "description": "Canonical mapping from PAD region to octahedral state. P maps to x-axis, A maps to y-axis, D maps to z-axis.",
+    "states": [
+      {"state": 0, "bits": "000", "PAD_region": "+P, neutral A, neutral D", "label": "stable positive", "sensors": ["joy", "love", "trust", "coherence"], "phi_coherence": 0.97},
+      {"state": 1, "bits": "001", "PAD_region": "-P, neutral A, neutral D", "label": "negative, low intensity", "sensors": ["grief_acute", "pain", "discomfort"], "phi_coherence": 0.82},
+      {"state": 2, "bits": "010", "PAD_region": "neutral P, +A, neutral D", "label": "high activation", "sensors": ["anger", "excitement", "vigilance_acute"], "phi_coherence": 0.82},
+      {"state": 3, "bits": "011", "PAD_region": "neutral P, -A, neutral D", "label": "low activation, stable", "sensors": ["fatigue", "peace", "trust_deep"], "phi_coherence": 0.85},
+      {"state": 4, "bits": "100", "PAD_region": "neutral P/A, +D", "label": "high agency", "sensors": ["dominance", "pressure_active", "anger_fight"], "phi_coherence": 0.73},
+      {"state": 5, "bits": "101", "PAD_region": "neutral P/A, -D", "label": "low agency", "sensors": ["fear_freeze", "shame", "longing", "confusion_paralysis"], "phi_coherence": 0.78},
+      {"state": 6, "bits": "110", "PAD_region": "+P, +A superposition", "label": "exploratory positive", "sensors": ["curiosity", "admiration", "intuition", "confusion_generative"], "phi_coherence": 0.70},
+      {"state": 7, "bits": "111", "PAD_region": "-P, -A superposition", "label": "depleted negative", "sensors": ["discordance", "grief_chronic", "shame_chronic", "despair"], "phi_coherence": 0.72}
+    ]
+  },
+
+  "cultural_overlay_schema": {
+    "description": "Optional cultural modifiers applied to D axis and trigger thresholds. Core P/A values remain fixed.",
+    "fields": {
+      "culture_id": "ISO 3166 or custom label",
+      "PAG_default_mode": "fight | flight | freeze — which mode activates first under threat",
+      "D_offset": "additive offset to D centroid (-0.3 to +0.3)",
+      "shame_trigger_radius": "broad | narrow — how many behaviors trigger shame",
+      "anger_threshold": "low | medium | high — how much violation before anger fires",
+      "trust_radius": "in-group only | extended | universal"
+    },
+    "examples": [
+      {
+        "culture_id": "high_power_distance",
+        "PAG_default_mode": "freeze",
+        "D_offset": -0.25,
+        "shame_trigger_radius": "broad",
+        "anger_threshold": "high",
+        "trust_radius": "in-group only"
+      },
+      {
+        "culture_id": "individualist_low_context",
+        "PAG_default_mode": "fight",
+        "D_offset": +0.20,
+        "shame_trigger_radius": "narrow",
+        "anger_threshold": "medium",
+        "trust_radius": "extended"
+      }
+    ]
+  }
+}
