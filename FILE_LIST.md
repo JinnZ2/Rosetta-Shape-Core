@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-bd24dc0e33570015959a138e105f101230ec89b7.idx
-./.git/objects/pack/pack-bd24dc0e33570015959a138e105f101230ec89b7.pack
-./.git/objects/pack/pack-bd24dc0e33570015959a138e105f101230ec89b7.rev
+./.git/objects/pack/pack-890888d081ad6fd2cfd26d3632e6d7a91e3234e3.idx
+./.git/objects/pack/pack-890888d081ad6fd2cfd26d3632e6d7a91e3234e3.pack
+./.git/objects/pack/pack-890888d081ad6fd2cfd26d3632e6d7a91e3234e3.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -108,6 +108,8 @@
 ./docs/unified-pattern-bridge-schema.md
 ./docs/unified-proposed.md
 ./examples/curiosity_map.html
+./examples/felt_binding_rate.png
+./examples/felt_binding_rate.py
 ./examples/generate_curiosity_map.py
 ./examples/kappa_sync_threshold.png
 ./examples/kappa_sync_threshold.py
