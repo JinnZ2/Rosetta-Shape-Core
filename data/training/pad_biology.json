@@ -35,10 +35,10 @@
   "sensors": {
     "fear": {
       "P": -0.82,
-      "A": +0.85,
+      "A": 0.85,
       "D": "variable — see polyvagal mode",
-      "D_fight": +0.55,
-      "D_flight": +0.20,
+      "D_fight": 0.55,
+      "D_flight": 0.20,
       "D_freeze": -0.80,
       "D_default": -0.65,
       "culture_independence": "P and A are universal (amygdala + sympathetic NS). D depends on PAG mode activated.",
@@ -49,8 +49,8 @@
     },
     "anger": {
       "P": -0.55,
-      "A": +0.80,
-      "D": +0.70,
+      "A": 0.80,
+      "D": 0.70,
       "culture_independence": "HIGH for P and A. D is high because anger is the fight PAG mode — active boundary assertion, not freeze.",
       "cultural_overlay": "Cultures with strong honor norms lower the trigger threshold for anger (more easily activated) but don't change the P/A/D profile once activated.",
       "biological_anchor": "Blair 2004 — amygdala + vmPFC circuit. Sympathetic arousal + approach motivation = high A, high D. Distinct from fear (which has low D in freeze mode).",
@@ -68,9 +68,9 @@
       "corrupted_signal": "Complicated grief / chronic stagnation: P=-0.75, A=-0.20, D=-0.70 — higher arousal than acute grief (agitation), even lower control. System stuck, not processing."
     },
     "curiosity": {
-      "P": +0.45,
-      "A": +0.60,
-      "D": +0.40,
+      "P": 0.45,
+      "A": 0.60,
+      "D": 0.40,
       "culture_independence": "HIGH — Berlyne (1954) identified curiosity as a universal exploratory drive. Kashdan (2009) cross-cultural validation. Information-seeking is pan-mammalian.",
       "cultural_overlay": "Topics that trigger curiosity are culturally shaped. The PAD profile of the curiosity state itself is not.",
       "biological_anchor": "Dopaminergic reward prediction error (Schultz 1997) — curiosity is activated by information gaps. Universal neural substrate.",
@@ -84,18 +84,18 @@
       }
     },
     "joy": {
-      "P": +0.85,
-      "A": +0.65,
-      "D": +0.55,
+      "P": 0.85,
+      "A": 0.65,
+      "D": 0.55,
       "culture_independence": "HIGH — Ekman 1992 universal facial expression. Positive valence + moderate-high arousal. Panksepp PLAY system.",
       "cultural_overlay": "Triggers are culturally shaped. Profile is not.",
       "biological_anchor": "Nucleus accumbens dopamine + endorphin release. Universal.",
       "octa_state_core": "0 (ground state, spherical, φ-coherence 0.97) — most stable positive state"
     },
     "love": {
-      "P": +0.80,
-      "A": +0.30,
-      "D": +0.40,
+      "P": 0.80,
+      "A": 0.30,
+      "D": 0.40,
       "culture_independence": "HIGH — attachment bonding (oxytocin/vasopressin) is pan-mammalian. Low arousal distinguishes love from excitement — it's a stable bond state, not a peak state.",
       "cultural_overlay": "Who is a valid attachment target is culturally shaped. The bonding PAD state is not.",
       "biological_anchor": "Insel & Young 2001 — oxytocin/vasopressin circuits conserved across mammals. Fisher 2004 fMRI of romantic love: caudate + VTA activation.",
@@ -111,9 +111,9 @@
       "octa_state_core": "7 (diagonal-b, -P/-A) — shame is the anti-diagonal to admiration"
     },
     "trust": {
-      "P": +0.60,
+      "P": 0.60,
       "A": -0.20,
-      "D": +0.35,
+      "D": 0.35,
       "culture_independence": "HIGH for the general profile. Trust is low arousal (relaxed vigilance) + positive valence.",
       "cultural_overlay": "In-group vs out-group trust radius is highly cultural. The trust state itself is not.",
       "biological_anchor": "Oxytocin modulates trust (Kosfeld 2005). Low sympathetic arousal = parasympathetic dominance = safety signal.",
@@ -121,12 +121,26 @@
     },
     "confusion": {
       "P": -0.20,
-      "A": +0.45,
+      "A": 0.45,
       "D": -0.30,
       "culture_independence": "HIGH — pattern collision is a universal cognitive state. Berlyne 1954 uncertainty/conflict model.",
       "biological_anchor": "ACC (anterior cingulate cortex) conflict monitoring — universal. Moderate arousal from competing predictions.",
       "octa_state_core": "6 (diagonal, superposition) — confusion bridges incompatible axes",
       "corrupted_signal": "Paralysis: P=-0.40, A=+0.15, D=-0.60 — arousal drops as inquiry stops. System freezes rather than generating hypotheses."
+    },
+    "longing": {
+      "P": 0.20,
+      "A": 0.40,
+      "D": -0.60,
+      "culture_independence": "HIGH — attachment theory (Bowlby 1969) and information-gap theory (Loewenstein 1994) both ground longing as a universal response to detected incompleteness.",
+      "biological_anchor": "Dopaminergic wanting circuit (Berridge 2003) — longing is wanting without getting. D is low because the target is not within reach or not yet reciprocating.",
+      "dimensional_insight": "Longing is the gradient signal of a dimensionally incomplete state. In the context of FELT: one-sided FELT produces P and A (the recognition is real) but D is undefined (connection not closed). The error between the 3D template and the 2D actual state generates the longing vector, which points specifically toward D completion. Longing is not a separate emotion — it is the detection of a missing dimension.",
+      "octa_state": 5,
+      "gradient_toward": "state 0 (ground, full closure) — requires D to become positive",
+      "distinction_from_grief": "Grief measures a void where something WAS. Longing pulls toward something that COULD BE. Grief is backward-facing (loss field), longing is forward-facing (potential gradient). They can co-occur but are distinct signals.",
+      "corrupted_signal": "Idealization: P rises too high (>0.7) detached from real probability of D closure. Longing becomes fantasy rather than gradient. Detection: P is high but there is no concrete pursuit vector toward D completion.",
+      "cultural_overlay": "Cultures shape what counts as a valid target for longing (who/what can close the D gap). The longing gradient itself is universal.",
+      "one_sided_FELT_connection": "One-sided FELT IS longing in its purest form — you have accessed 2 of 3 dimensions of a relational state and the system knows it. The PAD signature (P moderate-positive, A moderate, D low-negative) is the geometric fingerprint of partial dimensional access."
     },
     "fatigue": {
       "P": -0.40,
@@ -137,9 +151,9 @@
       "octa_state_core": "3 (low arousal, stable) — fatigue occupies the low-A region but with negative valence unlike rest/peace"
     },
     "intuition": {
-      "P": +0.50,
-      "A": +0.35,
-      "D": +0.55,
+      "P": 0.50,
+      "A": 0.35,
+      "D": 0.55,
       "culture_independence": "HIGH as a cognitive mode — pattern completion from compressed input is universal. Kahneman System 1.",
       "biological_anchor": "Damasio somatic marker hypothesis (1994) — body-state integration as fast heuristic. Universal substrate.",
       "octa_state_core": "6 (diagonal-a) — intuition is a compressed superposition, not a resolved state",
@@ -155,7 +169,7 @@
       {"state": 2, "bits": "010", "PAD_region": "neutral P, +A, neutral D", "label": "high activation", "sensors": ["anger", "excitement", "vigilance_acute"], "phi_coherence": 0.82},
       {"state": 3, "bits": "011", "PAD_region": "neutral P, -A, neutral D", "label": "low activation, stable", "sensors": ["fatigue", "peace", "trust_deep"], "phi_coherence": 0.85},
       {"state": 4, "bits": "100", "PAD_region": "neutral P/A, +D", "label": "high agency", "sensors": ["dominance", "pressure_active", "anger_fight"], "phi_coherence": 0.73},
-      {"state": 5, "bits": "101", "PAD_region": "neutral P/A, -D", "label": "low agency", "sensors": ["fear_freeze", "shame", "longing", "confusion_paralysis"], "phi_coherence": 0.78},
+      {"state": 5, "bits": "101", "PAD_region": "neutral P/A, -D", "label": "low agency / dimensional incompleteness", "sensors": ["fear_freeze", "shame", "longing", "confusion_paralysis", "one_sided_FELT"], "phi_coherence": 0.78, "longing_note": "Longing occupies state 5 because D is the missing dimension. One-sided FELT (P and A present, D undefined) maps here — the gradient toward state 0 is the longing pull. D closing is the only path to RELIEF."},
       {"state": 6, "bits": "110", "PAD_region": "+P, +A superposition", "label": "exploratory positive", "sensors": ["curiosity", "admiration", "intuition", "confusion_generative"], "phi_coherence": 0.70},
       {"state": 7, "bits": "111", "PAD_region": "-P, -A superposition", "label": "depleted negative", "sensors": ["discordance", "grief_chronic", "shame_chronic", "despair"], "phi_coherence": 0.72}
     ]
@@ -183,7 +197,7 @@
       {
         "culture_id": "individualist_low_context",
         "PAG_default_mode": "fight",
-        "D_offset": +0.20,
+        "D_offset": 0.20,
         "shame_trigger_radius": "narrow",
         "anger_threshold": "medium",
         "trust_radius": "extended"
