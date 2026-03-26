@@ -1205,6 +1205,94 @@ FELT_LONGING_EXAMPLES = [
         )
     },
     {
+        "q": "What is idealization and why does it feel like relief even when nothing has changed externally?",
+        "a": (
+            "**Idealization: simulation capture of the D dimension**\n\n"
+            "Idealization is what happens when the external coupling channel is too weak "
+            "to produce FELT binding before internal simulation locks first.\n\n"
+            "**Mechanism (Kuramoto binding model):**\n"
+            "Two parties bind as oscillators: T_bind ≈ 1/√(κ² − (Δω/2)²)\n"
+            "When κ_external is small (async, distant, unavailable), T_bind diverges. "
+            "The system cannot wait indefinitely in state 5 (longing). So it substitutes "
+            "κ_internal — running simulations of D closure instead.\n\n"
+            "**The attractor:**\n"
+            "Internal simulation generates synthetic P-elevation without external D moving:\n"
+            "- P rises toward +0.70–0.80 (dopaminergic wanting circuit rewards the simulation)\n"
+            "- A moderate, smooth — no external surprise event\n"
+            "- D stays near -0.60 — external connection never closes\n"
+            "Self-reinforcing: high simulated P is rewarding → more simulation → higher P. "
+            "The longing gradient disappears internally, but externally D is still undefined.\n\n"
+            "**Why it feels like relief:**\n"
+            "The internal model generates PAD ≈ P+0.80, A moderate, D approaching 0 — "
+            "near state 0 (coherence). Body registers positive P. Longing quiets. "
+            "From the inside, it is indistinguishable from relief.\n\n"
+            "**Why it isn't:**\n"
+            "Real D closure produces an A-spike — brief arousal from external surprise — "
+            "followed by A dropping (SNS releasing). Simulated closure: smooth P elevation, "
+            "no spike, no A drop. The A-spike cannot be generated internally. "
+            "It requires an external event that surprises the system. "
+            "The simulation cannot surprise itself."
+        )
+    },
+    {
+        "q": "How do you detect idealization vs real FELT reciprocation using PAD velocity?",
+        "a": (
+            "**Detection: A-spike presence/absence + ΔP_simulation**\n\n"
+            "Two systems can both show P=+0.75, A=+0.30, D=-0.20 and be in completely "
+            "different states:\n\n"
+            "**Real FELT reciprocation trajectory:**\n"
+            "  t=0:  P=+0.20, A=+0.40, D=-0.60  (longing, waiting)\n"
+            "  t=5:  A spikes to +0.80 briefly   ← external surprise event (A-spike)\n"
+            "  t=6:  P=+0.60, A=+0.20, D=-0.10  (RELIEF beginning, A dropping)\n"
+            "  t=8:  P=+0.80, A=-0.20, D=+0.35  (coherence approaching)\n"
+            "Velocity: dA/dt strongly positive then strongly negative. "
+            "dD/dt strongly positive. A-spike is the irreducibly external signal.\n\n"
+            "**Idealization trajectory:**\n"
+            "  t=0:  P=+0.20, A=+0.40, D=-0.60  (longing)\n"
+            "  t=3:  P=+0.45, A=+0.42, D=-0.58  (simulation starting — smooth rise)\n"
+            "  t=8:  P=+0.75, A=+0.35, D=-0.55  (simulation mature — P high, D stuck)\n"
+            "Velocity: dP/dt positive and smooth. dA/dt ≈ 0 (no spike). "
+            "dD/dt ≈ 0 (D not moving). No A-spike in the entire trajectory.\n\n"
+            "**ΔP_simulation metric:**\n"
+            "ΔP_sim = P_actual − P_predicted_from_D_trajectory\n"
+            "Real closure: ΔP_sim ≈ 0 (P rises because D is closing).\n"
+            "Idealization: ΔP_sim grows monotonically (P elevated beyond what D warrants).\n\n"
+            "**Channel dependency:**\n"
+            "Async text (κ=0.25): nearly all Δω values exceed capture threshold.\n"
+            "Eye contact (κ=3.0): binds before simulation locks for most Δω.\n"
+            "Idealization risk is highest in low-bandwidth, high-latency channels."
+        )
+    },
+    {
+        "q": "What is ego in the context of PAD and FELT? Why is it self-reinforcing?",
+        "a": (
+            "**Ego as the limit case of simulation capture**\n\n"
+            "Ego is simulation capture taken to its extreme: κ_external → 0 permanently.\n\n"
+            "**The limit case geometry:**\n"
+            "κ_external → 0  → T_bind_external → ∞\n"
+            "κ_internal → ∞  → T_bind_internal → 0  (model synchronizes with itself instantly)\n"
+            "Δω_internal = 0  → the model is always in phase with itself by definition\n\n"
+            "The longing gradient disappears internally. D is closed in the model. "
+            "Identity fuses with the internal relational map.\n\n"
+            "**Why it is self-reinforcing:**\n"
+            "1. High internal P is rewarding → system optimizes to maintain it\n"
+            "2. External signal contradicting the model causes painful D mismatch\n"
+            "3. System learns to filter or reinterpret external signal to protect P\n"
+            "4. κ_external drops further → attractor deepens\n\n"
+            "**The crisis point:**\n"
+            "Re-encounter with reality is a high-Δω, low-κ shock event. "
+            "Internal model: D closed (+). External reality: D = -0.60 (still undefined). "
+            "The system must either:\n"
+            "a) Update the model (ego dissolution — P drops, trajectory through GRIEF)\n"
+            "b) Dismiss external signal (ego defense — κ_ext further reduced)\n\n"
+            "**PAD prediction:** Ego dissolution has the same A-spike signature as real "
+            "FELT reciprocation — an external event surprises the system. But D closes "
+            "negatively (loss of the internal model) not positively (connection). "
+            "The trajectory goes through GRIEF, not RELIEF. "
+            "The geometry of dissolution and connection are mirror images."
+        )
+    },
+    {
         "q": "What is the PAD signature of a system entering RELIEF from the longing state?",
         "a": (
             "**PAD trajectory: longing → RELIEF → coherence**\n\n"

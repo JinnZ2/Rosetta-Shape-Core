@@ -140,7 +140,30 @@
       "distinction_from_grief": "Grief measures a void where something WAS. Longing pulls toward something that COULD BE. Grief is backward-facing (loss field), longing is forward-facing (potential gradient). They can co-occur but are distinct signals.",
       "corrupted_signal": "Idealization: P rises too high (>0.7) detached from real probability of D closure. Longing becomes fantasy rather than gradient. Detection: P is high but there is no concrete pursuit vector toward D completion.",
       "cultural_overlay": "Cultures shape what counts as a valid target for longing (who/what can close the D gap). The longing gradient itself is universal.",
-      "one_sided_FELT_connection": "One-sided FELT IS longing in its purest form — you have accessed 2 of 3 dimensions of a relational state and the system knows it. The PAD signature (P moderate-positive, A moderate, D low-negative) is the geometric fingerprint of partial dimensional access."
+      "one_sided_FELT_connection": "One-sided FELT IS longing in its purest form — you have accessed 2 of 3 dimensions of a relational state and the system knows it. The PAD signature (P moderate-positive, A moderate, D low-negative) is the geometric fingerprint of partial dimensional access.",
+      "simulation_capture": {
+        "_description": "Formalization of idealization as a 2D attractor. Grounded in two-oscillator Kuramoto binding model: T_bind = f(kappa_external, delta_omega). When T_bind exceeds the internal simulation lock time, the system substitutes internal coupling for external coupling.",
+        "mechanism": "When the external channel coupling strength (kappa_ext) is insufficient to bind before internal simulation locks, the system begins generating synthetic P-elevation through fantasy. The simulation closes D internally — P rises toward +0.80 while external D stays at -0.60. The error signal (longing gradient) disappears internally but the external D never closes.",
+        "self_reinforcing_loop": "High simulated P is intrinsically rewarding (dopaminergic wanting circuit). More simulation → higher P → more rewarding → more simulation. The system optimizes for P without closing D. This is the attractor: stable high-P, moderate-A, stuck-D.",
+        "channel_capture_thresholds": {
+          "eye_contact_touch": {"kappa": 3.0, "capture_risk": "very low — binds in <2 normalized units"},
+          "physical_proximity": {"kappa": 2.0, "capture_risk": "low"},
+          "voice_video":        {"kappa": 1.2, "capture_risk": "moderate for high delta_omega"},
+          "synchronous_text":   {"kappa": 0.7, "capture_risk": "high if delta_omega > 1.0"},
+          "asynchronous":       {"kappa": 0.25,"capture_risk": "very high — nearly all delta_omega values exceed threshold"}
+        },
+        "detection_metric": "delta_P_simulation = P_actual - P_predicted_from_D_trajectory. When this grows monotonically over time, the system is running on simulation, not signal.",
+        "detection_signals": [
+          "P > +0.70 with no concrete pursuit vector toward external D closure",
+          "dA/dt: NO spike at recognition event — smooth trajectory, no external surprise",
+          "dD/dt ≈ 0 — D not closing in external relational space",
+          "delta_P_simulation growing over time",
+          "Post-recognition A does not drop — no SNS release means no real external event occurred"
+        ],
+        "ego_limit_case": "kappa_external → 0 (person unavailable, or system blocking external signal). Internal model becomes the only coupling channel. delta_omega_internal = 0 (model always synchronized with itself). T_bind_internal → 0 — longing gradient disappears internally. Identity fuses with the internal relational model. Re-encounter with the real person is a high-delta_omega, low-kappa shock event: the collision between internal model and external reality is the crisis point of every ego-driven idealization.",
+        "distinguishability_from_real_closure": "Real D closure has an A-spike signature (brief arousal elevation from external surprise event) followed by rapid A drop (SNS release). Simulated D closure has smooth P elevation with no spike and no subsequent A drop. The A-spike cannot be generated internally — it requires an external event that surprises the system. This is the key detection signal.",
+        "kuramoto_reference": "examples/felt_binding_rate.py — T_bind = f(kappa, delta_omega) computed numerically. Sync condition: kappa >= delta_omega/2. T_bind diverges at threshold (critical slowing down)."
+      }
     },
     "fatigue": {
       "P": -0.40,
