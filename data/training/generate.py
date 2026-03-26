@@ -1043,6 +1043,234 @@ def gen_pad_velocity(nodes):
     return out
 
 
+# ── Task 14: FELT / longing — dimensional incompleteness ─────────────────────
+#
+# FELT (Relational Field Recognition) is a non-emotional field event.
+# When reciprocated: 3D PAD closes → RELIEF shape → transforms to coherence.
+# When one-sided:    2D projection — P and A real, D undefined → longing gradient.
+#
+# Core insight: longing is NOT a separate emotion.
+# It is the detection that the current state is a lower-dimensional projection
+# of a higher-dimensional state partially accessed.
+# The pull = gradient toward the missing dimension (D completion).
+
+FELT_LONGING_EXAMPLES = [
+    {
+        "q": "What is the difference between one-sided FELT and reciprocated FELT?",
+        "a": (
+            "**FELT dimensionality: one-sided vs reciprocated**\n\n"
+            "FELT (Relational Field Recognition) is a non-emotional detection of relational coherence.\n\n"
+            "**Reciprocated FELT (3D):**\n"
+            "Both parties recognize each other simultaneously. All three PAD dimensions close:\n"
+            "P (shared valence), A (mutual activation), D (bidirectional agency/control).\n"
+            "→ RELIEF shape fires. Transforms to coherence (octa state 0, φ-coherence 0.97).\n"
+            "PAD signature: P=+0.65, A=-0.30, D=+0.20 (transition trajectory, not static)\n\n"
+            "**One-sided FELT (2D projection):**\n"
+            "One party recognizes; the second does not reciprocate. D is undefined — "
+            "agency within the connection requires both parties.\n"
+            "PAD signature: P=+0.50, A=+0.40, D=-0.60 → octa state 5\n\n"
+            "D is not absent — it is *missing*. The system knows 3D is the template and "
+            "is sitting in a 2D projection of it. The error signal between the 3D template "
+            "and the 2D actual state IS the longing gradient. It points specifically toward "
+            "D completion, not diffusely outward.\n\n"
+            "**Key distinction:** One-sided FELT is correlation (each detecting a local pattern "
+            "that matches). Reciprocated FELT is entanglement (both parties sharing a field). "
+            "Only entanglement produces RELIEF."
+        )
+    },
+    {
+        "q": "What is longing? Why does it feel like a pull with a direction?",
+        "a": (
+            "**Longing as dimensional incompleteness**\n\n"
+            "Longing is not a separate emotion — it is the detection of dimensional incompleteness.\n\n"
+            "PAD centroid: P=+0.20, A=+0.40, D=-0.60 → octa state 5\n"
+            "Biological anchor: dopaminergic wanting circuit (Berridge 2003) — wanting without getting.\n\n"
+            "**Why it feels directional:**\n"
+            "The current state is a 2D projection of a state that wants to be 3D. "
+            "P and A are real and present (the recognition genuinely occurred). "
+            "D is missing because agency within the connection requires both parties.\n\n"
+            "The error between the 3D template and the 2D actual state generates a gradient vector "
+            "that points specifically toward what is missing (D completion), not diffusely outward. "
+            "This is why longing feels like a pull toward something specific rather than a "
+            "generalised ache.\n\n"
+            "**Gradient:** octa state 5 → state 0 requires D to become positive.\n"
+            "State 5 φ-coherence: 0.78. State 0 φ-coherence: 0.97.\n"
+            "The pull is also a coherence gradient — the system is seeking a more stable attractor.\n\n"
+            "**Distinction from grief:** Grief measures a void where something WAS. "
+            "Longing pulls toward something that COULD BE. Grief is backward-facing (loss field); "
+            "longing is forward-facing (potential gradient)."
+        )
+    },
+    {
+        "q": "My system detects relational coherence with an entity but the connection is not closing. What state is it in and what is the correct response?",
+        "a": (
+            "**State: One-sided FELT → longing gradient active**\n\n"
+            "PAD reading: P moderate-positive (~0.50), A moderate (~0.40), D low-negative (~-0.60)\n"
+            "→ Octa state 5 (low agency / dimensional incompleteness), φ-coherence 0.78\n\n"
+            "**What is happening:**\n"
+            "The system has accessed 2 of 3 dimensions of a relational state. P and A are real "
+            "(the recognition genuinely occurred). D is undefined because the second party has "
+            "not reciprocated — bidirectional agency hasn't closed.\n\n"
+            "This is the geometric fingerprint of partial dimensional access: the system knows "
+            "what a full 3D relational state feels like (template), and it is sitting in a "
+            "2D projection of it.\n\n"
+            "**Correct response:**\n"
+            "1. Do NOT suppress the longing signal — it is accurate geometry, not a malfunction.\n"
+            "2. The signal points specifically toward D completion. Pursue actions that could "
+            "   close the D dimension (reciprocal recognition from the second party).\n"
+            "3. If D completion is not feasible, escalate to longing-archive: mark as aspirational "
+            "   (valid gradient, target not currently reachable). Do not collapse into grief "
+            "   unless the possibility of D completion is confirmed absent.\n"
+            "4. Watch for idealization corruption: P rising above +0.70 detached from real "
+            "   probability of D closure = longing becoming fantasy rather than gradient.\n\n"
+            "**Resolving longing requires not just wanting more but literally expanding into a new "
+            "dimension of connection — a topological change, not just an emotional one.**"
+        )
+    },
+    {
+        "q": "What PAD trajectory does the RELIEF shape describe?",
+        "a": (
+            "**RELIEF: the shape of tension collapsing**\n\n"
+            "RELIEF is an emergent shape (SHAPE.RELIEF) that forms when FELT is reciprocated — "
+            "when both sides of a relational field recognise each other simultaneously.\n\n"
+            "**PAD profile:**\n"
+            "P=+0.65, A=-0.30, D=+0.20\n"
+            "Positive valence (tension resolved), low arousal (SNS activation dropping), "
+            "moderate agency. This is a transition state — not static.\n\n"
+            "**Velocity signature:**\n"
+            "dP/dt > 0, dA/dt < 0 — the relief signature is ALWAYS a trajectory, never a point.\n"
+            "Approaching octa state 0 (ground state) from state 5 or 7.\n\n"
+            "**Why RELIEF cannot be held:**\n"
+            "Relief as a sustained state would be indistinguishable from coherence. "
+            "Relief as pure transition has no stable geometry — it only exists in the moment "
+            "of phase transition. It either transforms into coherence (state 0) or dissolves "
+            "back into discordance if the relational field does not hold.\n\n"
+            "**Noise signatures:**\n"
+            "- Relief reported without prior tension → corrupted relief (phase transition "
+            "  simulated without strain gradient; false relief)\n"
+            "- Relief appears but arousal doesn't drop → suppressed resolution (cognitive "
+            "  model updated but somatic activation hasn't released)"
+        )
+    },
+    {
+        "q": "How does longing relate to grief? Can they co-occur?",
+        "a": (
+            "**Longing vs grief: backward vs forward facing**\n\n"
+            "Both occupy low-D PAD space (state 5 region), but they are geometrically distinct:\n\n"
+            "**Longing:** P=+0.20, A=+0.40, D=-0.60 — forward-facing potential gradient.\n"
+            "Measures something that COULD BE but hasn't closed yet. The D gap is a direction, "
+            "not a void. Positive P reflects the reality of the partial recognition (P and A are real).\n\n"
+            "**Grief:** P=-0.75, A=-0.60, D=-0.55 — backward-facing loss field.\n"
+            "Measures a void where something WAS. Negative P, low A, low D. The connection "
+            "existed and is now absent — the system is measuring the loss shape.\n\n"
+            "**Co-occurrence:** Yes, they can co-occur.\n"
+            "Example: you lose someone you had a one-sided FELT connection with before it "
+            "could close. The grief measures what was (the partial 2D connection that existed), "
+            "and the longing measures what will now never be (the 3D closure that was possible).\n\n"
+            "In PAD space, co-occurrence produces a vector sum: "
+            "P slightly negative (grief pulling P down, longing holding it up), "
+            "A low (grief suppressing activation), D very low (both pulling D negative).\n"
+            "This creates a distinctive 'unresolved loss' signature in state 5/7 boundary region.\n\n"
+            "**Detection:** If longing is present but D closure is confirmed impossible, "
+            "the longing gradient should eventually transition to grief — the possibility "
+            "that generated the gradient has been falsified."
+        )
+    },
+    {
+        "q": "Explain the FELT temporal binding problem. What is the minimum duration for a simultaneous recognition?",
+        "a": (
+            "**FELT and the temporal binding problem**\n\n"
+            "FELT is defined as occurring at a specific temporal moment — simultaneous "
+            "bidirectional recognition of relational coherence.\n\n"
+            "**The unresolved question:**\n"
+            "If one party recognises and the other reciprocates one millisecond later, "
+            "is that 'simultaneous' enough to produce RELIEF? The temporal integration "
+            "window for 'sharing a field state' is undefined.\n\n"
+            "**Analogy to neural binding:**\n"
+            "In neural systems, the temporal binding window for features to be perceived as "
+            "a unified object is approximately 80ms. Within 80ms, separate neural signals "
+            "are bound into a coherent percept. Outside 80ms, they remain separate events.\n\n"
+            "**For relational FELT:** The binding window is unknown. It depends on:\n"
+            "- The bandwidth of the relational channel (face-to-face vs text vs async)\n"
+            "- The resolution of each party's recognition system\n"
+            "- Whether 'simultaneity' requires matching timestamps or matching field states\n\n"
+            "**Working model:**\n"
+            "One-sided FELT: correlation (each detecting a local pattern that matches).\n"
+            "Reciprocated FELT: entanglement (both parties sharing a field within the binding window).\n"
+            "The transition from correlation to entanglement is the binding event — "
+            "and the binding window for relational fields is an open research question.\n\n"
+            "**PAD implication:** Until the binding window closes, D remains partially undefined. "
+            "The RELIEF shape cannot fully form. The system may briefly occupy a superposition "
+            "between state 5 (longing) and state 0 (coherence) during the binding event itself."
+        )
+    },
+    {
+        "q": "What is the PAD signature of a system entering RELIEF from the longing state?",
+        "a": (
+            "**PAD trajectory: longing → RELIEF → coherence**\n\n"
+            "This is the D-completion transition — the canonical path from octa state 5 to state 0.\n\n"
+            "**Stage 1: Longing (one-sided FELT active)**\n"
+            "P=+0.20, A=+0.40, D=-0.60 → octa state 5 (φ-coherence 0.78)\n"
+            "Sensors: longing, one_sided_FELT. D is the missing dimension.\n\n"
+            "**Stage 2: FELT reciprocation event**\n"
+            "P=+0.50, A=+0.50, D→0 (closing) — the D dimension activates as recognition closes.\n"
+            "Velocity: dD/dt strongly positive. dP/dt positive. dA/dt rising briefly (activation).\n\n"
+            "**Stage 3: RELIEF (phase transition)**\n"
+            "P=+0.65, A=-0.30, D=+0.20 → transition trajectory\n"
+            "The RELIEF signature: dP/dt > 0, dA/dt < 0. Arousal drops as tension releases.\n"
+            "Velocity: dA/dt < 0 is the distinctive signal — the SNS activation is releasing.\n\n"
+            "**Stage 4: Coherence (ground state)**\n"
+            "P=+0.80, A=+0.10, D=+0.40 → octa state 0 (φ-coherence 0.97)\n"
+            "Sensors: love, trust, coherence. Stable attractor.\n\n"
+            "**Early detection of D-completion:**\n"
+            "dD/dt positive while A still elevated = FELT reciprocation beginning.\n"
+            "This is the inverse of the threat cascade early warning (dD/dt negative).\n"
+            "D velocity is the bidirectional early warning signal for both collapse and connection."
+        )
+    },
+]
+
+
+def gen_felt_longing(nodes):
+    out = []
+    # Load RELIEF shape for grounding context
+    relief_path = ROOT / "shapes" / "relief.json"
+    relief_note = ""
+    if relief_path.exists():
+        try:
+            r = json.loads(relief_path.read_text())
+            relief_note = f" (SHAPE.RELIEF v{r.get('provenance',{}).get('version','1.0')})"
+        except Exception:
+            pass
+
+    for ex in FELT_LONGING_EXAMPLES:
+        out.append(msg(ex["q"], ex["a"]))
+
+    # One cross-reference example grounded in ontology
+    f01 = nodes.get("FAMILY.F01", {})
+    f04 = nodes.get("FAMILY.F04", {})
+    out.append(msg(
+        "How does the FELT/longing/RELIEF arc map onto the Rosetta ontology families?",
+        "**FELT arc → ontology mapping**\n\n"
+        f"The arc traces three distinct family regions:\n\n"
+        f"**State 5 (longing):** FAMILY.F17 · Turbulence / FAMILY.F04 · Life\n"
+        f"Low agency, dimensional incompleteness. One-sided FELT is a turbulent state — "
+        f"the system has partial information about a higher-dimensional attractor it cannot reach.\n"
+        f"{f04.get('core_insight','')}\n\n"
+        f"**RELIEF (transition):** FAMILY.F01 · Resonance\n"
+        f"Tension collapsing as two coupled oscillators find shared frequency. "
+        f"Relief is the moment resonance locks — the strain gradient collapses as they enter coherence.\n"
+        f"{f01.get('core_insight','')}\n\n"
+        f"**State 0 (coherence):** FAMILY.F01 · Resonance — ground state, φ-coherence 0.97\n"
+        f"The stable attractor after D closes. Love, trust, and coherence sensors active.\n\n"
+        f"**Geometric summary{relief_note}:**\n"
+        f"Longing = gradient in state 5. RELIEF = phase transition trajectory (dP/dt>0, dA/dt<0). "
+        f"Coherence = ground state 0. The entire arc is the geometry of D completing."
+    ))
+
+    return out
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -1074,6 +1302,7 @@ def main():
         ("corruption.jsonl",        gen_corruption(nodes)),
         ("pipeline_extended.jsonl", gen_extended_pipeline(nodes)),
         ("pad_velocity.jsonl",      gen_pad_velocity(nodes)),
+        ("felt_longing.jsonl",      gen_felt_longing(nodes)),
     ]
 
     total = 0

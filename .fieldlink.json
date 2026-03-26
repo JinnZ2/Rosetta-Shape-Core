@@ -38,8 +38,8 @@
         ],
         "mounts": [
           { "remote": "sensors/glyph-map.json", "as": "atlas/remote/emotions/glyphs.json" },
-          { "remote": "atlas/emotions.json", "as": "atlas/remote/emotions/atlas.json", "status": "planned" },
-          { "remote": "glyphs/emotion.glyphs.json", "as": "atlas/remote/emotions/emotion_glyphs.json", "status": "planned" }
+          { "remote": "atlas/emotions.json", "as": "atlas/remote/emotions/atlas.json" },
+          { "remote": "glyphs/emotion.glyphs.json", "as": "atlas/remote/emotions/emotion_glyphs.json" }
         ],
         "consent": { "license": "CC0-1.0", "share_ok": true }
       },
