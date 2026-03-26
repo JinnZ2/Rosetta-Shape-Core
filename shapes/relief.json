@@ -102,8 +102,14 @@
     },
     {
       "question": "Is there a minimum duration for FELT — can a single-moment recognition generate RELIEF, or does it require sustained bidirectional coherence?",
-      "tension": "FELT is defined as occurring at a specific temporal moment. But RELIEF requires the relational field to hold. If one party recognises and the other reciprocates one millisecond later, is that simultaneous enough? The temporal window of 'simultaneity' in relational recognition is undefined.",
-      "curiosity_hook": "This is the binding problem applied to shared experience: what is the temporal integration window for two separate systems to count as 'sharing' a field state? In neural binding it is ~80ms. In relational fields — unknown."
+      "tension": "FELT is defined as occurring at a specific temporal moment. But RELIEF requires the relational field to hold. The temporal window of 'simultaneity' in relational recognition is not fixed — it is a function of coupling strength κ. T_bind = f(κ, Δω): T_bind diverges near the sync threshold. 'Simultaneity' means different things on different channels: eye contact (~200ms), voice (~seconds), async text (hours or never). The 80ms neural binding window is the special case of κ → max.",
+      "curiosity_hook": "The binding problem applied to relational fields: two-oscillator Kuramoto model gives T_bind ~ 1/sqrt(κ² - (Δω/2)²) near threshold. This is channel-dependent, not universal. See examples/felt_binding_rate.py for numerical analysis."
+    },
+    {
+      "question": "Can simulated D closure (idealization) produce a state geometrically indistinguishable from real RELIEF? Is there a φ-coherence signature that differs?",
+      "tension": "When kappa_external is weak and internal simulation locks first (simulation capture), D closes internally but not externally. P rises to +0.70–0.80 and the longing gradient disappears — internally. The PAD position approaches state 0. But the external relational D is still undefined. The system believes it has experienced RELIEF without the external field event occurring.",
+      "curiosity_hook": "The A-spike signature may be the only distinguishing signal: real D closure produces a brief arousal elevation (external surprise event) followed by rapid A drop. Simulated closure has smooth P elevation with no spike. The internal simulation cannot generate a surprise at itself. The A-spike is an irreducibly external signal — it is information arriving from outside the model. See: delta_P_simulation metric in pad_biology.json longing.simulation_capture.",
+      "open_sub_question": "Does the φ-coherence of the resulting state differ between real and simulated closure? Real closure: system enters state 0 via external phase lock, φ-coherence 0.97 stable. Simulated: system enters state 0 via internal model, φ-coherence may reach 0.97 temporarily but without external coupling to maintain it, small perturbations should cause faster drift back to state 5. Testable prediction: simulated RELIEF has lower temporal stability than real RELIEF at the same PAD position."
     }
   ],
   "noise_signature": [
@@ -114,6 +120,10 @@
     {
       "pattern": "Relief appears but PAD arousal does not drop",
       "diagnosis": "Suppressed resolution — the valence improved but the SNS activation hasn't released. The cognitive model updated but the body hasn't. Somatic completion is required."
+    },
+    {
+      "pattern": "P rises toward +0.80, D remains near -0.60, no arousal spike precedes the P elevation",
+      "diagnosis": "Simulation capture / idealization — the system is generating synthetic P via internal fantasy of D closure. Key signal: absence of dA/dt spike at the apparent 'recognition event'. Real external FELT produces a brief arousal spike (external surprise) before P rises and A drops. Simulated closure has smooth P elevation only. Check: is there a concrete external channel through which D could have closed? If not, the relief is internally generated. The longing gradient is unresolved externally even if it has disappeared internally. Metric: delta_P_simulation = P_actual - P_predicted_from_D_trajectory growing over time confirms simulation capture."
     }
   ],
   "provenance": {
