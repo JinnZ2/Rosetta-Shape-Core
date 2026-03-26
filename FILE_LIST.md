@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-dd5b65be8c7a6083bee4493ae81f98ef38cd4b4e.idx
-./.git/objects/pack/pack-dd5b65be8c7a6083bee4493ae81f98ef38cd4b4e.pack
-./.git/objects/pack/pack-dd5b65be8c7a6083bee4493ae81f98ef38cd4b4e.rev
+./.git/objects/pack/pack-c24dad4b3d10868fee59bafd324bc84e7b664b28.idx
+./.git/objects/pack/pack-c24dad4b3d10868fee59bafd324bc84e7b664b28.pack
+./.git/objects/pack/pack-c24dad4b3d10868fee59bafd324bc84e7b664b28.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -90,6 +90,10 @@
 ./docs/unified-grounding-system.md
 ./docs/unified-pattern-bridge-schema.md
 ./docs/unified-proposed.md
+./examples/curiosity_map.html
+./examples/generate_curiosity_map.py
+./examples/kappa_sync_threshold.png
+./examples/kappa_sync_threshold.py
 ./examples/phi_lattice_explorer.png
 ./examples/phi_lattice_explorer.py
 ./examples/validate_ontology.py
@@ -154,7 +158,9 @@
 ./shapes/octahedron.json
 ./shapes/tetrahedron.json
 ./src/rosetta_shape_core/__init__.py
+./src/rosetta_shape_core/diagnostic.py
 ./src/rosetta_shape_core/expand.py
+./src/rosetta_shape_core/query.py
 ./src/rosetta_shape_core/seeds.py
 ./src/rosetta_shape_core/validator.py
 ./tests/golden/examples.json
