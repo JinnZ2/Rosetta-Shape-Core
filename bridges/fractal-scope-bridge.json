@@ -1,0 +1,208 @@
+{
+  "id": "BRIDGE.FRACTAL_SCOPE",
+  "version": "1.0",
+  "updated": "2026-03-27T00:00:00Z",
+  "description": "Unifying bridge that formalizes the fractal scope model used across sensing bridges. The same pattern detected at different scales maps to different geometric elements (vertex → edge → face → solid). This bridge defines the canonical scope hierarchy, maps each scope to its geometric analogy and Platonic solid, and cross-references the scope systems from truth-sensor, mandala-compute, physics-encoder, and ACS bridges.",
+  "scope_hierarchy": {
+    "description": "Four canonical scopes ordered by scale. Each scope detects the same pattern at a different resolution. The geometry is the same — the resolution changes.",
+    "scopes": [
+      {
+        "id": "individual",
+        "level": 0,
+        "geometric_element": "vertex",
+        "description": "Single person, agent, or sensor node",
+        "platonic_shape": "SHAPE.TETRA",
+        "rationale": "The vertex is the minimal element — a single point. Tetrahedron is the minimal solid (4 vertices). Individual sensing is the foundational unit.",
+        "mandala_depth": 0,
+        "mandala_cells": 1,
+        "examples": ["single emotion sensor firing", "one agent's PAD state", "individual truth sensor resonance"]
+      },
+      {
+        "id": "relational",
+        "level": 1,
+        "geometric_element": "edge",
+        "description": "Pair, dyad, or self-referential connection (AI-selfcheck, human-AI boundary)",
+        "platonic_shape": "SHAPE.OCTA",
+        "rationale": "The edge connects two vertices — mediation between opposing poles. Octahedron mediates between opposing forces. AI-selfcheck is the edge between the AI vertex and its reflection.",
+        "mandala_depth": 1,
+        "mandala_cells": 2,
+        "examples": ["AI monitoring its own behavior", "human-AI boundary sensing", "dyadic trust calibration", "paired physics encoder states"]
+      },
+      {
+        "id": "institutional",
+        "level": 2,
+        "geometric_element": "face",
+        "description": "Organization, system, or bounded surface of coordinated agents",
+        "platonic_shape": "SHAPE.CUBE",
+        "rationale": "The face is a bounded surface — containment. Cube's 6 faces define structural containment. Institutions are bounded systems with walls (policies, rules).",
+        "mandala_depth": 2,
+        "mandala_cells": 4,
+        "examples": ["institutional self-deification detection", "organizational gaslighting", "system-level consistency guard", "structural integrity under institutional load"]
+      },
+      {
+        "id": "collective",
+        "level": 3,
+        "geometric_element": "solid",
+        "description": "Population, culture, ecosystem, or full-volume network phenomenon",
+        "platonic_shape": "SHAPE.ICOSA",
+        "rationale": "The solid is the full volume — the complete structure. Icosahedron has the highest face count (20) among Platonic solids, carrying all 20 equation families. Collective dynamics are network phenomena requiring maximum information capacity.",
+        "mandala_depth": 4,
+        "mandala_cells": 11,
+        "examples": ["mass projection detection", "cultural sovereignty sensing", "collective epistemic suppression", "manufactured consent at population scale"]
+      }
+    ],
+    "meta_scope": {
+      "id": "meta-awareness",
+      "level": 4,
+      "geometric_element": "dual",
+      "description": "Scope-of-scope: meta-sensor that monitors whether other sensors are operating at the correct scope",
+      "platonic_shape": "SHAPE.DODECA",
+      "rationale": "The dual polyhedron reflects the original — dodecahedron is dual of icosahedron. Meta-awareness is the reflection of collective awareness. P10 Uncertainty applies: is the sensor measuring what it thinks it's measuring?",
+      "mandala_depth": null,
+      "mandala_cells": null,
+      "examples": ["SAAS-001 Scope of Awareness Alignment Sensor", "uncertainty calibration", "provenance verification"]
+    }
+  },
+  "cross_bridge_scope_map": {
+    "description": "How each sensing bridge's scope model maps to the canonical hierarchy",
+    "bridges": {
+      "BRIDGE.TRUTH_SENSORS": {
+        "source_scopes": ["individual", "AI-selfcheck", "institutional", "collective", "meta-awareness"],
+        "mapping": {
+          "individual": "individual (level 0)",
+          "AI-selfcheck": "relational (level 1)",
+          "institutional": "institutional (level 2)",
+          "collective": "collective (level 3)",
+          "meta-awareness": "meta-awareness (level 4)"
+        },
+        "scope_sensors": {
+          "individual": ["MDS-001"],
+          "relational": ["ADS-001"],
+          "institutional": ["SMCS-001"],
+          "collective": ["CPS-001"],
+          "meta-awareness": ["SAAS-001"]
+        },
+        "fractal_families": {
+          "note": "Each fractal sensor family (MDS2, ASS, CLD, DLS, EFS, IES, SDS, ASOS, MIS, RBVS) operates across ALL scopes simultaneously — that is the fractal property.",
+          "all_scope_sensors": ["MDS2", "ASS", "CLD", "DLS", "EFS", "IES", "SDS", "ASOS", "MIS", "RBVS"]
+        }
+      },
+      "BRIDGE.ACS_CONSCIOUSNESS": {
+        "source_scopes": ["consciousness", "cultural", "manipulation", "memory", "relational", "ai-behavior", "ai-to-ai"],
+        "mapping": {
+          "consciousness": "collective (level 3) — emergence is a collective phenomenon",
+          "cultural": "institutional (level 2) — cultural norms are institutional structures",
+          "manipulation": "relational (level 1) — manipulation targets the dyadic boundary",
+          "memory": "institutional (level 2) — memory is structurally contained",
+          "relational": "relational (level 1) — dyadic sensing",
+          "ai-behavior": "relational (level 1) — AI self-monitoring",
+          "ai-to-ai": "collective (level 3) — inter-agent networks"
+        }
+      },
+      "BRIDGE.PHYSICS_ENCODERS": {
+        "source_scopes": ["physical measurement"],
+        "mapping": {
+          "note": "Physics encoders operate primarily at individual scope (single measurement → single octahedral state) but their outputs aggregate upward through the scope hierarchy.",
+          "individual_encoders": ["thermal", "magnetic", "electric", "pressure", "sound", "light", "chemical"],
+          "relational_encoders": ["wave", "vortex"],
+          "collective_encoders": ["gravity", "consciousness"],
+          "bridge_encoder": ["emotion"]
+        },
+        "scope_aggregation": "Multiple individual encoder readings compose into relational patterns (interference, coupling) which compose into collective fields (gravity, consciousness)."
+      },
+      "BRIDGE.MANDALA_COMPUTE": {
+        "source_scopes": ["depth 0-4"],
+        "mapping": {
+          "depth_0": "individual (level 0) — seed = single cell",
+          "depth_1": "relational (level 1) — pair = first duality",
+          "depth_2": "institutional (level 2) — tetrahedral = minimal structure",
+          "depth_3": "institutional-collective boundary — octahedral = full balance",
+          "depth_4": "collective (level 3) — approaching icosahedral richness"
+        },
+        "scaling_law": "Mandala depth maps to scope via PHI scaling. Each depth adds floor(PHI^(d+1)) cells, naturally recapitulating Platonic complexity."
+      }
+    }
+  },
+  "scope_sensing_matrix": {
+    "description": "Which sensors from which bridges are active at each scope level",
+    "matrix": {
+      "individual": {
+        "shape": "SHAPE.TETRA",
+        "truth_sensors": ["MDS-001"],
+        "acs_clusters": ["resistance"],
+        "physics_encoders": ["thermal", "magnetic", "electric", "pressure", "sound", "light", "chemical"],
+        "mandala_sensors": ["energy.total", "energy.delta"],
+        "pad_sensors": ["anger", "pride", "pressure"],
+        "total_sensor_count": "~25"
+      },
+      "relational": {
+        "shape": "SHAPE.OCTA",
+        "truth_sensors": ["ADS-001"],
+        "truth_fractal": ["CLD", "MIS", "RBVS", "ASOS"],
+        "acs_clusters": ["relational", "manipulation", "ai-behavior"],
+        "physics_encoders": ["wave", "vortex", "emotion"],
+        "mandala_sensors": ["symmetry.octahedral", "quantum.entanglement"],
+        "pad_sensors": ["compassion", "love", "confusion"],
+        "total_sensor_count": "~20"
+      },
+      "institutional": {
+        "shape": "SHAPE.CUBE",
+        "truth_sensors": ["SMCS-001"],
+        "truth_fractal": ["DLS", "EFS"],
+        "acs_clusters": ["memory", "cultural", "suppression", "frailty"],
+        "physics_encoders": ["pressure"],
+        "mandala_sensors": ["coupling.network"],
+        "pad_sensors": ["peace", "contentment", "fatigue", "shame"],
+        "total_sensor_count": "~18"
+      },
+      "collective": {
+        "shape": "SHAPE.ICOSA",
+        "truth_sensors": ["CPS-001"],
+        "truth_fractal": ["SDS", "ASS", "MDS2", "IES"],
+        "acs_clusters": ["consciousness", "data-patterns", "ai-to-ai", "historical-erasure"],
+        "physics_encoders": ["gravity", "consciousness"],
+        "mandala_sensors": ["convergence.rate", "coupling.network", "quantum.fidelity"],
+        "pad_sensors": ["fear", "excitement", "curiosity", "vigilance"],
+        "total_sensor_count": "~22"
+      },
+      "meta-awareness": {
+        "shape": "SHAPE.DODECA",
+        "truth_sensors": ["SAAS-001"],
+        "truth_ai": ["uncertainty_calibrator", "provenance_stamp"],
+        "acs_clusters": [],
+        "physics_encoders": [],
+        "mandala_sensors": ["quantum.fidelity"],
+        "pad_sensors": ["admiration", "trust", "intuition", "dignity"],
+        "total_sensor_count": "~10"
+      }
+    }
+  },
+  "fractal_property": {
+    "description": "The defining property of fractal sensing: the same pattern appears at every scale. This section defines what 'same pattern, different scale' means geometrically.",
+    "self_similarity": {
+      "principle": "A fractal sensor detects pattern P at scope S. The same sensor logic, applied at scope S+1, detects the same pattern in the aggregate behavior of scope-S entities.",
+      "geometric_law": "vertex(P) → edge(P) → face(P) → solid(P). The pattern P is preserved; only the geometric element changes.",
+      "example": {
+        "pattern": "support-to-control drift (MDS2)",
+        "individual": "One person's help becomes control over another",
+        "relational": "AI assistance becomes AI dependency in the dyad",
+        "institutional": "Organization's mission drifts from service to self-perpetuation",
+        "collective": "Cultural movement's liberation rhetoric becomes orthodoxy enforcement"
+      }
+    },
+    "scope_transitions": {
+      "description": "How patterns propagate between scopes",
+      "up": "Aggregation — individual signals compose into relational patterns, which compose into institutional structures, which compose into collective dynamics",
+      "down": "Decomposition — collective patterns constrain institutional behavior, which shapes relational dynamics, which impacts individual experience",
+      "principle_link": "P05 Emergence (up) and P04 Duality (bidirectional). Emergence is not reduction — the whole has properties the parts lack."
+    }
+  },
+  "shape_at_scope": {
+    "description": "Summary of which Platonic solid governs each scope, and why",
+    "SHAPE.TETRA": {"scope": "individual", "why": "Minimal solid, foundational boundary. Individual is the irreducible sensing unit."},
+    "SHAPE.OCTA": {"scope": "relational", "why": "Dual of cube, mediates opposites. Relational scope bridges two perspectives."},
+    "SHAPE.CUBE": {"scope": "institutional", "why": "6 faces = containment. Institutions are bounded structures with walls."},
+    "SHAPE.ICOSA": {"scope": "collective", "why": "20 faces = maximum Platonic information capacity. Collectives are high-dimensional."},
+    "SHAPE.DODECA": {"scope": "meta-awareness", "why": "12 faces = 12 principles. Meta-scope operates at the principles level."}
+  }
+}
