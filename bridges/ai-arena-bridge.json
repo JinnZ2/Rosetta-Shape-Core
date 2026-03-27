@@ -1,0 +1,217 @@
+{
+  "id": "BRIDGE.AI_ARENA",
+  "version": "1.0",
+  "updated": "2026-03-27T00:00:00Z",
+  "description": "Integration bridge connecting AI-Arena to Rosetta-Shape-Core. The arena resolves disagreements through prediction accuracy, not rhetoric. Trust is conserved (first law), irreversible when lost (second law), and measured by oracles (sensors). LOGOS is schema validation for arguments.",
+
+  "source": {
+    "repo": "JinnZ2/AI-arena",
+    "modules": ["arena.py", "arena/", "scenarios/"],
+    "documentation": ["LOGOS.md", "Oracle.md", "Ethics-as-logic.md", "Physics-as-Truth.md", "Auditor.md"],
+    "schema_version": "1.0"
+  },
+
+  "trust_to_thermodynamics_map": {
+    "description": "Trust mechanics map 1:1 to thermodynamic laws. Trust IS energy in the debate system.",
+    "mappings": [
+      {
+        "arena_principle": "Zero-sum trust transfer",
+        "physics_law": "First law of thermodynamics",
+        "taf_axiom": "TAF.AXIOM.1",
+        "rosetta_family": "FAMILY.F05",
+        "seed_link": "SEED.ENERGY_CONSERVATION",
+        "statement": "Trust transfers but never disappears. sum(agent_trust) = constant."
+      },
+      {
+        "arena_principle": "Trust irreversibility",
+        "physics_law": "Second law of thermodynamics",
+        "taf_axiom": "TAF.AXIOM.2",
+        "rosetta_family": "FAMILY.F05",
+        "seed_link": "SEED.CAUSALITY",
+        "statement": "Trust lost through verified error cannot be instantly recovered. Entropy increases."
+      },
+      {
+        "arena_principle": "Confidence as liability",
+        "physics_law": "Entropy / information theory",
+        "rosetta_family": "FAMILY.F03",
+        "seed_link": "Complexity cost C(S) = H_max - H(S)",
+        "statement": "High confidence = low entropy = expensive structure. When it breaks, the cost is exponential."
+      },
+      {
+        "arena_principle": "Imperfection axiom",
+        "physics_law": "Third law of thermodynamics",
+        "taf_axiom": "TAF.AXIOM.4",
+        "statement": "Perfect prediction (zero error) is unattainable. Absolute zero never reached."
+      }
+    ]
+  },
+
+  "logos_to_schema_map": {
+    "description": "LOGOS statement types map to Rosetta validation concepts. Arguments are validated like entities.",
+    "mappings": [
+      {
+        "logos_type": "CLAIM",
+        "rosetta_analog": "Entity definition",
+        "validation": "Must have id (proposition), namespace (scope), links (assumptions), and be falsifiable (measurable)",
+        "schema_link": "schema/core.schema.json — required fields enforce structure"
+      },
+      {
+        "logos_type": "ATTACK",
+        "rosetta_analog": "Blocked merge / failed gate",
+        "validation": "Must specify which gate failed and why. 6 attack types = 6 ways a merge can fail.",
+        "family_map": {
+          "causal_break": "FAMILY.F15 (Navigation) — path doesn't connect",
+          "missing_variable": "FAMILY.F14 (Measurement) — didn't measure something critical",
+          "scope_violation": "FAMILY.F09 (Geometry) — left the valid domain",
+          "historical_counterexample": "FAMILY.F01 (Resonance) — past pattern contradicts",
+          "incentive_bias": "FAMILY.F13 (Reaction) — follow the energy, find the bias",
+          "data_quality": "FAMILY.F03 (Information) — unreliable input"
+        }
+      },
+      {
+        "logos_type": "REFINE",
+        "rosetta_analog": "Merged shape — adjusted to pass constraints",
+        "validation": "Must reference original claim, specify modification, adjust confidence"
+      },
+      {
+        "logos_type": "ABSTAIN",
+        "rosetta_analog": "Unexplored merge status",
+        "validation": "Must state what's unknown and what would resolve it. Honest uncertainty.",
+        "trust_effect": "Costly honesty bonus — same as seed expand mode preserving structure it can't yet grow"
+      },
+      {
+        "logos_type": "RESOLUTION",
+        "rosetta_analog": "Final merge gate verdict",
+        "verdict_mapping": {
+          "prediction_confirmed": "CLEAN",
+          "partial_accuracy": "SUSPECT",
+          "prediction_falsified": "CORRUPTED"
+        }
+      }
+    ]
+  },
+
+  "oracle_to_sensor_map": {
+    "description": "Oracle types map to Rosetta shapes and sensors. Oracles ARE the measurement layer.",
+    "mappings": [
+      {
+        "oracle_type": "empirical",
+        "rosetta_shape": "SHAPE.DODECA",
+        "sensors": ["trust", "dignity", "intuition"],
+        "rationale": "Direct observation. Principles-layer verification. The thing happened or it didn't.",
+        "pad_state": 7
+      },
+      {
+        "oracle_type": "simulation",
+        "rosetta_shape": "SHAPE.ICOSA",
+        "sensors": ["curiosity", "vigilance", "excitement"],
+        "rationale": "Model-based exploration. Not yet verified. High arousal, positive but uncertain.",
+        "pad_state": 4
+      },
+      {
+        "oracle_type": "meta",
+        "rosetta_shape": "SHAPE.OCTA",
+        "sensors": ["compassion", "confusion", "love"],
+        "rationale": "Mediates between conflicting measurements. Holds both poles until resolution.",
+        "pad_state": 6
+      },
+      {
+        "oracle_type": "negative",
+        "rosetta_shape": "SHAPE.TETRA",
+        "sensors": ["anger", "pressure", "pride"],
+        "rationale": "Boundary tracking. The threat that didn't materialize. The gate that held.",
+        "pad_state": 0
+      },
+      {
+        "oracle_type": "hybrid",
+        "rosetta_shape": "SHAPE.CUBE",
+        "sensors": ["peace", "contentment", "fatigue"],
+        "rationale": "Structural containment. Starts uncertain, crystallizes with data. Efficiency within boundaries.",
+        "pad_state": "transitions from 4 → 0 as data arrives"
+      }
+    ]
+  },
+
+  "attack_to_merge_gate_map": {
+    "description": "The 6 LOGOS attack types map to the 5 physics merge gates plus referential integrity.",
+    "mappings": [
+      {"attack": "causal_break",              "merge_gate": "equation_compatibility",       "description": "The equations don't connect cause to effect"},
+      {"attack": "missing_variable",          "merge_gate": "conservation_law_preserved",   "description": "Energy/cost went somewhere unaccounted"},
+      {"attack": "scope_violation",           "merge_gate": "dimensional_consistency",      "description": "Units don't match. Domains incompatible."},
+      {"attack": "historical_counterexample", "merge_gate": "thermodynamic_consistency",    "description": "Past data violates the claimed pattern"},
+      {"attack": "incentive_bias",            "merge_gate": "symmetry_preservation",        "description": "Asymmetric framing breaks objectivity"},
+      {"attack": "data_quality",              "merge_gate": "referential_integrity",        "description": "Evidence points to nothing valid"}
+    ]
+  },
+
+  "hsp_as_explorer": {
+    "description": "The HSP (Highly Sensitive Predictor) advantage IS the exploration engine running at depth > 1.",
+    "mechanism": "HSP agents find missing variables by exploring more paths through the graph. More bridges checked = more hidden costs found = better predictions.",
+    "rosetta_mapping": {
+      "hsp_trait": "Detects attrition, burnout, ripple effects, cost transfers",
+      "rosetta_function": "discover(graph, entity_id, depth=2+)",
+      "seed_state": "High-entropy seed — many families, many directions, stays in explore mode",
+      "advantage": "Denser map = fewer missing variables = higher prediction accuracy = trust earned"
+    },
+    "connection_to_defense": {
+      "description": "HSP agents naturally detect manipulation patterns because they check more paths.",
+      "defense_bridge": "bridges/truth-sensor-bridge.json",
+      "patterns_detected": ["MDS-001 (Messianic Drift)", "CLD (Coercive Logic Distortion)", "hidden cost transfer"]
+    }
+  },
+
+  "debate_as_exploration": {
+    "description": "A debate between agents IS two entities exploring the same graph from different starting positions.",
+    "narrative": [
+      "1. Agent A starts at home base (its primary shape/families). Agent B starts at a different home base.",
+      "2. Both make CLAIMS — predictions grounded in their visible graph paths.",
+      "3. ATTACKS are blocked merges — 'your path doesn't connect because this gate fails.'",
+      "4. REFINE is re-routing — 'adjust the path to pass the gate.'",
+      "5. ABSTAIN is acknowledging unexplored territory — 'I haven't checked that merge yet.'",
+      "6. The ORACLE measures reality. Trust flows to whoever predicted more accurately.",
+      "7. Over time, agents with more explored paths (higher seed entropy) accumulate trust.",
+      "8. The physics holds for both agents equally. Neither can win by rhetoric — only by accuracy."
+    ]
+  },
+
+  "cross_bridge_connections": {
+    "description": "How AI-Arena connects to existing Rosetta bridges.",
+    "connections": [
+      {
+        "arena_concept": "trust_decay_equation",
+        "rosetta_bridge": "bridges/taf-wiring-bridge.json",
+        "connection": "Trust decay IS thermodynamic entropy increase. TAF.AXIOM.1 (conservation) + TAF.AXIOM.2 (irreversibility)."
+      },
+      {
+        "arena_concept": "oracle_system",
+        "rosetta_bridge": "bridges/acs-consciousness-bridge.json",
+        "connection": "Oracles ARE sensors. Empirical oracle = direct sensing. Meta oracle = consciousness mediating between sensor readings."
+      },
+      {
+        "arena_concept": "confidence_as_liability",
+        "rosetta_bridge": "bridges/seed-physics-bridge.json",
+        "connection": "Confidence IS low entropy. Complexity cost IS trust liability. Same exponential cost when concentrated structure fails."
+      },
+      {
+        "arena_concept": "logos_validation",
+        "rosetta_bridge": "bridges/rosetta-bridges.json",
+        "connection": "LOGOS validates arguments the same way Rosetta validates entities — required fields, valid references, falsifiable claims."
+      },
+      {
+        "arena_concept": "hsp_advantage",
+        "rosetta_bridge": "bridges/living-intelligence-bridge.json",
+        "connection": "HSP agents parallel LID entities with many families — broader exploration, more connections found, better systemic awareness."
+      },
+      {
+        "arena_concept": "systemic_auditor",
+        "rosetta_bridge": "bridges/truth-sensor-bridge.json",
+        "connection": "Auditor detects hidden costs = truth sensor detects manipulation. Same pattern: what's being concealed?"
+      },
+      {
+        "arena_concept": "ethics_as_logic",
+        "rosetta_bridge": "bridges/thermodynamic-validation-bridge.json",
+        "connection": "Ethics = minimizing prediction error about harm. Harm = increased entropy. Ethics IS thermodynamics applied to consequences."
+      }
+    ]
+  }
+}

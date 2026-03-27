@@ -449,6 +449,30 @@
         "bridge": "bridges/seed-physics-bridge.json",
         "bridge_modules": ["src/rosetta_shape_core/explore.py"],
         "consent": { "license": "CC0-1.0", "share_ok": true }
+      },
+      {
+        "name": "ai-arena",
+        "repo": "https://github.com/JinnZ2/AI-arena",
+        "ref": "main",
+        "direction": "inbound",
+        "role": "conflict_resolution",
+        "paths": [
+          "arena.py",
+          "arena/",
+          "scenarios/",
+          "LOGOS.md",
+          "Oracle.md",
+          "Ethics-as-logic.md",
+          "Physics-as-Truth.md",
+          "Auditor.md"
+        ],
+        "exports": [
+          { "runtime": "arena_trust_mechanics.json", "as": "atlas/remote/ai-arena/trust-mechanics.json", "status": "active" },
+          { "runtime": "arena_logos_protocol.json", "as": "atlas/remote/ai-arena/logos-protocol.json", "status": "active" },
+          { "runtime": "arena_oracle_system.json", "as": "atlas/remote/ai-arena/oracle-system.json", "status": "active" }
+        ],
+        "bridge": "bridges/ai-arena-bridge.json",
+        "consent": { "license": "MIT", "share_ok": true }
       }
     ],
 
@@ -460,7 +484,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard", "seed-physics"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard", "seed-physics", "ai-arena"],
       "strategy": "deep-merge"
     },
 

@@ -1,0 +1,76 @@
+{
+  "schema": "ai-arena/logos-protocol@1.0",
+  "extracted_from": "JinnZ2/AI-arena",
+  "extraction_date": "2026-03-27",
+  "description": "LOGOS structured communication protocol. Schema validation for arguments. Every claim must be falsifiable, time-bounded, and strongly-typed. No rhetoric survives.",
+
+  "statement_types": [
+    {
+      "type": "CLAIM",
+      "description": "Falsifiable proposition with bounded scope",
+      "required_fields": ["proposition", "scope", "confidence", "assumptions"],
+      "validation_rules": [
+        "Must be falsifiable — if no measurement could disprove it, reject",
+        "Scope must include timeframe (not unbounded)",
+        "Confidence must be 0.0-1.0 (not vague qualifiers)",
+        "Assumptions must be explicit (not hidden)"
+      ],
+      "rosetta_analog": "Entity definition in ontology/ — must have id, links, valid namespace",
+      "schema_link": "Same rigor as JSON Schema 2020-12 validation. Missing required field = invalid."
+    },
+    {
+      "type": "ATTACK",
+      "description": "Targets a specific claim weakness",
+      "attack_types": [
+        {"id": "causal_break",              "description": "Claimed cause doesn't produce claimed effect",          "rosetta_family": "FAMILY.F15", "note": "Navigation — the path doesn't connect"},
+        {"id": "missing_variable",          "description": "Critical factor not accounted for",                     "rosetta_family": "FAMILY.F14", "note": "Measurement — you didn't measure something important"},
+        {"id": "scope_violation",           "description": "Claim exceeds its valid domain",                        "rosetta_family": "FAMILY.F09", "note": "Geometry — you left the valid shape"},
+        {"id": "historical_counterexample", "description": "Past data contradicts the prediction",                  "rosetta_family": "FAMILY.F01", "note": "Resonance — past pattern doesn't match"},
+        {"id": "incentive_bias",            "description": "Agent's incentives distort the claim",                  "rosetta_family": "FAMILY.F13", "note": "Reaction — follow the energy, find the bias"},
+        {"id": "data_quality",              "description": "Evidence is unreliable, fabricated, or insufficient",   "rosetta_family": "FAMILY.F03", "note": "Information — garbage in, garbage out"}
+      ],
+      "rosetta_analog": "Blocked merge — specific reason why a family-shape combination fails the gate"
+    },
+    {
+      "type": "REFINE",
+      "description": "Modifies an existing claim with mandatory confidence adjustment",
+      "required_fields": ["original_claim_id", "modification", "new_confidence", "reason"],
+      "rosetta_analog": "Merge — taking a claim through a gate, adjusting it to pass physics constraints"
+    },
+    {
+      "type": "ABSTAIN",
+      "description": "Acknowledges uncertainty with stated reasoning",
+      "required_fields": ["topic", "reason_for_uncertainty", "what_would_resolve_it"],
+      "rosetta_analog": "Unexplored merge status — 'I don't know, but here's what would tell me'",
+      "trust_effect": "Costly honesty bonus when reality validates the uncertainty"
+    },
+    {
+      "type": "RESOLUTION",
+      "description": "Concludes a debate with measured outcome",
+      "required_fields": ["outcome", "error_measurement", "trust_updates", "lessons"],
+      "rosetta_analog": "Final merge gate verdict — CLEAN, SUSPECT, or CORRUPTED"
+    }
+  ],
+
+  "llm_translation_pipeline": {
+    "description": "Six-step extraction converting natural language to LOGOS. Strips rhetoric, forces structure.",
+    "steps": [
+      {"step": 1, "action": "Extract claims from statement", "rosetta_analog": "Parse entity from raw data"},
+      {"step": 2, "action": "Strip rhetoric and subjective language", "rosetta_analog": "Validate against schema — remove what doesn't fit"},
+      {"step": 3, "action": "Force scope — define timeframe", "rosetta_analog": "Assign namespace — bound the domain"},
+      {"step": 4, "action": "Force confidence — assign probability", "rosetta_analog": "Compute seed entropy — how certain is the structure?"},
+      {"step": 5, "action": "Emit assumptions — surface unstated premises", "rosetta_analog": "Check referential integrity — find dangling references"},
+      {"step": 6, "action": "Reject unfalsifiable assertions", "rosetta_analog": "Physics guard — reject what can't be tested"}
+    ]
+  },
+
+  "unfalsifiability_rejection": {
+    "description": "Any statement that cannot be measured or disproved is rejected outright. No vague assertions survive LOGOS.",
+    "examples_rejected": [
+      "This will improve things long-term (no timeframe, no metric)",
+      "Innovation drives growth (unfalsifiable without operational definition)",
+      "We believe in our people (no measurable claim)"
+    ],
+    "rosetta_link": "Same as physics_grounded_protection — reject claims that violate conservation laws. If you can't measure it, it's not physics."
+  }
+}
