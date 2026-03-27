@@ -1,0 +1,180 @@
+{
+  "schema": "physics-guard/laws@1.0",
+  "extracted_from": "JinnZ2/PhysicsGuard",
+  "extraction_date": "2026-03-27",
+  "description": "Conservation law constraints used by PhysicsGuard's constraint_mapper and flag_engine. Each law defines lhs/rhs balance conditions with tolerance thresholds. Verdicts: CLEAN (delta < tolerance), SUSPECT (tolerance < delta < 2×tolerance), CORRUPTED (delta > 2×tolerance).",
+
+  "laws": [
+    {
+      "id": "first_law_thermodynamics",
+      "name": "Conservation of Energy (First Law)",
+      "statement": "Energy cannot be created or destroyed, only transformed. In any process, total energy in must equal total energy out plus storage change.",
+      "formal": "dU = δQ - δW",
+      "lhs": "energy_input",
+      "rhs": "energy_output + delta_storage",
+      "tolerance": 0.05,
+      "units": "Joules (or Joule-equivalent)",
+      "verdict_logic": {
+        "CLEAN": "abs(lhs - rhs) / lhs < 0.05",
+        "SUSPECT": "0.05 ≤ abs(lhs - rhs) / lhs < 0.10",
+        "CORRUPTED": "abs(lhs - rhs) / lhs ≥ 0.10"
+      },
+      "rosetta_family": "FAMILY.F05",
+      "rosetta_principle": "PRINCIPLE.P02",
+      "rosetta_shape": "SHAPE.TETRA",
+      "taf_axiom": "TAF.AXIOM.1",
+      "esp_check": "energy_audit: Effective_Forcing = Storage + Feedback + Transport_Residual"
+    },
+    {
+      "id": "second_law_thermodynamics",
+      "name": "Entropy Never Decreases (Second Law)",
+      "statement": "The entropy of an isolated system never decreases. Every real process generates waste heat — order requires energy input.",
+      "formal": "dS ≥ δQ / T",
+      "lhs": "entropy_final",
+      "rhs": "entropy_initial",
+      "tolerance": 0.0,
+      "constraint": "lhs >= rhs (entropy cannot decrease in isolated system)",
+      "units": "J/K",
+      "verdict_logic": {
+        "CLEAN": "entropy_final >= entropy_initial",
+        "SUSPECT": "entropy_final < entropy_initial AND abs(delta) < 0.01",
+        "CORRUPTED": "entropy_final < entropy_initial AND abs(delta) >= 0.01"
+      },
+      "rosetta_family": "FAMILY.F05",
+      "rosetta_principle": "PRINCIPLE.P02",
+      "rosetta_shape": "SHAPE.OCTA",
+      "taf_axiom": "TAF.AXIOM.2",
+      "esp_check": "cascade_engine KNOWN_LOOPS: feedback loops are entropy-producing dissipative structures"
+    },
+    {
+      "id": "mass_conservation",
+      "name": "Conservation of Mass (Continuity)",
+      "statement": "Mass cannot be created or destroyed in non-nuclear processes. The continuity equation must hold.",
+      "formal": "∂ρ/∂t + ∇·J = 0",
+      "lhs": "mass_input + mass_stored_initial",
+      "rhs": "mass_output + mass_stored_final",
+      "tolerance": 0.01,
+      "units": "kg",
+      "verdict_logic": {
+        "CLEAN": "abs(lhs - rhs) / lhs < 0.01",
+        "SUSPECT": "0.01 ≤ abs(lhs - rhs) / lhs < 0.05",
+        "CORRUPTED": "abs(lhs - rhs) / lhs ≥ 0.05"
+      },
+      "rosetta_family": "FAMILY.F08",
+      "rosetta_principle": "PRINCIPLE.P02",
+      "rosetta_shape": "SHAPE.CUBE"
+    },
+    {
+      "id": "information_conservation",
+      "name": "Information Conservation (Landauer + DPI + NFL)",
+      "statement": "Information is physical. Erasing 1 bit costs kT ln 2 energy minimum. Processing cannot create information (DPI). Learning requires data (NFL).",
+      "sub_laws": [
+        {
+          "id": "landauer_principle",
+          "name": "Landauer's Principle",
+          "formal": "E_erase ≥ kT ln 2 per bit",
+          "value_at_300K_J": 2.87e-21,
+          "constraint": "Information erasure has minimum energy cost",
+          "verdict_logic": {
+            "CLEAN": "energy_per_bit_erased >= kT_ln2",
+            "CORRUPTED": "energy_per_bit_erased < kT_ln2 (violates thermodynamics)"
+          }
+        },
+        {
+          "id": "data_processing_inequality",
+          "name": "Data Processing Inequality (DPI)",
+          "formal": "I(X;Z) ≤ I(X;Y) for Markov chain X→Y→Z",
+          "constraint": "output ≤ input × 1.01",
+          "tolerance": 0.01,
+          "verdict_logic": {
+            "CLEAN": "output_information ≤ input_information × 1.01",
+            "CORRUPTED": "output_information > input_information × 1.01"
+          }
+        },
+        {
+          "id": "no_free_lunch",
+          "name": "No-Free-Lunch Theorem (NFL)",
+          "formal": "∀ learner L, E[performance(L)] = constant over all distributions",
+          "constraint": "learning requires data (minimum 0.01 bits)",
+          "verdict_logic": {
+            "CLEAN": "training_data_bits >= 0.01",
+            "CORRUPTED": "training_data_bits < 0.01 (claims learning from nothing)"
+          }
+        },
+        {
+          "id": "shannon_noise_bound",
+          "name": "Shannon Noise Bound",
+          "formal": "C = B log₂(1 + S/N)",
+          "constraint": "accuracy ≤ 1 - (noise × 0.5)",
+          "verdict_logic": {
+            "CLEAN": "claimed_accuracy ≤ 1 - (noise_level × 0.5)",
+            "CORRUPTED": "claimed_accuracy > 1 - (noise_level × 0.5)"
+          }
+        }
+      ],
+      "rosetta_family": "FAMILY.F03",
+      "rosetta_principle": "PRINCIPLE.P10",
+      "rosetta_shape": "SHAPE.DODECA",
+      "taf_axiom": "TAF.AXIOM.5",
+      "esp_check": "assumption_validator: each boundary has explicit units and confidence levels"
+    },
+    {
+      "id": "generic_conservation",
+      "name": "Generic Conservation Law Template",
+      "statement": "For any conserved quantity Q, the rate of change within a control volume equals net flux through boundaries plus internal sources/sinks.",
+      "formal": "dQ/dt = -∮ J·dA + S",
+      "lhs": "dQ/dt + ∮ J·dA",
+      "rhs": "S (source/sink terms)",
+      "tolerance": "domain_specific",
+      "verdict_logic": {
+        "CLEAN": "residual < domain_tolerance",
+        "SUSPECT": "domain_tolerance ≤ residual < 2 × domain_tolerance",
+        "CORRUPTED": "residual ≥ 2 × domain_tolerance"
+      },
+      "rosetta_principle": "PRINCIPLE.P02",
+      "note": "Template used by constraint_mapper.py to generate domain-specific conservation checks"
+    }
+  ],
+
+  "verdict_pipeline": {
+    "description": "PhysicsGuard's flag_engine processes claims through this pipeline",
+    "stages": [
+      {"stage": 1, "name": "parse", "description": "Extract claim structure and identify referenced quantities"},
+      {"stage": 2, "name": "constrain", "description": "Map claim to applicable conservation laws from laws registry"},
+      {"stage": 3, "name": "check", "description": "Evaluate lhs/rhs balance for each applicable law"},
+      {"stage": 4, "name": "flag", "description": "Assign CLEAN/SUSPECT/CORRUPTED per law"},
+      {"stage": 5, "name": "score", "description": "Aggregate flags into final verdict with severity score 0.0-1.0"}
+    ],
+    "severity_scoring": {
+      "all_CLEAN": {"score": 0.0, "verdict": "CLEAN"},
+      "any_SUSPECT_no_CORRUPTED": {"score": "0.3-0.6", "verdict": "SUSPECT"},
+      "any_CORRUPTED": {"score": "0.8-1.0", "verdict": "CORRUPTED"}
+    },
+    "rosetta_merge_mapping": {
+      "CLEAN": "merged",
+      "SUSPECT": "secondary",
+      "CORRUPTED": "blocked"
+    }
+  },
+
+  "natural_constants": {
+    "description": "Immutable physical constants used as reality anchors — cannot be socially engineered",
+    "constants": {
+      "PHI": {"value": 1.618033988749895, "name": "Golden Ratio", "pattern": "spiral growth"},
+      "PI": {"value": 3.141592653589793, "name": "Pi", "pattern": "circular/cyclical"},
+      "E": {"value": 2.718281828459045, "name": "Euler's Number", "pattern": "natural growth/decay"},
+      "FINE_STRUCTURE": {"value": 137.035999084, "name": "Fine Structure Constant (1/α)", "pattern": "quantum coupling"},
+      "SQRT2": {"value": 1.41421356237, "name": "Square Root of 2", "pattern": "harmonic ratio"},
+      "SQRT3": {"value": 1.73205080757, "name": "Square Root of 3", "pattern": "hexagonal patterns"},
+      "GOLDEN_ANGLE": {"value": 2.39996322972, "name": "Golden Angle (radians)", "pattern": "optimal divergence"}
+    },
+    "harmonic_ratios": {
+      "unison": 1.0,
+      "octave": 2.0,
+      "perfect_fifth": 1.5,
+      "perfect_fourth": 1.333,
+      "major_third": 1.25,
+      "minor_third": 1.2
+    }
+  }
+}

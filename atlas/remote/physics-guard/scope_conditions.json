@@ -1,0 +1,202 @@
+{
+  "schema": "physics-guard/scope_conditions@1.0",
+  "extracted_from": "JinnZ2/PhysicsGuard",
+  "extraction_date": "2026-03-27",
+  "description": "Scope-conditional truth models from PhysicsGuard's conditional_verdict module. Verdicts are context-dependent — a claim that is CLEAN at one organizational scope may be CORRUPTED at another. Also contains organizational thresholds and information-theoretic bounds.",
+
+  "organizational_models": [
+    {
+      "id": "hierarchy",
+      "name": "Hierarchical Organization",
+      "description": "Top-down authority structure with clear chain of command",
+      "rosetta_shape": "SHAPE.CUBE",
+      "rosetta_family": "FAMILY.F11",
+      "fractal_scope": "institutional (level 2, face)",
+      "true_if": [
+        "Clear decision authority exists at each level",
+        "Information flows reliably up and down the chain",
+        "Enforcement cost < 30% of productive output (PG.MAX_ENFORCEMENT_RATIO)",
+        "Span of control is manageable (typically 5-9 direct reports)",
+        "Feedback loops exist from bottom to top"
+      ],
+      "false_if": [
+        "Enforcement cost exceeds 30% of productive output",
+        "Information is systematically blocked or distorted between levels",
+        "Hidden labor exceeds 50% of total work (TAF thermodynamic insolvency)",
+        "Attrition rate exceeds 3.0 (knowledge collapse)",
+        "Single point of failure controls >75% of decisions (PG.MAX_INTERDEPENDENCY_LOAD)"
+      ],
+      "taf_module": "TAF.SOA (Social Overhead Accountant)",
+      "failure_mode": "Bureaucratic entropy — overhead consumes more energy than productive work"
+    },
+    {
+      "id": "distributed",
+      "name": "Distributed Network Organization",
+      "description": "Peer-to-peer authority with consensus-based decisions",
+      "rosetta_shape": "SHAPE.ICOSA",
+      "rosetta_family": "FAMILY.F12",
+      "fractal_scope": "collective (level 3, solid)",
+      "true_if": [
+        "Network resilience score ≥ 0.62 (PG.PHI_RESILIENCE)",
+        "No single node controls >75% of connections (PG.MAX_INTERDEPENDENCY_LOAD)",
+        "Consensus mechanism has bounded convergence time",
+        "Adaptive slack ≥ 15% of capacity (PG.MIN_ADAPTIVE_SLACK)",
+        "Information propagates without systematic loss"
+      ],
+      "false_if": [
+        "Network resilience < 0.62 (cannot self-heal)",
+        "Single node failure cascades to >50% of network",
+        "Consensus degenerates to hidden hierarchy",
+        "Free-rider fraction exceeds network slack capacity",
+        "Information asymmetry creates de facto authority without accountability"
+      ],
+      "taf_module": "TAF.RCDA (Root Cause Depth Analyzer)",
+      "failure_mode": "Network fragility — cascade failure geometry when interdependency exceeds threshold"
+    },
+    {
+      "id": "patriarchy",
+      "name": "Patriarchal Authority Structure",
+      "description": "Authority concentrated in single figurehead with narrative-based legitimacy",
+      "rosetta_shape": "SHAPE.TETRA",
+      "rosetta_family": "FAMILY.F08",
+      "fractal_scope": "individual→institutional (level 0-2, vertex→face)",
+      "true_if": [
+        "Figurehead has genuine domain expertise validated by measurement",
+        "Authority is bounded and delegable",
+        "Succession mechanism exists",
+        "Challenge/correction pathways are open",
+        "Hidden labor is acknowledged and compensated"
+      ],
+      "false_if": [
+        "Authority legitimized by narrative rather than measurement (TAF.AXIOM.5 violation)",
+        "Challenge pathways are blocked or punished",
+        "Hidden labor exceeds 30% (knowledge holders are unrecognized)",
+        "Succession depends on loyalty rather than competence",
+        "Figurehead confuses personal boundary (TETRA) with institutional container (CUBE)"
+      ],
+      "taf_module": "TAF.NARRATIVE_STRIPPER",
+      "failure_mode": "Narrative insolvency — the story of authority replaces the physics of authority",
+      "manipulation_sensors": ["MDS-001 (Messianic Drift)", "CLD (Coercive Love)", "MDS2 (Support-to-Control)"]
+    },
+    {
+      "id": "nomadic_egalitarian",
+      "name": "Nomadic Egalitarian Structure",
+      "description": "Fluid authority based on situational competence, no fixed hierarchy",
+      "rosetta_shape": "SHAPE.OCTA",
+      "rosetta_family": "FAMILY.F02",
+      "fractal_scope": "relational (level 1, edge)",
+      "true_if": [
+        "Authority shifts to most competent member for each situation",
+        "Adaptive slack is high (≥25% — above PG.MIN_ADAPTIVE_SLACK)",
+        "Group size stays within Dunbar-range coordination capacity",
+        "Flow (F02) between members is unobstructed",
+        "Conflict resolution preserves relational bonds"
+      ],
+      "false_if": [
+        "Group exceeds coordination capacity without subdividing",
+        "Situational competence is overridden by social dominance",
+        "Free-riders exploit egalitarian norms",
+        "External threats require faster decision-making than consensus allows",
+        "Hidden hierarchy emerges through informal influence without accountability"
+      ],
+      "taf_module": "TAF.FUNCTIONAL_DETECTOR",
+      "failure_mode": "Coordination collapse — egalitarian norms cannot scale beyond relational scope without structural support"
+    }
+  ],
+
+  "organizational_thresholds": {
+    "description": "Key constants that determine when organizational models transition from valid to invalid",
+    "thresholds": [
+      {
+        "id": "PHI_RESILIENCE",
+        "value": 0.62,
+        "units": "dimensionless (0-1 scale)",
+        "rosetta_shape": "SHAPE.ICOSA",
+        "rosetta_family": "FAMILY.F12",
+        "meaning": "Minimum network resilience for self-correction. Below 0.62, distributed networks cannot heal from node failures.",
+        "derivation": "1/φ ≈ 0.618 — the golden ratio's reciprocal as the minimum viable fraction of a self-similar network"
+      },
+      {
+        "id": "MAX_ENFORCEMENT_RATIO",
+        "value": 0.30,
+        "units": "fraction of productive output",
+        "rosetta_shape": "SHAPE.CUBE",
+        "rosetta_family": "FAMILY.F11",
+        "meaning": "Maximum fraction of energy a system can spend on enforcement before becoming parasitic. Above 30%, the container costs more than its contents.",
+        "taf_link": "TAF.SOA cost categories: signal_blocking + comfort_maintenance + performance_theater + expertise_silencing"
+      },
+      {
+        "id": "MIN_ADAPTIVE_SLACK",
+        "value": 0.15,
+        "units": "fraction of total capacity",
+        "rosetta_shape": "SHAPE.OCTA",
+        "rosetta_family": "FAMILY.F02",
+        "meaning": "Minimum available capacity for adaptation, error recovery, and mediation. Below 15%, the system has no room to respond to perturbation.",
+        "taf_link": "TAF.AXIOM.3 — prediction error minimization requires slack to update models"
+      },
+      {
+        "id": "MAX_INTERDEPENDENCY_LOAD",
+        "value": 0.75,
+        "units": "fraction of total connections through single node",
+        "rosetta_shape": "SHAPE.ICOSA",
+        "rosetta_family": "FAMILY.F12",
+        "meaning": "Maximum fraction of system dependencies through any single point. Above 75%, single-point failure propagates system-wide.",
+        "esp_link": "cascade_map: when >75% of cascade edges pass through one layer, that layer becomes a single-point-of-failure"
+      }
+    ]
+  },
+
+  "information_thresholds": {
+    "description": "Information-theoretic bounds that serve as hard physical limits — no system can violate these regardless of substrate",
+    "bounds": [
+      {
+        "id": "landauer_limit",
+        "name": "Landauer's Principle",
+        "formal": "E_min = kT ln 2",
+        "value_at_300K": "2.87 × 10⁻²¹ J per bit erased",
+        "meaning": "Minimum energy cost of information destruction. Sets the floor for all computation.",
+        "rosetta_bridge": "Dimensional bridge between FAMILY.F03 (Information) and FAMILY.F05 (Energy-Thermo)"
+      },
+      {
+        "id": "nfl_theorem",
+        "name": "No-Free-Lunch Theorem",
+        "formal": "For all learners L: E[error(L)] averaged over all distributions = constant",
+        "minimum_data": "0.01 bits",
+        "meaning": "No learning algorithm can outperform random guessing across all possible problems without data. Specialization requires data.",
+        "rosetta_bridge": "Connects FAMILY.F06 (Cognition) to FAMILY.F14 (Measurement) — you cannot think without first measuring"
+      },
+      {
+        "id": "dpi",
+        "name": "Data Processing Inequality",
+        "formal": "I(X;Z) ≤ I(X;Y) for Markov chain X→Y→Z",
+        "tolerance": 1.01,
+        "meaning": "Processing cannot create information. Each transformation can only preserve or lose information.",
+        "rosetta_bridge": "Validates FAMILY.F03 (Information) merges — no merge can claim to produce more information than its inputs contain"
+      },
+      {
+        "id": "shannon_capacity",
+        "name": "Shannon Channel Capacity",
+        "formal": "C = B log₂(1 + S/N)",
+        "accuracy_bound": "accuracy ≤ 1 - (noise × 0.5)",
+        "meaning": "Maximum rate of error-free communication over a noisy channel. Sets hard upper bound on achievable accuracy.",
+        "rosetta_bridge": "Connects FAMILY.F01 (Resonance) to FAMILY.F03 (Information) — signal quality limits information transfer"
+      }
+    ]
+  },
+
+  "conditional_verdict_logic": {
+    "description": "How PhysicsGuard's verdicts become scope-conditional",
+    "principle": "A claim that is CLEAN at one scope may be CORRUPTED at another. The verdict depends on which organizational model applies.",
+    "example": {
+      "claim": "Strong central authority produces optimal outcomes",
+      "at_individual_scope": "CLEAN — individual decision-making benefits from clear authority",
+      "at_institutional_scope": "SUSPECT — depends on enforcement ratio and hidden labor",
+      "at_collective_scope": "CORRUPTED — violates distributed resilience requirements (PHI_RESILIENCE)"
+    },
+    "rosetta_integration": {
+      "scope_source": "fractal-scope-bridge.json",
+      "verdict_source": "thermodynamic-validation-bridge.json",
+      "mechanism": "Claims are validated at each fractal scope level independently. Final verdict is the most restrictive across all applicable scopes."
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "schema": "earth-systems-physics/feedback_loops@1.0",
+  "extracted_from": "JinnZ2/earth-systems-physics",
+  "extraction_date": "2026-03-27",
+  "description": "8 self-amplifying feedback loops from cascade_engine.py plus the cascade signal propagation map. These are the Earth system's positive feedback circuits — once triggered, they accelerate their own drivers.",
+
+  "feedback_loops": [
+    {
+      "id": "ice_albedo",
+      "name": "Ice-Albedo Positive Feedback",
+      "layers": [3, 4, 6],
+      "threshold_gain_W_m2": 0.5,
+      "timescale": "years to decades",
+      "mechanism": "Ice loss darkens surface → increased absorption → accelerated melt",
+      "rosetta_family": "FAMILY.F08",
+      "rosetta_shape": "SHAPE.CUBE",
+      "rationale": "Phase transition (ice→water) is matter (F08) containment failure"
+    },
+    {
+      "id": "permafrost_CH4",
+      "name": "Permafrost Methane Release Feedback",
+      "layers": [5, 6, 3],
+      "CH4_CO2_equivalence": 28,
+      "timescale": "decades to centuries",
+      "mechanism": "Thaw releases CO₂ and CH₄ → warming → further thaw",
+      "rosetta_family": "FAMILY.F13",
+      "rosetta_shape": "SHAPE.TETRA",
+      "rationale": "Methane release is a chemical reaction (F13) — fire transforming stored carbon"
+    },
+    {
+      "id": "amazon_co2",
+      "name": "Amazon Dieback Feedback",
+      "layers": [6, 3],
+      "trigger_proximity_index": ">0.6",
+      "timescale": "decades",
+      "mechanism": "Dieback → CO₂ release + albedo change → warming → forest loss",
+      "rosetta_family": "FAMILY.F04",
+      "rosetta_shape": "SHAPE.ICOSA",
+      "rationale": "Life (F04) system collapse at collective scope — network death cascade"
+    },
+    {
+      "id": "amoc_sst",
+      "name": "AMOC-SST Feedback Loop",
+      "layers": [4, 3],
+      "trigger_threshold_Sv": 15,
+      "gain_formula": "(17-AMOC)/17",
+      "timescale": "decades to centuries",
+      "mechanism": "Weakening circulation → N Atlantic cooling → atmospheric redistribution → feedback",
+      "rosetta_family": "FAMILY.F02",
+      "rosetta_shape": "SHAPE.OCTA",
+      "rationale": "Circulation is flow (F02) mediation between ocean and atmosphere — OCTA balance failure"
+    },
+    {
+      "id": "stratification_productivity",
+      "name": "Stratification-Productivity Feedback",
+      "layers": [4, 6, 3],
+      "trigger_productivity_change_percent": ">5 decline",
+      "timescale": "decades",
+      "mechanism": "Stratification → reduced nutrient upwelling → CO₂ uptake limitation → warming",
+      "rosetta_family": "FAMILY.F12",
+      "rosetta_shape": "SHAPE.ICOSA",
+      "rationale": "Nutrient network (F12) disconnection at the ocean-biosphere interface"
+    },
+    {
+      "id": "rotation_coriolis",
+      "name": "Rotation-Coriolis Coupling Feedback",
+      "layers": [5, 1, 3],
+      "trigger_LOD_change_ms": 0.5,
+      "timescale": "centuries",
+      "mechanism": "LOD change → spin-orbit perturbation → Coriolis + B-field shift → circulation change",
+      "rosetta_family": "FAMILY.F07",
+      "rosetta_shape": "SHAPE.DODECA",
+      "rationale": "Earth-Cosmos (F07) scale — planetary rotation coupling to magnetic field is cosmic-scale orientation"
+    },
+    {
+      "id": "volcanic_deglaciation",
+      "name": "Volcanic-Deglaciation Feedback",
+      "layers": [5, 3, 4],
+      "trigger_enhancement_percent": ">20",
+      "timescale": "centuries",
+      "mechanism": "Ice removal → crustal unloading → volcanic outgassing → warming → ice loss",
+      "rosetta_family": "FAMILY.F11",
+      "rosetta_shape": "SHAPE.CUBE",
+      "rationale": "Engineering (F11) failure — crustal structural unloading is a load-bearing collapse"
+    },
+    {
+      "id": "magnomechanical_em",
+      "name": "Magnomechanical-EM Coupling Feedback",
+      "layers": [0, 5],
+      "acoustic_velocity_multiplier": 10,
+      "timescale_fast": "seconds to hours",
+      "timescale_slow": "centuries",
+      "mechanism": "EM-induced strain → crustal magnetic stress → acoustic emissions → piezomagnetic coupling",
+      "rosetta_family": "FAMILY.F01",
+      "rosetta_shape": "SHAPE.OCTA",
+      "rationale": "Resonance (F01) — piezomagnetic coupling IS resonant energy transfer between EM and mechanical domains"
+    }
+  ],
+
+  "cascade_map": {
+    "description": "Signal propagation network — which layers influence which",
+    "edges": [
+      {"from": 0, "to": 1, "mechanism": "particle_trapping_resonance", "effect": "amplifying"},
+      {"from": 0, "to": 2, "mechanism": "reflection_cutoff, wave_coupling", "effect": "amplifying"},
+      {"from": 0, "to": 5, "mechanism": "lithospheric_stress", "effect": "amplifying"},
+      {"from": 3, "to": 4, "mechanism": "SST_increase", "effect": "amplifying"},
+      {"from": 3, "to": 5, "mechanism": "ice_melt_LOD_changes", "effect": "amplifying"},
+      {"from": 3, "to": 6, "mechanism": "GPP_shifts", "effect": "amplifying"},
+      {"from": 4, "to": 3, "mechanism": "AMOC_collapse, N_Atlantic_cooling", "effect": "damping"},
+      {"from": 4, "to": 6, "mechanism": "marine_productivity_loss", "effect": "damping"},
+      {"from": 5, "to": 1, "mechanism": "LOD_magnetospheric_geometry", "effect": "amplifying"},
+      {"from": 5, "to": 3, "mechanism": "LOD_Coriolis_circulation", "effect": "amplifying"},
+      {"from": 6, "to": 3, "mechanism": "permafrost_GHG", "effect": "amplifying"},
+      {"from": 6, "to": 4, "mechanism": "permafrost_warming_coupling", "effect": "amplifying"}
+    ]
+  }
+}

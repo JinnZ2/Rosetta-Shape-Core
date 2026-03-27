@@ -1,0 +1,71 @@
+{
+  "schema": "thermodynamic-accountability-framework/thresholds@1.0",
+  "extracted_from": "JinnZ2/thermodynamic-accountability-framework",
+  "extraction_date": "2026-03-27",
+  "description": "TAF's fatigue model, collapse thresholds, and operational constants extracted for fieldlink consumption.",
+
+  "fatigue_model": {
+    "equations": {
+      "total_load": "(physical + cognitive) × hidden_mult × auto_mult × env_mult",
+      "fatigue_score": "clamp(0, 10, (total_load - energy_input) / energy_input × 10)",
+      "hidden_entropy": "10 × (1 - e^(-0.35 × hidden_count))",
+      "collapse_risk": "(fatigue × 0.5) + (hidden_entropy × 0.5), capped at 10",
+      "automation_burden": "1 + count × (1 - reliability) × 0.5",
+      "environment_stress": "1 + max(0, (15 - temp_C) × 0.05) + wind_mps × 0.02"
+    },
+    "constants": {
+      "energy_input_baseline": 100,
+      "hidden_variable_decay_coefficient": 0.35,
+      "fatigue_weight": 0.5,
+      "hidden_entropy_weight": 0.5,
+      "energy_capacity_default": 10.0
+    },
+    "collapse_thresholds": [
+      {"name": "productivity", "multiplier": 1.2, "description": "120% energy input — productivity loss begins"},
+      {"name": "safety", "multiplier": 1.4, "description": "140% energy input — safety margin consumed"},
+      {"name": "health", "multiplier": 1.6, "description": "160% energy input — organism health at risk"}
+    ]
+  },
+
+  "energy_accountant": {
+    "base_metabolic_rate": 1.0,
+    "friction_coefficient": 0.15,
+    "friction_description": "15% metabolic rate increase per systemic failure event",
+    "energy_debt_formula": "unpaid_hours × metabolic_rate",
+    "output_units": "Sovereign Entropy (Joule-equivalent life energy)"
+  },
+
+  "heat_leak_case": {
+    "entropy_threshold": 0.15,
+    "operational_baseline_hours": 14,
+    "prediction_error_threshold_minutes": 20,
+    "efficiency_formula": "1 - (search_time_min / 60) / 14",
+    "mechanical_failure_multiplier": 2
+  },
+
+  "functional_detector": {
+    "stability_window_days": 365,
+    "breach_frequency_threshold": 0.01,
+    "min_regularity": 0.6,
+    "confidence_threshold": 0.7,
+    "quality_formula": "(freq_score × 0.30) + (reg_score × 0.20) + (antifragility × 0.30) + (trust_transfer × 0.20)",
+    "confidence_formula": "quality × 0.85 + duration_quality × 0.15"
+  },
+
+  "insolvency_trigger": {
+    "description": "System is thermodynamically insolvent when ALL four conditions are simultaneously true",
+    "conditions": [
+      {"metric": "Attrition_Rate", "threshold": ">1.5", "meaning": "Knowledge bleeding faster than replacement"},
+      {"metric": "Incident_Delta", "threshold": ">0.2", "meaning": "Incidents increasing >20%"},
+      {"metric": "S_recognition", "threshold": "<0", "meaning": "Institution treats preservation as waste"},
+      {"metric": "L (Labor Externalization)", "threshold": ">1.2", "meaning": "Hidden labor exceeds sustainable ratio"}
+    ],
+    "labor_externalization_formula": "L = 1 + (E_h / E_d)²"
+  },
+
+  "complexity_decay": {
+    "trigger_threshold": 2.0,
+    "formula": "C_index = (System_Complexity × Verification_Burden) / (Energy_Throughput × Signal_Fidelity)",
+    "action": "Automatic resource reduction when C_index > 2.0"
+  }
+}

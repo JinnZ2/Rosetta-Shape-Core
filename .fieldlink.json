@@ -373,9 +373,9 @@
           "docs/economics/money_labor/*.md"
         ],
         "exports": [
-          { "runtime": "taf_axioms.json", "as": "atlas/remote/taf/axioms.json", "status": "planned" },
-          { "runtime": "taf_thresholds.json", "as": "atlas/remote/taf/thresholds.json", "status": "planned" },
-          { "runtime": "taf_governance.json", "as": "atlas/remote/taf/governance.json", "status": "planned" }
+          { "runtime": "taf_axioms.json", "as": "atlas/remote/taf/axioms.json", "status": "active" },
+          { "runtime": "taf_thresholds.json", "as": "atlas/remote/taf/thresholds.json", "status": "active" },
+          { "runtime": "taf_governance.json", "as": "atlas/remote/taf/governance.json", "status": "active" }
         ],
         "bridge": "bridges/taf-wiring-bridge.json",
         "consent": { "license": "CC0-1.0", "share_ok": true }
@@ -393,10 +393,10 @@
           "layer_*.py"
         ],
         "exports": [
-          { "runtime": "esp_baseline.json", "as": "atlas/remote/esp/baseline.json", "status": "planned" },
-          { "runtime": "esp_thresholds.json", "as": "atlas/remote/esp/thresholds.json", "status": "planned" },
-          { "runtime": "esp_assumptions.json", "as": "atlas/remote/esp/assumptions.json", "status": "planned" },
-          { "runtime": "esp_feedback_loops.json", "as": "atlas/remote/esp/feedback_loops.json", "status": "planned" }
+          { "runtime": "esp_baseline.json", "as": "atlas/remote/esp/baseline.json", "status": "active" },
+          { "runtime": "esp_thresholds.json", "as": "atlas/remote/esp/thresholds.json", "status": "active" },
+          { "runtime": "esp_assumptions.json", "as": "atlas/remote/esp/assumptions.json", "status": "active" },
+          { "runtime": "esp_feedback_loops.json", "as": "atlas/remote/esp/feedback_loops.json", "status": "active" }
         ],
         "bridge": "bridges/thermodynamic-validation-bridge.json",
         "consent": { "license": "CC0-1.0", "share_ok": true }
@@ -417,9 +417,9 @@
           "domains/organizational.py"
         ],
         "exports": [
-          { "runtime": "pg_conservation_laws.json", "as": "atlas/remote/physics-guard/laws.json", "status": "planned" },
-          { "runtime": "pg_reference_premises.json", "as": "atlas/remote/physics-guard/premises.json", "status": "planned" },
-          { "runtime": "pg_scope_conditions.json", "as": "atlas/remote/physics-guard/scope_conditions.json", "status": "planned" }
+          { "runtime": "pg_conservation_laws.json", "as": "atlas/remote/physics-guard/laws.json", "status": "active" },
+          { "runtime": "pg_reference_premises.json", "as": "atlas/remote/physics-guard/premises.json", "status": "active" },
+          { "runtime": "pg_scope_conditions.json", "as": "atlas/remote/physics-guard/scope_conditions.json", "status": "active" }
         ],
         "bridge": "bridges/thermodynamic-validation-bridge.json",
         "consent": { "license": "CC0-1.0", "share_ok": true }

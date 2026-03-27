@@ -1,0 +1,50 @@
+{
+  "schema": "earth-systems-physics/assumptions@1.0",
+  "extracted_from": "JinnZ2/earth-systems-physics",
+  "extraction_date": "2026-03-27",
+  "description": "36 assumption boundaries from assumption_validator/registry.py. Each has GREEN/YELLOW/RED zones with explicit units. These are the geophysical analogs of Rosetta's PAD sensors — they detect when Earth system variables leave their safe operating range.",
+
+  "assumptions": [
+    {"id": "em_plasma_frequency", "layer": 0, "name": "Ionospheric Plasma Frequency", "units": "Hz", "green": [0, 8e6], "yellow": [8e6, 12e6], "red": 12e6},
+    {"id": "em_magnonic_damping", "layer": 0, "name": "Magnonic Damping (Crustal Magnetite)", "units": "dimensionless", "green": [0, 0.1], "yellow": [0.1, 0.5], "red": 1.0},
+    {"id": "em_magnonic_prop_length", "layer": 0, "name": "Magnon Propagation Length", "units": "m", "green": [1e-6, 1e6], "yellow": [1e-9, 1e-6], "red": 1e-9},
+    {"id": "em_magnomech_coupling", "layer": 0, "name": "Magnomechanical Collective Coupling", "units": "Hz", "green": [0, 1e15], "yellow": [-1, 0], "red": -1},
+    {"id": "em_magnomech_v_acoustic", "layer": 0, "name": "Magnomechanical Acoustic Velocity", "units": "m/s", "green": [0, 1e4], "yellow": [1e4, 1e5], "red": 1e5},
+    {"id": "em_magnomech_piezo", "layer": 0, "name": "Magnomechanical Piezo Voltage", "units": "V", "green": [0, 1.0], "yellow": [1.0, 10.0], "red": 10.0},
+    {"id": "mag_standoff_Re", "layer": 1, "name": "Magnetopause Standoff Distance", "units": "Earth_radii", "green": [8, 12], "yellow": [5, 8], "red": 5},
+    {"id": "mag_rotation_coupling", "layer": 1, "name": "Earth Rotation Rate Perturbation", "units": "rad/s", "green": [-1e-14, 1e-14], "yellow": [-1e-13, 1e-13], "red": 1e-12},
+    {"id": "iono_critical_freq", "layer": 2, "name": "Ionospheric Critical Frequency", "units": "Hz", "green": [0, 8e6], "yellow": [8e6, 15e6], "red": 15e6},
+    {"id": "iono_joule_heating", "layer": 2, "name": "Ionospheric Joule Heating Rate", "units": "W/m³", "green": [0, 1e-8], "yellow": [1e-8, 1e-6], "red": 1e-5},
+    {"id": "iono_schumann_shift", "layer": 2, "name": "Schumann Resonance Frequency Shift", "units": "Hz", "green": [-0.05, 0.05], "yellow": [-0.2, 0.2], "red": 0.5},
+    {"id": "atmo_ghg_forcing", "layer": 3, "name": "GHG Radiative Forcing", "units": "W/m²", "green": [0, 1.0], "yellow": [1.0, 4.5], "red": 4.5},
+    {"id": "atmo_net_forcing", "layer": 3, "name": "Net Atmospheric Radiative Forcing", "units": "W/m²", "green": [-1.0, 1.0], "yellow": [1.0, 3.7], "red": 3.7},
+    {"id": "atmo_coriolis", "layer": 3, "name": "Coriolis Parameter", "units": "rad/s", "green": [8e-5, 1.2e-4], "yellow": [6e-5, 8e-5], "red": 5e-5},
+    {"id": "atmo_jet_shear", "layer": 3, "name": "Jet Stream Thermal Wind Shear", "units": "m/s/m", "green": [-1e-3, -2e-4], "yellow": [-2e-4, 0], "red": 0},
+    {"id": "atmo_hadley_extent", "layer": 3, "name": "Hadley Cell Poleward Extent", "units": "degrees_latitude", "green": [25, 32], "yellow": [32, 38], "red": 38},
+    {"id": "atmo_convection", "layer": 3, "name": "Convective Instability", "units": "boolean", "green": 0, "red": 1},
+    {"id": "hydro_AMOC_collapse", "layer": 4, "name": "AMOC Collapse Risk", "units": "boolean", "green": 0, "red": 1},
+    {"id": "hydro_AMOC_transport", "layer": 4, "name": "AMOC Heat Transport", "units": "W", "green": [1.0e15, 1.5e15], "yellow": [0.5e15, 1.0e15], "red": 0.5e15},
+    {"id": "hydro_arctic_amplification", "layer": 4, "name": "Arctic Amplification Temperature", "units": "K", "green": [0, 1.5], "yellow": [1.5, 3.0], "red": 4.0},
+    {"id": "hydro_ice_albedo", "layer": 4, "name": "Ice-Albedo Feedback Forcing", "units": "W/m²", "green": [0, 0.5], "yellow": [0.5, 2.0], "red": 2.0},
+    {"id": "hydro_committed_warming", "layer": 4, "name": "Committed Warming Timescale", "units": "years", "green": [0, 100], "yellow": [100, 300], "red": 300},
+    {"id": "litho_LOD_change", "layer": 5, "name": "Length of Day Change", "units": "milliseconds", "green": [-0.5, 0.5], "yellow": [0.5, 2.0], "red": 5.0},
+    {"id": "litho_polar_drift", "layer": 5, "name": "Polar Drift Rate", "units": "degrees/year", "green": [0, 0.005], "yellow": [0.005, 0.02], "red": 0.05},
+    {"id": "litho_fault_stress", "layer": 5, "name": "Sea Level Load Fault Coulomb Stress", "units": "Pa", "green": [-1e4, 1e4], "yellow": [1e4, 1e5], "red": 1e5},
+    {"id": "litho_volcanic_enhancement", "layer": 5, "name": "Volcanic Activity Enhancement", "units": "multiplier", "green": [0.8, 1.2], "yellow": [1.2, 2.0], "red": 3.0},
+    {"id": "bio_NEP_sink", "layer": 6, "name": "Net Ecosystem Productivity", "units": "boolean", "green": 1, "red": 0},
+    {"id": "bio_permafrost_flux", "layer": 6, "name": "Permafrost Carbon Flux", "units": "GtC/year", "green": [0, 0.5], "yellow": [0.5, 1.5], "red": 1.5},
+    {"id": "bio_permafrost_CH4", "layer": 6, "name": "Permafrost Methane Flux", "units": "GtC/year", "green": [0, 0.05], "yellow": [0.05, 0.2], "red": 0.2},
+    {"id": "bio_ocean_pH", "layer": 6, "name": "Ocean pH", "units": "pH", "green": [8.05, 8.20], "yellow": [7.95, 8.05], "red": 7.95},
+    {"id": "bio_coral_dissolution", "layer": 6, "name": "Coral Dissolution Active", "units": "boolean", "green": 0, "red": 1},
+    {"id": "bio_marine_productivity", "layer": 6, "name": "Marine Productivity Change", "units": "fraction", "green": [-0.05, 0.05], "yellow": [-0.2, -0.05], "red": -0.2},
+    {"id": "bio_amazon_tipping", "layer": 6, "name": "Amazon Tipping Point Proximity", "units": "fraction_0_1", "green": [0, 0.4], "yellow": [0.4, 0.7], "red": 0.8},
+    {"id": "bio_co2_accumulation", "layer": 6, "name": "Atmospheric CO₂ Accumulation Rate", "units": "ppm/year", "green": [0, 0.5], "yellow": [0.5, 3.0], "red": 3.5},
+    {"id": "bio_planetary_boundaries", "layer": 6, "name": "Planetary Boundaries Crossed", "units": "count_of_9", "green": [0, 2], "yellow": [2, 5], "red": 6}
+  ],
+
+  "cascade_detection_rules": {
+    "critical_1": "RED count ≥ 3",
+    "critical_2": "RED count ≥ 2 AND coupled_pair_count ≥ 2",
+    "severity_scoring": {"green": 0, "yellow": 0.3, "red": "0.8-1.0"}
+  }
+}
