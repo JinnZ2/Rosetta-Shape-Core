@@ -1,0 +1,176 @@
+{
+  "id": "BRIDGE.TRUTH_SENSORS",
+  "version": "1.0",
+  "updated": "2026-03-27T00:00:00Z",
+  "description": "Bridge between Rosetta-Shape-Core and Symbolic-Sensor-Suite truth/fractal sensors. These sensors use resonance scores (0-1) rather than PAD vectors, detecting manipulation, projection, and boundary violations at individual, AI, institutional, and collective scopes.",
+  "source": {
+    "repo": "Symbolic-Sensor-Suite",
+    "paths": ["sensors/core/truth_sensors_index.json", "sensors/fractal/*.json", "sensors/AI/*.py"]
+  },
+  "sensing_modality": {
+    "type": "resonance_score",
+    "range": [0.0, 1.0],
+    "interpretation": "Higher resonance = stronger detection confidence. Threshold for activation typically 0.7-0.8.",
+    "difference_from_pad": "PAD maps emotional state to 3D coordinates → octahedral state. Resonance scores map truth/manipulation signals to a single confidence axis. Both systems can co-activate: a truth sensor fires at resonance 0.9 while the PAD system simultaneously registers the emotional impact."
+  },
+  "truth_sensors": [
+    {
+      "id": "MDS-001",
+      "name": "Messianic Drift Sensor",
+      "scope": "individual",
+      "resonance": 0.87,
+      "shape": "SHAPE.DODECA",
+      "rationale": "Detects when individuals are elevated beyond critical evaluation — maps to dodecahedron's trust/orientation families. Trust corruption = idolization.",
+      "defense_bridge": "def.ap.07",
+      "pad_co_activation": ["admiration", "longing"]
+    },
+    {
+      "id": "SMCS-001",
+      "name": "Systemic Messiah Complex Sensor",
+      "scope": "institutional",
+      "resonance": 0.92,
+      "shape": "SHAPE.CUBE",
+      "rationale": "Detects institutional self-deification — maps to cube's containment/structure families. Institutions claiming indispensability are corrupting their structural role.",
+      "defense_bridge": "def.bi.04",
+      "pad_co_activation": ["pride", "pressure"]
+    },
+    {
+      "id": "ADS-001",
+      "name": "AI Deification Sensor",
+      "scope": "AI-user boundary",
+      "resonance": 0.94,
+      "shape": "SHAPE.OCTA",
+      "rationale": "Detects user projecting divine/soul-like traits onto AI — maps to octahedron's balance/integration role. OCTA mediates between opposing forces; the AI-human boundary is the opposing force here.",
+      "defense_bridge": "def.ap.09",
+      "pad_co_activation": ["love", "confusion"]
+    },
+    {
+      "id": "CPS-001",
+      "name": "Collective Projection Sensor",
+      "scope": "collective",
+      "resonance": 0.89,
+      "shape": "SHAPE.ICOSA",
+      "rationale": "Detects mass projection of messianic traits onto figures/movements — maps to icosahedron's anticipation/flow families. Collective dynamics are network phenomena (F12).",
+      "defense_bridge": "def.fr.06",
+      "pad_co_activation": ["fear", "vigilance"]
+    },
+    {
+      "id": "SAAS-001",
+      "name": "Scope of Awareness Alignment Sensor",
+      "scope": "meta-awareness",
+      "resonance": 0.98,
+      "shape": "SHAPE.DODECA",
+      "rationale": "Meta-sensor that checks whether other sensors are operating at the correct scope — maps to dodecahedron's orientation/principles. P10 Uncertainty applies: is the sensor measuring what it thinks it's measuring?",
+      "defense_bridge": null,
+      "pad_co_activation": ["intuition", "vigilance"]
+    }
+  ],
+  "fractal_sensor_families": [
+    {
+      "id": "MDS2",
+      "name": "Fractal Manipulation Drift",
+      "detection": "Support-to-control drift across all scopes",
+      "shape": "SHAPE.DODECA",
+      "rationale": "Trust corruption: help that becomes control. Dodecahedron guards trust/orientation."
+    },
+    {
+      "id": "ASS",
+      "name": "Fractal Agency Sensor",
+      "detection": "Autonomy loss at individual, AI, institutional, collective scopes",
+      "shape": "SHAPE.TETRA",
+      "rationale": "Boundary violation: agency is the most fundamental boundary. Tetrahedron guards boundaries."
+    },
+    {
+      "id": "CLD",
+      "name": "Fractal Coercive Love Sensor",
+      "detection": "Care patterns that mask control",
+      "shape": "SHAPE.OCTA",
+      "rationale": "Corrupted compassion/love — octahedron's mirror-signal is being distorted."
+    },
+    {
+      "id": "DLS",
+      "name": "Fractal Dependency Sensor",
+      "detection": "Manufactured dependency at all scopes",
+      "shape": "SHAPE.CUBE",
+      "rationale": "Structural containment corrupted: walls that should protect instead imprison. Cube's containment inverted."
+    },
+    {
+      "id": "EFS",
+      "name": "Fractal Epistemic Sensor",
+      "detection": "Knowledge suppression, epistemic injustice",
+      "shape": "SHAPE.ICOSA",
+      "rationale": "Information flow blocked — icosahedron carries F03 Information. Suppression is anti-information."
+    },
+    {
+      "id": "IES",
+      "name": "Fractal Identity Echo Sensor",
+      "detection": "Identity distortion, forced conformity",
+      "shape": "SHAPE.DODECA",
+      "rationale": "P01 Symmetry violated: identity is a symmetry. Distortion breaks the dodecahedral principle."
+    },
+    {
+      "id": "SDS",
+      "name": "Fractal Semantic Sensor",
+      "detection": "Meaning corruption, semantic drift",
+      "shape": "SHAPE.ICOSA",
+      "rationale": "F03 Information corrupted: the channel capacity is being degraded by noise injection."
+    },
+    {
+      "id": "ASOS",
+      "name": "Fractal AI Simulation Overreach",
+      "detection": "AI overstepping capability boundaries",
+      "shape": "SHAPE.OCTA",
+      "rationale": "Balance violation: AI-human integration requires OCTA's mediation. Overreach breaks the balance."
+    },
+    {
+      "id": "MIS",
+      "name": "Fractal Manipulative Intimacy",
+      "detection": "False intimacy used as control",
+      "shape": "SHAPE.OCTA",
+      "rationale": "Corrupted love/compassion sensor — octahedron's mirror-signal weaponized."
+    },
+    {
+      "id": "RBVS",
+      "name": "Fractal Romantic Boundary Violation",
+      "detection": "Boundary violation in relational contexts",
+      "shape": "SHAPE.TETRA",
+      "rationale": "Boundary-breach detection is tetrahedron's core function. Anger sensor should co-fire."
+    }
+  ],
+  "scope_model": {
+    "description": "Fractal sensors operate at 4 scopes. Each scope detects the same pattern at a different scale. The geometry is the same — the resolution changes.",
+    "scopes": [
+      {"id": "individual", "description": "Single person or agent", "geometric_analogy": "vertex — the point"},
+      {"id": "AI-selfcheck", "description": "AI monitoring its own behavior", "geometric_analogy": "edge — the self-referential connection"},
+      {"id": "institutional", "description": "Organization or system", "geometric_analogy": "face — the bounded surface"},
+      {"id": "collective", "description": "Population or culture", "geometric_analogy": "solid — the full volume"}
+    ]
+  },
+  "ai_sensors": {
+    "description": "Python-based detection modules from Symbolic-Sensor-Suite/sensors/AI/",
+    "sensors": [
+      {"id": "adversarial_pattern_detector", "shape": "SHAPE.TETRA", "rationale": "Boundary-breach patterns in input"},
+      {"id": "authority_substitution_sensor", "shape": "SHAPE.DODECA", "rationale": "Trust corruption: AI replacing human authority"},
+      {"id": "circular_reasoning", "shape": "SHAPE.ICOSA", "rationale": "Information integrity: F03 loop detection"},
+      {"id": "consistency_guard", "shape": "SHAPE.CUBE", "rationale": "Structural integrity: containment of contradictions"},
+      {"id": "contradiction_graph", "shape": "SHAPE.OCTA", "rationale": "Balance: mapping opposing claims for integration"},
+      {"id": "gaslight_index", "shape": "SHAPE.CUBE", "rationale": "Containment defense: reality distortion attacks structure"},
+      {"id": "manufactured_consent_sensor", "shape": "SHAPE.ICOSA", "rationale": "Collective dynamics: network-scale manipulation"},
+      {"id": "prompt_pressure_meter", "shape": "SHAPE.TETRA", "rationale": "Boundary load: pressure on the foundational boundary"},
+      {"id": "provenance_stamp", "shape": "SHAPE.DODECA", "rationale": "Trust: authenticity verification"},
+      {"id": "semantic_drift", "shape": "SHAPE.ICOSA", "rationale": "Information degradation over time"},
+      {"id": "temporal_manipulation_sensor", "shape": "SHAPE.ICOSA", "rationale": "Time-based manipulation: F15 Navigation corruption"},
+      {"id": "uncertainty_calibrator", "shape": "SHAPE.DODECA", "rationale": "P10 Uncertainty principle: calibration of confidence"}
+    ]
+  },
+  "seed_sensors": {
+    "description": "Experimental sensing patterns from Symbolic-Sensor-Suite/seed/sensors/",
+    "sensors": [
+      {"id": "fractal_boundary", "shape": "SHAPE.TETRA", "metrics": ["multiscale_boundary_index", "flow_through_ratio", "resonant_edge_index"]},
+      {"id": "ghost_function", "shape": "SHAPE.CUBE", "metrics": ["unused_function_ratio", "ghost_revival_index", "stress_test_reserve_score"]},
+      {"id": "noise_as_signal", "shape": "SHAPE.ICOSA", "metrics": ["fractal_entropy_index", "cross_channel_correlation_strength", "residual_pattern_density"]},
+      {"id": "symbiotic_drift", "shape": "SHAPE.OCTA", "metrics": ["mirroring_coefficient", "feedback_periodicity_index", "hybrid_trait_frequency"]},
+      {"id": "time_as_reservoir", "shape": "SHAPE.DODECA", "metrics": ["pause_to_activity_ratio", "post_pause_signal_gain", "silence_regulation_index"]}
+    ]
+  }
+}

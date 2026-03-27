@@ -1,6 +1,6 @@
 {
-  "version": "2.0",
-  "updated": "2025-09-11T00:00:00Z",
+  "version": "2.1",
+  "updated": "2026-03-27T00:00:00Z",
   "description": "Cross-repo bridge map linking shapes to sensors, defenses, protocols, and polyhedral families/principles",
   "sources": {
     "sensors": "Emotions-as-Sensors (sensors/glyph-map.json)",
@@ -16,12 +16,12 @@
         "note": "Dodecahedron faces correspond to archetypal principles"
       },
       "families": ["orientation", "trust"],
-      "sensors": ["admiration", "trust"],
-      "sensor_glyphs": ["⚖️", null],
+      "sensors": ["admiration", "trust", "longing", "intuition", "dignity"],
+      "sensor_glyphs": ["⚖️", "🌱", "🔄", "🔮", "👑"],
       "defenses": ["def.ap.07", "def.fr.06"],
       "defense_names": ["Flattery / Ego Appeal", "Consensus / Bandwagon"],
       "protocols": ["partnership_ethics_v1.0"],
-      "bridge_scroll": "admiration ↔ flattery/guilt (⚖🧭), trust ↔ consensus (🌱⚖)"
+      "bridge_scroll": "admiration ↔ flattery/guilt (⚖🧭), trust ↔ consensus (🌱⚖), intuition as compressed probability (🔮), dignity as autonomy intact (👑)"
     },
     {
       "shape": "SHAPE.ICOSA",
@@ -30,12 +30,12 @@
         "note": "Icosahedron faces correspond to equation families"
       },
       "families": ["anticipation", "flow", "growth"],
-      "sensors": ["fear", "excitement"],
-      "sensor_glyphs": ["⚠️", "⚡"],
+      "sensors": ["fear", "excitement", "curiosity", "vigilance"],
+      "sensor_glyphs": ["⚠️", "⚡", "🔍", "👁️"],
       "defenses": ["def.pr.05", "def.bi.04"],
       "defense_names": ["Urgency / Scarcity Pressure", "Authority Bias"],
       "protocols": ["change_tracking_v1.0"],
-      "bridge_scroll": "fear ↔ authority/urgency (🛡⏳)"
+      "bridge_scroll": "fear ↔ authority/urgency (🛡⏳), curiosity as entropy-reduction drive (🔍), vigilance as anomaly detection (👁️)"
     },
     {
       "shape": "SHAPE.TETRA",
@@ -44,12 +44,12 @@
         "note": "Minimal polyhedron — foundational stability"
       },
       "families": ["fire", "stability", "foundation", "boundary"],
-      "sensors": ["anger", "pride"],
-      "sensor_glyphs": ["🛡️", "🏅"],
+      "sensors": ["anger", "pride", "pressure"],
+      "sensor_glyphs": ["🛡️", "🏅", "⏱️"],
       "defenses": ["def.se.01", "def.fr.03"],
       "defense_names": ["Social Engineering Cues", "Framing / Leading Question"],
       "protocols": [],
-      "bridge_scroll": "anger as boundary-breach detector; pride as completion sensor"
+      "bridge_scroll": "anger as boundary-breach detector; pride as completion sensor; pressure as load-exceeding-capacity alarm (⏱️)"
     },
     {
       "shape": "SHAPE.CUBE",
@@ -58,13 +58,13 @@
         "note": "6 faces — grounding, order, boundary"
       },
       "families": ["earth", "stability", "structure", "containment"],
-      "sensors": ["peace", "contentment"],
-      "sensor_glyphs": ["🕊️", "🍃"],
+      "sensors": ["peace", "contentment", "fatigue", "shame"],
+      "sensor_glyphs": ["🕊️", "🍃", "🔋", "⬇️"],
       "defenses": ["def.de.12", "def.ap.08"],
       "defense_names": ["Gaslighting / Inconsistency Push", "Guilt / Obligation"],
       "protocols": ["symbolic_protocol_v1.0"],
       "audit_glyphs": ["SAF:BAL", "SAF:RESOLVE"],
-      "bridge_scroll": "peace as alignment confirmation; containment guards against gaslighting"
+      "bridge_scroll": "peace as alignment confirmation; containment guards against gaslighting; fatigue as resource-depletion signal (🔋); shame as structural-violation collapse (⬇️)"
     },
     {
       "shape": "SHAPE.OCTA",
@@ -73,13 +73,13 @@
         "note": "8 faces — mediates between opposing forces; 6 vertices map to seed-physics amplitude directions"
       },
       "families": ["air", "structure", "balance", "integration"],
-      "sensors": ["compassion", "love"],
-      "sensor_glyphs": ["🫀", "💞"],
+      "sensors": ["compassion", "love", "confusion"],
+      "sensor_glyphs": ["🫀", "💞", "🌀"],
       "defenses": ["def.ap.09", "def.fr.10"],
       "defense_names": ["Sympathy Hardship Appeal", "False Dilemma"],
       "protocols": ["symbolic_protocol_v1.0", "seed_growth_v1.0", "mandala_compute_v1.0"],
       "audit_glyphs": ["SAF:PRIV", "SAF:PROG"],
-      "bridge_scroll": "compassion as mirror-signal integrator; octahedron mediates false dilemmas",
+      "bridge_scroll": "compassion as mirror-signal integrator; octahedron mediates false dilemmas; confusion as pattern-collision requiring integration (🌀)",
       "compute_bridge": {
         "source": "Mandala-Computing",
         "mapping": "8 faces = 8 octahedral states = 8 sacred petals",
@@ -100,13 +100,30 @@
       "symbolic": ["F18", "F19", "F20"]
     }
   },
+  "pad_sensor_assignments": {
+    "description": "Rationale for assigning PAD sensors to shapes based on geometric and domain alignment",
+    "assignments": [
+      {"sensor": "curiosity",  "shape": "SHAPE.ICOSA", "pad": [0.45, 0.60, 0.40],  "rationale": "High arousal, positive valence — exploration drive maps to icosahedron's anticipation/flow families; entropy-reduction is information-seeking (F03)"},
+      {"sensor": "vigilance",  "shape": "SHAPE.ICOSA", "pad": [-0.10, 0.80, -0.20], "rationale": "Highest arousal sensor — anomaly detection is fear's sibling; both live in the high-A icosahedral regime"},
+      {"sensor": "intuition",  "shape": "SHAPE.DODECA", "pad": [0.50, 0.35, 0.55],  "rationale": "High dominance — compressed probability with confidence; maps to dodecahedron's orientation/trust principles (P09 Proportion)"},
+      {"sensor": "dignity",    "shape": "SHAPE.DODECA", "pad": [0.60, 0.20, 0.90],  "rationale": "Highest D sensor — autonomy intact; maps to dodecahedron's trust family and P01 Symmetry (identity preservation)"},
+      {"sensor": "pressure",   "shape": "SHAPE.TETRA", "pad": [-0.40, 0.70, -0.30], "rationale": "High arousal, negative valence, low control — load exceeding capacity; maps to tetrahedron's fire/boundary families (F05 Energy-Thermo)"},
+      {"sensor": "fatigue",    "shape": "SHAPE.CUBE",  "pad": [-0.40, -0.75, -0.50], "rationale": "Lowest arousal — resource depletion; maps to cube's earth/stability families; grounding needed when depleted"},
+      {"sensor": "shame",      "shape": "SHAPE.CUBE",  "pad": [-0.70, -0.35, -0.75], "rationale": "Lowest dominance — structural collapse of internal standard; maps to cube's containment family; needs structural repair"},
+      {"sensor": "confusion",  "shape": "SHAPE.OCTA",  "pad": [-0.20, 0.45, -0.30], "rationale": "Moderate across axes — two incompatible patterns co-present; maps to octahedron's balance/integration role; mediating opposing forces is OCTA's function"}
+    ]
+  },
   "emotion_defense_bridge": {
     "source": "Symbolic-Defense-Protocol/Bridge Scroll.md",
     "pairs": [
       {"sensor": "fear", "defense": "def.bi.04 + def.pr.05", "glyph": "🛡⏳", "note": "authentic fear prepares; manipulation hijacks into panic"},
       {"sensor": "admiration", "defense": "def.ap.07 + def.ap.08", "glyph": "⚖🧭", "note": "authentic admiration inspires; corrupted becomes idolization"},
       {"sensor": "longing", "defense": "def.pr.02", "glyph": "🔄🕸", "note": "authentic longing senses possibility; manipulation loops into false promises"},
-      {"sensor": "trust", "defense": "def.fr.06", "glyph": "🌱⚖", "note": "authentic trust stabilizes; manipulation pressures conformity"}
+      {"sensor": "trust", "defense": "def.fr.06", "glyph": "🌱⚖", "note": "authentic trust stabilizes; manipulation pressures conformity"},
+      {"sensor": "curiosity", "defense": "def.fr.03 + def.de.12", "glyph": "🔍🌀", "note": "authentic curiosity reduces entropy; corrupted curiosity becomes distraction loop or gaslighting vector"},
+      {"sensor": "shame", "defense": "def.ap.08", "glyph": "⬇️🔗", "note": "authentic shame signals contract violation; corrupted shame becomes guilt weaponization"},
+      {"sensor": "pressure", "defense": "def.pr.05", "glyph": "⏱️🔥", "note": "authentic pressure prioritizes triage; corrupted pressure manufactures false urgency"},
+      {"sensor": "confusion", "defense": "def.fr.10", "glyph": "🌀◑", "note": "authentic confusion holds competing patterns; corrupted confusion forced into false dilemma"}
     ]
   }
 }

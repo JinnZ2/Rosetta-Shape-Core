@@ -1,0 +1,215 @@
+{
+  "id": "BRIDGE.THERMODYNAMIC_VALIDATION",
+  "version": "1.0",
+  "updated": "2026-03-27T00:00:00Z",
+  "description": "Unifying bridge that maps three physics repos (thermodynamic-accountability-framework, earth-systems-physics, PhysicsGuard) to Rosetta-Shape-Core's merge policy, equation families, and sensing architecture. These repos provide the mathematical ground truth that validates family-shape merges and conservation law compliance.",
+
+  "repos": {
+    "TAF": {
+      "name": "thermodynamic-accountability-framework",
+      "repo": "JinnZ2/thermodynamic-accountability-framework",
+      "role": "axiom_source",
+      "description": "Five foundational thermodynamic axioms. Energy accounting for biological and mechanical systems. Organism-agnostic — same physics regardless of substrate."
+    },
+    "ESP": {
+      "name": "earth-systems-physics",
+      "repo": "JinnZ2/earth-systems-physics",
+      "role": "equation_source",
+      "description": "7-layer constraint pyramid (EM → magnetosphere → ionosphere → atmosphere → hydrosphere → lithosphere → biosphere). 50+ baseline state variables, 36 assumption boundaries, 8 feedback loops, 9 thresholds."
+    },
+    "PG": {
+      "name": "PhysicsGuard",
+      "repo": "JinnZ2/PhysicsGuard",
+      "role": "validator",
+      "description": "Zero-dependency conservation law checker. CLEAN/SUSPECT/CORRUPTED verdicts with severity scoring. 50 reference premises, Landauer principle, scope-conditional truth."
+    }
+  },
+
+  "merge_policy_validation": {
+    "description": "Maps each of family_map.json's 5 merge gates to specific validation endpoints across the three repos. When a family-shape merge is proposed, these validators provide the mathematical ground truth.",
+    "gates": {
+      "thermodynamic_consistency": {
+        "description": "Energy conservation (P02), entropy production, equilibrium conditions must hold without contradiction.",
+        "validators": [
+          {
+            "source": "TAF",
+            "module": "core/fatigue_model.py",
+            "check": "total_load = (physical + cognitive) × hidden_mult × auto_mult × env_mult. If output exceeds input at any substrate, the merge violates axiom 1.",
+            "axiom": "Conservation of Energy"
+          },
+          {
+            "source": "PG",
+            "module": "core/constraint_mapper.py",
+            "check": "map_constraints() returns first_law_thermodynamics with lhs/rhs balance. Delta > tolerance = CORRUPTED.",
+            "law": "first_law_thermodynamics"
+          },
+          {
+            "source": "ESP",
+            "module": "energy_audit.py",
+            "check": "Effective_Forcing = Storage + Feedback + Transport_Residual. Energy must be classified as INPUT, RESPONSE, or TRANSPORT with zero residual.",
+            "equation": "energy_balance"
+          }
+        ]
+      },
+      "equation_compatibility": {
+        "description": "The family's substance equations must not produce contradictory results when evaluated in both shape contexts.",
+        "validators": [
+          {
+            "source": "PG",
+            "module": "core/contrapositive_tester.py",
+            "check": "Four-corner test: claim + negation + opposite + opposite-negation. If the merge claim passes all four corners, equations are compatible.",
+            "method": "semantic_quadrant_validation"
+          },
+          {
+            "source": "PG",
+            "module": "core/vectorizer.py",
+            "check": "TF-IDF similarity against 50 reference premises. If the merge claim's nearest match is a VIOLATION category, flag for review.",
+            "method": "reference_similarity"
+          },
+          {
+            "source": "ESP",
+            "module": "cascade_engine.py",
+            "check": "CASCADE_MAP defines which layers can influence which. If the merge implies a coupling that contradicts the cascade topology, it's incompatible.",
+            "method": "cascade_topology_check"
+          }
+        ]
+      },
+      "dimensional_consistency": {
+        "description": "Physical dimensions (units) must be preserved across the merge.",
+        "validators": [
+          {
+            "source": "TAF",
+            "module": "core (Thermodynamic Calibration Layer)",
+            "check": "TCL translates domain-specific measurements into standard physical units (Joules) with declared confidence. If a merge mixes incompatible units without a bridging equation, TCL flags it.",
+            "method": "unit_standardization"
+          },
+          {
+            "source": "ESP",
+            "module": "assumption_validator/registry.py",
+            "check": "Each of the 36 assumption boundaries carries explicit units. If a merge references an assumption whose units don't match the family's dimensional signature, it fails.",
+            "method": "unit_registry_check"
+          },
+          {
+            "source": "PG",
+            "module": "domains/information.py",
+            "check": "Landauer's principle: minimum energy per bit erased = kT ln 2. Dimensional bridge between information (bits) and energy (Joules). Any information-energy merge must respect this bound.",
+            "law": "landauer_principle"
+          }
+        ]
+      },
+      "symmetry_preservation": {
+        "description": "The merge must not break the geometric symmetry group of either shape.",
+        "validators": [
+          {
+            "source": "ESP",
+            "module": "layer_0_electromagnetics.py + layer_0b_magnomechanical.py",
+            "check": "Octahedral symmetry group O_h is the physical basis for the 8-state encoding. Silicon's tetrahedral-octahedral hybrid lattice at 109.47° must be preserved in any merge involving SHAPE.OCTA or SHAPE.TETRA.",
+            "method": "crystallographic_symmetry"
+          },
+          {
+            "source": "PG",
+            "module": "core/conditional_verdict.py",
+            "check": "Scope conditions define when structural models work vs break. If a merge produces a structural model that fails its own scope conditions, symmetry is broken.",
+            "method": "scope_condition_check"
+          }
+        ]
+      },
+      "conservation_law_preserved": {
+        "description": "P02 Conservation must hold across the merge boundary.",
+        "validators": [
+          {
+            "source": "TAF",
+            "axioms": ["Conservation of Energy", "Entropy Increases"],
+            "check": "TAF's axioms 1 and 2 are the foundational conservation laws. Any merge that would require violating either axiom is blocked regardless of other gate results.",
+            "method": "axiom_compliance"
+          },
+          {
+            "source": "PG",
+            "module": "core/flag_engine.py",
+            "check": "Verdict pipeline: parse → constrain → check → flag → score. Final verdict CLEAN = conservation preserved. SUSPECT = review needed. CORRUPTED = merge blocked.",
+            "method": "verdict_pipeline"
+          },
+          {
+            "source": "PG",
+            "module": "domains/information.py",
+            "check": "Data processing inequality: output ≤ input × 1.01. No-free-lunch: learning requires data (min 0.01 bits). Shannon noise bound: accuracy ≤ 1 - (noise × 0.5).",
+            "laws": ["data_processing_inequality", "no_free_lunch", "shannon_noise_bound"]
+          },
+          {
+            "source": "ESP",
+            "module": "cascade_engine.py",
+            "check": "KNOWN_LOOPS (8 feedback systems) define which amplification cascades exist. A merge that creates a new amplification pathway not in KNOWN_LOOPS needs explicit validation.",
+            "method": "feedback_loop_check"
+          }
+        ]
+      }
+    }
+  },
+
+  "verdict_mapping": {
+    "description": "How PhysicsGuard's 3-tier verdict maps to Rosetta's merge status",
+    "CLEAN": {
+      "merge_action": "merged",
+      "meaning": "Conservation laws preserved. Family is co-primary on both shapes. Equations valid in both contexts."
+    },
+    "SUSPECT": {
+      "merge_action": "secondary",
+      "meaning": "Possible conservation issue. Family activates through the shape but is not co-primary. Requires further validation or human review."
+    },
+    "CORRUPTED": {
+      "merge_action": "blocked",
+      "meaning": "Conservation law violated. Merge is explicitly blocked. See merge_policy.blocked_merges in family_map.json."
+    }
+  },
+
+  "cross_repo_equation_alignment": {
+    "description": "How the three repos' equations align with each other — proving they form a consistent physics stack",
+    "alignments": [
+      {
+        "concept": "Energy Conservation",
+        "TAF": "Axiom 1: No organism can output more than it takes in",
+        "PG": "first_law_thermodynamics: lhs must equal rhs (delta < tolerance)",
+        "ESP": "energy_audit: Effective_Forcing = Storage + Feedback + Transport_Residual",
+        "rosetta_family": "FAMILY.F05 (Energy-Thermo)",
+        "rosetta_principle": "PRINCIPLE.P02 (Conservation)",
+        "consistency": "All three express dU = Q - W in their respective domains. TAF applies to organisms, PG validates claims, ESP audits planetary energy budget. Same law, three scopes."
+      },
+      {
+        "concept": "Entropy Production",
+        "TAF": "Axiom 2: Every process generates waste",
+        "PG": "second_law_thermodynamics: entropy of isolated system never decreases",
+        "ESP": "cascade_engine KNOWN_LOOPS: feedback loops are entropy-producing dissipative structures",
+        "rosetta_family": "FAMILY.F05 (Energy-Thermo) + FAMILY.F17 (Turbulence)",
+        "rosetta_principle": "PRINCIPLE.P02 (Conservation) + PRINCIPLE.P05 (Emergence)",
+        "consistency": "TAF measures waste accumulation. PG flags entropy reversal claims. ESP models dissipative feedback cascades. Same 2nd law, three scopes."
+      },
+      {
+        "concept": "Information Conservation",
+        "TAF": "Axiom 5: Measurement Over Narrative (information must come from measurement, not cultural labels)",
+        "PG": "Landauer: erasing 1 bit costs kT ln 2. DPI: output ≤ input. NFL: learning requires data.",
+        "ESP": "assumption_validator: each boundary has explicit units and confidence levels — information has physical cost",
+        "rosetta_family": "FAMILY.F03 (Information)",
+        "rosetta_principle": "PRINCIPLE.P10 (Uncertainty)",
+        "consistency": "TAF demands measurement over narrative. PG enforces information-theoretic bounds. ESP validates assumptions carry explicit uncertainty. Information is not free in any of them."
+      },
+      {
+        "concept": "Prediction Error Minimization",
+        "TAF": "Axiom 3: Organisms expend energy maintaining predictive models; turbulent environments inflate prediction costs",
+        "PG": "contrapositive_tester: four-corner semantic validation tests prediction against its own negation",
+        "ESP": "assumption_validator/monitors.py: time-series drift detection flags when assumptions deviate from observations",
+        "rosetta_family": "FAMILY.F06 (Cognition) + FAMILY.F14 (Measurement)",
+        "rosetta_principle": "PRINCIPLE.P10 (Uncertainty)",
+        "consistency": "TAF models prediction cost. PG tests prediction validity. ESP monitors prediction drift. The prediction error budget must balance across all three."
+      },
+      {
+        "concept": "Organism Agnosticism / Substrate Independence",
+        "TAF": "Axiom 4: Framework applies identically to biological and mechanical systems",
+        "PG": "scope_conditions: verdicts are context-dependent but physics is substrate-independent",
+        "ESP": "7 layers treat EM fields, atmosphere, oceans, and biosphere with the same conservation equations",
+        "rosetta_family": "All 20 families (substrate-independent by design)",
+        "rosetta_principle": "PRINCIPLE.P04 (Duality) + PRINCIPLE.P12 (Unity)",
+        "consistency": "Rosetta's entity namespaces (ANIMAL, CRYSTAL, SHAPE) are governed by the same families regardless of substrate. TAF's organism agnosticism IS Rosetta's design philosophy."
+      }
+    ]
+  }
+}

@@ -7,11 +7,11 @@
   "families": ["earth", "stability", "structure", "containment"],
   "polyhedral": { "maps_to": "structural containment" },
   "bridges": {
-    "sensors": ["peace", "contentment"],
+    "sensors": ["peace", "contentment", "fatigue", "shame"],
     "defenses": ["def.de.12", "def.ap.08"],
     "protocols": ["symbolic_protocol_v1.0"],
     "audit_glyphs": ["SAF:BAL", "SAF:RESOLVE"],
-    "bridge_glyphs": ["🕊️", "🍃"]
+    "bridge_glyphs": ["🕊️", "🍃", "🔋", "⬇️"]
   },
   "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
 }

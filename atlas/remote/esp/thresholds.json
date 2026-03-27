@@ -1,0 +1,18 @@
+{
+  "schema": "earth-systems-physics/thresholds@1.0",
+  "extracted_from": "JinnZ2/earth-systems-physics",
+  "extraction_date": "2026-03-27",
+  "description": "9 critical threshold crossings from cascade_engine.py. These are irreversible (or slowly reversible) tipping points in the Earth system.",
+
+  "thresholds": [
+    {"id": "AMOC_collapse", "layer": 4, "name": "Thermohaline Circulation Shutdown", "reversible": false, "description": "Imminent thermohaline shutdown"},
+    {"id": "amazon_tipping", "layer": 6, "name": "Forest-Savanna Transition", "reversible": false, "description": "Amazon dieback triggered"},
+    {"id": "coral_dissolution", "layer": 6, "name": "Aragonite Saturation Collapse", "reversible": false, "threshold_value": 1.0, "units": "Omega_aragonite"},
+    {"id": "permafrost_self_amplification", "layer": 6, "name": "Permafrost Feedback Loop", "reversible": false},
+    {"id": "biosphere_carbon_sink_flip", "layer": 6, "name": "Terrestrial Carbon Source Transition", "reversible": false, "description": "Ecosystem becomes CO2 source"},
+    {"id": "atmospheric_convection", "layer": 3, "name": "Convective Instability Activation", "reversible": true},
+    {"id": "committed_warming_timescale", "layer": 4, "name": "Long-Timescale Warming Lock-In", "reversible": false, "value": 200, "units": "years"},
+    {"id": "planetary_boundaries", "layer": 6, "name": "Multiple Boundary Crossing", "reversible": false, "threshold_count": 6, "description": "Six or more of 9 boundaries crossed simultaneously"},
+    {"id": "volcanic_enhancement", "layer": 5, "name": "Enhanced Volcanic Activity", "reversible": true, "threshold": ">50% baseline"}
+  ]
+}

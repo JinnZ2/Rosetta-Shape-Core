@@ -1,0 +1,175 @@
+{
+  "id": "BRIDGE.PHYSICS_ENCODERS",
+  "version": "1.0",
+  "updated": "2026-03-27T00:00:00Z",
+  "description": "Bridge between Rosetta-Shape-Core shapes and Geometric-to-Binary-Computational-Bridge physics encoders. Each encoder translates a physical domain into octahedral states (3 bits), providing a physical sensing layer underneath the emotional and truth-sensor layers.",
+  "source": {
+    "repo": "Geometric-to-Binary-Computational-Bridge",
+    "paths": ["bridges/*.py", "bridges/sensor_suite.json", "Silicon/octahedral_state_encoder.json"]
+  },
+  "encoding_model": {
+    "description": "Physical signals → domain-specific encoder → octahedral state (3 bits) → shape bridge",
+    "pipeline": ["physical_measurement", "domain_encoder", "octahedral_state", "shape_affinity", "family_resonance"],
+    "output_format": "3-bit vertex encoding (000-111) mapping to 8 geometric positions on SHAPE.OCTA"
+  },
+  "encoders": [
+    {
+      "id": "thermal_encoder",
+      "domain": "Heat, temperature, infrared radiation",
+      "physics": "Stefan-Boltzmann law, Wien displacement, Fourier heat conduction",
+      "shape": "SHAPE.TETRA",
+      "families": ["FAMILY.F05"],
+      "family_name": "Energy-Thermo",
+      "rationale": "Thermal energy is fire — tetrahedron's primary domain. Wien's law (λT=b) gives each temperature a spectral fingerprint.",
+      "pad_co_activation": ["vigilance", "fatigue"],
+      "example": "310K body temperature → Wien peak 9.4µm → octa state 3 (stable, not ground)"
+    },
+    {
+      "id": "magnetic_encoder",
+      "domain": "Magnetic fields, Zeeman splitting, spin states",
+      "physics": "Zeeman basis read/write at 0.3-5 THz, tetrahedral-octahedral hybrid lattice at 109.47°",
+      "shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F10"],
+      "family_affinity": "secondary",
+      "family_name": "Particle",
+      "rationale": "Magnetic encoding directly uses octahedral geometry — 6 vertices map to field directions. F10 (Particle) is primary to ICOSA but activates secondarily through OCTA's physical Zeeman basis.",
+      "pad_co_activation": ["coherence", "intuition"],
+      "example": "External B-field → Zeeman split → 3-bit state encoding → vertex on OCTA"
+    },
+    {
+      "id": "electric_encoder",
+      "domain": "Electric fields, voltage gradients, bioelectric signals",
+      "physics": "Coulomb's law, capacitance, membrane potential",
+      "shape": "SHAPE.TETRA",
+      "families": ["FAMILY.F05", "FAMILY.F13"],
+      "family_name": "Energy-Thermo + Reaction",
+      "rationale": "Electric potential drives reactions (activation energy). Tetrahedron's fire/reaction families. Bioelectric signals (like electric eel) use oscillation encoding.",
+      "pad_co_activation": ["anger", "excitement"],
+      "example": "Membrane depolarization → voltage spike → octa state 4 (high contrast, compressed)"
+    },
+    {
+      "id": "pressure_encoder",
+      "domain": "Mechanical pressure, stress tensors, acoustic pressure",
+      "physics": "Pascal's law, bulk modulus, stress-strain relations",
+      "shape": "SHAPE.CUBE",
+      "families": ["FAMILY.F08", "FAMILY.F11"],
+      "family_name": "Matter + Engineering",
+      "rationale": "Pressure is force on structure — cube's containment families. Structural integrity under load is cube's core function.",
+      "pad_co_activation": ["pressure", "fatigue"],
+      "example": "Hydrostatic pressure → isotropic compression → octa state 0 (spherical ground)"
+    },
+    {
+      "id": "sound_encoder",
+      "domain": "Acoustic waves, frequency spectra, beat patterns",
+      "physics": "Fourier decomposition, resonance frequency ω₀=√(k/m), beat frequency |f₁-f₂|",
+      "shape": "SHAPE.ICOSA",
+      "families": ["FAMILY.F01"],
+      "family_name": "Resonance",
+      "rationale": "Sound is oscillation — resonance is F01, icosahedron's first family. Fourier decomposition reveals harmonic structure. 40Hz gamma-band beat frequencies linked to neural binding.",
+      "pad_co_activation": ["coherence", "curiosity"],
+      "example": "40Hz binaural beat → beat frequency encoding → octa state 5 (biaxial, two equal axes)"
+    },
+    {
+      "id": "light_encoder",
+      "domain": "Electromagnetic radiation, coherence, polarization",
+      "physics": "Malus's law, fringe visibility V, wavelength-dependent encoding",
+      "shape": "SHAPE.ICOSA",
+      "families": ["FAMILY.F01", "FAMILY.F03"],
+      "family_name": "Resonance + Information",
+      "rationale": "Light coherence (V≈0.9) signals phase-lock — resonance. Wavelength carries information (F03). Polarization is a symmetry selection.",
+      "pad_co_activation": ["coherence", "admiration"],
+      "example": "532nm coherent light, V=0.9 → octa state 0 (ground, max φ-coherence)"
+    },
+    {
+      "id": "gravity_encoder",
+      "domain": "Gravitational fields, tidal forces, orbital mechanics",
+      "physics": "Newton's law, Kepler's laws, geodesics in curved spacetime",
+      "shape": "SHAPE.DODECA",
+      "families": ["FAMILY.F07"],
+      "family_name": "Earth-Cosmos",
+      "rationale": "Gravity is the cosmic-scale force — dodecahedron's Earth-Cosmos family (F07). Orbital mechanics and geodesics map to navigation (F15) principles.",
+      "pad_co_activation": ["trust", "dignity"],
+      "example": "Tidal force gradient → anisotropic deformation → octa state 1 (elongated along dominant axis)"
+    },
+    {
+      "id": "wave_encoder",
+      "domain": "General wave phenomena, interference, diffraction",
+      "physics": "Superposition principle, Huygens' principle, wave equation",
+      "shape": "SHAPE.ICOSA",
+      "families": ["FAMILY.F01", "FAMILY.F20"],
+      "family_name": "Resonance + Topology",
+      "rationale": "Waves are the universal carrier. Interference patterns encode topology (F20). Superposition maps to icosahedron's 20-face information capacity.",
+      "pad_co_activation": ["confusion", "curiosity"],
+      "example": "Double-slit interference → fringe pattern → octa state 6 (diagonal superposition)"
+    },
+    {
+      "id": "vortex_bridge",
+      "domain": "Vorticity, turbulent flow, rotational dynamics",
+      "physics": "Navier-Stokes vorticity, Kolmogorov cascade, Reynolds number",
+      "shape": "SHAPE.ICOSA",
+      "families": ["FAMILY.F02", "FAMILY.F17"],
+      "family_name": "Flow + Turbulence",
+      "rationale": "Vortices are the geometry of turbulent flow — icosahedron carries both Flow (F02) and Turbulence (F17) families.",
+      "pad_co_activation": ["discordance", "fear"],
+      "example": "High Reynolds number → turbulent cascade → octa state 5 (low φ-coherence, chaotic)"
+    },
+    {
+      "id": "chemical_encoder",
+      "domain": "Chemical reactions, concentrations, catalysis",
+      "physics": "Arrhenius equation, reaction kinetics, enzyme catalysis",
+      "shape": "SHAPE.TETRA",
+      "families": ["FAMILY.F13", "FAMILY.F04"],
+      "family_affinity": {"FAMILY.F13": "primary", "FAMILY.F04": "secondary"},
+      "family_name": "Reaction + Life",
+      "rationale": "Chemical reactions are fire transformations — F13 (Reaction) is primary to TETRA. F04 (Life, primary: DODECA) activates secondarily through sustained catalytic cycles.",
+      "pad_co_activation": ["excitement", "curiosity"],
+      "example": "Enzyme-substrate binding → Michaelis-Menten kinetics → octa state 2 (high-entropy search for substrate)"
+    },
+    {
+      "id": "consciousness_encoder",
+      "domain": "Integrated information, neural binding, global workspace",
+      "physics": "Integrated Information Theory (Φ), free energy principle, neural synchronization",
+      "shape": "SHAPE.DODECA",
+      "families": ["FAMILY.F16", "FAMILY.F06"],
+      "family_name": "Consciousness + Cognition",
+      "rationale": "Consciousness maps to dodecahedron's principles layer — integrated information (Φ) quantifies irreducibility of causal architecture. P12 Unity is the target state.",
+      "pad_co_activation": ["coherence", "intuition"],
+      "example": "High Φ + gamma synchrony → octa state 0 (ground state, max integration)"
+    },
+    {
+      "id": "emotion_encoder",
+      "domain": "PAD coordinates, sensor co-activation, octahedral state mapping",
+      "physics": "PAD compression (22 sensors → 3 floats → 8 states), φ-coherence model",
+      "shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F06", "FAMILY.F16"],
+      "family_affinity": "secondary",
+      "family_name": "Cognition + Consciousness",
+      "rationale": "The emotion encoder is the PAD→octahedral mapping itself. F06 (Cognition, primary: DODECA) and F16 (Consciousness, primary: DODECA) both activate secondarily through OCTA as the computational bridge between all encoders and the emotional layer.",
+      "pad_co_activation": "all",
+      "example": "PAD(0.80, 0.10, 0.50) → octa state 0 → coherence sensor → ground state"
+    }
+  ],
+  "silicon_encoder": {
+    "description": "Physical implementation of octahedral state encoding in silicon",
+    "source_file": "Silicon/octahedral_state_encoder.json",
+    "encoding": "3-bit per unit cell, tetrahedral-octahedral hybrid lattice at 109.47°",
+    "read_write": "Magnetic field coupling (Zeeman basis), 0.3-5 THz",
+    "states": [
+      {"bits": "000", "position": "north apex", "shape_vertex": "+z"},
+      {"bits": "001", "position": "south apex", "shape_vertex": "-z"},
+      {"bits": "010", "position": "east ridge", "shape_vertex": "+x"},
+      {"bits": "011", "position": "west ridge", "shape_vertex": "-x"},
+      {"bits": "100", "position": "front face", "shape_vertex": "+y"},
+      {"bits": "101", "position": "back face", "shape_vertex": "-y"},
+      {"bits": "110", "position": "axial symmetry", "shape_vertex": "diagonal-a"},
+      {"bits": "111", "position": "equilibrium node", "shape_vertex": "diagonal-b"}
+    ]
+  },
+  "shape_coverage": {
+    "SHAPE.TETRA": ["thermal_encoder", "electric_encoder", "chemical_encoder"],
+    "SHAPE.CUBE": ["pressure_encoder"],
+    "SHAPE.OCTA": ["magnetic_encoder", "emotion_encoder"],
+    "SHAPE.ICOSA": ["sound_encoder", "light_encoder", "wave_encoder", "vortex_bridge"],
+    "SHAPE.DODECA": ["gravity_encoder", "consciousness_encoder"]
+  }
+}

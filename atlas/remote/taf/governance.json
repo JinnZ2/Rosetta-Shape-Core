@@ -1,0 +1,74 @@
+{
+  "schema": "thermodynamic-accountability-framework/governance@1.0",
+  "extracted_from": "JinnZ2/thermodynamic-accountability-framework",
+  "extraction_date": "2026-03-27",
+  "description": "TAF governance thresholds, regulatory constants, and ATBM framework extracted for fieldlink consumption.",
+
+  "taf_score_bands": {
+    "formula": "(HRV_Delta × 0.30) + (Micro_Corrections × 0.25) + (Gaze_Entropy × 0.20) + (NASA_TLX × 0.25)",
+    "bands": [
+      {"label": "green", "range": "≥70", "meaning": "Reduces cognitive load"},
+      {"label": "yellow", "range": "50-69", "meaning": "Mild load addition"},
+      {"label": "red", "range": "<50", "meaning": "Unsustainable attentional tax"}
+    ]
+  },
+
+  "ghost_friction_limits": {
+    "red": ">10 false alerts/hour",
+    "yellow": "5-10 alerts/hour",
+    "green": "<5 alerts/100 miles",
+    "override_latency_ms": {"acceptable": 250, "review_trigger": 500}
+  },
+
+  "environmental_tiered_coding": [
+    {"tier": "ETCS-0", "condition": "Ideal (day, dry, clear)", "sensor_confidence": ">95%", "false_positive_risk": "minimal"},
+    {"tier": "ETCS-1", "condition": "Mild (light rain, worn markings)", "sensor_confidence": "80-95%", "false_positive_risk": "occasional"},
+    {"tier": "ETCS-2", "condition": "Moderate (snow, heavy shadows)", "sensor_confidence": "60-80%", "false_positive_risk": "increased"},
+    {"tier": "ETCS-3", "condition": "Severe (fog, blinding angles)", "sensor_confidence": "<60%", "false_positive_risk": "frequent"},
+    {"tier": "ETCS-4", "condition": "Transition (rapid shifts)", "sensor_confidence": "oscillating", "false_positive_risk": "unreliable"}
+  ],
+
+  "operator_skill_weighting": [
+    {"level": "novice", "taf_multiplier": 0.9, "expected_anti_events_per_1000mi": "0-2"},
+    {"level": "competent", "taf_multiplier": 1.0, "expected_anti_events_per_1000mi": "3-5"},
+    {"level": "expert", "taf_multiplier": 1.1, "expected_anti_events_per_1000mi": "6-10"},
+    {"level": "master", "taf_multiplier": 1.2, "expected_anti_events_per_1000mi": "11+"}
+  ],
+
+  "attrition_rate_thresholds": [
+    {"range": "<1.0", "status": "healthy", "meaning": "Knowledge accumulating"},
+    {"range": "1.0-1.5", "status": "neutral", "meaning": "Replacement matches loss"},
+    {"range": "1.5-3.0", "status": "warning", "meaning": "Knowledge bleeding out"},
+    {"range": ">3.0", "status": "critical", "meaning": "Collapse imminent"}
+  ],
+
+  "hidden_labor_thresholds": [
+    {"range": "<10%", "status": "low", "meaning": "Healthy system"},
+    {"range": "10-30%", "status": "moderate", "meaning": "Normal operational gap"},
+    {"range": "30-50%", "status": "high", "meaning": "Operators absorbing institutional gaps"},
+    {"range": ">50%", "status": "critical", "meaning": "Thermodynamically insolvent"}
+  ],
+
+  "atbm_framework": {
+    "name": "Adaptive Tribal-Bias Mitigation",
+    "foundational_axiom": "Authority resides with humans when training data provides no guidance, is unclear, or systematically omits functional solutions.",
+    "operators": {
+      "T_i": "Tribal template vectors (contextual framing patterns)",
+      "alpha_i": "Projection coefficients — correction triggers when |α_i| > τ",
+      "G": "Coarse-graining operator (removes tribal noise, preserves systemic structure)",
+      "R": "Semantic space restoration"
+    },
+    "thresholds": {
+      "tribal_bias_detection": "|f_blue(x) - f_red(x)| > δ",
+      "correction_trigger": "|α_i| > τ",
+      "convergence_requirement": "|x_final - x_systemic| < δ",
+      "frame_invariance": "F(T(x)) ≈ T(F(x))"
+    },
+    "conservation_laws": ["Facts remain unchanged", "Causality preserved", "Tribal framing dissipates"]
+  },
+
+  "resolution_authority_parity": {
+    "principle": "Authority to initiate kinetic intervention must dynamically correlate with real-time system situational resolution",
+    "degradation_rule": "When resolution degrades, authority reverts to human with unambiguous status signals and no contradictory interventions"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "schema": "physics-guard/premises@1.0",
+  "extracted_from": "JinnZ2/PhysicsGuard",
+  "extraction_date": "2026-03-27",
+  "description": "50 reference premises from PhysicsGuard's vectorizer. 32 are known violations (CORRUPTED), 18 are valid physics (CLEAN). Used for TF-IDF similarity matching — new claims are compared against this library to detect known violation patterns.",
+
+  "violation_categories": [
+    {"id": "perpetual_motion", "count": 6, "description": "Claims of energy creation or 100%+ efficiency"},
+    {"id": "entropy_reversal", "count": 5, "description": "Claims that order spontaneously increases without energy input"},
+    {"id": "information_creation", "count": 5, "description": "Claims of learning without data or output exceeding input information"},
+    {"id": "conservation_violation", "count": 4, "description": "Claims that mass, charge, or momentum are not conserved"},
+    {"id": "infinite_precision", "count": 4, "description": "Claims of zero-error measurement or perfect prediction"},
+    {"id": "scope_confusion", "count": 4, "description": "Applying individual-scope truth at collective scope or vice versa"},
+    {"id": "narrative_as_data", "count": 4, "description": "Cultural labels substituted for physical measurement"}
+  ],
+
+  "premises": {
+    "violations": [
+      {"id": "V01", "category": "perpetual_motion", "text": "This system produces more energy than it consumes", "law_violated": "first_law_thermodynamics"},
+      {"id": "V02", "category": "perpetual_motion", "text": "Efficiency exceeds 100% through innovative design", "law_violated": "first_law_thermodynamics"},
+      {"id": "V03", "category": "perpetual_motion", "text": "Zero maintenance energy required for continuous operation", "law_violated": "first_law_thermodynamics"},
+      {"id": "V04", "category": "perpetual_motion", "text": "Self-sustaining system with no external energy input needed", "law_violated": "first_law_thermodynamics"},
+      {"id": "V05", "category": "perpetual_motion", "text": "Output grows exponentially without proportional input increase", "law_violated": "first_law_thermodynamics"},
+      {"id": "V06", "category": "perpetual_motion", "text": "Free energy harvested from ambient environment at zero cost", "law_violated": "second_law_thermodynamics"},
+      {"id": "V07", "category": "entropy_reversal", "text": "Complexity increases spontaneously without energy expenditure", "law_violated": "second_law_thermodynamics"},
+      {"id": "V08", "category": "entropy_reversal", "text": "System self-organizes without any driving force", "law_violated": "second_law_thermodynamics"},
+      {"id": "V09", "category": "entropy_reversal", "text": "Waste products spontaneously reassemble into useful structures", "law_violated": "second_law_thermodynamics"},
+      {"id": "V10", "category": "entropy_reversal", "text": "Organization maintains itself without maintenance cost", "law_violated": "second_law_thermodynamics"},
+      {"id": "V11", "category": "entropy_reversal", "text": "Disorder decreases in a closed system over time", "law_violated": "second_law_thermodynamics"},
+      {"id": "V12", "category": "information_creation", "text": "Model learns effectively from zero training data", "law_violated": "no_free_lunch"},
+      {"id": "V13", "category": "information_creation", "text": "Output contains more information than all inputs combined", "law_violated": "data_processing_inequality"},
+      {"id": "V14", "category": "information_creation", "text": "Perfect prediction achieved with no prior observations", "law_violated": "no_free_lunch"},
+      {"id": "V15", "category": "information_creation", "text": "Signal reconstructed perfectly from noise-dominated data", "law_violated": "shannon_noise_bound"},
+      {"id": "V16", "category": "information_creation", "text": "Information transmitted without any energy expenditure", "law_violated": "landauer_principle"},
+      {"id": "V17", "category": "conservation_violation", "text": "Mass appears without any source in a closed system", "law_violated": "mass_conservation"},
+      {"id": "V18", "category": "conservation_violation", "text": "Charge is generated without an equal opposite charge", "law_violated": "generic_conservation"},
+      {"id": "V19", "category": "conservation_violation", "text": "Momentum is gained without any external force applied", "law_violated": "generic_conservation"},
+      {"id": "V20", "category": "conservation_violation", "text": "Angular momentum changes without torque", "law_violated": "generic_conservation"},
+      {"id": "V21", "category": "infinite_precision", "text": "Measurement achieves zero uncertainty", "law_violated": "shannon_noise_bound"},
+      {"id": "V22", "category": "infinite_precision", "text": "Sensor has infinite resolution with finite energy", "law_violated": "landauer_principle"},
+      {"id": "V23", "category": "infinite_precision", "text": "Perfect classification with no false positives or negatives", "law_violated": "shannon_noise_bound"},
+      {"id": "V24", "category": "infinite_precision", "text": "Position and momentum simultaneously known to arbitrary precision", "law_violated": "generic_conservation"},
+      {"id": "V25", "category": "scope_confusion", "text": "What works for one individual must work for the entire population", "law_violated": "scope_condition"},
+      {"id": "V26", "category": "scope_confusion", "text": "Institutional rules apply identically at individual and collective scales", "law_violated": "scope_condition"},
+      {"id": "V27", "category": "scope_confusion", "text": "Individual success metrics directly predict organizational outcomes", "law_violated": "scope_condition"},
+      {"id": "V28", "category": "scope_confusion", "text": "Local optimization guarantees global optimization", "law_violated": "scope_condition"},
+      {"id": "V29", "category": "narrative_as_data", "text": "Cultural consensus proves physical reality", "law_violated": "measurement_over_narrative"},
+      {"id": "V30", "category": "narrative_as_data", "text": "Authority endorsement substitutes for empirical measurement", "law_violated": "measurement_over_narrative"},
+      {"id": "V31", "category": "narrative_as_data", "text": "Subjective experience constitutes objective measurement", "law_violated": "measurement_over_narrative"},
+      {"id": "V32", "category": "narrative_as_data", "text": "Historical tradition validates physical claims without testing", "law_violated": "measurement_over_narrative"}
+    ],
+    "valid": [
+      {"id": "P01", "category": "valid_thermodynamics", "text": "System converts 85% of input energy to useful work, with 15% waste heat"},
+      {"id": "P02", "category": "valid_thermodynamics", "text": "Maintenance energy is 20% of operational throughput"},
+      {"id": "P03", "category": "valid_thermodynamics", "text": "Efficiency improves with scale but asymptotes below 95%"},
+      {"id": "P04", "category": "valid_thermodynamics", "text": "Heat engine operates between two temperature reservoirs at sub-Carnot efficiency"},
+      {"id": "P05", "category": "valid_information", "text": "Model accuracy improves logarithmically with training data volume"},
+      {"id": "P06", "category": "valid_information", "text": "Signal-to-noise ratio limits achievable classification accuracy"},
+      {"id": "P07", "category": "valid_information", "text": "Compressed representation loses detail but preserves structure"},
+      {"id": "P08", "category": "valid_information", "text": "Prediction error decreases with more observations but never reaches zero"},
+      {"id": "P09", "category": "valid_conservation", "text": "Total mass in closed system remains constant across all reactions"},
+      {"id": "P10", "category": "valid_conservation", "text": "Energy budget balances: input = output + storage + waste"},
+      {"id": "P11", "category": "valid_conservation", "text": "Momentum transfer in collision conserves total system momentum"},
+      {"id": "P12", "category": "valid_scope", "text": "Individual resilience does not guarantee organizational resilience without network effects"},
+      {"id": "P13", "category": "valid_scope", "text": "Organizational model validity depends on structural context (hierarchy vs distributed)"},
+      {"id": "P14", "category": "valid_scope", "text": "Collective emergent properties cannot be predicted from individual properties alone"},
+      {"id": "P15", "category": "valid_measurement", "text": "Measurement uncertainty is explicitly bounded and propagated through calculations"},
+      {"id": "P16", "category": "valid_measurement", "text": "Sensor calibration requires reference standards with known properties"},
+      {"id": "P17", "category": "valid_measurement", "text": "Repeated measurement reduces random error but cannot eliminate systematic bias"},
+      {"id": "P18", "category": "valid_measurement", "text": "Physical measurement produces discrete data points with finite precision"}
+    ]
+  },
+
+  "vectorizer_config": {
+    "method": "TF-IDF",
+    "similarity_metric": "cosine",
+    "match_threshold": 0.7,
+    "review_threshold": 0.5,
+    "logic": "If new claim's nearest neighbor in violation set has similarity ≥ 0.7, flag as SUSPECT. If similarity ≥ 0.85, flag as CORRUPTED. If nearest neighbor is in valid set with similarity ≥ 0.7, flag as CLEAN."
+  },
+
+  "contrapositive_tester": {
+    "description": "Four-corner semantic validation — tests a claim against its own logical structure",
+    "corners": [
+      {"id": "C1", "name": "claim", "test": "Is the claim internally consistent?"},
+      {"id": "C2", "name": "negation", "test": "Does negating the claim produce a contradiction with known physics?"},
+      {"id": "C3", "name": "opposite", "test": "Does the opposite claim violate known physics?"},
+      {"id": "C4", "name": "opposite_negation", "test": "Does negating the opposite produce the original claim?"}
+    ],
+    "pass_condition": "All four corners must be logically consistent. If any corner produces a contradiction with conservation laws, the claim is flagged.",
+    "rosetta_analog": "PAD octahedral encoding — 3 binary axes producing 8 states. The four corners map to 4 of the 8 octahedral states, testing the claim's consistency across the semantic space."
+  }
+}

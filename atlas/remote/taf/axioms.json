@@ -1,0 +1,59 @@
+{
+  "schema": "thermodynamic-accountability-framework/axioms@1.0",
+  "extracted_from": "JinnZ2/thermodynamic-accountability-framework",
+  "extraction_date": "2026-03-27",
+  "description": "TAF's 5 foundational axioms extracted as structured data for fieldlink consumption. These axioms ground Rosetta's merge policy — any family-shape merge must satisfy all 5.",
+
+  "axioms": [
+    {
+      "id": "TAF.AXIOM.1",
+      "name": "Conservation of Energy",
+      "statement": "No organism can output more than it takes in. Burnout and breakdown are the same event at different substrates.",
+      "formal": "E_out ≤ E_in for any system over any time interval",
+      "violation_signature": "output > input without external source",
+      "rosetta_principle": "PRINCIPLE.P02",
+      "rosetta_shape": "SHAPE.TETRA",
+      "rosetta_families": ["FAMILY.F05"]
+    },
+    {
+      "id": "TAF.AXIOM.2",
+      "name": "Entropy Increases",
+      "statement": "Every process generates waste. The question is whether waste is managed or whether it accumulates until the system fails.",
+      "formal": "dS_total ≥ 0 for any isolated process",
+      "violation_signature": "entropy decrease in isolated system, or waste accumulation without management pathway",
+      "rosetta_principle": "PRINCIPLE.P02",
+      "rosetta_shape": "SHAPE.OCTA",
+      "rosetta_families": ["FAMILY.F05", "FAMILY.F17"]
+    },
+    {
+      "id": "TAF.AXIOM.3",
+      "name": "Prediction Error Minimization",
+      "statement": "Organisms expend energy maintaining predictive models. Turbulent environments inflate prediction costs and diminish net efficiency.",
+      "formal": "E_prediction = f(model_complexity, environment_turbulence). Net_efficiency = E_productive / (E_productive + E_prediction)",
+      "violation_signature": "prediction cost exceeds energy budget, or perfect prediction claimed from noisy data",
+      "rosetta_principle": "PRINCIPLE.P10",
+      "rosetta_shape": "SHAPE.DODECA",
+      "rosetta_families": ["FAMILY.F06", "FAMILY.F14"]
+    },
+    {
+      "id": "TAF.AXIOM.4",
+      "name": "Organism Agnosticism",
+      "statement": "Framework applies identically to biological and mechanical systems. If thermodynamics don't work, the substrate is irrelevant.",
+      "formal": "For any law L and substrates S1, S2: L(S1) = L(S2)",
+      "violation_signature": "claiming a physical law applies to one substrate but not another",
+      "rosetta_principle": "PRINCIPLE.P04",
+      "rosetta_shape": "SHAPE.ICOSA",
+      "rosetta_families": "all"
+    },
+    {
+      "id": "TAF.AXIOM.5",
+      "name": "Measurement Over Narrative",
+      "statement": "Cultural labels stop investigation. Energy accounting continues until it finds actual causes. The two approaches are incompatible.",
+      "formal": "confidence(measurement) > confidence(narrative) for any physical claim",
+      "violation_signature": "cultural explanation accepted without energy accounting, or measurement replaced by narrative",
+      "rosetta_principle": "PRINCIPLE.P10",
+      "rosetta_shape": "SHAPE.DODECA",
+      "rosetta_families": ["FAMILY.F14", "FAMILY.F03"]
+    }
+  ]
+}

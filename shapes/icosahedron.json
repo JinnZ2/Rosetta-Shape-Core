@@ -8,10 +8,10 @@
   "equation_families": ["FAMILY.F01","FAMILY.F02","FAMILY.F03","FAMILY.F04","FAMILY.F05","FAMILY.F06","FAMILY.F07","FAMILY.F08","FAMILY.F09","FAMILY.F10","FAMILY.F11","FAMILY.F12","FAMILY.F13","FAMILY.F14","FAMILY.F15","FAMILY.F16","FAMILY.F17","FAMILY.F18","FAMILY.F19","FAMILY.F20"],
   "polyhedral": { "maps_to": "20 Families (F01-F20)" },
   "bridges": {
-    "sensors": ["fear", "excitement"],
+    "sensors": ["fear", "excitement", "curiosity", "vigilance"],
     "defenses": ["def.pr.05", "def.bi.04"],
     "protocols": ["change_tracking_v1.0"],
-    "bridge_glyphs": ["🛡⏳"]
+    "bridge_glyphs": ["⚠️", "⚡", "🔍", "👁️"]
   },
   "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
 }

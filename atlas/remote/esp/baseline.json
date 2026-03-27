@@ -1,0 +1,86 @@
+{
+  "schema": "earth-systems-physics/baseline@1.0",
+  "extracted_from": "JinnZ2/earth-systems-physics",
+  "extraction_date": "2026-03-27",
+  "description": "2024 Earth System baseline state variables from cascade_engine.py. These are the reference conditions against which all perturbations are measured.",
+
+  "baseline": {
+    "layer_0_electromagnetics": {
+      "electron_density_m3": 1e12,
+      "surface_magnetic_field_T": 5e-5,
+      "electric_field_V_m": 1e-4,
+      "frequency_range_Hz": "1e3-1e7",
+      "magnite_grain_size_um": 50,
+      "mineral_fraction_percent": 2
+    },
+    "layer_1_magnetosphere": {
+      "solar_wind_density_m3": 5e6,
+      "solar_wind_velocity_km_s": 450,
+      "IMF_Bz_T": -2e-9,
+      "geomagnetic_index_Kp": 2.0
+    },
+    "layer_2_ionosphere": {
+      "F2_electron_density_m3": 1e12,
+      "solar_flux_normalized": 1.0,
+      "collision_frequency_Hz": 1e3,
+      "convection_electric_field_V_m": 1e-3,
+      "thermospheric_anomaly_K": 0
+    },
+    "layer_3_atmosphere": {
+      "surface_temperature_K": 288,
+      "polar_temperature_K": 243,
+      "pressure_Pa": 101325,
+      "humidity_kg_kg": 0.01,
+      "CO2_anomaly_ppm": 140,
+      "aerosol_optical_depth": 0.15,
+      "latitude_reference_deg": 45
+    },
+    "layer_4_hydrosphere": {
+      "mean_SST_C": 15,
+      "salinity_PSU": 35,
+      "Arctic_ice_fraction": 0.85,
+      "wind_stress_Pa": 0.1,
+      "ENSO_anomaly_K": 0,
+      "AMOC_strength_Sv": 16
+    },
+    "layer_5_lithosphere": {
+      "ice_mass_loss_Gt": 280,
+      "sea_level_rise_m": 0.2,
+      "Greenland_coordinates": "71N_40W",
+      "fault_depth_km": 10,
+      "volcanic_SO2_Tg": 0
+    },
+    "layer_6_biosphere": {
+      "surface_temperature_K": 288,
+      "CO2_ppm": 420,
+      "ocean_pH": 8.10,
+      "permafrost_area_m2": 1.5e13,
+      "permafrost_anomaly_K": 1.5,
+      "deforestation_percent": 20,
+      "Amazon_warming_K": 1.5,
+      "drought_index": 0.4,
+      "GPP_GtC_yr": 120,
+      "anthropogenic_carbon_GtC_yr": 10,
+      "AMOC_Sv": 16
+    }
+  },
+
+  "energy_classification": {
+    "input_terms": [
+      {"id": "GHG_forcing", "layer": 3, "units": "W/m²", "type": "external_forcing"},
+      {"id": "aerosol_forcing", "layer": 3, "units": "W/m²", "type": "external_forcing"},
+      {"id": "volcanic_forcing", "layer": 5, "units": "W/m²", "type": "external_forcing"}
+    ],
+    "response_terms": [
+      {"id": "ocean_heat_content", "layer": 4, "units": "W/m²", "type": "storage"},
+      {"id": "ice_albedo_feedback", "layer": 4, "units": "W/m²", "type": "feedback"},
+      {"id": "thermal_sea_level_rise", "layer": 4, "units": "mm/year", "type": "indicator"}
+    ],
+    "transport_terms": [
+      {"id": "AMOC_heat_transport", "layer": 4, "units": "PW"},
+      {"id": "poynting_flux", "layer": 0, "units": "W/m²"},
+      {"id": "joule_heating", "layer": 2, "units": "W/m²"}
+    ],
+    "balance_equation": "Effective_Forcing = Storage + Feedback + Transport_Residual"
+  }
+}

@@ -7,11 +7,11 @@
   "families": ["air", "structure", "balance", "integration"],
   "polyhedral": { "maps_to": "dual of cube — balance/integration" },
   "bridges": {
-    "sensors": ["compassion", "love"],
+    "sensors": ["compassion", "love", "confusion"],
     "defenses": ["def.ap.09", "def.fr.10"],
     "protocols": ["symbolic_protocol_v1.0", "seed_growth_v1.0", "mandala_compute_v1.0"],
     "audit_glyphs": ["SAF:PRIV", "SAF:PROG"],
-    "bridge_glyphs": ["🫀", "💞"]
+    "bridge_glyphs": ["🫀", "💞", "🌀"]
   },
   "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
 }

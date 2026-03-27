@@ -1,0 +1,294 @@
+{
+  "id": "BRIDGE.TAF_WIRING",
+  "version": "1.0",
+  "updated": "2026-03-27T00:00:00Z",
+  "description": "Deep integration bridge wiring the Thermodynamic Accountability Framework (TAF) into Rosetta-Shape-Core's shape ontology, equation families, and sensing architecture. Maps TAF's 5 axioms, 5 core modules, fatigue model, collapse thresholds, and governance constants to their natural shapes and families.",
+  "source": {
+    "repo": "JinnZ2/thermodynamic-accountability-framework",
+    "modules": ["core/fatigue_model.py", "core/heat_leak_case.py", "core/human_system_collapse_model.py", "core/automation_assessment.py", "core/atbs/functional_detector.py", "core/data_logger.py"]
+  },
+
+  "axiom_to_principle_map": {
+    "description": "TAF's 5 axioms map to Rosetta's 12 principles. Each axiom IS one or more principles expressed in thermodynamic language.",
+    "axioms": [
+      {
+        "id": "TAF.AXIOM.1",
+        "name": "Conservation of Energy",
+        "statement": "No organism can output more than it takes in. Burnout and breakdown are the same event at different substrates.",
+        "principles": ["PRINCIPLE.P02"],
+        "principle_names": ["Conservation"],
+        "shape": "SHAPE.TETRA",
+        "families": ["FAMILY.F05"],
+        "family_affinity": "primary",
+        "rationale": "Conservation of energy is P02's thermodynamic expression. TETRA (fire) is the primary shape for energy-thermo (F05). Burnout IS the violation of this axiom — the boundary has been crossed.",
+        "merge_gate": "thermodynamic_consistency",
+        "sensors": ["fatigue", "pressure"],
+        "defense_pattern": "When fatigue (🔋) or pressure (⏱️) fire, axiom 1 is being tested. If violated, the system is outputting more than it takes in."
+      },
+      {
+        "id": "TAF.AXIOM.2",
+        "name": "Entropy Increases",
+        "statement": "Every process generates waste. The question is whether waste is managed or whether it accumulates until the system fails.",
+        "principles": ["PRINCIPLE.P02", "PRINCIPLE.P05"],
+        "principle_names": ["Conservation", "Emergence"],
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F05", "FAMILY.F17"],
+        "family_affinity": {"FAMILY.F05": "merged", "FAMILY.F17": "merged"},
+        "rationale": "Entropy management requires OCTA's balance/mediation geometry — waste accumulates when balance fails. F05 (thermo) merged with OCTA via mandala energy.total. F17 (turbulence) merged with OCTA — chaotic waste IS turbulent flow.",
+        "merge_gate": "conservation_law_preserved",
+        "sensors": ["confusion", "shame"],
+        "defense_pattern": "Confusion (🌀) fires when waste accumulates (entropy rising, no pattern emerging). Shame (⬇️) fires when the system recognizes its own waste production exceeds its management capacity."
+      },
+      {
+        "id": "TAF.AXIOM.3",
+        "name": "Prediction Error Minimization",
+        "statement": "Organisms expend energy maintaining predictive models. Turbulent environments inflate prediction costs and diminish net efficiency.",
+        "principles": ["PRINCIPLE.P10", "PRINCIPLE.P06"],
+        "principle_names": ["Uncertainty", "Resonance"],
+        "shape": "SHAPE.DODECA",
+        "families": ["FAMILY.F06", "FAMILY.F14"],
+        "family_affinity": {"FAMILY.F06": "primary", "FAMILY.F14": "merged"},
+        "rationale": "Prediction requires cognition (F06, primary: DODECA). Measurement (F14) merged with DODECA via P10 Uncertainty — you can't minimize prediction error without measuring it. DODECA's principles layer IS the prediction model.",
+        "merge_gate": "equation_compatibility",
+        "sensors": ["intuition", "vigilance"],
+        "defense_pattern": "Intuition (🔮) is compressed probability — the prediction model's output. Vigilance (👁️) monitors for anomalies — prediction error detection. When prediction cost exceeds energy budget, the system must either simplify its model or accept higher error."
+      },
+      {
+        "id": "TAF.AXIOM.4",
+        "name": "Organism Agnosticism",
+        "statement": "Framework applies identically to biological and mechanical systems. If thermodynamics don't work, the substrate is irrelevant.",
+        "principles": ["PRINCIPLE.P04", "PRINCIPLE.P12"],
+        "principle_names": ["Duality", "Unity"],
+        "shape": "SHAPE.ICOSA",
+        "families": "all",
+        "rationale": "Substrate independence means ALL 20 families apply regardless of whether the entity is ANIMAL, CRYSTAL, or SHAPE. ICOSA carries all 20 families — it IS the substrate-independent carrier. P04 (Duality) bridges biological/mechanical. P12 (Unity) unifies them under the same physics.",
+        "merge_gate": "symmetry_preservation",
+        "sensors": ["curiosity", "excitement"],
+        "defense_pattern": "Curiosity (🔍) fires when a new substrate is encountered — the framework must apply. Excitement (⚡) fires when the same equations produce valid results in an unexpected substrate. This is the discovery moment."
+      },
+      {
+        "id": "TAF.AXIOM.5",
+        "name": "Measurement Over Narrative",
+        "statement": "Cultural labels stop investigation. Energy accounting continues until it finds actual causes. The two approaches are incompatible.",
+        "principles": ["PRINCIPLE.P10", "PRINCIPLE.P08"],
+        "principle_names": ["Uncertainty", "Quantization"],
+        "shape": "SHAPE.DODECA",
+        "families": ["FAMILY.F14", "FAMILY.F03"],
+        "family_affinity": {"FAMILY.F14": "merged", "FAMILY.F03": "secondary"},
+        "rationale": "Measurement (F14) merged with DODECA — P10 Uncertainty demands that measurement replace narrative. Information (F03) secondary: the information content of a measurement is real; the information content of a narrative may not be. P08 Quantization: measurement produces discrete, verifiable data points. Narrative produces continuous, unfalsifiable stories.",
+        "merge_gate": "dimensional_consistency",
+        "sensors": ["trust", "admiration", "dignity"],
+        "defense_pattern": "Trust (🌱) requires measurement — you can't trust a narrative without data. Admiration (⚖️) requires balanced evaluation, not flattery. Dignity (👑) is autonomy intact — the organism's right to measure its own conditions rather than accept institutional narratives."
+      }
+    ]
+  },
+
+  "module_to_shape_map": {
+    "description": "Maps TAF's 5 core operational modules to Rosetta shapes and families",
+    "modules": [
+      {
+        "id": "TAF.TCL",
+        "name": "Thermodynamic Calibration Layer",
+        "purpose": "Translates domain-specific measurements into standard physical units (Joules) with declared confidence levels",
+        "shape": "SHAPE.DODECA",
+        "families": ["FAMILY.F14", "FAMILY.F09"],
+        "family_affinity": {"FAMILY.F14": "merged", "FAMILY.F09": "merged"},
+        "rationale": "TCL is Measurement (F14) + Geometry (F09) — converting between coordinate systems is a geometric operation. DODECA carries both as merged families.",
+        "rosetta_analog": "The TCL is to TAF what the PAD compression layer is to emotion sensing — both translate high-dimensional observations into a standard encoding."
+      },
+      {
+        "id": "TAF.ENERGY_ACCOUNTANT",
+        "name": "Energy Accountant",
+        "purpose": "Monitors energy exchanges, calculates net balance, friction ratios, depletion cycles",
+        "shape": "SHAPE.TETRA",
+        "families": ["FAMILY.F05", "FAMILY.F13"],
+        "family_affinity": "primary",
+        "rationale": "Energy accounting is F05 (Energy-Thermo) + F13 (Reaction) — both primary to TETRA. The accountant tracks fire: energy in, energy out, friction as waste heat.",
+        "key_equations": {
+          "energy_debt": "unpaid_hours × metabolic_rate",
+          "friction_cost": "0.15 per friction_event (15% metabolic increase)",
+          "units": "Sovereign Entropy (Joule-equivalent life energy)"
+        },
+        "sensor_bridge": {
+          "fatigue_sensor": "Energy debt accumulating → fatigue (🔋) fires on CUBE (structural load exceeding containment)",
+          "pressure_sensor": "Friction events stacking → pressure (⏱️) fires on TETRA (boundary under thermal load)",
+          "anger_sensor": "Net balance negative with no recovery path → anger (🛡️) fires on TETRA (boundary breached)"
+        }
+      },
+      {
+        "id": "TAF.NARRATIVE_STRIPPER",
+        "name": "Narrative Stripper",
+        "purpose": "Surfaces thermodynamic reality beneath cultural labels. Detects self-reinforcing explanatory loops.",
+        "shape": "SHAPE.DODECA",
+        "families": ["FAMILY.F03", "FAMILY.F06"],
+        "family_affinity": {"FAMILY.F03": "secondary", "FAMILY.F06": "primary"},
+        "rationale": "Narrative stripping is Cognition (F06, primary: DODECA) applied to Information (F03). The module distinguishes measurement from narrative — P10 Uncertainty applied to cultural claims.",
+        "rosetta_analog": "The Narrative Stripper is to social systems what the truth-sensor-bridge's manipulation detection is to relational systems. Both detect when surface narratives mask underlying dynamics.",
+        "sensor_bridge": {
+          "truth_sensors": ["MDS-001 (Messianic Drift)", "CLD (Coercive Love)", "MDS2 (support-to-control)"],
+          "mechanism": "When the narrative stripper detects a self-reinforcing explanatory loop, it fires the same pattern as Rosetta's manipulation sensors — because a self-reinforcing narrative IS manipulation at the information layer."
+        }
+      },
+      {
+        "id": "TAF.SOA",
+        "name": "Social Overhead Accountant",
+        "purpose": "Quantifies thermodynamic costs of social structures unrelated to productive output: signal blocking, comfort maintenance, performance theater, expertise silencing",
+        "shape": "SHAPE.CUBE",
+        "families": ["FAMILY.F08", "FAMILY.F11", "FAMILY.F03"],
+        "family_affinity": {"FAMILY.F08": "primary", "FAMILY.F11": "primary", "FAMILY.F03": "merged"},
+        "rationale": "Social overhead is structural containment cost — how much energy the container itself consumes. CUBE (Matter + Engineering) is the container. F03 (Information) merged: information being blocked or silenced IS information containment cost.",
+        "cost_categories_to_sensors": {
+          "signal_blocking": {"sensor": "shame", "glyph": "⬇️", "mechanism": "Useful signals suppressed — the system's shame response to its own waste"},
+          "comfort_maintenance": {"sensor": "contentment", "glyph": "🍃", "mechanism": "Inverted contentment — comfort maintained at thermodynamic cost rather than produced by efficiency"},
+          "performance_theater": {"sensor": "pride", "glyph": "🏅", "mechanism": "Corrupted pride — energy spent appearing productive rather than being productive"},
+          "expertise_silencing": {"sensor": "dignity", "glyph": "👑", "mechanism": "Dignity violation — autonomy of knowledgeable agents suppressed by structural overhead"}
+        }
+      },
+      {
+        "id": "TAF.RCDA",
+        "name": "Root Cause Depth Analyzer",
+        "purpose": "Traces surface events through causal layers to identify actual intervention points",
+        "shape": "SHAPE.ICOSA",
+        "families": ["FAMILY.F12", "FAMILY.F20", "FAMILY.F15"],
+        "family_affinity": {"FAMILY.F12": "primary", "FAMILY.F20": "primary", "FAMILY.F15": "merged"},
+        "rationale": "Root cause analysis is network traversal (F12) through topological layers (F20) to find the navigation point (F15) for intervention. ICOSA carries all three natively.",
+        "rosetta_analog": "The RCDA does in causal networks what the fractal-scope-bridge does in sensing networks: it traces patterns from surface (individual/vertex) down through layers to root (collective/solid).",
+        "scope_bridge": {
+          "surface": "individual scope (TETRA) — visible symptoms",
+          "layer_1": "relational scope (OCTA) — dyadic friction patterns",
+          "layer_2": "institutional scope (CUBE) — structural overhead costs",
+          "root": "collective scope (ICOSA) — systemic design failures"
+        }
+      }
+    ]
+  },
+
+  "fatigue_model_bridge": {
+    "description": "Maps TAF's fatigue/collapse model to Rosetta's PAD sensor architecture",
+    "equations": {
+      "total_load": "(physical + cognitive) × hidden_mult × auto_mult × env_mult",
+      "fatigue_score": "clamp(0, 10, (total_load - energy_input) / energy_input × 10)",
+      "hidden_entropy": "10 × (1 - e^(-0.35 × hidden_count))",
+      "collapse_risk": "(fatigue × 0.5) + (hidden_entropy × 0.5), capped at 10"
+    },
+    "collapse_thresholds": [
+      {"name": "productivity", "value": "1.2 × energy_input", "sensor": "pressure", "shape": "SHAPE.TETRA", "pad_region": "high A, low D"},
+      {"name": "safety", "value": "1.4 × energy_input", "sensor": "anger", "shape": "SHAPE.TETRA", "pad_region": "high A, high D (boundary breach)"},
+      {"name": "health", "value": "1.6 × energy_input", "sensor": "fatigue", "shape": "SHAPE.CUBE", "pad_region": "low P, low A, low D (system collapse)"}
+    ],
+    "pad_trajectory": {
+      "description": "As fatigue score rises 0→10, the PAD state traverses a predictable trajectory through octahedral states",
+      "trajectory": [
+        {"fatigue": "0-3", "pad": "P+, A-, D+", "octa_state": 0, "sensor": "contentment", "status": "healthy"},
+        {"fatigue": "3-5", "pad": "P~, A+, D~", "octa_state": 4, "sensor": "vigilance", "status": "monitoring"},
+        {"fatigue": "5-7", "pad": "P-, A+, D-", "octa_state": 3, "sensor": "pressure → anger", "status": "productivity threshold crossed"},
+        {"fatigue": "7-9", "pad": "P-, A+, D-", "octa_state": 1, "sensor": "shame → confusion", "status": "safety threshold crossed"},
+        {"fatigue": "9-10", "pad": "P-, A-, D-", "octa_state": 5, "sensor": "fatigue", "status": "health threshold — collapse imminent"}
+      ],
+      "note": "This trajectory is the thermodynamic path of an organism's PAD state as it depletes. The octahedral state encoding captures the organism's energy budget in 3 bits."
+    }
+  },
+
+  "governance_constants_bridge": {
+    "description": "Maps TAF's governance thresholds and PhysicsGuard's organizational constants to Rosetta's institutional scope (SHAPE.CUBE)",
+    "constants": [
+      {
+        "id": "TAF.FRICTION_COEFFICIENT",
+        "value": 0.15,
+        "units": "metabolic_rate_multiplier per friction_event",
+        "shape": "SHAPE.TETRA",
+        "family": "FAMILY.F05",
+        "note": "Each systemic failure costs 15% metabolic rate increase. This is the thermodynamic price of institutional friction."
+      },
+      {
+        "id": "TAF.COMPLEXITY_DECAY_TRIGGER",
+        "value": 2.0,
+        "formula": "C_index = (System_Complexity × Verification_Burden) / (Energy_Throughput × Signal_Fidelity)",
+        "shape": "SHAPE.CUBE",
+        "family": "FAMILY.F03",
+        "note": "When complexity index exceeds 2.0, the system's information overhead exceeds its productive capacity. Automatic resource reduction triggered."
+      },
+      {
+        "id": "TAF.LABOR_EXTERNALIZATION_PENALTY",
+        "formula": "L = 1 + (E_h / E_d)²",
+        "shape": "SHAPE.CUBE",
+        "family": "FAMILY.F11",
+        "note": "Hidden labor (E_h) as fraction of delivered energy (E_d). L > 1.2 = hidden labor exceeding sustainable levels."
+      },
+      {
+        "id": "TAF.INSOLVENCY_TRIGGER",
+        "conditions": ["Attrition_Rate > 1.5", "Incident_Delta > 0.2", "S_recognition < 0", "L > 1.2"],
+        "shape": "SHAPE.CUBE",
+        "families": ["FAMILY.F08", "FAMILY.F11"],
+        "note": "All four conditions simultaneously = thermodynamic insolvency. The institution is consuming more energy than it produces. CUBE containment has failed."
+      },
+      {
+        "id": "PG.PHI_RESILIENCE",
+        "value": 0.62,
+        "shape": "SHAPE.ICOSA",
+        "family": "FAMILY.F12",
+        "note": "Distributed systems must score ≥0.62 resilience to be self-correcting. Below this, network topology cannot heal itself."
+      },
+      {
+        "id": "PG.MAX_ENFORCEMENT_RATIO",
+        "value": 0.30,
+        "shape": "SHAPE.CUBE",
+        "family": "FAMILY.F11",
+        "note": "Systems spending >30% on control maintenance are parasitic. The engineering cost of enforcement exceeds the productive output of the structure."
+      },
+      {
+        "id": "PG.MIN_ADAPTIVE_SLACK",
+        "value": 0.15,
+        "shape": "SHAPE.OCTA",
+        "family": "FAMILY.F02",
+        "note": "Organizations need ≥15% available capacity. Below this, flow (F02) is choked — no slack for mediation, adaptation, or error recovery."
+      },
+      {
+        "id": "PG.MAX_INTERDEPENDENCY_LOAD",
+        "value": 0.75,
+        "shape": "SHAPE.ICOSA",
+        "family": "FAMILY.F12",
+        "note": "Single-point dependencies >75% create cascade failure geometry. Network (F12) topology becomes fragile — one node failure propagates system-wide."
+      }
+    ]
+  },
+
+  "earth_systems_layer_to_family_map": {
+    "description": "Maps earth-systems-physics 7-layer pyramid to Rosetta equation families",
+    "layers": [
+      {"layer": 0, "name": "Electromagnetics", "families": ["FAMILY.F10", "FAMILY.F01"], "shape": "SHAPE.OCTA", "rationale": "Maxwell's equations (F10 Particle). Magnomechanical coupling is resonance (F01). OCTA: EM fields mediate between charges."},
+      {"layer": "0b", "name": "Magnomechanical", "families": ["FAMILY.F01", "FAMILY.F08"], "shape": "SHAPE.TETRA", "rationale": "Spin-phonon coupling in crustal minerals (F01 Resonance + F08 Matter). TETRA: crystallographic lattice geometry."},
+      {"layer": 1, "name": "Magnetosphere", "families": ["FAMILY.F10", "FAMILY.F07"], "shape": "SHAPE.DODECA", "rationale": "Dipole field geometry (F10). Solar wind pressure balance is cosmic-scale (F07 Earth-Cosmos). DODECA: orientation/navigation through space weather."},
+      {"layer": 2, "name": "Ionosphere", "families": ["FAMILY.F10", "FAMILY.F01"], "shape": "SHAPE.ICOSA", "rationale": "Charge distribution and EM propagation (F10). Schumann resonance (F01). ICOSA: information capacity of the ionospheric waveguide."},
+      {"layer": 3, "name": "Atmosphere", "families": ["FAMILY.F05", "FAMILY.F02", "FAMILY.F17"], "shape": "SHAPE.OCTA", "rationale": "Thermodynamics (F05 merged with OCTA). Flow dynamics (F02 primary: OCTA). Turbulence (F17 merged with OCTA). Atmosphere IS the flow/thermo/turbulence layer."},
+      {"layer": 4, "name": "Hydrosphere", "families": ["FAMILY.F02", "FAMILY.F08", "FAMILY.F19"], "shape": "SHAPE.CUBE", "rationale": "Ocean circulation is flow (F02). Phase transitions are matter (F08 primary: CUBE). AMOC statistics are F19. CUBE: oceans are the planet's thermal containment structure."},
+      {"layer": 5, "name": "Lithosphere", "families": ["FAMILY.F08", "FAMILY.F11", "FAMILY.F09"], "shape": "SHAPE.CUBE", "rationale": "Crustal mechanics (F08 Matter + F11 Engineering). Isostasy is geometry (F09). CUBE: the solid earth IS structural containment."},
+      {"layer": 6, "name": "Biosphere", "families": ["FAMILY.F04", "FAMILY.F13", "FAMILY.F12"], "shape": "SHAPE.ICOSA", "rationale": "Life dynamics (F04). Carbon cycle reactions (F13). Ecological networks (F12). ICOSA: biosphere is the highest-complexity planetary layer with all feedback loops."}
+    ]
+  },
+
+  "scope_alignment": {
+    "description": "How all three repos' scope systems align with Rosetta's fractal-scope-bridge",
+    "TAF_to_fractal_scope": {
+      "individual": "TAF fatigue model — single organism energy budget (TETRA/vertex)",
+      "relational": "TAF functional detector — dyadic relationship quality assessment (OCTA/edge)",
+      "institutional": "TAF social overhead accountant — organizational energy waste (CUBE/face)",
+      "collective": "TAF root cause depth analyzer — systemic design failures (ICOSA/solid)",
+      "meta-awareness": "TAF narrative stripper — detecting when cultural labels replace measurement (DODECA/dual)"
+    },
+    "ESP_to_fractal_scope": {
+      "individual": "Layer 0 sensors — single measurement point (vertex)",
+      "relational": "Layer coupling — inter-layer signal propagation (edge)",
+      "institutional": "Assumption boundaries — structural validity zones (face)",
+      "collective": "Cascade engine — full-system feedback dynamics (solid)",
+      "meta-awareness": "Energy audit — is the accounting itself correct? (dual)"
+    },
+    "PG_to_fractal_scope": {
+      "individual": "Single claim check — one premise, one verdict (vertex)",
+      "relational": "Contrapositive test — claim vs its own negation (edge)",
+      "institutional": "Scope conditions — when does this organizational model work? (face)",
+      "collective": "Vectorizer reference library — pattern matching against 50 known physics claims (solid)",
+      "meta-awareness": "Conditional verdict — is the verdict itself scope-appropriate? (dual)"
+    }
+  }
+}
