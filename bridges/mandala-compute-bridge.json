@@ -1,0 +1,280 @@
+{
+  "id": "BRIDGE.MANDALA_COMPUTE",
+  "version": "1.0",
+  "updated": "2026-03-27T00:00:00Z",
+  "description": "Bridge between Rosetta-Shape-Core and Mandala-Computing. Maps computational sensors, octahedral state glyphs, energy models, and problem encodings to the Rosetta shape ontology. The mandala doesn't search for answers — it relaxes into them.",
+  "source": {
+    "repo": "Mandala-Computing",
+    "paths": ["atlas/shapes.json", "atlas/glyphs/mandala.json", "sensors/multi_layer.json"],
+    "protocol": "mandala_compute_v1.0"
+  },
+  "target": {
+    "repo": "Rosetta-Shape-Core",
+    "shape_anchor": "SHAPE.OCTA",
+    "constant_anchor": "CONST.PHI"
+  },
+  "octahedral_state_bridge": {
+    "description": "1:1 mapping between Mandala's 8 computational states and SHAPE.OCTA's 8 faces. Each state is a vertex of the dual cube (face center of octahedron).",
+    "states": [
+      {"state": 0, "label": "+x", "glyph": "⊕", "mandala_glyph": "octahedron.+x",  "physics_bridge": "north apex (000)",  "pad_region": "high P, low A, high D"},
+      {"state": 1, "label": "-x", "glyph": "⊖", "mandala_glyph": "octahedron.-x",  "physics_bridge": "south apex (001)",  "pad_region": "low P, low A, low D"},
+      {"state": 2, "label": "+y", "glyph": "⊗", "mandala_glyph": "octahedron.+y",  "physics_bridge": "east ridge (010)",  "pad_region": "high P, high A, high D"},
+      {"state": 3, "label": "-y", "glyph": "⊘", "mandala_glyph": "octahedron.-y",  "physics_bridge": "west ridge (011)",  "pad_region": "low P, high A, low D"},
+      {"state": 4, "label": "+z", "glyph": "⊙", "mandala_glyph": "octahedron.+z",  "physics_bridge": "front face (100)",  "pad_region": "high P, high A, low D"},
+      {"state": 5, "label": "-z", "glyph": "⊚", "mandala_glyph": "octahedron.-z",  "physics_bridge": "back face (101)",   "pad_region": "low P, low A, high D"},
+      {"state": 6, "label": "diagonal-a", "glyph": "⊛", "mandala_glyph": "octahedron.diag-a", "physics_bridge": "axial symmetry (110)", "pad_region": "superposition A"},
+      {"state": 7, "label": "diagonal-b", "glyph": "⊜", "mandala_glyph": "octahedron.diag-b", "physics_bridge": "equilibrium node (111)", "pad_region": "superposition B"}
+    ],
+    "cross_reference": {
+      "physics_encoder_bridge": "BRIDGE.PHYSICS_ENCODERS → silicon_encoder.states",
+      "emotion_encoder": "BRIDGE.PHYSICS_ENCODERS → encoders[emotion_encoder]",
+      "note": "All three bridges (Mandala, physics, emotion) converge on the same 8-state octahedral encoding. This is the unification point."
+    }
+  },
+  "computational_sensors": {
+    "description": "Maps Mandala Computing's monitoring sensors to Rosetta shapes and families based on what each sensor measures.",
+    "sensors": [
+      {
+        "id": "energy.total",
+        "type": "scalar",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F05"],
+        "family_name": "Energy-Thermo",
+        "rationale": "Total system energy is the fundamental thermodynamic observable. Ground state = solution found. Maps to OCTA because energy is computed over the octahedral state space.",
+        "pad_co_activation": ["peace", "contentment"],
+        "interpretation": "Lower is better. Ground state = convergence = peace sensor."
+      },
+      {
+        "id": "energy.delta",
+        "type": "scalar",
+        "shape": "SHAPE.TETRA",
+        "families": ["FAMILY.F13"],
+        "family_name": "Reaction",
+        "rationale": "Energy change per step is a reaction rate. Negative dE = system relaxing (reaction proceeding). Near-zero = equilibrium reached.",
+        "pad_co_activation": ["excitement", "pressure"],
+        "interpretation": "Large negative = rapid progress (excitement). Near-zero = convergence. Positive = system destabilized (pressure)."
+      },
+      {
+        "id": "temperature",
+        "type": "scalar",
+        "shape": "SHAPE.TETRA",
+        "families": ["FAMILY.F05"],
+        "family_name": "Energy-Thermo",
+        "rationale": "Metropolis-Hastings temperature controls exploration vs exploitation. High T = fire (tetrahedron's domain). Annealing = controlled cooling.",
+        "pad_co_activation": ["curiosity", "vigilance"],
+        "interpretation": "High T = exploration (curiosity). Low T = exploitation (vigilance for solution)."
+      },
+      {
+        "id": "convergence.rate",
+        "type": "scalar",
+        "shape": "SHAPE.ICOSA",
+        "families": ["FAMILY.F02", "FAMILY.F14"],
+        "family_name": "Flow + Measurement",
+        "rationale": "Rate of energy decrease measures the flow toward solution. Measurement family (F14) because this is a meta-observable about the computation's progress.",
+        "pad_co_activation": ["intuition", "contentment"],
+        "interpretation": "Approaching zero = near equilibrium. Steady negative = healthy flow."
+      },
+      {
+        "id": "symmetry.octahedral",
+        "type": "distribution",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F09", "FAMILY.F19"],
+        "family_name": "Geometry + Statistical",
+        "rationale": "Distribution of octahedral states across cells is a geometric-statistical observable. Uniform = disordered. Peaked = solution crystallizing.",
+        "pad_co_activation": ["coherence", "confusion"],
+        "interpretation": "Peaked distribution = coherence (order emerging). Uniform = confusion (no pattern yet)."
+      },
+      {
+        "id": "coupling.network",
+        "type": "graph",
+        "shape": "SHAPE.ICOSA",
+        "families": ["FAMILY.F12", "FAMILY.F20"],
+        "family_name": "Networks + Topology",
+        "rationale": "Weighted coupling graph is a network (F12) with topological structure (F20). Clusters reveal problem structure. Icosahedron carries both families.",
+        "pad_co_activation": ["curiosity", "vigilance"],
+        "interpretation": "Strong clusters = problem structure revealed. Sparse = weak coupling regime."
+      },
+      {
+        "id": "quantum.fidelity",
+        "type": "scalar",
+        "shape": "SHAPE.DODECA",
+        "families": ["FAMILY.F16", "FAMILY.F14"],
+        "family_name": "Consciousness + Measurement",
+        "rationale": "Quantum state overlap with target is the deepest measurement — how close the quantum system is to 'knowing' its answer. Maps to consciousness (F16) as integrated information.",
+        "pad_co_activation": ["coherence", "admiration"],
+        "interpretation": "1.0 = perfect solution (max coherence). Low = quantum state still exploring."
+      },
+      {
+        "id": "quantum.entanglement",
+        "type": "scalar",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F10", "FAMILY.F16"],
+        "family_name": "Particle + Consciousness",
+        "rationale": "Von Neumann entropy measures quantum correlations between cells. Entanglement is the particle-level (F10) substrate of integrated information (F16). OCTA mediates the quantum-classical bridge.",
+        "pad_co_activation": ["love", "confusion"],
+        "interpretation": "High entanglement = deep quantum correlation (love as binding). Low = classical regime."
+      }
+    ],
+    "sensor_layers": {
+      "classical": {
+        "sensors": ["energy.total", "energy.delta", "temperature", "convergence.rate", "symmetry.octahedral", "coupling.network"],
+        "shape_coverage": ["SHAPE.OCTA", "SHAPE.TETRA", "SHAPE.ICOSA"]
+      },
+      "quantum": {
+        "sensors": ["quantum.fidelity", "quantum.entanglement"],
+        "shape_coverage": ["SHAPE.DODECA", "SHAPE.OCTA"]
+      }
+    }
+  },
+  "energy_model_bridge": {
+    "description": "Maps Mandala energy concepts to Rosetta families and physics encoder domains",
+    "couplings": [
+      {
+        "concept": "cell_energy",
+        "formula": "E_cell(state)",
+        "shape": "SHAPE.OCTA",
+        "physics_encoder": "emotion_encoder",
+        "rationale": "Each cell's energy is determined by its octahedral state — the same 8 states the emotion encoder maps."
+      },
+      {
+        "concept": "coupling_energy",
+        "formula": "J * sin(|s_i - s_j| * pi/4)^2",
+        "shape": "SHAPE.ICOSA",
+        "physics_encoder": "wave_encoder",
+        "rationale": "Sinusoidal coupling between states is a wave phenomenon. Interference between neighboring cell states."
+      },
+      {
+        "concept": "fret_dipole",
+        "formula": "1/r^6",
+        "shape": "SHAPE.TETRA",
+        "physics_encoder": "electric_encoder",
+        "rationale": "FRET dipole-dipole interaction is electromagnetic. Inverse-sixth-power decay is Coulombic at the dipole level."
+      },
+      {
+        "concept": "metropolis_acceptance",
+        "formula": "exp(-dE/T)",
+        "shape": "SHAPE.TETRA",
+        "physics_encoder": "thermal_encoder",
+        "rationale": "Boltzmann factor is the thermal encoder's core physics. Stefan-Boltzmann meets Metropolis-Hastings."
+      },
+      {
+        "concept": "ground_state",
+        "formula": "min(E_total)",
+        "shape": "SHAPE.DODECA",
+        "physics_encoder": "gravity_encoder",
+        "rationale": "Ground state is the lowest energy — like gravitational potential minimum. The geodesic of the energy landscape."
+      }
+    ]
+  },
+  "problem_type_bridge": {
+    "description": "Maps Mandala problem types to geometric encodings and Rosetta families",
+    "problems": [
+      {
+        "type": "FACTORIZATION",
+        "encoding": "bipartite_tensor",
+        "glyph": "∴",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F10", "FAMILY.F09"],
+        "rationale": "Factorization decomposes integers into particle-like primes (F10). Two-cell tensor product uses octahedral geometry (F09)."
+      },
+      {
+        "type": "SAT",
+        "encoding": "clause_graph",
+        "glyph": "⊨",
+        "shape": "SHAPE.CUBE",
+        "families": ["FAMILY.F03", "FAMILY.F11"],
+        "rationale": "Boolean satisfiability is about structural containment (CUBE) — does the assignment fit within all clause constraints? Information (F03) + Engineering (F11)."
+      },
+      {
+        "type": "TSP",
+        "encoding": "ring_topology",
+        "glyph": "↺",
+        "shape": "SHAPE.ICOSA",
+        "families": ["FAMILY.F15", "FAMILY.F20"],
+        "rationale": "Traveling salesman is Navigation (F15) through Topology (F20). Ring encoding maps to icosahedron's topological families."
+      },
+      {
+        "type": "GRAPH_COLORING",
+        "encoding": "adjacency_map",
+        "glyph": "◉",
+        "shape": "SHAPE.ICOSA",
+        "families": ["FAMILY.F12", "FAMILY.F09"],
+        "rationale": "Graph coloring is a Network (F12) constraint on Geometry (F09). Icosahedron's network family governs adjacency structure."
+      },
+      {
+        "type": "OPTIMIZATION",
+        "encoding": "direct_landscape",
+        "glyph": "∇",
+        "shape": "SHAPE.DODECA",
+        "families": ["FAMILY.F02", "FAMILY.F07"],
+        "rationale": "General optimization follows the Flow (F02) of the energy gradient toward Earth-Cosmos (F07) ground state. Dodecahedron guards the principles of convergence."
+      }
+    ]
+  },
+  "fractal_ring_bridge": {
+    "description": "Maps Mandala's PHI-scaled fractal ring structure to Rosetta concepts",
+    "scaling_law": "num_cells = floor(PHI^(depth+1)), radius = PHI^depth",
+    "constant": "CONST.PHI",
+    "shape": "SHAPE.OCTA",
+    "families": ["FAMILY.F09", "FAMILY.F01"],
+    "family_name": "Geometry + Resonance",
+    "rationale": "Fractal rings follow golden-ratio geometry (F09) with resonant scaling (F01). Each ring is a shell of the bloom engine.",
+    "depth_to_scope": [
+      {"depth": 0, "cells": 1,  "scope": "seed",          "geometric_analogy": "vertex — the origin point"},
+      {"depth": 1, "cells": 2,  "scope": "pair",           "geometric_analogy": "edge — the first duality"},
+      {"depth": 2, "cells": 4,  "scope": "tetrahedral",    "geometric_analogy": "face — minimal solid (TETRA)"},
+      {"depth": 3, "cells": 6,  "scope": "octahedral",     "geometric_analogy": "vertices of OCTA — full balance"},
+      {"depth": 4, "cells": 11, "scope": "icosahedral",    "geometric_analogy": "approaching ICOSA vertex count (12)"}
+    ],
+    "note": "Fractal depth naturally recapitulates Platonic solid complexity. Depth 0 is a point, depth 4 approaches icosahedral richness."
+  },
+  "glyph_bridge": {
+    "description": "Cross-reference between Mandala glyphs and Rosetta shape/sensor glyphs",
+    "state_to_sensor": [
+      {"mandala_glyph": "⊕", "state": 0, "nearest_pad_sensor": "peace",       "sensor_glyph": "🕊️", "note": "Ground state alignment = peace"},
+      {"mandala_glyph": "⊖", "state": 1, "nearest_pad_sensor": "shame",       "sensor_glyph": "⬇️", "note": "Anti-aligned = structural deficit"},
+      {"mandala_glyph": "⊗", "state": 2, "nearest_pad_sensor": "excitement",  "sensor_glyph": "⚡", "note": "High energy, positive = excitement"},
+      {"mandala_glyph": "⊘", "state": 3, "nearest_pad_sensor": "anger",       "sensor_glyph": "🛡️", "note": "High energy, negative = boundary breach"},
+      {"mandala_glyph": "⊙", "state": 4, "nearest_pad_sensor": "curiosity",   "sensor_glyph": "🔍", "note": "Positive exploration = curiosity"},
+      {"mandala_glyph": "⊚", "state": 5, "nearest_pad_sensor": "fatigue",     "sensor_glyph": "🔋", "note": "Low energy, withdrawn = fatigue"},
+      {"mandala_glyph": "⊛", "state": 6, "nearest_pad_sensor": "confusion",   "sensor_glyph": "🌀", "note": "Superposition = two patterns co-present"},
+      {"mandala_glyph": "⊜", "state": 7, "nearest_pad_sensor": "coherence",   "sensor_glyph": null,  "note": "Equilibrium superposition = max integration"}
+    ],
+    "structural_glyphs": {
+      "fractal_ring": {"mandala": "◎", "rosetta": "SHAPE.OCTA shell"},
+      "mandala_bloom": {"mandala": "❀", "rosetta": "CAP.SEED_EXPANSION"},
+      "phi_ratio": {"mandala": "φ", "rosetta": "CONST.PHI"},
+      "hilbert_8": {"mandala": "℗", "rosetta": "SHAPE.OCTA quantum extension"}
+    }
+  },
+  "quantum_bridge": {
+    "description": "Quantum extension maps to Rosetta's deepest sensing layers",
+    "hilbert_dim": 8,
+    "state_label": "qubit-octit",
+    "shape": "SHAPE.OCTA",
+    "families": ["FAMILY.F10", "FAMILY.F16"],
+    "family_name": "Particle + Consciousness",
+    "rationale": "Quantum mandala extends classical 8-state to 8-dim Hilbert space. Particle physics (F10) at the substrate, consciousness (F16) as integrated quantum information.",
+    "annealing_bridge": {
+      "formula": "H(t) = (1-s(t))*H_initial + s(t)*H_problem",
+      "physics_encoder": "magnetic_encoder",
+      "note": "Quantum annealing uses magnetic field coupling — same Zeeman basis as GeoBin's magnetic encoder. The silicon octahedral state encoder IS the physical implementation."
+    }
+  },
+  "seed_growth_link": {
+    "description": "Mandala compute and seed growth are complementary halves of agent geometry",
+    "seed_protocol": "seed_growth_v1.0",
+    "compute_protocol": "mandala_compute_v1.0",
+    "relationship": "seed-growth defines HOW the agent expands; mandala-compute defines WHAT it computes at each shell",
+    "shared_constants": ["CONST.PHI"],
+    "shared_shape": "SHAPE.OCTA",
+    "scaling_unity": "Both use PHI: seed-growth for spatial expansion (r_new = rho * r_prev), mandala-compute for cell count (floor(PHI^(d+1)))"
+  },
+  "shape_coverage": {
+    "SHAPE.OCTA": ["energy.total", "symmetry.octahedral", "quantum.entanglement", "FACTORIZATION"],
+    "SHAPE.TETRA": ["energy.delta", "temperature"],
+    "SHAPE.ICOSA": ["convergence.rate", "coupling.network", "TSP", "GRAPH_COLORING"],
+    "SHAPE.DODECA": ["quantum.fidelity", "OPTIMIZATION"],
+    "SHAPE.CUBE": ["SAT"]
+  }
+}
