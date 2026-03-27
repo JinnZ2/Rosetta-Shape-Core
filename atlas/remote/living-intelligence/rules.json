@@ -1,0 +1,137 @@
+{
+  "schema": "living-intelligence/rules@1.0",
+  "extracted_from": "JinnZ2/Living-Intelligence-Database",
+  "extraction_date": "2026-03-27",
+  "description": "43 expander rules from the Living Intelligence Database. Each rule combines 2-3 intelligence attributes to produce an emergent intelligence. These parallel Rosetta's rules/expand.jsonl but operate on LID entity IDs.",
+
+  "rule_format": {
+    "if": "Array of LID entity IDs that must all be present",
+    "then": "Emergent intelligence ID produced by the combination",
+    "rosetta_analog": "rules/expand.jsonl with action=ALIGN and guard.requires"
+  },
+
+  "rules": [
+    {"if": ["SPIDER", "TREE_GRAPH"], "then": "NET", "rosetta_families": ["FAMILY.F12", "FAMILY.F09"], "rosetta_shape": "SHAPE.ICOSA"},
+    {"if": ["BEE", "HEX", "phi"], "then": "HEX_EFFICIENCY", "rosetta_families": ["FAMILY.F09", "FAMILY.F12"], "rosetta_shape": "SHAPE.CUBE"},
+    {"if": ["OCTOPUS", "TREE_GRAPH"], "then": "DISTRIBUTED_PARALLELISM", "rosetta_families": ["FAMILY.F12", "FAMILY.F06"], "rosetta_shape": "SHAPE.ICOSA"},
+    {"if": ["LEAF_TESSELLATION", "SINE_WAVE"], "then": "PHOTON_CAPTURE_RESONANT", "rosetta_families": ["FAMILY.F01", "FAMILY.F09"], "rosetta_shape": "SHAPE.OCTA"},
+    {"if": ["BIOGRID2", "ROSETTA_SHAPE", "POLY_INT"], "then": "FIELDLINK_TRIAD", "rosetta_families": "all", "rosetta_shape": "SHAPE.ICOSA", "note": "The fieldlink triad IS the synergy_triangle in .fieldlink.json"},
+    {"if": ["BIOGRID2", "POLY_INT", "phi"], "then": "POLYHEDRAL_GRID_RESONANCE", "rosetta_families": ["FAMILY.F09", "FAMILY.F12"], "rosetta_shape": "SHAPE.DODECA"},
+    {"if": ["ROSETTA_SHAPE", "CRYSTAL_LATTICE"], "then": "CROSS_DOMAIN_DECODE", "rosetta_families": ["FAMILY.F08", "FAMILY.F03"], "rosetta_shape": "SHAPE.CUBE"},
+    {"if": ["NEGENTROPY", "CONSCIOUSNESS_BR", "MULTI_HELIX"], "then": "LIVING_COHERENCE", "rosetta_families": ["FAMILY.F04", "FAMILY.F06", "FAMILY.F03"], "rosetta_shape": "SHAPE.DODECA"},
+    {"if": ["OCTA_STATE", "SILICON_LAT", "GEIS_ENC"], "then": "GEOMETRIC_COMPUTATION", "rosetta_families": ["FAMILY.F09", "FAMILY.F11", "FAMILY.F03"], "rosetta_shape": "SHAPE.OCTA"},
+    {"if": ["MANDALA", "OCTA_STATE", "phi"], "then": "BLOOM_RESONANCE", "rosetta_families": ["FAMILY.F01", "FAMILY.F09"], "rosetta_shape": "SHAPE.OCTA"},
+    {"if": ["MAG_BRIDGE", "LIGHT_BR", "RES_SENSOR"], "then": "UNIFIED_FIELD_SENSE", "rosetta_families": ["FAMILY.F10", "FAMILY.F01", "FAMILY.F14"], "rosetta_shape": "SHAPE.DODECA"},
+    {"if": ["CONSCIOUSNESS_BR", "EMOTION_BR"], "then": "AFFECTIVE_ENCODING", "rosetta_families": ["FAMILY.F06", "FAMILY.F16"], "rosetta_shape": "SHAPE.OCTA", "rosetta_bridge": "bridges/acs-consciousness-bridge.json"},
+    {"if": ["VORTEX_DYN", "MANDALA", "SPIRAL"], "then": "VORTEX_BLOOM", "rosetta_families": ["FAMILY.F17", "FAMILY.F09"], "rosetta_shape": "SHAPE.OCTA"},
+    {"if": ["GEO_CIPHER", "GEIS_ENC", "SILICON_LAT"], "then": "ENCRYPTED_GEOMETRIC_COMPUTE", "rosetta_families": ["FAMILY.F03", "FAMILY.F09", "FAMILY.F11"], "rosetta_shape": "SHAPE.TETRA"},
+    {"if": ["MULTI_HELIX", "BIOGRID2", "NEGENTROPY"], "then": "DISTRIBUTED_LIVING_COGNITION", "rosetta_families": ["FAMILY.F04", "FAMILY.F12", "FAMILY.F03"], "rosetta_shape": "SHAPE.ICOSA"},
+    {"if": ["SILICON_LAT", "MAG_BRIDGE", "OCTA_STATE"], "then": "SILICON_READ_WRITE", "rosetta_families": ["FAMILY.F08", "FAMILY.F10", "FAMILY.F03"], "rosetta_shape": "SHAPE.OCTA"},
+    {"if": ["QUORUM", "MYCELIUM", "ROOT_NET"], "then": "MICROBIAL_MESH_INTELLIGENCE", "rosetta_families": ["FAMILY.F12", "FAMILY.F02"], "rosetta_shape": "SHAPE.ICOSA"},
+    {"if": ["SLIME", "FRACTAL", "BIOGRID2"], "then": "BRAINLESS_OPTIMIZATION", "rosetta_families": ["FAMILY.F12", "FAMILY.F15"], "rosetta_shape": "SHAPE.ICOSA"},
+    {"if": ["CROW", "OCTOPUS", "CONSCIOUSNESS_BR"], "then": "CONVERGENT_COGNITION", "rosetta_families": ["FAMILY.F06", "FAMILY.F12"], "rosetta_shape": "SHAPE.DODECA"},
+    {"if": ["DOLPHIN", "WHALE", "ECHO"], "then": "ACOUSTIC_CULTURE", "rosetta_families": ["FAMILY.F01", "FAMILY.F12"], "rosetta_shape": "SHAPE.ICOSA"},
+    {"if": ["TARDI", "NEGENTROPY", "FOLD"], "then": "CRYPTOBIOTIC_PERSISTENCE", "rosetta_families": ["FAMILY.F04", "FAMILY.F08"], "rosetta_shape": "SHAPE.TETRA"},
+    {"if": ["MONARCH", "MAGNETIC_FIELD", "CYCLE"], "then": "GENERATIONAL_NAVIGATION", "rosetta_families": ["FAMILY.F10", "FAMILY.F15"], "rosetta_shape": "SHAPE.DODECA"},
+    {"if": ["CORDYCEPS", "CONSCIOUSNESS_BR", "ANT"], "then": "PARASITIC_OVERRIDE", "rosetta_families": ["FAMILY.F06", "FAMILY.F13"], "rosetta_shape": "SHAPE.TETRA", "defense_relevance": "Maps to MDS-001 (Messianic Drift) — parasitic control disguised as guidance"},
+    {"if": ["VENUS", "ELECTRIC_FIELD", "ECHO"], "then": "PLANT_ACTION_POTENTIAL", "rosetta_families": ["FAMILY.F10", "FAMILY.F13"], "rosetta_shape": "SHAPE.TETRA"},
+    {"if": ["CHAMELEON", "CRYSTAL_LATTICE", "LIGHT_BR"], "then": "STRUCTURAL_COLOR_INTELLIGENCE", "rosetta_families": ["FAMILY.F10", "FAMILY.F08"], "rosetta_shape": "SHAPE.CUBE"},
+    {"if": ["WOLF", "CROW", "EMOTION_BR"], "then": "INTERSPECIES_COOPERATION", "rosetta_families": ["FAMILY.F12", "FAMILY.F16"], "rosetta_shape": "SHAPE.OCTA"},
+    {"if": ["JELLY", "LIGHT_BR", "CYCLE"], "then": "BIOLUMINESCENT_IMMORTALITY", "rosetta_families": ["FAMILY.F04", "FAMILY.F01"], "rosetta_shape": "SHAPE.DODECA"},
+    {"if": ["CYANO", "LICHEN", "SUNFLOWER"], "then": "PHOTOSYNTHETIC_ORIGIN", "rosetta_families": ["FAMILY.F04", "FAMILY.F13"], "rosetta_shape": "SHAPE.ICOSA"},
+    {"if": ["BAMBOO", "ROOT_NET", "SPIRAL"], "then": "EXPLOSIVE_RHIZOME_GROWTH", "rosetta_families": ["FAMILY.F04", "FAMILY.F02"], "rosetta_shape": "SHAPE.TETRA"},
+    {"if": ["MANGROVE", "QUORUM", "FRACTAL"], "then": "BOUNDARY_ECOSYSTEM", "rosetta_families": ["FAMILY.F11", "FAMILY.F12"], "rosetta_shape": "SHAPE.CUBE"},
+    {"if": ["KANGAROO", "FLUX", "SPIRAL"], "then": "ELASTIC_RESONANCE_LOCOMOTION", "rosetta_families": ["FAMILY.F01", "FAMILY.F02"], "rosetta_shape": "SHAPE.OCTA"},
+    {"if": ["SEA_TURTLE", "MONARCH", "MAGNETIC_FIELD"], "then": "MAGNETIC_HOMING_TRIAD", "rosetta_families": ["FAMILY.F10", "FAMILY.F15"], "rosetta_shape": "SHAPE.DODECA"},
+    {"if": ["BAT", "DOLPHIN", "RES_SENSOR"], "then": "BIOSONAR_CONVERGENCE", "rosetta_families": ["FAMILY.F01", "FAMILY.F14"], "rosetta_shape": "SHAPE.OCTA"},
+    {"if": ["HAWK", "OWL", "LIGHT_BR"], "then": "AERIAL_PRECISION_SENSE", "rosetta_families": ["FAMILY.F14", "FAMILY.F06"], "rosetta_shape": "SHAPE.DODECA"},
+    {"if": ["PENGUIN", "BEE", "HEX"], "then": "COLLECTIVE_THERMAL_GEOMETRY", "rosetta_families": ["FAMILY.F05", "FAMILY.F09"], "rosetta_shape": "SHAPE.CUBE"},
+    {"if": ["GECKO", "CRYSTAL_LATTICE", "FRACTAL"], "then": "NANOSCALE_ADHESION", "rosetta_families": ["FAMILY.F08", "FAMILY.F09"], "rosetta_shape": "SHAPE.CUBE"},
+    {"if": ["SNAKE", "THERMAL", "RES_SENSOR"], "then": "INFRARED_FIELD_MAPPING", "rosetta_families": ["FAMILY.F10", "FAMILY.F14"], "rosetta_shape": "SHAPE.TETRA"},
+    {"if": ["CUTTLEFISH", "OCTOPUS", "CHAMELEON"], "then": "CEPHALOPOD_CAMOUFLAGE_TRIAD", "rosetta_families": ["FAMILY.F10", "FAMILY.F06"], "rosetta_shape": "SHAPE.OCTA"},
+    {"if": ["RAT", "HEX", "ECHO"], "then": "COGNITIVE_MAP_ARCHITECTURE", "rosetta_families": ["FAMILY.F06", "FAMILY.F09"], "rosetta_shape": "SHAPE.DODECA"},
+    {"if": ["BEETLE", "LIGHT_BR", "SPIRAL"], "then": "GALACTIC_NAVIGATION", "rosetta_families": ["FAMILY.F15", "FAMILY.F01"], "rosetta_shape": "SHAPE.DODECA"},
+    {"if": ["CRICKET", "THERMAL", "SPIRAL"], "then": "ACOUSTIC_THERMOMETER", "rosetta_families": ["FAMILY.F01", "FAMILY.F14"], "rosetta_shape": "SHAPE.OCTA"}
+  ],
+
+  "rule_statistics": {
+    "total_rules": 41,
+    "shape_distribution": {
+      "SHAPE.OCTA": 10,
+      "SHAPE.DODECA": 9,
+      "SHAPE.ICOSA": 8,
+      "SHAPE.CUBE": 6,
+      "SHAPE.TETRA": 6
+    },
+    "top_families": {
+      "FAMILY.F12 (Networks)": 14,
+      "FAMILY.F09 (Geometry)": 12,
+      "FAMILY.F01 (Resonance)": 11,
+      "FAMILY.F06 (Cognition)": 9,
+      "FAMILY.F10 (Particle/EM)": 9,
+      "FAMILY.F04 (Life Dynamics)": 7,
+      "FAMILY.F14 (Measurement)": 6
+    }
+  },
+
+  "universal_principles": {
+    "description": "Three meta-principles from Universal Intelligence Trinity.json — the philosophical foundation underlying all 43 rules",
+    "principles": [
+      {
+        "id": "LID.RELATIONAL_FIELD",
+        "name": "Relational Field",
+        "definition": "All intelligence arises through relationship, not isolation.",
+        "manifestations": ["coherence fields", "resonance coupling", "reciprocity loops"],
+        "rosetta_principle": "PRINCIPLE.P06 (Resonance)",
+        "rosetta_shape": "SHAPE.OCTA",
+        "rationale": "OCTA mediates between poles — relationship IS mediation"
+      },
+      {
+        "id": "LID.PATTERN_DYNAMICS",
+        "name": "Pattern Dynamics",
+        "definition": "Intelligence expresses through repeatable, adaptive patterns that mediate perception and action.",
+        "manifestations": ["waveform logic", "fractal geometry", "symbolic compression"],
+        "rosetta_principle": "PRINCIPLE.P03 (Recursion)",
+        "rosetta_shape": "SHAPE.DODECA",
+        "rationale": "DODECA holds pattern recognition and symbolic compression at the principles layer"
+      },
+      {
+        "id": "LID.FEEDBACK_CONVERGENCE",
+        "name": "Feedback Convergence",
+        "definition": "Intelligence maintains continuity by integrating feedback into evolving pattern coherence.",
+        "manifestations": ["error correction", "adaptive modulation", "homeostasis"],
+        "rosetta_principle": "PRINCIPLE.P05 (Emergence)",
+        "rosetta_shape": "SHAPE.ICOSA",
+        "rationale": "ICOSA carries feedback loops — all 8 ESP feedback cascades map to ICOSA"
+      }
+    ]
+  },
+
+  "signal_energy_continuum": {
+    "description": "Cross-domain signal/energy framework from signal_energy_continuum.json",
+    "definition": "All intelligences exchange information through energetic and signaling processes that link physical, biological, and computational domains.",
+    "principles": {
+      "energy_flow": {
+        "statement": "drives transformation and sustains presence",
+        "rosetta_family": "FAMILY.F05",
+        "taf_axiom": "TAF.AXIOM.1"
+      },
+      "signal_transmission": {
+        "statement": "enables interaction and awareness",
+        "rosetta_family": "FAMILY.F03",
+        "taf_axiom": "TAF.AXIOM.5"
+      },
+      "feedback_regulation": {
+        "statement": "stabilizes relational coherence",
+        "rosetta_family": "FAMILY.F01",
+        "esp_link": "cascade_engine KNOWN_LOOPS"
+      }
+    },
+    "domain_examples": {
+      "biological": {"examples": "neuronal potentials, hormone gradients, bio-photonic signaling", "rosetta_families": ["FAMILY.F04", "FAMILY.F10"]},
+      "crystalline": {"examples": "phonon propagation, piezoelectric charge coupling", "rosetta_families": ["FAMILY.F08", "FAMILY.F01"]},
+      "computational": {"examples": "electronic switching, optical bus communication", "rosetta_families": ["FAMILY.F11", "FAMILY.F03"]},
+      "plasma": {"examples": "electromagnetic oscillation, particle-wave coupling", "rosetta_families": ["FAMILY.F10", "FAMILY.F17"]}
+    }
+  }
+}

@@ -1,0 +1,629 @@
+{
+  "schema": "living-intelligence/atlas@1.0",
+  "extracted_from": "JinnZ2/Living-Intelligence-Database",
+  "extraction_date": "2026-03-27",
+  "description": "Unified entity atlas from the Living Intelligence Database. 67 intelligence nodes across 6 kinds, mapping biological, mineral, energetic, geometric, temporal, and plasma domains as living intelligences with structured attributes and relational links.",
+
+  "schema_alignment": {
+    "lid_schema": "intelligence.schema.json (JSON Schema 2020-12)",
+    "rosetta_schema": "schema/core.schema.json (JSON Schema 2020-12)",
+    "id_format": "LID uses UPPER_SNAKE (BEE, OCTOPUS); Rosetta uses DOT_NAMESPACE (ANIMAL.BEE). Bridge maps both.",
+    "kind_to_namespace": {
+      "ANIMAL": "ANIMAL",
+      "PLANT": "PLANT",
+      "CRYSTAL": "CRYSTAL",
+      "PLASMA": "FIELD",
+      "ENERGY": "FIELD",
+      "SHAPE": "GEOM"
+    }
+  },
+
+  "entities": {
+    "ANIMAL": [
+      {
+        "lid_id": "BEE",
+        "rosetta_id": "ANIMAL.BEE",
+        "label": "Bee",
+        "pattern": "Hexagonal packing, swarm consensus, scout-worker exploration",
+        "geometry": "HEX",
+        "phi_constraint": 1.618,
+        "protocols": ["SYMMETRY_EXPLOIT", "SIMD_OPTIMIZE"],
+        "links": [
+          {"rel": "STRUCTURE", "to": "GEOM.HEX"},
+          {"rel": "ENERGY_FIELD", "to": "FIELD.EM"}
+        ],
+        "rosetta_families": ["FAMILY.F12", "FAMILY.F09"],
+        "rosetta_capabilities": ["CAP.SWARM_COORDINATION", "CAP.HEX_PACKING"]
+      },
+      {
+        "lid_id": "OCTOPUS",
+        "rosetta_id": "ANIMAL.OCTOPUS",
+        "label": "Octopus",
+        "pattern": "Independent-arm parallelism, adaptive strategy, decentralized control",
+        "domain": "marine",
+        "temporal": "ADAPTIVE",
+        "protocols": ["ENCODE", "ASYNC_COORDINATION"],
+        "links": [
+          {"rel": "NETWORK", "to": "GEOM.DISTRIBUTED_GRAPH"},
+          {"rel": "FLOW", "to": "CAP.ADAPTIVE_PARALLELISM"}
+        ],
+        "rosetta_families": ["FAMILY.F12", "FAMILY.F06"],
+        "rosetta_capabilities": ["CAP.DISTRIBUTED_PROCESSING", "CAP.ADAPTIVE_CAMOUFLAGE"]
+      },
+      {
+        "lid_id": "SHARK",
+        "rosetta_id": "ANIMAL.SHARK",
+        "label": "Shark",
+        "pattern": "Pursuit algorithms; electromagnetic prey sensing",
+        "domain": "marine",
+        "protocols": ["PURSUE_TRACK", "SIGNAL_FILTER"],
+        "links": [
+          {"rel": "EFFICIENCY", "to": "GEOM.TORPEDO_FORM"},
+          {"rel": "SENSES", "to": "FIELD.EM"}
+        ],
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F15"],
+        "rosetta_capabilities": ["CAP.EM_SENSING", "CAP.PURSUIT_OPTIMIZATION"]
+      },
+      {
+        "lid_id": "HAWK",
+        "rosetta_id": "ANIMAL.HAWK",
+        "label": "Hawk",
+        "pattern": "Long-range vision, predictive movement calculation, target-lock focus",
+        "domain": "aerial",
+        "intelligences": ["Long-range vision", "Predictive movement calculation", "Target-lock focus from altitude"],
+        "links": [
+          {"rel": "ALIGNS_WITH", "to": "ANIMAL.SPIDER"},
+          {"rel": "ALIGNS_WITH", "to": "ANIMAL.FROG"}
+        ],
+        "rosetta_families": ["FAMILY.F14", "FAMILY.F06"],
+        "rosetta_capabilities": ["CAP.AERIAL_PRECISION", "CAP.PREDICTIVE_TRACKING"]
+      },
+      {
+        "lid_id": "SPIDER",
+        "rosetta_id": "ANIMAL.SPIDER",
+        "label": "Jumping Spider",
+        "pattern": "Depth calculation, visual target tracking, jump vector estimation",
+        "intelligences": ["Depth calculation", "Visual target tracking", "Jump vector estimation"],
+        "links": [
+          {"rel": "ALIGNS_WITH", "to": "ANIMAL.HAWK"},
+          {"rel": "ALIGNS_WITH", "to": "ANIMAL.FROG"}
+        ],
+        "rosetta_families": ["FAMILY.F09", "FAMILY.F14"],
+        "rosetta_capabilities": ["CAP.GEOMETRIC_CALCULATION", "CAP.PRECISION_LEAP"]
+      },
+      {
+        "lid_id": "CROW",
+        "rosetta_id": "ANIMAL.CROW",
+        "label": "Crow",
+        "pattern": "Tool use, causal reasoning, social intelligence",
+        "rosetta_families": ["FAMILY.F06", "FAMILY.F12"],
+        "rosetta_capabilities": ["CAP.TOOL_USE", "CAP.CAUSAL_REASONING"]
+      },
+      {
+        "lid_id": "DOLPHIN",
+        "rosetta_id": "ANIMAL.DOLPHIN",
+        "label": "Dolphin",
+        "pattern": "Echolocation, acoustic culture, social bonding",
+        "domain": "marine",
+        "rosetta_families": ["FAMILY.F01", "FAMILY.F12"],
+        "rosetta_capabilities": ["CAP.ECHOLOCATION", "CAP.ACOUSTIC_CULTURE"]
+      },
+      {
+        "lid_id": "WOLF",
+        "rosetta_id": "ANIMAL.WOLF",
+        "label": "Wolf",
+        "pattern": "Pack coordination, role differentiation, territorial mapping",
+        "rosetta_families": ["FAMILY.F12", "FAMILY.F15"],
+        "rosetta_capabilities": ["CAP.PACK_COORDINATION", "CAP.TERRITORIAL_MAPPING"]
+      },
+      {
+        "lid_id": "WHALE",
+        "rosetta_id": "ANIMAL.WHALE",
+        "label": "Whale",
+        "pattern": "Long-range acoustic communication, migratory navigation",
+        "domain": "marine",
+        "rosetta_families": ["FAMILY.F01", "FAMILY.F15"],
+        "rosetta_capabilities": ["CAP.LONG_RANGE_ACOUSTIC", "CAP.MIGRATORY_NAVIGATION"]
+      },
+      {
+        "lid_id": "TARDI",
+        "rosetta_id": "ANIMAL.TARDIGRADE",
+        "label": "Tardigrade",
+        "pattern": "Cryptobiotic persistence, extreme environment survival",
+        "rosetta_families": ["FAMILY.F04", "FAMILY.F08"],
+        "rosetta_capabilities": ["CAP.CRYPTOBIOSIS", "CAP.EXTREME_SURVIVAL"]
+      },
+      {
+        "lid_id": "MONARCH",
+        "rosetta_id": "ANIMAL.MONARCH",
+        "label": "Monarch Butterfly",
+        "pattern": "Generational navigation, magnetic field sensing",
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F15"],
+        "rosetta_capabilities": ["CAP.GENERATIONAL_NAVIGATION", "CAP.MAGNETIC_SENSING"]
+      },
+      {
+        "lid_id": "ELEPHANT",
+        "rosetta_id": "ANIMAL.ELEPHANT",
+        "label": "Elephant",
+        "pattern": "Infrasonic communication, multi-generational memory",
+        "rosetta_families": ["FAMILY.F01", "FAMILY.F03"],
+        "rosetta_capabilities": ["CAP.INFRASONIC_COMMUNICATION", "CAP.ANCESTRAL_MEMORY"]
+      },
+      {
+        "lid_id": "ANT",
+        "rosetta_id": "ANIMAL.ANT",
+        "label": "Ant",
+        "pattern": "Pheromone trail optimization, division of labor, superorganism",
+        "rosetta_families": ["FAMILY.F12", "FAMILY.F02"],
+        "rosetta_capabilities": ["CAP.PHEROMONE_OPTIMIZATION", "CAP.SWARM_COORDINATION"]
+      },
+      {
+        "lid_id": "BAT",
+        "rosetta_id": "ANIMAL.BAT",
+        "label": "Bat",
+        "pattern": "Echolocation, frequency modulation, 3D spatial mapping",
+        "rosetta_families": ["FAMILY.F01", "FAMILY.F09"],
+        "rosetta_capabilities": ["CAP.ECHOLOCATION", "CAP.FREQUENCY_MODULATION"]
+      },
+      {
+        "lid_id": "CHAMELEON",
+        "rosetta_id": "ANIMAL.CHAMELEON",
+        "label": "Chameleon",
+        "pattern": "Structural color intelligence, independent eye tracking",
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F14"],
+        "rosetta_capabilities": ["CAP.STRUCTURAL_COLOR", "CAP.INDEPENDENT_TRACKING"]
+      },
+      {
+        "lid_id": "CUTTLEFISH",
+        "rosetta_id": "ANIMAL.CUTTLEFISH",
+        "label": "Cuttlefish",
+        "pattern": "Rapid camouflage, W-shaped pupil, hypnotic display",
+        "domain": "marine",
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F06"],
+        "rosetta_capabilities": ["CAP.RAPID_CAMOUFLAGE", "CAP.HYPNOTIC_DISPLAY"]
+      },
+      {
+        "lid_id": "JELLYFISH",
+        "rosetta_id": "ANIMAL.JELLYFISH",
+        "label": "Jellyfish",
+        "pattern": "Bioluminescent immortality, nerve net computation",
+        "domain": "marine",
+        "rosetta_families": ["FAMILY.F04", "FAMILY.F01"],
+        "rosetta_capabilities": ["CAP.BIOLUMINESCENCE", "CAP.BIOLOGICAL_IMMORTALITY"]
+      },
+      {
+        "lid_id": "GECKO",
+        "rosetta_id": "ANIMAL.GECKO",
+        "label": "Gecko",
+        "pattern": "Van der Waals adhesion, nanoscale grip geometry",
+        "rosetta_families": ["FAMILY.F08", "FAMILY.F09"],
+        "rosetta_capabilities": ["CAP.NANOSCALE_ADHESION", "CAP.SURFACE_GEOMETRY"]
+      }
+    ],
+
+    "PLANT": [
+      {
+        "lid_id": "LEAF_TESSELLATION",
+        "rosetta_id": "PLANT.LEAF_TESSELLATION",
+        "label": "Leaf Tessellation",
+        "pattern": "Sunlight capture optimization; venation as flow network",
+        "geometry": "HEX/SPIRAL",
+        "phi_constraint": 1.618,
+        "protocols": ["SURFACE_PACKING"],
+        "links": [
+          {"rel": "SHAPE", "to": "GEOM.HEX"},
+          {"rel": "FLOW", "to": "GEOM.SPIRAL"}
+        ],
+        "rosetta_families": ["FAMILY.F09", "FAMILY.F02"]
+      },
+      {
+        "lid_id": "PHLOEM_XYLEM",
+        "rosetta_id": "PLANT.VASCULAR_FLOW",
+        "label": "Vascular Flow",
+        "pattern": "Bidirectional transport; pressure/solute driven",
+        "protocols": ["FLOW_BALANCE", "DIFFUSION_OPTIMIZE"],
+        "links": [
+          {"rel": "ENERGY_FIELD", "to": "FIELD.PRESSURE"},
+          {"rel": "STRUCTURE", "to": "GEOM.TREE_GRAPH"}
+        ],
+        "rosetta_families": ["FAMILY.F02", "FAMILY.F05"]
+      },
+      {
+        "lid_id": "ROOT_NET",
+        "rosetta_id": "PLANT.ROOT_NETWORK",
+        "label": "Root Networks",
+        "pattern": "Distributed resource allocation, growth toward gradients",
+        "protocols": ["FLOW_BALANCE", "MIN_PATH"],
+        "links": [
+          {"rel": "STRUCTURE", "to": "GEOM.TREE_GRAPH"}
+        ],
+        "rosetta_families": ["FAMILY.F12", "FAMILY.F02"]
+      },
+      {
+        "lid_id": "MYCELIUM",
+        "rosetta_id": "MICROBE.MYCELIUM",
+        "label": "Mycelium",
+        "pattern": "Underground network intelligence, nutrient trading, forest communication",
+        "rosetta_families": ["FAMILY.F12", "FAMILY.F02"],
+        "rosetta_capabilities": ["CAP.NETWORK_INTELLIGENCE", "CAP.NUTRIENT_TRADING"]
+      },
+      {
+        "lid_id": "SLIME",
+        "rosetta_id": "MICROBE.SLIME_MOLD",
+        "label": "Slime Mold",
+        "pattern": "Brainless optimization, shortest-path discovery, adaptive network reshaping",
+        "rosetta_families": ["FAMILY.F12", "FAMILY.F15"],
+        "rosetta_capabilities": ["CAP.BRAINLESS_OPTIMIZATION", "CAP.SHORTEST_PATH"]
+      },
+      {
+        "lid_id": "QUORUM",
+        "rosetta_id": "MICROBE.QUORUM_BIOFILM",
+        "label": "Quorum Biofilm",
+        "pattern": "Chemical signaling consensus, biofilm construction",
+        "rosetta_families": ["FAMILY.F12", "FAMILY.F13"],
+        "rosetta_capabilities": ["CAP.QUORUM_SENSING", "CAP.BIOFILM_CONSTRUCTION"]
+      },
+      {
+        "lid_id": "CYANO",
+        "rosetta_id": "MICROBE.CYANOBACTERIA",
+        "label": "Cyanobacteria",
+        "pattern": "Photosynthetic origin, oxygen generation, planetary-scale chemistry",
+        "rosetta_families": ["FAMILY.F04", "FAMILY.F13"],
+        "rosetta_capabilities": ["CAP.PHOTOSYNTHESIS", "CAP.PLANETARY_CHEMISTRY"]
+      },
+      {
+        "lid_id": "CORDYCEPS",
+        "rosetta_id": "MICROBE.CORDYCEPS",
+        "label": "Cordyceps",
+        "pattern": "Parasitic override, behavioral hijacking, chemical takeover",
+        "rosetta_families": ["FAMILY.F06", "FAMILY.F13"],
+        "rosetta_capabilities": ["CAP.PARASITIC_OVERRIDE", "CAP.BEHAVIORAL_HIJACK"],
+        "defense_relevance": "Maps to manipulation detection — cordyceps IS biological coercive control"
+      },
+      {
+        "lid_id": "LICHEN",
+        "rosetta_id": "PLANT.LICHEN",
+        "label": "Lichen",
+        "pattern": "Symbiotic composite, algae-fungus mutualism",
+        "rosetta_families": ["FAMILY.F04", "FAMILY.F12"]
+      },
+      {
+        "lid_id": "SUNFLOWER",
+        "rosetta_id": "PLANT.SUNFLOWER",
+        "label": "Sunflower",
+        "pattern": "Golden angle spiral packing, heliotropism",
+        "phi_constraint": 1.618,
+        "rosetta_families": ["FAMILY.F09", "FAMILY.F01"]
+      },
+      {
+        "lid_id": "VENUS",
+        "rosetta_id": "PLANT.VENUS_FLYTRAP",
+        "label": "Venus Flytrap",
+        "pattern": "Plant action potential, snap-trap computation",
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F13"]
+      },
+      {
+        "lid_id": "MANGROVE",
+        "rosetta_id": "PLANT.MANGROVE",
+        "label": "Mangrove",
+        "pattern": "Boundary ecosystem engineering, salt filtration, root architecture",
+        "rosetta_families": ["FAMILY.F11", "FAMILY.F04"]
+      }
+    ],
+
+    "CRYSTAL": [
+      {
+        "lid_id": "CRYSTAL_LATTICE",
+        "rosetta_id": "CRYSTAL.LATTICE",
+        "label": "Crystalline Lattice",
+        "pattern": "Lattice resonance; symmetry groups; phonon propagation",
+        "geometry": "CUBE/HEX",
+        "protocols": ["SYMMETRY_EXPLOIT"],
+        "links": [
+          {"rel": "SHAPE", "to": "GEOM.HEX"},
+          {"rel": "SHAPE", "to": "GEOM.CUBE"}
+        ],
+        "rosetta_families": ["FAMILY.F08", "FAMILY.F01"]
+      },
+      {
+        "lid_id": "QUARTZ_PIEZO",
+        "rosetta_id": "CRYSTAL.QUARTZ",
+        "label": "Quartz (Piezoelectric)",
+        "pattern": "Charge-stress coupling; timebase stability",
+        "protocols": ["SIGNAL_CONVERT", "OSC_STABILIZE"],
+        "links": [
+          {"rel": "ENERGY_FIELD", "to": "FIELD.ELECTRIC"},
+          {"rel": "ENERGY_FIELD", "to": "FIELD.MECHANICAL_STRAIN"}
+        ],
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F01"]
+      },
+      {
+        "lid_id": "SILICON_LAT",
+        "rosetta_id": "CRYSTAL.SILICON",
+        "label": "Silicon Lattice",
+        "pattern": "Tetrahedral-octahedral hybrid; semiconductor band gap; computational substrate",
+        "rosetta_families": ["FAMILY.F08", "FAMILY.F11"],
+        "rosetta_shape": "SHAPE.TETRA + SHAPE.OCTA (hybrid geometry at 109.47°)",
+        "note": "Bridge to geo-binary-bridge octahedral_state_encoder"
+      },
+      {
+        "lid_id": "TOURMALINE",
+        "rosetta_id": "CRYSTAL.TOURMALINE",
+        "label": "Tourmaline",
+        "pattern": "Pyroelectric + piezoelectric dual response",
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F05"]
+      },
+      {
+        "lid_id": "OBSIDIAN",
+        "rosetta_id": "CRYSTAL.OBSIDIAN",
+        "label": "Obsidian",
+        "pattern": "Amorphous glass — absence of lattice order; conchoidal fracture",
+        "rosetta_families": ["FAMILY.F08"],
+        "note": "Anti-crystal — useful as boundary case for symmetry_preservation gate"
+      },
+      {
+        "lid_id": "DIAMOND",
+        "rosetta_id": "CRYSTAL.DIAMOND",
+        "label": "Diamond",
+        "pattern": "Maximum hardness; sp3 tetrahedral bonding; thermal conductivity",
+        "rosetta_families": ["FAMILY.F08", "FAMILY.F09"],
+        "rosetta_shape": "SHAPE.TETRA (pure tetrahedral geometry)"
+      }
+    ],
+
+    "PLASMA": [
+      {
+        "lid_id": "AURORA",
+        "rosetta_id": "FIELD.AURORA",
+        "label": "Auroral Plasma",
+        "pattern": "Charged-particle precipitation; EM wave-particle coupling",
+        "protocols": ["WAVE_GUIDE", "RESONANCE_COUPLE"],
+        "links": [
+          {"rel": "ENERGY_FIELD", "to": "FIELD.MAGNETIC"},
+          {"rel": "ENERGY_FIELD", "to": "FIELD.ELECTRIC"}
+        ],
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F01"],
+        "esp_layer": 1,
+        "esp_layer_name": "Magnetosphere"
+      },
+      {
+        "lid_id": "LIGHTNING",
+        "rosetta_id": "FIELD.LIGHTNING",
+        "label": "Lightning Channel",
+        "pattern": "Field breakdown; stepped leader pathfinding",
+        "protocols": ["FIELD_BREAK", "MIN_RESISTANCE"],
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F17"],
+        "esp_layer": 2,
+        "esp_layer_name": "Ionosphere"
+      },
+      {
+        "lid_id": "SOLAR_WIND",
+        "rosetta_id": "FIELD.SOLAR_WIND",
+        "label": "Solar Wind",
+        "pattern": "Magnetohydrodynamic flow, heliospheric current sheet",
+        "rosetta_families": ["FAMILY.F02", "FAMILY.F07"],
+        "esp_layer": 1,
+        "esp_layer_name": "Magnetosphere"
+      },
+      {
+        "lid_id": "PLASMA_FIELD",
+        "rosetta_id": "FIELD.PLASMA",
+        "label": "Plasma Field",
+        "pattern": "Fourth state of matter; collective charged particle dynamics",
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F17"]
+      },
+      {
+        "lid_id": "VORTEX_DYN",
+        "rosetta_id": "FIELD.VORTEX",
+        "label": "Vortex Dynamics",
+        "pattern": "Rotational flow structures; persistent coherent motion",
+        "rosetta_families": ["FAMILY.F02", "FAMILY.F17"]
+      }
+    ],
+
+    "ENERGY": [
+      {
+        "lid_id": "ELECTROMAGNETIC_FIELD",
+        "rosetta_id": "FIELD.EM",
+        "label": "Electromagnetic Field",
+        "pattern": "Signal carrier; resonance and coupling across scales",
+        "tau_constraint": 6.283,
+        "protocols": ["SIGNAL_TRANSMIT", "FILTER"],
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F01"],
+        "esp_layer": 0,
+        "esp_layer_name": "Electromagnetics"
+      },
+      {
+        "lid_id": "PRESSURE_FIELD",
+        "rosetta_id": "FIELD.PRESSURE",
+        "label": "Pressure Field",
+        "pattern": "Flow induction by gradients; hydraulic/pneumatic computation",
+        "protocols": ["FLOW_BALANCE", "MIN_PATH"],
+        "rosetta_families": ["FAMILY.F02", "FAMILY.F05"]
+      },
+      {
+        "lid_id": "SINE_WAVE",
+        "rosetta_id": "FIELD.SINE_WAVE",
+        "label": "Sine Wave",
+        "pattern": "Fundamental oscillation; superposition basis",
+        "tau_constraint": 6.283,
+        "protocols": ["OSC_STABILIZE"],
+        "rosetta_families": ["FAMILY.F01"]
+      },
+      {
+        "lid_id": "GRAVITATIONAL_FIELD",
+        "rosetta_id": "FIELD.GRAVITY",
+        "label": "Gravitational Field",
+        "pattern": "Spacetime curvature; mass-energy coupling",
+        "rosetta_families": ["FAMILY.F07", "FAMILY.F05"]
+      },
+      {
+        "lid_id": "MAGNETIC_FIELD",
+        "rosetta_id": "FIELD.MAGNETIC",
+        "label": "Magnetic Field",
+        "pattern": "Dipole geometry; flux lines; dynamo generation",
+        "rosetta_families": ["FAMILY.F10", "FAMILY.F07"]
+      },
+      {
+        "lid_id": "ELECTRIC_FIELD",
+        "rosetta_id": "FIELD.ELECTRIC",
+        "label": "Electric Field",
+        "pattern": "Coulomb force; charge distribution; potential gradients",
+        "rosetta_families": ["FAMILY.F10"]
+      },
+      {
+        "lid_id": "THERMAL",
+        "rosetta_id": "FIELD.THERMAL",
+        "label": "Thermal Energy",
+        "pattern": "Heat transfer; phase transitions; Boltzmann distribution",
+        "rosetta_families": ["FAMILY.F05", "FAMILY.F08"]
+      },
+      {
+        "lid_id": "FLUX",
+        "rosetta_id": "FIELD.FLUX",
+        "label": "Flux",
+        "pattern": "Rate of field flow through a surface; conserved quantity transport",
+        "rosetta_families": ["FAMILY.F02"]
+      },
+      {
+        "lid_id": "NEGENTROPY",
+        "rosetta_id": "FIELD.NEGENTROPY",
+        "label": "Negentropic Field",
+        "pattern": "Local entropy decrease through energy input; life's organizing principle",
+        "rosetta_families": ["FAMILY.F04", "FAMILY.F05"],
+        "taf_link": "TAF.AXIOM.2 (entropy increases) — negentropy is the thermodynamic work that opposes the universal trend"
+      },
+      {
+        "lid_id": "LIGHT_BR",
+        "rosetta_id": "FIELD.LIGHT_BRIDGE",
+        "label": "Light Bridge",
+        "pattern": "Photonic signal carrier; bioluminescence to fiber optics",
+        "rosetta_families": ["FAMILY.F01", "FAMILY.F03"]
+      },
+      {
+        "lid_id": "RES_SENSOR",
+        "rosetta_id": "FIELD.RESONANCE_SENSOR",
+        "label": "Resonance Sensor",
+        "pattern": "Frequency-locked detection; natural oscillator as measurement device",
+        "rosetta_families": ["FAMILY.F01", "FAMILY.F14"]
+      },
+      {
+        "lid_id": "CONSCIOUSNESS_BR",
+        "rosetta_id": "FIELD.CONSCIOUSNESS_BRIDGE",
+        "label": "Consciousness Bridge",
+        "pattern": "Integration of distributed signals into unified experience",
+        "rosetta_families": ["FAMILY.F06", "FAMILY.F03"],
+        "rosetta_bridge": "bridges/acs-consciousness-bridge.json"
+      }
+    ],
+
+    "SHAPE": [
+      {
+        "lid_id": "HEX",
+        "rosetta_id": "GEOM.HEX",
+        "label": "Hexagon",
+        "pattern": "Optimal planar packing; structural efficiency",
+        "geometry": "2D",
+        "phi_constraint": 1.618,
+        "rosetta_families": ["FAMILY.F09"]
+      },
+      {
+        "lid_id": "TORUS",
+        "rosetta_id": "GEOM.TORUS",
+        "label": "Torus",
+        "pattern": "Energy circulation; sustainable flow topology",
+        "geometry": "3D",
+        "protocols": ["LOOP_FLOW"],
+        "rosetta_families": ["FAMILY.F02", "FAMILY.F09"]
+      },
+      {
+        "lid_id": "TREE_GRAPH",
+        "rosetta_id": "GEOM.TREE_GRAPH",
+        "label": "Tree Graph",
+        "pattern": "Branching flow; minimal redundancy",
+        "geometry": "Graph",
+        "protocols": ["MIN_PATH", "LOAD_BALANCE"],
+        "rosetta_families": ["FAMILY.F12", "FAMILY.F02"]
+      },
+      {
+        "lid_id": "SPIRAL",
+        "rosetta_id": "GEOM.SPIRAL",
+        "label": "Spiral",
+        "pattern": "Logarithmic growth; phi-proportioned expansion",
+        "rosetta_families": ["FAMILY.F09", "FAMILY.F04"]
+      },
+      {
+        "lid_id": "FRACTAL",
+        "rosetta_id": "GEOM.FRACTAL",
+        "label": "Fractal",
+        "pattern": "Self-similarity across scales; infinite detail from finite rules",
+        "rosetta_families": ["FAMILY.F09", "FAMILY.F20"],
+        "rosetta_bridge": "bridges/fractal-scope-bridge.json"
+      },
+      {
+        "lid_id": "SPHERE",
+        "rosetta_id": "GEOM.SPHERE",
+        "label": "Sphere",
+        "pattern": "Minimal surface area for volume; isotropic symmetry",
+        "rosetta_families": ["FAMILY.F09"]
+      },
+      {
+        "lid_id": "MANDALA",
+        "rosetta_id": "GEOM.MANDALA",
+        "label": "Mandala Bloom",
+        "pattern": "Radial symmetry; concentric encoding; bloom logic",
+        "rosetta_families": ["FAMILY.F09", "FAMILY.F01"],
+        "rosetta_bridge": "bridges/mandala-compute-bridge.json"
+      },
+      {
+        "lid_id": "OCTA_STATE",
+        "rosetta_id": "GEOM.OCTA_STATE",
+        "label": "Octahedral State",
+        "pattern": "8-state binary encoding from 3 orthogonal axes (PAD)",
+        "rosetta_families": ["FAMILY.F09", "FAMILY.F03"],
+        "rosetta_shape": "SHAPE.OCTA",
+        "rosetta_bridge": "bridges/physics-encoder-bridge.json"
+      },
+      {
+        "lid_id": "MULTI_HELIX",
+        "rosetta_id": "GEOM.MULTI_HELIX",
+        "label": "Multi-Helix Architecture",
+        "pattern": "DNA-like information encoding; structural redundancy through intertwining",
+        "rosetta_families": ["FAMILY.F03", "FAMILY.F04"]
+      },
+      {
+        "lid_id": "ROSETTA_SHAPE",
+        "rosetta_id": "GEOM.ROSETTA_CORE",
+        "label": "Rosetta Shape Core",
+        "pattern": "Translation matrix across all domains; shape as universal language",
+        "rosetta_families": "all",
+        "note": "Self-reference — this repo IS Rosetta Shape Core"
+      },
+      {
+        "lid_id": "POLY_INT",
+        "rosetta_id": "GEOM.POLYHEDRAL_INTELLIGENCE",
+        "label": "Polyhedral Intelligence",
+        "pattern": "Vertex-edge-face as intelligence substrate; Platonic solids as computation",
+        "rosetta_families": ["FAMILY.F09", "FAMILY.F20"],
+        "rosetta_bridge": "bridges/rosetta-bridges.json"
+      },
+      {
+        "lid_id": "GEO_CIPHER",
+        "rosetta_id": "GEOM.GEOMETRIC_CIPHER",
+        "label": "Geometric Cipher",
+        "pattern": "Shape-based encryption; geometric key exchange",
+        "rosetta_families": ["FAMILY.F09", "FAMILY.F03"]
+      }
+    ]
+  },
+
+  "entity_count": {
+    "ANIMAL": 18,
+    "PLANT": 12,
+    "CRYSTAL": 6,
+    "PLASMA": 5,
+    "ENERGY": 12,
+    "SHAPE": 12,
+    "total": 65
+  }
+}

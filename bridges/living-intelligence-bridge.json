@@ -1,0 +1,179 @@
+{
+  "id": "BRIDGE.LIVING_INTELLIGENCE",
+  "version": "1.0",
+  "updated": "2026-03-27T00:00:00Z",
+  "description": "Integration bridge connecting the Living Intelligence Database (LID) to Rosetta-Shape-Core. Maps 67 intelligence nodes across 6 kinds to Rosetta's namespace system, equation families, Platonic shapes, and sensing architecture. LID treats all entities — animals, plants, crystals, plasma, energy fields, geometric shapes — as intelligences with measurable patterns. This bridge makes those patterns addressable by Rosetta's validators and rule engine.",
+
+  "source": {
+    "repo": "JinnZ2/Living-Intelligence-Database",
+    "schema": "intelligence.schema.json",
+    "schema_version": "JSON Schema 2020-12",
+    "entity_count": 67,
+    "rule_count": 43
+  },
+
+  "kind_to_namespace_map": {
+    "description": "Maps LID's 6 kind categories to Rosetta's 15+ namespaces. LID uses flat UPPER_SNAKE IDs; Rosetta uses DOT_NAMESPACE format.",
+    "mappings": [
+      {"lid_kind": "ANIMAL", "rosetta_namespace": "ANIMAL", "entity_count": 18, "example": "BEE → ANIMAL.BEE"},
+      {"lid_kind": "PLANT", "rosetta_namespace": "PLANT", "entity_count": 12, "example": "LEAF_TESSELLATION → PLANT.LEAF_TESSELLATION", "note": "Some LID PLANT entities (MYCELIUM, SLIME, QUORUM, CYANO, CORDYCEPS) map to Rosetta MICROBE namespace"},
+      {"lid_kind": "CRYSTAL", "rosetta_namespace": "CRYSTAL", "entity_count": 6, "example": "QUARTZ_PIEZO → CRYSTAL.QUARTZ"},
+      {"lid_kind": "PLASMA", "rosetta_namespace": "FIELD", "entity_count": 5, "example": "AURORA → FIELD.AURORA"},
+      {"lid_kind": "ENERGY", "rosetta_namespace": "FIELD", "entity_count": 12, "example": "ELECTROMAGNETIC_FIELD → FIELD.EM"},
+      {"lid_kind": "SHAPE", "rosetta_namespace": "GEOM", "entity_count": 12, "example": "HEX → GEOM.HEX"}
+    ]
+  },
+
+  "department_to_family_map": {
+    "description": "LID organizes entities into 'departments' (behavioral themes). These map to Rosetta equation families.",
+    "departments": [
+      {
+        "lid_department": "precision",
+        "description": "Exactness, timing, minimal margin of error",
+        "rosetta_families": ["FAMILY.F14", "FAMILY.F09"],
+        "rationale": "Precision IS measurement (F14) applied with geometric exactness (F09)"
+      },
+      {
+        "lid_department": "triangulation",
+        "description": "Angle, geometry, spatial awareness for movement and targeting",
+        "rosetta_families": ["FAMILY.F09", "FAMILY.F15"],
+        "rationale": "Triangulation IS geometry (F09) applied to navigation (F15)"
+      },
+      {
+        "lid_department": "resonance",
+        "description": "Frequency matching, oscillatory coupling, harmonic alignment",
+        "rosetta_families": ["FAMILY.F01"],
+        "rationale": "Direct mapping — resonance IS F01"
+      }
+    ]
+  },
+
+  "protocol_to_capability_map": {
+    "description": "LID entities carry 'protocols' — behavioral algorithms. These map to Rosetta capabilities (CAP namespace).",
+    "protocols": [
+      {"lid_protocol": "SYMMETRY_EXPLOIT", "rosetta_capability": "CAP.SYMMETRY_EXPLOITATION", "families": ["FAMILY.F09"]},
+      {"lid_protocol": "SIMD_OPTIMIZE", "rosetta_capability": "CAP.PARALLEL_PROCESSING", "families": ["FAMILY.F11"]},
+      {"lid_protocol": "ENCODE", "rosetta_capability": "CAP.INFORMATION_ENCODING", "families": ["FAMILY.F03"]},
+      {"lid_protocol": "ASYNC_COORDINATION", "rosetta_capability": "CAP.DISTRIBUTED_COORDINATION", "families": ["FAMILY.F12"]},
+      {"lid_protocol": "PURSUE_TRACK", "rosetta_capability": "CAP.PURSUIT_OPTIMIZATION", "families": ["FAMILY.F15"]},
+      {"lid_protocol": "SIGNAL_FILTER", "rosetta_capability": "CAP.SIGNAL_FILTERING", "families": ["FAMILY.F14"]},
+      {"lid_protocol": "SIGNAL_TRANSMIT", "rosetta_capability": "CAP.SIGNAL_TRANSMISSION", "families": ["FAMILY.F03"]},
+      {"lid_protocol": "FILTER", "rosetta_capability": "CAP.FREQUENCY_FILTERING", "families": ["FAMILY.F01"]},
+      {"lid_protocol": "FLOW_BALANCE", "rosetta_capability": "CAP.FLOW_REGULATION", "families": ["FAMILY.F02"]},
+      {"lid_protocol": "MIN_PATH", "rosetta_capability": "CAP.SHORTEST_PATH", "families": ["FAMILY.F15"]},
+      {"lid_protocol": "SURFACE_PACKING", "rosetta_capability": "CAP.OPTIMAL_TILING", "families": ["FAMILY.F09"]},
+      {"lid_protocol": "DIFFUSION_OPTIMIZE", "rosetta_capability": "CAP.GRADIENT_OPTIMIZATION", "families": ["FAMILY.F02"]},
+      {"lid_protocol": "SIGNAL_CONVERT", "rosetta_capability": "CAP.TRANSDUCTION", "families": ["FAMILY.F10"]},
+      {"lid_protocol": "OSC_STABILIZE", "rosetta_capability": "CAP.OSCILLATION_LOCK", "families": ["FAMILY.F01"]},
+      {"lid_protocol": "WAVE_GUIDE", "rosetta_capability": "CAP.WAVE_GUIDANCE", "families": ["FAMILY.F10"]},
+      {"lid_protocol": "RESONANCE_COUPLE", "rosetta_capability": "CAP.RESONANT_COUPLING", "families": ["FAMILY.F01"]},
+      {"lid_protocol": "FIELD_BREAK", "rosetta_capability": "CAP.FIELD_BREAKDOWN", "families": ["FAMILY.F17"]},
+      {"lid_protocol": "MIN_RESISTANCE", "rosetta_capability": "CAP.LEAST_RESISTANCE_PATH", "families": ["FAMILY.F02"]},
+      {"lid_protocol": "LOOP_FLOW", "rosetta_capability": "CAP.TOROIDAL_CIRCULATION", "families": ["FAMILY.F02"]},
+      {"lid_protocol": "LOAD_BALANCE", "rosetta_capability": "CAP.LOAD_DISTRIBUTION", "families": ["FAMILY.F12"]}
+    ]
+  },
+
+  "cross_bridge_connections": {
+    "description": "How LID entities connect to existing Rosetta bridges",
+    "connections": [
+      {
+        "lid_entity": "CONSCIOUSNESS_BR",
+        "rosetta_bridge": "bridges/acs-consciousness-bridge.json",
+        "connection": "LID's Consciousness Bridge IS the ACS bridge — same entity, different vantage point"
+      },
+      {
+        "lid_entity": "OCTA_STATE",
+        "rosetta_bridge": "bridges/physics-encoder-bridge.json",
+        "connection": "LID's Octahedral State maps to the physics encoder's 8-state PAD compression"
+      },
+      {
+        "lid_entity": "MANDALA",
+        "rosetta_bridge": "bridges/mandala-compute-bridge.json",
+        "connection": "LID's Mandala Bloom maps to mandala-compute-bridge's bloom logic and ring depth"
+      },
+      {
+        "lid_entity": "FRACTAL",
+        "rosetta_bridge": "bridges/fractal-scope-bridge.json",
+        "connection": "LID's Fractal entity IS the self-similarity principle underlying fractal scope"
+      },
+      {
+        "lid_entity": "ROSETTA_SHAPE",
+        "rosetta_bridge": "ALL bridges",
+        "connection": "Self-reference — LID's Rosetta Shape Core entry points to this entire repo"
+      },
+      {
+        "lid_entity": "POLY_INT",
+        "rosetta_bridge": "bridges/rosetta-bridges.json",
+        "connection": "LID's Polyhedral Intelligence maps to Rosetta's 5 Platonic solid bridge architecture"
+      },
+      {
+        "lid_entity": "AURORA",
+        "rosetta_bridge": "bridges/thermodynamic-validation-bridge.json",
+        "connection": "Aurora maps to ESP Layer 1 (Magnetosphere) — charged particle dynamics in the ESP validation chain"
+      },
+      {
+        "lid_entity": "LIGHTNING",
+        "rosetta_bridge": "bridges/thermodynamic-validation-bridge.json",
+        "connection": "Lightning maps to ESP Layer 2 (Ionosphere) — field breakdown and pathfinding"
+      },
+      {
+        "lid_entity": "NEGENTROPY",
+        "rosetta_bridge": "bridges/taf-wiring-bridge.json",
+        "connection": "Negentropy is the thermodynamic work opposing TAF.AXIOM.2 (entropy increases). Life IS negentropy."
+      },
+      {
+        "lid_entity": "CORDYCEPS",
+        "rosetta_bridge": "bridges/truth-sensor-bridge (via defense glyphs)",
+        "connection": "Parasitic override maps directly to manipulation detection patterns MDS-001, CLD"
+      }
+    ]
+  },
+
+  "emergent_intelligence_to_shape_map": {
+    "description": "The 43 expander rules produce emergent intelligences. These emergent forms have natural Platonic shape affinities based on their constituent families.",
+    "shape_affinity_summary": {
+      "SHAPE.ICOSA": {
+        "count": 8,
+        "emergent_forms": ["NET", "DISTRIBUTED_PARALLELISM", "FIELDLINK_TRIAD", "DISTRIBUTED_LIVING_COGNITION", "MICROBIAL_MESH_INTELLIGENCE", "BRAINLESS_OPTIMIZATION", "ACOUSTIC_CULTURE", "PHOTOSYNTHETIC_ORIGIN"],
+        "theme": "Network-scale emergent intelligence — requires many nodes cooperating"
+      },
+      "SHAPE.OCTA": {
+        "count": 10,
+        "emergent_forms": ["PHOTON_CAPTURE_RESONANT", "GEOMETRIC_COMPUTATION", "BLOOM_RESONANCE", "AFFECTIVE_ENCODING", "VORTEX_BLOOM", "SILICON_READ_WRITE", "INTERSPECIES_COOPERATION", "ELASTIC_RESONANCE_LOCOMOTION", "BIOSONAR_CONVERGENCE", "CEPHALOPOD_CAMOUFLAGE_TRIAD", "ACOUSTIC_THERMOMETER"],
+        "theme": "Balance/mediation emergent intelligence — two or more poles finding equilibrium"
+      },
+      "SHAPE.DODECA": {
+        "count": 9,
+        "emergent_forms": ["POLYHEDRAL_GRID_RESONANCE", "LIVING_COHERENCE", "UNIFIED_FIELD_SENSE", "CONVERGENT_COGNITION", "GENERATIONAL_NAVIGATION", "BIOLUMINESCENT_IMMORTALITY", "AERIAL_PRECISION_SENSE", "MAGNETIC_HOMING_TRIAD", "COGNITIVE_MAP_ARCHITECTURE", "GALACTIC_NAVIGATION"],
+        "theme": "Principles-layer emergent intelligence — meta-awareness, navigation, cognition"
+      },
+      "SHAPE.CUBE": {
+        "count": 6,
+        "emergent_forms": ["HEX_EFFICIENCY", "CROSS_DOMAIN_DECODE", "STRUCTURAL_COLOR_INTELLIGENCE", "BOUNDARY_ECOSYSTEM", "COLLECTIVE_THERMAL_GEOMETRY", "NANOSCALE_ADHESION"],
+        "theme": "Structural containment — efficiency within boundaries"
+      },
+      "SHAPE.TETRA": {
+        "count": 6,
+        "emergent_forms": ["ENCRYPTED_GEOMETRIC_COMPUTE", "CRYPTOBIOTIC_PERSISTENCE", "PARASITIC_OVERRIDE", "PLANT_ACTION_POTENTIAL", "EXPLOSIVE_RHIZOME_GROWTH", "INFRARED_FIELD_MAPPING"],
+        "theme": "Boundary/energy emergent intelligence — irreversible reactions, sharp transformations"
+      }
+    }
+  },
+
+  "phi_tau_constants": {
+    "description": "LID uses phi (1.618) and tau (6.283) as fundamental constraints on entity attributes. These are the same constants used across Rosetta's physics stack.",
+    "phi": {
+      "value": 1.618033988749895,
+      "lid_entities_using": ["BEE", "LEAF_TESSELLATION", "HEX", "SUNFLOWER"],
+      "rosetta_link": "CONST.PHI in ontology",
+      "physics_guard_link": "Natural constants in laws.json — golden ratio as reality anchor"
+    },
+    "tau": {
+      "value": 6.283185307179586,
+      "lid_entities_using": ["ELECTROMAGNETIC_FIELD", "SINE_WAVE"],
+      "rosetta_link": "2π — full cycle constant for all oscillatory phenomena",
+      "physics_guard_link": "Cyclical pattern validation in physics_grounded_protection.py"
+    }
+  }
+}
