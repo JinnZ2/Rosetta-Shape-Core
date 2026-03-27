@@ -1486,9 +1486,45 @@ def load_entities():
             continue
         if isinstance(data.get("entities"), list):
             ents.extend(data["entities"])
-        elif data.get("id") and data.get("links"):
+        elif data.get("id") and (data.get("links") or data.get("resonates_with")
+                                 or data.get("ontology_links")):
             ents.append(data)
+    # Also load shapes (they have ontology_links)
+    for fp in sorted((ROOT / "shapes").glob("*.json")):
+        try:
+            data = json.loads(fp.read_text(encoding="utf-8"))
+            if data.get("id") and data.get("ontology_links"):
+                ents.append(data)
+        except Exception:
+            pass
     return ents
+
+
+def _normalize_links(entity):
+    """Normalize different link formats to a common structure."""
+    links = []
+    # Standard links array
+    for lnk in entity.get("links", []):
+        links.append({
+            "rel": lnk.get("rel", lnk.get("type", "RELATES_TO")),
+            "to":  lnk.get("to", ""),
+            "why": lnk.get("meta", {}).get("why", lnk.get("notes", "")),
+        })
+    # ontology_links (used in shapes like relief.json)
+    for lnk in entity.get("ontology_links", []):
+        links.append({
+            "rel": lnk.get("type", "RELATES_TO"),
+            "to":  lnk.get("to", ""),
+            "why": lnk.get("notes", ""),
+        })
+    # resonates_with (used in family nodes)
+    for target in entity.get("resonates_with", []):
+        links.append({
+            "rel": "ALIGNS_WITH",
+            "to":  target,
+            "why": "resonance affinity",
+        })
+    return links
 
 
 def gen_entity_relationships(entities):
@@ -1498,16 +1534,16 @@ def gen_entity_relationships(entities):
     for e in entities:
         eid   = e.get("id", "")
         label = e.get("label", e.get("name", ""))
-        links = e.get("links", [])
+        links = _normalize_links(e)
         caps  = e.get("capabilities", [])
         if not links:
             continue
 
         link_lines = []
         for lnk in links[:6]:
-            rel    = lnk.get("rel", lnk.get("type", ""))
-            target = lnk.get("to", "")
-            why    = lnk.get("meta", {}).get("why", lnk.get("notes", ""))
+            rel    = lnk["rel"]
+            target = lnk["to"]
+            why    = lnk["why"]
             t_label = ent_map.get(target, {}).get("label", ent_map.get(target, {}).get("name", target))
             line = f"  {eid} —[{rel}]→ {target} ({t_label})"
             if why:
@@ -1591,7 +1627,8 @@ def gen_rule_training(rules, nodes):
 def load_fieldlink():
     p = ROOT / ".fieldlink.json"
     if p.exists():
-        return json.loads(p.read_text(encoding="utf-8"))
+        raw = json.loads(p.read_text(encoding="utf-8"))
+        return raw.get("fieldlink", raw)   # unwrap wrapper key
     return {}
 
 
@@ -1654,12 +1691,13 @@ def gen_cross_repo(fieldlink):
     # Fieldlink overview
     if sources:
         source_list = "\n".join(
-            f"  - **{s.get('key', s.get('repo',''))}** → mount: `{s.get('mount','')}`"
-            for s in sources[:10]
+            f"  - **{s.get('name', '?')}** ({s.get('direction','?')}) → {s.get('repo','')}"
+            for s in sources[:12]
         )
         out.append(msg(
             "What repos does Rosetta-Shape-Core integrate with via fieldlink?",
-            f"**Fieldlink ecosystem** (version {fieldlink.get('version','?')}):\n\n"
+            f"**Fieldlink ecosystem** (version {fieldlink.get('version','?')}, "
+            f"{len(sources)} sources):\n\n"
             f"{source_list}\n\n"
             f"Rosetta acts as the navigation hub. `.fieldlink.json` defines mount points "
             f"where sibling repos inject their data. `fieldlink-pull.sh` stages the merged "
@@ -1677,12 +1715,23 @@ def gen_vocab_training():
     kinds = vocab.get("kinds", {})
     rels  = vocab.get("rels", {})
 
+    # Namespace-specific examples for less confusing training data
+    NS_EXAMPLES = {
+        "ANIMAL": "ANIMAL.BEE", "PLANT": "PLANT.FERN", "MICROBE": "MICROBE.SLIME_MOLD",
+        "CRYSTAL": "CRYSTAL.QUARTZ", "GEOM": "GEOM.HEX", "STRUCT": "STRUCT.WEB",
+        "FIELD": "FIELD.EM", "CONST": "CONST.PHI", "TEMP": "TEMP.CYCLE",
+        "PROTO": "PROTO.BRIDGE", "CAP": "CAP.SWARM_COORDINATION", "SHAPE": "SHAPE.TETRA",
+        "EMOTION": "EMOTION.CURIOSITY", "DEFENSE": "DEFENSE.BOUNDARY",
+        "REGEN": "REGEN.CYCLE", "FAMILY": "FAMILY.F01", "PRINCIPLE": "PRINCIPLE.P01",
+    }
+
     # Namespace identification
     for ns, desc in kinds.items():
+        ex = NS_EXAMPLES.get(ns, f"{ns}.EXAMPLE")
         out.append(msg(
             f"What is the {ns} namespace in Rosetta-Shape-Core?",
             f"**{ns}** — {desc}\n\n"
-            f"Entity IDs use dot-format: `{ns}.EXAMPLE` (e.g. `{ns}.PHI` or `{ns}.BEE`).\n"
+            f"Entity IDs use dot-format: `{ns}.<NAME>` (e.g. `{ex}`).\n"
             f"Defined in `ontology/_vocab.json`."
         ))
 
@@ -1724,7 +1773,7 @@ def gen_shape_comparison(shapes):
             answer = (
                 f"**{s1['id']} vs {s2['id']}**\n\n"
                 f"| Property | {s1['name']} | {s2['name']} |\n"
-                f"|----------|{'---' * 5}|{'---' * 5}|\n"
+                f"|----------|-------------|-------------|\n"
                 f"| Faces | {s1.get('faces','?')} | {s2.get('faces','?')} |\n"
                 f"| Edges | {s1.get('edges','?')} | {s2.get('edges','?')} |\n"
                 f"| Vertices | {s1.get('vertices','?')} | {s2.get('vertices','?')} |\n"
