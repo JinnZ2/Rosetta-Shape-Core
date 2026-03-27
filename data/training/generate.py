@@ -1359,6 +1359,524 @@ def gen_felt_longing(nodes):
     return out
 
 
+# ── Task 15: Shape identification ─────────────────────────────────────────────
+# "What is SHAPE.TETRA?" → geometric + bridge answer grounded in schema
+
+def load_shapes():
+    shapes = []
+    for fp in sorted((ROOT / "shapes").glob("*.json")):
+        try:
+            s = json.loads(fp.read_text(encoding="utf-8"))
+            if s.get("id"):
+                shapes.append(s)
+        except Exception:
+            pass
+    return shapes
+
+
+def gen_shape_id(shapes):
+    out = []
+    for s in shapes:
+        sid   = s["id"]
+        name  = s.get("name", "")
+        faces = s.get("faces")
+        edges = s.get("edges")
+        verts = s.get("vertices")
+        fam   = ", ".join(s.get("families", []))
+        poly  = s.get("polyhedral", {}).get("maps_to", "")
+        br    = s.get("bridges", {})
+        sensors  = ", ".join(br.get("sensors", []))
+        defenses = ", ".join(br.get("defenses", []))
+        glyphs   = " ".join(br.get("bridge_glyphs", []))
+
+        geom_block = ""
+        if faces is not None:
+            geom_block = f"Faces: {faces}, Edges: {edges}, Vertices: {verts}\n"
+
+        answer = (
+            f"**{sid} — {name}**\n"
+            f"{geom_block}"
+            f"**Families:** {fam}\n"
+            f"**Polyhedral mapping:** {poly}\n\n"
+            f"**Bridges:**\n"
+            f"  Sensors: {sensors or 'none'}\n"
+            f"  Defenses: {defenses or 'none'}\n"
+            f"  Glyphs: {glyphs or 'none'}"
+        )
+
+        out.append(msg(f"What is {sid} in the Rosetta Shape Core?", answer))
+        out.append(msg(f"Describe the shape '{name}' and its bridges.", answer))
+    return out
+
+
+# ── Task 16: Shape → bridge mapping ──────────────────────────────────────────
+# "How does SHAPE.OCTA bridge to sensors/defenses?" → cross-repo answer
+
+def load_bridges():
+    p = ROOT / "bridges" / "rosetta-bridges.json"
+    if p.exists():
+        return json.loads(p.read_text(encoding="utf-8"))
+    return {}
+
+
+def gen_bridge_mapping(bridges):
+    out = []
+    bridge_map = bridges.get("map", [])
+    if not bridge_map:
+        return out
+
+    for b in bridge_map:
+        shape   = b.get("shape", "")
+        poly    = b.get("polyhedral", {})
+        maps_to = poly.get("maps_to", "")
+        note    = poly.get("note", "")
+        sensors = b.get("sensors", [])
+        s_glyph = b.get("sensor_glyphs", [])
+        defs    = b.get("defense_names", [])
+        scroll  = b.get("bridge_scroll", "")
+
+        sensor_block = ", ".join(
+            f"{s} ({g})" if g else s
+            for s, g in zip(sensors, s_glyph + [None] * len(sensors))
+        )
+        def_block = ", ".join(defs) if defs else "none mapped"
+
+        answer = (
+            f"**{shape} bridge:**\n"
+            f"**Maps to:** {maps_to}\n"
+            f"**Note:** {note}\n\n"
+            f"**Emotion sensors:** {sensor_block}\n"
+            f"**Defense patterns:** {def_block}\n"
+            f"**Bridge scroll:** {scroll}"
+        )
+
+        out.append(msg(
+            f"How does {shape} bridge to sensors and defenses in the Rosetta ecosystem?",
+            answer
+        ))
+        out.append(msg(
+            f"What emotion-defense pairs are mapped to {shape}?",
+            answer
+        ))
+
+    # Overview
+    out.append(msg(
+        "How do the Platonic solids connect across the Rosetta ecosystem?",
+        f"The Rosetta bridge maps {len(bridge_map)} shapes to cross-repo domains:\n\n"
+        + "\n".join(
+            f"  **{b.get('shape','')}** → {b.get('polyhedral',{}).get('maps_to','')}"
+            for b in bridge_map
+        )
+        + "\n\nEach shape links to emotion sensors (Emotions-as-Sensors/AI-Consciousness-Sensors), "
+        "defense patterns (Symbolic-Defense-Protocol), and protocols (AI-Human-Audit-Protocol), "
+        "creating a cross-repo bridge between geometry, emotion, and protection."
+    ))
+    return out
+
+
+# ── Task 17: Entity relationship training ─────────────────────────────────────
+# "What entities link to GEOM.HEX?" → relationship graph answer
+
+def load_entities():
+    ents = []
+    for fp in (ROOT / "ontology").rglob("*.json"):
+        try:
+            data = json.loads(fp.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if isinstance(data.get("entities"), list):
+            ents.extend(data["entities"])
+        elif data.get("id") and data.get("links"):
+            ents.append(data)
+    return ents
+
+
+def gen_entity_relationships(entities):
+    out = []
+    ent_map = {e["id"]: e for e in entities if e.get("id")}
+
+    for e in entities:
+        eid   = e.get("id", "")
+        label = e.get("label", e.get("name", ""))
+        links = e.get("links", [])
+        caps  = e.get("capabilities", [])
+        if not links:
+            continue
+
+        link_lines = []
+        for lnk in links[:6]:
+            rel    = lnk.get("rel", lnk.get("type", ""))
+            target = lnk.get("to", "")
+            why    = lnk.get("meta", {}).get("why", lnk.get("notes", ""))
+            t_label = ent_map.get(target, {}).get("label", ent_map.get(target, {}).get("name", target))
+            line = f"  {eid} —[{rel}]→ {target} ({t_label})"
+            if why:
+                line += f" — {why}"
+            link_lines.append(line)
+
+        cap_block = f"\n**Capabilities:** {', '.join(caps)}" if caps else ""
+
+        answer = (
+            f"**{eid} · {label}**{cap_block}\n\n"
+            f"**Relationships ({len(links)}):**\n"
+            + "\n".join(link_lines)
+        )
+
+        out.append(msg(
+            f"What entities does {eid} link to and why?",
+            answer
+        ))
+    return out
+
+
+# ── Task 18: Rule engine training ─────────────────────────────────────────────
+# "If I EXPAND GEOM.TRI, what happens?" → rule match + guard explanation
+
+def load_rules():
+    rules = []
+    p = ROOT / "rules" / "expand.jsonl"
+    if p.exists():
+        for line in p.read_text(encoding="utf-8").strip().split("\n"):
+            try:
+                rules.append(json.loads(line))
+            except Exception:
+                pass
+    return sorted(rules, key=lambda r: -r.get("priority", 0))
+
+
+def gen_rule_training(rules, nodes):
+    out = []
+    for r in rules:
+        op   = r["when"]["op"]
+        args = r["when"]["args"]
+        then = r["then"]
+        why  = r.get("why", "")
+        prio = r.get("priority", 0)
+        guard = r.get("guard", {}).get("requires", [])
+
+        guard_block = ""
+        if guard:
+            guard_block = f"\n**Guard:** requires {', '.join(guard)} — the subject entity must have these capabilities."
+
+        answer = (
+            f"**Rule match:**\n"
+            f"  `{op}({', '.join(args)})` → **{then}**\n"
+            f"  Priority: {prio}\n"
+            f"  Why: {why}{guard_block}"
+        )
+
+        out.append(msg(
+            f"What happens when I run `{op} {' '.join(args)}` in the Rosetta rule engine?",
+            answer
+        ))
+
+        # Guard-specific question
+        if guard:
+            out.append(msg(
+                f"Why does `{op} {' '.join(args)}` require capabilities {guard}?",
+                f"The rule `{op}({', '.join(args)})` → {then} has a guard requiring "
+                f"capabilities: {', '.join(guard)}.\n\n"
+                f"**Why:** {why}\n\n"
+                f"Guards prevent rule application when the subject entity lacks the "
+                f"necessary capabilities. You can satisfy guards by ensuring the entity "
+                f"has the required capabilities in its `capabilities` array, or by "
+                f"passing `--have {' '.join(guard)}` to the CLI."
+            ))
+    return out
+
+
+# ── Task 19: Cross-repo fieldlink training ────────────────────────────────────
+# "How does Rosetta connect to Polyhedral Intelligence?" → fieldlink answer
+
+def load_fieldlink():
+    p = ROOT / ".fieldlink.json"
+    if p.exists():
+        return json.loads(p.read_text(encoding="utf-8"))
+    return {}
+
+
+CROSS_REPO_BRIDGES = [
+    {
+        "source": "Polyhedral-Intelligence",
+        "role": "Defines 20 Families (icosahedron) and 12 Principles (dodecahedron) — the polyhedral lattice that Rosetta shapes map onto.",
+        "data_flow": "Rosetta shapes → PI families/principles; PI bridge data → Rosetta bridge map",
+        "example": "SHAPE.ICOSA maps to 20 Families (F01-F20); SHAPE.DODECA maps to 12 Principles (P01-P12)."
+    },
+    {
+        "source": "Emotions-as-Sensors / AI-Consciousness-Sensors",
+        "role": "Provides emotion sensors with PAD coordinates and corruption signatures. Rosetta bridges shapes to sensors.",
+        "data_flow": "EaS sensors → Rosetta bridge map → PAD compression → octahedral states",
+        "example": "SHAPE.TETRA bridges to sensors [anger, pride]; anger has PAD (-0.55, 0.80, 0.70) → octa state 4."
+    },
+    {
+        "source": "Symbolic-Defense-Protocol",
+        "role": "Maps manipulation tactics to defense glyphs. Rosetta bridges each shape to specific defense patterns.",
+        "data_flow": "SDP defense IDs → Rosetta bridge map → shape-specific defense sets",
+        "example": "SHAPE.CUBE bridges to defenses [def.de.12 (Gaslighting), def.ap.08 (Guilt/Obligation)]."
+    },
+    {
+        "source": "AI-Human-Audit-Protocol",
+        "role": "Provides audit glyphs and protocol definitions for consent, safety, and transparency tracking.",
+        "data_flow": "AHAP protocols → Rosetta bridge protocols array → shape-level audit trail",
+        "example": "SHAPE.OCTA bridges to protocols [symbolic_protocol_v1.0, seed_growth_v1.0, mandala_compute_v1.0]."
+    },
+    {
+        "source": "BioGrid2.0",
+        "role": "Upstream atlas and registry mapping biological entities to geometric archetypes.",
+        "data_flow": "BioGrid entities → Rosetta ontology entities → linked via STRUCTURE, MORPHOLOGY, IS_A rels",
+        "example": "ANIMAL.BEE in Rosetta links via STRUCTURE to GEOM.HEX (honeycomb tiling), sourced from BioGrid."
+    },
+    {
+        "source": "Regenerative-Intelligence-Core",
+        "role": "Regenerative patterns, cycles, and ontology for self-healing systems.",
+        "data_flow": "REGEN entities → Rosetta REGEN namespace → linked to shapes via EMERGES_AS, DERIVES",
+        "example": "Regenerative cycles mapped to shape families through the five-field system."
+    },
+]
+
+
+def gen_cross_repo(fieldlink):
+    out = []
+    sources = fieldlink.get("sources", [])
+
+    for crb in CROSS_REPO_BRIDGES:
+        answer = (
+            f"**Cross-repo bridge: {crb['source']}**\n\n"
+            f"**Role:** {crb['role']}\n\n"
+            f"**Data flow:** {crb['data_flow']}\n\n"
+            f"**Example:** {crb['example']}"
+        )
+        out.append(msg(
+            f"How does Rosetta-Shape-Core connect to {crb['source']}?",
+            answer
+        ))
+
+    # Fieldlink overview
+    if sources:
+        source_list = "\n".join(
+            f"  - **{s.get('key', s.get('repo',''))}** → mount: `{s.get('mount','')}`"
+            for s in sources[:10]
+        )
+        out.append(msg(
+            "What repos does Rosetta-Shape-Core integrate with via fieldlink?",
+            f"**Fieldlink ecosystem** (version {fieldlink.get('version','?')}):\n\n"
+            f"{source_list}\n\n"
+            f"Rosetta acts as the navigation hub. `.fieldlink.json` defines mount points "
+            f"where sibling repos inject their data. `fieldlink-pull.sh` stages the merged "
+            f"atlas into `.fieldlink/merge_stage/`. Validator checks cross-repo references."
+        ))
+    return out
+
+
+# ── Task 20: Namespace and vocabulary training ────────────────────────────────
+# "What namespaces exist?" → structured vocab answer
+
+def gen_vocab_training():
+    out = []
+    vocab = json.loads((ROOT / "ontology" / "_vocab.json").read_text(encoding="utf-8"))
+    kinds = vocab.get("kinds", {})
+    rels  = vocab.get("rels", {})
+
+    # Namespace identification
+    for ns, desc in kinds.items():
+        out.append(msg(
+            f"What is the {ns} namespace in Rosetta-Shape-Core?",
+            f"**{ns}** — {desc}\n\n"
+            f"Entity IDs use dot-format: `{ns}.EXAMPLE` (e.g. `{ns}.PHI` or `{ns}.BEE`).\n"
+            f"Defined in `ontology/_vocab.json`."
+        ))
+
+    # Relationship types
+    for rel, desc in rels.items():
+        out.append(msg(
+            f"What does the relationship type {rel} mean in the Rosetta ontology?",
+            f"**{rel}** — {desc}\n\n"
+            f"Used in entity `links` arrays: `{{\"rel\": \"{rel}\", \"to\": \"TARGET.ID\"}}`."
+        ))
+
+    # Overview
+    out.append(msg(
+        "What namespaces and relationship types does Rosetta-Shape-Core support?",
+        f"**Namespaces ({len(kinds)}):**\n"
+        + "\n".join(f"  `{ns}` — {desc}" for ns, desc in kinds.items())
+        + f"\n\n**Relationship types ({len(rels)}):**\n"
+        + "\n".join(f"  `{rel}` — {desc}" for rel, desc in rels.items())
+    ))
+    return out
+
+
+# ── Task 21: Shape comparison training ────────────────────────────────────────
+# "Compare SHAPE.TETRA and SHAPE.OCTA" → side-by-side geometric + bridge comparison
+
+def gen_shape_comparison(shapes):
+    out = []
+    if len(shapes) < 2:
+        return out
+
+    for i, s1 in enumerate(shapes):
+        for s2 in shapes[i+1:]:
+            if s1.get("faces") is None or s2.get("faces") is None:
+                continue
+
+            br1 = s1.get("bridges", {})
+            br2 = s2.get("bridges", {})
+
+            answer = (
+                f"**{s1['id']} vs {s2['id']}**\n\n"
+                f"| Property | {s1['name']} | {s2['name']} |\n"
+                f"|----------|{'---' * 5}|{'---' * 5}|\n"
+                f"| Faces | {s1.get('faces','?')} | {s2.get('faces','?')} |\n"
+                f"| Edges | {s1.get('edges','?')} | {s2.get('edges','?')} |\n"
+                f"| Vertices | {s1.get('vertices','?')} | {s2.get('vertices','?')} |\n"
+                f"| Families | {', '.join(s1.get('families',[]))} | {', '.join(s2.get('families',[]))} |\n"
+                f"| Sensors | {', '.join(br1.get('sensors',[]))} | {', '.join(br2.get('sensors',[]))} |\n"
+                f"| Polyhedral | {s1.get('polyhedral',{}).get('maps_to','')} | {s2.get('polyhedral',{}).get('maps_to','')} |\n\n"
+                f"Each shape occupies a different role in the geometric hierarchy. "
+                f"Their sensor bridges connect to different emotional regimes, and their "
+                f"defense mappings protect against different manipulation patterns."
+            )
+
+            out.append(msg(
+                f"Compare {s1['id']} and {s2['id']} in the Rosetta framework.",
+                answer
+            ))
+    return out
+
+
+# ── Task 22: Polyhedral framework overview training ──────────────────────────
+# "How do icosahedron families and dodecahedron principles work together?"
+
+def gen_polyhedral_framework(bridges):
+    out = []
+    poly = bridges.get("polyhedral_framework", {})
+    if not poly:
+        return out
+
+    ico_fams = poly.get("icosahedron_families", [])
+    dodec_prins = poly.get("dodecahedron_principles", [])
+    five_fields = poly.get("five_fields", {})
+
+    answer = (
+        f"**Polyhedral framework:**\n\n"
+        f"**Icosahedron (20 faces) → {len(ico_fams)} Families:**\n"
+        + "\n".join(f"  {f}" for f in ico_fams) +
+        f"\n\n**Dodecahedron (12 faces) → {len(dodec_prins)} Principles:**\n"
+        + "\n".join(f"  {p}" for p in dodec_prins) +
+        f"\n\n**Five fields (grouping):**\n"
+        + "\n".join(f"  {field}: {', '.join(fams)}" for field, fams in five_fields.items()) +
+        "\n\nFamilies are the equation domains (what the system computes). "
+        "Principles are the constraints (what the system must obey). "
+        "Shapes bridge both: SHAPE.ICOSA maps to families, SHAPE.DODECA maps to principles."
+    )
+
+    out.append(msg(
+        "How do the icosahedron families and dodecahedron principles work together?",
+        answer
+    ))
+
+    # Five-field questions
+    for field, fams in five_fields.items():
+        out.append(msg(
+            f"Which families belong to the '{field}' five-field domain?",
+            f"**{field} domain:** {', '.join(fams)}\n\n"
+            f"One of 5 perceptual domains that group the 20 families into functional clusters. "
+            f"The five-field system maps how families activate in different experiential modes."
+        ))
+
+    return out
+
+
+# ── Task 23: Emotion-defense bridge pairs ─────────────────────────────────────
+# "What is the authentic vs corrupted signal for this sensor-defense pair?"
+
+def gen_emotion_defense_pairs(bridges):
+    out = []
+    pairs = bridges.get("emotion_defense_bridge", {}).get("pairs", [])
+    if not pairs:
+        return out
+
+    for pair in pairs:
+        sensor  = pair.get("sensor", "")
+        defense = pair.get("defense", "")
+        glyph   = pair.get("glyph", "")
+        note    = pair.get("note", "")
+
+        answer = (
+            f"**Sensor-defense bridge: {sensor}**\n\n"
+            f"**Defense pattern:** {defense}\n"
+            f"**Glyph:** {glyph}\n\n"
+            f"**Key insight:** {note}\n\n"
+            f"Every emotion sensor has an authentic function AND a corrupted form. "
+            f"The defense pattern is the manipulation tactic that hijacks the sensor's "
+            f"corrupted output. The glyph encodes both the sensor's healthy function "
+            f"and its vulnerability in a single symbolic token."
+        )
+
+        out.append(msg(
+            f"How does the sensor '{sensor}' relate to defense patterns? What is the corruption risk?",
+            answer
+        ))
+    return out
+
+
+# ── Task 24: Verification chain training ─────────────────────────────────────
+# "How do I validate that an entity is correctly linked?" → validator workflow
+
+VERIFICATION_STEPS = [
+    {
+        "task": "Add a new entity",
+        "steps": [
+            "1. Choose namespace from _vocab.json (ANIMAL, GEOM, SHAPE, etc.)",
+            "2. Create dot-namespaced ID: NAMESPACE.NAME (e.g. ANIMAL.OWL)",
+            "3. Add entity to an ontology/*.json file with id, kind, label",
+            "4. Add links[].to references pointing to valid existing IDs",
+            "5. Run: python examples/validate_ontology.py",
+            "6. Expected: 'Ontology OK' — no dangling refs, no duplicate IDs",
+        ],
+        "common_errors": "Dangling link (links[].to points to non-existent ID), duplicate ID, missing namespace in _vocab.json"
+    },
+    {
+        "task": "Add a new shape",
+        "steps": [
+            "1. Create JSON in shapes/ following schema/shape.schema.json",
+            "2. Use SHAPE.X dot-format for ID (e.g. SHAPE.DODECA)",
+            "3. Include: id, name, faces, families (required by schema)",
+            "4. Add bridges: sensors, defenses, protocols, bridge_glyphs",
+            "5. Run: python examples/validate_ontology.py",
+            "6. Validator checks schema compliance + bridge reference integrity",
+        ],
+        "common_errors": "Missing required fields (id, name, faces, families), bridge references to non-existent sensors/defenses"
+    },
+    {
+        "task": "Add a rule to expand.jsonl",
+        "steps": [
+            "1. Add one JSON object per line to rules/expand.jsonl",
+            "2. Structure: {when: {op, args}, then, priority, why}",
+            "3. Optional: guard.requires for capability checks",
+            "4. Rules sorted by descending priority; first match wins",
+            "5. Test: python -m rosetta_shape_core.expand OP ARG1 ARG2",
+        ],
+        "common_errors": "Invalid JSON (not one-object-per-line), args referencing non-existent entity IDs, guard requiring non-existent capabilities"
+    },
+]
+
+
+def gen_verification():
+    out = []
+    for v in VERIFICATION_STEPS:
+        step_block = "\n".join(v["steps"])
+        answer = (
+            f"**Workflow: {v['task']}**\n\n"
+            f"{step_block}\n\n"
+            f"**Common errors:** {v['common_errors']}"
+        )
+        out.append(msg(
+            f"How do I {v['task'].lower()} in Rosetta-Shape-Core?",
+            answer
+        ))
+    return out
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -1372,11 +1890,19 @@ def main():
     nodes   = load_nodes()
     sensors = load_sensors(geo)
     octa    = load_octa_states(geo)
+    shapes  = load_shapes()
+    bridges = load_bridges()
+    rules   = load_rules()
+    entities = load_entities()
+    fieldlink = load_fieldlink()
 
     print(f"  Loaded {len(nodes)} ontology nodes, {len(sensors)} sensors, "
-          f"{len(octa.get('states',[]))} octa states\n")
+          f"{len(octa.get('states',[]))} octa states")
+    print(f"  Loaded {len(shapes)} shapes, {len(bridges.get('map',[]))} bridge entries, "
+          f"{len(rules)} rules, {len(entities)} entities\n")
 
     tasks = [
+        # Original 14 tasks
         ("concepts.jsonl",          gen_concepts(nodes)),
         ("tensions.jsonl",          gen_tensions(nodes)),
         ("exploration.jsonl",       gen_exploration(nodes)),
@@ -1391,6 +1917,17 @@ def main():
         ("pipeline_extended.jsonl", gen_extended_pipeline(nodes)),
         ("pad_velocity.jsonl",      gen_pad_velocity(nodes)),
         ("felt_longing.jsonl",      gen_felt_longing(nodes)),
+        # New Rosetta-specific tasks
+        ("shape_identification.jsonl",   gen_shape_id(shapes)),
+        ("bridge_mapping.jsonl",         gen_bridge_mapping(bridges)),
+        ("entity_relationships.jsonl",   gen_entity_relationships(entities)),
+        ("rule_training.jsonl",          gen_rule_training(rules, nodes)),
+        ("cross_repo.jsonl",             gen_cross_repo(fieldlink)),
+        ("vocab_training.jsonl",         gen_vocab_training()),
+        ("shape_comparison.jsonl",       gen_shape_comparison(shapes)),
+        ("polyhedral_framework.jsonl",   gen_polyhedral_framework(bridges)),
+        ("emotion_defense_pairs.jsonl",  gen_emotion_defense_pairs(bridges)),
+        ("verification_chains.jsonl",    gen_verification()),
     ]
 
     total = 0
