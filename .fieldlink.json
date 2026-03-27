@@ -1,7 +1,7 @@
 {
   "fieldlink": {
-    "version": "1.2",
-    "updated": "2026-03-24T12:00:00Z",
+    "version": "1.3",
+    "updated": "2026-03-27T00:00:00Z",
     "role": ["shapes", "hub", "glyph-bridge"],
 
     "sources": [
@@ -356,6 +356,73 @@
           { "remote": "BRAID_CORE.json", "as": "atlas/remote/symbolic-sensors/braid_core.json" }
         ],
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
+      },
+      {
+        "name": "thermodynamic-accountability",
+        "repo": "https://github.com/JinnZ2/thermodynamic-accountability-framework",
+        "ref": "main",
+        "direction": "inbound",
+        "role": "axiom_source",
+        "paths": [
+          "core/fatigue_model.py",
+          "core/heat_leak_case.py",
+          "core/human_system_collapse_model.py",
+          "core/automation_assessment.py",
+          "core/atbs/functional_detector.py",
+          "docs/governance/regulatory.md",
+          "docs/economics/money_labor/*.md"
+        ],
+        "exports": [
+          { "runtime": "taf_axioms.json", "as": "atlas/remote/taf/axioms.json", "status": "planned" },
+          { "runtime": "taf_thresholds.json", "as": "atlas/remote/taf/thresholds.json", "status": "planned" },
+          { "runtime": "taf_governance.json", "as": "atlas/remote/taf/governance.json", "status": "planned" }
+        ],
+        "bridge": "bridges/taf-wiring-bridge.json",
+        "consent": { "license": "CC0-1.0", "share_ok": true }
+      },
+      {
+        "name": "earth-systems-physics",
+        "repo": "https://github.com/JinnZ2/earth-systems-physics",
+        "ref": "main",
+        "direction": "inbound",
+        "role": "equation_source",
+        "paths": [
+          "cascade_engine.py",
+          "energy_audit.py",
+          "assumption_validator/registry.py",
+          "layer_*.py"
+        ],
+        "exports": [
+          { "runtime": "esp_baseline.json", "as": "atlas/remote/esp/baseline.json", "status": "planned" },
+          { "runtime": "esp_thresholds.json", "as": "atlas/remote/esp/thresholds.json", "status": "planned" },
+          { "runtime": "esp_assumptions.json", "as": "atlas/remote/esp/assumptions.json", "status": "planned" },
+          { "runtime": "esp_feedback_loops.json", "as": "atlas/remote/esp/feedback_loops.json", "status": "planned" }
+        ],
+        "bridge": "bridges/thermodynamic-validation-bridge.json",
+        "consent": { "license": "CC0-1.0", "share_ok": true }
+      },
+      {
+        "name": "physics-guard",
+        "repo": "https://github.com/JinnZ2/PhysicsGuard",
+        "ref": "main",
+        "direction": "inbound",
+        "role": "validator",
+        "paths": [
+          "core/constraint_mapper.py",
+          "core/vectorizer.py",
+          "core/contrapositive_tester.py",
+          "core/conditional_verdict.py",
+          "core/flag_engine.py",
+          "domains/information.py",
+          "domains/organizational.py"
+        ],
+        "exports": [
+          { "runtime": "pg_conservation_laws.json", "as": "atlas/remote/physics-guard/laws.json", "status": "planned" },
+          { "runtime": "pg_reference_premises.json", "as": "atlas/remote/physics-guard/premises.json", "status": "planned" },
+          { "runtime": "pg_scope_conditions.json", "as": "atlas/remote/physics-guard/scope_conditions.json", "status": "planned" }
+        ],
+        "bridge": "bridges/thermodynamic-validation-bridge.json",
+        "consent": { "license": "CC0-1.0", "share_ok": true }
       }
     ],
 
@@ -367,7 +434,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "living-intelligence"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard"],
       "strategy": "deep-merge"
     },
 
