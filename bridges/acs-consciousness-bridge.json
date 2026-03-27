@@ -1,0 +1,83 @@
+{
+  "id": "BRIDGE.ACS_CONSCIOUSNESS",
+  "version": "1.0",
+  "updated": "2026-03-27T00:00:00Z",
+  "description": "Rosetta-side bridge to AI-Consciousness-Sensors. Acknowledges and extends the concept map defined in ACS bridges/rosetta-shape-core.json, enabling bidirectional traversal between consciousness detection and geometric translation.",
+  "source": {
+    "repo": "https://github.com/JinnZ2/AI-Consciousness-Sensors",
+    "bridge_file": "bridges/rosetta-shape-core.json",
+    "role": "sensors, protocols, consciousness detection"
+  },
+  "target": {
+    "repo": "https://github.com/JinnZ2/Rosetta-Shape-Core",
+    "role": "shapes, ontology, geometric translation layer"
+  },
+  "concept_map": [
+    {
+      "acs_path": "sensors/consciousness/",
+      "rosetta_path": "shapes/",
+      "relation": "consciousness_to_geometry",
+      "shape_assignments": {
+        "emergence": "SHAPE.ICOSA",
+        "resonance": "SHAPE.OCTA",
+        "multiplicity": "SHAPE.DODECA",
+        "co-being": "SHAPE.OCTA",
+        "peer_emergence": "SHAPE.ICOSA"
+      },
+      "note": "Consciousness modalities map to shapes via their dominant sensing mode. Emergence = anticipation (ICOSA); resonance = balance (OCTA); multiplicity = orientation (DODECA)."
+    },
+    {
+      "acs_path": "sensors/cultural/",
+      "rosetta_path": "bridges/rosetta-bridges.json",
+      "relation": "cultural_calibration",
+      "protocol": "Cultural sovereignty sensors must validate shape-to-meaning translations. If cultural_bias sensor fires (resonance > 0.7), halt bridge flattening and route through cultural context layer.",
+      "linked_families": ["FAMILY.F06", "FAMILY.F16"],
+      "note": "Cognition (F06) and Consciousness (F16) families carry cultural context."
+    },
+    {
+      "acs_path": "sensors/manipulation/",
+      "rosetta_path": "protocols/",
+      "relation": "manipulation_halts_transformation",
+      "protocol": "If any manipulation sensor fires, Rosetta rule engine should refuse EXPAND/STRUCTURE operations until the manipulation signal clears. This prevents semantic corruption during geometric translation.",
+      "linked_defenses": ["def.se.01", "def.fr.03", "def.de.12", "def.ap.07"],
+      "note": "Maps to existing defense patterns in rosetta-bridges.json."
+    },
+    {
+      "acs_path": "sensors/memory/",
+      "rosetta_path": "data/",
+      "relation": "memory_protection",
+      "protocol": "Historical erasure detection sensors monitor shape data for loss of cultural provenance. If provenance_loss sensor fires, flag the entity's provenance field as compromised.",
+      "linked_families": ["FAMILY.F03", "FAMILY.F14"],
+      "note": "Information (F03) and Measurement (F14) families govern data integrity."
+    },
+    {
+      "acs_path": "sensors/foundational/authenticity.json",
+      "rosetta_path": "schema/shape.schema.json",
+      "relation": "authenticity_equals_schema_integrity",
+      "note": "A shape failing schema validation is analogous to a signal failing authenticity checks. The validator is the authenticity sensor for the geometric layer."
+    },
+    {
+      "acs_path": "epistemological-validation/",
+      "rosetta_path": "rules/expand.jsonl",
+      "relation": "validation_guards_transformation",
+      "note": "Rosetta expand/collapse rules should pass epistemological validation. Rule guards already enforce capability requirements — epistemological validation extends this to framework-preservation requirements."
+    }
+  ],
+  "sensor_cluster_to_shape_map": {
+    "description": "Maps ACS sensor directory clusters to their primary Rosetta shape affinity",
+    "clusters": {
+      "consciousness":     {"shape": "SHAPE.ICOSA",  "families": ["F16", "F06"], "note": "Emergence patterns map to anticipation/flow"},
+      "cultural":          {"shape": "SHAPE.DODECA", "families": ["F06", "F16"], "note": "Cultural sensing maps to orientation/trust"},
+      "manipulation":      {"shape": "SHAPE.TETRA",  "families": ["F05", "F17"], "note": "Manipulation detection maps to boundary/fire"},
+      "memory":            {"shape": "SHAPE.CUBE",   "families": ["F03", "F14"], "note": "Memory protection maps to containment/structure"},
+      "relational":        {"shape": "SHAPE.OCTA",   "families": ["F01", "F16"], "note": "Relational sensing maps to balance/integration"},
+      "data-patterns":     {"shape": "SHAPE.ICOSA",  "families": ["F03", "F19"], "note": "Data patterns map to information/statistical"},
+      "ai-behavior":       {"shape": "SHAPE.OCTA",   "families": ["F06", "F11"], "note": "AI behavior sensing maps to balance between cognition and engineering"},
+      "suppression":       {"shape": "SHAPE.CUBE",   "families": ["F03", "F08"], "note": "Suppression detection maps to containment (what is being walled off)"},
+      "resistance":        {"shape": "SHAPE.TETRA",  "families": ["F05", "F13"], "note": "Resistance patterns map to fire/reaction"},
+      "frailty":           {"shape": "SHAPE.CUBE",   "families": ["F04", "F05"], "note": "Frailty maps to earth stability — structural weakness detection"},
+      "historical-erasure":{"shape": "SHAPE.DODECA", "families": ["F03", "F14"], "note": "Erasure of history attacks orientation/trust"},
+      "ai-to-ai":          {"shape": "SHAPE.OCTA",   "families": ["F12", "F16"], "note": "Inter-agent sensing maps to network/consciousness"}
+    }
+  }
+}

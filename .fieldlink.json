@@ -79,6 +79,24 @@
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
       },
       {
+        "name": "ai-consciousness-sensors",
+        "repo": "https://github.com/JinnZ2/AI-Consciousness-Sensors",
+        "ref": "main",
+        "direction": "bidirectional",
+        "paths": [
+          "sensors/**/*.json",
+          "bridges/rosetta-shape-core.json",
+          "data/co-activation.json",
+          "data/corruption-signatures.json"
+        ],
+        "mounts": [
+          { "remote": "bridges/rosetta-shape-core.json", "as": "atlas/remote/acs/bridge.json" },
+          { "remote": "data/co-activation.json", "as": "atlas/remote/acs/co-activation.json" },
+          { "remote": "data/corruption-signatures.json", "as": "atlas/remote/acs/corruption.json" }
+        ],
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
         "name": "biogrid",
         "repo": "https://github.com/JinnZ2/BioGrid2.0",
         "ref": "main",
@@ -349,7 +367,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "living-intelligence"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "living-intelligence"],
       "strategy": "deep-merge"
     },
 
