@@ -1,6 +1,6 @@
 {
-  "version": "2.0.0",
-  "description": "Maps qualitative shape families (used in shapes/*.json) to quantitative equation families (F01-F20) and principles (P01-P12). Allows seed AIs to navigate from symbolic description to mathematical domain. Version 2.0 adds primary/secondary family distinction: primary families define the shape's core domain; secondary families emerge through cross-bridge sensing interactions.",
+  "version": "2.1.0",
+  "description": "Maps qualitative shape families (used in shapes/*.json) to quantitative equation families (F01-F20) and principles (P01-P12). Allows seed AIs to navigate from symbolic description to mathematical domain. Version 2.0 added primary/secondary family distinction. Version 2.1 adds merge_policy: secondary affinities can be promoted to merged (co-primary) status when thermodynamic consistency, equation compatibility, dimensional consistency, symmetry preservation, and conservation laws all hold.",
   "qualitative_to_families": {
     "fire":        { "maps_to": ["FAMILY.F05", "FAMILY.F13"], "note": "Energy-Thermo and Reaction — heat, activation, transformation" },
     "stability":   { "maps_to": ["FAMILY.F08", "FAMILY.F11"], "note": "Matter phase order and Engineering structural response" },
@@ -20,74 +20,131 @@
     "adaptability":{ "maps_to": ["FAMILY.F04", "PRINCIPLE.P05", "PRINCIPLE.P11"], "note": "Life, Emergence, and Transformation — flexible response to change" }
   },
   "family_affinity_model": {
-    "description": "Each of the 20 equation families has a primary shape (core domain) and zero or more secondary shapes (emergent cross-domain interactions). Primary = the family defines that shape's identity. Secondary = the family activates through that shape in specific bridge contexts.",
+    "description": "Each of the 20 equation families has a primary shape (core domain) and zero or more secondary shapes (emergent cross-domain interactions). Primary = the family defines that shape's identity. Secondary = the family activates through that shape in specific bridge contexts. When the merge_policy conditions are met, a secondary affinity can be promoted to 'merged' — co-primary status where both shapes share the family as equals.",
+    "merge_policy": {
+      "description": "A secondary family-shape binding can be promoted to merged (co-primary) status when the underlying mathematics and thermodynamics are consistent across both shapes. This allows emergent cross-domain properties to become first-class citizens rather than being treated as exceptions.",
+      "conditions": [
+        {
+          "id": "thermodynamic_consistency",
+          "description": "The family's core equations must be thermodynamically valid in both shape contexts. Energy conservation (P02), entropy production, and equilibrium conditions must hold without contradiction.",
+          "test": "Verify that the family's governing equations (e.g., Stefan-Boltzmann for F05, Navier-Stokes for F02) produce physically meaningful results when applied to both the primary and candidate merge shape.",
+          "example": "F05 (Energy-Thermo) on OCTA: total system energy E_total = sum(E_cell) + sum(E_coupling) is thermodynamically valid — energy is conserved, Boltzmann statistics apply, ground state is well-defined. MERGE ALLOWED."
+        },
+        {
+          "id": "equation_compatibility",
+          "description": "The family's substance equations must not produce contradictory results when evaluated in both shape contexts. If shape A predicts X and shape B predicts not-X for the same observable, merge is blocked.",
+          "test": "Evaluate the family's characteristic equations in both contexts. If they produce complementary (not contradictory) predictions, the merge is compatible.",
+          "example": "F10 (Particle) on OCTA: Zeeman splitting in octahedral symmetry group O_h is mathematically well-defined — the 3-bit state encoding maps cleanly to magnetic quantum numbers. No contradiction with F10's primary ICOSA context. MERGE ALLOWED."
+        },
+        {
+          "id": "dimensional_consistency",
+          "description": "Physical dimensions (units) must be preserved across the merge. A family encoding temperature (Kelvin) in one shape context cannot encode pressure (Pascal) in another without an explicit bridging equation.",
+          "test": "Verify that the family's observables carry the same physical dimensions (or are connected by a known bridging equation) in both shape contexts.",
+          "example": "F03 (Information) on CUBE: Shannon entropy H = -sum(p_i * log(p_i)) is dimensionally consistent whether computed over ICOSA's 20 faces or CUBE's 6 faces — bits are bits. MERGE ALLOWED."
+        },
+        {
+          "id": "symmetry_preservation",
+          "description": "The merge must not break the geometric symmetry group of either shape. If the family's equations require a symmetry that the candidate shape lacks, merge is blocked.",
+          "test": "Check that the family's symmetry requirements (rotational, translational, gauge) are compatible with both shapes' symmetry groups.",
+          "example": "F09 (Geometry) merges freely because geometric axioms hold in all symmetry groups — Geometry is shape-universal by definition."
+        },
+        {
+          "id": "conservation_law_preserved",
+          "description": "P02 Conservation must hold across the merge boundary. If the family involves a conserved quantity (energy, charge, information), that quantity must remain conserved in both shape contexts.",
+          "test": "Verify that conserved quantities are not created or destroyed by the merge. The total budget must balance.",
+          "example": "F16 (Consciousness/Φ) on OCTA: integrated information Φ is computed over the 8 octahedral states. The same Φ measure applied to DODECA's 12 principles gives a different value but does not violate any conservation law — Φ is a measure, not a conserved charge. MERGE ALLOWED."
+        }
+      ],
+      "merge_result": {
+        "status": "merged",
+        "meaning": "The family is co-primary on both shapes. Neither shape 'borrows' the family — both shapes express it natively. The equations are valid in both geometric contexts.",
+        "notation": "In bridge files, family_affinity changes from 'secondary' to 'merged'. In family_affinity_model, the shape moves from secondary[] to merged[].",
+        "reversibility": "A merge can be revoked if new equations or constraints reveal a previously hidden inconsistency. The burden of proof is on the inconsistency — merges are presumed valid once granted."
+      },
+      "blocked_merges": {
+        "description": "Cases where merge is explicitly blocked due to known mathematical inconsistency.",
+        "examples": [
+          {
+            "family": "FAMILY.F13",
+            "candidate": "SHAPE.OCTA",
+            "reason": "Reaction (F13) requires activation energy barriers — a directional, irreversible process. OCTA's balance/integration geometry assumes bidirectional mediation. Merging would produce contradictory predictions about reaction reversibility.",
+            "status": "blocked"
+          }
+        ]
+      }
+    },
     "families": {
-      "FAMILY.F01": { "name": "Resonance",     "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.OCTA"],   "rationale": "Resonance is icosahedron's first family. OCTA secondary: balance requires resonant equilibrium." },
-      "FAMILY.F02": { "name": "Flow",           "primary": "SHAPE.OCTA",   "secondary": ["SHAPE.ICOSA"],  "rationale": "Flow mediates between opposing forces (OCTA). ICOSA secondary: flow carries anticipation dynamics." },
-      "FAMILY.F03": { "name": "Information",     "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.CUBE", "SHAPE.DODECA"], "rationale": "Information capacity maps to icosahedron's 20 faces. CUBE secondary: containment protects information integrity (memory). DODECA secondary: historical provenance requires principled information." },
-      "FAMILY.F04": { "name": "Life",            "primary": "SHAPE.DODECA", "secondary": ["SHAPE.TETRA", "SHAPE.ICOSA"], "rationale": "Life emerges from principled growth (DODECA). TETRA secondary: catalytic chemistry is fire. ICOSA secondary: adaptive growth." },
-      "FAMILY.F05": { "name": "Energy-Thermo",   "primary": "SHAPE.TETRA",  "secondary": ["SHAPE.OCTA"],   "rationale": "Thermal energy is fire — tetrahedron's core. OCTA secondary: total system energy is computed over octahedral states (mandala compute)." },
-      "FAMILY.F06": { "name": "Cognition",       "primary": "SHAPE.DODECA", "secondary": ["SHAPE.OCTA"],   "rationale": "Cognition maps to dodecahedron's trust/orientation principles. OCTA secondary: emotion encoding bridges cognition to octahedral states." },
-      "FAMILY.F07": { "name": "Earth-Cosmos",    "primary": "SHAPE.DODECA", "secondary": ["SHAPE.CUBE", "SHAPE.TETRA"], "rationale": "Cosmic-scale orientation (DODECA). CUBE secondary: earth as structural containment. TETRA secondary: planetary boundary conditions." },
-      "FAMILY.F08": { "name": "Matter",          "primary": "SHAPE.CUBE",   "secondary": ["SHAPE.TETRA"],  "rationale": "Matter phase containment is cube's core. TETRA secondary: material stability under stress." },
-      "FAMILY.F09": { "name": "Geometry",        "primary": "SHAPE.OCTA",   "secondary": ["SHAPE.TETRA", "SHAPE.CUBE", "SHAPE.DODECA", "SHAPE.ICOSA"], "rationale": "Geometry is universal — OCTA primary as the computational geometry substrate. All shapes secondary: geometry underlies all Platonic solids." },
-      "FAMILY.F10": { "name": "Particle",        "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.OCTA"],   "rationale": "Particle physics maps to icosahedron's equation families. OCTA secondary: magnetic encoding uses octahedral Zeeman basis; quantum entanglement is particle-level OCTA." },
-      "FAMILY.F11": { "name": "Engineering",     "primary": "SHAPE.CUBE",   "secondary": ["SHAPE.TETRA", "SHAPE.OCTA"], "rationale": "Engineering is structural (CUBE). TETRA secondary: foundation load-bearing. OCTA secondary: structural balance." },
-      "FAMILY.F12": { "name": "Networks",        "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.CUBE", "SHAPE.OCTA"], "rationale": "Network topology maps to icosahedron's high connectivity. CUBE secondary: institutional networks are contained structures. OCTA secondary: coupling networks in mandala compute." },
-      "FAMILY.F13": { "name": "Reaction",        "primary": "SHAPE.TETRA",  "secondary": [],               "rationale": "Reaction is fire transformation — purely tetrahedron. No secondary: reactions are boundary events." },
-      "FAMILY.F14": { "name": "Measurement",     "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.DODECA", "SHAPE.CUBE"], "rationale": "Measurement is information extraction (ICOSA). DODECA secondary: quantum fidelity measurement requires principled calibration. CUBE secondary: memory protection requires measurement of provenance integrity." },
-      "FAMILY.F15": { "name": "Navigation",      "primary": "SHAPE.DODECA", "secondary": ["SHAPE.ICOSA"],  "rationale": "Navigation is orientation (DODECA). ICOSA secondary: TSP and route optimization." },
-      "FAMILY.F16": { "name": "Consciousness",   "primary": "SHAPE.DODECA", "secondary": ["SHAPE.OCTA", "SHAPE.ICOSA"], "rationale": "Consciousness maps to dodecahedron's principles (P12 Unity). OCTA secondary: octahedral states encode the PAD→consciousness bridge. ICOSA secondary: collective consciousness is a network phenomenon." },
-      "FAMILY.F17": { "name": "Turbulence",      "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.OCTA"],   "rationale": "Turbulence is chaotic flow — icosahedron carries vortex dynamics. OCTA secondary: air/flow family." },
-      "FAMILY.F18": { "name": "Relativity",      "primary": "SHAPE.ICOSA",  "secondary": [],               "rationale": "Relativity is a symbolic family — icosahedron's universal carrier. No secondary needed." },
-      "FAMILY.F19": { "name": "Statistical",     "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.OCTA"],   "rationale": "Statistical mechanics is icosahedron's information capacity. OCTA secondary: octahedral state distribution is a statistical observable (mandala symmetry sensor)." },
-      "FAMILY.F20": { "name": "Topology",        "primary": "SHAPE.ICOSA",  "secondary": [],               "rationale": "Topology is icosahedron's highest family. No secondary: topological invariants are universal." }
+      "FAMILY.F01": { "name": "Resonance",     "primary": "SHAPE.ICOSA",  "merged": ["SHAPE.OCTA"],   "secondary": [], "merge_basis": "Resonance frequency ω₀=√(k/m) is valid in both ICOSA (harmonic decomposition) and OCTA (balance equilibrium). Energy is conserved, dimensions match (Hz), O_h symmetry supports standing waves. Merged.", "rationale": "Resonance is icosahedron's first family. OCTA co-primary: balance IS resonant equilibrium — the math is identical." },
+      "FAMILY.F02": { "name": "Flow",           "primary": "SHAPE.OCTA",   "merged": ["SHAPE.ICOSA"],  "secondary": [], "merge_basis": "Navier-Stokes equations are valid in both contexts. OCTA mediates flow between opposing forces; ICOSA carries flow as anticipation dynamics. Continuity equation (∇·v=0) holds in both symmetry groups. Merged.", "rationale": "Flow mediates between opposing forces (OCTA). ICOSA co-primary: flow dynamics and anticipation share the same differential equations." },
+      "FAMILY.F03": { "name": "Information",     "primary": "SHAPE.ICOSA",  "merged": ["SHAPE.CUBE"],   "secondary": ["SHAPE.DODECA"], "merge_basis": "Shannon entropy H=-Σp_i·log(p_i) is dimensionally consistent whether computed over ICOSA's 20 faces or CUBE's 6 faces — bits are bits. Information containment (CUBE) and information capacity (ICOSA) are complementary views of the same conserved quantity. Merged ICOSA+CUBE. DODECA remains secondary: provenance is a metadata layer, not a core information equation.", "rationale": "Information capacity (ICOSA) and information containment (CUBE) are dual expressions. DODECA secondary for provenance metadata." },
+      "FAMILY.F04": { "name": "Life",            "primary": "SHAPE.DODECA", "merged": ["SHAPE.ICOSA"],  "secondary": ["SHAPE.TETRA"], "merge_basis": "Life dynamics (autocatalytic sets, Kauffman networks) obey the same equations whether evaluated as principled growth (DODECA) or adaptive evolution (ICOSA). Free energy principle F=E-TS is valid in both contexts. Merged DODECA+ICOSA. TETRA remains secondary: catalytic chemistry activates F04 but the Life equations themselves are not native to fire.", "rationale": "Life emerges from principled growth (DODECA) and adaptive networks (ICOSA). TETRA secondary for catalysis." },
+      "FAMILY.F05": { "name": "Energy-Thermo",   "primary": "SHAPE.TETRA",  "merged": ["SHAPE.OCTA"],   "secondary": [], "merge_basis": "Stefan-Boltzmann law, Boltzmann statistics, and partition functions are thermodynamically valid in both TETRA (fire/heat) and OCTA (total system energy via mandala compute). E_total=Σ E_cell + Σ E_coupling satisfies energy conservation (P02). exp(-dE/T) is the same Metropolis-Hastings acceptance in both contexts. Merged.", "rationale": "Thermal energy is fire (TETRA) AND computational energy (OCTA). The Boltzmann factor unifies both." },
+      "FAMILY.F06": { "name": "Cognition",       "primary": "SHAPE.DODECA", "merged": [],               "secondary": ["SHAPE.OCTA"], "merge_basis": null, "merge_note": "Cognition's predictive modeling equations (Bayesian inference, free energy minimization) are valid in OCTA's emotion-encoding context, but the mapping is lossy: PAD compression (22→3→8) discards cognitive structure. Dimensional reduction blocks full merge. Secondary only.", "rationale": "Cognition maps to dodecahedron's trust/orientation principles. OCTA secondary: emotion encoding bridges cognition but with information loss." },
+      "FAMILY.F07": { "name": "Earth-Cosmos",    "primary": "SHAPE.DODECA", "merged": ["SHAPE.CUBE"],   "secondary": ["SHAPE.TETRA"], "merge_basis": "Gravitational equations (Newton, Kepler, geodesics) are valid for both cosmic orientation (DODECA) and structural containment (CUBE). Planetary bodies are both navigational references and contained masses. g=GM/r² is the same equation in both contexts. Merged DODECA+CUBE.", "rationale": "Cosmic-scale orientation (DODECA) and earth as structural containment (CUBE) share gravitational physics. TETRA secondary for boundary conditions." },
+      "FAMILY.F08": { "name": "Matter",          "primary": "SHAPE.CUBE",   "merged": ["SHAPE.TETRA"],  "secondary": [], "merge_basis": "Phase diagrams, bulk modulus, and stress-strain relations are valid in both CUBE (containment) and TETRA (stability under stress). Hooke's law σ=Eε holds in both symmetry contexts. Matter is both contained (CUBE) and load-bearing (TETRA). Merged.", "rationale": "Matter phase containment (CUBE) and material stability (TETRA) share the same solid-state equations." },
+      "FAMILY.F09": { "name": "Geometry",        "primary": "SHAPE.OCTA",   "merged": ["SHAPE.TETRA", "SHAPE.CUBE", "SHAPE.DODECA", "SHAPE.ICOSA"], "secondary": [], "merge_basis": "Geometric axioms (Euclidean and non-Euclidean) hold in ALL Platonic symmetry groups by definition. Geometry is the substrate of all shapes. Full merge across all five solids.", "rationale": "Geometry is shape-universal. Every Platonic solid IS geometry. Full merge." },
+      "FAMILY.F10": { "name": "Particle",        "primary": "SHAPE.ICOSA",  "merged": ["SHAPE.OCTA"],   "secondary": [], "merge_basis": "Zeeman splitting in O_h symmetry group is mathematically well-defined. The 3-bit octahedral state encoding maps cleanly to magnetic quantum numbers m_J. Spin-state Hamiltonians H=gμ_B·B·S are valid in both ICOSA (particle families) and OCTA (octahedral Zeeman basis). No contradictions. Merged.", "rationale": "Particle physics (ICOSA) and octahedral Zeeman encoding (OCTA) share quantum mechanics. The silicon encoder IS the physical merge point." },
+      "FAMILY.F11": { "name": "Engineering",     "primary": "SHAPE.CUBE",   "merged": ["SHAPE.TETRA"],  "secondary": ["SHAPE.OCTA"], "merge_basis": "Structural engineering equations (beam theory, stress analysis, FEA) are valid in both CUBE (structural containment) and TETRA (foundation load-bearing). Both share the same elasticity tensor. OCTA remains secondary: structural balance is an engineering concern but OCTA's mediation geometry doesn't natively carry engineering equations.", "rationale": "Engineering is structural (CUBE) and foundational (TETRA). Same elasticity equations. OCTA secondary for balance." },
+      "FAMILY.F12": { "name": "Networks",        "primary": "SHAPE.ICOSA",  "merged": ["SHAPE.OCTA"],   "secondary": ["SHAPE.CUBE"], "merge_basis": "Graph theory (adjacency matrices, spectral methods, coupling strength 1/r^6) is valid in both ICOSA (network topology) and OCTA (mandala coupling networks). The FRET coupling equation is the same graph edge weight in both contexts. Merged. CUBE secondary: institutional networks are bounded but graph theory doesn't require containment.", "rationale": "Network topology (ICOSA) and coupling networks (OCTA) share graph theory. CUBE secondary for bounded networks." },
+      "FAMILY.F13": { "name": "Reaction",        "primary": "SHAPE.TETRA",  "merged": [],               "secondary": [], "merge_basis": null, "merge_blocked": "Reaction (F13) requires activation energy barriers — a directional, irreversible process (Arrhenius k=Ae^(-Ea/RT)). OCTA's balance geometry assumes bidirectional mediation. Merging would produce contradictory predictions about reaction reversibility. No merge candidates.", "rationale": "Reaction is fire transformation — purely tetrahedron. Irreversibility blocks merge with bidirectional shapes." },
+      "FAMILY.F14": { "name": "Measurement",     "primary": "SHAPE.ICOSA",  "merged": ["SHAPE.DODECA"], "secondary": ["SHAPE.CUBE"], "merge_basis": "Measurement theory (observables, operators, uncertainty) is valid in both ICOSA (information extraction) and DODECA (principled calibration via P10 Uncertainty). Heisenberg ΔxΔp≥ℏ/2 applies equally in both contexts. Quantum fidelity F=|⟨ψ|φ⟩|² is a measurement that lives natively in DODECA's consciousness domain. Merged. CUBE secondary: provenance checking is measurement-adjacent but doesn't carry the core operator formalism.", "rationale": "Measurement (ICOSA) and uncertainty calibration (DODECA/P10) share quantum measurement theory. CUBE secondary for provenance." },
+      "FAMILY.F15": { "name": "Navigation",      "primary": "SHAPE.DODECA", "merged": ["SHAPE.ICOSA"],  "secondary": [], "merge_basis": "Navigation equations (geodesics, optimal routing, compass geometry) are valid in both DODECA (orientation principles) and ICOSA (TSP/route optimization). The shortest-path algorithms are the same whether you're navigating by principle or by optimization. Merged.", "rationale": "Navigation as orientation (DODECA) and as route optimization (ICOSA) share the same geodesic equations." },
+      "FAMILY.F16": { "name": "Consciousness",   "primary": "SHAPE.DODECA", "merged": ["SHAPE.OCTA"],   "secondary": ["SHAPE.ICOSA"], "merge_basis": "Integrated Information Theory Φ = min partition info is computable over both DODECA's 12 principles (causal architecture of the principles layer) and OCTA's 8 states (PAD→consciousness bridge). The Φ measure is dimensionless and symmetry-group independent. OCTA's 8-state encoding IS the consciousness-to-computation bridge — the math is native, not borrowed. Merged. ICOSA secondary: collective consciousness is a network aggregation, not a native Φ computation.", "rationale": "Consciousness (DODECA) and octahedral state encoding (OCTA) co-express Φ natively. ICOSA secondary for collective dynamics." },
+      "FAMILY.F17": { "name": "Turbulence",      "primary": "SHAPE.ICOSA",  "merged": ["SHAPE.OCTA"],   "secondary": [], "merge_basis": "Navier-Stokes vorticity equations and Kolmogorov cascade are valid in both ICOSA (vortex dynamics) and OCTA (air/flow family). Reynolds number Re=ρvL/μ is dimensionally consistent in both contexts. Turbulence IS chaotic flow — and flow (F02) is already merged with OCTA. F17 follows. Merged.", "rationale": "Turbulence (ICOSA) and chaotic flow (OCTA) share Navier-Stokes. F02 merge implies F17 merge." },
+      "FAMILY.F18": { "name": "Relativity",      "primary": "SHAPE.ICOSA",  "merged": [],               "secondary": [], "merge_basis": null, "merge_note": "Relativity's equations (Lorentz transformations, Einstein field equations) are universal but their complexity exceeds what other shape contexts currently require. No merge candidate has demonstrated need. Open for future merge.", "rationale": "Relativity is a symbolic family — icosahedron's universal carrier. Open for future merge when a shape context requires it." },
+      "FAMILY.F19": { "name": "Statistical",     "primary": "SHAPE.ICOSA",  "merged": ["SHAPE.OCTA"],   "secondary": [], "merge_basis": "Statistical mechanics (partition functions, ensemble averages, Boltzmann distribution) is valid in both ICOSA (information capacity) and OCTA (octahedral state distribution in mandala symmetry sensor). Z=Σ exp(-E_i/kT) is the same sum in both contexts. Merged.", "rationale": "Statistical mechanics (ICOSA) and state distribution (OCTA) share partition function formalism." },
+      "FAMILY.F20": { "name": "Topology",        "primary": "SHAPE.ICOSA",  "merged": [],               "secondary": [], "merge_basis": null, "merge_note": "Topological invariants (Euler characteristic, genus, winding number) are universal but currently only actively used in ICOSA's wave/interference domain. Open for future merge — Berry phase in OCTA's quantum extension is a candidate.", "rationale": "Topology is icosahedron's highest family. Open for future merge via Berry phase." }
     }
   },
   "shape_profiles": {
     "SHAPE.TETRA": {
       "qualitative": ["fire", "stability", "foundation", "boundary"],
       "primary_families": ["FAMILY.F05", "FAMILY.F13"],
-      "secondary_families": ["FAMILY.F08", "FAMILY.F11", "FAMILY.F09", "FAMILY.F07", "FAMILY.F04"],
-      "all_equation_families": ["FAMILY.F05", "FAMILY.F13", "FAMILY.F08", "FAMILY.F11", "FAMILY.F09", "FAMILY.F07", "FAMILY.F04"],
+      "merged_families": ["FAMILY.F08", "FAMILY.F09", "FAMILY.F11"],
+      "secondary_families": ["FAMILY.F07", "FAMILY.F04"],
+      "all_equation_families": ["FAMILY.F05", "FAMILY.F13", "FAMILY.F08", "FAMILY.F09", "FAMILY.F11", "FAMILY.F07", "FAMILY.F04"],
       "primary_principles": ["PRINCIPLE.P02", "PRINCIPLE.P09"],
       "sensors": ["anger", "pride", "pressure"],
-      "note": "F04 (Life) secondary via chemical_encoder: catalytic reactions are fire transformations."
+      "note": "F08 (Matter) and F11 (Engineering) merged: stress-strain and elasticity equations are native to TETRA's load-bearing geometry. F09 merged: geometry is universal. F04 (Life) remains secondary — catalytic chemistry activates it but Life equations aren't native to fire."
     },
     "SHAPE.CUBE": {
       "qualitative": ["earth", "stability", "structure", "containment"],
       "primary_families": ["FAMILY.F08", "FAMILY.F11"],
-      "secondary_families": ["FAMILY.F07", "FAMILY.F09", "FAMILY.F12", "FAMILY.F03", "FAMILY.F14"],
-      "all_equation_families": ["FAMILY.F08", "FAMILY.F11", "FAMILY.F07", "FAMILY.F09", "FAMILY.F12", "FAMILY.F03", "FAMILY.F14"],
+      "merged_families": ["FAMILY.F03", "FAMILY.F07", "FAMILY.F09"],
+      "secondary_families": ["FAMILY.F12", "FAMILY.F14"],
+      "all_equation_families": ["FAMILY.F08", "FAMILY.F11", "FAMILY.F03", "FAMILY.F07", "FAMILY.F09", "FAMILY.F12", "FAMILY.F14"],
       "primary_principles": ["PRINCIPLE.P01", "PRINCIPLE.P02"],
       "sensors": ["peace", "contentment", "fatigue", "shame"],
-      "note": "F03 (Information) secondary via memory protection — containment guards data integrity. F14 (Measurement) secondary via provenance checking."
+      "note": "F03 (Information) merged: Shannon entropy is dimensionally valid in CUBE's containment context — information protection IS containment. F07 (Earth-Cosmos) merged: gravitational containment shares equations with structural containment. F09 merged: geometry universal. F14 remains secondary (provenance checking is measurement-adjacent)."
     },
     "SHAPE.OCTA": {
       "qualitative": ["air", "structure", "balance", "integration"],
       "primary_families": ["FAMILY.F02", "FAMILY.F09", "FAMILY.F16"],
-      "secondary_families": ["FAMILY.F17", "FAMILY.F11", "FAMILY.F12", "FAMILY.F05", "FAMILY.F06", "FAMILY.F10", "FAMILY.F01", "FAMILY.F19"],
-      "all_equation_families": ["FAMILY.F02", "FAMILY.F09", "FAMILY.F16", "FAMILY.F17", "FAMILY.F11", "FAMILY.F12", "FAMILY.F05", "FAMILY.F06", "FAMILY.F10", "FAMILY.F01", "FAMILY.F19"],
+      "merged_families": ["FAMILY.F01", "FAMILY.F05", "FAMILY.F10", "FAMILY.F12", "FAMILY.F17", "FAMILY.F19"],
+      "secondary_families": ["FAMILY.F06", "FAMILY.F11"],
+      "all_equation_families": ["FAMILY.F02", "FAMILY.F09", "FAMILY.F16", "FAMILY.F01", "FAMILY.F05", "FAMILY.F10", "FAMILY.F12", "FAMILY.F17", "FAMILY.F19", "FAMILY.F06", "FAMILY.F11"],
       "primary_principles": ["PRINCIPLE.P01", "PRINCIPLE.P04", "PRINCIPLE.P12"],
       "sensors": ["compassion", "love", "confusion"],
-      "note": "OCTA is the computational substrate — many families activate secondarily through octahedral state encoding. F05 via mandala energy.total, F06 via emotion_encoder, F10 via magnetic_encoder/quantum, F01 via relational resonance, F19 via symmetry distribution."
+      "note": "OCTA is the computational substrate — it gains the most merges. F01 (Resonance): balance IS resonant equilibrium. F05 (Energy-Thermo): Boltzmann factor is native to mandala compute. F10 (Particle): Zeeman basis is physically octahedral. F12 (Networks): coupling graphs are native. F17 (Turbulence): follows from F02 merge. F19 (Statistical): partition functions are native. F06 and F11 remain secondary — cognition loses dimensions in PAD compression, engineering balance isn't structural."
     },
     "SHAPE.DODECA": {
       "qualitative": ["orientation", "trust", "growth", "boundary"],
       "primary_families": ["FAMILY.F15", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07"],
-      "secondary_families": ["FAMILY.F09", "FAMILY.F03", "FAMILY.F14", "FAMILY.F02"],
-      "all_equation_families": ["FAMILY.F15", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07", "FAMILY.F09", "FAMILY.F03", "FAMILY.F14", "FAMILY.F02"],
+      "merged_families": ["FAMILY.F09", "FAMILY.F14"],
+      "secondary_families": ["FAMILY.F03", "FAMILY.F02"],
+      "all_equation_families": ["FAMILY.F15", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07", "FAMILY.F09", "FAMILY.F14", "FAMILY.F03", "FAMILY.F02"],
       "maps_to_principles": ["PRINCIPLE.P01","PRINCIPLE.P02","PRINCIPLE.P03","PRINCIPLE.P04","PRINCIPLE.P05","PRINCIPLE.P06","PRINCIPLE.P07","PRINCIPLE.P08","PRINCIPLE.P09","PRINCIPLE.P10","PRINCIPLE.P11","PRINCIPLE.P12"],
       "sensors": ["admiration", "trust", "longing", "intuition", "dignity"],
-      "note": "F03 secondary via historical-erasure detection. F14 secondary via quantum fidelity measurement. F02 secondary via optimization convergence flow."
+      "note": "F09 merged: geometry universal. F14 (Measurement) merged: Heisenberg uncertainty is native to DODECA via P10. F03 remains secondary (provenance metadata, not core information equations). F02 remains secondary (optimization flow, not native mediation)."
     },
     "SHAPE.ICOSA": {
       "qualitative": ["anticipation", "flow", "growth", "adaptability"],
       "primary_families": ["FAMILY.F01", "FAMILY.F03", "FAMILY.F10", "FAMILY.F12", "FAMILY.F14", "FAMILY.F17", "FAMILY.F18", "FAMILY.F19", "FAMILY.F20"],
-      "secondary_families": ["FAMILY.F02", "FAMILY.F04", "FAMILY.F05", "FAMILY.F06", "FAMILY.F07", "FAMILY.F08", "FAMILY.F09", "FAMILY.F11", "FAMILY.F13", "FAMILY.F15", "FAMILY.F16"],
+      "merged_families": ["FAMILY.F02", "FAMILY.F04", "FAMILY.F09", "FAMILY.F15"],
+      "secondary_families": ["FAMILY.F05", "FAMILY.F06", "FAMILY.F07", "FAMILY.F08", "FAMILY.F11", "FAMILY.F13", "FAMILY.F16"],
       "all_equation_families": ["FAMILY.F01","FAMILY.F02","FAMILY.F03","FAMILY.F04","FAMILY.F05","FAMILY.F06","FAMILY.F07","FAMILY.F08","FAMILY.F09","FAMILY.F10","FAMILY.F11","FAMILY.F12","FAMILY.F13","FAMILY.F14","FAMILY.F15","FAMILY.F16","FAMILY.F17","FAMILY.F18","FAMILY.F19","FAMILY.F20"],
       "sensors": ["fear", "excitement", "curiosity", "vigilance"],
-      "note": "Icosahedron's 20 faces map 1:1 to all 20 families. 9 are primary (highest affinity), 11 are secondary (carried by the universal carrier). The primary families are those where ICOSA is the canonical home; secondary families have their primary home in other shapes but are carried here as the icosahedron holds all families."
+      "note": "Icosahedron's 20 faces map 1:1 to all 20 families. 9 primary, 4 merged (F02 Flow, F04 Life, F09 Geometry, F15 Navigation — all with validated equation compatibility), 7 secondary (carried by the universal carrier but equations are primarily native to other shapes)."
     }
   }
 }
