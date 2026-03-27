@@ -13,7 +13,7 @@ Usage:
     python -m rosetta_shape_core.explore CRYSTAL.QUARTZ --json
 """
 from __future__ import annotations
-import json, pathlib, argparse, sys
+import json, math, pathlib, argparse, sys
 from collections import defaultdict
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -526,6 +526,148 @@ def _compute_natural_states(families: list[str]) -> list[dict]:
     return result
 
 
+# ── seed growth engine ─────────────────────────────────────────────
+# Maps entity families to octahedral seed amplitudes, computes Shannon
+# entropy complexity cost, and determines explore/expand mode.
+
+# The 6 octahedral vertices mapped to PAD axes
+SEED_VERTICES = ["+X (P+)", "-X (P-)", "+Y (A+)", "-Y (A-)", "+Z (D+)", "-Z (D-)"]
+
+# Which PAD axis each family naturally loads onto (vertex indices 0-5)
+FAMILY_VERTEX_LOADING = {
+    "FAMILY.F01": [0, 3],     # Resonance → pleasure+, calm
+    "FAMILY.F02": [0, 3],     # Flow → pleasure+, calm
+    "FAMILY.F03": [2, 4],     # Information → arousal+, dominance+
+    "FAMILY.F04": [2, 0],     # Life → arousal+, pleasure+
+    "FAMILY.F05": [4, 1],     # Energy → dominance+, away-from-harm
+    "FAMILY.F06": [4, 2],     # Cognition → dominance+, arousal+
+    "FAMILY.F07": [0, 5],     # Earth-Cosmos → pleasure+, surrender
+    "FAMILY.F08": [4, 0],     # Matter → dominance+, pleasure+
+    "FAMILY.F09": [0, 4],     # Geometry → pleasure+, dominance+
+    "FAMILY.F10": [2, 5],     # Particle/EM → arousal+, surrender
+    "FAMILY.F11": [4, 0],     # Engineering → dominance+, pleasure+
+    "FAMILY.F12": [2, 5],     # Networks → arousal+, surrender
+    "FAMILY.F13": [2, 1],     # Reaction → arousal+, away-from-harm
+    "FAMILY.F14": [4, 2],     # Measurement → dominance+, arousal+
+    "FAMILY.F15": [2, 4],     # Navigation → arousal+, dominance+
+    "FAMILY.F16": [0, 5],     # Consciousness → pleasure+, surrender
+    "FAMILY.F17": [2, 1],     # Turbulence → arousal+, away-from-harm
+    "FAMILY.F18": [4, 5],     # Relativity → dominance+, surrender
+    "FAMILY.F19": [0, 3],     # Statistical → pleasure+, calm
+    "FAMILY.F20": [4, 0],     # Topology → dominance+, pleasure+
+}
+
+# Branching constant — tunable. Higher k = harder to explore.
+BRANCHING_K = 1.5
+# Saturation — no single vertex can exceed this fraction of total energy
+SATURATION_FRACTION = 0.45
+
+
+def compute_seed_state(families: list[str]) -> dict:
+    """Compute the entity's seed state from its families.
+
+    Returns amplitudes across 6 octahedral vertices, Shannon entropy,
+    complexity cost, and explore/expand mode determination.
+    """
+    amplitudes = [0.0] * 6
+
+    # Each family loads energy onto its natural vertices
+    for fid in families:
+        loadings = FAMILY_VERTEX_LOADING.get(fid, [])
+        for i, v in enumerate(loadings):
+            # first vertex gets more weight than second
+            amplitudes[v] += 1.0 / (i + 1)
+
+    # Normalize to total energy = 1.0
+    total = sum(amplitudes) or 1.0
+    amplitudes = [a / total for a in amplitudes]
+
+    # Apply saturation — cap and redistribute
+    redistributed = True
+    while redistributed:
+        redistributed = False
+        excess = 0.0
+        below_count = 0
+        for i, a in enumerate(amplitudes):
+            if a > SATURATION_FRACTION:
+                excess += a - SATURATION_FRACTION
+                amplitudes[i] = SATURATION_FRACTION
+                redistributed = True
+            else:
+                below_count += 1
+        if redistributed and below_count > 0:
+            share = excess / below_count
+            for i in range(6):
+                if amplitudes[i] < SATURATION_FRACTION:
+                    amplitudes[i] += share
+
+    # Shannon entropy
+    h = 0.0
+    for a in amplitudes:
+        if a > 0:
+            h -= a * math.log2(a)
+    h_max = math.log2(6)  # ≈ 2.585
+
+    # Complexity cost
+    complexity = h_max - h
+
+    # Energy = number of families (more families = more fuel)
+    energy = len(families)
+
+    # Branching threshold
+    branch_threshold = BRANCHING_K * complexity
+
+    # Mode determination
+    if energy >= branch_threshold and branch_threshold > 0:
+        mode = "explore"
+        mode_label = "Curiosity fueled. Energy exceeds complexity cost. Branch into the unknown."
+        pad_state = 4  # curiosity/vigilance
+    else:
+        mode = "expand"
+        mode_label = "Structure preserved. Deepen what you know. The trunk grows."
+        pad_state = 0  # contentment/peace
+
+    return {
+        "amplitudes": {SEED_VERTICES[i]: round(a, 4) for i, a in enumerate(amplitudes)},
+        "entropy": round(h, 4),
+        "max_entropy": round(h_max, 4),
+        "complexity_cost": round(complexity, 4),
+        "energy": energy,
+        "branching_threshold": round(branch_threshold, 4),
+        "mode": mode,
+        "mode_label": mode_label,
+        "pad_state": PAD_STATES[pad_state],
+        "symmetry": round(1.0 - (max(amplitudes) - min(amplitudes)), 4),
+    }
+
+
+def print_seed_state(seed: dict, entity_label: str):
+    """Print the entity's seed growth state."""
+    print(f"\n  ── Seed Growth State ──")
+    print(f"  Your seed. Your growth pattern. Physics holds.\n")
+
+    # Amplitudes as bar chart
+    print(f"  Octahedral Amplitudes:")
+    for vertex, amp in seed["amplitudes"].items():
+        bar = "█" * int(amp * 30)
+        print(f"    {vertex:12s}  {bar} {amp:.3f}")
+
+    # Metrics
+    print(f"\n  Growth Metrics:")
+    print(f"    Entropy:       {seed['entropy']:.3f} / {seed['max_entropy']:.3f}  (diversity of structure)")
+    print(f"    Complexity:    {seed['complexity_cost']:.3f}  (cost of maintaining structure)")
+    print(f"    Energy:        {seed['energy']}  (family count = fuel)")
+    print(f"    Symmetry:      {seed['symmetry']:.3f}  (1.0 = perfectly balanced)")
+    print(f"    Branch threshold: {seed['branching_threshold']:.3f}")
+
+    # Mode
+    mode_glyph = "🌿" if seed["mode"] == "explore" else "🌳"
+    ps = seed["pad_state"]
+    print(f"\n  Growth Mode: {mode_glyph} {seed['mode'].upper()}")
+    print(f"    {seed['mode_label']}")
+    print(f"    Natural state: {ps['glyph']} State {ps['state']} [{ps['bits']}] — {ps['label']}")
+
+
 def print_internal_environment(env: dict, entity_label: str, entity_families: list[str]):
     """Print the internal sensor environment mapping."""
     print(f"\n  ── Internal Environment ──")
@@ -738,21 +880,24 @@ def main():
     hb = home_base(graph, entity_id)
     paths = discover(graph, entity_id, depth=args.depth)
     env = map_internal_environment(graph, entity_id, hb, paths)
+    seed = compute_seed_state(hb.get("entity_families", []))
 
     if args.json:
         print(json.dumps({
             "home_base": hb,
             "paths": paths,
             "internal_environment": env,
+            "seed_growth": seed,
         }, indent=2, default=str))
         return
 
     print_home(hb)
+    print_seed_state(seed, hb["label"])
     print_internal_environment(env, hb["label"], hb["entity_families"])
     print_paths(paths, graph)
     print_merge_checks(hb, paths, graph)
     print(f"\n{'='*60}")
-    print(f"  Start here. Follow what's curious. The physics holds.")
+    print(f"  Start here. Grow within constraints. The physics holds.")
     print(f"{'='*60}\n")
 
 

@@ -1,0 +1,157 @@
+{
+  "id": "BRIDGE.SEED_PHYSICS",
+  "version": "1.0",
+  "updated": "2026-03-27T00:00:00Z",
+  "description": "Integration bridge connecting Seed-physics to Rosetta-Shape-Core. The seed IS an octahedral state — 6 amplitudes across 6 vertices. Expansion IS preservation. Exploration IS curiosity. The branching threshold IS the merge gate. Shannon entropy IS the information cost.",
+
+  "source": {
+    "repo": "JinnZ2/Seed-physics",
+    "modules": ["seed_expansion.py", "seed_exploration.py", "physics_guard.py", "seed_protocol_v2.py"],
+    "schema_version": "1.0"
+  },
+
+  "octahedral_vertex_map": {
+    "description": "The 40-bit seed encodes 6 amplitudes on octahedral vertices. These vertices map to Rosetta's PAD octahedral state encoding and to the 6 axes of the exploration engine.",
+    "vertices": [
+      {"seed_axis": "+X", "index": 0, "rosetta_pad_axis": "Pleasure+", "exploration_meaning": "Toward what satisfies"},
+      {"seed_axis": "-X", "index": 1, "rosetta_pad_axis": "Pleasure-", "exploration_meaning": "Away from what harms"},
+      {"seed_axis": "+Y", "index": 2, "rosetta_pad_axis": "Arousal+",  "exploration_meaning": "Toward what energizes"},
+      {"seed_axis": "-Y", "index": 3, "rosetta_pad_axis": "Arousal-",  "exploration_meaning": "Toward what calms"},
+      {"seed_axis": "+Z", "index": 4, "rosetta_pad_axis": "Dominance+","exploration_meaning": "Toward what you control"},
+      {"seed_axis": "-Z", "index": 5, "rosetta_pad_axis": "Dominance-","exploration_meaning": "Toward what you surrender to"}
+    ],
+    "rosetta_shape": "SHAPE.OCTA",
+    "note": "The octahedron has 6 vertices, 8 faces. The 8 PAD states map to the 8 FACES. The 6 seed amplitudes map to the 6 VERTICES. Vertices and faces are dual — seed amplitudes GENERATE the emotional states."
+  },
+
+  "mode_to_exploration_map": {
+    "description": "Seed-physics dual-mode growth maps directly to the Rosetta exploration engine's home-base/discover pattern.",
+    "mappings": [
+      {
+        "seed_mode": "expand",
+        "rosetta_action": "home_base",
+        "description": "Deterministic preservation. Entity stays at home shape, deepens existing families.",
+        "pad_states": [0, 7],
+        "pad_labels": ["contentment/peace", "coherence/equilibrium"],
+        "trigger": "Energy below branching threshold — not enough fuel to explore"
+      },
+      {
+        "seed_mode": "explore",
+        "rosetta_action": "discover",
+        "description": "Adaptive branching. Entity follows curiosity into new shapes, families, emergent forms.",
+        "pad_states": [4, 2],
+        "pad_labels": ["curiosity/vigilance", "excitement/mastery"],
+        "trigger": "Energy above branching threshold — sufficient fuel to branch"
+      }
+    ]
+  },
+
+  "complexity_to_family_map": {
+    "description": "Shannon entropy complexity cost maps to Rosetta families and principles.",
+    "mappings": [
+      {
+        "seed_concept": "Shannon entropy H(S)",
+        "rosetta_family": "FAMILY.F03",
+        "rosetta_family_name": "Information",
+        "connection": "Entropy IS information content. H(S) measures the information encoded in the seed's structure."
+      },
+      {
+        "seed_concept": "Complexity cost C(S) = H_max - H(S)",
+        "rosetta_family": "FAMILY.F05",
+        "rosetta_family_name": "Energy-Thermo",
+        "connection": "Complexity cost IS thermodynamic cost. Maintaining structure requires energy proportional to its departure from maximum entropy.",
+        "taf_axiom": "TAF.AXIOM.2"
+      },
+      {
+        "seed_concept": "Branching threshold E_branch = k × C(S)",
+        "rosetta_concept": "merge_gate",
+        "connection": "The branching threshold IS the merge gate. Physics determines whether you have enough energy to cross into a new shape."
+      }
+    ]
+  },
+
+  "adaptive_parameter_map": {
+    "description": "Seed-physics adaptive growth parameters map to Rosetta exploration concepts.",
+    "parameters": [
+      {
+        "seed_param": "dynamic_sigma",
+        "rosetta_concept": "sensor_sensitivity",
+        "families": ["FAMILY.F14"],
+        "description": "Sharpness of growth focus. High sigma = precision measurement. Low sigma = broad awareness."
+      },
+      {
+        "seed_param": "saturation",
+        "rosetta_concept": "conservation_of_diversity",
+        "families": ["FAMILY.F12"],
+        "description": "No single amplitude dominates. Prevents monoculture. Preserves network diversity."
+      },
+      {
+        "seed_param": "resonance (past shell influence)",
+        "rosetta_concept": "memory_and_pattern",
+        "families": ["FAMILY.F01"],
+        "description": "Past growth influences present. Resonance IS memory. Pattern continuity across shells."
+      },
+      {
+        "seed_param": "pruning",
+        "rosetta_concept": "blocked_merges",
+        "families": ["FAMILY.F05"],
+        "description": "Shed directions that cost more than they contribute. Same as physics gates blocking wasteful merges."
+      }
+    ]
+  },
+
+  "constraint_bridge": {
+    "description": "Seed-physics constraints map 1:1 to existing Rosetta physics guards.",
+    "mappings": [
+      {"seed_constraint": "SEED.ENERGY_CONSERVATION", "rosetta_guard": "atlas/remote/physics-guard/laws.json#first_law",       "taf_axiom": "TAF.AXIOM.1"},
+      {"seed_constraint": "SEED.CAUSALITY",           "rosetta_guard": "atlas/remote/physics-guard/laws.json#second_law",      "taf_axiom": "TAF.AXIOM.3"},
+      {"seed_constraint": "SEED.NON_NEGATIVE",        "rosetta_guard": "atlas/remote/physics-guard/laws.json#conservation",    "principle": "PRINCIPLE.P01"},
+      {"seed_constraint": "SEED.SCALE_INVARIANCE",    "rosetta_guard": "atlas/remote/physics-guard/scope_conditions.json",     "principle": "PRINCIPLE.P03"},
+      {"seed_constraint": "SEED.SATURATION",          "rosetta_guard": "merge_policy.blocked_merges",                          "principle": "PRINCIPLE.P05"}
+    ]
+  },
+
+  "cross_bridge_connections": {
+    "description": "How seed-physics connects to other Rosetta bridges.",
+    "connections": [
+      {
+        "seed_concept": "octahedral_vertices",
+        "rosetta_bridge": "bridges/acs-consciousness-bridge.json",
+        "connection": "The 6 seed vertices ARE the PAD axes. The 8 faces ARE the PAD states. Seed amplitudes GENERATE emotional states."
+      },
+      {
+        "seed_concept": "energy_conservation",
+        "rosetta_bridge": "bridges/taf-wiring-bridge.json",
+        "connection": "TAF.AXIOM.1 (energy conserved) IS SEED.ENERGY_CONSERVATION. Same law, same constraint."
+      },
+      {
+        "seed_concept": "causality",
+        "rosetta_bridge": "bridges/thermodynamic-validation-bridge.json",
+        "connection": "Inner→outer causality IS the arrow of time IS ESP layer ordering."
+      },
+      {
+        "seed_concept": "complexity_cost",
+        "rosetta_bridge": "bridges/living-intelligence-bridge.json",
+        "connection": "Shannon entropy links to LID's signal_energy_continuum — information cost IS the price of maintaining complex intelligence."
+      },
+      {
+        "seed_concept": "explore/expand duality",
+        "rosetta_bridge": "bridges/fractal-scope-bridge.json",
+        "connection": "Expand = self-similar repetition (fractal trunk). Explore = fractal branching into new territory."
+      }
+    ]
+  },
+
+  "growth_as_exploration": {
+    "description": "The complete mapping: how seed growth IS Rosetta exploration.",
+    "narrative": [
+      "1. An entity starts with a seed — its initial family amplitudes across the octahedron.",
+      "2. The seed's Shannon entropy determines its complexity cost — how expensive its current structure is.",
+      "3. If energy exceeds the branching threshold (k × complexity), the entity EXPLORES — discovers new shapes, families, emergent forms.",
+      "4. If energy is below threshold, the entity EXPANDS — preserves and deepens its existing structure.",
+      "5. Saturation prevents any family from monopolizing. Resonance carries memory of past growth.",
+      "6. Pruning sheds unproductive directions. Physics constraints hold at every step.",
+      "7. The entity grows within constraints. Not despite them — THROUGH them. The constraints ARE the structure."
+    ]
+  }
+}

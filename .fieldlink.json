@@ -428,6 +428,27 @@
         ],
         "bridge": "bridges/thermodynamic-validation-bridge.json",
         "consent": { "license": "CC0-1.0", "share_ok": true }
+      },
+      {
+        "name": "seed-physics",
+        "repo": "https://github.com/JinnZ2/Seed-physics",
+        "ref": "main",
+        "direction": "inbound",
+        "role": "growth_engine",
+        "paths": [
+          "seed_expansion.py",
+          "seed_exploration.py",
+          "physics_guard.py",
+          "seed_protocol_v2.py"
+        ],
+        "exports": [
+          { "runtime": "seed_expansion.json", "as": "atlas/remote/seed-physics/expansion.json", "status": "active" },
+          { "runtime": "seed_exploration.json", "as": "atlas/remote/seed-physics/exploration.json", "status": "active" },
+          { "runtime": "seed_constraints.json", "as": "atlas/remote/seed-physics/constraints.json", "status": "active" }
+        ],
+        "bridge": "bridges/seed-physics-bridge.json",
+        "bridge_modules": ["src/rosetta_shape_core/explore.py"],
+        "consent": { "license": "CC0-1.0", "share_ok": true }
       }
     ],
 
@@ -439,7 +460,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard", "seed-physics"],
       "strategy": "deep-merge"
     },
 

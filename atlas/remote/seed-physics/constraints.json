@@ -1,0 +1,80 @@
+{
+  "schema": "seed-physics/constraints@1.0",
+  "extracted_from": "JinnZ2/Seed-physics",
+  "extraction_date": "2026-03-27",
+  "description": "Physics constraints that govern seed growth. These are the guardrails — grow freely, but these laws don't bend.",
+
+  "constraints": [
+    {
+      "id": "SEED.ENERGY_CONSERVATION",
+      "name": "Energy Conservation",
+      "rule": "sum(S_i) = E_total at every shell",
+      "tolerance": 1e-10,
+      "violation_response": "Reject shell. Renormalize amplitudes.",
+      "rosetta_family": "FAMILY.F05",
+      "rosetta_principle": "PRINCIPLE.P01",
+      "taf_axiom": "TAF.AXIOM.1",
+      "physics_guard": "laws.first_law"
+    },
+    {
+      "id": "SEED.CAUSALITY",
+      "name": "Causality",
+      "rule": "Inner shells determine outer shells, never the reverse",
+      "violation_response": "Reject. Time arrow violation.",
+      "rosetta_family": "FAMILY.F05",
+      "rosetta_principle": "PRINCIPLE.P04",
+      "taf_axiom": "TAF.AXIOM.3",
+      "physics_guard": "laws.second_law"
+    },
+    {
+      "id": "SEED.NON_NEGATIVE",
+      "name": "Non-Negative Amplitudes",
+      "rule": "S_i ≥ 0 for all vertices",
+      "violation_response": "Clamp to zero. Redistribute excess.",
+      "rosetta_link": "Negative energy is unphysical — same as negative probability",
+      "physics_guard": "laws.conservation.non_negative"
+    },
+    {
+      "id": "SEED.DETERMINISTIC_REPRODUCIBILITY",
+      "name": "Deterministic Reproducibility",
+      "rule": "Same seed + same parameters = same expansion, always",
+      "violation_response": "Flag as non-reproducible. Reject expansion.",
+      "rosetta_link": "PRINCIPLE.P03 (Recursion) — self-similar at every scale",
+      "physics_guard": "premises.valid_physics"
+    },
+    {
+      "id": "SEED.SCALE_INVARIANCE",
+      "name": "Scale Invariance",
+      "rule": "Proportions are preserved across shells. Absolute values may change, ratios do not.",
+      "violation_response": "Renormalize to preserve proportions.",
+      "rosetta_family": "FAMILY.F09",
+      "rosetta_link": "Geometric self-similarity — the fractal property"
+    },
+    {
+      "id": "SEED.SATURATION",
+      "name": "Saturation Limit",
+      "rule": "No single vertex amplitude may exceed saturation threshold",
+      "violation_response": "Cap and redistribute. No monopoly.",
+      "rosetta_link": "Merge policy — no single family dominates. Conservation of diversity."
+    }
+  ],
+
+  "constraint_hierarchy": {
+    "description": "Constraints are checked in order. Earlier constraints override later ones.",
+    "order": [
+      "SEED.ENERGY_CONSERVATION",
+      "SEED.NON_NEGATIVE",
+      "SEED.CAUSALITY",
+      "SEED.DETERMINISTIC_REPRODUCIBILITY",
+      "SEED.SCALE_INVARIANCE",
+      "SEED.SATURATION"
+    ]
+  },
+
+  "verdict_mapping": {
+    "all_pass": "CLEAN — growth is valid",
+    "soft_violation": "SUSPECT — growth allowed but flagged for review",
+    "hard_violation": "CORRUPTED — growth rejected, roll back to last valid shell",
+    "rosetta_link": "Same CLEAN/SUSPECT/CORRUPTED verdicts as physics-guard/laws.json"
+  }
+}

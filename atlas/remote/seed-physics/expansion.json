@@ -1,0 +1,47 @@
+{
+  "schema": "seed-physics/expansion@1.0",
+  "extracted_from": "JinnZ2/Seed-physics",
+  "extraction_date": "2026-03-27",
+  "description": "Core deterministic seed expansion model. A 40-bit seed encodes 6 proportional amplitudes across octahedral vertices. Expansion preserves structure exactly — the trunk of the tree.",
+
+  "seed_format": {
+    "total_bits": 40,
+    "vertices": 6,
+    "bits_per_vertex": 6,
+    "remaining_bits": 4,
+    "encoding": "Each vertex gets 6 bits (0-63). The 6 vertices map to octahedral axes: +X, -X, +Y, -Y, +Z, -Z.",
+    "rosetta_link": "The 6 octahedral vertices ARE the same geometry as SHAPE.OCTA faces. The seed IS an octahedral state."
+  },
+
+  "expansion_equation": {
+    "formula": "S_i(r+1) = S_i(r) × (E_total / sum(S_j(r)))",
+    "description": "Each amplitude scales proportionally to maintain its fraction of total energy. Structure is preserved exactly.",
+    "variables": {
+      "S_i": "Amplitude at vertex i",
+      "r": "Shell radius (discrete layers)",
+      "E_total": "Total energy (conserved)"
+    },
+    "properties": [
+      "Deterministic — same seed always produces same expansion",
+      "Structure-preserving — proportions never change",
+      "Energy-conserving — sum(S_i) = E_total at every shell"
+    ],
+    "rosetta_family": "FAMILY.F05",
+    "rosetta_principle": "PRINCIPLE.P01",
+    "taf_axiom": "TAF.AXIOM.1"
+  },
+
+  "shell_model": {
+    "description": "Seeds expand in concentric shells from inner to outer. Each shell inherits structure from its parent.",
+    "causality": "Inner shells determine outer shells, never the reverse",
+    "rosetta_link": "Causality constraint maps to TAF.AXIOM.3 (arrow of time) and PRINCIPLE.P04 (Causality)",
+    "shape_analogy": "Like Platonic solids nested inside each other — the inner shape constrains what the outer shape can be"
+  },
+
+  "constants": {
+    "E_conservation_tolerance": 1e-10,
+    "min_amplitude": 0.0,
+    "max_shells": "unbounded (energy determines reach)",
+    "vertex_count": 6
+  }
+}
