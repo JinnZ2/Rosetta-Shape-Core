@@ -16,8 +16,8 @@
         "note": "Dodecahedron faces correspond to archetypal principles"
       },
       "families": ["orientation", "trust"],
-      "sensors": ["admiration", "trust", "intuition", "dignity"],
-      "sensor_glyphs": ["⚖️", null, "🔮", "👑"],
+      "sensors": ["admiration", "trust", "longing", "intuition", "dignity"],
+      "sensor_glyphs": ["⚖️", "🌱", "🔄", "🔮", "👑"],
       "defenses": ["def.ap.07", "def.fr.06"],
       "defense_names": ["Flattery / Ego Appeal", "Consensus / Bandwagon"],
       "protocols": ["partnership_ethics_v1.0"],

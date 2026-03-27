@@ -30,8 +30,9 @@
       "physics": "Zeeman basis read/write at 0.3-5 THz, tetrahedral-octahedral hybrid lattice at 109.47°",
       "shape": "SHAPE.OCTA",
       "families": ["FAMILY.F10"],
+      "family_affinity": "secondary",
       "family_name": "Particle",
-      "rationale": "Magnetic encoding directly uses octahedral geometry — 6 vertices map to field directions. The silicon octahedral state encoder is physically built on this.",
+      "rationale": "Magnetic encoding directly uses octahedral geometry — 6 vertices map to field directions. F10 (Particle) is primary to ICOSA but activates secondarily through OCTA's physical Zeeman basis.",
       "pad_co_activation": ["coherence", "intuition"],
       "example": "External B-field → Zeeman split → 3-bit state encoding → vertex on OCTA"
     },
@@ -118,8 +119,9 @@
       "physics": "Arrhenius equation, reaction kinetics, enzyme catalysis",
       "shape": "SHAPE.TETRA",
       "families": ["FAMILY.F13", "FAMILY.F04"],
+      "family_affinity": {"FAMILY.F13": "primary", "FAMILY.F04": "secondary"},
       "family_name": "Reaction + Life",
-      "rationale": "Chemical reactions are fire transformations — tetrahedron's core. Life (F04) emerges from sustained catalytic cycles.",
+      "rationale": "Chemical reactions are fire transformations — F13 (Reaction) is primary to TETRA. F04 (Life, primary: DODECA) activates secondarily through sustained catalytic cycles.",
       "pad_co_activation": ["excitement", "curiosity"],
       "example": "Enzyme-substrate binding → Michaelis-Menten kinetics → octa state 2 (high-entropy search for substrate)"
     },
@@ -140,8 +142,9 @@
       "physics": "PAD compression (22 sensors → 3 floats → 8 states), φ-coherence model",
       "shape": "SHAPE.OCTA",
       "families": ["FAMILY.F06", "FAMILY.F16"],
+      "family_affinity": "secondary",
       "family_name": "Cognition + Consciousness",
-      "rationale": "The emotion encoder is the PAD→octahedral mapping itself. SHAPE.OCTA's 8 faces ARE the 8 octahedral states. This encoder is the bridge between all other encoders and the emotional layer.",
+      "rationale": "The emotion encoder is the PAD→octahedral mapping itself. F06 (Cognition, primary: DODECA) and F16 (Consciousness, primary: DODECA) both activate secondarily through OCTA as the computational bridge between all encoders and the emotional layer.",
       "pad_co_activation": "all",
       "example": "PAD(0.80, 0.10, 0.50) → octa state 0 → coherence sensor → ground state"
     }

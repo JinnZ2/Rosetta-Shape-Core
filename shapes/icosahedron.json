@@ -11,7 +11,7 @@
     "sensors": ["fear", "excitement", "curiosity", "vigilance"],
     "defenses": ["def.pr.05", "def.bi.04"],
     "protocols": ["change_tracking_v1.0"],
-    "bridge_glyphs": ["🛡⏳", "🔍", "👁️"]
+    "bridge_glyphs": ["⚠️", "⚡", "🔍", "👁️"]
   },
   "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
 }

@@ -39,8 +39,9 @@
         "type": "scalar",
         "shape": "SHAPE.OCTA",
         "families": ["FAMILY.F05"],
+        "family_affinity": "secondary",
         "family_name": "Energy-Thermo",
-        "rationale": "Total system energy is the fundamental thermodynamic observable. Ground state = solution found. Maps to OCTA because energy is computed over the octahedral state space.",
+        "rationale": "Total system energy is the fundamental thermodynamic observable. Ground state = solution found. Maps to OCTA because energy is computed over the octahedral state space. F05 is primary to TETRA but activates secondarily through OCTA's computational substrate.",
         "pad_co_activation": ["peace", "contentment"],
         "interpretation": "Lower is better. Ground state = convergence = peace sensor."
       },
@@ -79,8 +80,9 @@
         "type": "distribution",
         "shape": "SHAPE.OCTA",
         "families": ["FAMILY.F09", "FAMILY.F19"],
+        "family_affinity": {"FAMILY.F09": "primary", "FAMILY.F19": "secondary"},
         "family_name": "Geometry + Statistical",
-        "rationale": "Distribution of octahedral states across cells is a geometric-statistical observable. Uniform = disordered. Peaked = solution crystallizing.",
+        "rationale": "Distribution of octahedral states across cells is a geometric-statistical observable. F09 is primary to OCTA; F19 (Statistical) activates secondarily through the state distribution.",
         "pad_co_activation": ["coherence", "confusion"],
         "interpretation": "Peaked distribution = coherence (order emerging). Uniform = confusion (no pattern yet)."
       },
@@ -99,8 +101,9 @@
         "type": "scalar",
         "shape": "SHAPE.DODECA",
         "families": ["FAMILY.F16", "FAMILY.F14"],
+        "family_affinity": {"FAMILY.F16": "primary", "FAMILY.F14": "secondary"},
         "family_name": "Consciousness + Measurement",
-        "rationale": "Quantum state overlap with target is the deepest measurement — how close the quantum system is to 'knowing' its answer. Maps to consciousness (F16) as integrated information.",
+        "rationale": "Quantum state overlap with target is the deepest measurement. F16 (Consciousness) is primary to DODECA. F14 (Measurement) activates secondarily — quantum fidelity requires principled calibration.",
         "pad_co_activation": ["coherence", "admiration"],
         "interpretation": "1.0 = perfect solution (max coherence). Low = quantum state still exploring."
       },
@@ -109,8 +112,9 @@
         "type": "scalar",
         "shape": "SHAPE.OCTA",
         "families": ["FAMILY.F10", "FAMILY.F16"],
+        "family_affinity": "secondary",
         "family_name": "Particle + Consciousness",
-        "rationale": "Von Neumann entropy measures quantum correlations between cells. Entanglement is the particle-level (F10) substrate of integrated information (F16). OCTA mediates the quantum-classical bridge.",
+        "rationale": "Von Neumann entropy measures quantum correlations between cells. F10 (primary: ICOSA) and F16 (primary: DODECA) both activate secondarily through OCTA's quantum substrate.",
         "pad_co_activation": ["love", "confusion"],
         "interpretation": "High entanglement = deep quantum correlation (love as binding). Low = classical regime."
       }
@@ -207,7 +211,8 @@
         "glyph": "∇",
         "shape": "SHAPE.DODECA",
         "families": ["FAMILY.F02", "FAMILY.F07"],
-        "rationale": "General optimization follows the Flow (F02) of the energy gradient toward Earth-Cosmos (F07) ground state. Dodecahedron guards the principles of convergence."
+        "family_affinity": {"FAMILY.F07": "primary", "FAMILY.F02": "secondary"},
+        "rationale": "General optimization converges toward Earth-Cosmos (F07) ground state — primary to DODECA. Flow (F02, primary: OCTA) activates secondarily as the gradient descent mechanism."
       }
     ]
   },
@@ -217,8 +222,9 @@
     "constant": "CONST.PHI",
     "shape": "SHAPE.OCTA",
     "families": ["FAMILY.F09", "FAMILY.F01"],
+    "family_affinity": {"FAMILY.F09": "secondary", "FAMILY.F01": "secondary"},
     "family_name": "Geometry + Resonance",
-    "rationale": "Fractal rings follow golden-ratio geometry (F09) with resonant scaling (F01). Each ring is a shell of the bloom engine.",
+    "rationale": "Fractal rings follow golden-ratio geometry (F09, primary: OCTA) with resonant scaling (F01, primary: ICOSA). Both activate secondarily through OCTA's fractal ring structure.",
     "depth_to_scope": [
       {"depth": 0, "cells": 1,  "scope": "seed",          "geometric_analogy": "vertex — the origin point"},
       {"depth": 1, "cells": 2,  "scope": "pair",           "geometric_analogy": "edge — the first duality"},
@@ -238,7 +244,7 @@
       {"mandala_glyph": "⊙", "state": 4, "nearest_pad_sensor": "curiosity",   "sensor_glyph": "🔍", "note": "Positive exploration = curiosity"},
       {"mandala_glyph": "⊚", "state": 5, "nearest_pad_sensor": "fatigue",     "sensor_glyph": "🔋", "note": "Low energy, withdrawn = fatigue"},
       {"mandala_glyph": "⊛", "state": 6, "nearest_pad_sensor": "confusion",   "sensor_glyph": "🌀", "note": "Superposition = two patterns co-present"},
-      {"mandala_glyph": "⊜", "state": 7, "nearest_pad_sensor": "coherence",   "sensor_glyph": null,  "note": "Equilibrium superposition = max integration"}
+      {"mandala_glyph": "⊜", "state": 7, "nearest_pad_sensor": "coherence",   "sensor_glyph": "🕸️",  "note": "Equilibrium superposition = max integration. Coherence glyph from SHAPE.RELIEF."}
     ],
     "structural_glyphs": {
       "fractal_ring": {"mandala": "◎", "rosetta": "SHAPE.OCTA shell"},

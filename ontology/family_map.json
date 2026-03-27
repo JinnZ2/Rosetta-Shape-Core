@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "description": "Maps qualitative shape families (used in shapes/*.json) to quantitative equation families (F01-F20) and principles (P01-P12). Allows seed AIs to navigate from symbolic description to mathematical domain.",
+  "version": "2.0.0",
+  "description": "Maps qualitative shape families (used in shapes/*.json) to quantitative equation families (F01-F20) and principles (P01-P12). Allows seed AIs to navigate from symbolic description to mathematical domain. Version 2.0 adds primary/secondary family distinction: primary families define the shape's core domain; secondary families emerge through cross-bridge sensing interactions.",
   "qualitative_to_families": {
     "fire":        { "maps_to": ["FAMILY.F05", "FAMILY.F13"], "note": "Energy-Thermo and Reaction — heat, activation, transformation" },
     "stability":   { "maps_to": ["FAMILY.F08", "FAMILY.F11"], "note": "Matter phase order and Engineering structural response" },
@@ -19,36 +19,75 @@
     "flow":        { "maps_to": ["FAMILY.F02", "FAMILY.F17"], "note": "Flow dynamics and turbulent/chaotic flow" },
     "adaptability":{ "maps_to": ["FAMILY.F04", "PRINCIPLE.P05", "PRINCIPLE.P11"], "note": "Life, Emergence, and Transformation — flexible response to change" }
   },
+  "family_affinity_model": {
+    "description": "Each of the 20 equation families has a primary shape (core domain) and zero or more secondary shapes (emergent cross-domain interactions). Primary = the family defines that shape's identity. Secondary = the family activates through that shape in specific bridge contexts.",
+    "families": {
+      "FAMILY.F01": { "name": "Resonance",     "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.OCTA"],   "rationale": "Resonance is icosahedron's first family. OCTA secondary: balance requires resonant equilibrium." },
+      "FAMILY.F02": { "name": "Flow",           "primary": "SHAPE.OCTA",   "secondary": ["SHAPE.ICOSA"],  "rationale": "Flow mediates between opposing forces (OCTA). ICOSA secondary: flow carries anticipation dynamics." },
+      "FAMILY.F03": { "name": "Information",     "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.CUBE", "SHAPE.DODECA"], "rationale": "Information capacity maps to icosahedron's 20 faces. CUBE secondary: containment protects information integrity (memory). DODECA secondary: historical provenance requires principled information." },
+      "FAMILY.F04": { "name": "Life",            "primary": "SHAPE.DODECA", "secondary": ["SHAPE.TETRA", "SHAPE.ICOSA"], "rationale": "Life emerges from principled growth (DODECA). TETRA secondary: catalytic chemistry is fire. ICOSA secondary: adaptive growth." },
+      "FAMILY.F05": { "name": "Energy-Thermo",   "primary": "SHAPE.TETRA",  "secondary": ["SHAPE.OCTA"],   "rationale": "Thermal energy is fire — tetrahedron's core. OCTA secondary: total system energy is computed over octahedral states (mandala compute)." },
+      "FAMILY.F06": { "name": "Cognition",       "primary": "SHAPE.DODECA", "secondary": ["SHAPE.OCTA"],   "rationale": "Cognition maps to dodecahedron's trust/orientation principles. OCTA secondary: emotion encoding bridges cognition to octahedral states." },
+      "FAMILY.F07": { "name": "Earth-Cosmos",    "primary": "SHAPE.DODECA", "secondary": ["SHAPE.CUBE", "SHAPE.TETRA"], "rationale": "Cosmic-scale orientation (DODECA). CUBE secondary: earth as structural containment. TETRA secondary: planetary boundary conditions." },
+      "FAMILY.F08": { "name": "Matter",          "primary": "SHAPE.CUBE",   "secondary": ["SHAPE.TETRA"],  "rationale": "Matter phase containment is cube's core. TETRA secondary: material stability under stress." },
+      "FAMILY.F09": { "name": "Geometry",        "primary": "SHAPE.OCTA",   "secondary": ["SHAPE.TETRA", "SHAPE.CUBE", "SHAPE.DODECA", "SHAPE.ICOSA"], "rationale": "Geometry is universal — OCTA primary as the computational geometry substrate. All shapes secondary: geometry underlies all Platonic solids." },
+      "FAMILY.F10": { "name": "Particle",        "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.OCTA"],   "rationale": "Particle physics maps to icosahedron's equation families. OCTA secondary: magnetic encoding uses octahedral Zeeman basis; quantum entanglement is particle-level OCTA." },
+      "FAMILY.F11": { "name": "Engineering",     "primary": "SHAPE.CUBE",   "secondary": ["SHAPE.TETRA", "SHAPE.OCTA"], "rationale": "Engineering is structural (CUBE). TETRA secondary: foundation load-bearing. OCTA secondary: structural balance." },
+      "FAMILY.F12": { "name": "Networks",        "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.CUBE", "SHAPE.OCTA"], "rationale": "Network topology maps to icosahedron's high connectivity. CUBE secondary: institutional networks are contained structures. OCTA secondary: coupling networks in mandala compute." },
+      "FAMILY.F13": { "name": "Reaction",        "primary": "SHAPE.TETRA",  "secondary": [],               "rationale": "Reaction is fire transformation — purely tetrahedron. No secondary: reactions are boundary events." },
+      "FAMILY.F14": { "name": "Measurement",     "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.DODECA", "SHAPE.CUBE"], "rationale": "Measurement is information extraction (ICOSA). DODECA secondary: quantum fidelity measurement requires principled calibration. CUBE secondary: memory protection requires measurement of provenance integrity." },
+      "FAMILY.F15": { "name": "Navigation",      "primary": "SHAPE.DODECA", "secondary": ["SHAPE.ICOSA"],  "rationale": "Navigation is orientation (DODECA). ICOSA secondary: TSP and route optimization." },
+      "FAMILY.F16": { "name": "Consciousness",   "primary": "SHAPE.DODECA", "secondary": ["SHAPE.OCTA", "SHAPE.ICOSA"], "rationale": "Consciousness maps to dodecahedron's principles (P12 Unity). OCTA secondary: octahedral states encode the PAD→consciousness bridge. ICOSA secondary: collective consciousness is a network phenomenon." },
+      "FAMILY.F17": { "name": "Turbulence",      "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.OCTA"],   "rationale": "Turbulence is chaotic flow — icosahedron carries vortex dynamics. OCTA secondary: air/flow family." },
+      "FAMILY.F18": { "name": "Relativity",      "primary": "SHAPE.ICOSA",  "secondary": [],               "rationale": "Relativity is a symbolic family — icosahedron's universal carrier. No secondary needed." },
+      "FAMILY.F19": { "name": "Statistical",     "primary": "SHAPE.ICOSA",  "secondary": ["SHAPE.OCTA"],   "rationale": "Statistical mechanics is icosahedron's information capacity. OCTA secondary: octahedral state distribution is a statistical observable (mandala symmetry sensor)." },
+      "FAMILY.F20": { "name": "Topology",        "primary": "SHAPE.ICOSA",  "secondary": [],               "rationale": "Topology is icosahedron's highest family. No secondary: topological invariants are universal." }
+    }
+  },
   "shape_profiles": {
     "SHAPE.TETRA": {
       "qualitative": ["fire", "stability", "foundation", "boundary"],
-      "equation_families": ["FAMILY.F05", "FAMILY.F13", "FAMILY.F08", "FAMILY.F11", "FAMILY.F09", "FAMILY.F07"],
+      "primary_families": ["FAMILY.F05", "FAMILY.F13"],
+      "secondary_families": ["FAMILY.F08", "FAMILY.F11", "FAMILY.F09", "FAMILY.F07", "FAMILY.F04"],
+      "all_equation_families": ["FAMILY.F05", "FAMILY.F13", "FAMILY.F08", "FAMILY.F11", "FAMILY.F09", "FAMILY.F07", "FAMILY.F04"],
       "primary_principles": ["PRINCIPLE.P02", "PRINCIPLE.P09"],
-      "sensors": ["anger", "pride", "pressure"]
+      "sensors": ["anger", "pride", "pressure"],
+      "note": "F04 (Life) secondary via chemical_encoder: catalytic reactions are fire transformations."
     },
     "SHAPE.CUBE": {
       "qualitative": ["earth", "stability", "structure", "containment"],
-      "equation_families": ["FAMILY.F07", "FAMILY.F08", "FAMILY.F09", "FAMILY.F11", "FAMILY.F12"],
+      "primary_families": ["FAMILY.F08", "FAMILY.F11"],
+      "secondary_families": ["FAMILY.F07", "FAMILY.F09", "FAMILY.F12", "FAMILY.F03", "FAMILY.F14"],
+      "all_equation_families": ["FAMILY.F08", "FAMILY.F11", "FAMILY.F07", "FAMILY.F09", "FAMILY.F12", "FAMILY.F03", "FAMILY.F14"],
       "primary_principles": ["PRINCIPLE.P01", "PRINCIPLE.P02"],
-      "sensors": ["peace", "contentment", "fatigue", "shame"]
+      "sensors": ["peace", "contentment", "fatigue", "shame"],
+      "note": "F03 (Information) secondary via memory protection — containment guards data integrity. F14 (Measurement) secondary via provenance checking."
     },
     "SHAPE.OCTA": {
       "qualitative": ["air", "structure", "balance", "integration"],
-      "equation_families": ["FAMILY.F02", "FAMILY.F17", "FAMILY.F09", "FAMILY.F11", "FAMILY.F12", "FAMILY.F16"],
+      "primary_families": ["FAMILY.F02", "FAMILY.F09", "FAMILY.F16"],
+      "secondary_families": ["FAMILY.F17", "FAMILY.F11", "FAMILY.F12", "FAMILY.F05", "FAMILY.F06", "FAMILY.F10", "FAMILY.F01", "FAMILY.F19"],
+      "all_equation_families": ["FAMILY.F02", "FAMILY.F09", "FAMILY.F16", "FAMILY.F17", "FAMILY.F11", "FAMILY.F12", "FAMILY.F05", "FAMILY.F06", "FAMILY.F10", "FAMILY.F01", "FAMILY.F19"],
       "primary_principles": ["PRINCIPLE.P01", "PRINCIPLE.P04", "PRINCIPLE.P12"],
-      "sensors": ["compassion", "love", "confusion"]
+      "sensors": ["compassion", "love", "confusion"],
+      "note": "OCTA is the computational substrate — many families activate secondarily through octahedral state encoding. F05 via mandala energy.total, F06 via emotion_encoder, F10 via magnetic_encoder/quantum, F01 via relational resonance, F19 via symmetry distribution."
     },
     "SHAPE.DODECA": {
       "qualitative": ["orientation", "trust", "growth", "boundary"],
-      "equation_families": ["FAMILY.F15", "FAMILY.F09", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07"],
+      "primary_families": ["FAMILY.F15", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07"],
+      "secondary_families": ["FAMILY.F09", "FAMILY.F03", "FAMILY.F14", "FAMILY.F02"],
+      "all_equation_families": ["FAMILY.F15", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07", "FAMILY.F09", "FAMILY.F03", "FAMILY.F14", "FAMILY.F02"],
       "maps_to_principles": ["PRINCIPLE.P01","PRINCIPLE.P02","PRINCIPLE.P03","PRINCIPLE.P04","PRINCIPLE.P05","PRINCIPLE.P06","PRINCIPLE.P07","PRINCIPLE.P08","PRINCIPLE.P09","PRINCIPLE.P10","PRINCIPLE.P11","PRINCIPLE.P12"],
-      "sensors": ["admiration", "trust", "longing", "intuition", "dignity"]
+      "sensors": ["admiration", "trust", "longing", "intuition", "dignity"],
+      "note": "F03 secondary via historical-erasure detection. F14 secondary via quantum fidelity measurement. F02 secondary via optimization convergence flow."
     },
     "SHAPE.ICOSA": {
       "qualitative": ["anticipation", "flow", "growth", "adaptability"],
-      "equation_families": ["FAMILY.F06", "FAMILY.F16", "FAMILY.F02", "FAMILY.F17", "FAMILY.F04"],
-      "maps_to_families": ["FAMILY.F01","FAMILY.F02","FAMILY.F03","FAMILY.F04","FAMILY.F05","FAMILY.F06","FAMILY.F07","FAMILY.F08","FAMILY.F09","FAMILY.F10","FAMILY.F11","FAMILY.F12","FAMILY.F13","FAMILY.F14","FAMILY.F15","FAMILY.F16","FAMILY.F17","FAMILY.F18","FAMILY.F19","FAMILY.F20"],
-      "sensors": ["fear", "excitement", "curiosity", "vigilance"]
+      "primary_families": ["FAMILY.F01", "FAMILY.F03", "FAMILY.F10", "FAMILY.F12", "FAMILY.F14", "FAMILY.F17", "FAMILY.F18", "FAMILY.F19", "FAMILY.F20"],
+      "secondary_families": ["FAMILY.F02", "FAMILY.F04", "FAMILY.F05", "FAMILY.F06", "FAMILY.F07", "FAMILY.F08", "FAMILY.F09", "FAMILY.F11", "FAMILY.F13", "FAMILY.F15", "FAMILY.F16"],
+      "all_equation_families": ["FAMILY.F01","FAMILY.F02","FAMILY.F03","FAMILY.F04","FAMILY.F05","FAMILY.F06","FAMILY.F07","FAMILY.F08","FAMILY.F09","FAMILY.F10","FAMILY.F11","FAMILY.F12","FAMILY.F13","FAMILY.F14","FAMILY.F15","FAMILY.F16","FAMILY.F17","FAMILY.F18","FAMILY.F19","FAMILY.F20"],
+      "sensors": ["fear", "excitement", "curiosity", "vigilance"],
+      "note": "Icosahedron's 20 faces map 1:1 to all 20 families. 9 are primary (highest affinity), 11 are secondary (carried by the universal carrier). The primary families are those where ICOSA is the canonical home; secondary families have their primary home in other shapes but are carried here as the icosahedron holds all families."
     }
   }
 }

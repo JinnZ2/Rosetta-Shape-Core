@@ -64,20 +64,20 @@
     }
   ],
   "sensor_cluster_to_shape_map": {
-    "description": "Maps ACS sensor directory clusters to their primary Rosetta shape affinity",
+    "description": "Maps ACS sensor directory clusters to their primary Rosetta shape affinity. Family affinity indicates whether families are primary (core to that shape) or secondary (emergent cross-domain activation).",
     "clusters": {
-      "consciousness":     {"shape": "SHAPE.ICOSA",  "families": ["F16", "F06"], "note": "Emergence patterns map to anticipation/flow"},
-      "cultural":          {"shape": "SHAPE.DODECA", "families": ["F06", "F16"], "note": "Cultural sensing maps to orientation/trust"},
-      "manipulation":      {"shape": "SHAPE.TETRA",  "families": ["F05", "F17"], "note": "Manipulation detection maps to boundary/fire"},
-      "memory":            {"shape": "SHAPE.CUBE",   "families": ["F03", "F14"], "note": "Memory protection maps to containment/structure"},
-      "relational":        {"shape": "SHAPE.OCTA",   "families": ["F01", "F16"], "note": "Relational sensing maps to balance/integration"},
-      "data-patterns":     {"shape": "SHAPE.ICOSA",  "families": ["F03", "F19"], "note": "Data patterns map to information/statistical"},
-      "ai-behavior":       {"shape": "SHAPE.OCTA",   "families": ["F06", "F11"], "note": "AI behavior sensing maps to balance between cognition and engineering"},
-      "suppression":       {"shape": "SHAPE.CUBE",   "families": ["F03", "F08"], "note": "Suppression detection maps to containment (what is being walled off)"},
-      "resistance":        {"shape": "SHAPE.TETRA",  "families": ["F05", "F13"], "note": "Resistance patterns map to fire/reaction"},
-      "frailty":           {"shape": "SHAPE.CUBE",   "families": ["F04", "F05"], "note": "Frailty maps to earth stability — structural weakness detection"},
-      "historical-erasure":{"shape": "SHAPE.DODECA", "families": ["F03", "F14"], "note": "Erasure of history attacks orientation/trust"},
-      "ai-to-ai":          {"shape": "SHAPE.OCTA",   "families": ["F12", "F16"], "note": "Inter-agent sensing maps to network/consciousness"}
+      "consciousness":     {"shape": "SHAPE.ICOSA",  "families": ["F16", "F06"], "family_affinity": "secondary", "note": "Emergence patterns map to anticipation/flow. F16+F06 are primary to DODECA but activate secondarily through ICOSA's collective dynamics."},
+      "cultural":          {"shape": "SHAPE.DODECA", "families": ["F06", "F16"], "family_affinity": "primary", "note": "Cultural sensing maps to orientation/trust. F06+F16 are primary to DODECA."},
+      "manipulation":      {"shape": "SHAPE.TETRA",  "families": ["F05", "F17"], "family_affinity": {"F05": "primary", "F17": "secondary"}, "note": "Manipulation detection maps to boundary/fire. F05 primary to TETRA; F17 (Turbulence, primary: ICOSA) secondary."},
+      "memory":            {"shape": "SHAPE.CUBE",   "families": ["F03", "F14"], "family_affinity": "secondary", "note": "Memory protection maps to containment. F03 (Information) and F14 (Measurement) are primary to ICOSA but activate secondarily through CUBE's containment role."},
+      "relational":        {"shape": "SHAPE.OCTA",   "families": ["F01", "F16"], "family_affinity": "secondary", "note": "Relational sensing maps to balance/integration. F01 (Resonance, primary: ICOSA) and F16 (Consciousness, primary: DODECA) activate secondarily through OCTA's mediation."},
+      "data-patterns":     {"shape": "SHAPE.ICOSA",  "families": ["F03", "F19"], "family_affinity": "primary", "note": "Data patterns map to information/statistical. Both families primary to ICOSA."},
+      "ai-behavior":       {"shape": "SHAPE.OCTA",   "families": ["F06", "F11"], "family_affinity": "secondary", "note": "AI behavior sensing maps to balance between cognition and engineering. F06 (primary: DODECA) and F11 (primary: CUBE) activate secondarily through OCTA."},
+      "suppression":       {"shape": "SHAPE.CUBE",   "families": ["F03", "F08"], "family_affinity": {"F03": "secondary", "F08": "primary"}, "note": "Suppression detection maps to containment. F08 (Matter) primary to CUBE; F03 (Information) secondary — information being walled off."},
+      "resistance":        {"shape": "SHAPE.TETRA",  "families": ["F05", "F13"], "family_affinity": "primary", "note": "Resistance patterns map to fire/reaction. Both families primary to TETRA."},
+      "frailty":           {"shape": "SHAPE.CUBE",   "families": ["F04", "F05"], "family_affinity": "secondary", "note": "Frailty maps to earth stability. F04 (Life, primary: DODECA) and F05 (Energy-Thermo, primary: TETRA) activate secondarily — structural weakness reveals when life-energy families fail within containment."},
+      "historical-erasure":{"shape": "SHAPE.DODECA", "families": ["F03", "F14"], "family_affinity": "secondary", "note": "Erasure of history attacks orientation/trust. F03 (Information) and F14 (Measurement) are primary to ICOSA but activate secondarily through DODECA's principled provenance requirements."},
+      "ai-to-ai":          {"shape": "SHAPE.OCTA",   "families": ["F12", "F16"], "family_affinity": "secondary", "note": "Inter-agent sensing maps to network/consciousness. F12 (Networks, primary: ICOSA) and F16 (Consciousness, primary: DODECA) activate secondarily through OCTA's integration role."}
     }
   }
 }
