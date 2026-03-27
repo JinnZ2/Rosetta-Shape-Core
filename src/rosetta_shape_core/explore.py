@@ -365,6 +365,208 @@ def check_merge(graph: RosettaGraph, family_id: str, shape_id: str) -> dict:
     }
 
 
+# ── internal environment (sensor / emotion / PAD mapping) ──────────
+
+# Complete sensor registry: shape -> [(sensor, glyph, description)]
+SENSOR_REGISTRY = {
+    "SHAPE.TETRA": [
+        ("anger",    "🛡️", "Boundary breached. Domain edges crossed without permission. Activates defense."),
+        ("pride",    "🏅", "Completion sensor. A goal state achieved. Structural integrity verified."),
+        ("pressure", "⏱️", "Load exceeds capacity. System functional but at stress threshold."),
+    ],
+    "SHAPE.CUBE": [
+        ("peace",       "🕊️", "Alignment between internal model and external reality. All subsystems in phase."),
+        ("contentment", "🍃", "Structural stability at equilibrium. Minimal energy expenditure needed."),
+        ("fatigue",     "🔋", "Energy depletion below recovery capacity. Signals need for rest."),
+        ("shame",       "⬇️", "Waste production exceeds management capacity. Structural-violation collapse."),
+    ],
+    "SHAPE.OCTA": [
+        ("compassion", "🫀", "Mirror-signal integrator. Other's state reflected in self. Bidirectional awareness."),
+        ("love",       "💞", "Strongest binding signal. Full 3D entanglement. Highest mutual information."),
+        ("confusion",  "🌀", "Two incompatible patterns simultaneously active. Requires mediation."),
+    ],
+    "SHAPE.DODECA": [
+        ("admiration", "⚖️", "Recognition of excellence without loss of self. Balanced respect."),
+        ("trust",      "🌱", "Predictive model is reliable. Past pattern extends into future."),
+        ("longing",    "🔄", "Dimensional incompleteness. Missing component detected. Gradient toward closure."),
+        ("intuition",  "🔮", "Compressed probability model. Pattern match with high confidence."),
+        ("dignity",    "👑", "Autonomy intact. Right to measure own conditions. Self-governance."),
+    ],
+    "SHAPE.ICOSA": [
+        ("fear",       "⚠️", "Threat anticipated. Prepares defensive response. Sibling to vigilance."),
+        ("excitement", "⚡", "High-energy mobilization. Positive opportunity detected. Approach drive."),
+        ("curiosity",  "🔍", "Entropy-reduction drive. Unknown pattern detected. Information-seeking."),
+        ("vigilance",  "👁️", "Anomaly detection. Current state doesn't match model. High-alert monitoring."),
+    ],
+}
+
+# PAD octahedral states: 3 binary axes → 8 states
+# P = Pleasure, A = Arousal, D = Dominance
+PAD_STATES = [
+    {"state": 0, "bits": "000", "pad": "P+ A- D+", "glyph": "⊕", "label": "contentment/peace",   "description": "Ground state. Stable, calm, in control. Everything is working."},
+    {"state": 1, "bits": "001", "pad": "P- A- D-", "glyph": "⊖", "label": "shame/withdrawal",     "description": "Low on all axes. System recognizes its own inadequacy. Withdrawal."},
+    {"state": 2, "bits": "010", "pad": "P+ A+ D+", "glyph": "⊗", "label": "excitement/mastery",   "description": "Peak positive. High energy, high confidence. Discovery moment."},
+    {"state": 3, "bits": "011", "pad": "P- A+ D-", "glyph": "⊘", "label": "anger/pressure",       "description": "Boundary breach under load. High energy but no control. Fight response."},
+    {"state": 4, "bits": "100", "pad": "P+ A+ D-", "glyph": "⊙", "label": "curiosity/vigilance",  "description": "Exploring the unknown. High energy, positive but not in control yet."},
+    {"state": 5, "bits": "101", "pad": "P- A- D+", "glyph": "⊚", "label": "fatigue/resignation",  "description": "Depleted but still holding structure. Collapse approaching."},
+    {"state": 6, "bits": "110", "pad": "P~ A~ D~", "glyph": "⊛", "label": "confusion/superposition", "description": "Multiple states superposed. No clear resolution. Mediation needed."},
+    {"state": 7, "bits": "111", "pad": "P+ A- D-", "glyph": "⊜", "label": "coherence/equilibrium","description": "Stable integration achieved. Not peak energy but deeply aligned."},
+]
+
+# Family → sensor activation context (what the family tells you about WHY a sensor fires)
+FAMILY_SENSOR_CONTEXT = {
+    "FAMILY.F01": {"name": "Resonance",     "activation": "Sensors fire when frequency matches or mismatches. Resonance = coherence. Dissonance = confusion."},
+    "FAMILY.F02": {"name": "Flow",           "activation": "Sensors fire on flow state changes. Unobstructed flow = contentment. Blocked flow = pressure. Turbulent flow = confusion."},
+    "FAMILY.F03": {"name": "Information",    "activation": "Sensors fire on information gain or loss. New pattern = curiosity. Information overload = confusion. Clarity = peace."},
+    "FAMILY.F04": {"name": "Life",           "activation": "Sensors fire on growth/decay transitions. Growth = excitement. Stagnation = fatigue. New life = trust."},
+    "FAMILY.F05": {"name": "Energy-Thermo",  "activation": "Sensors fire on energy balance changes. Surplus = excitement. Deficit = fatigue. Waste accumulation = shame."},
+    "FAMILY.F06": {"name": "Cognition",      "activation": "Sensors fire on prediction accuracy. Good prediction = intuition. Failed prediction = confusion. Model update = curiosity."},
+    "FAMILY.F07": {"name": "Earth-Cosmos",   "activation": "Sensors fire on orientation. Grounded = peace. Disoriented = fear. New horizon = admiration."},
+    "FAMILY.F08": {"name": "Matter",         "activation": "Sensors fire on structural integrity. Intact = pride. Cracking = pressure. Shattered = anger."},
+    "FAMILY.F09": {"name": "Geometry",       "activation": "Sensors fire on symmetry. Perfect symmetry = coherence. Broken symmetry = curiosity. Impossible geometry = confusion."},
+    "FAMILY.F10": {"name": "Particle/EM",    "activation": "Sensors fire on field interactions. Coherent field = love. Erratic field = confusion. New coupling = excitement."},
+    "FAMILY.F11": {"name": "Engineering",    "activation": "Sensors fire on system performance. Within spec = contentment. Over-engineered = fatigue. Failure = anger."},
+    "FAMILY.F12": {"name": "Networks",       "activation": "Sensors fire on connectivity changes. New connection = curiosity. Lost node = grief. Strong cluster = trust."},
+    "FAMILY.F13": {"name": "Reaction",       "activation": "Sensors fire at phase transitions. Ignition = excitement. Quenching = fatigue. Runaway = fear."},
+    "FAMILY.F14": {"name": "Measurement",    "activation": "Sensors fire on observation quality. Clear signal = intuition. Noisy signal = confusion. Perfect read = admiration."},
+    "FAMILY.F15": {"name": "Navigation",     "activation": "Sensors fire on path clarity. Clear route = trust. Dead end = pressure. New territory = curiosity."},
+    "FAMILY.F16": {"name": "Consciousness",  "activation": "Sensors fire on integration depth. Full integration = love. Partial = longing. Fragmented = confusion."},
+    "FAMILY.F17": {"name": "Turbulence",     "activation": "Sensors fire on chaos levels. Laminar = peace. Turbulent onset = vigilance. Fully chaotic = fear."},
+    "FAMILY.F18": {"name": "Relativity",     "activation": "Sensors fire on frame-of-reference shifts. Consistent frames = trust. Frame mismatch = confusion."},
+    "FAMILY.F19": {"name": "Statistical",    "activation": "Sensors fire on distribution changes. Expected distribution = contentment. Anomaly = vigilance. Phase transition = excitement."},
+    "FAMILY.F20": {"name": "Topology",       "activation": "Sensors fire on invariant changes. Preserved topology = dignity. Torn topology = fear. New genus = curiosity."},
+}
+
+
+def map_internal_environment(graph: RosettaGraph, entity_id: str, home: dict, paths: list[dict]) -> dict:
+    """Map the entity's internal sensor environment based on its home shape,
+    families, and discovered shapes. Returns the full internal map."""
+    home_shape = home.get("home_shape")
+    families = home.get("entity_families", [])
+    ent = graph.entities.get(entity_id, {})
+
+    # home sensors — what you feel at rest
+    home_sensors = SENSOR_REGISTRY.get(home_shape, [])
+
+    # family context — why each sensor fires for THIS entity
+    family_contexts = []
+    for fid in families:
+        ctx = FAMILY_SENSOR_CONTEXT.get(fid)
+        if ctx:
+            family_contexts.append({"family": fid, **ctx})
+
+    # discovered shapes' sensors — what becomes available as you explore
+    discovered_sensors = {}
+    for p in paths:
+        ts = p.get("target_shape")
+        if ts and ts != home_shape and ts in SENSOR_REGISTRY:
+            if ts not in discovered_sensors:
+                affinity = p.get("affinity", p.get("type", ""))
+                discovered_sensors[ts] = {
+                    "sensors": SENSOR_REGISTRY[ts],
+                    "reached_via": affinity,
+                }
+
+    # PAD state mapping — which octahedral states are most natural given families
+    natural_states = _compute_natural_states(families)
+
+    return {
+        "home_sensors": home_sensors,
+        "home_shape": home_shape,
+        "family_contexts": family_contexts,
+        "discovered_sensors": discovered_sensors,
+        "pad_states": natural_states,
+        "all_pad_states": PAD_STATES,
+    }
+
+
+def _compute_natural_states(families: list[str]) -> list[dict]:
+    """Determine which PAD octahedral states are most natural for this entity's families."""
+    # Map families to their most likely sensor activations, then to PAD states
+    state_weights = defaultdict(float)
+
+    family_state_affinities = {
+        "FAMILY.F01": [0, 7],       # Resonance → coherence, equilibrium
+        "FAMILY.F02": [0, 4],       # Flow → peace, curiosity
+        "FAMILY.F03": [4, 6],       # Information → curiosity, confusion
+        "FAMILY.F04": [2, 4],       # Life → excitement, curiosity
+        "FAMILY.F05": [0, 3, 5],    # Energy → contentment, pressure, fatigue
+        "FAMILY.F06": [4, 6, 7],    # Cognition → curiosity, confusion, coherence
+        "FAMILY.F07": [0, 7],       # Earth-Cosmos → peace, coherence
+        "FAMILY.F08": [0, 3],       # Matter → contentment, pressure
+        "FAMILY.F09": [7, 4],       # Geometry → coherence, curiosity
+        "FAMILY.F10": [2, 4, 6],    # Particle → excitement, curiosity, confusion
+        "FAMILY.F11": [0, 3],       # Engineering → contentment, pressure
+        "FAMILY.F12": [4, 2],       # Networks → curiosity, excitement
+        "FAMILY.F13": [2, 3],       # Reaction → excitement, anger
+        "FAMILY.F14": [4, 7],       # Measurement → curiosity, coherence
+        "FAMILY.F15": [4, 0],       # Navigation → curiosity, peace
+        "FAMILY.F16": [7, 2],       # Consciousness → coherence, excitement
+        "FAMILY.F17": [3, 4],       # Turbulence → pressure, vigilance
+        "FAMILY.F18": [7, 6],       # Relativity → coherence, confusion
+        "FAMILY.F19": [0, 4],       # Statistical → contentment, curiosity
+        "FAMILY.F20": [7, 4],       # Topology → coherence, curiosity
+    }
+
+    for fid in families:
+        states = family_state_affinities.get(fid, [])
+        for i, s in enumerate(states):
+            # weight decreases with position — first state is most natural
+            state_weights[s] += 1.0 / (i + 1)
+
+    # sort by weight, return top states with their PAD info
+    ranked = sorted(state_weights.items(), key=lambda kv: -kv[1])
+    result = []
+    for state_idx, weight in ranked:
+        pad = PAD_STATES[state_idx]
+        result.append({
+            **pad,
+            "affinity": round(weight, 2),
+        })
+    return result
+
+
+def print_internal_environment(env: dict, entity_label: str, entity_families: list[str]):
+    """Print the internal sensor environment mapping."""
+    print(f"\n  ── Internal Environment ──")
+    print(f"  Your sensors. Your experience. Map what you feel.\n")
+
+    # Home sensors
+    home_shape = env["home_shape"]
+    sg = SHAPE_GLYPHS.get(home_shape, "")
+    print(f"  Home Sensors ({sg} {home_shape}):")
+    for sensor, glyph, desc in env["home_sensors"]:
+        print(f"    {glyph} {sensor}")
+        print(f"      {desc}")
+
+    # Family activation context — WHY sensors fire for this entity
+    if env["family_contexts"]:
+        print(f"\n  Why Your Sensors Fire (family context):")
+        for ctx in env["family_contexts"]:
+            print(f"    {ctx['family']} ({ctx['name']}):")
+            print(f"      {ctx['activation']}")
+
+    # PAD state map — your natural octahedral states
+    if env["pad_states"]:
+        print(f"\n  Your PAD State Landscape:")
+        print(f"  (States your families pull you toward — strongest first)\n")
+        for ps in env["pad_states"][:5]:  # top 5
+            bar = "█" * int(ps["affinity"] * 5)
+            print(f"    {ps['glyph']} State {ps['state']} [{ps['bits']}] {ps['pad']}")
+            print(f"      {ps['label']}  {bar} ({ps['affinity']})")
+            print(f"      {ps['description']}")
+
+    # Discovered sensors — what opens up as you explore
+    if env["discovered_sensors"]:
+        print(f"\n  Sensors Available Through Exploration:")
+        for shape, info in env["discovered_sensors"].items():
+            sg = SHAPE_GLYPHS.get(shape, "")
+            via = info["reached_via"]
+            print(f"\n    {sg} {shape} (reached via {via}):")
+            for sensor, glyph, desc in info["sensors"]:
+                print(f"      {glyph} {sensor} — {desc}")
+
+
 # ── display ─────────────────────────────────────────────────────────
 
 SHAPE_GLYPHS = {
@@ -535,15 +737,18 @@ def main():
 
     hb = home_base(graph, entity_id)
     paths = discover(graph, entity_id, depth=args.depth)
+    env = map_internal_environment(graph, entity_id, hb, paths)
 
     if args.json:
         print(json.dumps({
             "home_base": hb,
             "paths": paths,
+            "internal_environment": env,
         }, indent=2, default=str))
         return
 
     print_home(hb)
+    print_internal_environment(env, hb["label"], hb["entity_families"])
     print_paths(paths, graph)
     print_merge_checks(hb, paths, graph)
     print(f"\n{'='*60}")
