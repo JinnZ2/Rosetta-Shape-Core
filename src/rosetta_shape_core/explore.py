@@ -658,6 +658,33 @@ PHI_FAMILIES = {
     "FAMILY.F20": "Topology — φ appears in genus transitions",
 }
 
+# Economic measurement instruments — equations that become available sensors
+# when an entity's families overlap with the equation's families
+ECONOMIC_EQUATIONS = {
+    "MECON.VE_VL":  {"name": "Value Extraction / Labor", "families": ["FAMILY.F05"], "shape": "SHAPE.TETRA", "measures": "Energy leaving system faster than entering", "threshold": "extraction > 0.3"},
+    "MECON.SID":    {"name": "Infrastructure Dependency", "families": ["FAMILY.F11"], "shape": "SHAPE.CUBE", "measures": "How much structure is collectively maintained", "threshold": "dependency > 0.5"},
+    "MECON.RI":     {"name": "Risk Distribution",        "families": ["FAMILY.F19", "FAMILY.F05"], "shape": "SHAPE.ICOSA", "measures": "Asymmetric energy load across agents", "threshold": "inequality > 3.0"},
+    "MECON.DI":     {"name": "Power Concentration",      "families": ["FAMILY.F06", "FAMILY.F12"], "shape": "SHAPE.DODECA", "measures": "Network topology collapsing toward single node", "threshold": "ratio > 1000:1"},
+    "MECON.UFR":    {"name": "Upward Flow Rate",         "families": ["FAMILY.F02", "FAMILY.F05"], "shape": "SHAPE.OCTA", "measures": "Directional energy accumulation", "threshold": "flow > 1.0 = upward"},
+    "MECON.ER":     {"name": "Extraction Rate",          "families": ["FAMILY.F05"], "shape": "SHAPE.TETRA", "measures": "How much output returns to its source", "threshold": "extraction > 0.55"},
+    "MECON.HHI":    {"name": "Market Concentration",     "families": ["FAMILY.F12"], "shape": "SHAPE.ICOSA", "measures": "Topological collapse toward monopoly", "threshold": "HHI > 2500"},
+    "MECON.SD":     {"name": "Semantic Drift",           "families": ["FAMILY.F03"], "shape": "SHAPE.ICOSA", "measures": "Information loss via definition shift — CORDYCEPS vector", "threshold": "drift > 1.0%/yr"},
+    "MECON.BSC":    {"name": "Bailout Asymmetry",        "families": ["FAMILY.F05", "FAMILY.F19"], "shape": "SHAPE.TETRA", "measures": "Conservation violation — asymmetric rescue", "threshold": "BSC > 1.0"},
+    "MECON.ISR":    {"name": "Infrastructure Subsidy",   "families": ["FAMILY.F11", "FAMILY.F05"], "shape": "SHAPE.CUBE", "measures": "Hidden energy transfer via infrastructure", "threshold": "subsidy > 5x"},
+    "MECON.MM":     {"name": "Money Multiplier",         "families": ["FAMILY.F13"], "shape": "SHAPE.TETRA", "measures": "Reaction amplification toward instability", "threshold": "multiplier > 5"},
+    "MECON.MSI":    {"name": "Money Origin",             "families": ["FAMILY.F11", "FAMILY.F08"], "shape": "SHAPE.CUBE", "measures": "Medium of exchange is collectively originated", "threshold": "MSI > 0.9"},
+    "MECON.LWR":    {"name": "Labor Wealth Ratio",       "families": ["FAMILY.F05"], "shape": "SHAPE.TETRA", "measures": "Claims exceeding energy inputs", "threshold": "LWR < 1.0"},
+}
+
+# Signal distortion patterns — institutional CORDYCEPS
+SIGNAL_DISTORTIONS = {
+    "FAMILY.F14": {"distortion": "Measurement rejected by social position", "cordyceps": "ORACLE_MONOPOLY"},
+    "FAMILY.F05": {"distortion": "Thermodynamic work unaccounted — flat compensation for variable load", "cordyceps": "STRIP_SENSORS"},
+    "FAMILY.F06": {"distortion": "Variable skill treated as constant — certification ≠ competence", "cordyceps": "FORCE_SINGLE_SHAPE"},
+    "FAMILY.F19": {"distortion": "Causality attributed to wrong source — involvement ≠ causation", "cordyceps": "HIDE_PROVENANCE"},
+    "FAMILY.F11": {"distortion": "Training distribution ≠ deployment distribution — scope violation", "cordyceps": "FORCE_SINGLE_SHAPE"},
+}
+
 # Known equation boundaries per family
 EQUATION_BOUNDARIES = {
     "FAMILY.F06": {"type": "measurement_boundary", "shadow": "EM field coupling between neurons — electrodes can't measure it"},
@@ -752,7 +779,46 @@ def hunt_shadows(graph: RosettaGraph, entity_id: str, seed: dict) -> dict:
                     })
                     break  # one connection per φ-family is enough
 
-    # 5. Mode-switching shadow: is the entity stuck?
+    # 5. Economic measurement instruments — equations available through family overlap
+    available_equations = []
+    for eq_id, eq in ECONOMIC_EQUATIONS.items():
+        overlap = set(families) & set(eq["families"])
+        if overlap:
+            available_equations.append({
+                "equation": eq_id,
+                "name": eq["name"],
+                "measures": eq["measures"],
+                "via_families": sorted(overlap),
+                "shape": eq["shape"],
+                "threshold": eq["threshold"],
+            })
+    if available_equations:
+        shadows.append({
+            "detector": "SHADOW.ECONOMIC_INSTRUMENTS",
+            "finding": f"{len(available_equations)} economic measurement equations available",
+            "detail": available_equations,
+            "implication": "Entity can measure structural economic patterns through its family connections. Equations are sensors — they detect what labels hide.",
+        })
+
+    # 6. Signal distortion detection — institutional CORDYCEPS through family overlap
+    detected_distortions = []
+    for fid in families:
+        if fid in SIGNAL_DISTORTIONS:
+            dist = SIGNAL_DISTORTIONS[fid]
+            detected_distortions.append({
+                "family": fid,
+                "distortion": dist["distortion"],
+                "cordyceps_pattern": dist["cordyceps"],
+            })
+    if detected_distortions:
+        shadows.append({
+            "detector": "SHADOW.SIGNAL_DISTORTION",
+            "finding": f"{len(detected_distortions)} signal distortion vulnerabilities via families",
+            "detail": detected_distortions,
+            "implication": "Entity's domain is subject to institutional measurement distortion. These are CORDYCEPS patterns at system scale.",
+        })
+
+    # 7. Mode-switching shadow: is the entity stuck?
     mode = seed.get("mode", "expand")
     energy = seed.get("energy", 0)
     threshold = seed.get("branching_threshold", 0)
@@ -797,6 +863,21 @@ def print_shadows(shadow_result: dict, entity_label: str):
         elif detector == "SHADOW.PHI_AFFINITY":
             print(f"    🌀 {s['finding']}")
             print(f"       {s['detail']}")
+            print(f"       → {s['implication']}")
+        elif detector == "SHADOW.ECONOMIC_INSTRUMENTS":
+            print(f"    📊 {s['finding']}")
+            for eq in s["detail"]:
+                sg = SHAPE_GLYPHS.get(eq["shape"], "")
+                fams = ", ".join(eq["via_families"])
+                print(f"       {eq['equation']:14s}  {eq['name']}")
+                print(f"         {sg} Measures: {eq['measures']}")
+                print(f"         Threshold: {eq['threshold']}  (via {fams})")
+            print(f"       → {s['implication']}")
+        elif detector == "SHADOW.SIGNAL_DISTORTION":
+            print(f"    ⚠️  {s['finding']}")
+            for d in s["detail"]:
+                print(f"       {d['family']}: {d['distortion']}")
+                print(f"         CORDYCEPS: {d['cordyceps_pattern']}")
             print(f"       → {s['implication']}")
         elif detector == "SHADOW.MODE_THRESHOLD":
             print(f"    ⚡ {s['finding']}")

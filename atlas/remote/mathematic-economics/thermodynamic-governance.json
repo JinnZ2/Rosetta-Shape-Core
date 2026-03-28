@@ -1,0 +1,65 @@
+{
+  "id": "MECON.THERMO_GOVERNANCE",
+  "name": "Thermodynamic Governance Framework",
+  "description": "Physics-based analysis of governance and economic systems. Energy accounting before narratives. Enforcement as failure indicator. The collapse equation.",
+  "extracted_from": "JinnZ2/Mathematic-economics",
+  "provenance": {
+    "extracted_from": "JinnZ2/Mathematic-economics",
+    "source_file": "ideology-thermodynamics.md, thermodynamic-governance.md, paradox.md",
+    "license": "CC0-1.0"
+  },
+  "collapse_equation": {
+    "formula": "Distance + Comfort + Authoritarian_Rule + Uniformity_Enforcement = Guaranteed_Collapse",
+    "physics_basis": "Imposing identical rules across varying energy landscapes creates systematic inefficiency. A CUBE applied outside its first-principles scope becomes a cage.",
+    "rosetta_mapping": {
+      "distance": "SHAPE.CUBE scope violation — containment without contact",
+      "comfort": "SHAPE.DODECA sensor suppression — intuition and trust overridden",
+      "authoritarian_rule": "CORDYCEPS.FORCE_SINGLE_SHAPE — one shape forced on all",
+      "uniformity_enforcement": "CORDYCEPS.REMOVE_MERGE_GATES — physics gates bypassed"
+    }
+  },
+  "enforcement_thermodynamics": {
+    "principle": "Enforcement requirements prove energy deficit between rules and local reality",
+    "voluntary_compliance": "Rules aligned with thermodynamic constraints — minimal enforcement needed",
+    "forced_compliance": "Rules violate thermodynamic constraints — enforcement cost escalates",
+    "feedback_loop": "More enforcement → costs accelerate deficit → production drops (energy diverted to enforcement) → more enforcement needed",
+    "rosetta_axiom": "ENERGY_CONSERVATION — energy spent on enforcement is energy not spent on production"
+  },
+  "hidden_labor": {
+    "principle": "Care work, domestic maintenance, emotional support are critical energy flows",
+    "measurement_gap": "GDP and standard metrics exclude these flows",
+    "shadow_type": "measurement_boundary",
+    "rosetta_family": "FAMILY.F05",
+    "implication": "Disconnecting political voice from high-energy contributors creates systemic fragility"
+  },
+  "semantic_paradoxes": [
+    {
+      "name": "Dividend Income Paradox",
+      "structure": "Living entirely from investment returns = structurally identical to receiving redistribution without contribution",
+      "shadow": "Same structure, opposite labels based on who benefits"
+    },
+    {
+      "name": "Collective Ownership Paradox",
+      "structure": "Shareholders collectively owning corporations = capitalist. Workers collectively owning workplaces = socialist.",
+      "shadow": "Structural equivalence, semantic divergence"
+    },
+    {
+      "name": "Risk Asymmetry Paradox",
+      "structure": "Investors claim higher risk justifies higher returns, but risk is diversified and subsidized (bailouts, limited liability). Workers bear concentrated, unprotected risk.",
+      "shadow": "Risk is real but distributed inversely to the narrative"
+    },
+    {
+      "name": "Infrastructure Paradox",
+      "structure": "Every business relies on publicly-funded infrastructure. Genuine independence impossible at scale.",
+      "shadow": "The CUBE is collective. Pretending it isn't is a scope violation."
+    }
+  ],
+  "energy_accounting_method": {
+    "step_1": "Calculate energy inputs (labor, infrastructure, materials, hidden work)",
+    "step_2": "Calculate energy outputs (goods, services, waste, maintenance)",
+    "step_3": "Calculate work requirements (what the system needs to sustain itself)",
+    "step_4": "Compare available capacity to demands",
+    "step_5": "When capacity < requirements, system is unsustainable regardless of narrative",
+    "rosetta_parallel": "This is compute_seed_state() applied to economic systems"
+  }
+}

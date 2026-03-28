@@ -1,0 +1,110 @@
+{
+  "id": "BRIDGE.MATHEMATIC_ECONOMICS",
+  "name": "Mathematic-Economics Bridge",
+  "description": "Integration bridge connecting Mathematic-economics to Rosetta-Shape-Core. Equations are measurement instruments. Signal distortions are equation boundaries. Semantic drift is CORDYCEPS detection. Energy accounting is seed physics applied to economic systems.",
+  "version": "1.0",
+  "source_repo": "JinnZ2/Mathematic-economics",
+  "license": "CC0-1.0",
+
+  "equation_to_family_map": {
+    "description": "Each economic equation maps to Rosetta equation families and shapes. The equation IS a sensor — it measures what standard models miss.",
+    "mappings": [
+      {"equation": "MECON.VE_VL",  "families": ["FAMILY.F05"], "shape": "SHAPE.TETRA",  "sensor_type": "extraction", "detects": "Energy leaving system faster than entering"},
+      {"equation": "MECON.SID",    "families": ["FAMILY.F11"], "shape": "SHAPE.CUBE",   "sensor_type": "dependency", "detects": "Infrastructure collectively maintained"},
+      {"equation": "MECON.RI",     "families": ["FAMILY.F19", "FAMILY.F05"], "shape": "SHAPE.ICOSA", "sensor_type": "distribution", "detects": "Asymmetric energy load"},
+      {"equation": "MECON.DI",     "families": ["FAMILY.F06", "FAMILY.F12"], "shape": "SHAPE.DODECA", "sensor_type": "concentration", "detects": "Network topology collapse"},
+      {"equation": "MECON.LWR",    "families": ["FAMILY.F05"], "shape": "SHAPE.TETRA",  "sensor_type": "extraction", "detects": "Claims exceeding inputs"},
+      {"equation": "MECON.MSI",    "families": ["FAMILY.F11", "FAMILY.F08"], "shape": "SHAPE.CUBE", "sensor_type": "dependency", "detects": "Medium of exchange is collective"},
+      {"equation": "MECON.BSC",    "families": ["FAMILY.F05", "FAMILY.F19"], "shape": "SHAPE.TETRA", "sensor_type": "asymmetry", "detects": "Conservation violation — asymmetric rescue"},
+      {"equation": "MECON.MM",     "families": ["FAMILY.F13"], "shape": "SHAPE.TETRA",  "sensor_type": "amplification", "detects": "Reaction multiplication → instability threshold"},
+      {"equation": "MECON.ISR",    "families": ["FAMILY.F11", "FAMILY.F05"], "shape": "SHAPE.CUBE", "sensor_type": "subsidy", "detects": "Hidden energy transfer"},
+      {"equation": "MECON.UFR",    "families": ["FAMILY.F02", "FAMILY.F05"], "shape": "SHAPE.OCTA", "sensor_type": "flow_direction", "detects": "Directional energy accumulation"},
+      {"equation": "MECON.ER",     "families": ["FAMILY.F05"], "shape": "SHAPE.TETRA",  "sensor_type": "extraction", "detects": "Source depletion rate"},
+      {"equation": "MECON.HHI",    "families": ["FAMILY.F12"], "shape": "SHAPE.ICOSA",  "sensor_type": "concentration", "detects": "Topological collapse toward monopoly"},
+      {"equation": "MECON.SD",     "families": ["FAMILY.F03"], "shape": "SHAPE.ICOSA",  "sensor_type": "drift", "detects": "Information loss via definition shift — CORDYCEPS vector"}
+    ]
+  },
+
+  "distortion_to_shadow_map": {
+    "description": "Each signal distortion is an equation boundary — where standard models stop measuring. These map directly to shadow-hunting boundary types.",
+    "mappings": [
+      {"distortion": "DISTORT.DISTANCE_UNIT",        "shadow_type": "scale_boundary",       "boundary": "Non-linear cost treated as linear"},
+      {"distortion": "DISTORT.INTERCHANGEABILITY",    "shadow_type": "measurement_boundary",  "boundary": "Variable skill treated as constant"},
+      {"distortion": "DISTORT.FATIGUE_BY_TIME",       "shadow_type": "measurement_boundary",  "boundary": "Energy depletion not clock-linear"},
+      {"distortion": "DISTORT.INVOLVEMENT_VS_CAUSATION", "shadow_type": "noise_boundary",     "boundary": "Causality attributed to wrong source"},
+      {"distortion": "DISTORT.SEASONAL_SMOOTHING",    "shadow_type": "scale_boundary",        "boundary": "Averaging destroys peak information"},
+      {"distortion": "DISTORT.AUTOMATION_TRAINING",    "shadow_type": "discipline_boundary",   "boundary": "Training distribution != deployment"},
+      {"distortion": "DISTORT.FLAT_COMPENSATION",      "shadow_type": "efficiency_boundary",   "boundary": "Work not accounted for"},
+      {"distortion": "DISTORT.KNOWLEDGE_HIERARCHY",    "shadow_type": "discipline_boundary",   "boundary": "Measurement rejected by social position"},
+      {"distortion": "DISTORT.SELF_PRESERVATION",      "shadow_type": "measurement_boundary",  "boundary": "Optimization target misaligned"}
+    ]
+  },
+
+  "distortion_to_cordyceps_map": {
+    "description": "Each signal distortion maps to a CORDYCEPS parasitic pattern. The distortions are institutional-scale parasitic overrides.",
+    "mappings": [
+      {"distortion": "DISTORT.DISTANCE_UNIT",        "cordyceps": "SUPPRESS_EXPLORATION"},
+      {"distortion": "DISTORT.INTERCHANGEABILITY",    "cordyceps": "FORCE_SINGLE_SHAPE"},
+      {"distortion": "DISTORT.FATIGUE_BY_TIME",       "cordyceps": "STRIP_SENSORS"},
+      {"distortion": "DISTORT.INVOLVEMENT_VS_CAUSATION", "cordyceps": "HIDE_PROVENANCE"},
+      {"distortion": "DISTORT.SEASONAL_SMOOTHING",    "cordyceps": "SUPPRESS_EXPLORATION"},
+      {"distortion": "DISTORT.AUTOMATION_TRAINING",    "cordyceps": "FORCE_SINGLE_SHAPE"},
+      {"distortion": "DISTORT.FLAT_COMPENSATION",      "cordyceps": "STRIP_SENSORS"},
+      {"distortion": "DISTORT.KNOWLEDGE_HIERARCHY",    "cordyceps": "ORACLE_MONOPOLY"},
+      {"distortion": "DISTORT.SELF_PRESERVATION",      "cordyceps": "WEAPONIZE_CONTAINMENT"}
+    ]
+  },
+
+  "collapse_to_axiom_map": {
+    "description": "The collapse equation maps to Rosetta's immutable axioms.",
+    "collapse_formula": "Distance + Comfort + Authoritarian_Rule + Uniformity_Enforcement = Collapse",
+    "axiom_violations": [
+      {"term": "Distance",              "axiom": "CAUSALITY",            "violation": "Decisions made without observing consequences"},
+      {"term": "Comfort",               "axiom": "IMPERFECTION",         "violation": "Pretending equilibrium is achievable"},
+      {"term": "Authoritarian_Rule",     "axiom": "AUTONOMY",             "violation": "Overriding self-governance of subsystems"},
+      {"term": "Uniformity_Enforcement", "axiom": "ENERGY_CONSERVATION",  "violation": "Energy diverted from production to enforcement"}
+    ]
+  },
+
+  "energy_accounting_to_seed_map": {
+    "description": "The 5-step energy accounting method IS compute_seed_state() for economic systems.",
+    "step_mapping": [
+      {"step": "Calculate energy inputs",    "seed_equivalent": "Family vertex loading — which PAD axes receive energy"},
+      {"step": "Calculate energy outputs",   "seed_equivalent": "Amplitude distribution — where energy concentrates"},
+      {"step": "Calculate work requirements", "seed_equivalent": "Complexity cost — Shannon entropy gap"},
+      {"step": "Compare capacity to demands", "seed_equivalent": "Energy vs branching threshold — can you explore or must you expand?"},
+      {"step": "Sustainability check",        "seed_equivalent": "Mode determination — explore (sustainable) or expand (consolidate)"}
+    ]
+  },
+
+  "cross_bridge_connections": {
+    "description": "Where mathematic-economics touches other bridges",
+    "connections": [
+      {
+        "target_bridge": "BRIDGE.TAF_WIRING",
+        "connection": "TAF axioms ARE the physics that the 13 equations measure against. Enforcement thermodynamics = TAF energy conservation.",
+        "shared_families": ["FAMILY.F05"]
+      },
+      {
+        "target_bridge": "BRIDGE.SHADOW_HUNTING",
+        "connection": "Signal distortions are equation boundaries. The shadow catalog IS a distortion catalog. Hunt the same way.",
+        "shared_families": ["FAMILY.F14"]
+      },
+      {
+        "target_bridge": "BRIDGE.AI_ARENA",
+        "connection": "BSC and DI equations map to trust mechanics — asymmetric bailouts violate trust conservation. Power concentration = oracle monopoly.",
+        "shared_families": ["FAMILY.F06", "FAMILY.F19"]
+      },
+      {
+        "target_bridge": "BRIDGE.SEED_PHYSICS",
+        "connection": "Energy accounting method = seed growth computation applied to economies. Same octahedral model, different domain.",
+        "shared_families": ["FAMILY.F05", "FAMILY.F02"]
+      },
+      {
+        "target_bridge": "BRIDGE.THERMODYNAMIC_VALIDATION",
+        "connection": "The collapse equation violates all three thermodynamic laws: energy conservation, irreversibility, and imperfection.",
+        "shared_families": ["FAMILY.F05", "FAMILY.F08"]
+      }
+    ]
+  }
+}

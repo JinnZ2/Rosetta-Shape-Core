@@ -1,0 +1,222 @@
+{
+  "id": "MECON.EQUATIONS",
+  "name": "Structural Measurement Equations",
+  "description": "13 equations measuring observable economic system properties independent of labeling conventions. Physics first, labels second.",
+  "extracted_from": "JinnZ2/Mathematic-economics",
+  "provenance": {
+    "extracted_from": "JinnZ2/Mathematic-economics",
+    "source_file": "equations.yaml",
+    "license": "CC0-1.0",
+    "version": "1.0"
+  },
+  "core_thesis": "Economic systems should be analyzed by measuring energy flows, time allocation, and physical constraints rather than through semantic labels that obscure structural realities.",
+  "equations": [
+    {
+      "id": "MECON.VE_VL",
+      "name": "Value Extraction to Value Labor Ratio",
+      "formula": "VE / VL",
+      "current_value": 0.4,
+      "range": [0, null],
+      "thresholds": {
+        "productive_capitalism": {"max": 0.1},
+        "extraction": {"min": 0.3}
+      },
+      "rosetta_families": ["FAMILY.F05"],
+      "rosetta_shape": "SHAPE.TETRA",
+      "physics_principle": "Energy conservation — labor creates value, extraction diverts it. When VE/VL exceeds threshold, energy is leaving the system faster than it enters.",
+      "shadow_type": "efficiency_boundary"
+    },
+    {
+      "id": "MECON.SID",
+      "name": "Socialist Infrastructure Dependency",
+      "formula": "C / (C + P)",
+      "current_value": 0.60,
+      "range": [0, 1],
+      "thresholds": {
+        "majority_collective": {"min": 0.5},
+        "essentially_collective": {"min": 0.8}
+      },
+      "rosetta_families": ["FAMILY.F11"],
+      "rosetta_shape": "SHAPE.CUBE",
+      "physics_principle": "Structural dependency — CUBE provides containment and stability. Infrastructure IS the cube. When SID > 0.5, the structure is collectively maintained.",
+      "shadow_type": "measurement_boundary"
+    },
+    {
+      "id": "MECON.RI",
+      "name": "Risk Distribution Inequality",
+      "formula": "(Risk_workers / N_workers) / (Risk_investors / N_investors)",
+      "current_value": 4.14,
+      "range": [0, null],
+      "thresholds": {
+        "equal_risk": 1.0,
+        "worker_excess": {"min": 3.0}
+      },
+      "rosetta_families": ["FAMILY.F19", "FAMILY.F05"],
+      "rosetta_shape": "SHAPE.ICOSA",
+      "physics_principle": "Statistical distribution — risk is energy. Asymmetric risk = asymmetric energy load. Conservation requires the risk to go somewhere.",
+      "shadow_type": "scale_boundary"
+    },
+    {
+      "id": "MECON.DI",
+      "name": "Democracy Index (Power Concentration)",
+      "formula": "Var(P_1, P_2, ..., P_n) where P_i = W_i * I_i",
+      "current_value": "~100000:1 power ratio",
+      "range": [0, null],
+      "thresholds": {
+        "perfect_democracy": 0,
+        "pure_oligarchy": "infinite"
+      },
+      "rosetta_families": ["FAMILY.F06", "FAMILY.F12"],
+      "rosetta_shape": "SHAPE.DODECA",
+      "physics_principle": "Network topology — power concentration is a topological invariant. When variance approaches infinity, the network is no longer distributed.",
+      "shadow_type": "discipline_boundary"
+    },
+    {
+      "id": "MECON.LWR",
+      "name": "Labor Wealth Ratio",
+      "formula": "WL / WO",
+      "current_value": 0.25,
+      "range": [0, null],
+      "thresholds": {
+        "working_class": {"min": 1.0},
+        "capital_class": {"max": 1.0}
+      },
+      "rosetta_families": ["FAMILY.F05"],
+      "rosetta_shape": "SHAPE.TETRA",
+      "physics_principle": "Energy accounting — labor is energy input, ownership is energy claim. When LWR < 1, claims exceed inputs.",
+      "shadow_type": "efficiency_boundary"
+    },
+    {
+      "id": "MECON.MSI",
+      "name": "Money Socialist Index",
+      "formula": "government_created_money / total_money_supply",
+      "current_value": 0.98,
+      "range": [0, 1],
+      "thresholds": {
+        "predominantly_collective": {"min": 0.9}
+      },
+      "rosetta_families": ["FAMILY.F11", "FAMILY.F08"],
+      "rosetta_shape": "SHAPE.CUBE",
+      "physics_principle": "Medium of exchange is infrastructure. CUBE contains and structures. 98% collectively originated = the medium itself is collective.",
+      "shadow_type": "measurement_boundary"
+    },
+    {
+      "id": "MECON.BSC",
+      "name": "Bailout Socialism Coefficient",
+      "formula": "government_rescue_funds / private_losses",
+      "current_value": 3.5,
+      "range": [0, null],
+      "thresholds": {
+        "pure_market": 0,
+        "full_coverage": 1.0,
+        "super_coverage": {"min": 1.0}
+      },
+      "rosetta_families": ["FAMILY.F05", "FAMILY.F19"],
+      "rosetta_shape": "SHAPE.TETRA",
+      "physics_principle": "Asymmetric energy transfer. When BSC > 1, more energy flows to rescue than was lost. Conservation violated — the energy comes from somewhere (collective).",
+      "shadow_type": "noise_boundary"
+    },
+    {
+      "id": "MECON.MM",
+      "name": "Money Multiplier",
+      "formula": "1 / reserve_requirement",
+      "current_value": 10,
+      "range": [1, null],
+      "thresholds": {
+        "highly_collective": {"min": 5}
+      },
+      "rosetta_families": ["FAMILY.F13"],
+      "rosetta_shape": "SHAPE.TETRA",
+      "physics_principle": "Reaction amplification — fractional reserve is a multiplier reaction. TETRA boundary: when does multiplication become instability?",
+      "shadow_type": "scale_boundary"
+    },
+    {
+      "id": "MECON.ISR",
+      "name": "Infrastructure Subsidy Ratio",
+      "formula": "market_value_of_public_infrastructure_used / cost_paid",
+      "current_value": "5-20x",
+      "range": [1, null],
+      "thresholds": {
+        "moderate_subsidy": {"min": 5},
+        "high_subsidy": {"min": 10}
+      },
+      "rosetta_families": ["FAMILY.F11", "FAMILY.F05"],
+      "rosetta_shape": "SHAPE.CUBE",
+      "physics_principle": "Energy subsidy — receiving 5-20x more infrastructure value than cost paid = hidden energy transfer. The shadow is the subsidy.",
+      "shadow_type": "efficiency_boundary"
+    },
+    {
+      "id": "MECON.UFR",
+      "name": "Upward Flow Rate",
+      "formula": "d(top_1pct_wealth)/dt / d(bottom_50pct_wealth)/dt",
+      "current_value": 30,
+      "range": [0, null],
+      "thresholds": {
+        "balanced": 1.0,
+        "upward_flow": {"min": 1.0}
+      },
+      "rosetta_families": ["FAMILY.F02", "FAMILY.F05"],
+      "rosetta_shape": "SHAPE.OCTA",
+      "physics_principle": "Flow direction — energy flows have direction. When UFR = 30, accumulation rate is 30x faster at the top. Flow is not balanced.",
+      "shadow_type": "scale_boundary"
+    },
+    {
+      "id": "MECON.ER",
+      "name": "Extraction Rate",
+      "formula": "(revenue - labor_costs) / revenue",
+      "current_value": 0.65,
+      "range": [0, 1],
+      "thresholds": {
+        "labor_favored": {"max": 0.35},
+        "high_extraction": {"min": 0.55}
+      },
+      "rosetta_families": ["FAMILY.F05"],
+      "rosetta_shape": "SHAPE.TETRA",
+      "physics_principle": "Energy extraction — how much of the system's output returns to the source that created it. Extraction > 0.55 = source is being depleted.",
+      "shadow_type": "efficiency_boundary"
+    },
+    {
+      "id": "MECON.HHI",
+      "name": "Herfindahl-Hirschman Index",
+      "formula": "sum(market_share_i^2) for all firms i",
+      "current_value": 3500,
+      "range": [0, 10000],
+      "thresholds": {
+        "competitive": {"max": 1500},
+        "moderate": [1500, 2500],
+        "high_concentration": {"min": 2500},
+        "monopoly": 10000
+      },
+      "rosetta_families": ["FAMILY.F12"],
+      "rosetta_shape": "SHAPE.ICOSA",
+      "physics_principle": "Network concentration — HHI measures topological collapse. Competitive = distributed network. Monopoly = single node. Same physics as CORDYCEPS monoculture.",
+      "shadow_type": "discipline_boundary"
+    },
+    {
+      "id": "MECON.SD",
+      "name": "Semantic Drift Rate",
+      "formula": "|Definition(t2) - Definition(t1)| / (t2 - t1)",
+      "current_value": "2.2% per year for capitalism",
+      "range": [0, null],
+      "thresholds": {
+        "stable": {"max": 0.5},
+        "drifting": {"min": 1.0}
+      },
+      "rosetta_families": ["FAMILY.F03"],
+      "rosetta_shape": "SHAPE.ICOSA",
+      "physics_principle": "Information entropy — stable definitions have low entropy. Drifting definitions = information loss = manipulation vector. CORDYCEPS detector.",
+      "shadow_type": "noise_boundary"
+    }
+  ],
+  "composite": {
+    "id": "MECON.OSDI",
+    "name": "Overall Socialist Dependence Index",
+    "formula": "(SID * 0.3) + (MSI * 0.2) + (ISR_norm * 0.2) + (BSC_norm * 0.15) + (MM_norm * 0.15)",
+    "current_value": 0.776,
+    "range": [0, 1],
+    "thresholds": {
+      "predominantly_collective": {"min": 0.7}
+    },
+    "sensitivity_note": "Weights are not empirically derived. Sensitivity analysis should test equal weighting, PCA-derived weighting, and domain-expert weighting."
+  }
+}
