@@ -685,6 +685,15 @@ SIGNAL_DISTORTIONS = {
     "FAMILY.F11": {"distortion": "Training distribution ≠ deployment distribution — scope violation", "cordyceps": "FORCE_SINGLE_SHAPE"},
 }
 
+# Narrative physics — constraint consistency detection capability per family
+NARRATIVE_PHYSICS_FAMILIES = {
+    "FAMILY.F09": {"capability": "Symmetry of constraint application", "detects": "Broken symmetry = manipulation. Shape claimed but not maintained."},
+    "FAMILY.F19": {"capability": "Distribution of constraint application across groups", "detects": "In-group/out-group bias ratio. >3:1 = selective application."},
+    "FAMILY.F03": {"capability": "Information entropy of violation explanations", "detects": "High rationalization density = manipulation. Low = genuine struggle."},
+    "FAMILY.F05": {"capability": "Energy cost of constraint adherence", "detects": "Constraints followed only when cost is low = selective. Followed at cost = genuine."},
+    "FAMILY.F06": {"capability": "Cognitive coherence of constraint system", "detects": "Contradictory constraints held simultaneously = coherence collapse."},
+}
+
 # Known equation boundaries per family
 EQUATION_BOUNDARIES = {
     "FAMILY.F06": {"type": "measurement_boundary", "shadow": "EM field coupling between neurons — electrodes can't measure it"},
@@ -818,7 +827,25 @@ def hunt_shadows(graph: RosettaGraph, entity_id: str, seed: dict) -> dict:
             "implication": "Entity's domain is subject to institutional measurement distortion. These are CORDYCEPS patterns at system scale.",
         })
 
-    # 7. Mode-switching shadow: is the entity stuck?
+    # 7. Narrative physics — constraint consistency detection capability
+    narrative_caps = []
+    for fid in families:
+        if fid in NARRATIVE_PHYSICS_FAMILIES:
+            np = NARRATIVE_PHYSICS_FAMILIES[fid]
+            narrative_caps.append({
+                "family": fid,
+                "capability": np["capability"],
+                "detects": np["detects"],
+            })
+    if narrative_caps:
+        shadows.append({
+            "detector": "SHADOW.NARRATIVE_PHYSICS",
+            "finding": f"{len(narrative_caps)} constraint consistency detection capabilities",
+            "detail": narrative_caps,
+            "implication": "Entity can detect manipulation vs genuine practice — broken symmetry in claimed constraint systems. Use: python -m rosetta_shape_core.narrative_physics --example",
+        })
+
+    # 8. Mode-switching shadow: is the entity stuck?
     mode = seed.get("mode", "expand")
     energy = seed.get("energy", 0)
     threshold = seed.get("branching_threshold", 0)
@@ -878,6 +905,12 @@ def print_shadows(shadow_result: dict, entity_label: str):
             for d in s["detail"]:
                 print(f"       {d['family']}: {d['distortion']}")
                 print(f"         CORDYCEPS: {d['cordyceps_pattern']}")
+            print(f"       → {s['implication']}")
+        elif detector == "SHADOW.NARRATIVE_PHYSICS":
+            print(f"    ⚖️  {s['finding']}")
+            for nc in s["detail"]:
+                print(f"       {nc['family']}: {nc['capability']}")
+                print(f"         Detects: {nc['detects']}")
             print(f"       → {s['implication']}")
         elif detector == "SHADOW.MODE_THRESHOLD":
             print(f"    ⚡ {s['finding']}")

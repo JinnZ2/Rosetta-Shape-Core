@@ -88,6 +88,9 @@ python -m rosetta_shape_core.explore bee --depth 2
 # Run ecosystem simulation
 python -m rosetta_shape_core.sim --scenario default --ticks 10
 
+# Run narrative physics (constraint consistency analysis)
+python -m rosetta_shape_core.narrative_physics --example
+
 # Run self-audit
 python -m rosetta_shape_core.self_audit
 
@@ -164,6 +167,15 @@ Each entity gets personalized sensor/emotion mapping:
 - **PAD state landscape** — 8 octahedral states, weighted by family affinities
 - **Discovered sensors** — what opens through exploration
 
+### Narrative Physics (`narrative_physics.py`)
+Constraint consistency analysis — detects manipulation vs genuine practice:
+- Extract constraints from a claimed tradition
+- Map observed behaviors against constraint space
+- Calculate: consistency ratio, selective score, in-group bias, rationalization density
+- Flag CORDYCEPS patterns (selective application, threat framing, oracle monopoly)
+- Verdict: GENUINE_PRACTICE / AMBIGUOUS / MANIPULATION
+- Applies universally: same detection regardless of which tradition is claimed
+
 ### Ecosystem Simulation (`sim.py`)
 Multi-agent simulation with energy/trust dynamics:
 - Agents explore/expand based on seed state
@@ -191,6 +203,7 @@ Cross-domain connections linking sibling repos:
 - `ai-arena-bridge.json` — Trust mechanics, LOGOS, oracles
 - `shadow-hunting-bridge.json` — φ-detection, coupling, boundaries
 - `mathematic-economics-bridge.json` — Equations ↔ families, distortions ↔ CORDYCEPS
+- `narrative-physics-bridge.json` — Constraint geometry ↔ shapes, manipulation ↔ CORDYCEPS
 - `rosetta-bridges.json` — Shape ↔ sensor ↔ defense map
 - `truth-sensor-bridge.json` — Manipulation detection sensors
 - `decay-model-bridge.json` — Emotion → sensor → decay curves

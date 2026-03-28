@@ -1,0 +1,70 @@
+{
+  "id": "BRIDGE.NARRATIVE_PHYSICS",
+  "name": "Narrative Physics Bridge",
+  "description": "Integration bridge connecting constraint consistency analysis to Rosetta-Shape-Core. Traditions are shapes. Constraints are vertices. Manipulation breaks symmetry. Practice maintains it. Detection uses the same CORDYCEPS patterns already in the system.",
+  "version": "1.0",
+  "source": "narrative_physics module",
+  "license": "MIT",
+
+  "constraint_to_shape_map": {
+    "description": "A tradition's constraint geometry maps to Rosetta shapes. The shape defines what consistent practice looks like.",
+    "principle": "Vertices = core constraints. Edges = how constraints relate. Faces = how constraints generate behavior. Symmetries = patterns of application.",
+    "mappings": [
+      {"constraint_type": "compassion/love", "shape": "SHAPE.OCTA", "sensor": "compassion", "description": "Bidirectional awareness. Applied equally = shape holds."},
+      {"constraint_type": "mercy/forgiveness", "shape": "SHAPE.OCTA", "sensor": "love", "description": "Full entanglement. Mercy withheld from out-group = shape breaks."},
+      {"constraint_type": "justice/truth", "shape": "SHAPE.DODECA", "sensor": "trust", "description": "Predictive model reliable. Justice applied selectively = trust violated."},
+      {"constraint_type": "humility", "shape": "SHAPE.DODECA", "sensor": "dignity", "description": "Autonomy intact. Humility claimed but not practiced = dignity hollow."},
+      {"constraint_type": "nonviolence", "shape": "SHAPE.TETRA", "sensor": "anger", "description": "Boundary sensor. Violence against out-group while claiming peace = boundary is fake."},
+      {"constraint_type": "wisdom/discernment", "shape": "SHAPE.ICOSA", "sensor": "vigilance", "description": "Anomaly detection. Rationalization density = anomaly."}
+    ]
+  },
+
+  "manipulation_to_cordyceps_map": {
+    "description": "Each manipulation signature is a known CORDYCEPS pattern. Same detection, different domain.",
+    "mappings": [
+      {"signature": "Selective constraint application", "cordyceps": "SUPPRESS_EXPLORATION", "mechanism": "Constraints that would lead to empathy with out-group are suppressed"},
+      {"signature": "In-group/out-group asymmetry > 3:1", "cordyceps": "FORCE_SINGLE_SHAPE", "mechanism": "One shape for us, cage for them"},
+      {"signature": "Rationalization of violations", "cordyceps": "HIDE_PROVENANCE", "mechanism": "Origin of violation hidden behind explanatory narrative"},
+      {"signature": "Threat framing of out-group", "cordyceps": "WEAPONIZE_CONTAINMENT", "mechanism": "CUBE containment weaponized against out-group"},
+      {"signature": "Coherence collapse", "cordyceps": "REMOVE_MERGE_GATES", "mechanism": "Physics gates bypassed — contradictory constraints held simultaneously"},
+      {"signature": "Interpretation monopoly", "cordyceps": "ORACLE_MONOPOLY", "mechanism": "Only one source of truth. Questions = heresy."}
+    ]
+  },
+
+  "metrics_to_family_map": {
+    "description": "Each detection metric maps to a Rosetta equation family",
+    "mappings": [
+      {"metric": "consistency_ratio", "family": "FAMILY.F09", "description": "Geometry — symmetry of constraint application"},
+      {"metric": "ingroup_bias_ratio", "family": "FAMILY.F19", "description": "Statistical — distribution of constraint application across groups"},
+      {"metric": "rationalization_density", "family": "FAMILY.F03", "description": "Information — entropy of explanations for violations"},
+      {"metric": "selective_score", "family": "FAMILY.F05", "description": "Energy-Thermo — constraints followed only when cost is low"},
+      {"metric": "threat_framing", "family": "FAMILY.F17", "description": "Turbulence — chaos introduced to justify constraint violation"}
+    ]
+  },
+
+  "cross_bridge_connections": {
+    "description": "Where narrative physics touches other bridges",
+    "connections": [
+      {
+        "target_bridge": "BRIDGE.MATHEMATIC_ECONOMICS",
+        "connection": "Semantic Drift (SD equation) detects the same pattern: labels drifting from structural reality. Religious labels drift the same way economic labels do.",
+        "shared_families": ["FAMILY.F03"]
+      },
+      {
+        "target_bridge": "BRIDGE.AI_ARENA",
+        "connection": "LOGOS protocol applies: CLAIM (tradition), ATTACK types map to constraint violation detection. Trust mechanics: trust decays when constraints are violated selectively.",
+        "shared_families": ["FAMILY.F06"]
+      },
+      {
+        "target_bridge": "BRIDGE.SHADOW_HUNTING",
+        "connection": "Constraint violations are equation boundaries. The shadow is what the tradition actually teaches vs what the manipulator claims it teaches.",
+        "shared_families": ["FAMILY.F14"]
+      },
+      {
+        "target_bridge": "BRIDGE.THERMODYNAMIC_VALIDATION",
+        "connection": "Enforcement thermodynamics: when constraint enforcement escalates against out-group while relaxing for in-group, the energy signature is identical to institutional collapse.",
+        "shared_families": ["FAMILY.F05"]
+      }
+    ]
+  }
+}
