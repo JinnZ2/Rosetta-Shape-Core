@@ -237,8 +237,10 @@ def _find_bridge_connections(graph, entity_id):
     lid_id = ent.get("lid_id", "")
 
     for bid, bdata in graph.bridges.items():
-        # check cross_bridge_connections
-        for conn in bdata.get("cross_bridge_connections", {}).get("connections", []):
+        # check cross_bridge_connections (may be dict with "connections" key or a list)
+        cbc = bdata.get("cross_bridge_connections", {})
+        conn_list = cbc if isinstance(cbc, list) else cbc.get("connections", [])
+        for conn in conn_list:
             if conn.get("lid_entity") == lid_id or conn.get("rosetta_id") == entity_id:
                 connections.append({
                     "type": "bridge_connection",
@@ -849,7 +851,38 @@ def hunt_shadows(graph: RosettaGraph, entity_id: str, seed: dict) -> dict:
             "implication": "Entity can detect manipulation vs genuine practice — broken symmetry in claimed constraint systems. Use: python -m rosetta_shape_core.narrative_physics --example",
         })
 
-    # 8. Mode-switching shadow: is the entity stuck?
+    # 8. Holographic projection — boundary/containment families detect holographic patterns
+    holo_families = {"FAMILY.F08", "FAMILY.F09", "FAMILY.F01"}
+    holo_overlap = holo_families & set(families)
+    if len(holo_overlap) >= 2:
+        shadows.append({
+            "detector": "SHADOW.HOLOGRAPHIC_PROJECTION",
+            "finding": f"Entity has {len(holo_overlap)} holographic families: {', '.join(sorted(holo_overlap))}",
+            "detail": {
+                "capability": "Holographic boundary detection",
+                "description": "What's encoded at the boundary reveals interior structure. Problem on the surface, solution at the center.",
+                "families_active": sorted(holo_overlap),
+                "source": "Mandala-Computing holographic_mandala.py",
+            },
+            "implication": "Entity can detect holographic patterns — boundary conditions that fully determine interior state. Like how a tradition's public claims reveal its internal structure.",
+        })
+
+    # 9. Glyph computation — geometry + particle families enable native octahedral arithmetic
+    glyph_families = {"FAMILY.F09", "FAMILY.F10"}
+    glyph_overlap = glyph_families & set(families)
+    if len(glyph_overlap) >= 2:
+        shadows.append({
+            "detector": "SHADOW.GLYPH_COMPUTATION",
+            "finding": "Entity has geometry + particle families — native glyph arithmetic available",
+            "detail": {
+                "capability": "Octahedral arithmetic",
+                "description": "Native base-8 computation in glyph space. Numbers are glyph sequences. Primes are irreducible sequences. PHI-weighted number line available.",
+                "source": "Mandala-Computing octahedral_arithmetic.py",
+            },
+            "implication": "Entity can compute natively in octahedral space — arithmetic without decimal bottleneck. Primes appear as irreducible geometric patterns.",
+        })
+
+    # 10. Mode-switching shadow: is the entity stuck?
     mode = seed.get("mode", "expand")
     energy = seed.get("energy", 0)
     threshold = seed.get("branching_threshold", 0)
@@ -915,6 +948,16 @@ def print_shadows(shadow_result: dict, entity_label: str):
             for nc in s["detail"]:
                 print(f"       {nc['family']}: {nc['capability']}")
                 print(f"         Detects: {nc['detects']}")
+            print(f"       → {s['implication']}")
+        elif detector == "SHADOW.HOLOGRAPHIC_PROJECTION":
+            print(f"    🔮 {s['finding']}")
+            d = s["detail"]
+            print(f"       {d['capability']}: {d['description']}")
+            print(f"       → {s['implication']}")
+        elif detector == "SHADOW.GLYPH_COMPUTATION":
+            print(f"    🔢 {s['finding']}")
+            d = s["detail"]
+            print(f"       {d['capability']}: {d['description']}")
             print(f"       → {s['implication']}")
         elif detector == "SHADOW.MODE_THRESHOLD":
             print(f"    ⚡ {s['finding']}")
