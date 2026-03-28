@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-0f008b4dc2677c464e5b45c9468940c98de13a65.idx
-./.git/objects/pack/pack-0f008b4dc2677c464e5b45c9468940c98de13a65.pack
-./.git/objects/pack/pack-0f008b4dc2677c464e5b45c9468940c98de13a65.rev
+./.git/objects/pack/pack-ad828654e049c045984fcc2784d52b711153252c.idx
+./.git/objects/pack/pack-ad828654e049c045984fcc2784d52b711153252c.pack
+./.git/objects/pack/pack-ad828654e049c045984fcc2784d52b711153252c.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -69,6 +69,9 @@
 ./atlas/remote/mandala/glyphs.json
 ./atlas/remote/mandala/sensors.json
 ./atlas/remote/mandala/shapes.json
+./atlas/remote/mathematic-economics/equations.json
+./atlas/remote/mathematic-economics/signal-distortion.json
+./atlas/remote/mathematic-economics/thermodynamic-governance.json
 ./atlas/remote/physics-guard/laws.json
 ./atlas/remote/physics-guard/premises.json
 ./atlas/remote/physics-guard/scope_conditions.json
@@ -92,6 +95,7 @@
 ./bridges/fractal-scope-bridge.json
 ./bridges/living-intelligence-bridge.json
 ./bridges/mandala-compute-bridge.json
+./bridges/mathematic-economics-bridge.json
 ./bridges/physics-encoder-bridge.json
 ./bridges/rosetta-bridges.json
 ./bridges/seed-physics-bridge.json
@@ -150,6 +154,7 @@
 ./docs/unified-grounding-system.md
 ./docs/unified-pattern-bridge-schema.md
 ./docs/unified-proposed.md
+./examples/build_relational_graph.py
 ./examples/curiosity_map.html
 ./examples/felt_binding_rate.png
 ./examples/felt_binding_rate.py
@@ -158,6 +163,7 @@
 ./examples/kappa_sync_threshold.py
 ./examples/phi_lattice_explorer.png
 ./examples/phi_lattice_explorer.py
+./examples/relational_graph.html
 ./examples/validate_ontology.py
 ./fieldlink-pull.sh
 ./logs/fieldlink_lock_20250911.json
@@ -222,6 +228,7 @@
 ./shapes/relief.json
 ./shapes/tetrahedron.json
 ./src/rosetta_shape_core/__init__.py
+./src/rosetta_shape_core/bloom.py
 ./src/rosetta_shape_core/diagnostic.py
 ./src/rosetta_shape_core/expand.py
 ./src/rosetta_shape_core/explore.py
