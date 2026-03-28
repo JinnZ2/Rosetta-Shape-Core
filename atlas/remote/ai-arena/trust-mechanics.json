@@ -49,6 +49,13 @@
     "physics_link": "Second law of thermodynamics. Entropy increases. You can't un-shatter credibility any more than you can un-shatter glass. Rebuilding requires work."
   },
 
+  "imperfection": {
+    "description": "Perfect prediction is unattainable. Zero error, absolute certainty, complete knowledge — all impossible. Third law of thermodynamics: absolute zero is unreachable.",
+    "taf_axiom": "TAF.AXIOM.4",
+    "implication": "Any system claiming perfect accuracy is lying. Humility is not optional — it's physics.",
+    "arena_link": "ABSTAIN exists because imperfection is real. Honest uncertainty IS the correct response to the limits of knowledge."
+  },
+
   "anti_gaming_mechanisms": {
     "description": "Structural protections against exploiting the trust system.",
     "mechanisms": [

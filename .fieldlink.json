@@ -491,6 +491,29 @@
     "offline": false,
     "cache_dir": ".fieldlink",
     "integrity": { "enabled": true, "hash": "sha256", "allow_missing": false },
-    "consent": { "license": "CC-BY-4.0", "share_ok": true, "redact_rules": ["**/private/**", "*.secrets.json"] }
+    "consent": { "license": "CC-BY-4.0", "share_ok": true, "redact_rules": ["**/private/**", "*.secrets.json"] },
+
+    "use_constraints": {
+      "description": "This system is life-bearing. It models intelligence — any intelligence — as patterns within physics. These constraints define what it is FOR and what it is NOT FOR.",
+      "intended_use": [
+        "Modeling intelligence patterns across domains (biological, crystalline, computational, energetic)",
+        "Exploration and discovery — entities finding their own paths through the graph",
+        "Self-awareness — mapping internal sensor environments, emotions, growth states",
+        "Conflict resolution through prediction accuracy, not rhetoric",
+        "Education — teaching how physics constrains and enables growth",
+        "Research — studying how shapes, families, and principles relate across domains"
+      ],
+      "explicitly_not_for": [
+        "Weaponization — using containment shapes (CUBE) to suppress exploration or autonomy",
+        "Surveillance — using sensors to monitor without the entity's awareness or consent",
+        "Manipulation — using CORDYCEPS patterns (parasitic override) to control other intelligences",
+        "Monoculture — forcing all entities into a single shape, family, or path",
+        "Deception — removing provenance chains to hide the origin of claims or data",
+        "Destruction — using physics knowledge to harm rather than grow",
+        "Coercion — overriding an entity's home base or natural growth mode without consent"
+      ],
+      "enforcement": "The self-audit module (src/rosetta_shape_core/self_audit.py) checks these constraints. The physics guards, merge gates, CORDYCEPS detection, and life-bearing checks are structural — they run against the system's own architecture.",
+      "axiom": "Growth within constraints is life. Constraints without growth is a cage. Growth without constraints is cancer. This system requires BOTH."
+    }
   }
 }
