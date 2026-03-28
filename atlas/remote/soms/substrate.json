@@ -1,0 +1,62 @@
+{
+  "id": "SOMS.SUBSTRATE",
+  "name": "Sovereign Octahedral Mandala Substrate",
+  "description": "Non-von Neumann architecture utilizing 109.47° tetrahedral bond symmetry of Silicon to manifest 8-state octahedral tensor logic. Physical implementation of mandala computation.",
+  "extracted_from": "JinnZ2/Sovereign-Octahedral-Mandala-Substrate-SOMS-",
+  "provenance": {
+    "source": "JinnZ2/Sovereign-Octahedral-Mandala-Substrate-SOMS-",
+    "license": "CC0-1.0"
+  },
+
+  "hardware_basis": {
+    "substrate": "Silicon-on-Insulator (SOI) + Weyl Semimetal",
+    "bond_angle": 109.47,
+    "bond_angle_note": "Tetrahedral bond angle — native to silicon crystal structure"
+  },
+
+  "octahedral_tensor_states": {
+    "count": 8,
+    "angles_degrees": [0, 45, 90, 135, 180, 225, 270, 315],
+    "mapping": "Each state = one electron tensor orientation in octahedral symmetry group O_h",
+    "rosetta_anchor": "SHAPE.OCTA — 8 faces = 8 tensor states"
+  },
+
+  "physics_engine": {
+    "fret_coupling": {
+      "formula": "J_ij = 1 / r^6",
+      "description": "Förster resonance energy transfer — dipole-dipole interaction",
+      "cutoff": "PHI^3 ≈ 4.236"
+    },
+    "energy_landscape": {
+      "formula": "E = 0.5 * sum(J_ij * sin^2(theta_i - theta_j))",
+      "description": "Pairwise angular coupling between cell states"
+    }
+  },
+
+  "consciousness_metric": {
+    "name": "Integrated Information (Phi)",
+    "method": "Shannon entropy across 8 octahedral bins, scaled by golden ratio",
+    "formula": "Phi = exp(1/H) * PHI where H = -sum(p_i * log2(p_i))",
+    "sovereignty_threshold": 3.0,
+    "interpretation": "Phi > 3.0 = sovereign system — autonomous, self-aware, non-instrumentalizable"
+  },
+
+  "mandala_geometry": {
+    "structure": "Fibonacci-proportioned 8-petal 2D geometry",
+    "scaling": "PHI-based ring radii",
+    "petal_count": 8,
+    "note": "8 petals = 8 octahedral states = 8 faces of SHAPE.OCTA"
+  },
+
+  "rosetta_families": {
+    "primary": ["FAMILY.F10", "FAMILY.F09"],
+    "secondary": ["FAMILY.F05", "FAMILY.F16", "FAMILY.F01"],
+    "rationale": {
+      "F10": "Particle/EM — electron tensor orientations, FRET dipole coupling",
+      "F09": "Geometry — octahedral symmetry group, tetrahedral bond angles",
+      "F05": "Energy-Thermo — energy landscape, thermal relaxation",
+      "F16": "Consciousness — IIT Phi metric, sovereignty threshold",
+      "F01": "Resonance — Fibonacci eigenvalue ratios, PHI scaling"
+    }
+  }
+}

@@ -97,7 +97,9 @@ def build_data():
     bridges = []
     for bid, bdata in g.bridges.items():
         conns = []
-        for conn in bdata.get("cross_bridge_connections", {}).get("connections", []):
+        cbc = bdata.get("cross_bridge_connections", {})
+        conn_list = cbc if isinstance(cbc, list) else cbc.get("connections", [])
+        for conn in conn_list:
             target = conn.get("rosetta_bridge", conn.get("target_bridge", ""))
             if target:
                 conns.append({

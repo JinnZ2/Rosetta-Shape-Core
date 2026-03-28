@@ -277,10 +277,136 @@
     "scaling_unity": "Both use PHI: seed-growth for spatial expansion (r_new = rho * r_prev), mandala-compute for cell count (floor(PHI^(d+1)))"
   },
   "shape_coverage": {
-    "SHAPE.OCTA": ["energy.total", "symmetry.octahedral", "quantum.entanglement", "FACTORIZATION"],
+    "SHAPE.OCTA": ["energy.total", "symmetry.octahedral", "quantum.entanglement", "FACTORIZATION", "holographic.ring", "glyph.arithmetic"],
     "SHAPE.TETRA": ["energy.delta", "temperature"],
     "SHAPE.ICOSA": ["convergence.rate", "coupling.network", "TSP", "GRAPH_COLORING"],
-    "SHAPE.DODECA": ["quantum.fidelity", "OPTIMIZATION"],
+    "SHAPE.DODECA": ["quantum.fidelity", "OPTIMIZATION", "holographic.boundary"],
     "SHAPE.CUBE": ["SAT"]
+  },
+  "holographic_bridge": {
+    "description": "Maps holographic mandala computing to Rosetta concepts. Three unified principles: boundary encoding, self-symmetry (renormalization), and cross-depth entanglement.",
+    "principles": [
+      {
+        "id": "HOLO.BOUNDARY",
+        "name": "Holographic boundary encoding",
+        "description": "Problem encoded on outermost ring (boundary). Information projects inward through PHI-scaled compression. Solution crystallizes at center.",
+        "shape": "SHAPE.DODECA",
+        "families": ["FAMILY.F09", "FAMILY.F08"],
+        "rationale": "Boundary constraints define interior — containment (F08) geometry (F09). DODECA's principled calibration maps to boundary→solution projection."
+      },
+      {
+        "id": "HOLO.RENORMALIZATION",
+        "name": "Self-symmetry / Renormalization",
+        "description": "Each depth level solves a scaled version of the same problem. Coarse solutions seed fine refinement. Corrections propagate bidirectionally.",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F09", "FAMILY.F01"],
+        "rationale": "Octahedral fractal rings ARE the renormalization group. Same geometry at every scale (F09). Resonance (F01) across scales."
+      },
+      {
+        "id": "HOLO.ENTANGLEMENT",
+        "name": "Cross-depth entanglement with adaptive Berry phase",
+        "description": "Non-local correlations link cells at different scales. Berry phase accumulates geometrically, flipping correlation mode at pi thresholds. Entanglement strength adapts: useful links strengthen, noise links weaken.",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F10", "FAMILY.F16"],
+        "rationale": "Quantum correlations (F10) with consciousness integration (F16). Berry phase = geometric memory of evolution history."
+      }
+    ],
+    "hybrid_solver": {
+      "description": "Classical holographic seeding narrows search space, quantum refinement exploits superposition for exact ground state.",
+      "classical_phase": "Renormalization coarse-to-fine with entangled updates",
+      "quantum_phase": "Entangled annealing in 8-dim Hilbert space",
+      "bridge": "Classical ground state seeds quantum initial condition"
+    },
+    "shadow_type": "SHADOW.HOLOGRAPHIC_PROJECTION",
+    "shadow_description": "Entities with boundary/containment families can detect holographic patterns — what's encoded at the boundary reveals interior structure."
+  },
+  "arithmetic_bridge": {
+    "description": "Maps octahedral arithmetic (native base-8 glyph computation) to Rosetta concepts. Numbers are glyph sequences. Decimal is one projection, not the source.",
+    "primitives": [
+      {
+        "id": "ARITH.OCTA_NUMBER",
+        "name": "OctahedralNumber",
+        "description": "Positional glyph sequence with native add/subtract/multiply/divide. Each digit is one of 8 octahedral states.",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F09"]
+      },
+      {
+        "id": "ARITH.GLYPH_FRACTION",
+        "name": "GlyphFraction",
+        "description": "Irreducible ratio of two glyph numbers. Exact representation — no decimal truncation. Fibonacci fractions converge on PHI.",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F09", "FAMILY.F14"],
+        "constant": "CONST.PHI"
+      },
+      {
+        "id": "ARITH.GLYPH_PRIME",
+        "name": "GlyphPrime",
+        "description": "Glyph sequence that resists factorization — irreducible in octahedral space. Mandala solver finds them by relaxing to ground state.",
+        "shape": "SHAPE.ICOSA",
+        "families": ["FAMILY.F10", "FAMILY.F09"],
+        "rationale": "Primes are particles (F10) — irreducible elements. Geometry (F09) determines their structure."
+      },
+      {
+        "id": "ARITH.PHI_WEIGHT",
+        "name": "PHI-weighted number line",
+        "description": "Each glyph position weighted by PHI^i instead of 8^i. Fibonacci-aligned numbers cluster near integer values.",
+        "constant": "CONST.PHI",
+        "families": ["FAMILY.F01", "FAMILY.F09"]
+      }
+    ],
+    "bridge_functions": {
+      "states_to_number": "Convert mandala cell states to OctahedralNumber",
+      "number_to_states": "Convert OctahedralNumber back to cell states",
+      "factor_pair_glyphs": "Express factorization entirely in glyph space"
+    },
+    "shadow_type": "SHADOW.GLYPH_COMPUTATION",
+    "shadow_description": "Entities with geometry + particle families can access glyph computation — native arithmetic in octahedral space without decimal bottleneck."
+  },
+  "sensor_adapter_bridge": {
+    "description": "Maps physical sensor modalities to octahedral substrate states. Any signal → geometric pattern → octahedral state. From Bridge-substrate.md.",
+    "adapters": [
+      {
+        "id": "ADAPTER.SOUND",
+        "name": "SoundToSubstrateAdapter",
+        "input": "Acoustic frequency (20Hz-20kHz), amplitude, phase",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F01", "FAMILY.F02"],
+        "rationale": "Sound is resonance (F01) and flow (F02)"
+      },
+      {
+        "id": "ADAPTER.MAGNETIC",
+        "name": "MagneticToSubstrateAdapter",
+        "input": "Field strength, orientation (azimuthal + polar), gradient",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F10"],
+        "rationale": "Magnetic fields are particle/EM physics (F10)"
+      },
+      {
+        "id": "ADAPTER.LIGHT",
+        "name": "LightToSubstrateAdapter",
+        "input": "Wavelength (380-750nm), intensity, polarization",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F10", "FAMILY.F14"],
+        "rationale": "Light is electromagnetic (F10) and measurable (F14)"
+      },
+      {
+        "id": "ADAPTER.GRAVITY",
+        "name": "GravityToSubstrateAdapter",
+        "input": "Acceleration magnitude, directional vector",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F07"],
+        "rationale": "Gravity is Earth-Cosmos (F07)"
+      },
+      {
+        "id": "ADAPTER.UNIVERSAL",
+        "name": "UniversalBridgeAdapter",
+        "input": "Multi-modal fusion — simultaneous encoding from multiple sources",
+        "shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F16"],
+        "rationale": "Multi-modal integration is consciousness (F16) — binding signals into coherent state"
+      }
+    ],
+    "conversion_pipeline": "Signal → GeometricPattern(amplitude, phase, frequency, orientation, symmetry_order) → eigenvalue_ratios → nearest_octahedral_state → fibonacci_alignment_score",
+    "fibonacci_alignment": "Measures proximity of eigenvalue ratios to PHI or 1/PHI — higher alignment = more natural/stable state"
   }
 }

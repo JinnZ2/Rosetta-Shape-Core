@@ -213,6 +213,7 @@
         "repo": "https://github.com/JinnZ2/Mandala-Computing",
         "ref": "main",
         "direction": "bidirectional",
+        "role": "computation_engine",
         "paths": [
           "atlas/**/*.json",
           "protocols/**/*.json",
@@ -225,6 +226,7 @@
           { "remote": "sensors/multi_layer.json", "as": "atlas/remote/mandala/sensors.json" }
         ],
         "bridge": "bridges/mandala-compute-bridge.json",
+        "new_modules": ["holographic_mandala.py", "octahedral_arithmetic.py"],
         "consent": { "license": "MIT", "share_ok": true }
       },
       {
@@ -322,15 +324,20 @@
         "repo": "https://github.com/JinnZ2/Sovereign-Octahedral-Mandala-Substrate-SOMS-",
         "ref": "main",
         "direction": "bidirectional",
+        "role": "physical_substrate",
         "paths": [
           "src/**/*.py",
           "data/**/*",
           "atlas/**/*.json"
         ],
+        "mounts": [
+          { "remote": "atlas/substrate.json", "as": "atlas/remote/soms/substrate.json", "status": "active" }
+        ],
         "exports": [
           { "runtime": "energy_landscape.json", "as": "atlas/remote/soms/energy_landscape.json", "status": "planned" },
           { "runtime": "phi_sovereignty.json", "as": "atlas/remote/soms/phi_sovereignty.json", "status": "planned" }
         ],
+        "bridge": "bridges/soms-bridge.json",
         "bridge_modules": [
           "src/octahedral_physics.py",
           "src/mandala_structure.py",

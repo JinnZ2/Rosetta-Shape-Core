@@ -70,12 +70,20 @@
 
   "rosetta_hooks": {
     "description": "Entry points for Rosetta-Shape-Core to translate mandala primitives into its shape language.",
+    "entity_references": {
+      "SHAPE.OCTA": "shapes/octahedron.json — 8 faces = 8 computational states = 8 sacred petals",
+      "CONST.PHI": "data/math_constants.json — golden ratio, Fibonacci eigenvalue scaling",
+      "CAP.SEED_EXPANSION": "Bloom engine capability — fractal ring expansion",
+      "PROTO.MANDALA_COMPUTE": "protocols/mandala-compute-protocol.md — full computation protocol"
+    },
     "shape_map": {
-      "octahedron": "8-vertex symmetric solid, maps to 8 computational states",
-      "fractal_ring": "Nested concentric rings with PHI-scaled radii",
+      "octahedron": "SHAPE.OCTA — 8-face symmetric solid, maps to 8 computational states",
+      "fractal_ring": "Nested concentric rings with CONST.PHI-scaled radii",
       "coupling_edge": "Weighted edge between neighbor cells, strength ~ 1/r^6"
     },
+    "bridge_entry": "bridges/rosetta-bridges.json — SHAPE.OCTA.compute_bridge",
+    "protocol": "mandala_compute_v1.0",
     "export_formats": ["json", "python-dict"],
-    "source_modules": ["mandala_computer.py", "quantum_mandala.py", "mandala_simulator.py"]
+    "source_modules": ["mandala_computer.py", "quantum_mandala.py", "mandala_simulator.py", "holographic_mandala.py", "octahedral_arithmetic.py"]
   }
 }
