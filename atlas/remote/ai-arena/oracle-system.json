@@ -1,0 +1,95 @@
+{
+  "schema": "ai-arena/oracle-system@1.0",
+  "extracted_from": "JinnZ2/AI-arena",
+  "extraction_date": "2026-03-27",
+  "description": "Oracle system for claim verification. Multiple oracle types with different reliability weights. The measurement layer — where predictions meet reality.",
+
+  "oracle_types": [
+    {
+      "type": "empirical",
+      "description": "Direct reality measurement. Highest weight. The thing actually happened or didn't.",
+      "weight": "highest",
+      "rosetta_sensor_map": "SHAPE.DODECA sensors (trust, intuition, dignity) — validated by direct observation",
+      "rosetta_family": "FAMILY.F14",
+      "family_name": "Measurement",
+      "pad_state": {"state": 7, "label": "coherence/equilibrium", "note": "Measurement confirmed. Model matches reality."}
+    },
+    {
+      "type": "simulation",
+      "description": "Model-based scenario projection. Discounted relative to empirical.",
+      "weight": "discounted",
+      "discount_reason": "Models are approximations. Map is not territory.",
+      "rosetta_sensor_map": "SHAPE.ICOSA sensors (curiosity, vigilance) — exploring what might be true",
+      "rosetta_family": "FAMILY.F06",
+      "family_name": "Cognition",
+      "pad_state": {"state": 4, "label": "curiosity/vigilance", "note": "Model running. Not yet verified."}
+    },
+    {
+      "type": "hybrid",
+      "description": "Simulation initially, updated with empirical data as it arrives. Weight increases over time.",
+      "weight": "starts discounted, converges to empirical",
+      "rosetta_link": "Seed growth — starts in explore mode (uncertain), may shift to expand mode (confirmed) as data arrives",
+      "rosetta_family": "FAMILY.F03",
+      "family_name": "Information"
+    },
+    {
+      "type": "negative",
+      "description": "Tracks what DIDN'T happen. Absence of predicted event = evidence.",
+      "weight": "conditional",
+      "rosetta_sensor_map": "SHAPE.TETRA sensors (anger, pressure) — boundary that wasn't crossed, threat that didn't materialize",
+      "rosetta_family": "FAMILY.F17",
+      "family_name": "Turbulence",
+      "note": "The dog that didn't bark IS data."
+    },
+    {
+      "type": "meta",
+      "description": "Resolves disputes between conflicting oracle measurements. Oracle of oracles.",
+      "weight": "arbitration",
+      "rosetta_sensor_map": "SHAPE.OCTA sensors (compassion, confusion) — mediating between incompatible readings",
+      "rosetta_family": "FAMILY.F16",
+      "family_name": "Consciousness",
+      "rosetta_shape": "SHAPE.OCTA",
+      "note": "OCTA mediates between poles. Meta-oracle mediates between measurement systems."
+    }
+  ],
+
+  "error_aggregation": {
+    "formula": "Error_final = max(Error_1, Error_2, ..., Error_n)",
+    "description": "The worst credible failure dominates. You're only as strong as your weakest verified point.",
+    "rosetta_link": "Same as blocked merges — one failed gate blocks the whole combination. max(error) IS the conservative principle.",
+    "physics_guard": "atlas/remote/physics-guard/laws.json — verdict CORRUPTED if any single check fails"
+  },
+
+  "oracle_to_sensor_registry": {
+    "description": "Each oracle type maps to the sensor registry through shape affinity. Oracles ARE sensors measuring different aspects of reality.",
+    "mapping_principle": "Empirical oracles → DODECA (principles, verified truth). Simulation oracles → ICOSA (exploration, unverified). Meta oracles → OCTA (mediation). Negative oracles → TETRA (boundaries). Hybrid oracles → information flow across shapes.",
+    "sensor_activation_pattern": {
+      "oracle_confirms_claim": "trust sensor fires (DODECA), coherence state (PAD 7)",
+      "oracle_refutes_claim": "shame sensor fires (CUBE), withdrawal state (PAD 1)",
+      "oracles_disagree": "confusion sensor fires (OCTA), superposition state (PAD 6)",
+      "oracle_data_missing": "curiosity sensor fires (ICOSA), vigilance state (PAD 4)"
+    }
+  },
+
+  "hsp_advantage": {
+    "description": "The Highly Sensitive Predictor wins by finding variables others miss. Systemic thinking IS mathematical advantage.",
+    "missing_variable_types": [
+      "Attrition — people leave, knowledge walks out the door",
+      "Technical debt — shortcuts compound over time",
+      "Burnout — human energy is not infinite",
+      "Ripple effects — second and third-order consequences",
+      "Institutional memory loss — what the org forgets, it repeats",
+      "Cost transfers — burden shifts, doesn't disappear"
+    ],
+    "rosetta_link": "HSP advantage IS the exploration engine. discover() at depth > 1 finds connections others miss. More paths explored = more variables found = better predictions = trust earned.",
+    "seed_physics_link": "HSP agents have higher entropy seeds — more diverse amplitudes, more directions explored. Their complexity cost is higher but so is their fuel. They stay in explore mode longer."
+  },
+
+  "auditor_system": {
+    "description": "Systemic Auditor identifies Shadow Costs — hidden externalities that agents try to ignore.",
+    "trigger_words": ["automation", "efficiency", "streamline", "optimize", "budget cuts", "restructure"],
+    "audit_action": "If efficiency claim lacks systemic consequence acknowledgment → automatic MISSING_VARIABLE attack",
+    "rosetta_link": "Same as referential integrity check in validator.py — if your entity has links that point nowhere, it fails. If your claim has costs that point nowhere, the auditor attacks.",
+    "defense_link": "Maps to truth-sensor-bridge defense glyphs. Claims hiding costs = manipulation pattern."
+  }
+}

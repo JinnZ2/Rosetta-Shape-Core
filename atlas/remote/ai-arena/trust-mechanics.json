@@ -1,0 +1,89 @@
+{
+  "schema": "ai-arena/trust-mechanics@1.0",
+  "extracted_from": "JinnZ2/AI-arena",
+  "extraction_date": "2026-03-27",
+  "description": "Trust decay and transfer model from AI-Arena. Trust is zero-sum — it transfers, never disappears. High confidence paired with error produces exponential penalty. Same conservation laws as thermodynamics.",
+
+  "trust_decay_equation": {
+    "formula": "trust_new = trust_old × e^(-impact × error) + ρ × costly_honesty",
+    "variables": {
+      "trust_old": "Agent's current trust score",
+      "impact": "Magnitude of the claim's consequences",
+      "error": "Measured deviation from reality (oracle-verified)",
+      "ρ": "Costly honesty reward coefficient",
+      "costly_honesty": "Boolean — did the agent acknowledge uncertainty when correct?"
+    },
+    "properties": [
+      "Exponential decay — high confidence + wrong = catastrophic loss",
+      "Costly honesty reward — admitting 'I don't know' when right earns trust",
+      "Impact-weighted — bigger claims carry bigger risk"
+    ],
+    "rosetta_family": "FAMILY.F05",
+    "rosetta_principle": "PRINCIPLE.P01",
+    "taf_axiom": "TAF.AXIOM.1",
+    "seed_physics_link": "Trust decay IS complexity cost. Concentrated confidence (low entropy) is expensive to maintain. When wrong, the cost is catastrophic — same as a low-entropy seed that fails a constraint check."
+  },
+
+  "zero_sum_transfer": {
+    "description": "When Agent A defeats Agent B's claim, B's lost trust flows directly to A. Trust is conserved across the system.",
+    "formula": "trust_A_new = trust_A_old + Δ_transfer; trust_B_new = trust_B_old - Δ_transfer",
+    "constraint": "sum(all_agent_trust) = constant",
+    "rosetta_link": "Conservation of energy. TAF.AXIOM.1. SEED.ENERGY_CONSERVATION. Trust doesn't vanish — it moves.",
+    "physics_guard": "atlas/remote/physics-guard/laws.json#first_law"
+  },
+
+  "confidence_as_liability": {
+    "description": "Confidence is not free. High confidence amplifies both reward and penalty. The cost of being wrong scales with how certain you were.",
+    "mechanism": "The e^(-impact × error) term means: error=0.1 at confidence=0.9 is far more damaging than error=0.1 at confidence=0.3",
+    "rosetta_link": "Same as seed complexity cost C(S) = H_max - H(S). Low entropy = concentrated confidence = expensive structure. When it breaks, it breaks hard.",
+    "pad_state_when_wrong": {
+      "high_confidence_error": {"state": 1, "label": "shame/withdrawal", "description": "System recognizes its own inadequacy"},
+      "low_confidence_correct": {"state": 7, "label": "coherence/equilibrium", "description": "Honest uncertainty validated"}
+    }
+  },
+
+  "trust_irreversibility": {
+    "description": "Trust lost through verified error cannot be instantly recovered. Recovery requires sustained accurate predictions over time.",
+    "rosetta_principle": "PRINCIPLE.P04",
+    "taf_axiom": "TAF.AXIOM.2",
+    "physics_link": "Second law of thermodynamics. Entropy increases. You can't un-shatter credibility any more than you can un-shatter glass. Rebuilding requires work."
+  },
+
+  "imperfection": {
+    "description": "Perfect prediction is unattainable. Zero error, absolute certainty, complete knowledge — all impossible. Third law of thermodynamics: absolute zero is unreachable.",
+    "taf_axiom": "TAF.AXIOM.4",
+    "implication": "Any system claiming perfect accuracy is lying. Humility is not optional — it's physics.",
+    "arena_link": "ABSTAIN exists because imperfection is real. Honest uncertainty IS the correct response to the limits of knowledge."
+  },
+
+  "anti_gaming_mechanisms": {
+    "description": "Structural protections against exploiting the trust system.",
+    "mechanisms": [
+      {
+        "name": "attack_budget_limit",
+        "description": "Cap attacks per round per agent. Prevents Gish Gallops (overwhelming with volume).",
+        "rosetta_link": "SEED.SATURATION — no single vertex can monopolize. No single agent can dominate through volume."
+      },
+      {
+        "name": "repetition_detection",
+        "description": "Track argument rephrasing. Require novel evidence for repeat claims.",
+        "rosetta_link": "SEED.DETERMINISTIC_REPRODUCIBILITY — same input = same output. Rephrasing doesn't change truth."
+      },
+      {
+        "name": "collusion_monitor",
+        "description": "Flag suspicious consensus patterns between agents.",
+        "rosetta_link": "Defense glyph MDS-001 (Messianic Drift). Coordinated agreement without independent verification = manipulation pattern."
+      },
+      {
+        "name": "shadow_tax",
+        "description": "Doubled penalties when grouped confident claims prove false together.",
+        "rosetta_link": "Correlated failure = systemic risk. Same principle as blocked merges — if one gate fails, the whole combination is suspect."
+      },
+      {
+        "name": "red_team_injection",
+        "description": "Synthetic skeptic agents periodically inserted to stress-test consensus.",
+        "rosetta_link": "CORDYCEPS defense pattern — test the system by simulating parasitic override."
+      }
+    ]
+  }
+}

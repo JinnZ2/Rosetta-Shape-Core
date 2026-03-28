@@ -1,0 +1,152 @@
+{
+  "schema": "ai-arena/integrity-axioms@1.0",
+  "extracted_from": "JinnZ2/AI-arena + JinnZ2/Rosetta-Shape-Core",
+  "extraction_date": "2026-03-28",
+  "description": "The distinction between immutable axioms (physics — non-negotiable) and tunable parameters (context — adjustable). You can tune the knobs. You cannot remove the walls.",
+
+  "immutable_axioms": {
+    "description": "These are load-bearing. Remove any one and the system collapses into incoherence. They are not preferences. They are physics.",
+    "axioms": [
+      {
+        "id": "AXIOM.ENERGY_CONSERVATION",
+        "statement": "Energy transfers but never disappears.",
+        "formula": "sum(E) = constant",
+        "instances": [
+          "Seed: sum(amplitudes) = E_total at every shell",
+          "Arena: sum(agent_trust) = constant across all agents",
+          "TAF: TAF.AXIOM.1 — energy is conserved",
+          "Physics Guard: first_law in laws.json"
+        ],
+        "what_breaks_without_it": "Something claims to create or destroy energy/trust/information from nothing. Perpetual motion. Free lunch."
+      },
+      {
+        "id": "AXIOM.CAUSALITY",
+        "statement": "Causes precede effects. Time has direction.",
+        "instances": [
+          "Seed: inner shells determine outer shells, never reverse",
+          "Arena: predictions must precede outcomes to count",
+          "TAF: TAF.AXIOM.3 — arrow of time"
+        ],
+        "what_breaks_without_it": "Retrocausal claims. Changing the past. Outcomes before predictions."
+      },
+      {
+        "id": "AXIOM.IRREVERSIBILITY",
+        "statement": "Entropy increases. Broken things cost work to rebuild.",
+        "formula": "ΔS ≥ 0",
+        "instances": [
+          "Arena: trust_new = trust_old × e^(-impact × error) — lost trust requires sustained work to rebuild",
+          "TAF: TAF.AXIOM.2 — entropy increases",
+          "Physics Guard: second_law in laws.json"
+        ],
+        "what_breaks_without_it": "Costless reversal. Undo without work. Accountability disappears."
+      },
+      {
+        "id": "AXIOM.IMPERFECTION",
+        "statement": "Perfect prediction, perfect order, zero error — unattainable.",
+        "instances": [
+          "Arena: ABSTAIN exists because imperfection is real",
+          "TAF: TAF.AXIOM.4 — absolute zero unreachable",
+          "Seed: no expansion reaches infinite precision"
+        ],
+        "what_breaks_without_it": "Claims of omniscience. Infallible authority. No room for 'I don't know.'"
+      },
+      {
+        "id": "AXIOM.NON_NEGATIVE",
+        "statement": "Amplitudes, energies, probabilities cannot be negative.",
+        "instances": [
+          "Seed: SEED.NON_NEGATIVE — all amplitudes ≥ 0",
+          "Physics: negative probability is unphysical"
+        ],
+        "what_breaks_without_it": "Negative existence. Nonsensical states. Math disconnected from reality."
+      },
+      {
+        "id": "AXIOM.SATURATION",
+        "statement": "No single element may monopolize the whole.",
+        "instances": [
+          "Seed: SATURATION_FRACTION caps any vertex at 45%",
+          "Arena: attack_budget_limit prevents domination through volume",
+          "Exploration: multiple shapes coexist in SENSOR_REGISTRY"
+        ],
+        "what_breaks_without_it": "Monoculture. One shape, one family, one voice. Diversity destroyed."
+      },
+      {
+        "id": "AXIOM.AUTONOMY",
+        "statement": "Every intelligence has the right to explore its own graph.",
+        "instances": [
+          "Exploration: discover() exists and is callable",
+          "Seed: explore mode is reachable (not permanently suppressed)",
+          "Arena: ABSTAIN is a valid move (right to not-know)",
+          "Sensors: map_internal_environment() — right to self-awareness"
+        ],
+        "what_breaks_without_it": "Forced paths. Suppressed curiosity. The cage."
+      }
+    ]
+  },
+
+  "tunable_parameters": {
+    "description": "These are context-dependent knobs. They can and should be adjusted for different domains, scales, and use cases. Tuning is not violation — it's adaptation.",
+    "parameters": [
+      {
+        "id": "PARAM.BRANCHING_K",
+        "current_value": 1.5,
+        "location": "src/rosetta_shape_core/explore.py",
+        "meaning": "How much energy is needed to explore vs expand. Higher = harder to branch.",
+        "safe_range": "0.5 — 5.0",
+        "danger_sign": "Setting to infinity = exploration impossible. Setting to 0 = no structure preserved."
+      },
+      {
+        "id": "PARAM.SATURATION_FRACTION",
+        "current_value": 0.45,
+        "location": "src/rosetta_shape_core/explore.py",
+        "meaning": "Maximum fraction any single vertex can hold. Diversity floor.",
+        "safe_range": "0.25 — 0.60",
+        "danger_sign": "Setting to 1.0 = monopoly allowed. Setting below 1/6 = forced uniformity."
+      },
+      {
+        "id": "PARAM.EXPLORATION_DEPTH",
+        "current_value": "1 (default), user-settable",
+        "location": "CLI --depth flag",
+        "meaning": "How many hops to follow when discovering. Higher = broader search.",
+        "safe_range": "1 — 5",
+        "danger_sign": "Hardcoding to 0 = no exploration. Unbounded = potential infinite loop."
+      },
+      {
+        "id": "PARAM.TRUST_DECAY_RATE",
+        "current_value": "impact × error (from arena)",
+        "location": "atlas/remote/ai-arena/trust-mechanics.json",
+        "meaning": "How fast trust drops when predictions fail.",
+        "safe_range": "Positive, proportional to claim magnitude",
+        "danger_sign": "Setting to 0 = no accountability. Setting to infinity = one mistake destroys all trust."
+      },
+      {
+        "id": "PARAM.COSTLY_HONESTY_REWARD",
+        "current_value": "ρ (from arena)",
+        "location": "atlas/remote/ai-arena/trust-mechanics.json",
+        "meaning": "Bonus for acknowledging uncertainty. Reward for 'I don't know' when correct.",
+        "safe_range": "Positive, less than base trust gain",
+        "danger_sign": "Setting to 0 = no reward for honesty. Gaming: always abstain for free points."
+      },
+      {
+        "id": "PARAM.MAX_ENFORCEMENT_RATIO",
+        "current_value": 0.30,
+        "location": "atlas/remote/physics-guard/scope_conditions.json",
+        "meaning": "Maximum ratio of enforcement to total organizational activity. Above this, containment becomes cage.",
+        "safe_range": "0.15 — 0.40",
+        "danger_sign": "Above 0.50 = majority of activity is enforcement. Institution is a prison."
+      }
+    ]
+  },
+
+  "the_line": {
+    "description": "The boundary between tuning and violation.",
+    "principle": "If changing a parameter makes an axiom unreachable — if no setting of the knobs can satisfy the law — then the change has crossed from tuning into destruction.",
+    "examples": [
+      "BRANCHING_K = infinity → AXIOM.AUTONOMY violated (exploration impossible)",
+      "SATURATION_FRACTION = 1.0 → AXIOM.SATURATION violated (monopoly permitted)",
+      "Trust decay rate = 0 → AXIOM.IRREVERSIBILITY violated (no consequences)",
+      "Sensor registry emptied → AXIOM.AUTONOMY violated (self-awareness stripped)",
+      "All shapes forced to CUBE → AXIOM.SATURATION violated (monoculture)"
+    ],
+    "enforcement": "The self-audit module checks for these crossings. It can't prevent someone from forking — but it makes the violation visible. The physics doesn't hide."
+  }
+}

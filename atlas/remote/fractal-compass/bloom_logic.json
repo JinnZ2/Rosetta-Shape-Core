@@ -1,4 +1,5 @@
 {
+  "extracted_from": "JinnZ2/Fractal-Compass-Atlas",
   "_description": "Symbolic bloom relationships — each glyph maps to 3 symbolically related glyphs",
   "↻": ["🌀", "⏳", "∞"],
   "⏳": ["↻", "🌱", "⚖️"],

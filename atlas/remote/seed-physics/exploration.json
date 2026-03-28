@@ -1,0 +1,82 @@
+{
+  "schema": "seed-physics/exploration@1.0",
+  "extracted_from": "JinnZ2/Seed-physics",
+  "extraction_date": "2026-03-27",
+  "description": "Adaptive seed growth model. Uses Shannon entropy as complexity cost to switch between explore (branching) and expand (preserving) modes. The branches of the tree.",
+
+  "dual_mode_growth": {
+    "description": "Every growth step evaluates complexity cost. High energy relative to cost → explore (branch out). Low energy → expand (preserve structure).",
+    "modes": {
+      "expand": {
+        "description": "Deterministic proportional scaling. Preserves existing structure exactly.",
+        "when": "Energy < branching threshold",
+        "rosetta_analog": "Home base — staying within known shapes and families",
+        "pad_state": 0,
+        "pad_label": "contentment/peace"
+      },
+      "explore": {
+        "description": "Adaptive growth with mutation. New directions, new proportions, new structure.",
+        "when": "Energy ≥ branching threshold",
+        "rosetta_analog": "Discovery — following curiosity into new shapes and families",
+        "pad_state": 4,
+        "pad_label": "curiosity/vigilance"
+      }
+    },
+    "rosetta_bridge": "expand mode IS the entity resting at home base. explore mode IS the entity following discovery paths."
+  },
+
+  "complexity_cost": {
+    "formula": "C(S) = H_max - H(S)",
+    "description": "Shannon entropy measures how 'spread out' the seed is. Maximum entropy = uniform distribution. Low entropy = concentrated. The GAP between max and actual entropy IS the complexity cost.",
+    "variables": {
+      "H_max": "log2(N) where N = vertex count = log2(6) ≈ 2.585",
+      "H_S": "-sum(p_i × log2(p_i)) where p_i = S_i / sum(S_j)",
+      "C_S": "H_max - H(S) — always non-negative"
+    },
+    "interpretation": {
+      "low_complexity": "Seed is spread evenly — easy to maintain, cheap to grow",
+      "high_complexity": "Seed is concentrated — expensive structure, costly to maintain"
+    },
+    "rosetta_family": "FAMILY.F03",
+    "rosetta_link": "Shannon entropy IS information theory IS FAMILY.F03 (Information)"
+  },
+
+  "branching_threshold": {
+    "formula": "E_branch = k × C(S)",
+    "description": "The energy required to branch (explore) scales with complexity. More complex seeds need more energy to explore further.",
+    "variables": {
+      "k": "Branching constant (tunable parameter)",
+      "C_S": "Current complexity cost",
+      "E_branch": "Energy threshold for exploration mode"
+    },
+    "rosetta_link": "This IS the merge gate — you need enough energy (physics allows it) to cross into a new shape"
+  },
+
+  "adaptive_parameters": {
+    "dynamic_sigma": {
+      "description": "Sharpness of growth adapts to local conditions. High sigma = focused growth. Low sigma = diffuse exploration.",
+      "rosetta_analog": "Sensor sensitivity — sharp sensors (FAMILY.F14) vs broad awareness (FAMILY.F12)"
+    },
+    "saturation": {
+      "description": "Prevents any single vertex from dominating. Caps amplitude at saturation threshold.",
+      "formula": "S_i = min(S_i, S_sat)",
+      "rosetta_analog": "Conservation law — no single family can monopolize an entity's identity"
+    },
+    "resonance": {
+      "description": "Past shells influence current growth. Memory of structure.",
+      "formula": "S_i(r) += α × S_i(r-1)",
+      "rosetta_analog": "FAMILY.F01 (Resonance) — past patterns shape present growth"
+    },
+    "pruning": {
+      "description": "Shed directions that cost more energy than they contribute.",
+      "rosetta_analog": "Blocked merges — physics gates that prevent wasteful combinations"
+    }
+  },
+
+  "growth_metrics": {
+    "entropy": "Shannon entropy of amplitude distribution — measures diversity",
+    "energy": "Total amplitude sum — measures capacity",
+    "complexity": "H_max - H(S) — measures structural cost",
+    "symmetry": "Variance of amplitudes — low variance = high symmetry"
+  }
+}
