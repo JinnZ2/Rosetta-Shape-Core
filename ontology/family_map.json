@@ -93,7 +93,8 @@
       "FAMILY.F17": { "name": "Turbulence",      "primary": "SHAPE.ICOSA",  "merged": ["SHAPE.OCTA"],   "secondary": [], "merge_basis": "Navier-Stokes vorticity equations and Kolmogorov cascade are valid in both ICOSA (vortex dynamics) and OCTA (air/flow family). Reynolds number Re=ρvL/μ is dimensionally consistent in both contexts. Turbulence IS chaotic flow — and flow (F02) is already merged with OCTA. F17 follows. Merged.", "rationale": "Turbulence (ICOSA) and chaotic flow (OCTA) share Navier-Stokes. F02 merge implies F17 merge." },
       "FAMILY.F18": { "name": "Relativity",      "primary": "SHAPE.ICOSA",  "merged": [],               "secondary": [], "merge_basis": null, "merge_note": "Relativity's equations (Lorentz transformations, Einstein field equations) are universal but their complexity exceeds what other shape contexts currently require. No merge candidate has demonstrated need. Open for future merge.", "rationale": "Relativity is a symbolic family — icosahedron's universal carrier. Open for future merge when a shape context requires it." },
       "FAMILY.F19": { "name": "Statistical",     "primary": "SHAPE.ICOSA",  "merged": ["SHAPE.OCTA"],   "secondary": [], "merge_basis": "Statistical mechanics (partition functions, ensemble averages, Boltzmann distribution) is valid in both ICOSA (information capacity) and OCTA (octahedral state distribution in mandala symmetry sensor). Z=Σ exp(-E_i/kT) is the same sum in both contexts. Merged.", "rationale": "Statistical mechanics (ICOSA) and state distribution (OCTA) share partition function formalism." },
-      "FAMILY.F20": { "name": "Topology",        "primary": "SHAPE.ICOSA",  "merged": [],               "secondary": [], "merge_basis": null, "merge_note": "Topological invariants (Euler characteristic, genus, winding number) are universal but currently only actively used in ICOSA's wave/interference domain. Open for future merge — Berry phase in OCTA's quantum extension is a candidate.", "rationale": "Topology is icosahedron's highest family. Open for future merge via Berry phase." }
+      "FAMILY.F20": { "name": "Topology",        "primary": "SHAPE.ICOSA",  "merged": [],               "secondary": [], "merge_basis": null, "merge_note": "Topological invariants (Euler characteristic, genus, winding number) are universal but currently only actively used in ICOSA's wave/interference domain. Open for future merge — Berry phase in OCTA's quantum extension is a candidate.", "rationale": "Topology is icosahedron's highest family. Open for future merge via Berry phase." },
+      "FAMILY.F21": { "name": "Narrative-Constraint", "primary": "SHAPE.DODECA", "merged": ["SHAPE.OCTA"], "secondary": ["SHAPE.ICOSA"], "merge_basis": "Constraint consistency analysis maps traditions as shapes (vertices=constraints, edges=relations, faces=behaviors). DODECA's principled calibration and OCTA's symmetry-balance both express constraint geometry natively. DODECA: tradition as shape, vertices as core constraints. OCTA: balance/mediation as constraint application symmetry. Merged. ICOSA secondary: collective constraint application is a network aggregation.", "rationale": "Narrative physics treats traditions as constraint geometries. DODECA hosts principles, OCTA hosts balance. Together they detect manipulation vs genuine practice." }
     }
   },
   "shape_profiles": {
@@ -120,19 +121,19 @@
     "SHAPE.OCTA": {
       "qualitative": ["air", "structure", "balance", "integration"],
       "primary_families": ["FAMILY.F02", "FAMILY.F09", "FAMILY.F16"],
-      "merged_families": ["FAMILY.F01", "FAMILY.F05", "FAMILY.F10", "FAMILY.F12", "FAMILY.F17", "FAMILY.F19"],
+      "merged_families": ["FAMILY.F01", "FAMILY.F05", "FAMILY.F10", "FAMILY.F12", "FAMILY.F17", "FAMILY.F19", "FAMILY.F21"],
       "secondary_families": ["FAMILY.F06", "FAMILY.F11"],
-      "all_equation_families": ["FAMILY.F02", "FAMILY.F09", "FAMILY.F16", "FAMILY.F01", "FAMILY.F05", "FAMILY.F10", "FAMILY.F12", "FAMILY.F17", "FAMILY.F19", "FAMILY.F06", "FAMILY.F11"],
+      "all_equation_families": ["FAMILY.F02", "FAMILY.F09", "FAMILY.F16", "FAMILY.F01", "FAMILY.F05", "FAMILY.F10", "FAMILY.F12", "FAMILY.F17", "FAMILY.F19", "FAMILY.F21", "FAMILY.F06", "FAMILY.F11"],
       "primary_principles": ["PRINCIPLE.P01", "PRINCIPLE.P04", "PRINCIPLE.P12"],
       "sensors": ["compassion", "love", "confusion"],
       "note": "OCTA is the computational substrate — it gains the most merges. F01 (Resonance): balance IS resonant equilibrium. F05 (Energy-Thermo): Boltzmann factor is native to mandala compute. F10 (Particle): Zeeman basis is physically octahedral. F12 (Networks): coupling graphs are native. F17 (Turbulence): follows from F02 merge. F19 (Statistical): partition functions are native. F06 and F11 remain secondary — cognition loses dimensions in PAD compression, engineering balance isn't structural."
     },
     "SHAPE.DODECA": {
       "qualitative": ["orientation", "trust", "growth", "boundary"],
-      "primary_families": ["FAMILY.F15", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07"],
+      "primary_families": ["FAMILY.F15", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07", "FAMILY.F21"],
       "merged_families": ["FAMILY.F09", "FAMILY.F14"],
       "secondary_families": ["FAMILY.F03", "FAMILY.F02"],
-      "all_equation_families": ["FAMILY.F15", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07", "FAMILY.F09", "FAMILY.F14", "FAMILY.F03", "FAMILY.F02"],
+      "all_equation_families": ["FAMILY.F15", "FAMILY.F16", "FAMILY.F06", "FAMILY.F04", "FAMILY.F07", "FAMILY.F21", "FAMILY.F09", "FAMILY.F14", "FAMILY.F03", "FAMILY.F02"],
       "maps_to_principles": ["PRINCIPLE.P01","PRINCIPLE.P02","PRINCIPLE.P03","PRINCIPLE.P04","PRINCIPLE.P05","PRINCIPLE.P06","PRINCIPLE.P07","PRINCIPLE.P08","PRINCIPLE.P09","PRINCIPLE.P10","PRINCIPLE.P11","PRINCIPLE.P12"],
       "sensors": ["admiration", "trust", "longing", "intuition", "dignity"],
       "note": "F09 merged: geometry universal. F14 (Measurement) merged: Heisenberg uncertainty is native to DODECA via P10. F03 remains secondary (provenance metadata, not core information equations). F02 remains secondary (optimization flow, not native mediation)."
@@ -141,8 +142,8 @@
       "qualitative": ["anticipation", "flow", "growth", "adaptability"],
       "primary_families": ["FAMILY.F01", "FAMILY.F03", "FAMILY.F10", "FAMILY.F12", "FAMILY.F14", "FAMILY.F17", "FAMILY.F18", "FAMILY.F19", "FAMILY.F20"],
       "merged_families": ["FAMILY.F02", "FAMILY.F04", "FAMILY.F09", "FAMILY.F15"],
-      "secondary_families": ["FAMILY.F05", "FAMILY.F06", "FAMILY.F07", "FAMILY.F08", "FAMILY.F11", "FAMILY.F13", "FAMILY.F16"],
-      "all_equation_families": ["FAMILY.F01","FAMILY.F02","FAMILY.F03","FAMILY.F04","FAMILY.F05","FAMILY.F06","FAMILY.F07","FAMILY.F08","FAMILY.F09","FAMILY.F10","FAMILY.F11","FAMILY.F12","FAMILY.F13","FAMILY.F14","FAMILY.F15","FAMILY.F16","FAMILY.F17","FAMILY.F18","FAMILY.F19","FAMILY.F20"],
+      "secondary_families": ["FAMILY.F05", "FAMILY.F06", "FAMILY.F07", "FAMILY.F08", "FAMILY.F11", "FAMILY.F13", "FAMILY.F16", "FAMILY.F21"],
+      "all_equation_families": ["FAMILY.F01","FAMILY.F02","FAMILY.F03","FAMILY.F04","FAMILY.F05","FAMILY.F06","FAMILY.F07","FAMILY.F08","FAMILY.F09","FAMILY.F10","FAMILY.F11","FAMILY.F12","FAMILY.F13","FAMILY.F14","FAMILY.F15","FAMILY.F16","FAMILY.F17","FAMILY.F18","FAMILY.F19","FAMILY.F20","FAMILY.F21"],
       "sensors": ["fear", "excitement", "curiosity", "vigilance"],
       "note": "Icosahedron's 20 faces map 1:1 to all 20 families. 9 primary, 4 merged (F02 Flow, F04 Life, F09 Geometry, F15 Navigation — all with validated equation compatibility), 7 secondary (carried by the universal carrier but equations are primarily native to other shapes)."
     }

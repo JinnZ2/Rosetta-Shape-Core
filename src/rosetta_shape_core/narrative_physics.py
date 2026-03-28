@@ -273,6 +273,47 @@ def example_manipulation():
     return analyze_consistency("Christianity (claimed)", constraints, behaviors)
 
 
+# ── file loading ──────────────────────────────────────────────────
+
+def load_from_file(path: str) -> AnalysisResult:
+    """Load a narrative physics analysis from a JSON file.
+
+    Expected format:
+    {
+      "tradition": "Name of tradition/ideology",
+      "constraints": [
+        {"id": "C1", "text": "Constraint description", "source": "optional source"}
+      ],
+      "behaviors": [
+        {
+          "description": "What was observed",
+          "target_group": "universal|ingroup|outgroup",
+          "constraint_results": {"C1": "satisfies|violates|partial"},
+          "rationalization": "optional — explanation given for violation"
+        }
+      ]
+    }
+    """
+    import pathlib
+    p = pathlib.Path(path)
+    data = json.loads(p.read_text(encoding="utf-8"))
+
+    constraints = [
+        Constraint(c["id"], c["text"], c.get("source", ""))
+        for c in data["constraints"]
+    ]
+    behaviors = [
+        Behavior(
+            b["description"],
+            b.get("target_group", "universal"),
+            b.get("constraint_results", {}),
+            b.get("rationalization", ""),
+        )
+        for b in data["behaviors"]
+    ]
+    return analyze_consistency(data["tradition"], constraints, behaviors)
+
+
 # ── CLI ────────────────────────────────────────────────────────────
 
 def main():
@@ -283,11 +324,32 @@ def main():
     ap.add_argument("--json", action="store_true", help="Output as JSON")
     ap.add_argument("--example", action="store_true",
                     help="Run built-in examples (genuine vs manipulation)")
+    ap.add_argument("--file", type=str, default=None,
+                    help="Path to JSON file with tradition, constraints, and behaviors")
     args = ap.parse_args()
+
+    # File mode — load real data
+    if args.file:
+        result = load_from_file(args.file)
+        if args.json:
+            print(json.dumps({
+                "tradition": result.claimed_tradition,
+                "verdict": result.verdict,
+                "consistency": result.consistency_ratio,
+                "selective_score": result.selective_score,
+                "bias_ratio": result.ingroup_bias_ratio,
+                "rationalization": result.rationalization_density,
+                "cordyceps": result.cordyceps_flags,
+                "details": result.details,
+            }, indent=2))
+        else:
+            print_analysis(result)
+        return
 
     if not args.example:
         print("\n  Narrative Physics — Constraint Consistency Analysis")
         print("  Use --example to see built-in examples")
+        print("  Use --file <path.json> to analyze real data")
         print("  Use as library: from rosetta_shape_core.narrative_physics import analyze_consistency\n")
         return
 

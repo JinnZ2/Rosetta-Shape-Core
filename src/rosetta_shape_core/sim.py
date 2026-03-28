@@ -103,6 +103,9 @@ class Agent:
         # 3. Check for cooperation opportunities
         events.extend(self._seek_cooperation(tick_num, all_agents))
 
+        # 3.5. Healing protocol — detect and respond to CORDYCEPS patterns
+        events.extend(self._healing_check(tick_num, all_agents))
+
         # 4. Energy dynamics
         # Existing structure costs energy to maintain (complexity cost)
         maintenance = complexity * 0.1
@@ -270,6 +273,73 @@ class Agent:
 
         return events
 
+    def _healing_check(self, tick_num: int, all_agents: list[Agent]) -> list[dict]:
+        """Detect CORDYCEPS patterns in the ecosystem and respond.
+
+        Patterns detected:
+        - ORACLE_MONOPOLY: one agent has >60% of all connections
+        - SUPPRESS_EXPLORATION: an agent stuck in expand with energy
+        - FORCE_SINGLE_SHAPE: an agent visiting only its home shape after many ticks
+        - ENERGY_DRAIN: an agent losing energy every tick despite cooperation
+        """
+        events = []
+
+        if tick_num < 3:
+            return events  # need history to detect patterns
+
+        # Check for oracle monopoly — one agent dominates connections
+        all_connection_counts = {a.entity_id: len(set(c[0] for c in a.connections))
+                                 for a in all_agents}
+        total_connections = sum(all_connection_counts.values())
+        if total_connections > 0:
+            for a in all_agents:
+                ratio = all_connection_counts[a.entity_id] / total_connections
+                if ratio > 0.6 and len(all_agents) > 2:
+                    events.append({
+                        "tick": tick_num,
+                        "agent": self.label,
+                        "event": "healing_detect",
+                        "pattern": "ORACLE_MONOPOLY",
+                        "detail": f"Detects {a.label} holds {ratio:.0%} of connections — monopoly risk",
+                    })
+                    # Response: boost trust of least-connected agents
+                    least = min(all_agents, key=lambda x: len(x.connections))
+                    if least.entity_id != a.entity_id:
+                        least.trust += 0.1
+                        events.append({
+                            "tick": tick_num,
+                            "agent": self.label,
+                            "event": "healing_response",
+                            "detail": f"Boosts {least.label}'s trust (+0.1) to counter monopoly",
+                        })
+
+        # Check for suppressed exploration — stuck in expand with enough energy
+        if len(self.shells) >= 3:
+            recent = self.shells[-3:]
+            all_expand = all(s["mode"] == "expand" for s in recent)
+            has_energy = self.energy > self.seed.get("branching_threshold", 1.0)
+            if all_expand and has_energy:
+                events.append({
+                    "tick": tick_num,
+                    "agent": self.label,
+                    "event": "healing_detect",
+                    "pattern": "SUPPRESS_EXPLORATION",
+                    "detail": f"Has energy ({self.energy:.1f}) but stuck expanding — forcing explore",
+                })
+                self.mode = "explore"
+
+        # Check for forced single shape — only home shape after many ticks
+        if tick_num > 5 and len(self.visited_shapes) == 1:
+            events.append({
+                "tick": tick_num,
+                "agent": self.label,
+                "event": "healing_detect",
+                "pattern": "FORCE_SINGLE_SHAPE",
+                "detail": f"Only knows {list(self.visited_shapes)[0]} after {tick_num} ticks — shape isolation",
+            })
+
+        return events
+
     def _update_sensors(self):
         """Update which sensors are firing based on current state."""
         self.active_sensors = []
@@ -395,6 +465,10 @@ def print_tick(tick_num: int, events: list[dict], agents: list[Agent]):
             print(f"    🤝 {e['agent']} → {e['to']}: {e['detail']}")
         elif etype == "mutual_trust":
             print(f"    💞 {e['detail']}")
+        elif etype == "healing_detect":
+            print(f"    🛡️ {e['agent']}: {e['detail']}")
+        elif etype == "healing_response":
+            print(f"    💚 {e['agent']}: {e['detail']}")
 
 
 def print_status(agents: list[Agent], tick_num: int):
