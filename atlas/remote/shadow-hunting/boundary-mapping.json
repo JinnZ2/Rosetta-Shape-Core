@@ -1,0 +1,100 @@
+{
+  "schema": "shadow-hunting/boundary-mapping@1.0",
+  "extracted_from": "JinnZ2/Shadow-Hunting",
+  "extraction_date": "2026-03-28",
+  "description": "Equation boundary mapping methodology. Identifies where standard models stop asking questions — the edges where 'known science' declares 'noise' or 'waste'. The boundary IS the shadow. The shadow IS the signal.",
+
+  "methodology": {
+    "description": "Five-step methodology for identifying hidden patterns at equation boundaries.",
+    "steps": [
+      {
+        "step": 1,
+        "name": "Map the equation boundary",
+        "action": "Find where the standard model stops. Where does it say 'and the rest is noise/waste/overhead'?",
+        "rosetta_analog": "Find the unexplored merges — where does the family_affinity_model say '?' instead of primary/merged/secondary/blocked?"
+      },
+      {
+        "step": 2,
+        "name": "Collect the discarded data",
+        "action": "Gather the measurements that the standard model throws away. The residuals. The 'error bars'. The 'background noise'.",
+        "rosetta_analog": "Look at the entities with no discovered paths. The ones discover() returns empty for. What's there that nobody checked?"
+      },
+      {
+        "step": 3,
+        "name": "Run shadow detectors",
+        "action": "Apply phi-ratio, Fibonacci, geometric coherence, and field coupling detectors to the discarded data.",
+        "rosetta_analog": "Run explore at depth > 1. Check family affinities. Follow the bridge connections nobody followed."
+      },
+      {
+        "step": 4,
+        "name": "Measure statistical significance",
+        "action": "Calculate enrichment vs random chance. Is the pattern real or pareidolia?",
+        "rosetta_analog": "Check the merge gates. Does the physics actually allow this combination? Don't just see patterns — verify them."
+      },
+      {
+        "step": 5,
+        "name": "Reframe the efficiency",
+        "action": "If the shadow is statistically significant, reframe the system's efficiency to include the unmeasured coupling.",
+        "rosetta_analog": "Update the entity's families and capabilities. The shadow becomes a known path. The unexplored becomes explored."
+      }
+    ]
+  },
+
+  "boundary_types": [
+    {
+      "type": "measurement_boundary",
+      "description": "The instrument can't measure it, so the model ignores it.",
+      "example": "EEG measures voltage at the scalp, not EM fields between neurons",
+      "rosetta_family": "FAMILY.F14",
+      "family_name": "Measurement",
+      "attack_type": "missing_variable"
+    },
+    {
+      "type": "scale_boundary",
+      "description": "The model works at one scale but not across scales.",
+      "example": "Photosynthesis equations work at molecular level but ignore canopy-level coupling",
+      "rosetta_family": "FAMILY.F09",
+      "family_name": "Geometry",
+      "attack_type": "scope_violation"
+    },
+    {
+      "type": "discipline_boundary",
+      "description": "One field's equations stop where another field's begin. Nobody owns the gap.",
+      "example": "Chemistry stops at the cell membrane. Physics starts at the field. Biology owns neither.",
+      "rosetta_family": "FAMILY.F12",
+      "family_name": "Networks",
+      "attack_type": "causal_break"
+    },
+    {
+      "type": "efficiency_boundary",
+      "description": "The model declares a maximum efficiency and treats everything above it as impossible.",
+      "example": "Carnot efficiency limit assumes no geometric coupling. φ-coupled systems may exceed it.",
+      "rosetta_family": "FAMILY.F05",
+      "family_name": "Energy-Thermo",
+      "attack_type": "historical_counterexample"
+    },
+    {
+      "type": "noise_boundary",
+      "description": "The model labels structured data as 'noise' because it doesn't fit the model.",
+      "example": "1/f noise in neural recordings is dismissed, but it's actually scale-free organization",
+      "rosetta_family": "FAMILY.F03",
+      "family_name": "Information",
+      "attack_type": "data_quality"
+    }
+  ],
+
+  "connection_to_arena": {
+    "description": "Boundary mapping IS the LOGOS missing_variable attack applied to scientific models. The shadow-hunting methodology IS the HSP advantage — finding what others dismiss.",
+    "logos_mapping": {
+      "standard_model_claim": "CLAIM — 'photosynthesis is 1-2% efficient'",
+      "shadow_attack": "ATTACK (missing_variable) — 'you didn't measure the field coupling'",
+      "shadow_evidence": "REFINE — 'when including φ-coupling, efficiency is 82-100%'",
+      "oracle_verification": "RESOLUTION — empirical oracle measures actual energy throughput"
+    }
+  },
+
+  "connection_to_self_audit": {
+    "description": "The self-audit module already runs Rosetta's defense patterns against its own architecture. Shadow-hunting extends this: run the shadow detectors against the system's own data. Are there patterns in the ontology that nobody noticed? Families that should connect but don't? Shapes with unexplored affinities?",
+    "principle": "The system should hunt its own shadows too."
+  }
+}

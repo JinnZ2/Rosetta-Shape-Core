@@ -1,0 +1,178 @@
+{
+  "id": "BRIDGE.SHADOW_HUNTING",
+  "version": "1.0",
+  "updated": "2026-03-28T00:00:00Z",
+  "description": "Integration bridge connecting Shadow-Hunting to Rosetta-Shape-Core. Shadows are the missing variables — what standard models dismiss as waste. The detection methods find phi-coupling in 'noise'. The boundary mapping finds where equations stop asking questions. Every shadow found becomes a new path in the exploration graph.",
+
+  "source": {
+    "repo": "JinnZ2/Shadow-Hunting",
+    "modules": ["shadow_data_mining.py", "coupling_framework.py", "bioelectric_protocol.py", "tools/explorer.py", "tools/powers_and_roots.py", "tools/chordal_dimensions.py"],
+    "schema_version": "1.0"
+  },
+
+  "shadow_to_exploration_map": {
+    "description": "Shadow-hunting detection methods map directly to Rosetta exploration paths. A shadow IS an undiscovered path.",
+    "mappings": [
+      {
+        "shadow_detector": "SHADOW.PHI_RATIO",
+        "exploration_path_type": "family_affinity",
+        "description": "φ-ratios in entity data reveal family affinities nobody checked. If an entity's measurements contain φ-enrichment, it has geometric coupling to FAMILY.F09.",
+        "rosetta_family": "FAMILY.F09",
+        "shape": "SHAPE.DODECA",
+        "note": "DODECA has pentagonal faces. Pentagon diagonal/side = φ. φ-detection → DODECA affinity."
+      },
+      {
+        "shadow_detector": "SHADOW.FIBONACCI",
+        "exploration_path_type": "direct_link",
+        "description": "Fibonacci patterns in growth data link entities to FAMILY.F04 (Life) and PRINCIPLE.P03 (Recursion). The growth pattern IS the link.",
+        "rosetta_family": "FAMILY.F04",
+        "shape": "SHAPE.ICOSA",
+        "note": "ICOSA = growth, adaptability, flow. Fibonacci = growth's discrete encoding."
+      },
+      {
+        "shadow_detector": "SHADOW.GEOMETRIC_COHERENCE",
+        "exploration_path_type": "merge_validation",
+        "description": "Geometric coherence score determines whether a merge is real or noise. High coherence = merge confirmed. Low coherence = merge blocked. This IS the merge gate expressed as a measurement.",
+        "rosetta_families": ["FAMILY.F03", "FAMILY.F09"],
+        "note": "Shannon entropy in coherence detection IS the same entropy in seed physics complexity cost."
+      },
+      {
+        "shadow_detector": "SHADOW.FIELD_COUPLING",
+        "exploration_path_type": "bridge_connection",
+        "description": "Field coupling between entities creates bridge connections. Two systems that resonate at φ-ratios are coupled even if they look independent.",
+        "rosetta_families": ["FAMILY.F01", "FAMILY.F10"],
+        "note": "Resonance + EM coupling. The bridge nobody built because they assumed the systems were separate."
+      }
+    ]
+  },
+
+  "boundary_to_attack_map": {
+    "description": "Equation boundary types map 1:1 to LOGOS attack types. Finding a boundary IS launching a missing_variable attack against the standard model.",
+    "mappings": [
+      {"boundary": "measurement_boundary", "logos_attack": "missing_variable",          "family": "FAMILY.F14", "description": "Instrument can't measure it → model ignores it"},
+      {"boundary": "scale_boundary",       "logos_attack": "scope_violation",            "family": "FAMILY.F09", "description": "Works at one scale, fails across scales"},
+      {"boundary": "discipline_boundary",  "logos_attack": "causal_break",              "family": "FAMILY.F12", "description": "One field stops, another starts, nobody owns the gap"},
+      {"boundary": "efficiency_boundary",  "logos_attack": "historical_counterexample",  "family": "FAMILY.F05", "description": "Model declares max efficiency, nature exceeds it"},
+      {"boundary": "noise_boundary",       "logos_attack": "data_quality",              "family": "FAMILY.F03", "description": "Structured data labeled as noise"}
+    ]
+  },
+
+  "coupling_to_seed_map": {
+    "description": "The GeometricCouplingSystem class IS the seed physics applied to natural systems.",
+    "mappings": [
+      {
+        "coupling_concept": "Energy budget E",
+        "seed_concept": "Family count as fuel",
+        "sim_concept": "Agent energy in sim.py",
+        "connection": "Same resource: how much capacity the system has for growth"
+      },
+      {
+        "coupling_concept": "EXPLORE mode",
+        "seed_concept": "explore mode (energy ≥ branching threshold)",
+        "sim_concept": "Agent in explore mode discovering new paths",
+        "connection": "Same state: high energy, seeking new patterns"
+      },
+      {
+        "coupling_concept": "EXPAND mode",
+        "seed_concept": "expand mode (energy < branching threshold)",
+        "sim_concept": "Agent in expand mode recovering energy",
+        "connection": "Same state: low energy, preserving structure"
+      },
+      {
+        "coupling_concept": "field_coupling_efficiency()",
+        "seed_concept": "Symmetry metric in seed state",
+        "connection": "Both measure how well the system's geometry matches optimal coupling. φ-alignment = high symmetry = efficient"
+      },
+      {
+        "coupling_concept": "get_branching_threshold()",
+        "seed_concept": "E_branch = k × C(S)",
+        "connection": "Same equation. Same threshold. Same physics. Different system."
+      }
+    ]
+  },
+
+  "natural_systems_to_entities": {
+    "description": "Shadow-Hunting's four example systems map to Rosetta entities and families.",
+    "systems": [
+      {
+        "system": "Brain energy shadow",
+        "shadow": "75% 'overhead' is unmeasured EM field computation",
+        "rosetta_entities": ["ANIMAL.OCTOPUS", "ANIMAL.DOLPHIN"],
+        "rosetta_families": ["FAMILY.F06", "FAMILY.F10", "FAMILY.F16"],
+        "families_named": ["Cognition", "Particle/EM", "Consciousness"],
+        "shadow_type": "The shadow IS consciousness — the coupling between neurons that electrodes can't measure"
+      },
+      {
+        "system": "Photosynthesis shadow",
+        "shadow": "Multi-scale FRET coupling at φ-ratios gives 82-100% real efficiency",
+        "rosetta_entities": ["PLANT.BAMBOO", "PLANT.LICHEN"],
+        "rosetta_families": ["FAMILY.F04", "FAMILY.F01", "FAMILY.F09"],
+        "families_named": ["Life", "Resonance", "Geometry"],
+        "shadow_type": "The shadow IS resonant coupling across scales — molecular to canopy"
+      },
+      {
+        "system": "Hurricane intensification",
+        "shadow": "Rain band spacing at φ-ratios predicts strengthening",
+        "rosetta_entities": ["FIELD.LIGHTNING", "FIELD.TORNADO"],
+        "rosetta_families": ["FAMILY.F17", "FAMILY.F05", "FAMILY.F09"],
+        "families_named": ["Turbulence", "Energy-Thermo", "Geometry"],
+        "shadow_type": "The shadow IS geometric self-organization in apparent chaos"
+      },
+      {
+        "system": "Planaria regeneration",
+        "shadow": "Bioelectric field coupling at φ-coherence drives pattern formation",
+        "rosetta_entities": ["MICROBE.MYCELIUM", "ANIMAL.STARFISH"],
+        "rosetta_families": ["FAMILY.F04", "FAMILY.F10"],
+        "families_named": ["Life", "Particle/EM"],
+        "shadow_type": "The shadow IS bioelectric morphogenesis — voltage patterns as geometric templates"
+      }
+    ]
+  },
+
+  "shadow_as_hsp_advantage": {
+    "description": "Shadow-hunting IS the HSP advantage from AI-Arena formalized as a detection toolkit. The HSP wins by finding missing variables. Shadow-hunting finds missing variables in nature. Same function, different domain.",
+    "pipeline": [
+      "1. Standard model makes a CLAIM about efficiency",
+      "2. Shadow-hunter runs detectors on the 'waste'",
+      "3. If φ-enrichment is statistically significant → ATTACK (missing_variable)",
+      "4. REFINE the efficiency model to include the coupling",
+      "5. ORACLE verifies with empirical measurement",
+      "6. Trust flows to whoever predicted the shadow correctly"
+    ]
+  },
+
+  "cross_bridge_connections": {
+    "connections": [
+      {
+        "shadow_concept": "phi_ratio_detection",
+        "rosetta_bridge": "bridges/rosetta-bridges.json",
+        "connection": "φ appears in all five Platonic solids. Shadow-hunting finds φ in nature. Rosetta maps φ to shapes. Same ratio, complete circle."
+      },
+      {
+        "shadow_concept": "mode_switching (EXPLORE/EXPAND)",
+        "rosetta_bridge": "bridges/seed-physics-bridge.json",
+        "connection": "Identical dual-mode growth. Same threshold equation. Same physics."
+      },
+      {
+        "shadow_concept": "boundary_mapping",
+        "rosetta_bridge": "bridges/ai-arena-bridge.json",
+        "connection": "Boundaries are LOGOS scope_violations. Shadow-hunting IS the systematic attack on arbitrary boundaries."
+      },
+      {
+        "shadow_concept": "field_coupling_efficiency",
+        "rosetta_bridge": "bridges/taf-wiring-bridge.json",
+        "connection": "TAF.AXIOM.1 (conservation) — the 'wasted' energy isn't wasted, it's coupled. Conservation holds when you measure everything."
+      },
+      {
+        "shadow_concept": "bioelectric_protocol",
+        "rosetta_bridge": "bridges/living-intelligence-bridge.json",
+        "connection": "LID entities with regeneration capabilities (starfish, planaria, mycelium) use bioelectric coupling. Shadow-hunting provides the detection toolkit."
+      },
+      {
+        "shadow_concept": "statistical_significance",
+        "rosetta_bridge": "bridges/thermodynamic-validation-bridge.json",
+        "connection": "Enrichment calculations use the same statistical rigor as physics guard validation. Pattern claims must survive null hypothesis testing."
+      }
+    ]
+  }
+}
