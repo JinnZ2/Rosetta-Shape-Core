@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-e5f5241327e384a9d0cc907a621d8cb86473f52a.idx
-./.git/objects/pack/pack-e5f5241327e384a9d0cc907a621d8cb86473f52a.pack
-./.git/objects/pack/pack-e5f5241327e384a9d0cc907a621d8cb86473f52a.rev
+./.git/objects/pack/pack-e350eb23d6b493dfcb1a51f7ed6582dac56eaa4c.idx
+./.git/objects/pack/pack-e350eb23d6b493dfcb1a51f7ed6582dac56eaa4c.pack
+./.git/objects/pack/pack-e350eb23d6b493dfcb1a51f7ed6582dac56eaa4c.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -72,6 +72,8 @@
 ./atlas/remote/mathematic-economics/equations.json
 ./atlas/remote/mathematic-economics/signal-distortion.json
 ./atlas/remote/mathematic-economics/thermodynamic-governance.json
+./atlas/remote/narrative-physics/constraint-analysis.json
+./atlas/remote/narrative-physics/detection-signatures.json
 ./atlas/remote/physics-guard/laws.json
 ./atlas/remote/physics-guard/premises.json
 ./atlas/remote/physics-guard/scope_conditions.json
@@ -96,6 +98,7 @@
 ./bridges/living-intelligence-bridge.json
 ./bridges/mandala-compute-bridge.json
 ./bridges/mathematic-economics-bridge.json
+./bridges/narrative-physics-bridge.json
 ./bridges/physics-encoder-bridge.json
 ./bridges/rosetta-bridges.json
 ./bridges/seed-physics-bridge.json
@@ -232,6 +235,7 @@
 ./src/rosetta_shape_core/diagnostic.py
 ./src/rosetta_shape_core/expand.py
 ./src/rosetta_shape_core/explore.py
+./src/rosetta_shape_core/narrative_physics.py
 ./src/rosetta_shape_core/query.py
 ./src/rosetta_shape_core/seeds.py
 ./src/rosetta_shape_core/self_audit.py
