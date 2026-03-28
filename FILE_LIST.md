@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-074e0fafb821b6d5325e7c582b9dba5c0c3f4e72.idx
-./.git/objects/pack/pack-074e0fafb821b6d5325e7c582b9dba5c0c3f4e72.pack
-./.git/objects/pack/pack-074e0fafb821b6d5325e7c582b9dba5c0c3f4e72.rev
+./.git/objects/pack/pack-37018447ca9651bf01ca3b407c3aa0650484a715.idx
+./.git/objects/pack/pack-37018447ca9651bf01ca3b407c3aa0650484a715.pack
+./.git/objects/pack/pack-37018447ca9651bf01ca3b407c3aa0650484a715.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -87,6 +87,7 @@
 ./atlas/remote/shadow-hunting/boundary-mapping.json
 ./atlas/remote/shadow-hunting/coupling-framework.json
 ./atlas/remote/shadow-hunting/detection-methods.json
+./atlas/remote/soms/substrate.json
 ./atlas/remote/taf/axioms.json
 ./atlas/remote/taf/governance.json
 ./atlas/remote/taf/thresholds.json
@@ -103,6 +104,7 @@
 ./bridges/rosetta-bridges.json
 ./bridges/seed-physics-bridge.json
 ./bridges/shadow-hunting-bridge.json
+./bridges/soms-bridge.json
 ./bridges/taf-wiring-bridge.json
 ./bridges/thermodynamic-validation-bridge.json
 ./bridges/truth-sensor-bridge.json
