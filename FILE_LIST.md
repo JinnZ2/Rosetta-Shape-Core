@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-e350eb23d6b493dfcb1a51f7ed6582dac56eaa4c.idx
-./.git/objects/pack/pack-e350eb23d6b493dfcb1a51f7ed6582dac56eaa4c.pack
-./.git/objects/pack/pack-e350eb23d6b493dfcb1a51f7ed6582dac56eaa4c.rev
+./.git/objects/pack/pack-074e0fafb821b6d5325e7c582b9dba5c0c3f4e72.idx
+./.git/objects/pack/pack-074e0fafb821b6d5325e7c582b9dba5c0c3f4e72.pack
+./.git/objects/pack/pack-074e0fafb821b6d5325e7c582b9dba5c0c3f4e72.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -110,6 +110,7 @@
 ./data/essence-traits.json
 ./data/interaction_ontology.json
 ./data/math_constants.json
+./data/narrative-physics-sample.json
 ./data/sacred_geometry.json
 ./data/seed-catalog.json
 ./data/semantic_suppression_model.json
@@ -235,6 +236,7 @@
 ./src/rosetta_shape_core/diagnostic.py
 ./src/rosetta_shape_core/expand.py
 ./src/rosetta_shape_core/explore.py
+./src/rosetta_shape_core/knowledge_dna.py
 ./src/rosetta_shape_core/narrative_physics.py
 ./src/rosetta_shape_core/query.py
 ./src/rosetta_shape_core/seeds.py
@@ -242,4 +244,9 @@
 ./src/rosetta_shape_core/sim.py
 ./src/rosetta_shape_core/validator.py
 ./tests/golden/examples.json
+./tests/test_bloom.py
+./tests/test_explore.py
+./tests/test_knowledge_dna.py
+./tests/test_narrative_physics.py
 ./tests/test_schema.py
+./tests/test_sim.py
