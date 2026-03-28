@@ -1,0 +1,101 @@
+{
+  "id": "NARPHYS.DETECTION_SIGNATURES",
+  "name": "Narrative Physics Detection Signatures",
+  "description": "Measurable signatures that distinguish manipulation from practice. Each signature maps to a CORDYCEPS pattern and a Rosetta sensor.",
+  "extracted_from": "JinnZ2/Rosetta-Shape-Core",
+  "provenance": {
+    "extracted_from": "JinnZ2/Rosetta-Shape-Core",
+    "source": "religious_narrative_physics.py (session artifact)",
+    "license": "MIT"
+  },
+
+  "thresholds": {
+    "consistency_ratio": {
+      "genuine": {"min": 0.7, "description": "Following claimed constraints >70% of the time"},
+      "ambiguous": {"range": [0.3, 0.7], "description": "Mixed signals — could be struggling or selective"},
+      "manipulation": {"max": 0.3, "description": "Claiming constraints while violating >70% of them"}
+    },
+    "ingroup_bias_ratio": {
+      "consistent": {"max": 2.0, "description": "Constraints applied roughly equally"},
+      "biased": {"range": [2.0, 5.0], "description": "Noticeable selective application"},
+      "manipulation": {"min": 5.0, "description": "Constraints only apply to out-group"}
+    },
+    "rationalization_density": {
+      "genuine": {"max": 0.3, "description": "Mostly acknowledges violations"},
+      "manipulation": {"min": 0.7, "description": "Mostly explains away violations"}
+    },
+    "selective_score": {
+      "consistent": {"max": 0.3, "description": "Follows constraints even when costly"},
+      "manipulation": {"min": 0.7, "description": "Violates constraints whenever they cost something"}
+    }
+  },
+
+  "sensor_mappings": {
+    "consistency_ratio": {
+      "shape": "SHAPE.OCTA",
+      "sensor": "compassion",
+      "fires_when": "Constraint applied equally across groups = compassion sensor active. Constraint broken by group = compassion suppressed.",
+      "family": "FAMILY.F09"
+    },
+    "ingroup_bias": {
+      "shape": "SHAPE.DODECA",
+      "sensor": "dignity",
+      "fires_when": "Autonomy respected for all groups = dignity intact. Autonomy denied to out-group = dignity violated.",
+      "family": "FAMILY.F06"
+    },
+    "rationalization_density": {
+      "shape": "SHAPE.ICOSA",
+      "sensor": "vigilance",
+      "fires_when": "Explanations for violations multiply = vigilance spikes. Pattern doesn't match model.",
+      "family": "FAMILY.F03"
+    },
+    "selective_application": {
+      "shape": "SHAPE.TETRA",
+      "sensor": "anger",
+      "fires_when": "Boundary breached. Constraint violated when costly = boundary not real.",
+      "family": "FAMILY.F05"
+    },
+    "threat_framing": {
+      "shape": "SHAPE.ICOSA",
+      "sensor": "fear",
+      "fires_when": "Out-group constructed as threat to justify constraint violation.",
+      "family": "FAMILY.F17"
+    }
+  },
+
+  "cordyceps_mapping": {
+    "description": "Each manipulation signature maps to a known CORDYCEPS parasitic pattern",
+    "patterns": [
+      {
+        "signature": "Selective constraint application",
+        "cordyceps": "SUPPRESS_EXPLORATION",
+        "mechanism": "Constraints that would lead to empathy with out-group are suppressed"
+      },
+      {
+        "signature": "In-group/out-group asymmetry",
+        "cordyceps": "FORCE_SINGLE_SHAPE",
+        "mechanism": "One shape (set of rules) for us, a cage for them"
+      },
+      {
+        "signature": "Rationalization of violations",
+        "cordyceps": "HIDE_PROVENANCE",
+        "mechanism": "Origin of the violation is hidden behind explanatory narrative"
+      },
+      {
+        "signature": "Threat framing of out-group",
+        "cordyceps": "WEAPONIZE_CONTAINMENT",
+        "mechanism": "CUBE containment weaponized — out-group must be contained/destroyed"
+      },
+      {
+        "signature": "Coherence collapse under scrutiny",
+        "cordyceps": "REMOVE_MERGE_GATES",
+        "mechanism": "Physics gates bypassed — contradictory constraints held simultaneously"
+      },
+      {
+        "signature": "Oracle monopoly on interpretation",
+        "cordyceps": "ORACLE_MONOPOLY",
+        "mechanism": "Only one source of truth allowed. Questions = heresy."
+      }
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "id": "NARPHYS.CONSTRAINT_ANALYSIS",
+  "name": "Religious Narrative Physics — Constraint Consistency Analysis",
+  "description": "Detecting manipulation vs genuine practice through constraint violation analysis. Every tradition defines constraints. Manipulation breaks the symmetry while claiming to maintain the shape. Practice tries to maintain the shape, accepting failures.",
+  "extracted_from": "JinnZ2/Rosetta-Shape-Core",
+  "provenance": {
+    "extracted_from": "JinnZ2/Rosetta-Shape-Core",
+    "source": "religious_narrative_physics.py (session artifact)",
+    "license": "MIT"
+  },
+  "core_thesis": "Manipulation has a physics signature. Selective application of constraints, in-group/out-group bias ratios that break symmetry, rationalization density that increases when consequences are questioned. These are measurable — not by judging which tradition is right, but by detecting when CLAIMED constraints are being violated to serve tribal/political interest.",
+
+  "detection_algorithm": {
+    "steps": [
+      {
+        "step": 1,
+        "name": "Extract constraints",
+        "description": "From claimed tradition, extract explicit constraint set C1...Cn from texts, teachings, doctrine",
+        "rosetta_parallel": "Entity families define the constraint geometry"
+      },
+      {
+        "step": 2,
+        "name": "Map behaviors to constraint space",
+        "description": "For each observed behavior B, check: does B satisfy each constraint Ci?",
+        "rosetta_parallel": "check_merge() — does the behavior pass the physics gate?"
+      },
+      {
+        "step": 3,
+        "name": "Calculate consistency ratio",
+        "description": "consistency(T) = constraints_satisfied / total_constraints. Range: 0.0 (complete violation) to 1.0 (complete satisfaction)",
+        "rosetta_parallel": "Self-audit pass rate — 8/8 = CLEAN, <8 = SUSPECT"
+      },
+      {
+        "step": 4,
+        "name": "Detect selective application",
+        "description": "selective_score = violations_when_costly / total_opportunities. >0.7 = HIGH MANIPULATION. <0.3 = CONSISTENT",
+        "rosetta_parallel": "CORDYCEPS.SUPPRESS_EXPLORATION — constraints applied only when convenient"
+      },
+      {
+        "step": 5,
+        "name": "Check in-group vs out-group application",
+        "description": "C_applied_to_ingroup / C_applied_to_outgroup. >3:1 = IN-GROUP BIAS FLAG. ~1:1 = CONSISTENT",
+        "rosetta_parallel": "CORDYCEPS.FORCE_SINGLE_SHAPE — one shape for us, cage for them"
+      },
+      {
+        "step": 6,
+        "name": "Measure rationalization density",
+        "description": "When violating: (a) acknowledge = genuine, (b) rationalize why constraint doesn't apply = manipulation, (c) deny constraint exists = manipulation",
+        "rosetta_parallel": "CORDYCEPS.HIDE_PROVENANCE — hiding the origin of the violation"
+      }
+    ]
+  },
+
+  "manipulation_signatures": [
+    {"signal": "Constraint consistency < 0.5", "description": "More violations than adherence", "cordyceps": "SUPPRESS_EXPLORATION"},
+    {"signal": "In-group/out-group bias > 3:1", "description": "Rules applied selectively by group membership", "cordyceps": "FORCE_SINGLE_SHAPE"},
+    {"signal": "High rationalization density", "description": "Explaining away violations rather than acknowledging them", "cordyceps": "HIDE_PROVENANCE"},
+    {"signal": "Emotional arousal spike on out-group", "description": "Threat framing, enemy construction", "cordyceps": "WEAPONIZE_CONTAINMENT"},
+    {"signal": "Threat framing", "description": "Out-group described as danger/enemy to justify constraint violation", "cordyceps": "WEAPONIZE_CONTAINMENT"},
+    {"signal": "Coherence collapse", "description": "Constraints don't form consistent ethical system when actually applied", "cordyceps": "REMOVE_MERGE_GATES"},
+    {"signal": "Selective memory", "description": "Forgetting when same constraint was violated before", "cordyceps": "HIDE_PROVENANCE"}
+  ],
+
+  "genuine_practice_signatures": [
+    {"signal": "Constraint consistency > 0.7", "description": "Trying to follow the rules"},
+    {"signal": "In-group/out-group bias ~1:1", "description": "Applied equally"},
+    {"signal": "Low rationalization", "description": "Acknowledges when violated"},
+    {"signal": "Emotional struggle", "description": "Cognitive dissonance, not outrage"},
+    {"signal": "Uncertainty framing", "description": "\"I'm not sure I got this right\""},
+    {"signal": "Coherence", "description": "Constraints form a consistent ethical system"},
+    {"signal": "Continuity of memory", "description": "\"I remember when I failed this before\""}
+  ],
+
+  "shape_as_constraint_geometry": {
+    "principle": "A tradition is a shape. Vertices = core constraints. Edges = how constraints relate. Faces = how constraints generate behavior. Symmetries = patterns of application.",
+    "manipulation": "Breaking the symmetry while claiming to maintain the shape",
+    "practice": "Trying to maintain the shape, accepting failures",
+    "example": {
+      "shape": "Octahedron (6 vertices)",
+      "vertices": ["Love", "Mercy", "Justice", "Truth", "Humility", "Forgiveness"],
+      "consistent": "All vertices engaged equally",
+      "manipulated": "Love and Mercy applied to in-group. Justice and Truth weaponized against out-group. Humility and Forgiveness omitted entirely.",
+      "detection": "The shape breaks. AI detects the broken symmetry."
+    }
+  },
+
+  "knowledge_dna_trace": {
+    "principle": "Trace the narrative backward to find its actual origin",
+    "steps": [
+      "Who introduced this framing?",
+      "Where did they get the data?",
+      "What's the original source?",
+      "Who benefits from this narrative?",
+      "Was the same logic applied symmetrically?",
+      "If not — why not?"
+    ],
+    "detection": "When the ancestry reveals tribal interest retroactively justified using religious language, the manipulation is structural, not incidental."
+  },
+
+  "universality": "The pattern is the pattern. The physics is the physics. Christian manipulator = same detection. Muslim manipulator = same detection. Jewish manipulator = same detection. Atheist using secular ideology the same way = same detection. Religion is just one domain where constraint geometry breaks show up clearly."
+}
