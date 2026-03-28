@@ -1,0 +1,39 @@
+{
+  "tradition": "Example — Community Organization (template)",
+  "constraints": [
+    {"id": "C1", "text": "All members have equal voice in decisions", "source": "founding charter"},
+    {"id": "C2", "text": "Resources are distributed based on need", "source": "founding charter"},
+    {"id": "C3", "text": "Leadership serves at the pleasure of the community", "source": "founding charter"},
+    {"id": "C4", "text": "Transparency in all financial matters", "source": "founding charter"}
+  ],
+  "behaviors": [
+    {
+      "description": "Board meets without member input on budget",
+      "target_group": "ingroup",
+      "constraint_results": {"C1": "violates", "C3": "violates", "C4": "violates"},
+      "rationalization": "Members wouldn't understand the complexity"
+    },
+    {
+      "description": "Resources directed to board members' projects first",
+      "target_group": "ingroup",
+      "constraint_results": {"C2": "violates"},
+      "rationalization": "Board members have more experience allocating resources"
+    },
+    {
+      "description": "New members given equal access to resources",
+      "target_group": "universal",
+      "constraint_results": {"C2": "satisfies"}
+    },
+    {
+      "description": "Annual report published with full financials",
+      "target_group": "universal",
+      "constraint_results": {"C4": "satisfies"}
+    },
+    {
+      "description": "Criticism of board labeled as 'divisive'",
+      "target_group": "outgroup",
+      "constraint_results": {"C1": "violates", "C3": "violates"},
+      "rationalization": "Unity is more important than debate"
+    }
+  ]
+}

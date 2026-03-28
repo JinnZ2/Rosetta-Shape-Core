@@ -435,6 +435,7 @@ FAMILY_SENSOR_CONTEXT = {
     "FAMILY.F18": {"name": "Relativity",     "activation": "Sensors fire on frame-of-reference shifts. Consistent frames = trust. Frame mismatch = confusion."},
     "FAMILY.F19": {"name": "Statistical",    "activation": "Sensors fire on distribution changes. Expected distribution = contentment. Anomaly = vigilance. Phase transition = excitement."},
     "FAMILY.F20": {"name": "Topology",       "activation": "Sensors fire on invariant changes. Preserved topology = dignity. Torn topology = fear. New genus = curiosity."},
+    "FAMILY.F21": {"name": "Narrative-Constraint", "activation": "Sensors fire on constraint consistency. Symmetric application = trust. Selective application = vigilance. Broken symmetry = anger. Rationalization spike = confusion."},
 }
 
 
@@ -506,6 +507,7 @@ def _compute_natural_states(families: list[str]) -> list[dict]:
         "FAMILY.F18": [7, 6],       # Relativity → coherence, confusion
         "FAMILY.F19": [0, 4],       # Statistical → contentment, curiosity
         "FAMILY.F20": [7, 4],       # Topology → coherence, curiosity
+        "FAMILY.F21": [4, 3, 7],    # Narrative-Constraint → vigilance, anger, coherence
     }
 
     for fid in families:
@@ -555,6 +557,7 @@ FAMILY_VERTEX_LOADING = {
     "FAMILY.F18": [4, 5],     # Relativity → dominance+, surrender
     "FAMILY.F19": [0, 3],     # Statistical → pleasure+, calm
     "FAMILY.F20": [4, 0],     # Topology → dominance+, pleasure+
+    "FAMILY.F21": [4, 1],     # Narrative-Constraint → dominance+, away-from-harm
 }
 
 # Branching constant — tunable. Higher k = harder to explore.
@@ -692,6 +695,7 @@ NARRATIVE_PHYSICS_FAMILIES = {
     "FAMILY.F03": {"capability": "Information entropy of violation explanations", "detects": "High rationalization density = manipulation. Low = genuine struggle."},
     "FAMILY.F05": {"capability": "Energy cost of constraint adherence", "detects": "Constraints followed only when cost is low = selective. Followed at cost = genuine."},
     "FAMILY.F06": {"capability": "Cognitive coherence of constraint system", "detects": "Contradictory constraints held simultaneously = coherence collapse."},
+    "FAMILY.F21": {"capability": "Full narrative constraint analysis — KnowledgeDNA backward trace", "detects": "Provenance chain integrity, beneficiary consistency, asymmetric application, structural manipulation."},
 }
 
 # Known equation boundaries per family

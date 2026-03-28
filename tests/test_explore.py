@@ -215,8 +215,8 @@ def test_sensor_registry_completeness():
 
 
 def test_family_sensor_context_completeness():
-    """All 20 families should have sensor context."""
-    for i in range(1, 21):
+    """All 21 families should have sensor context."""
+    for i in range(1, 22):
         fid = f"FAMILY.F{i:02d}"
         assert fid in FAMILY_SENSOR_CONTEXT
 
@@ -228,8 +228,8 @@ def test_seed_vertices_count():
 
 
 def test_family_vertex_loading_coverage():
-    """All 20 families should have vertex loading."""
-    for i in range(1, 21):
+    """All 21 families should have vertex loading."""
+    for i in range(1, 22):
         fid = f"FAMILY.F{i:02d}"
         assert fid in FAMILY_VERTEX_LOADING
 

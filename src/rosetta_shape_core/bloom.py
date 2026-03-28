@@ -428,6 +428,140 @@ def list_entities(graph: RosettaGraph):
     print(f"  Example: python -m rosetta_shape_core.bloom bee\n")
 
 
+# ── cross-entity analysis ─────────────────────────────────────────
+
+def bloom_cross(graph: RosettaGraph, entity_ids: list[str]) -> dict:
+    """Compare two or more entities — shared families, compatible shapes, sensor gaps."""
+    profiles = []
+    for eid in entity_ids:
+        hb = home_base(graph, eid)
+        seed = compute_seed_state(hb.get("entity_families", []))
+        env = map_internal_environment(graph, eid, hb, discover(graph, eid, depth=1))
+        profiles.append({
+            "entity_id": eid,
+            "label": hb.get("label", eid),
+            "home_shape": hb.get("home_shape"),
+            "families": set(hb.get("entity_families", [])),
+            "capabilities": set(hb.get("capabilities", [])),
+            "home_base": hb,
+            "seed": seed,
+            "sensors": set(s[0] for s in env.get("home_sensors", [])),
+        })
+
+    # shared families
+    all_families = [p["families"] for p in profiles]
+    shared_families = all_families[0]
+    for f in all_families[1:]:
+        shared_families = shared_families & f
+    unique_per_entity = {p["entity_id"]: p["families"] - shared_families for p in profiles}
+
+    # shared shapes
+    all_shapes = [set() for _ in profiles]
+    for i, p in enumerate(profiles):
+        all_shapes[i].add(p["home_shape"])
+        for fid in p["families"]:
+            fam = graph.families.get(fid, {})
+            all_shapes[i].add(fam.get("primary"))
+    shared_shapes = all_shapes[0]
+    for s in all_shapes[1:]:
+        shared_shapes = shared_shapes & s
+    shared_shapes.discard(None)
+
+    # sensor gaps — sensors one entity has that others don't
+    all_sensors = [p["sensors"] for p in profiles]
+    union_sensors = set()
+    for s in all_sensors:
+        union_sensors |= s
+    sensor_gaps = {p["entity_id"]: union_sensors - p["sensors"] for p in profiles}
+
+    # compatibility score — based on shared families / total unique families
+    total_unique = set()
+    for f in all_families:
+        total_unique |= f
+    compat_score = len(shared_families) / len(total_unique) if total_unique else 0
+
+    return {
+        "entities": [{"id": p["entity_id"], "label": p["label"],
+                       "home_shape": p["home_shape"],
+                       "family_count": len(p["families"]),
+                       "mode": p["seed"]["mode"]} for p in profiles],
+        "shared_families": sorted(shared_families),
+        "shared_shapes": sorted(shared_shapes),
+        "unique_families": {k: sorted(v) for k, v in unique_per_entity.items()},
+        "sensor_gaps": {k: sorted(v) for k, v in sensor_gaps.items()},
+        "compatibility_score": round(compat_score, 3),
+        "total_unique_families": len(total_unique),
+    }
+
+
+def print_cross(data: dict, graph: RosettaGraph):
+    """Display cross-entity analysis."""
+    labels = [e["label"] for e in data["entities"]]
+    print(f"\n{'='*60}")
+    print(f"  CROSS-ENTITY ANALYSIS")
+    print(f"  {' × '.join(labels)}")
+    print(f"{'='*60}")
+
+    # Entity summaries
+    for e in data["entities"]:
+        sg = SHAPE_GLYPHS.get(e["home_shape"], "")
+        mode_g = "🌿" if e["mode"] == "explore" else "🌳"
+        print(f"\n  {sg} {e['label']} ({e['id']})")
+        print(f"    Home: {e['home_shape']}  Families: {e['family_count']}  Mode: {mode_g} {e['mode']}")
+
+    # Shared
+    print(f"\n  ── Shared Families ({len(data['shared_families'])}) ──")
+    if data["shared_families"]:
+        for fid in data["shared_families"]:
+            fam = graph.families.get(fid, {})
+            print(f"    • {fid}: {fam.get('name', '?')}")
+    else:
+        print(f"    (none — these entities have completely different domains)")
+
+    print(f"\n  ── Shared Shapes ({len(data['shared_shapes'])}) ──")
+    for sid in data["shared_shapes"]:
+        sg = SHAPE_GLYPHS.get(sid, "")
+        print(f"    {sg} {sid}")
+
+    # Unique per entity
+    print(f"\n  ── Unique Families ──")
+    for eid, fids in data["unique_families"].items():
+        label = next(e["label"] for e in data["entities"] if e["id"] == eid)
+        if fids:
+            names = [graph.families.get(f, {}).get("name", f) for f in fids[:5]]
+            more = f" +{len(fids)-5}" if len(fids) > 5 else ""
+            print(f"    {label}: {', '.join(names)}{more}")
+        else:
+            print(f"    {label}: (all families shared)")
+
+    # Sensor gaps
+    print(f"\n  ── Sensor Gaps (what each could learn from the others) ──")
+    for eid, gaps in data["sensor_gaps"].items():
+        label = next(e["label"] for e in data["entities"] if e["id"] == eid)
+        if gaps:
+            print(f"    {label} is missing: {', '.join(list(gaps)[:6])}")
+        else:
+            print(f"    {label}: has all shared sensors")
+
+    # Compatibility
+    score = data["compatibility_score"]
+    bar = "█" * int(score * 20) + "░" * (20 - int(score * 20))
+    print(f"\n  ── Compatibility ──")
+    print(f"    [{bar}] {score:.0%}")
+    print(f"    {len(data['shared_families'])} shared / {data['total_unique_families']} total families")
+
+    if score > 0.7:
+        print(f"    High overlap — natural cooperation partners")
+    elif score > 0.3:
+        print(f"    Moderate overlap — complementary strengths")
+    else:
+        print(f"    Low overlap — different domains, high learning potential")
+
+    print(f"\n{'='*60}")
+    print(f"  Different shapes. Shared physics. What one lacks, another has.")
+    print(f"{'='*60}\n")
+
+
 # ── CLI ────────────────────────────────────────────────────────────
 
 def main():
@@ -437,8 +571,8 @@ def main():
         epilog="No entity = system overview. Entity = its neighborhood. --depth branch = everything.",
     )
     ap.add_argument(
-        "entity", nargs="?",
-        help="Entity to explore (e.g., bee, octopus, quartz). Omit for system overview.",
+        "entity", nargs="*",
+        help="Entity to explore (e.g., bee, octopus, quartz). Multiple = cross-entity analysis.",
     )
     ap.add_argument(
         "--depth", choices=["seed", "sprout", "branch"], default=None,
@@ -475,10 +609,26 @@ def main():
             print_seed(data)
         return
 
-    # Resolve entity
-    entity_id = graph.resolve_id(args.entity)
+    # Multiple entities = cross-entity analysis
+    if len(args.entity) > 1:
+        entity_ids = []
+        for name in args.entity:
+            eid = graph.resolve_id(name)
+            if not eid:
+                print(f"\n  Entity '{name}' not found.", file=sys.stderr)
+                sys.exit(1)
+            entity_ids.append(eid)
+        data = bloom_cross(graph, entity_ids)
+        if args.json:
+            print(json.dumps(data, indent=2, default=str))
+        else:
+            print_cross(data, graph)
+        return
+
+    # Single entity — resolve
+    entity_id = graph.resolve_id(args.entity[0])
     if not entity_id:
-        print(f"\n  Entity '{args.entity}' not found.", file=sys.stderr)
+        print(f"\n  Entity '{args.entity[0]}' not found.", file=sys.stderr)
         print(f"  Try: python -m rosetta_shape_core.bloom --list", file=sys.stderr)
         sys.exit(1)
 

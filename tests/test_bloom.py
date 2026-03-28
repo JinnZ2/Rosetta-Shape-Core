@@ -10,7 +10,7 @@ def test_seed_returns_structure():
     data = bloom_seed(g)
     assert data["depth"] == "seed"
     assert data["entities"]["total"] > 0
-    assert data["families"]["total"] == 20
+    assert data["families"]["total"] == 21
     assert data["shapes"]["total"] == 5
     assert data["bridges"]["total"] > 0
     assert "entry_points" in data
