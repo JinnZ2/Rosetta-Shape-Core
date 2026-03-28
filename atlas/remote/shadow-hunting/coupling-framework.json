@@ -1,0 +1,87 @@
+{
+  "schema": "shadow-hunting/coupling-framework@1.0",
+  "extracted_from": "JinnZ2/Shadow-Hunting",
+  "extraction_date": "2026-03-28",
+  "description": "Universal geometric coupling system. Energy-geometric duality: systems optimize through phi-ratio alignment. Mode switching between EXPLORE (innovation) and EXPAND (maintenance). Same physics as seed growth.",
+
+  "geometric_coupling_system": {
+    "class": "GeometricCouplingSystem",
+    "description": "Universal base class for any system that couples through geometry. Tracks energy budget, mode state, and field coupling efficiency.",
+    "parameters": {
+      "E": "Total energy budget — same as seed energy",
+      "geometry": "Current geometric state — how close to φ-alignment",
+      "mode": "EXPLORE or EXPAND — same as seed growth modes"
+    },
+    "methods": {
+      "field_coupling_efficiency": {
+        "description": "Peaks when geometry matches phi-ratios. Systems naturally evolve toward φ because it's the most efficient coupling geometry.",
+        "formula": "efficiency = f(geometry, φ) — maximized at φ-alignment",
+        "rosetta_link": "This IS why shapes matter. Platonic solids are geometrically optimal. φ appears in all five. The shapes aren't arbitrary — they're the solutions to 'what geometry couples most efficiently?'"
+      },
+      "get_branching_threshold": {
+        "description": "Determines when the system switches from EXPAND to EXPLORE. Same as seed physics E_branch = k × C(S).",
+        "rosetta_link": "BRANCHING_K in explore.py. The point where consolidation becomes exploration."
+      },
+      "update_energy": {
+        "description": "Track energy consumption. Exploration costs more than expansion. Coupling efficiency reduces cost.",
+        "rosetta_link": "Maintenance cost in sim.py: complexity * 0.1 per tick"
+      }
+    },
+    "rosetta_families": ["FAMILY.F05", "FAMILY.F09", "FAMILY.F10"],
+    "rosetta_family_names": ["Energy-Thermo", "Geometry", "Particle/EM"]
+  },
+
+  "mode_switching": {
+    "description": "Systems alternate between exploration (high-energy pattern generation) and expansion (low-energy crystallization). This is universal — it appears in seed physics, in the Rosetta sim, and in every natural system Shadow-Hunting analyzes.",
+    "modes": {
+      "EXPLORE": {
+        "description": "High energy. Innovation. Pattern generation. Search for better geometry.",
+        "energy_cost": "High — exploration is expensive",
+        "efficiency": "Low initially, potentially high if new coupling found",
+        "rosetta_mode": "explore in seed physics / discover() in exploration engine",
+        "pad_state": 4,
+        "natural_systems": ["Hurricane intensification phase", "Brain learning mode", "Photosynthesis light reactions", "Planaria wound sensing"]
+      },
+      "EXPAND": {
+        "description": "Low energy. Maintenance. Crystallization. Lock in current geometry.",
+        "energy_cost": "Low — preservation is cheap",
+        "efficiency": "High for current structure, no innovation",
+        "rosetta_mode": "expand in seed physics / home_base() resting",
+        "pad_state": 0,
+        "natural_systems": ["Hurricane steady state", "Brain consolidated memory", "Photosynthesis Calvin cycle", "Planaria stable regeneration"]
+      }
+    },
+    "switching_trigger": "Energy relative to branching threshold. Same in all systems. Same equation."
+  },
+
+  "efficiency_reframe": {
+    "description": "The central insight: what standard science calls 'waste' is unmeasured field coupling doing useful work.",
+    "examples": [
+      {
+        "system": "Brain",
+        "standard_model": "75% of energy is 'overhead' — maintenance, not computation",
+        "shadow_model": "75% is EM field coupling, glial computation, quantum coherence — all doing work the electrodes can't measure",
+        "rosetta_entity": "Relevant to any ANIMAL.* entity with FAMILY.F06 (Cognition)"
+      },
+      {
+        "system": "Photosynthesis",
+        "standard_model": "Maximum theoretical efficiency ~11%, practical ~1-2%",
+        "shadow_model": "82-100% efficiency when accounting for multi-scale FRET coupling organized by φ",
+        "rosetta_entity": "Relevant to PLANT.* entities with FAMILY.F04 (Life)"
+      },
+      {
+        "system": "Hurricanes",
+        "standard_model": "Chaotic dissipative system, inherently wasteful",
+        "shadow_model": "Rain bands spaced at φ-ratios, spiral coherence predicts intensification",
+        "rosetta_entity": "Relevant to FIELD.* entities with FAMILY.F17 (Turbulence)"
+      },
+      {
+        "system": "Planaria Regeneration",
+        "standard_model": "Chemical gradients drive regeneration",
+        "shadow_model": "Bioelectric field coupling at φ-coherence drives pattern formation. Voltage gradients are geometric, not just chemical.",
+        "rosetta_entity": "Relevant to entities with FAMILY.F04 (Life) and FAMILY.F10 (Particle/EM)"
+      }
+    ],
+    "rosetta_link": "The shadow IS the unexplored merge. The missing variable. The family affinity nobody checked. discover() at depth > 1 finds the shadows in the Rosetta graph."
+  }
+}

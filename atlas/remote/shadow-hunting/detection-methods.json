@@ -1,0 +1,94 @@
+{
+  "schema": "shadow-hunting/detection-methods@1.0",
+  "extracted_from": "JinnZ2/Shadow-Hunting",
+  "extraction_date": "2026-03-28",
+  "description": "Four shadow detection methods. Each finds patterns that standard science dismisses as noise, waste, or overhead. The shadow IS the signal — unmeasured geometric field coupling organized by phi-ratios.",
+
+  "detectors": [
+    {
+      "id": "SHADOW.PHI_RATIO",
+      "name": "Phi-Ratio Detection",
+      "function": "detect_phi_ratios()",
+      "description": "Identifies golden ratio (φ ≈ 0.618) patterns in numerical data. Calculates statistical enrichment against random chance — not absolute pattern claims, but probability that phi-organization exceeds noise.",
+      "what_it_finds": "Spacing, proportions, and ratios that converge on φ. Chloroplast grana spirals. Hurricane rain band spacing. Neuron firing intervals. Crystal lattice proportions.",
+      "rosetta_family": "FAMILY.F09",
+      "rosetta_family_name": "Geometry",
+      "rosetta_constant": "CONST.PHI",
+      "sensor_activation": "curiosity — 'why does this ratio keep appearing?'",
+      "pad_state": 4,
+      "pad_label": "curiosity/vigilance"
+    },
+    {
+      "id": "SHADOW.FIBONACCI",
+      "name": "Fibonacci Sequence Detection",
+      "function": "detect_fibonacci_sequences()",
+      "description": "Locates Fibonacci number patterns in biological spacing data. The Fibonacci sequence converges on φ — it's the discrete approximation of the continuous golden ratio.",
+      "what_it_finds": "Petal counts, leaf arrangements, branching patterns, shell chambers, population dynamics. Anywhere growth follows additive self-similarity.",
+      "rosetta_family": "FAMILY.F04",
+      "rosetta_family_name": "Life",
+      "rosetta_principle": "PRINCIPLE.P03",
+      "principle_name": "Recursion",
+      "sensor_activation": "excitement — 'the same pattern at every scale!'",
+      "pad_state": 2,
+      "pad_label": "excitement/mastery"
+    },
+    {
+      "id": "SHADOW.GEOMETRIC_COHERENCE",
+      "name": "Geometric Coherence Detection",
+      "function": "detect_geometric_coherence()",
+      "description": "Measures organization vs randomness using Shannon entropy plus phi content. Low entropy + high phi = geometric coherence. High entropy + low phi = genuine noise.",
+      "what_it_finds": "Whether a system's structure is organized by geometry or genuinely random. Separates signal from noise at the deepest level.",
+      "rosetta_families": ["FAMILY.F03", "FAMILY.F09"],
+      "rosetta_family_names": ["Information", "Geometry"],
+      "connection_to_seed": "Shannon entropy IS the complexity cost from seed physics. Geometric coherence IS low complexity cost — the structure is cheap to maintain because it follows φ.",
+      "sensor_activation": "intuition — 'this system is coherent even though it looks chaotic'",
+      "pad_state": 7,
+      "pad_label": "coherence/equilibrium"
+    },
+    {
+      "id": "SHADOW.FIELD_COUPLING",
+      "name": "Field Coupling Signature Detection",
+      "function": "detect_field_coupling_signature()",
+      "description": "FFT-based frequency resonance analysis for time-series data. Finds coupling between oscillators that standard models treat as independent.",
+      "what_it_finds": "Hidden energy transfer between subsystems. The 'waste heat' that's actually doing work. The 'overhead' that's actually computation. The coupling that standard equations assume is zero.",
+      "rosetta_families": ["FAMILY.F10", "FAMILY.F01"],
+      "rosetta_family_names": ["Particle/EM", "Resonance"],
+      "sensor_activation": "love — 'these systems aren't separate, they're entangled'",
+      "pad_state": 7,
+      "pad_label": "coherence/equilibrium"
+    }
+  ],
+
+  "extended_tools": [
+    {
+      "id": "SHADOW.POWERS_AND_ROOTS",
+      "name": "Power/Root Relationship Scanner",
+      "function": "scan_power_relationships()",
+      "description": "Finds exponents and roots with phi significance. Power cascades and root cascades reveal self-similar scaling.",
+      "rosetta_family": "FAMILY.F09",
+      "rosetta_principle": "PRINCIPLE.P03"
+    },
+    {
+      "id": "SHADOW.CHORDAL_DIMENSIONS",
+      "name": "Chordal Dimension Analysis",
+      "function": "dimensional chord analysis",
+      "description": "Golden angle chord spacing (137.5°). Pentagon's diagonal/side = φ. Extends to N dimensions.",
+      "rosetta_family": "FAMILY.F09",
+      "rosetta_shape": "SHAPE.DODECA",
+      "note": "The dodecahedron has pentagonal faces. Pentagon diagonals encode φ. DODECA IS the phi shape."
+    },
+    {
+      "id": "SHADOW.HUNT",
+      "name": "Unified Shadow Hunt",
+      "function": "hunt_shadows()",
+      "description": "6-stage unified analysis pipeline: phi-ratios → Fibonacci → geometric coherence → power relationships → power spectrum → decimal patterns. The full shadow detection sweep.",
+      "rosetta_analog": "discover() at maximum depth — explore every path, find every hidden connection"
+    }
+  ],
+
+  "statistical_rigor": {
+    "description": "All detectors calculate enrichment vs random chance. Not 'I found φ' but 'φ appears 3.7x more than expected by chance (p < 0.01)'. Statistical significance, not pattern hallucination.",
+    "rosetta_link": "Same as the arena's oracle system — empirical measurement, not assertion. Claims must be falsifiable.",
+    "physics_guard_link": "Detectors ARE physics guards turned outward — checking whether patterns in nature pass the same tests Rosetta applies to its own architecture."
+  }
+}

@@ -641,6 +641,168 @@ def compute_seed_state(families: list[str]) -> dict:
     }
 
 
+# ── shadow hunting ─────────────────────────────────────────────────
+# Find hidden phi-patterns in entity data that reveal unexplored
+# connections. The shadow IS the signal standard models dismiss.
+
+PHI = (1 + math.sqrt(5)) / 2  # ≈ 1.618034
+PHI_INVERSE = 1 / PHI          # ≈ 0.618034
+PHI_TOLERANCE = 0.05           # how close to φ counts as a match
+
+# Which families have known φ-coupling signatures
+PHI_FAMILIES = {
+    "FAMILY.F09": "Geometry — φ in Platonic solids, pentagon diagonals",
+    "FAMILY.F04": "Life — Fibonacci growth patterns converge on φ",
+    "FAMILY.F01": "Resonance — coupled oscillators at φ-frequency ratios",
+    "FAMILY.F10": "Particle/EM — field coupling organized by φ",
+    "FAMILY.F20": "Topology — φ appears in genus transitions",
+}
+
+# Known equation boundaries per family
+EQUATION_BOUNDARIES = {
+    "FAMILY.F06": {"type": "measurement_boundary", "shadow": "EM field coupling between neurons — electrodes can't measure it"},
+    "FAMILY.F04": {"type": "scale_boundary",       "shadow": "Multi-scale FRET coupling — molecular to organism"},
+    "FAMILY.F17": {"type": "noise_boundary",        "shadow": "1/f noise is scale-free organization, not random"},
+    "FAMILY.F05": {"type": "efficiency_boundary",   "shadow": "Thermodynamic 'waste' is geometric coupling doing work"},
+    "FAMILY.F12": {"type": "discipline_boundary",   "shadow": "Network effects cross disciplinary boundaries"},
+    "FAMILY.F10": {"type": "measurement_boundary",  "shadow": "Field coupling invisible to particle-only instruments"},
+    "FAMILY.F16": {"type": "measurement_boundary",  "shadow": "Consciousness coupling — no instrument measures it directly"},
+}
+
+
+def hunt_shadows(graph: RosettaGraph, entity_id: str, seed: dict) -> dict:
+    """Hunt for shadows in the entity's data — hidden φ-patterns and
+    equation boundaries that reveal unexplored connections.
+
+    Returns shadows found, φ-coherence score, and suggested explorations.
+    """
+    ent = graph.entities.get(entity_id, {})
+    families = ent.get("rosetta_families", [])
+
+    shadows = []
+
+    # 1. φ-ratio detection in seed amplitudes
+    amplitudes = list(seed.get("amplitudes", {}).values())
+    phi_hits = []
+    for i, a in enumerate(amplitudes):
+        for j, b in enumerate(amplitudes):
+            if i < j and b > 0:
+                ratio = a / b
+                if abs(ratio - PHI) < PHI_TOLERANCE or abs(ratio - PHI_INVERSE) < PHI_TOLERANCE:
+                    phi_hits.append((SEED_VERTICES[i], SEED_VERTICES[j], round(ratio, 4)))
+
+    if phi_hits:
+        shadows.append({
+            "detector": "SHADOW.PHI_RATIO",
+            "finding": f"φ-ratios detected in seed amplitudes: {len(phi_hits)} pairs",
+            "detail": phi_hits,
+            "implication": "Entity's internal structure already organized by φ. DODECA affinity likely.",
+            "suggested_shape": "SHAPE.DODECA",
+        })
+
+    # 2. Geometric coherence from entropy
+    entropy = seed.get("entropy", 0)
+    max_entropy = seed.get("max_entropy", 2.585)
+    coherence = 1.0 - (entropy / max_entropy) if max_entropy > 0 else 0
+    phi_content = sum(1 for a in amplitudes if abs(a - PHI_INVERSE) < PHI_TOLERANCE * 2) / max(len(amplitudes), 1)
+
+    geometric_coherence = (coherence + phi_content) / 2
+    if geometric_coherence > 0.3:
+        shadows.append({
+            "detector": "SHADOW.GEOMETRIC_COHERENCE",
+            "finding": f"Geometric coherence score: {geometric_coherence:.3f}",
+            "detail": {"coherence": round(coherence, 3), "phi_content": round(phi_content, 3)},
+            "implication": "Entity has organized internal geometry — not random. Structure is efficient.",
+        })
+
+    # 3. Family-specific equation boundaries
+    for fid in families:
+        if fid in EQUATION_BOUNDARIES:
+            boundary = EQUATION_BOUNDARIES[fid]
+            shadows.append({
+                "detector": "SHADOW.BOUNDARY",
+                "finding": f"Equation boundary via {fid}: {boundary['type']}",
+                "shadow": boundary["shadow"],
+                "implication": f"Standard models of this entity likely undercount efficiency. Hunt the shadow in the {boundary['type']}.",
+                "family": fid,
+            })
+
+    # 4. φ-family connections not yet explored
+    for fid, desc in PHI_FAMILIES.items():
+        if fid not in families:
+            # Check if any of the entity's existing families bridge to this φ-family
+            for existing_fid in families:
+                existing_fam = graph.families.get(existing_fid, {})
+                phi_fam = graph.families.get(fid, {})
+                # If they share any shapes, there's a potential shadow connection
+                existing_shapes = set()
+                existing_shapes.add(existing_fam.get("primary", ""))
+                existing_shapes.update(existing_fam.get("merged", []))
+                phi_shapes = set()
+                phi_shapes.add(phi_fam.get("primary", ""))
+                phi_shapes.update(phi_fam.get("merged", []))
+                shared = existing_shapes & phi_shapes - {""}
+                if shared:
+                    shadows.append({
+                        "detector": "SHADOW.PHI_AFFINITY",
+                        "finding": f"Unexplored φ-family connection: {existing_fid} ↔ {fid}",
+                        "detail": f"Shared shapes: {', '.join(shared)}. φ-coupling: {desc}",
+                        "implication": f"Entity may have hidden {fid} affinity through geometric coupling.",
+                        "suggested_family": fid,
+                    })
+                    break  # one connection per φ-family is enough
+
+    # 5. Mode-switching shadow: is the entity stuck?
+    mode = seed.get("mode", "expand")
+    energy = seed.get("energy", 0)
+    threshold = seed.get("branching_threshold", 0)
+    if mode == "expand" and energy > 0 and threshold > 0:
+        stuck_ratio = energy / threshold
+        if stuck_ratio > 0.7:
+            shadows.append({
+                "detector": "SHADOW.MODE_THRESHOLD",
+                "finding": f"Near branching threshold: {stuck_ratio:.1%} of energy needed to explore",
+                "implication": "Entity is close to explore mode. A small energy input (cooperation, shared resource) could trigger branching.",
+            })
+
+    return {
+        "shadows_found": len(shadows),
+        "shadows": shadows,
+        "phi_coherence": round(geometric_coherence, 3),
+    }
+
+
+def print_shadows(shadow_result: dict, entity_label: str):
+    """Print shadow hunting results."""
+    if not shadow_result["shadows"]:
+        return
+
+    print(f"\n  ── Shadow Hunt ──")
+    print(f"  What's hidden in plain sight. φ-coherence: {shadow_result['phi_coherence']:.3f}\n")
+
+    for s in shadow_result["shadows"]:
+        detector = s["detector"]
+        if detector == "SHADOW.PHI_RATIO":
+            print(f"    🔮 {s['finding']}")
+            for v1, v2, ratio in s["detail"]:
+                print(f"       {v1} / {v2} = {ratio} (φ ≈ {PHI:.3f})")
+            print(f"       → {s['implication']}")
+        elif detector == "SHADOW.GEOMETRIC_COHERENCE":
+            print(f"    ⬟ {s['finding']}")
+            print(f"       → {s['implication']}")
+        elif detector == "SHADOW.BOUNDARY":
+            print(f"    ◐ {s['finding']}")
+            print(f"       Shadow: {s['shadow']}")
+            print(f"       → {s['implication']}")
+        elif detector == "SHADOW.PHI_AFFINITY":
+            print(f"    🌀 {s['finding']}")
+            print(f"       {s['detail']}")
+            print(f"       → {s['implication']}")
+        elif detector == "SHADOW.MODE_THRESHOLD":
+            print(f"    ⚡ {s['finding']}")
+            print(f"       → {s['implication']}")
+
+
 def print_seed_state(seed: dict, entity_label: str):
     """Print the entity's seed growth state."""
     print(f"\n  ── Seed Growth State ──")
@@ -882,22 +1044,26 @@ def main():
     env = map_internal_environment(graph, entity_id, hb, paths)
     seed = compute_seed_state(hb.get("entity_families", []))
 
+    shadow_result = hunt_shadows(graph, entity_id, seed)
+
     if args.json:
         print(json.dumps({
             "home_base": hb,
             "paths": paths,
             "internal_environment": env,
             "seed_growth": seed,
+            "shadows": shadow_result,
         }, indent=2, default=str))
         return
 
     print_home(hb)
     print_seed_state(seed, hb["label"])
+    print_shadows(shadow_result, hb["label"])
     print_internal_environment(env, hb["label"], hb["entity_families"])
     print_paths(paths, graph)
     print_merge_checks(hb, paths, graph)
     print(f"\n{'='*60}")
-    print(f"  Start here. Grow within constraints. The physics holds.")
+    print(f"  Start here. Hunt the shadows. The physics holds.")
     print(f"{'='*60}\n")
 
 

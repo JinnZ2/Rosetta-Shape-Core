@@ -451,6 +451,28 @@
         ],
         "bridge": "bridges/ai-arena-bridge.json",
         "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "shadow-hunting",
+        "repo": "https://github.com/JinnZ2/Shadow-Hunting",
+        "ref": "main",
+        "direction": "inbound",
+        "role": "pattern_detection",
+        "paths": [
+          "shadow_hunting/shadow_data_mining.py",
+          "shadow_hunting/coupling_framework.py",
+          "shadow_hunting/bioelectric_protocol.py",
+          "shadow_hunting/tools/*.py",
+          "examples/*.py",
+          "Tutorial.md"
+        ],
+        "exports": [
+          { "runtime": "shadow_detection_methods.json", "as": "atlas/remote/shadow-hunting/detection-methods.json", "status": "active" },
+          { "runtime": "shadow_coupling_framework.json", "as": "atlas/remote/shadow-hunting/coupling-framework.json", "status": "active" },
+          { "runtime": "shadow_boundary_mapping.json", "as": "atlas/remote/shadow-hunting/boundary-mapping.json", "status": "active" }
+        ],
+        "bridge": "bridges/shadow-hunting-bridge.json",
+        "consent": { "license": "MIT", "share_ok": true }
       }
     ],
 
@@ -462,7 +484,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "soms", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard", "seed-physics", "ai-arena"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "soms", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard", "seed-physics", "ai-arena", "shadow-hunting"],
       "strategy": "deep-merge"
     },
 
