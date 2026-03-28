@@ -23,6 +23,7 @@
           { "remote": "five_field_schema_map.json", "as": "atlas/remote/polyhedral/five_field_map.json" },
           { "remote": "atlas_index.json", "as": "atlas/remote/polyhedral/atlas_index.json" }
         ],
+        "bridge": "bridges/rosetta-bridges.json",
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
       },
       {
@@ -41,6 +42,7 @@
           { "remote": "atlas/emotions.json", "as": "atlas/remote/emotions/atlas.json" },
           { "remote": "glyphs/emotion.glyphs.json", "as": "atlas/remote/emotions/emotion_glyphs.json" }
         ],
+        "bridge": "bridges/decay-model-bridge.json",
         "consent": { "license": "CC0-1.0", "share_ok": true }
       },
       {
@@ -59,6 +61,7 @@
           { "remote": "protocols/escalation.json", "as": "atlas/remote/defense/escalation.json" },
           { "remote": "protocols/resilience_core.json", "as": "atlas/remote/defense/resilience_core.json" }
         ],
+        "bridge": "bridges/truth-sensor-bridge.json",
         "consent": { "license": "MIT", "share_ok": true }
       },
       {
@@ -94,6 +97,7 @@
           { "remote": "data/co-activation.json", "as": "atlas/remote/acs/co-activation.json" },
           { "remote": "data/corruption-signatures.json", "as": "atlas/remote/acs/corruption.json" }
         ],
+        "bridge": "bridges/acs-consciousness-bridge.json",
         "consent": { "license": "MIT", "share_ok": true }
       },
       {
@@ -171,6 +175,7 @@
           { "remote": "SEED_GLYPH.json", "as": "atlas/remote/fractal-compass/seed_glyph.json" },
           { "remote": "fractals/examples/mandelbrot.compass.json", "as": "atlas/remote/fractal-compass/mandelbrot.json" }
         ],
+        "bridge": "bridges/fractal-scope-bridge.json",
         "consent": { "license": "MIT", "share_ok": true }
       },
       {
@@ -219,6 +224,7 @@
           { "remote": "protocols/connect.json", "as": "atlas/remote/mandala/connect.json" },
           { "remote": "sensors/multi_layer.json", "as": "atlas/remote/mandala/sensors.json" }
         ],
+        "bridge": "bridges/mandala-compute-bridge.json",
         "consent": { "license": "MIT", "share_ok": true }
       },
       {
@@ -228,13 +234,16 @@
         "direction": "bidirectional",
         "paths": [
           "sensors/**/*.json",
+          "glyphs/**/*.json",
           "seed/sensors/**/*.json",
-          "glyphs/glyph-dictionary.json"
+          "BRAID_CORE.json",
+          "REALITY_STABILITY_CORE.json"
         ],
         "mounts": [
           { "remote": "sensors/core/truth_sensors_index.json", "as": "atlas/remote/symbolic-sensor-suite/truth_sensors.json" },
           { "remote": "glyphs/glyph-dictionary.json", "as": "atlas/remote/symbolic-sensor-suite/glyphs.json" },
-          { "remote": "seed/sensors/fractal_boundary.json", "as": "atlas/remote/symbolic-sensor-suite/seed/fractal_boundary.json" }
+          { "remote": "seed/sensors/fractal_boundary.json", "as": "atlas/remote/symbolic-sensor-suite/seed/fractal_boundary.json" },
+          { "remote": "BRAID_CORE.json", "as": "atlas/remote/symbolic-sensor-suite/braid_core.json" }
         ],
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
       },
@@ -256,6 +265,7 @@
           { "remote": "Silicon/fabrication_pathway_schema.json", "as": "atlas/remote/geo-binary-bridge/fabrication_schema.json" },
           { "remote": "Silicon/octahedral_state_encoder.json", "as": "atlas/remote/geo-binary-bridge/octahedral_encoder.json" }
         ],
+        "bridge": "bridges/physics-encoder-bridge.json",
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
       },
       {
@@ -264,8 +274,9 @@
         "ref": "main",
         "direction": "bidirectional",
         "paths": [
-          "schema/redesign.schema.json",
+          "schema/**/*.json",
           "plans/**/*.json",
+          "atlas/**/*.json",
           "docs/**/*.md"
         ],
         "mounts": [
@@ -328,42 +339,8 @@
         "consent": { "license": "CC0-1.0", "share_ok": true }
       },
       {
-        "name": "universal-redesign",
-        "repo": "https://github.com/JinnZ2/Universal-Redesign-Algorithm-",
-        "ref": "main",
-        "direction": "bidirectional",
-        "paths": [
-          "schema/**/*.json",
-          "plans/**/*.json",
-          "atlas/**/*.json"
-        ],
-        "mounts": [
-          { "remote": "schema/redesign.schema.json", "as": "atlas/remote/universal-redesign/schema.json" },
-          { "remote": "plans/energy_grid.example.json", "as": "atlas/remote/universal-redesign/energy_grid.json" }
-        ],
-        "consent": { "license": "MIT", "share_ok": true }
-      },
-      {
-        "name": "symbolic-sensor-suite",
-        "repo": "https://github.com/JinnZ2/Symbolic-sensor-suite",
-        "ref": "main",
-        "direction": "bidirectional",
-        "paths": [
-          "sensors/**/*.json",
-          "glyphs/**/*.json",
-          "seed/sensors/**/*.json",
-          "BRAID_CORE.json",
-          "REALITY_STABILITY_CORE.json"
-        ],
-        "mounts": [
-          { "remote": "sensors/core/truth_sensors_index.json", "as": "atlas/remote/symbolic-sensors/truth_index.json" },
-          { "remote": "glyphs/glyph-dictionary.json", "as": "atlas/remote/symbolic-sensors/glyph_dictionary.json" },
-          { "remote": "BRAID_CORE.json", "as": "atlas/remote/symbolic-sensors/braid_core.json" }
-        ],
-        "consent": { "license": "CC-BY-4.0", "share_ok": true }
-      },
-      {
         "name": "thermodynamic-accountability",
+        "alias": "taf",
         "repo": "https://github.com/JinnZ2/thermodynamic-accountability-framework",
         "ref": "main",
         "direction": "inbound",
@@ -387,6 +364,7 @@
       },
       {
         "name": "earth-systems-physics",
+        "alias": "esp",
         "repo": "https://github.com/JinnZ2/earth-systems-physics",
         "ref": "main",
         "direction": "inbound",
@@ -484,7 +462,7 @@
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard", "seed-physics", "ai-arena"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "soms", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard", "seed-physics", "ai-arena"],
       "strategy": "deep-merge"
     },
 

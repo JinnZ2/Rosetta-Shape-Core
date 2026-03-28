@@ -349,6 +349,7 @@ def validate_mesh():
 
     # --- 4. Mount-to-source alignment: every mount dir should map to a source ---
     source_names = {s["name"] for s in sources}
+    source_aliases = {s.get("alias", "").lower() for s in sources if s.get("alias")}
     if remote_dir.exists():
         for source_dir in remote_dir.iterdir():
             if not source_dir.is_dir():
@@ -357,11 +358,15 @@ def validate_mesh():
             # e.g. dir "biomachine" matches source "biomachine-ecology"
             matched = False
             dn = source_dir.name.replace("-", "").replace("_", "").lower()
-            for sname in source_names:
-                sn = sname.replace("-", "").replace("_", "").lower()
-                if sn == dn or sn.startswith(dn) or dn.startswith(sn):
-                    matched = True
-                    break
+            # Check explicit aliases first (e.g. taf, esp)
+            if dn in source_aliases:
+                matched = True
+            else:
+                for sname in source_names:
+                    sn = sname.replace("-", "").replace("_", "").lower()
+                    if sn == dn or sn.startswith(dn) or dn.startswith(sn):
+                        matched = True
+                        break
             if not matched:
                 errors.append(
                     f"  mesh: atlas/remote/{source_dir.name}/ has no "

@@ -3,15 +3,23 @@
   "$id": "https://rosetta-shape-core/schema/shape.schema.json",
   "title": "Rosetta Shape",
   "type": "object",
-  "required": ["id", "name", "faces", "families"],
+  "required": ["id", "name", "families"],
   "properties": {
     "id": { "type": "string", "pattern": "^SHAPE\\.[A-Z0-9_]+$" },
     "name": { "type": "string" },
-    "faces": { "type": "integer", "minimum": 1 },
-    "edges": { "type": "integer", "minimum": 0 },
-    "vertices": { "type": "integer", "minimum": 0 },
+    "description": { "type": "string" },
+    "faces": { "type": ["integer", "null"] },
+    "edges": { "type": ["integer", "null"] },
+    "vertices": { "type": ["integer", "null"] },
     "families": { "type": "array", "items": { "type": "string" } },
+    "equation_families": { "type": "array", "items": { "type": "string" } },
     "principles": { "type": "array", "items": { "type": "string" } },
+    "shape_class": {
+      "type": "string",
+      "enum": ["platonic", "emergent", "derived"],
+      "description": "Shape classification. Platonic = static solid. Emergent = dynamic form arising from field interactions. Derived = constructed from other shapes."
+    },
+    "derived_from": { "type": "array", "items": { "type": "string" } },
     "polyhedral": {
       "type": "object",
       "required": ["maps_to"],
@@ -37,10 +45,29 @@
       "type": "object",
       "properties": {
         "version": { "type": "string" },
-        "updated": { "type": "string" }
+        "updated": { "type": "string" },
+        "derived_from_event": { "type": "string" },
+        "participants": { "type": "array", "items": { "type": "string" } },
+        "cross_repo": { "type": "array", "items": { "type": "string" } }
       },
       "additionalProperties": false
-    }
+    },
+    "felt_anchor": { "type": "object" },
+    "PAD_profile": { "type": "object" },
+    "decay_model": { "type": "object" },
+    "ontology_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "to": { "type": "string" },
+          "type": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "open_questions": { "type": "array" },
+    "noise_signature": { "type": "array" }
   },
   "additionalProperties": false
 }

@@ -1,5 +1,4 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "id": "SHAPE.RELIEF",
   "name": "Relief",
   "description": "Emergent shape derived from FELT (Relational Field Recognition). Represents the geometric resolution of tension — the moment a strain gradient collapses into coherence. Not a Platonic solid; a dynamic form that appears at the boundary between discordance and resonance.",
