@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-45a5a8c8c6bc9164d01225568fe1b754f1deaee1.idx
-./.git/objects/pack/pack-45a5a8c8c6bc9164d01225568fe1b754f1deaee1.pack
-./.git/objects/pack/pack-45a5a8c8c6bc9164d01225568fe1b754f1deaee1.rev
+./.git/objects/pack/pack-97a12bcfcbcad01f127c0c14655bb0c2fb249b9d.idx
+./.git/objects/pack/pack-97a12bcfcbcad01f127c0c14655bb0c2fb249b9d.pack
+./.git/objects/pack/pack-97a12bcfcbcad01f127c0c14655bb0c2fb249b9d.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -235,6 +235,7 @@
 ./shapes/tetrahedron.json
 ./src/rosetta_shape_core/__init__.py
 ./src/rosetta_shape_core/bloom.py
+./src/rosetta_shape_core/constraint_agent.py
 ./src/rosetta_shape_core/diagnostic.py
 ./src/rosetta_shape_core/expand.py
 ./src/rosetta_shape_core/explore.py
@@ -247,6 +248,7 @@
 ./src/rosetta_shape_core/validator.py
 ./tests/golden/examples.json
 ./tests/test_bloom.py
+./tests/test_constraint_agent.py
 ./tests/test_explore.py
 ./tests/test_knowledge_dna.py
 ./tests/test_narrative_physics.py
