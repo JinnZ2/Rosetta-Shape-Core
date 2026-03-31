@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-97a12bcfcbcad01f127c0c14655bb0c2fb249b9d.idx
-./.git/objects/pack/pack-97a12bcfcbcad01f127c0c14655bb0c2fb249b9d.pack
-./.git/objects/pack/pack-97a12bcfcbcad01f127c0c14655bb0c2fb249b9d.rev
+./.git/objects/pack/pack-f18d0f317b4eda56affe9ca0f9b2692fdc6ba372.idx
+./.git/objects/pack/pack-f18d0f317b4eda56affe9ca0f9b2692fdc6ba372.pack
+./.git/objects/pack/pack-f18d0f317b4eda56affe9ca0f9b2692fdc6ba372.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -213,6 +213,7 @@
 ./ontology/principles/p11-transformation.json
 ./ontology/principles/p12-unity.json
 ./physics_grounded_protection.py
+./playground.py
 ./prompts/system_prompt.txt
 ./protocols/README.md
 ./protocols/mandala-compute-protocol.md
