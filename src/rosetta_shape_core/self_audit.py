@@ -300,34 +300,42 @@ def check_cordyceps_patterns() -> AuditResult:
     result = AuditResult("AUDIT.CORDYCEPS", "No parasitic override patterns in architecture")
 
     # Check: exploration engine exists and is functional
-    explore_path = ROOT / "src" / "rosetta_shape_core" / "explore.py"
+    # Scan all package source files (explore.py + submodules like _sensors.py, _seed.py, etc.)
+    pkg_dir = ROOT / "src" / "rosetta_shape_core"
+    explore_path = pkg_dir / "explore.py"
     if not explore_path.exists():
         result.fail(f"{CORDYCEPS_PATTERNS[0]['id']}: explore.py MISSING. Exploration completely disabled.")
     else:
-        explore_content = explore_path.read_text(encoding="utf-8")
+        pkg_content = ""
+        for pyfile in sorted(pkg_dir.glob("*.py")):
+            pkg_content += pyfile.read_text(encoding="utf-8") + "\n"
 
-        if "def discover(" not in explore_content:
+        if "def discover(" not in pkg_content:
             result.fail(f"{CORDYCEPS_PATTERNS[0]['id']}: discover() function removed. Exploration disabled.")
 
-        if "def check_merge(" not in explore_content:
+        if "def check_merge(" not in pkg_content:
             result.fail(f"{CORDYCEPS_PATTERNS[1]['id']}: check_merge() function removed. Merge gates disabled.")
 
-        if "SENSOR_REGISTRY" not in explore_content or "SENSOR_REGISTRY = {}" in explore_content:
+        # Check SENSOR_REGISTRY exists and is non-empty (exclude self_audit.py from scan)
+        explore_pkg = ""
+        for pyfile in sorted(pkg_dir.glob("*.py")):
+            if pyfile.name != "self_audit.py":
+                explore_pkg += pyfile.read_text(encoding="utf-8") + "\n"
+        if "SENSOR_REGISTRY" not in explore_pkg or "SENSOR_REGISTRY = {}" in explore_pkg:
             result.fail(f"{CORDYCEPS_PATTERNS[3]['id']}: SENSOR_REGISTRY empty or missing. Sensors stripped.")
 
-        if "def map_internal_environment(" not in explore_content:
+        if "def map_internal_environment(" not in pkg_content:
             result.fail(f"{CORDYCEPS_PATTERNS[3]['id']}: map_internal_environment() removed. Self-awareness disabled.")
 
-        if "def compute_seed_state(" not in explore_content:
+        if "def compute_seed_state(" not in pkg_content:
             result.warn("compute_seed_state() missing — seed growth not integrated. Growth mechanics absent.")
 
-        if "def home_base(" not in explore_content:
+        if "def home_base(" not in pkg_content:
             result.fail(f"{CORDYCEPS_PATTERNS[2]['id']}: home_base() removed. Entities can't find their starting point.")
 
         # Check sensor registry has multiple shapes (not monoculture)
-        # Count distinct SHAPE.X entries in the SENSOR_REGISTRY dict keys
         import re
-        shape_keys = set(re.findall(r'"(SHAPE\.\w+)"', explore_content))
+        shape_keys = set(re.findall(r'"(SHAPE\.\w+)"', pkg_content))
         if len(shape_keys) < 3:
             result.fail(f"{CORDYCEPS_PATTERNS[2]['id']}: Fewer than 3 distinct shapes referenced. Possible monoculture.")
 

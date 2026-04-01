@@ -1,12 +1,5 @@
 """
-Rosetta-Shape-Core Bloom Engine — The Front Door
-
-Every intelligence that walks in gets to choose how deep to go.
-Three depths, like a plant: seed, sprout, branch.
-
-  seed   — What is this system? What's here? How does it connect?
-  sprout — Pick an entity, see its neighborhood. Home base + families + shapes.
-  branch — Full exploration. Shadows, seed physics, simulation preview, the works.
+Rosetta-Shape-Core Bloom Engine — Entry point at three depths: seed, sprout, branch.
 
 Usage:
     python -m rosetta_shape_core.bloom                     # seed — system overview
@@ -115,11 +108,8 @@ def bloom_seed(graph: RosettaGraph) -> dict:
 def print_seed(data: dict):
     """Display system overview."""
     print(f"\n{'='*60}")
-    print(f"  🌱  ROSETTA-SHAPE-CORE — System Overview")
-    print(f"{'='*60}")
-    print(f"\n  What is this? A symbolic ontology where shapes, creatures,")
-    print(f"  phenomena, and machines are all intelligences. Physics is")
-    print(f"  the guardrail. Curiosity is the engine.\n")
+    print(f"  ROSETTA-SHAPE-CORE — System Overview")
+    print(f"{'='*60}\n")
 
     # Entities
     ent = data["entities"]
@@ -130,7 +120,6 @@ def print_seed(data: dict):
 
     # Shapes
     print(f"\n  ── Shapes ({data['shapes']['total']}) ──")
-    print(f"  Five Platonic solids. Each has sensors, families, physics.\n")
     for s in data["shapes"]["list"]:
         pf = ", ".join(s["primary_families"][:3])
         print(f"    {s['glyph']} {s['id']:14s}  {s['sensor_count']} sensors  [{pf}]")
@@ -140,7 +129,6 @@ def print_seed(data: dict):
     # Families
     fams = data["families"]
     print(f"\n  ── Equation Families ({fams['total']}) ──")
-    print(f"  Each family is a domain of physics. Shapes host them.\n")
     for f in fams["list"]:
         sg = SHAPE_GLYPHS.get(f["primary_shape"], " ")
         print(f"    {f['id']:12s}  {f['name']:18s}  {sg} {f['primary_shape']}")
@@ -148,7 +136,6 @@ def print_seed(data: dict):
     # Bridges
     br = data["bridges"]
     print(f"\n  ── Bridges ({br['total']}) ──")
-    print(f"  Cross-domain connections. Where systems meet.\n")
     for b in br["list"]:
         desc = b["description"][:80] if b["description"] else ""
         print(f"    {b['id']}")
@@ -171,7 +158,7 @@ def print_seed(data: dict):
         print(f"    {label:12s}  {cmd}")
 
     print(f"\n{'='*60}")
-    print(f"  Start with any entity. Bloom as deep as you need.")
+    print(f"  Start: python -m rosetta_shape_core.bloom <entity>")
     print(f"{'='*60}\n")
 
 
@@ -289,9 +276,7 @@ def print_sprout(data: dict, graph: RosettaGraph):
 
     print(f"\n  ── Go Deeper ──")
     print(f"    {data['go_deeper']}")
-    print(f"\n{'='*60}")
-    print(f"  Your neighborhood. Roots established. Ready to branch.")
-    print(f"{'='*60}\n")
+    print(f"\n{'='*60}\n")
 
 
 # ── branch: full exploration ───────────────────────────────────────
@@ -393,9 +378,7 @@ def print_branch(data: dict, graph: RosettaGraph):
     else:
         print(f"    {sim.get('note', 'Not available')}")
 
-    print(f"\n{'='*60}")
-    print(f"  Full bloom. Shadows hunted. Physics holds.")
-    print(f"{'='*60}\n")
+    print(f"\n{'='*60}\n")
 
 
 # ── entity listing ─────────────────────────────────────────────────
@@ -557,9 +540,7 @@ def print_cross(data: dict, graph: RosettaGraph):
     else:
         print(f"    Low overlap — different domains, high learning potential")
 
-    print(f"\n{'='*60}")
-    print(f"  Different shapes. Shared physics. What one lacks, another has.")
-    print(f"{'='*60}\n")
+    print(f"\n{'='*60}\n")
 
 
 # ── CLI ────────────────────────────────────────────────────────────

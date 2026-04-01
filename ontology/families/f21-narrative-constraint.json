@@ -1,0 +1,32 @@
+{
+  "id": "FAMILY.F21",
+  "name": "Narrative-Constraint",
+  "symbol": "⚖",
+  "domain": "Constraint consistency, selective application detection, symmetry of rules",
+  "key_equations": [
+    {
+      "name": "Consistency Ratio",
+      "formula": "C = satisfied / (satisfied + violated)"
+    },
+    {
+      "name": "Selective Score",
+      "formula": "S = |C_ingroup - C_outgroup| / max(C_ingroup, C_outgroup)"
+    },
+    {
+      "name": "Rationalization Density",
+      "formula": "R = rationalized_violations / total_violations"
+    },
+    {
+      "name": "In-group Bias Ratio",
+      "formula": "B = violations_outgroup / violations_ingroup"
+    }
+  ],
+  "resonates_with": ["FAMILY.F09", "FAMILY.F19", "FAMILY.F03", "FAMILY.F05"],
+  "shapes": ["SHAPE.DODECA", "SHAPE.OCTA", "SHAPE.ICOSA"],
+  "explore_paths": [
+    { "question": "How does constraint consistency relate to trust?", "follow": "FAMILY.F16" },
+    { "question": "What measurement instruments detect selective application?", "follow": "FAMILY.F14" },
+    { "question": "How does information entropy reveal rationalization?", "follow": "FAMILY.F03" }
+  ],
+  "tags": ["constraint", "consistency", "manipulation-detection", "symmetry", "narrative-physics", "CORDYCEPS"]
+}
