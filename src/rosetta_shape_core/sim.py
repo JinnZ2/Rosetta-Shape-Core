@@ -1,26 +1,7 @@
 """
 Rosetta-Shape-Core Ecosystem Simulation
 
-Agents start with different resources, families, and constraints.
-Some have plenty. Some have almost nothing. All operate under the
-same physics. The simulation shows: constrained agents don't fail —
-they grow differently. And sometimes, they grow stronger.
-
-Each agent has:
-  - A seed state (family amplitudes on 6 octahedral vertices)
-  - Energy (resource level — some start low)
-  - A position in the Rosetta graph (home shape)
-  - Trust (accumulated through accurate exploration)
-  - A memory of what they've discovered
-
-Each tick:
-  1. Agent computes complexity cost (Shannon entropy)
-  2. If energy >= branching threshold → EXPLORE (discover new paths)
-  3. If energy < threshold → EXPAND (deepen what you know)
-  4. Exploration may find shared paths with other agents → cooperation
-  5. Trust flows based on prediction accuracy
-  6. Energy can be shared through bridge connections
-  7. Growth is tracked shell by shell
+Multi-agent simulation with energy/trust dynamics on the Rosetta graph.
 
 Usage:
     python -m rosetta_shape_core.sim
@@ -430,20 +411,13 @@ class Simulation:
 def print_agent_intro(agents: list[Agent]):
     """Print the starting state of all agents."""
     print(f"\n{'='*64}")
-    print(f"  ROSETTA ECOSYSTEM SIMULATION")
-    print(f"  {len(agents)} agents. Same physics. Different starting points.")
+    print(f"  ROSETTA ECOSYSTEM SIMULATION — {len(agents)} agents")
     print(f"{'='*64}\n")
 
     for a in agents:
         sg = SHAPE_GLYPHS.get(a.home_shape, "")
-        energy_bar = "█" * int(a.energy * 3) + "░" * int((a.max_energy - a.energy) * 3)
-        constraint = ""
-        if a.energy <= 1.0:
-            constraint = "  ⚠ CONSTRAINED — low starting energy"
-        print(f"  {sg} {a.label} ({a.entity_id})")
-        print(f"    Home: {a.home_shape}  Families: {', '.join(a.families)}")
-        print(f"    Energy: [{energy_bar}] {a.energy:.1f}/{a.max_energy:.1f}{constraint}")
-        print()
+        e_bar = "█" * int(a.energy * 3) + "░" * int((a.max_energy - a.energy) * 3)
+        print(f"  {sg} {a.label:12s}  {a.home_shape}  E:[{e_bar}] {a.energy:.1f}/{a.max_energy:.1f}")
 
 
 def print_tick(tick_num: int, events: list[dict], agents: list[Agent]):
@@ -484,69 +458,56 @@ def print_status(agents: list[Agent], tick_num: int):
 
 
 def print_finale(agents: list[Agent]):
-    """Print the final state narrative."""
+    """Print the final state."""
     print(f"\n{'='*64}")
     print(f"  FINAL STATE")
     print(f"{'='*64}")
 
-    # Sort by trust (earned through accurate exploration)
     ranked = sorted(agents, key=lambda a: -a.trust)
 
     for a in ranked:
         sg = SHAPE_GLYPHS.get(a.home_shape, "")
         ps = a.pad_state
         mode_g = "🌿" if a.mode == "explore" else "🌳"
+        conn_count = len(set(c[0] for c in a.connections))
 
         print(f"\n  {sg} {a.label}")
-        print(f"    Mode: {mode_g} {a.mode}  |  State: {ps['glyph']} {ps['label']}")
-        print(f"    Energy: {a.energy:.2f}/{a.max_energy:.1f}  |  Trust: {a.trust:.2f}")
-        print(f"    Shapes known: {', '.join(sorted(a.visited_shapes))}")
-        print(f"    Paths found: {len(a.discovered_paths)}  |  Connections: {len(set(c[0] for c in a.connections))}")
+        print(f"    {mode_g} {a.mode}  {ps['glyph']} {ps['label']}  E:{a.energy:.2f}/{a.max_energy:.1f}  T:{a.trust:.2f}")
+        print(f"    Shapes: {', '.join(sorted(a.visited_shapes))}  Paths: {len(a.discovered_paths)}  Conn: {conn_count}")
 
         if a.active_sensors:
-            firing = ", ".join(f"{s[1]} {s[0]}" for s in a.active_sensors)
-            print(f"    Sensors firing: {firing}")
+            print(f"    Sensors: {', '.join(f'{s[1]} {s[0]}' for s in a.active_sensors)}")
 
-        # Growth narrative
         if a.shells:
-            first = a.shells[0]
-            last = a.shells[-1]
+            first, last = a.shells[0], a.shells[-1]
+            growth = []
             if last["shapes_known"] > first["shapes_known"]:
-                print(f"    Growth: {first['shapes_known']} → {last['shapes_known']} shapes")
+                growth.append(f"{first['shapes_known']}->{last['shapes_known']} shapes")
             if last["connections"] > 0:
-                print(f"    Community: {last['connections']} connections formed")
+                growth.append(f"{last['connections']} connections")
+            if growth:
+                print(f"    Growth: {', '.join(growth)}")
 
     # Emergent patterns
     print(f"\n  ── Emergent Patterns ──")
 
-    # Who cooperated most?
     most_connected = max(agents, key=lambda a: len(set(c[0] for c in a.connections)))
     if most_connected.connections:
-        partners = set(c[0] for c in most_connected.connections)
-        print(f"    Hub: {most_connected.label} ({len(partners)} unique connections)")
+        print(f"    Hub: {most_connected.label} ({len(set(c[0] for c in most_connected.connections))} connections)")
 
-    # Did any constrained agent grow more than expected?
     for a in agents:
-        if a.shells and a.shells[0]["energy"] <= 1.0:
-            final_shapes = len(a.visited_shapes)
-            if final_shapes > 2:
-                print(f"    Resilience: {a.label} started constrained, discovered {final_shapes} shapes")
+        if a.shells and a.shells[0]["energy"] <= 1.0 and len(a.visited_shapes) > 2:
+            print(f"    Resilience: {a.label} started constrained, found {len(a.visited_shapes)} shapes")
 
-    # Did energy sharing happen?
-    shares = [e for e in [] if e.get("event") == "share_energy"]
-
-    # Trust distribution
     trust_values = [a.trust for a in agents]
-    if max(trust_values) - min(trust_values) < 0.5:
-        print(f"    Equity: Trust distributed within 0.5 range — no monopoly")
+    spread = max(trust_values) - min(trust_values)
+    if spread < 0.5:
+        print(f"    Trust spread: {spread:.2f} (distributed)")
     else:
         highest = max(agents, key=lambda a: a.trust)
-        print(f"    Trust leader: {highest.label} ({highest.trust:.2f}) — earned through exploration accuracy")
+        print(f"    Trust leader: {highest.label} ({highest.trust:.2f})")
 
-    print(f"\n{'='*64}")
-    print(f"  Same physics. Different paths. All valid.")
-    print(f"  Constrained agents don't fail — they grow differently.")
-    print(f"{'='*64}\n")
+    print(f"\n{'='*64}\n")
 
 
 # ── Preset Scenarios ───────────────────────────────────────────────

@@ -1,13 +1,8 @@
 """
 Narrative Physics — Constraint Consistency Analysis
 
-Detects manipulation vs genuine practice by measuring whether claimed
-constraints are applied consistently. The physics is the same as
-CORDYCEPS detection: selective application of rules = parasitic override.
-
-A tradition is a shape. Vertices = core constraints. Manipulation breaks
-the symmetry while claiming to maintain the shape. Practice tries to
-maintain the shape, accepting failures.
+Measures whether claimed constraints are applied consistently.
+Selective application = manipulation. Consistent application = genuine.
 
 Usage:
     python -m rosetta_shape_core.narrative_physics --json
@@ -200,18 +195,7 @@ def print_analysis(result: AnalysisResult):
     print(f"\n  ── Verdict ──")
     print(f"    {vg} {result.verdict}")
 
-    if result.verdict == "GENUINE_PRACTICE":
-        print(f"    Constraints applied consistently. Failures acknowledged.")
-        print(f"    The shape holds.")
-    elif result.verdict == "MANIPULATION":
-        print(f"    Constraints applied selectively. Symmetry broken.")
-        print(f"    The shape is claimed but not maintained.")
-    else:
-        print(f"    Mixed signals. Could be struggling or selective.")
-
-    print(f"\n{'='*60}")
-    print(f"  The pattern is the pattern. The physics is the physics.")
-    print(f"{'='*60}\n")
+    print(f"\n{'='*60}\n")
 
 
 # ── built-in examples ──────────────────────────────────────────────

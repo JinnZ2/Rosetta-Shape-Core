@@ -1,19 +1,8 @@
 """
 KnowledgeDNA — Backward Trace Engine
 
-Traces a narrative backward to find its actual origin.
-Six probes, each mapped to Rosetta physics:
-
-  1. Who introduced this framing?        → PROVENANCE check
-  2. Where did they get the data?         → SOURCE CHAIN
-  3. What's the original source?          → ROOT NODE
-  4. Who benefits from this narrative?    → BENEFICIARY ANALYSIS
-  5. Was the same logic applied symmetrically? → SYMMETRY CHECK
-  6. If not — why not?                    → ASYMMETRY DETECTION
-
-When the ancestry reveals tribal interest retroactively justified
-using religious/ideological language, the manipulation is structural,
-not incidental.
+Six probes on a narrative chain: provenance, source chain, root node,
+beneficiary analysis, symmetry check, asymmetry detection.
 
 Usage:
     python -m rosetta_shape_core.knowledge_dna --example
@@ -118,21 +107,47 @@ def trace_narrative(narrative: str, chain: list[NarrativeNode]) -> TraceResult:
         beneficiary_consistent = False  # can't determine
 
     # Probe 5: Symmetry — was the same logic applied to all groups?
+    # Two checks: (a) explicit asymmetric language, (b) beneficiary/target mismatch
     symmetry_applied = True
     asymmetry_reason = ""
-    # Check if any node explicitly notes asymmetric application
+    asymmetry_keywords = (
+        "only applies to", "except for", "doesn't apply to",
+        "not for them", "different rules", "exempt", "special case",
+        "doesn't count", "we're different", "rules don't apply",
+    )
     for n in chain:
         claim_lower = n.claim.lower()
-        if any(kw in claim_lower for kw in ("only applies to", "except for",
-               "doesn't apply to", "not for them", "different rules")):
+        if any(kw in claim_lower for kw in asymmetry_keywords):
             symmetry_applied = False
-            asymmetry_reason = f"Asymmetric language detected in: '{n.claim[:80]}'"
+            asymmetry_reason = f"Asymmetric language: '{n.claim[:80]}'"
             flags.append("ASYMMETRIC_APPLICATION")
             break
 
-    # Probe 6: If asymmetric — is there a structural reason or tribal interest?
-    if not symmetry_applied and beneficiary_consistent:
-        flags.append("STRUCTURAL_MANIPULATION")
+    # Quantitative symmetry: if all beneficiaries are the same but the
+    # root source was universal, the chain narrows from universal → tribal
+    if symmetry_applied and beneficiaries:
+        root_beneficiary = chain[-1].beneficiary.lower() if chain[-1].beneficiary else ""
+        surface_beneficiary = chain[0].beneficiary.lower() if chain[0].beneficiary else ""
+        if (root_beneficiary in ("universal", "general public", "everyone", "all")
+                and surface_beneficiary
+                and surface_beneficiary not in ("universal", "general public", "everyone", "all")):
+            symmetry_applied = False
+            asymmetry_reason = f"Chain narrows: root beneficiary '{root_beneficiary}' -> surface '{surface_beneficiary}'"
+            flags.append("NARROWING_BENEFICIARY")
+
+    # Probe 6: Asymmetry diagnosis — structural reason or tribal interest?
+    if not symmetry_applied:
+        # Check if asymmetry correlates with consistent beneficiary (tribal interest)
+        if beneficiary_consistent:
+            flags.append("STRUCTURAL_MANIPULATION")
+        # Check if the data basis weakens as the chain moves toward the surface
+        # (rationalization replaces evidence)
+        evidence_by_depth = [bool(n.data_basis) for n in chain]
+        if len(evidence_by_depth) >= 2:
+            root_evidence = sum(evidence_by_depth[len(chain)//2:])
+            surface_evidence = sum(evidence_by_depth[:len(chain)//2])
+            if root_evidence > surface_evidence:
+                flags.append("EVIDENCE_DECAY")
 
     # Verdict
     if "STRUCTURAL_MANIPULATION" in flags:
@@ -213,18 +228,7 @@ def print_trace(result: TraceResult):
     print(f"\n  ── Verdict ──")
     print(f"    {vg} {result.verdict}")
 
-    if result.verdict == "TRACEABLE":
-        print(f"    Chain is intact. Sources are identifiable. Logic is consistent.")
-    elif result.verdict == "BROKEN_CHAIN":
-        print(f"    Chain has gaps. Sources unclear or evidence weak.")
-        print(f"    Not necessarily manipulation — could be honest uncertainty.")
-    else:
-        print(f"    Tribal interest retroactively justified using ideological language.")
-        print(f"    The manipulation is structural, not incidental.")
-
-    print(f"\n{'='*60}")
-    print(f"  Trace the thread. Follow the money. Check the symmetry.")
-    print(f"{'='*60}\n")
+    print(f"\n{'='*60}\n")
 
 
 # ── built-in examples ────────────────────────────────────────────
