@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-f18d0f317b4eda56affe9ca0f9b2692fdc6ba372.idx
-./.git/objects/pack/pack-f18d0f317b4eda56affe9ca0f9b2692fdc6ba372.pack
-./.git/objects/pack/pack-f18d0f317b4eda56affe9ca0f9b2692fdc6ba372.rev
+./.git/objects/pack/pack-2fb38a231612cda3b9fd4742136865a610908985.idx
+./.git/objects/pack/pack-2fb38a231612cda3b9fd4742136865a610908985.pack
+./.git/objects/pack/pack-2fb38a231612cda3b9fd4742136865a610908985.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -240,6 +240,7 @@
 ./src/rosetta_shape_core/diagnostic.py
 ./src/rosetta_shape_core/expand.py
 ./src/rosetta_shape_core/explore.py
+./src/rosetta_shape_core/first_principles_audit.py
 ./src/rosetta_shape_core/knowledge_dna.py
 ./src/rosetta_shape_core/narrative_physics.py
 ./src/rosetta_shape_core/query.py
@@ -251,6 +252,7 @@
 ./tests/test_bloom.py
 ./tests/test_constraint_agent.py
 ./tests/test_explore.py
+./tests/test_first_principles_audit.py
 ./tests/test_knowledge_dna.py
 ./tests/test_narrative_physics.py
 ./tests/test_schema.py
