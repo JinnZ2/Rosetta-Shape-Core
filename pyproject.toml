@@ -10,5 +10,14 @@ readme = "README.md"
 requires-python = ">=3.9"
 dependencies = ["jsonschema>=4.0"]
 
+[project.scripts]
+rosetta-bloom = "rosetta_shape_core.bloom:main"
+rosetta-sim = "rosetta_shape_core.sim:main"
+rosetta-explore = "rosetta_shape_core.explore:main"
+rosetta-expand = "rosetta_shape_core.expand:main"
+rosetta-audit = "rosetta_shape_core.self_audit:main"
+rosetta-query = "rosetta_shape_core.query:main"
+rosetta-agent = "rosetta_shape_core.constraint_agent:main"
+
 [project.urls]
 Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"
