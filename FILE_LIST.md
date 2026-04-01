@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-2fb38a231612cda3b9fd4742136865a610908985.idx
-./.git/objects/pack/pack-2fb38a231612cda3b9fd4742136865a610908985.pack
-./.git/objects/pack/pack-2fb38a231612cda3b9fd4742136865a610908985.rev
+./.git/objects/pack/pack-124793ba55a6a806c05b15cf11ded622eb4ac04a.idx
+./.git/objects/pack/pack-124793ba55a6a806c05b15cf11ded622eb4ac04a.pack
+./.git/objects/pack/pack-124793ba55a6a806c05b15cf11ded622eb4ac04a.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -160,6 +160,7 @@
 ./docs/unified-grounding-system.md
 ./docs/unified-pattern-bridge-schema.md
 ./docs/unified-proposed.md
+./examples/audit_system_constants.py
 ./examples/build_relational_graph.py
 ./examples/curiosity_map.html
 ./examples/felt_binding_rate.png
@@ -198,6 +199,7 @@
 ./ontology/families/f18-relativity.json
 ./ontology/families/f19-statistical.json
 ./ontology/families/f20-topology.json
+./ontology/families/f21-narrative-constraint.json
 ./ontology/family_map.json
 ./ontology/index.json
 ./ontology/principles/p01-symmetry.json
@@ -235,6 +237,11 @@
 ./shapes/relief.json
 ./shapes/tetrahedron.json
 ./src/rosetta_shape_core/__init__.py
+./src/rosetta_shape_core/_display.py
+./src/rosetta_shape_core/_graph.py
+./src/rosetta_shape_core/_seed.py
+./src/rosetta_shape_core/_sensors.py
+./src/rosetta_shape_core/_shadows.py
 ./src/rosetta_shape_core/bloom.py
 ./src/rosetta_shape_core/constraint_agent.py
 ./src/rosetta_shape_core/diagnostic.py
@@ -256,4 +263,6 @@
 ./tests/test_knowledge_dna.py
 ./tests/test_narrative_physics.py
 ./tests/test_schema.py
+./tests/test_self_audit.py
 ./tests/test_sim.py
+./tests/test_validator.py
