@@ -1,4 +1,5 @@
 {
+  "id": "BRIDGE.ROSETTA_CROSS_REPO",
   "version": "2.1",
   "updated": "2026-03-27T00:00:00Z",
   "description": "Cross-repo bridge map linking shapes to sensors, defenses, protocols, and polyhedral families/principles",

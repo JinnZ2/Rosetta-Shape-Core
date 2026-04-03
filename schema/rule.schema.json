@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rosetta-shape-core/schema/rule.schema.json",
+  "title": "Rosetta Expansion Rule",
+  "description": "Schema for rules in expand.jsonl. Each rule defines a when-then expansion with optional guards.",
+  "type": "object",
+  "required": ["when", "then", "priority"],
+  "properties": {
+    "when": {
+      "type": "object",
+      "required": ["op", "args"],
+      "properties": {
+        "op": {
+          "type": "string",
+          "description": "Operation type (e.g. ALIGN, EXPAND, STRUCTURE)."
+        },
+        "args": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "Entity IDs or constants that trigger this rule."
+        }
+      },
+      "additionalProperties": false
+    },
+    "then": {
+      "type": "string",
+      "description": "Result entity ID or capability produced by this rule."
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Rule priority. Higher values match first."
+    },
+    "why": {
+      "type": "string",
+      "description": "Human-readable explanation of the rule's purpose."
+    },
+    "guard": {
+      "type": "object",
+      "properties": {
+        "requires": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Capabilities that the subject entity must have."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Optional guard conditions for rule activation."
+    },
+    "provenance": {
+      "type": "object",
+      "description": "Optional provenance metadata for the rule."
+    }
+  },
+  "additionalProperties": false
+}

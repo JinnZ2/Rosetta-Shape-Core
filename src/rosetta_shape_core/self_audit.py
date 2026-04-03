@@ -25,10 +25,11 @@ from __future__ import annotations
 import json, pathlib, sys, argparse
 from collections import defaultdict
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
+from rosetta_shape_core._graph import ROOT
 
 
 def _load_json(path):
+    """Load JSON from path, returning None (not {}) if file is missing."""
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))
     return None

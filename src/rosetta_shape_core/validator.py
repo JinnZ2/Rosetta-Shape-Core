@@ -2,10 +2,16 @@ from __future__ import annotations
 import json, pathlib
 from jsonschema import Draft202012Validator
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
+from rosetta_shape_core._graph import ROOT
 ONTOLOGY_SCHEMA = json.loads((ROOT / "schema" / "core.schema.json").read_text(encoding="utf-8"))
 SHAPE_SCHEMA = json.loads((ROOT / "schema" / "shape.schema.json").read_text(encoding="utf-8"))
 SEED_SCHEMA = json.loads((ROOT / "schema" / "shape.seed.schema.json").read_text(encoding="utf-8"))
+
+_bridge_schema_path = ROOT / "schema" / "bridge.schema.json"
+BRIDGE_SCHEMA = json.loads(_bridge_schema_path.read_text(encoding="utf-8")) if _bridge_schema_path.exists() else None
+
+_rule_schema_path = ROOT / "schema" / "rule.schema.json"
+RULE_SCHEMA = json.loads(_rule_schema_path.read_text(encoding="utf-8")) if _rule_schema_path.exists() else None
 
 
 # ---------------------------------------------------------------------------
@@ -122,6 +128,52 @@ def validate_seeds():
         if shape_ref and shape_ref not in shape_ids:
             errors.append(f"  seed {seed.get('id', '?')}: shape_id {shape_ref} not found in shapes/")
 
+    return errors
+
+
+# ---------------------------------------------------------------------------
+# Bridge schema validation
+# ---------------------------------------------------------------------------
+
+def validate_bridge_schemas():
+    """Schema-validate each bridge file against bridge.schema.json."""
+    errors = []
+    if BRIDGE_SCHEMA is None:
+        return errors
+    bridge_dir = ROOT / "bridges"
+    if not bridge_dir.exists():
+        return errors
+    v = Draft202012Validator(BRIDGE_SCHEMA)
+    for p in sorted(bridge_dir.glob("*.json")):
+        data = json.loads(p.read_text(encoding="utf-8"))
+        for err in v.iter_errors(data):
+            errors.append(f"  {p.name}: {err.message}")
+    return errors
+
+
+# ---------------------------------------------------------------------------
+# Rule schema validation
+# ---------------------------------------------------------------------------
+
+def validate_rules():
+    """Schema-validate each rule in expand.jsonl against rule.schema.json."""
+    errors = []
+    if RULE_SCHEMA is None:
+        return errors
+    rules_path = ROOT / "rules" / "expand.jsonl"
+    if not rules_path.exists():
+        return errors
+    v = Draft202012Validator(RULE_SCHEMA)
+    for i, line in enumerate(rules_path.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip():
+            continue
+        try:
+            rule = json.loads(line)
+        except json.JSONDecodeError as exc:
+            errors.append(f"  expand.jsonl line {i}: invalid JSON — {exc}")
+            continue
+        for err in v.iter_errors(rule):
+            errors.append(f"  expand.jsonl line {i}: {err.message}")
     return errors
 
 
@@ -426,6 +478,16 @@ def validate_files():
     if seed_errs:
         all_errors.append("Seed catalog errors:")
         all_errors.extend(seed_errs)
+
+    bridge_schema_errs = validate_bridge_schemas()
+    if bridge_schema_errs:
+        all_errors.append("Bridge schema errors:")
+        all_errors.extend(bridge_schema_errs)
+
+    rule_errs = validate_rules()
+    if rule_errs:
+        all_errors.append("Rule schema errors:")
+        all_errors.extend(rule_errs)
 
     cross_errs = validate_cross_refs()
     if cross_errs:

@@ -8,7 +8,11 @@ version = "0.1.0"
 description = "Stable ontology + rules runtime for symbolic Shape - Intelligence - Capability."
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = ["jsonschema>=4.0"]
+dependencies = ["jsonschema>=4.0,<5"]
+license = {text = "MIT"}
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov>=4.0", "ruff>=0.4", "mypy>=1.0"]
 
 [project.scripts]
 rosetta-bloom = "rosetta_shape_core.bloom:main"
@@ -21,3 +25,20 @@ rosetta-agent = "rosetta_shape_core.constraint_agent:main"
 
 [project.urls]
 Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

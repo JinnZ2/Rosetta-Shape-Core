@@ -79,6 +79,7 @@
           { "remote": "glyphs/cultural_contrast.json", "as": "atlas/remote/audit/cultural_contrast.json" },
           { "remote": "glyphs/seasonal_intelligence.json", "as": "atlas/remote/audit/seasonal_intelligence.json" }
         ],
+        "bridge": "bridges/rosetta-bridges.json",
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
       },
       {
