@@ -1,3 +1,62 @@
 # AI Notes
-- Repo: JinnZ2/Rosetta-Shape-Core
-- Generated: Tue Sep  2 17:12:25 UTC 2025
+
+- Files indexed: 207
+- Languages: json, md, python, toml, yaml
+- Hotspot files: 50
+
+## Hotspots
+- scripts/generate.py: entity-id
+- data/training/generate.py: entity-id, fieldlink
+- tests/test_constraint_agent.py: entity-id
+- tests/test_sim.py: entity-id
+- tests/test_bloom.py: entity-id
+- tests/test_expand.py: entity-id
+- tests/test_schema.py: fieldlink
+- tests/test_validator.py: fieldlink
+- tests/test_explore.py: entity-id
+- src/rosetta_shape_core/explore.py: entity-id
+- src/rosetta_shape_core/validator.py: fieldlink
+- src/rosetta_shape_core/self_audit.py: fieldlink
+- atlas/remote/biomachine/bridge_map.json: fieldlink
+- atlas/remote/taf/axioms.json: fieldlink
+- atlas/remote/taf/governance.json: fieldlink
+- atlas/remote/taf/thresholds.json: fieldlink
+- atlas/remote/shadow-hunting/detection-methods.json: entity-id
+- atlas/remote/shadow-hunting/coupling-framework.json: entity-id
+- atlas/remote/living-intelligence/rules.json: fieldlink
+- atlas/remote/living-intelligence/atlas.json: entity-id
+- atlas/remote/mandala/connect.json: fieldlink
+- atlas/remote/mandala/shapes.json: entity-id, fieldlink
+- atlas/remote/mandala/glyphs.json: fieldlink
+- EMERGENT_PATTERN/Example.json: todo
+- bridges/soms-bridge.json: entity-id
+- bridges/living-intelligence-bridge.json: entity-id, fieldlink
+- bridges/rosetta-bridges.json: entity-id
+- bridges/mandala-compute-bridge.json: entity-id
+- bridges/shadow-hunting-bridge.json: entity-id
+- bridges/decay-model-bridge.json: schema-ref
+- schema/core.schema.json: schema-ref
+- schema/bridge.schema.json: schema-ref
+- schema/ai_index.schema.json: schema-ref
+- schema/rule.schema.json: schema-ref
+- schema/shape.schema.json: schema-ref
+- schema/shape.seed.schema.json: schema-ref
+- tests/golden/examples.json: entity-id
+- ontology/capabilities.json: entity-id
+- ontology/entities.sample.json: entity-id
+- ai_integrator.config.yaml: fieldlink, schema-ref, todo
+- FILE_LIST.md: fieldlink
+- CLAUDE.md: entity-id, fieldlink, schema-ref
+- README.md: entity-id, fieldlink, schema-ref
+- protocols/seed-growth-protocol.md: entity-id
+- protocols/mandala-compute-protocol.md: entity-id, fieldlink
+- protocols/README.md: fieldlink
+- docs/to-do-list.md: entity-id
+- docs/unified-pattern-bridge-schema.md: schema-ref
+- docs/unified-bridge-integration-guide.md: fieldlink
+- docs/unified-bridge-schema.md: schema-ref
+
+## Next
+- Fill resilience.possibility_matrix entries for hypotheses & checks.
+- Tag roles for core/config/test/doc.
+- Wire imports/exports extraction per language.

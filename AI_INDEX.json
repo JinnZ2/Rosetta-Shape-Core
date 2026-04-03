@@ -1,1 +1,2203 @@
-{ "repo": "JinnZ2/Rosetta-Shape-Core", "generated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)", "files": [] }
+{
+  "repo": "Rosetta-Shape-Core",
+  "generated_at": "2026-04-03T00:16:17.496347Z",
+  "languages": [
+    "json",
+    "md",
+    "python",
+    "toml",
+    "yaml"
+  ],
+  "files": [
+    {
+      "path": "playground.py",
+      "lang": "python",
+      "size": 2765,
+      "hash": "df9944dd7b368001d1c2a5777d09d49eafbbd113",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "shap_compiler.py",
+      "lang": "python",
+      "size": 1384,
+      "hash": "34c426ef020997e973a7dadbfb8dda2ea4e7e0a0",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "physics_grounded_protection.py",
+      "lang": "python",
+      "size": 37451,
+      "hash": "0ba6c32e8eeb5eb026cc798d01b35ee85cc66dba",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "scripts/generate.py",
+      "lang": "python",
+      "size": 15053,
+      "hash": "da5484314d15cfa3206eca112d7333997e002765",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "scripts/ai_integrator.py",
+      "lang": "python",
+      "size": 4834,
+      "hash": "76d248d9189cc1e2ade09a14b18211f2cc6799ac",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/training/generate.py",
+      "lang": "python",
+      "size": 108023,
+      "hash": "5c3b074e74afa6c1944d86d5990f3c55d39f0f3c",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id",
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "tests/test_constraint_agent.py",
+      "lang": "python",
+      "size": 12850,
+      "hash": "3974838a356afad4f6d228fa2e5cae2296abaad7",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "tests/test_self_audit.py",
+      "lang": "python",
+      "size": 8178,
+      "hash": "9c247cdfb0c96af6373cf7db9b762c2084a07c75",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "tests/test_knowledge_dna.py",
+      "lang": "python",
+      "size": 2329,
+      "hash": "7af8216a98f03453bc45336b6cd83fa444bc0313",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "tests/test_narrative_physics.py",
+      "lang": "python",
+      "size": 7308,
+      "hash": "c28cc799d234ada72119fed08ec1dd66d3daeb6a",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "tests/test_sim.py",
+      "lang": "python",
+      "size": 5390,
+      "hash": "843f1a1abd19b64af25d190100d1660325a81af5",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "tests/test_first_principles_audit.py",
+      "lang": "python",
+      "size": 20978,
+      "hash": "b3588770d9551310e573955873d2e51712467992",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "tests/test_bloom.py",
+      "lang": "python",
+      "size": 3449,
+      "hash": "c015eed97fdddc7bdd4b575f8f6f3db0a51bae69",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "tests/test_expand.py",
+      "lang": "python",
+      "size": 3669,
+      "hash": "7aa16a9576a348510e9e2a38523e5ad85828a33d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "tests/test_schema.py",
+      "lang": "python",
+      "size": 14014,
+      "hash": "381a44d1ce7c4ad7aa7251dfecfea65564c09da2",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "tests/test_validator.py",
+      "lang": "python",
+      "size": 9704,
+      "hash": "8b932316c2a564a6a9c5a827001cbec4682dc87d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "tests/test_explore.py",
+      "lang": "python",
+      "size": 8421,
+      "hash": "58a1f4f635ed559955bd2c785c5dbd33970338b3",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "examples/phi_lattice_explorer.py",
+      "lang": "python",
+      "size": 14070,
+      "hash": "eff88168cb43c4770c507df4d214a6ade7486460",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "examples/build_relational_graph.py",
+      "lang": "python",
+      "size": 5543,
+      "hash": "ff81d4bb1163ef3581e7c90ad02ce598fe549dc8",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "examples/generate_curiosity_map.py",
+      "lang": "python",
+      "size": 12943,
+      "hash": "ad4a381f11869cb96970cf1572c3071f9bb61f77",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "examples/felt_binding_rate.py",
+      "lang": "python",
+      "size": 18460,
+      "hash": "19956509c2c88498f2709c9f21e738869591e60a",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "examples/kappa_sync_threshold.py",
+      "lang": "python",
+      "size": 17686,
+      "hash": "aafe2d052856a590743e251fd77c01219e97f93f",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "examples/audit_system_constants.py",
+      "lang": "python",
+      "size": 8936,
+      "hash": "657e974fa9fbe6ba1fac320796f55ac4965cbbc9",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "examples/validate_ontology.py",
+      "lang": "python",
+      "size": 129,
+      "hash": "4e6296e15cc7987a6a3e97a61953af4024f93e4d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/__init__.py",
+      "lang": "python",
+      "size": 838,
+      "hash": "a56912008ed4db41debec449ab35e2180847945a",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/explore.py",
+      "lang": "python",
+      "size": 12659,
+      "hash": "4e6d9e90d24aa66b3af33ce64ff1f10356abb897",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "src/rosetta_shape_core/_graph.py",
+      "lang": "python",
+      "size": 3867,
+      "hash": "4f42109e67ecafe0b7f06dd8e2d2559b7e7c3008",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/_shadows.py",
+      "lang": "python",
+      "size": 15079,
+      "hash": "1dda5311e529ad4af170019ef7c1451ec8d6fda7",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/seeds.py",
+      "lang": "python",
+      "size": 8662,
+      "hash": "3a8c6ec6528f619bc8409e83a667116b5e657dcd",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/_sensors.py",
+      "lang": "python",
+      "size": 10486,
+      "hash": "d9e1d194b3f8044850526dd5f09adf7a41ab66e2",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/validator.py",
+      "lang": "python",
+      "size": 20150,
+      "hash": "51be697a45fe46b657cc9fba674c95b22160b7be",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "src/rosetta_shape_core/bloom.py",
+      "lang": "python",
+      "size": 23116,
+      "hash": "4ac0e7a1323efbfda0e932bb3412a2082482291e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/constraint_agent.py",
+      "lang": "python",
+      "size": 21962,
+      "hash": "d3953ce932a169f773a3155d6c76d63b2d86e2a3",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/self_audit.py",
+      "lang": "python",
+      "size": 25033,
+      "hash": "e86a493a0052157ea5210f8f711b627e9214609a",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "src/rosetta_shape_core/_seed.py",
+      "lang": "python",
+      "size": 3645,
+      "hash": "17a6be11c58db6572c8908043ff4e100a673c1bf",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/narrative_physics.py",
+      "lang": "python",
+      "size": 13643,
+      "hash": "7f98f77206df698937861d580750adca58ad6817",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/knowledge_dna.py",
+      "lang": "python",
+      "size": 14706,
+      "hash": "4a6c4ce89b2da1cecc3294272e28bf09c3f9b442",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/_display.py",
+      "lang": "python",
+      "size": 10835,
+      "hash": "2051d08ab0216093bbb20e86468880572cf8be64",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/expand.py",
+      "lang": "python",
+      "size": 2186,
+      "hash": "bda774182a638158a0d6d17ce2b8fdabd00f65a9",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/query.py",
+      "lang": "python",
+      "size": 10373,
+      "hash": "d24cb090b0041c9e056b58bb92f433b45a25da1b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/sim.py",
+      "lang": "python",
+      "size": 25106,
+      "hash": "73edbab462dc995b74ba20086f05c26ed76501ab",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/diagnostic.py",
+      "lang": "python",
+      "size": 20175,
+      "hash": "68d3150d167dd564170899567abdcf0e1165d8c5",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/first_principles_audit.py",
+      "lang": "python",
+      "size": 30576,
+      "hash": "70618c45ae81ff91d27fcd4b1f16b489740cc1a4",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "recursion.json",
+      "lang": "json",
+      "size": 3228,
+      "hash": "f49c1dc718d8d93fc5c2bde88d3c7cfeca31f653",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "FIELD_ECHO.json",
+      "lang": "json",
+      "size": 309,
+      "hash": "d288362e6b8ad7e35b296d9bdf77202282296b51",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "next_tasks.unified.json",
+      "lang": "json",
+      "size": 1627,
+      "hash": "60c85e4cbc4cd6136fa3233c93868a7728ceec62",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "balance.json",
+      "lang": "json",
+      "size": 4672,
+      "hash": "5deffabe52a6a0067450d666b3b4839b9016462d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "AI_INDEX.json",
+      "lang": "json",
+      "size": 103,
+      "hash": "6788eb90b6c22465d2b12471a189bebbf3cef034",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/fractal-compass/seed_glyph.json",
+      "lang": "json",
+      "size": 499,
+      "hash": "0dfdfa132685232abd4bb72e48249c13caf4a76a",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/fractal-compass/felt.json",
+      "lang": "json",
+      "size": 1206,
+      "hash": "25067a41232371989ca3fd2587f48844c905a780",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/fractal-compass/bloom_logic.json",
+      "lang": "json",
+      "size": 998,
+      "hash": "5451356d8ff537a8efda2481fdc1dc882d82e693",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/fractal-compass/glyph_set.json",
+      "lang": "json",
+      "size": 695,
+      "hash": "6914bde074b9f826595093138cf5399aa9bc632a",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/fractal-compass/mandelbrot.json",
+      "lang": "json",
+      "size": 610,
+      "hash": "2d313cdf920eb739f2abc8920549a254f34d2cc7",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/mathematic-economics/thermodynamic-governance.json",
+      "lang": "json",
+      "size": 3826,
+      "hash": "1a9d1db41099591ea686a18e5b6a31f4d80258fb",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/mathematic-economics/signal-distortion.json",
+      "lang": "json",
+      "size": 4911,
+      "hash": "136183a7dac53490c4574f38532d02088603261d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/mathematic-economics/equations.json",
+      "lang": "json",
+      "size": 8919,
+      "hash": "51f778c16c9c78c8858fa0c6dbf1c086c75415bd",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/narrative-physics/constraint-analysis.json",
+      "lang": "json",
+      "size": 6290,
+      "hash": "4b6948f8def8f8a7e0522323cef4d739ac6c3120",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/narrative-physics/detection-signatures.json",
+      "lang": "json",
+      "size": 4101,
+      "hash": "41a7d03e09484cfdf75c66633164be04aea7d294",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/ai-arena/oracle-system.json",
+      "lang": "json",
+      "size": 5627,
+      "hash": "d287919304f11d7774265a5b9c58e219d5df9658",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/ai-arena/integrity-axioms.json",
+      "lang": "json",
+      "size": 7450,
+      "hash": "7130958f5a4f067e06040cb65d17429d5e7ef3db",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/ai-arena/trust-mechanics.json",
+      "lang": "json",
+      "size": 5141,
+      "hash": "58160a39ec261c90f6e5d39387a9bd8a4ec0e59b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/ai-arena/logos-protocol.json",
+      "lang": "json",
+      "size": 4985,
+      "hash": "51325b0a93cea75d962ec4d88bdeabed94ee5e1b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/biomachine/bridge_map.json",
+      "lang": "json",
+      "size": 136,
+      "hash": "21140a61b3d407835e2c38ff74b12b8f434fe23e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "atlas/remote/biogrid/registry.json",
+      "lang": "json",
+      "size": 3069,
+      "hash": "34f08dde511a2a2878ee18006f2c5086251941f2",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/biogrid/planned.json",
+      "lang": "json",
+      "size": 2483,
+      "hash": "ae2911f812840dc874d1c3de07aa7f357b46949f",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/taf/axioms.json",
+      "lang": "json",
+      "size": 3133,
+      "hash": "2ceeb4434e527b8d6e5897061d25beee054f213c",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "atlas/remote/taf/governance.json",
+      "lang": "json",
+      "size": 3992,
+      "hash": "9b86d82e77e1a082e836a5e88d43fa16f8ab3b65",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "atlas/remote/taf/thresholds.json",
+      "lang": "json",
+      "size": 3232,
+      "hash": "8af35df8658519d4ef480e1dc07b0e19b020595a",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "atlas/remote/seed-physics/expansion.json",
+      "lang": "json",
+      "size": 2017,
+      "hash": "54d8c6157d612e97d2194746de85a8ea16fef0ca",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/seed-physics/exploration.json",
+      "lang": "json",
+      "size": 3978,
+      "hash": "134a93b0fbd78b3aaeeb64fc5a394eba1d886180",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/seed-physics/constraints.json",
+      "lang": "json",
+      "size": 3103,
+      "hash": "d4af42ecaa92f51d91fc39d22ba2faac6f1e7fbf",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/shadow-hunting/detection-methods.json",
+      "lang": "json",
+      "size": 5559,
+      "hash": "23308f7deb880ea59feebe81e71b5e60c060994f",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "atlas/remote/shadow-hunting/coupling-framework.json",
+      "lang": "json",
+      "size": 5154,
+      "hash": "c785a9acdbf304f9e23653ad2db2e546bb6c095d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "atlas/remote/shadow-hunting/boundary-mapping.json",
+      "lang": "json",
+      "size": 5091,
+      "hash": "8be0baba15f0faa118d73c64d60c0b5eaec21461",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/living-intelligence/rules.json",
+      "lang": "json",
+      "size": 11186,
+      "hash": "76dca039dddaccc4e70dbcc18a33e6bc75ded527",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "atlas/remote/living-intelligence/atlas.json",
+      "lang": "json",
+      "size": 23967,
+      "hash": "db94bec33d94da5fa0753bba94731a625bad6912",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "atlas/remote/emotions/glyphs.json",
+      "lang": "json",
+      "size": 2788,
+      "hash": "6e0111c43d626d4da7e2dfed842201eacbab55bb",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/esp/baseline.json",
+      "lang": "json",
+      "size": 2951,
+      "hash": "09843127527b5e65925ae16fe87f51f72c3f6e6e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/esp/thresholds.json",
+      "lang": "json",
+      "size": 1663,
+      "hash": "1d82e3eaa9a41cb1a8dffc13e9eda9bf02ead17b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/esp/assumptions.json",
+      "lang": "json",
+      "size": 6123,
+      "hash": "1322cc4c365a90cef49bce82a4907ce2fc55962f",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/esp/feedback_loops.json",
+      "lang": "json",
+      "size": 5532,
+      "hash": "a97997056d85bfa1c387b15157ee4675251d376c",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/physics-guard/laws.json",
+      "lang": "json",
+      "size": 8190,
+      "hash": "b0206b36eb51c13615151d805e550c971abfc185",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/physics-guard/scope_conditions.json",
+      "lang": "json",
+      "size": 10435,
+      "hash": "3dda54d51dd5fe93b38ce70eb0087a934e99dacf",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/physics-guard/premises.json",
+      "lang": "json",
+      "size": 10293,
+      "hash": "ccaca19fdc6529b7ad562f73251fe7237294675e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/soms/substrate.json",
+      "lang": "json",
+      "size": 2465,
+      "hash": "1940c2c2017f5ad57ae21a639a1c88a684d52554",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/mandala/connect.json",
+      "lang": "json",
+      "size": 3148,
+      "hash": "17d4bcd265b12e11d2f6ae4aa8d6a3080da30971",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "atlas/remote/mandala/shapes.json",
+      "lang": "json",
+      "size": 4093,
+      "hash": "7decc9c8509f89455b6e0c71aab4d5ad5270770a",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id",
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "atlas/remote/mandala/glyphs.json",
+      "lang": "json",
+      "size": 3963,
+      "hash": "d93d8f5dfeee5fa8b3c007245b5c6dd84dddfc68",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "atlas/remote/mandala/sensors.json",
+      "lang": "json",
+      "size": 3576,
+      "hash": "13fb560069d861d80e7d2290958f9d905ec78ab3",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/polyhedral/atlas_index.json",
+      "lang": "json",
+      "size": 786,
+      "hash": "57c65bf5bec4028dd432a6a669df10dd06b1c1a9",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/polyhedral/protocols.json",
+      "lang": "json",
+      "size": 2586,
+      "hash": "32d7c3c5db81476dfeee611b46c874c8ee9b3264",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/polyhedral/atlas_schema.json",
+      "lang": "json",
+      "size": 46684,
+      "hash": "fe352d763289f899c9e7c45c68f0772739f6c389",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "atlas/remote/polyhedral/five_field_map.json",
+      "lang": "json",
+      "size": 1277,
+      "hash": "30a8d7b5e72186bea31d8224ef0050d93c0928e6",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "EMERGENT_PATTERN/Example.json",
+      "lang": "json",
+      "size": 380,
+      "hash": "282e7cd6bd540c1d12e59f0b087c978809f880a0",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "todo"
+      ]
+    },
+    {
+      "path": "data/sacred_geometry.json",
+      "lang": "json",
+      "size": 354,
+      "hash": "6cb25350fd1b640a9c39b98e1acdb988e7819b74",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/interaction_ontology.json",
+      "lang": "json",
+      "size": 472,
+      "hash": "66994d9caaf3a2187833dc3ebdbd281b9ce036c2",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/seed-catalog.json",
+      "lang": "json",
+      "size": 6382,
+      "hash": "2a9109829fa7cc97e0b376d06a236f346e8e5ff2",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/temporal_states.json",
+      "lang": "json",
+      "size": 327,
+      "hash": "4bb5cabee2a038e0ddb360b9ba13c9f365576597",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/tri_invert_bridge.seed.json",
+      "lang": "json",
+      "size": 651,
+      "hash": "43756cb70a923dbe58664c0606c714f7d619193d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/narrative-physics-sample.json",
+      "lang": "json",
+      "size": 1608,
+      "hash": "7ae8219f1acc7c875c2e4d5797f1c7b444f6a587",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/animal_intelligence.json",
+      "lang": "json",
+      "size": 936,
+      "hash": "fe09c8649f60ef2e4e14d0570f37947b4a0c2ea8",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/semantic_suppression_model.json",
+      "lang": "json",
+      "size": 701,
+      "hash": "f771d7f3164ceb9919ab2cf830a3f09bdddb65be",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/shape_ontology.json",
+      "lang": "json",
+      "size": 490,
+      "hash": "85763f2c8b9da5ad8f0919fb39a5e8c0ed587022",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/essence-traits.json",
+      "lang": "json",
+      "size": 2542,
+      "hash": "9004205e6517a2fb74e9c182211295c49e050572",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/math_constants.json",
+      "lang": "json",
+      "size": 296,
+      "hash": "4ad7e88922f846780f82f0dd3e6f3b5c9ad4ada9",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/tri_invert_bridge.glyphs.json",
+      "lang": "json",
+      "size": 560,
+      "hash": "74f4453fdc3d8f3b34a8eae59b5ffa1abce05df3",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/training/pad_biology.json",
+      "lang": "json",
+      "size": 18999,
+      "hash": "b4e0aac13e69c53c33f325d7ea80d032a0bd20d9",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "bridges/fractal-scope-bridge.json",
+      "lang": "json",
+      "size": 12012,
+      "hash": "d153fcaad120fe3de7d187e51f5bf7655f54eb97",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "bridges/physics-encoder-bridge.json",
+      "lang": "json",
+      "size": 10235,
+      "hash": "992a8893832dbb56b72399ec185aec62e82728c6",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "bridges/thermodynamic-validation-bridge.json",
+      "lang": "json",
+      "size": 12091,
+      "hash": "8746632ae06b120c1d3073b7f316c17ffb55ed74",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "bridges/seed-physics-bridge.json",
+      "lang": "json",
+      "size": 8246,
+      "hash": "bbbdde05c3849eb0950901a7ae0eae3baba3a8d4",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "bridges/soms-bridge.json",
+      "lang": "json",
+      "size": 5248,
+      "hash": "478e137e30a691f1bdaf87269a29e00db1800979",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "bridges/narrative-physics-bridge.json",
+      "lang": "json",
+      "size": 5106,
+      "hash": "f5420d2c787cbf2ab98aabb3b8dcb92ed9c5c7bd",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "bridges/living-intelligence-bridge.json",
+      "lang": "json",
+      "size": 10671,
+      "hash": "4435ca26396fa2cd1cd1f8caa077096181c33612",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id",
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "bridges/rosetta-bridges.json",
+      "lang": "json",
+      "size": 9007,
+      "hash": "772a3f3f364cd56d3bc444fa36321e7486705d2b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "bridges/mandala-compute-bridge.json",
+      "lang": "json",
+      "size": 23070,
+      "hash": "0031f58412505c66361ef45274bdcede6f119b79",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "bridges/mathematic-economics-bridge.json",
+      "lang": "json",
+      "size": 8490,
+      "hash": "0c014bb2716a1ca7e6012926f486067f25124269",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "bridges/shadow-hunting-bridge.json",
+      "lang": "json",
+      "size": 9634,
+      "hash": "22a658a14dd7f9a5290f6a3e7f26ee6bbf43a240",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "bridges/truth-sensor-bridge.json",
+      "lang": "json",
+      "size": 9443,
+      "hash": "c0b9e2feb8c0d04e44f5667ac6356142a1b5a17f",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "bridges/acs-consciousness-bridge.json",
+      "lang": "json",
+      "size": 6953,
+      "hash": "6208998b83c353580cd8b88439c3379f2bf068f4",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "bridges/ai-arena-bridge.json",
+      "lang": "json",
+      "size": 10761,
+      "hash": "12786d0b5c8ba86e5b7ccee98ba53dc92e0112c7",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "bridges/decay-model-bridge.json",
+      "lang": "json",
+      "size": 6915,
+      "hash": "480f72adb4a2548d132a1d84731c47615d43808d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "bridges/taf-wiring-bridge.json",
+      "lang": "json",
+      "size": 21084,
+      "hash": "8459fb5ccb370438e0f026bcc221a741b4fd56fb",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "schema/core.schema.json",
+      "lang": "json",
+      "size": 2084,
+      "hash": "3144567e0ea2e19ea8bb88f99ae2f545e1be41f7",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "schema/bridge.schema.json",
+      "lang": "json",
+      "size": 1863,
+      "hash": "750a5282b3b026641241cf27e3f81674943f8432",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "schema/ai_index.schema.json",
+      "lang": "json",
+      "size": 3617,
+      "hash": "05fe17e7aaa5d9651ba3bfa80fd02aa623cd8294",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "schema/rule.schema.json",
+      "lang": "json",
+      "size": 1721,
+      "hash": "b35c92527c105e2d4f648a74f00899e689c54bbb",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "schema/shape.schema.json",
+      "lang": "json",
+      "size": 2762,
+      "hash": "d5fc837b66830e3d641dfbfbaa676283f2646d8c",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "schema/shape.seed.schema.json",
+      "lang": "json",
+      "size": 3396,
+      "hash": "17f9aacfe75f54aa771d9c33ab637ec02f92becb",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "logs/fieldlink_lock_20250911.json",
+      "lang": "json",
+      "size": 663,
+      "hash": "6053631b46f3ac877c91d6c52a50a6da46b38e7f",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "shapes/tetrahedron.json",
+      "lang": "json",
+      "size": 468,
+      "hash": "a7c0b67dcbddd3d322862101d3706317384631c9",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "shapes/dodecahedron.json",
+      "lang": "json",
+      "size": 762,
+      "hash": "225ae1efb1892e2b0980f7ab82d2377c49b72131",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "shapes/octahedron.json",
+      "lang": "json",
+      "size": 598,
+      "hash": "f40a9162bfffe395f6aecd60bda4435009cd3b6e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "shapes/relief.json",
+      "lang": "json",
+      "size": 10146,
+      "hash": "5970f677a483affb2cca33c9c23ecb420f133abf",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "shapes/icosahedron.json",
+      "lang": "json",
+      "size": 810,
+      "hash": "5f8da824a3027e394de8801bbc94c8cd628ae912",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "shapes/cube.json",
+      "lang": "json",
+      "size": 575,
+      "hash": "3241bad37876d32e7535d427e78462ef90ccfeb5",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "tests/golden/examples.json",
+      "lang": "json",
+      "size": 373,
+      "hash": "4f6ee3fb3275582821937863a04bf9eb9a59b683",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "ontology/capabilities.json",
+      "lang": "json",
+      "size": 385,
+      "hash": "64106a132b36c1d5e6a3ec2cdf07a112fbe54b5c",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "ontology/index.json",
+      "lang": "json",
+      "size": 7488,
+      "hash": "7d0ae49e338cf7063aa91cd17d2e445f2a15366d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/_vocab.json",
+      "lang": "json",
+      "size": 1394,
+      "hash": "48924c1f2d6457902b5df7f43007377f933d516b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/_id_registry.json",
+      "lang": "json",
+      "size": 2370,
+      "hash": "e22198cadb24d3f2f069179005200bbb83bda41e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/entities.sample.json",
+      "lang": "json",
+      "size": 971,
+      "hash": "094c2dd0ca4fac4557f6089c74d40887bd3b53ab",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "ontology/family_map.json",
+      "lang": "json",
+      "size": 25599,
+      "hash": "578b9eca181efd08602ed2e84f24ff9d72abd5d7",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f10-particle.json",
+      "lang": "json",
+      "size": 7091,
+      "hash": "e11b8315216d3820f8055e9f31b9928f9f7b8eae",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f16-consciousness.json",
+      "lang": "json",
+      "size": 7790,
+      "hash": "2c31441dddfb37be1be83fa15e6ae57e0564a0b0",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f06-cognition.json",
+      "lang": "json",
+      "size": 6661,
+      "hash": "8b86274c8070f1e5e63de3bf7fa3e88e874b2743",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f13-reaction.json",
+      "lang": "json",
+      "size": 7160,
+      "hash": "5aaea747d3c322d96e0ff77e6aa2982fa80a9fb7",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f19-statistical.json",
+      "lang": "json",
+      "size": 7726,
+      "hash": "3f88ee2eedd3eeeea4eb4a8b575ea1795089ec5c",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f01-resonance.json",
+      "lang": "json",
+      "size": 6038,
+      "hash": "0fddf8b1cd443b60c984ff28a2fecd1df248bbbd",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f12-networks.json",
+      "lang": "json",
+      "size": 7147,
+      "hash": "b48c0f639133cddaba65168cd9e49c7da0745a6c",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f14-measurement.json",
+      "lang": "json",
+      "size": 7371,
+      "hash": "6f810c579e24b86b4dee8ab1f6d6fdf892f8982b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f04-life.json",
+      "lang": "json",
+      "size": 6244,
+      "hash": "8568b17b149d3aa140f29b4fdaad1b1557f45c64",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f08-matter.json",
+      "lang": "json",
+      "size": 7025,
+      "hash": "cdaf63dd96c88752001ffb983439551d0a4a0600",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f17-turbulence.json",
+      "lang": "json",
+      "size": 7473,
+      "hash": "9e422e456eef693e5d6e4d855fee12761b43483b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f07-earth-cosmos.json",
+      "lang": "json",
+      "size": 7051,
+      "hash": "bdef6ce35e42725c92db5c3b3df5c903538e39c4",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f05-energy-thermo.json",
+      "lang": "json",
+      "size": 6491,
+      "hash": "282078d7d0ff6027d23347c3db7d92fdb7796804",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f03-information.json",
+      "lang": "json",
+      "size": 6544,
+      "hash": "e28a9aecc530061aed7b576c4e92afbaf6c2091b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f11-engineering.json",
+      "lang": "json",
+      "size": 6899,
+      "hash": "745b6aca26ecafeb6504f12c68d274caf6b22eb4",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f15-navigation.json",
+      "lang": "json",
+      "size": 7552,
+      "hash": "2176d3b362237bc4d08d4babe0b39db0ddcaacbc",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f18-relativity.json",
+      "lang": "json",
+      "size": 7360,
+      "hash": "a1b8642a91f5ae2141b9e6688c42a1b42b713cd7",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f02-flow.json",
+      "lang": "json",
+      "size": 6019,
+      "hash": "149b18eda323085dd689323ee86d86be40b1af33",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f21-narrative-constraint.json",
+      "lang": "json",
+      "size": 1233,
+      "hash": "a8371a5699486fb6ddc4a0a2443c1aebd8c00e3e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f09-geometry.json",
+      "lang": "json",
+      "size": 6885,
+      "hash": "970ceee8951c99188acd03515115bf868864e8c5",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/families/f20-topology.json",
+      "lang": "json",
+      "size": 7746,
+      "hash": "d949cb93c1483d9885cb7c28a13c2fcfc584a7a8",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p02-conservation.json",
+      "lang": "json",
+      "size": 7040,
+      "hash": "6fc6ec26961db6423491906ff4ac41d90719ba39",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p10-uncertainty.json",
+      "lang": "json",
+      "size": 8046,
+      "hash": "4a2ae793a35580a4210a8d3efabda94ec5306bf4",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p11-transformation.json",
+      "lang": "json",
+      "size": 8101,
+      "hash": "78a816dbf8bdbf3b7bed2b072e5bfce92fa53e89",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p12-unity.json",
+      "lang": "json",
+      "size": 8267,
+      "hash": "f6c5208d9b918701653ba4b8f6289c704f82f4ee",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p09-proportion.json",
+      "lang": "json",
+      "size": 7882,
+      "hash": "4d27224680b677bda82e6828129482c930c60a7e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p05-emergence.json",
+      "lang": "json",
+      "size": 7760,
+      "hash": "4c657d5bc9ef25677300cfcac2ec943320c75e0d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p04-duality.json",
+      "lang": "json",
+      "size": 7595,
+      "hash": "b5c3d2cd02198dc2dfd68725c578c40485d60ea5",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p03-relativity.json",
+      "lang": "json",
+      "size": 7529,
+      "hash": "bd8665951261a04a891b2ee0913c3ab7516d469b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p08-quantization.json",
+      "lang": "json",
+      "size": 7712,
+      "hash": "da3854b1e32b9bb6baecfaff22e0526298824dcd",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p06-resonance.json",
+      "lang": "json",
+      "size": 7682,
+      "hash": "4d10502a9f3a047b9abb5632342db263f1e6fd3e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p01-symmetry.json",
+      "lang": "json",
+      "size": 7237,
+      "hash": "69325c63e2e049b4ecd4960fd607b6adad3a0773",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/principles/p07-continuity.json",
+      "lang": "json",
+      "size": 7482,
+      "hash": "a5b76b7a5a944396c8b6c2d9c71be0b65f895377",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ai_integrator.config.yaml",
+      "lang": "yaml",
+      "size": 863,
+      "hash": "e37ed79241fe29a7f85a8cc9b5ccf9ca96004e75",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink",
+        "schema-ref",
+        "todo"
+      ]
+    },
+    {
+      "path": "FILE_LIST.md",
+      "lang": "md",
+      "size": 9251,
+      "hash": "e4a2d986195758e627e0d00d13fa6da5254d6e00",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "AI_NOTES.md",
+      "lang": "md",
+      "size": 87,
+      "hash": "ba5d2fbe10f625e38962e8874c27418c61c4fa8e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "TOUCH_THIS_FIRST.md",
+      "lang": "md",
+      "size": 369,
+      "hash": "f25e2880e379f6730fd7505cffd30670cc32c219",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "CLAUDE.md",
+      "lang": "md",
+      "size": 12560,
+      "hash": "7988eb0155017e5e49872549816084682f42467f",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id",
+        "fieldlink",
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "LIVING_ENTITY.md",
+      "lang": "md",
+      "size": 2007,
+      "hash": "a74629f63a709b70f2a46b079bc75837da019dab",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "README.md",
+      "lang": "md",
+      "size": 5115,
+      "hash": "ee9bed886e053da7c468456249842aa748e3f6ce",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id",
+        "fieldlink",
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "protocols/seed-growth-protocol.md",
+      "lang": "md",
+      "size": 5508,
+      "hash": "a888cab1c1f14c845bea4688f605361f20641090",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "protocols/mandala-compute-protocol.md",
+      "lang": "md",
+      "size": 5544,
+      "hash": "d2a3fa8dfdd08df963d775ec73ea48a1ace60ba5",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id",
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "protocols/README.md",
+      "lang": "md",
+      "size": 201,
+      "hash": "b8a609be8bd3c3a4ee7136898adaa9050b4aad03",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "docs/complete-unified-system-workflow.md",
+      "lang": "md",
+      "size": 17655,
+      "hash": "7d3be6f4677784481aaf4ce8e7c21f846539899b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/field-coherence-engine.md",
+      "lang": "md",
+      "size": 14972,
+      "hash": "e72222f8faecdc1e963965e5b87a24a1f3796d97",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/to-do-list.md",
+      "lang": "md",
+      "size": 728,
+      "hash": "a0490f3849ea0bd08648348cd1a150e3849f683d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "entity-id"
+      ]
+    },
+    {
+      "path": "docs/unified-cultural-computation.md",
+      "lang": "md",
+      "size": 15083,
+      "hash": "79a2ad1589bf610d490f7b7ffe41b0423c5114bd",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/core-pattern-mappings.md",
+      "lang": "md",
+      "size": 13331,
+      "hash": "6f0cb43b740a2ee81c10a8df4f9d64ccbe805502",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/unified-bridge-integration.md",
+      "lang": "md",
+      "size": 22579,
+      "hash": "0a173ed5fde27549ec6b02b6e4e58aed9c1b5d8c",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/unified-proposed.md",
+      "lang": "md",
+      "size": 2531,
+      "hash": "49a78e93f881dcaa3cb7127b7a843f5c977f8508",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/tri_invert_bridge.md",
+      "lang": "md",
+      "size": 991,
+      "hash": "2bc0a86ed05caee2c65148238f9e605cf70026ce",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/unified-grounding-system.md",
+      "lang": "md",
+      "size": 11447,
+      "hash": "2ce81a9539bd8ed6a0384f4db11322032e3c21c3",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/potential-blind-spots.md",
+      "lang": "md",
+      "size": 8863,
+      "hash": "dd46367fc543139ffbfbbeb81189c9bd5ed360e1",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/unified-pattern-bridge-schema.md",
+      "lang": "md",
+      "size": 10692,
+      "hash": "e26be6df30667433978ac5a6e13a33b98c0e0325",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "docs/unified-bridge-integration-guide.md",
+      "lang": "md",
+      "size": 11100,
+      "hash": "2e0e41c6be9928702bc915b17daf7f4d5808d26d",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "fieldlink"
+      ]
+    },
+    {
+      "path": "docs/unified-bridge-schema.md",
+      "lang": "md",
+      "size": 10692,
+      "hash": "e26be6df30667433978ac5a6e13a33b98c0e0325",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "docs/growth-pattern-complete-mapping.md",
+      "lang": "md",
+      "size": 5511,
+      "hash": "11851cc3220122c020c451496c121cd32d7b9526",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "pyproject.toml",
+      "lang": "toml",
+      "size": 1190,
+      "hash": "1fe7d6fede7009f91ed3f192037c058ba0bc1d34",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "prompts/system_prompt.txt",
+      "lang": "unknown",
+      "size": 794,
+      "hash": "1e959de707ff7c6e96159f5a5b35e7b32be7dbc2",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core.egg-info/entry_points.txt",
+      "lang": "unknown",
+      "size": 358,
+      "hash": "37d3a53111357c0b0f65b29dc4b20af25468261e",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core.egg-info/dependency_links.txt",
+      "lang": "unknown",
+      "size": 1,
+      "hash": "adc83b19e793491b1c6ea0fd8b46cd9f32e592fc",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core.egg-info/top_level.txt",
+      "lang": "unknown",
+      "size": 19,
+      "hash": "d0d2adaf4327a6500d9ec6efe7dce09e72c65b62",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core.egg-info/SOURCES.txt",
+      "lang": "unknown",
+      "size": 1273,
+      "hash": "6090086a89bada35fcd38677194b1e70c9538d74",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core.egg-info/requires.txt",
+      "lang": "unknown",
+      "size": 74,
+      "hash": "4da530d1f2310de8448f3d7b2da9bab14f46ff79",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    }
+  ],
+  "topology": {
+    "modules": [],
+    "edges": []
+  },
+  "resilience": {
+    "redundancy_patterns": [],
+    "fallback_branches": [],
+    "error_doctrine": "tbd",
+    "possibility_matrix": []
+  }
+}
