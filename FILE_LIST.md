@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-6c5529576cf17c3e9af27b02b313255e9da2296a.idx
-./.git/objects/pack/pack-6c5529576cf17c3e9af27b02b313255e9da2296a.pack
-./.git/objects/pack/pack-6c5529576cf17c3e9af27b02b313255e9da2296a.rev
+./.git/objects/pack/pack-b03f87031e11b144c760eab0ec5ce9c193f8e1e8.idx
+./.git/objects/pack/pack-b03f87031e11b144c760eab0ec5ce9c193f8e1e8.pack
+./.git/objects/pack/pack-b03f87031e11b144c760eab0ec5ce9c193f8e1e8.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -64,6 +64,12 @@
 ./atlas/remote/fractal-compass/glyph_set.json
 ./atlas/remote/fractal-compass/mandelbrot.json
 ./atlas/remote/fractal-compass/seed_glyph.json
+./atlas/remote/geo-binary-bridge/bridges.json
+./atlas/remote/geo-binary-bridge/fabrication_schema.json
+./atlas/remote/geo-binary-bridge/glyph_to_geometric.json
+./atlas/remote/geo-binary-bridge/octahedral_encoder.json
+./atlas/remote/geo-binary-bridge/octahedral_state_encoding.json
+./atlas/remote/geo-binary-bridge/sensor_suite.json
 ./atlas/remote/living-intelligence/atlas.json
 ./atlas/remote/living-intelligence/rules.json
 ./atlas/remote/mandala/connect.json
@@ -180,6 +186,7 @@
 ./ontology/_id_registry.json
 ./ontology/_vocab.json
 ./ontology/capabilities.json
+./ontology/entities.geo-binary.json
 ./ontology/entities.sample.json
 ./ontology/families/f01-resonance.json
 ./ontology/families/f02-flow.json
