@@ -1,11 +1,11 @@
 {
   "id": "BRIDGE.PHYSICS_ENCODERS",
-  "version": "1.0",
-  "updated": "2026-03-27T00:00:00Z",
+  "version": "1.1",
+  "updated": "2026-04-03T00:00:00Z",
   "description": "Bridge between Rosetta-Shape-Core shapes and Geometric-to-Binary-Computational-Bridge physics encoders. Each encoder translates a physical domain into octahedral states (3 bits), providing a physical sensing layer underneath the emotional and truth-sensor layers.",
   "source": {
     "repo": "Geometric-to-Binary-Computational-Bridge",
-    "paths": ["bridges/*.py", "bridges/sensor_suite.json", "Silicon/octahedral_state_encoder.json"]
+    "paths": ["bridges/*.py", "bridges/sensor_suite.json", "Silicon/octahedral_state_encoder.json", "mappings/octahedral_state_encoding.json", "GEIS/octahedral_state.py", "experiments/glyph_factorization.py"]
   },
   "encoding_model": {
     "description": "Physical signals → domain-specific encoder → octahedral state (3 bits) → shape bridge",
@@ -171,5 +171,46 @@
     "SHAPE.OCTA": ["magnetic_encoder", "emotion_encoder"],
     "SHAPE.ICOSA": ["sound_encoder", "light_encoder", "wave_encoder", "vortex_bridge"],
     "SHAPE.DODECA": ["gravity_encoder", "consciousness_encoder"]
+  },
+  "octahedral_state_encoding": {
+    "description": "Canonical 8-state encoding on SHAPE.OCTA vertices. Each state maps to a 3-bit vertex, eigenvalue triple, Gray code, φ-coherence score, and Mandala angle. Source: mappings/octahedral_state_encoding.json.",
+    "staged_at": "atlas/remote/geo-binary-bridge/octahedral_state_encoding.json",
+    "constants": {
+      "PHI": 1.618033988749895,
+      "TETRAHEDRAL_ANGLE_DEG": 109.47,
+      "STATES": 8,
+      "BITS_PER_STATE": 3,
+      "T2_OPTIMAL_MS": 166
+    },
+    "state_summary": [
+      {"bits": "000", "label": "+x", "character": "spherical",           "phi_coherence": 0.97},
+      {"bits": "001", "label": "-x", "character": "elongated +x",        "phi_coherence": 0.82},
+      {"bits": "010", "label": "+y", "character": "elongated +y",        "phi_coherence": 0.82},
+      {"bits": "011", "label": "-y", "character": "elongated +z",        "phi_coherence": 0.85},
+      {"bits": "100", "label": "+z", "character": "compressed -z",       "phi_coherence": 0.73},
+      {"bits": "101", "label": "-z", "character": "biaxial xy",          "phi_coherence": 0.78},
+      {"bits": "110", "label": "diagonal-a", "character": "asymmetric",  "phi_coherence": 0.70},
+      {"bits": "111", "label": "diagonal-b", "character": "near-biaxial","phi_coherence": 0.72}
+    ],
+    "stability_order": [0, 3, 5, 6, 7, 2, 1, 4],
+    "rosetta_hooks": {
+      "SHAPE.OCTA": "8 states map to 8 faces of octahedron",
+      "CONST.PHI": "eigenvalue scaling constant",
+      "CAP.SEED_EXPANSION": "bloom engine radial ring expansion"
+    }
+  },
+  "computational_layer": {
+    "description": "Geometric computation capabilities built on octahedral encoding. Recent additions include sparse GlyphState (5000x memory reduction), octahedral log sieve, and geometric factorization up to 77+ bits.",
+    "modules": {
+      "GEIS": "Geometric Encoding Intelligence System — octahedral state management and tensor operations",
+      "Engine": "KT annealer, spatial grid, symmetry detector, magnonic sublayer, SIMD optimizer",
+      "experiments": "Geometric factorization, holographic smoothness, number-theoretic energy functions"
+    },
+    "sensor_suite": {
+      "staged_at": "atlas/remote/geo-binary-bridge/sensor_suite.json",
+      "architecture": "parallel",
+      "sensors": ["coherence", "discordance", "intuition", "vigilance"],
+      "note": "Independent sensor channels operate simultaneously; composition happens at higher level without collapsing sensor plurality"
+    }
   }
 }

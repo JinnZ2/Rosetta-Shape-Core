@@ -1,0 +1,358 @@
+{
+  "schema": "geometric-to-binary/mappings@1.0",
+  "description": "Canonical bridge table between Mandala-Computing's angle-based octahedral states and GEIS vertex-bit encoding. Consumed by Mandala-Computing at mappings/*.json (protocols/connect.json). Also consumed by Rosetta-Shape-Core (via fieldlink), symbols/symbolic_to_geometric_plugin.py, and the topological memory system.",
+  "provenance": {
+    "geis_source": "GEIS/octahedral_state.py",
+    "physics_source": "Silicon/octahedral_sim.py",
+    "glyph_source": "Mandala-Computing/glyphs/mandala.json",
+    "rosetta_entity": "SHAPE.OCTA",
+    "fieldlink_schema": "3.0"
+  },
+  "constants": {
+    "PHI": 1.618033988749895,
+    "TETRAHEDRAL_ANGLE_DEG": 109.47,
+    "TETRAHEDRAL_ANGLE_RAD": 1.9106332362490186,
+    "STATES": 8,
+    "BITS_PER_STATE": 3,
+    "T2_OPTIMAL_MS": 166,
+    "STRAIN_OPTIMAL": 0.012,
+    "DISTANCE_OPTIMAL_ANGSTROM": 4.8
+  },
+  "states": [
+    {
+      "state": 0,
+      "vertex_bits": "000",
+      "gray_code": "000",
+      "label": "+x",
+      "cartesian": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "spherical": {
+        "theta_rad": 1.5707963,
+        "phi_rad": 0.0
+      },
+      "mandala_angle_deg": 0,
+      "eigenvalues": [
+        0.33,
+        0.33,
+        0.33
+      ],
+      "character": "spherical",
+      "geis_token": "000|O",
+      "glyph_unicode": "⊕",
+      "glyph_id": "octahedron.+x",
+      "rosetta_face": 0,
+      "phi_coherence": 0.97,
+      "notes": "Spherical — most stable, smallest φ eigenvalue deviation. Default encoding anchor."
+    },
+    {
+      "state": 1,
+      "vertex_bits": "001",
+      "gray_code": "001",
+      "label": "-x",
+      "cartesian": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "spherical": {
+        "theta_rad": 1.5707963,
+        "phi_rad": 3.1415927
+      },
+      "mandala_angle_deg": 180,
+      "eigenvalues": [
+        0.5,
+        0.25,
+        0.25
+      ],
+      "character": "elongated +x",
+      "geis_token": "001|O",
+      "glyph_unicode": "⊖",
+      "glyph_id": "octahedron.-x",
+      "rosetta_face": 1,
+      "phi_coherence": 0.82,
+      "notes": "λ₁/λ₂ = 2.0 — maximum elongation axis."
+    },
+    {
+      "state": 2,
+      "vertex_bits": "010",
+      "gray_code": "011",
+      "label": "+y",
+      "cartesian": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "spherical": {
+        "theta_rad": 1.5707963,
+        "phi_rad": 1.5707963
+      },
+      "mandala_angle_deg": 90,
+      "eigenvalues": [
+        0.25,
+        0.5,
+        0.25
+      ],
+      "character": "elongated +y",
+      "geis_token": "010|O",
+      "glyph_unicode": "⊗",
+      "glyph_id": "octahedron.+y",
+      "rosetta_face": 2,
+      "phi_coherence": 0.82,
+      "notes": "λ₂ dominant — y-axis elongation."
+    },
+    {
+      "state": 3,
+      "vertex_bits": "011",
+      "gray_code": "010",
+      "label": "-y",
+      "cartesian": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "spherical": {
+        "theta_rad": 1.5707963,
+        "phi_rad": 4.712389
+      },
+      "mandala_angle_deg": 270,
+      "eigenvalues": [
+        0.25,
+        0.25,
+        0.5
+      ],
+      "character": "elongated +z",
+      "geis_token": "011|O",
+      "glyph_unicode": "⊘",
+      "glyph_id": "octahedron.-y",
+      "rosetta_face": 3,
+      "phi_coherence": 0.85,
+      "notes": "λ₃ dominant — z-axis elongation. Second-most stable state."
+    },
+    {
+      "state": 4,
+      "vertex_bits": "100",
+      "gray_code": "110",
+      "label": "+z",
+      "cartesian": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "spherical": {
+        "theta_rad": 0.0,
+        "phi_rad": 0.0
+      },
+      "mandala_angle_deg": 45,
+      "eigenvalues": [
+        0.45,
+        0.4,
+        0.15
+      ],
+      "character": "compressed -z",
+      "geis_token": "100|O",
+      "glyph_unicode": "⊙",
+      "glyph_id": "octahedron.+z",
+      "rosetta_face": 4,
+      "phi_coherence": 0.73,
+      "notes": "Highly asymmetric — used for encoding high-contrast states."
+    },
+    {
+      "state": 5,
+      "vertex_bits": "101",
+      "gray_code": "111",
+      "label": "-z",
+      "cartesian": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "spherical": {
+        "theta_rad": 3.1415927,
+        "phi_rad": 0.0
+      },
+      "mandala_angle_deg": 225,
+      "eigenvalues": [
+        0.4,
+        0.4,
+        0.2
+      ],
+      "character": "biaxial xy",
+      "geis_token": "101|O",
+      "glyph_unicode": "⊚",
+      "glyph_id": "octahedron.-z",
+      "rosetta_face": 5,
+      "phi_coherence": 0.78,
+      "notes": "λ₁ = λ₂ — cylindrically symmetric in xy plane."
+    },
+    {
+      "state": 6,
+      "vertex_bits": "110",
+      "gray_code": "101",
+      "label": "diagonal-a",
+      "cartesian": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "spherical": {
+        "theta_rad": 0.7853982,
+        "phi_rad": 0.7853982
+      },
+      "mandala_angle_deg": 135,
+      "eigenvalues": [
+        0.45,
+        0.3,
+        0.25
+      ],
+      "character": "asymmetric diagonal",
+      "geis_token": "110|O",
+      "glyph_unicode": "⊛",
+      "glyph_id": "octahedron.diag-a",
+      "rosetta_face": 6,
+      "phi_coherence": 0.7,
+      "notes": "Diagonal superposition — bridges x and y axes."
+    },
+    {
+      "state": 7,
+      "vertex_bits": "111",
+      "gray_code": "100",
+      "label": "diagonal-b",
+      "cartesian": [
+        -1.0,
+        -1.0,
+        0.0
+      ],
+      "spherical": {
+        "theta_rad": 2.3561945,
+        "phi_rad": 3.9269908
+      },
+      "mandala_angle_deg": 315,
+      "eigenvalues": [
+        0.4,
+        0.35,
+        0.25
+      ],
+      "character": "near-biaxial diagonal",
+      "geis_token": "111|O",
+      "glyph_unicode": "⊜",
+      "glyph_id": "octahedron.diag-b",
+      "rosetta_face": 7,
+      "phi_coherence": 0.72,
+      "notes": "Anti-diagonal — opposite to state 6."
+    }
+  ],
+  "transitions": {
+    "description": "Allowed single-step transitions (12 edges of O_h octahedron). Single Gray-code bit flip.",
+    "adjacency": {
+      "0": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "1": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "2": [
+        0,
+        1,
+        4,
+        5
+      ],
+      "3": [
+        0,
+        1,
+        4,
+        5
+      ],
+      "4": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "5": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "6": [
+        0,
+        2,
+        4,
+        7
+      ],
+      "7": [
+        1,
+        3,
+        5,
+        6
+      ]
+    },
+    "coupling_formula": "J * sin(|s_i - s_j| * pi / 4)^2",
+    "fret_formula": "strength = 1 / r^6",
+    "fret_cutoff": 4.854101966249685,
+    "gray_bit_flip": "Adjacent states differ by exactly one bit in Gray code."
+  },
+  "energy_model": {
+    "relaxation": "Metropolis-Hastings at temperature T (Mandala-Computing)",
+    "gradient_descent": "T→0 limit — gradient of phase field (GEIS / Silicon/)",
+    "kt_connection": "Finite-T MH on the 2D XY model produces KT vortex physics. Gradient descent is the T=0 deterministic limit of this.",
+    "eigenvalue_scaling": "Fibonacci: λ_i = PHI^i / sum(PHI^k for k in 0..depth)",
+    "stability_order": [
+      0,
+      3,
+      5,
+      6,
+      7,
+      2,
+      1,
+      4
+    ],
+    "notes": "States 0 and 3 have smallest deviation from φ eigenvalue ratios and longest T₂."
+  },
+  "topological_layer": {
+    "description": "Winding number encoding — implemented in Silicon/topological_memory.py",
+    "charge": "±1 winding number per vortex-antivortex dipole",
+    "position": "Registry-locked at write time (not re-detected)",
+    "invariance": "Winding number invariant under smooth phi deformation. Position is a free collective coordinate — must be pinned via registry.",
+    "bits_per_slot": 4,
+    "slot_encoding": "[side_1b][strength_3b_gray]",
+    "side_convention": "bit=1 if col_pos > col_neg, else bit=0"
+  },
+  "geis_token_format": {
+    "pattern": "[vertex_bits][operator][symbol]",
+    "vertex_bits": "3-bit string: 000 through 111",
+    "operator": "one of: O | I | X | Δ",
+    "symbol": "single letter + optional subscript: O, Iₓ, Δ₃",
+    "example": "000|O  — spherical ground state, identity operator"
+  },
+  "mandala_compatibility": {
+    "state_angle_map": "mandala_angle_deg field in each state entry",
+    "problem_types": [
+      "FACTORIZATION",
+      "SAT",
+      "TSP",
+      "GRAPH_COLORING",
+      "OPTIMIZATION"
+    ],
+    "quantum_hilbert_dim": 8,
+    "quantum_label": "qubit-octit",
+    "annealing_schedule": "H(t) = (1-s(t))*H_init + s(t)*H_problem",
+    "grover_oracle": "Acts on C^8 per cell — 8-dimensional Hilbert space per qudit-octit"
+  },
+  "rosetta_hooks": {
+    "SHAPE.OCTA": "8 states map to 8 faces of octahedron",
+    "CONST.PHI": "eigenvalue scaling constant 1.618...",
+    "CAP.SEED_EXPANSION": "bloom engine — radial ring expansion",
+    "PROTO.MANDALA_COMPUTE": "mandala_compute_v1.0"
+  },
+  "extracted_from": "JinnZ2/Geometric-to-Binary-Computational-Bridge"
+}

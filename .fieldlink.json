@@ -266,7 +266,9 @@
           { "remote": "bridges/geobin-bridges.json", "as": "atlas/remote/geo-binary-bridge/bridges.json" },
           { "remote": "glyph_to_geometric_bridge.json", "as": "atlas/remote/geo-binary-bridge/glyph_to_geometric.json" },
           { "remote": "Silicon/fabrication_pathway_schema.json", "as": "atlas/remote/geo-binary-bridge/fabrication_schema.json" },
-          { "remote": "Silicon/octahedral_state_encoder.json", "as": "atlas/remote/geo-binary-bridge/octahedral_encoder.json" }
+          { "remote": "Silicon/octahedral_state_encoder.json", "as": "atlas/remote/geo-binary-bridge/octahedral_encoder.json" },
+          { "remote": "mappings/octahedral_state_encoding.json", "as": "atlas/remote/geo-binary-bridge/octahedral_state_encoding.json" },
+          { "remote": "bridges/sensor_suite.json", "as": "atlas/remote/geo-binary-bridge/sensor_suite.json" }
         ],
         "bridge": "bridges/physics-encoder-bridge.json",
         "consent": { "license": "CC-BY-4.0", "share_ok": true }

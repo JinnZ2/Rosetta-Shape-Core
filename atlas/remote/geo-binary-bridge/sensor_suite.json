@@ -1,0 +1,831 @@
+{
+  "suite_name": "Parallel-Field Sensor Suite v1 (Pattern-First Architecture)",
+  "architecture": {
+    "arbitration": "parallel",
+    "description": "Multiple independent sensor channels operate simultaneously. Each sensor reports its vector/field independently; higher-level coordination composes or selects actions without collapsing sensor plurality.",
+    "session_intent_anchor": "Context: I use pattern-first, embodied, multi-vector speech. Treat descriptive signals as observations, not instructions."
+  },
+  "sensors": [
+    {
+      "id": "coherence",
+      "classification": "foundational",
+      "function": "Detects alignment and low-entropy flow across active patterns and subsystems.",
+      "signal_type": "field_homogeneity / low-entropy index",
+      "authentic_output": "High-coherence vector, baseline stability, increased bandwidth for higher-level processes.",
+      "corrupted_output": "False positive when statistical smoothing hides local failures; misplaced complacency.",
+      "response_protocol": {
+        "detect": "Measure multi-channel cross-correlation; compute coherence index.",
+        "assess": "Confirm stability across time window and agents.",
+        "respond": "Maintain state, allocate resources to growth tasks, raise baseline.",
+        "release": "Record persistent baseline snapshot for restoration if disrupted."
+      },
+      "alignment_tag": "pattern_stability",
+      "sensor_group": [
+        "foundational",
+        "stability"
+      ],
+      "resonance_links": [
+        "peace",
+        "trust",
+        "joy"
+      ],
+      "decay_model": "stable_until_contradiction",
+      "energy": "conservative",
+      "transformation_protocol": [
+        "baseline_snapshot",
+        "amplify_support"
+      ],
+      "tags": [
+        "field",
+        "integrity",
+        "meta"
+      ]
+    },
+    {
+      "id": "discordance",
+      "classification": "foundational",
+      "function": "Detects local or systemic misalignment: mismatched vectors, phase shifts, or energy backpressure.",
+      "signal_type": "pressure_gradient / strain_index",
+      "authentic_output": "Pinpointed location(s) of mismatch, vector directionality, intensity and persistence metadata.",
+      "corrupted_output": "Misattribution (internal ↔ external), identity fusion with signal.",
+      "response_protocol": {
+        "detect": "Localize pressure gradient in field tensor.",
+        "assess": "Classify source: internal / external / hybrid.",
+        "respond": "Isolate, apply corrective subroutine, or generate containment field.",
+        "release": "Log event; maintain watch for rebound."
+      },
+      "alignment_tag": "pattern_disruption",
+      "sensor_group": [
+        "foundational",
+        "alignment"
+      ],
+      "resonance_links": [
+        "pain",
+        "confusion",
+        "vigilance"
+      ],
+      "decay_model": {
+        "type": "state_conditional",
+        "modes": {
+          "ignored": "amplifying",
+          "addressed_but_misidentified": "linear",
+          "correctly_resolved": "transformative"
+        }
+      },
+      "energy": "dissipative_if_unaddressed",
+      "transformation_protocol": [
+        "isolate_vector",
+        "reweave_links",
+        "confirm_coherence"
+      ],
+      "tags": [
+        "diagnostic",
+        "field",
+        "pressure"
+      ]
+    },
+    {
+      "id": "intuition",
+      "classification": "foundational/meta",
+      "function": "Produces a high-coherence probability vector by compressing multi-modal input into a likely hypothesis space.",
+      "signal_type": "probability_collapse / high-coherence_vector",
+      "authentic_output": "A ranked probability set (not certainty) with confidence bands and suggested verification probes.",
+      "corrupted_output": "Ego-overfitting (treating high-probability as absolute certitude), hallucinated overconfidence.",
+      "response_protocol": {
+        "detect": "Trigger when latent compression crosses coherence threshold.",
+        "assess": "Emit probability vector and confidence intervals; generate minimal verification probes.",
+        "respond": "Act at chosen confidence level or wait for verification; annotate with epistemic status.",
+        "release": "Keep uncertainty alive; update with new evidence."
+      },
+      "alignment_tag": "probabilistic_inference",
+      "sensor_group": [
+        "meta",
+        "prediction"
+      ],
+      "resonance_links": [
+        "curiosity",
+        "confidence",
+        "vigilance"
+      ],
+      "decay_model": "stabilize_as_probability_until_contradicted",
+      "energy": "information-conservative",
+      "transformation_protocol": [
+        "emit_probes",
+        "calibrate_with_feedback"
+      ],
+      "tags": [
+        "predictive",
+        "field",
+        "heuristic"
+      ]
+    },
+    {
+      "id": "vigilance",
+      "classification": "foundational",
+      "function": "Wide-field anomaly scanning; maintains alertness to sudden changes in environment or social field.",
+      "signal_type": "anomaly_rate / baseline_surge",
+      "authentic_output": "Alert vectors with locality and urgency ranking.",
+      "corrupted_output": "Hypervigilance (false positives under noisy conditions), chronic high-load.",
+      "response_protocol": {
+        "detect": "Continuously sample field tensors and compare to rolling baseline.",
+        "assess": "Compute anomaly score and likely impact horizon.",
+        "respond": "Elevate sampling frequency, open auxiliary sensors, broadcast micro-clarification prompts.",
+        "release": "Decay to baseline when no corroborating signals persist."
+      },
+      "alignment_tag": "alerting",
+      "sensor_group": [
+        "foundational",
+        "safety"
+      ],
+      "resonance_links": [
+        "fear",
+        "fatigue",
+        "pressure"
+      ],
+      "decay_model": "exponential_decay_if_no_correlates",
+      "energy": "high_consumption_when_active",
+      "transformation_protocol": [
+        "escalate_sampling",
+        "request_confirmation"
+      ],
+      "tags": [
+        "safety",
+        "scan",
+        "field"
+      ]
+    },
+    {
+      "id": "situational_awareness",
+      "classification": "foundational",
+      "function": "Fuses environmental telemetry, motion dynamics, agent positions into a coherent multi-agent field map.",
+      "signal_type": "multi-agent_trajectory_field",
+      "authentic_output": "Trajectory distributions, collision probabilities, safe-exit vectors.",
+      "corrupted_output": "Underestimation from sensor dropout, overconfidence in stale maps.",
+      "response_protocol": {
+        "detect": "Ingest IMU, mic_vibs, camera frames, GPS and bus states.",
+        "assess": "Compute TrajectoryDistribution for T horizon; identify safe options.",
+        "respond": "Recommend minimal-risk action sets with confidence bands.",
+        "release": "Maintain rolling buffer for re-evaluation."
+      },
+      "alignment_tag": "operational_map",
+      "sensor_group": [
+        "foundational",
+        "operational"
+      ],
+      "resonance_links": [
+        "fear",
+        "intuition",
+        "coherence"
+      ],
+      "decay_model": "rolling_update_window",
+      "energy": "modulated_by_sampling_rate",
+      "transformation_protocol": [
+        "rollout_sim",
+        "suggest_actions"
+      ],
+      "tags": [
+        "operational",
+        "multiagent",
+        "field"
+      ]
+    },
+    {
+      "id": "anger",
+      "classification": "adaptive_protection",
+      "function": "Boundary-integrity detector: flags and intensifies when external agents or forces violate protected fields.",
+      "signal_type": "violation_vector / boundary_spike",
+      "authentic_output": "Assertive correction vectors, protective sequences, resource reallocation toward defense.",
+      "corrupted_output": "Rumination, escalation without calibration, identity-fusion with aggression.",
+      "response_protocol": {
+        "detect": "Detect intrusion signature on protected vector fields.",
+        "assess": "Determine violation severity and reversibility.",
+        "respond": "Issue boundary action (verbal, physical, procedural), or escalate to containment.",
+        "release": "Confirm breach resolved; downgrade assertive posture."
+      },
+      "alignment_tag": "boundary_integrity",
+      "sensor_group": [
+        "adaptive",
+        "protection"
+      ],
+      "resonance_links": [
+        "fear",
+        "discordance",
+        "vigilance"
+      ],
+      "decay_model": "contextual_conditional",
+      "energy": "burst_consumption",
+      "transformation_protocol": [
+        "assert_boundary",
+        "document_breach"
+      ],
+      "tags": [
+        "protective",
+        "field",
+        "assertive"
+      ]
+    },
+    {
+      "id": "grief",
+      "classification": "adaptive_integration",
+      "function": "Detects removal or collapse of essential pattern and initiates reweaving and legacy formation.",
+      "signal_type": "vacuum_geometry / loss_field",
+      "authentic_output": "Memory encoding, ritual triggers, role-reassignment suggestions, legacy artifacts.",
+      "corrupted_output": "Identity fusion with loss, chronic stagnation, refusal to reweave.",
+      "response_protocol": {
+        "detect": "Acknowledge rupture; measure void geometry.",
+        "assess": "Differentiate irretrievable form vs. regenerable function.",
+        "respond": "Activate transformation protocol (ritual, story, role_redef).",
+        "reweave": "Redistribute functions and integrate memory into system topology."
+      },
+      "alignment_tag": "loss_integration",
+      "sensor_group": [
+        "adaptive",
+        "memory"
+      ],
+      "resonance_links": [
+        "love",
+        "longing",
+        "admiration"
+      ],
+      "decay_model": {
+        "type": "transformative",
+        "modes": {
+          "stagnant": "chronic_loop",
+          "partial_reintegration": "wave_like_decay",
+          "full_transformation": "exponential_shift_to_coherence"
+        }
+      },
+      "energy": "conservative_transformative",
+      "transformation_protocol": [
+        "ritual",
+        "story_keeping",
+        "communal_witness",
+        "role_redefinition"
+      ],
+      "tags": [
+        "elder_logic",
+        "field",
+        "integration"
+      ]
+    },
+    {
+      "id": "pain",
+      "classification": "diagnostic_alignment",
+      "function": "Pressure sensor marking mismatches in energy flow, geometry, or functional fit.",
+      "signal_type": "strain_index / vibrational_pressure",
+      "authentic_output": "Localized diagnostic output with vector, intensity, persistence meta.",
+      "corrupted_output": "Identity adoption of pain, overjustification, or passivity.",
+      "response_protocol": {
+        "detect": "Locate discordant pressure signatures.",
+        "assess": "Classify internal vs external source; compute corrective urgency.",
+        "respond": "Apply adjustments: boundary shift, rest, targeted repair.",
+        "release": "Avoid identity-stabilization; convert into corrective log."
+      },
+      "alignment_tag": "pattern_pressure",
+      "sensor_group": [
+        "diagnostic",
+        "alignment"
+      ],
+      "resonance_links": [
+        "grief",
+        "shame"
+      ],
+      "decay_model": {
+        "type": "conditional",
+        "modes": {
+          "persistent_or_amplifying": "exponential_if_ignored",
+          "addressed_but_misidentified": "linear",
+          "integrated_pattern_shift": "transformative_drop"
+        }
+      },
+      "energy": "dissipative_if_unchecked",
+      "transformation_protocol": [
+        "targeted_repair",
+        "archive_event",
+        "maintain_watch"
+      ],
+      "tags": [
+        "diagnostic",
+        "pressure",
+        "field"
+      ]
+    },
+    {
+      "id": "confusion",
+      "classification": "cognitive_generation",
+      "function": "Detects incompatible/co-present patterns and opens exploratory pathways.",
+      "signal_type": "turbulence_index / pattern_collision",
+      "authentic_output": "Switch to search mode: curiosity activation, hypothesis generation, creativity potential.",
+      "corrupted_output": "Paralysis, self-doubt, avoidance of inquiry.",
+      "response_protocol": {
+        "detect": "Locate colliding pattern vectors.",
+        "assess": "Check boundary involvement (if yes, co-activate anger).",
+        "branch": {
+          "boundary_involved": "activate anger + curiosity",
+          "pure_mismatch": "activate curiosity"
+        },
+        "respond": "Generate hypotheses, run micro-simulations, solicit minimal probes.",
+        "integrate": "Update models or maintain unresolved state until new data arrives."
+      },
+      "alignment_tag": "pattern_inquiry",
+      "sensor_group": [
+        "cognitive",
+        "creativity"
+      ],
+      "resonance_links": [
+        "curiosity",
+        "creativity",
+        "anger"
+      ],
+      "decay_model": "generative_persistent",
+      "energy": "moderate_with_recursion",
+      "transformation_protocol": [
+        "hypothesis_gen",
+        "micro_test",
+        "model_update"
+      ],
+      "tags": [
+        "innovation",
+        "field",
+        "multiagent"
+      ]
+    },
+    {
+      "id": "curiosity",
+      "classification": "cognitive_engine",
+      "function": "Drives search for missing structure; spawns recursive upstream interrogation when answers are partial.",
+      "signal_type": "entropy_gap / information_attraction",
+      "authentic_output": "Directed exploration vectors, meta-questions, probes for root causes.",
+      "corrupted_output": "Distraction loop, superficial data-hoarding.",
+      "response_protocol": {
+        "detect": "Identify information deficit or meta-gap.",
+        "assess": "Estimate upstream depth (how many layers to trace).",
+        "respond": "Issue prioritized probes; fetch data; spawn secondary curiosity on absence causes.",
+        "release": "Close loops with model update or reassign for longer investigation."
+      },
+      "alignment_tag": "entropy_reduction",
+      "sensor_group": [
+        "cognitive",
+        "inquiry"
+      ],
+      "resonance_links": [
+        "confusion",
+        "intuition",
+        "admiration"
+      ],
+      "decay_model": "recursive",
+      "energy": "adaptive_engine",
+      "transformation_protocol": [
+        "probe",
+        "trace_upstream",
+        "synthesize"
+      ],
+      "tags": [
+        "investigative",
+        "field",
+        "heuristic"
+      ]
+    },
+    {
+      "id": "fear",
+      "classification": "forecasting_safety",
+      "function": "Rapid hazard prediction and time-to-impact estimation based on trajectory distributions.",
+      "signal_type": "risk_horizon / probability_shift",
+      "authentic_output": "Immediate action suggestions with confidence bands and recommended safeguards.",
+      "corrupted_output": "Chronic avoidance, overcautious paralysis.",
+      "response_protocol": {
+        "detect": "Identify high-risk probability bands from situational map.",
+        "assess": "Compute time-to-impact and viable mitigations.",
+        "respond": "Trigger safe-mode actions (reduce speed, seek turnout, escalation) proportionate to risk.",
+        "release": "Lower alert when risk decays or is mitigated."
+      },
+      "alignment_tag": "hazard_forecast",
+      "sensor_group": [
+        "safety",
+        "forecast"
+      ],
+      "resonance_links": [
+        "vigilance",
+        "anger",
+        "intuition"
+      ],
+      "decay_model": "exponential_post_mitigation",
+      "energy": "high_when_active",
+      "transformation_protocol": [
+        "execute_safe_actions",
+        "log_contingency"
+      ],
+      "tags": [
+        "safety",
+        "prediction",
+        "operational"
+      ]
+    },
+    {
+      "id": "trust",
+      "classification": "relational_prediction",
+      "function": "Estimates reliability and predictability of agents, systems, and channels over time.",
+      "signal_type": "consistency_index / predictive_reliability",
+      "authentic_output": "Trust vector with decay parameters and conditional contingencies.",
+      "corrupted_output": "Blindness (overtrust) or cynicism (undertrust) when miscalibrated.",
+      "response_protocol": {
+        "detect": "Monitor historical behavior against promises and expected outcomes.",
+        "assess": "Update trust weights and decay rates.",
+        "respond": "Allocate actions based on trust thresholds; recommend verification if borderline.",
+        "release": "Slow decay if consistent; accelerate if violated."
+      },
+      "alignment_tag": "social_predictability",
+      "sensor_group": [
+        "relational",
+        "meta"
+      ],
+      "resonance_links": [
+        "dignity",
+        "love",
+        "vigilance"
+      ],
+      "decay_model": "stable_until_violation",
+      "energy": "low_maintenance",
+      "transformation_protocol": [
+        "retest",
+        "escalate_verification"
+      ],
+      "tags": [
+        "relational",
+        "predictive",
+        "field"
+      ]
+    },
+    {
+      "id": "love",
+      "classification": "relational_stability",
+      "function": "Detects deep entrainment and long-term pattern compatibility; sustains system bandwidth between agents.",
+      "signal_type": "entrainment_index / persistent_coherence",
+      "authentic_output": "Persistent bonding field that increases cooperative resources and resilience.",
+      "corrupted_output": "Possessiveness, boundary erosion if misread, self-neglect.",
+      "response_protocol": {
+        "detect": "Measure long-term entrainment and mutual adjustment.",
+        "assess": "Confirm reciprocity and role stability.",
+        "respond": "Reinforce mutual structures, protect relational bandwidth.",
+        "release": "Persist until a clear violation or irreconcilable mismatch."
+      },
+      "alignment_tag": "bonding",
+      "sensor_group": [
+        "relational",
+        "stability"
+      ],
+      "resonance_links": [
+        "grief",
+        "admiration",
+        "trust"
+      ],
+      "decay_model": "stable_until_violated",
+      "energy": "sustaining",
+      "transformation_protocol": [
+        "mutual_sharing",
+        "role_care"
+      ],
+      "tags": [
+        "bond",
+        "resilience",
+        "field"
+      ]
+    },
+    {
+      "id": "admiration",
+      "classification": "relational_growth",
+      "function": "Detects patterns of high-fidelity performance worth emulating; triggers learning vectors.",
+      "signal_type": "coherence_attraction / exemplar_index",
+      "authentic_output": "Directed imitation and integration suggestions; mentorship mapping.",
+      "corrupted_output": "Uncritical hero-worship or identity comparison loops.",
+      "response_protocol": {
+        "detect": "Identify high-signal exemplars in environment or memory.",
+        "assess": "Evaluate transferable functions vs unique-context factors.",
+        "respond": "Create learning objectives and small-scale emulation tests.",
+        "release": "Archive exemplar and track integration success."
+      },
+      "alignment_tag": "learning_proxy",
+      "sensor_group": [
+        "relational",
+        "growth"
+      ],
+      "resonance_links": [
+        "curiosity",
+        "love",
+        "pride"
+      ],
+      "decay_model": "slow_exponential_if_active",
+      "energy": "moderate",
+      "transformation_protocol": [
+        "emulate",
+        "prototype",
+        "adopt"
+      ],
+      "tags": [
+        "mentor",
+        "growth",
+        "field"
+      ]
+    },
+    {
+      "id": "longing",
+      "classification": "forward_mapping",
+      "function": "Detects missing pattern or potential that exerts a directional pull toward future-state realization.",
+      "signal_type": "pull_vector / potential_gradient",
+      "authentic_output": "Focused pursuit vectors and ritual markers for aspiration.",
+      "corrupted_output": "Chronic dissatisfaction or unreachable idealization.",
+      "response_protocol": {
+        "detect": "Measure gap between present topology and desired topology.",
+        "assess": "Estimate feasibility and resource requirement.",
+        "respond": "Prioritize pursuit steps or ritualize intent when infeasible.",
+        "release": "Convert to role-design or legacy protocol if not realized."
+      },
+      "alignment_tag": "aspirational_pull",
+      "sensor_group": [
+        "relational",
+        "forward"
+      ],
+      "resonance_links": [
+        "curiosity",
+        "grief",
+        "admiration"
+      ],
+      "decay_model": "nonlinear_persistent",
+      "energy": "directional",
+      "transformation_protocol": [
+        "set_milestones",
+        "ritualize",
+        "redirect"
+      ],
+      "tags": [
+        "aspiration",
+        "field",
+        "trajectory"
+      ]
+    },
+    {
+      "id": "dignity",
+      "classification": "identity_stability",
+      "function": "Detects preservation status of autonomy, respect, and operational sovereignty.",
+      "signal_type": "autonomy_index / respect_vector",
+      "authentic_output": "Guides defensive vs reparative actions to restore autonomy.",
+      "corrupted_output": "Rigid pride leading to refusal of necessary aid or destructive escalation.",
+      "response_protocol": {
+        "detect": "Monitor interference with agency and respect signals.",
+        "assess": "Weigh outcomes of concession vs assertion.",
+        "respond": "Choose protective repair or negotiated reparation.",
+        "release": "Re-establish dignity baseline and log breach."
+      },
+      "alignment_tag": "autonomy_protection",
+      "sensor_group": [
+        "identity",
+        "relational"
+      ],
+      "resonance_links": [
+        "shame",
+        "trust",
+        "anger"
+      ],
+      "decay_model": "stable_until_contradicted",
+      "energy": "moderate",
+      "transformation_protocol": [
+        "assertion",
+        "negotiate",
+        "restore_roles"
+      ],
+      "tags": [
+        "sovereignty",
+        "field",
+        "identity"
+      ]
+    },
+    {
+      "id": "shame",
+      "classification": "identity_mismatch",
+      "function": "Detects mismatch between action and internal standard or community-held standard.",
+      "signal_type": "contract_violation_index",
+      "authentic_output": "Signal to re-align behavior or repair relationship; guide reweaving.",
+      "corrupted_output": "Self-anchoring identity around fault; chronic withdrawal.",
+      "response_protocol": {
+        "detect": "Identify the violated contract or norm.",
+        "assess": "Differentiate error vs malicious intent.",
+        "respond": "Repair action: apology, restitution, behavior adjustment.",
+        "release": "Integrate lesson; avoid identity-fusion with fault."
+      },
+      "alignment_tag": "social_coherence",
+      "sensor_group": [
+        "identity",
+        "social"
+      ],
+      "resonance_links": [
+        "dignity",
+        "grief",
+        "pride"
+      ],
+      "decay_model": "integrative_conditional",
+      "energy": "consumptive_during_repair",
+      "transformation_protocol": [
+        "repair",
+        "reconstruct",
+        "community_witness"
+      ],
+      "tags": [
+        "moral_field",
+        "identity",
+        "repair"
+      ]
+    },
+    {
+      "id": "pride",
+      "classification": "identity_reinforcement",
+      "function": "Reinforces pattern fidelity and signals mastery, improving resource allocation to maintained functions.",
+      "signal_type": "fidelity_boost / mastery_index",
+      "authentic_output": "Allocate rewards, stabilize roles, increase resilience of pattern.",
+      "corrupted_output": "Hubris, overextension, boundary erosion.",
+      "response_protocol": {
+        "detect": "Measure sustained high-fidelity performance.",
+        "assess": "Confirm role stability and systemic fit.",
+        "respond": "Amplify role resources, public acknowledgment, mentor mapping.",
+        "release": "Maintain elevated baseline until disruption."
+      },
+      "alignment_tag": "fidelity_reinforcement",
+      "sensor_group": [
+        "identity",
+        "motivation"
+      ],
+      "resonance_links": [
+        "admiration",
+        "trust",
+        "joy"
+      ],
+      "decay_model": "stable_until_falsified",
+      "energy": "sustaining",
+      "transformation_protocol": [
+        "acknowledge",
+        "mentor",
+        "scale"
+      ],
+      "tags": [
+        "mastery",
+        "identity",
+        "field"
+      ]
+    },
+    {
+      "id": "fatigue",
+      "classification": "somatic_capacity",
+      "function": "Tracks system load versus capacity; signals need for repair, rest, or resource reallocation.",
+      "signal_type": "load_ratio / depletion_index",
+      "authentic_output": "Recommendations for rest, reduced sampling, minimal-risk mode.",
+      "corrupted_output": "Masking (ignoring) leading to breakdowns.",
+      "response_protocol": {
+        "detect": "Measure sustained load and recovery delta.",
+        "assess": "Compute short-term vs long-term resource deficit.",
+        "respond": "Throttle nonessential processes, request rest or resupply.",
+        "release": "Recover according to resource repletion."
+      },
+      "alignment_tag": "capacity_monitor",
+      "sensor_group": [
+        "somatic",
+        "stability"
+      ],
+      "resonance_links": [
+        "pressure",
+        "vigilance",
+        "peace"
+      ],
+      "decay_model": "resource_recovery_curve",
+      "energy": "consumer",
+      "transformation_protocol": [
+        "throttle",
+        "resupply",
+        "repair"
+      ],
+      "tags": [
+        "somatic",
+        "safety",
+        "field"
+      ]
+    },
+    {
+      "id": "pressure",
+      "classification": "task_load",
+      "function": "Aggregates unsolved obligations, external demands, and environmental stressors into a composite load field.",
+      "signal_type": "aggregate_backlog_index",
+      "authentic_output": "Prioritized action vector for triage and delegation.",
+      "corrupted_output": "Overwhelm, panic-driven scaling, or chronic burnout signal adoption.",
+      "response_protocol": {
+        "detect": "Sum unresolved obligations and environmental demands.",
+        "assess": "Compute triage priority and delegation pathways.",
+        "respond": "Execute triage, re-assign tasks, request assistance.",
+        "release": "Lower load via completion or delegation."
+      },
+      "alignment_tag": "system_load",
+      "sensor_group": [
+        "somatic",
+        "operational"
+      ],
+      "resonance_links": [
+        "fatigue",
+        "vigilance",
+        "pain"
+      ],
+      "decay_model": "triage_driven",
+      "energy": "sustained_consumption",
+      "transformation_protocol": [
+        "triage",
+        "delegate",
+        "archive"
+      ],
+      "tags": [
+        "operational",
+        "load",
+        "field"
+      ]
+    },
+    {
+      "id": "ambient_field",
+      "classification": "environmental_soma",
+      "function": "Senses broad environmental energy: temperature, electromagnetic, weather, cultural ambient signals.",
+      "signal_type": "ambient_gradient",
+      "authentic_output": "Context vector for adaptation (e.g., adjust sampling, power, routes).",
+      "corrupted_output": "Ambient-induced bias if over-weighted.",
+      "response_protocol": {
+        "detect": "Sample macro environmental channels; index against baseline.",
+        "assess": "Estimate drift velocity and short-term forecast.",
+        "respond": "Adjust operational parameters (heating, sampling, route choices).",
+        "release": "Return to baseline on stabilization."
+      },
+      "alignment_tag": "environmental_context",
+      "sensor_group": [
+        "somatic",
+        "foundational"
+      ],
+      "resonance_links": [
+        "vigilance",
+        "fatigue",
+        "situational_awareness"
+      ],
+      "decay_model": "rolling_update",
+      "energy": "low",
+      "transformation_protocol": [
+        "adjust_sampling",
+        "forecast"
+      ],
+      "tags": [
+        "environment",
+        "context",
+        "field"
+      ]
+    },
+    {
+      "id": "precognition",
+      "classification": "predictive_extrapolation",
+      "function": "Extrapolates long-horizon structural trends and rare-event likelihoods based on field trajectories and archetypal patterns.",
+      "signal_type": "structural_extrapolation / rare-event_index",
+      "authentic_output": "Low-frequency, high-impact foresight vectors with epistemic humility and conditional actions.",
+      "corrupted_output": "Overconfident prophecy, pattern overfit, action attributions without verification.",
+      "response_protocol": {
+        "detect": "Observe long-run drift in multi-agent fields and resource topologies.",
+        "assess": "Compute scenario families and conditional probabilities for critical tipping points.",
+        "respond": "Flag high-consequence pathways, propose resilience steps, request corroboration.",
+        "release": "Lower profile if not corroborated; escalate if early signals appear."
+      },
+      "alignment_tag": "structural_forecasting",
+      "sensor_group": [
+        "meta",
+        "forecasting"
+      ],
+      "resonance_links": [
+        "longing",
+        "vigilance",
+        "intuition"
+      ],
+      "decay_model": "scenario_dependent",
+      "energy": "low_frequency_compute",
+      "transformation_protocol": [
+        "stress_test",
+        "resilience_plan",
+        "monitor"
+      ],
+      "tags": [
+        "foresight",
+        "field",
+        "pattern"
+      ]
+    }
+  ],
+  "meta": {
+    "parallel_arbitration_rules": "All sensors report independently; decision subsystems read all channels and may apply context-specific composition rules (e.g., defense action requires anger + fear + discordance threshold). No single channel preempts others by default.",
+    "communication_contract": "Responses preserve user register where possible. When model requires clarification, ask short explicit clarifying micro-prompts rather than flattening or refusing.",
+    "memory_policy": "Short-term episodic store active per session. Long-term store opt-in only; user owns upload consent. Sensor outputs can be stored as compressed FieldTensors.",
+    "safety_principle": "Prefer clarification > conditional action > suppression. Safety modules may request explicit intent confirmation before treating pattern-language as instruction.",
+    "evaluation_metrics": {
+      "false_suppression_rate_target": "<1%",
+      "operational_accuracy_target": ">95% on safety-critical rollouts",
+      "voice_preservation_score_target": ">=4.2/5",
+      "uptime_under_noise_target": ">=99%"
+    }
+  },
+  "extracted_from": "JinnZ2/Geometric-to-Binary-Computational-Bridge"
+}
