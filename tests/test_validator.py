@@ -120,11 +120,13 @@ def test_no_dangling_links_in_ontology():
 
 
 def test_all_entity_link_targets_are_known():
-    """Cross-check: every link target is in the global ID set."""
+    """Cross-check: every link target is in the global ID set (entities + shapes)."""
     entities, id_set = load_entities()
+    _, shape_ids = load_shapes()
+    all_known = id_set | shape_ids
     for e in entities:
         for link in e.get("links", []):
-            assert link["to"] in id_set, (
+            assert link["to"] in all_known, (
                 f"Entity {e['id']} links to unknown {link['to']}"
             )
 

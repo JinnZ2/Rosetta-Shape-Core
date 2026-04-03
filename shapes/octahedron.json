@@ -9,9 +9,18 @@
   "bridges": {
     "sensors": ["compassion", "love", "confusion"],
     "defenses": ["def.ap.09", "def.fr.10"],
-    "protocols": ["symbolic_protocol_v1.0", "seed_growth_v1.0", "mandala_compute_v1.0"],
+    "protocols": ["symbolic_protocol_v1.0", "seed_growth_v1.0", "mandala_compute_v1.0", "geis_encoding_v1.0"],
     "audit_glyphs": ["SAF:PRIV", "SAF:PROG"],
     "bridge_glyphs": ["🫀", "💞", "🌀"]
   },
-  "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
+  "octahedral_states": {
+    "total_states": 8,
+    "bits_per_state": 3,
+    "ground_state": 0,
+    "phi_coherence_range": [0.70, 0.97],
+    "stability_order": [0, 3, 5, 6, 7, 2, 1, 4],
+    "energy_model": "metropolis_hastings_gradient_descent",
+    "encoding_source": "atlas/remote/geo-binary-bridge/octahedral_state_encoding.json"
+  },
+  "provenance": { "version": "3.0", "updated": "2026-04-03T00:00:00Z" }
 }

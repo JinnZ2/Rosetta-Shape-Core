@@ -67,7 +67,21 @@
       }
     },
     "open_questions": { "type": "array" },
-    "noise_signature": { "type": "array" }
+    "noise_signature": { "type": "array" },
+    "octahedral_states": {
+      "type": "object",
+      "description": "Octahedral encoding metadata. Maps shape vertices to 3-bit states with eigenvalue triples and φ-coherence scores.",
+      "properties": {
+        "total_states": { "type": "integer" },
+        "bits_per_state": { "type": "integer" },
+        "ground_state": { "type": "integer" },
+        "phi_coherence_range": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+        "stability_order": { "type": "array", "items": { "type": "integer" } },
+        "energy_model": { "type": "string" },
+        "encoding_source": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
   },
   "additionalProperties": false
 }

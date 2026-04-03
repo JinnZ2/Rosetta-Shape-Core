@@ -48,9 +48,11 @@ def validate_ontology():
             errors.append(f"  {p.name}: {err.message}")
 
     entities, id_set = load_entities()
+    _, shape_ids = load_shapes()
+    all_known = id_set | shape_ids
     for e in entities:
         for link in e.get("links", []):
-            if link["to"] not in id_set:
+            if link["to"] not in all_known:
                 errors.append(f"  dangling ref: {e['id']} -> {link['to']}")
 
     return errors
