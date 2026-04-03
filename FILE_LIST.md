@@ -26,13 +26,14 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-124793ba55a6a806c05b15cf11ded622eb4ac04a.idx
-./.git/objects/pack/pack-124793ba55a6a806c05b15cf11ded622eb4ac04a.pack
-./.git/objects/pack/pack-124793ba55a6a806c05b15cf11ded622eb4ac04a.rev
+./.git/objects/pack/pack-6c5529576cf17c3e9af27b02b313255e9da2296a.idx
+./.git/objects/pack/pack-6c5529576cf17c3e9af27b02b313255e9da2296a.pack
+./.git/objects/pack/pack-6c5529576cf17c3e9af27b02b313255e9da2296a.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
 ./.github/workflows/ai.yml
+./.github/workflows/ci.yml
 ./.github/workflows/main.yml
 ./.gitignore
 ./AI_INDEX.json
@@ -168,6 +169,7 @@
 ./examples/generate_curiosity_map.py
 ./examples/kappa_sync_threshold.png
 ./examples/kappa_sync_threshold.py
+./examples/octahedral_coupling_audit.py
 ./examples/phi_lattice_explorer.png
 ./examples/phi_lattice_explorer.py
 ./examples/relational_graph.html
@@ -224,7 +226,9 @@
 ./recursion.json
 ./rules/expand.jsonl
 ./schema/ai_index.schema.json
+./schema/bridge.schema.json
 ./schema/core.schema.json
+./schema/rule.schema.json
 ./schema/shape.schema.json
 ./schema/shape.seed.schema.json
 ./scripts/ai_integrator.py
@@ -258,6 +262,7 @@
 ./tests/golden/examples.json
 ./tests/test_bloom.py
 ./tests/test_constraint_agent.py
+./tests/test_expand.py
 ./tests/test_explore.py
 ./tests/test_first_principles_audit.py
 ./tests/test_knowledge_dna.py
