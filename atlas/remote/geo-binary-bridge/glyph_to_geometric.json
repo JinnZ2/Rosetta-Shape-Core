@@ -1,0 +1,18 @@
+{
+  "extracted_from": "Geometric-to-Binary-Computational-Bridge/glyph_to_geometric_bridge.json",
+  "note": "Upstream file contains mixed JSON/markdown. This is a clean metadata extract.",
+  "bridge_version": "1.0.0",
+  "description": "Maps Polyhedral Intelligence glyphs to Geometric-to-Binary computational primitives",
+  "repository_links": {
+    "polyhedral_atlas": "github.com/JinnZ2/Polyhedral-Intelligence",
+    "geometric_bridge": "github.com/JinnZ2/Geometric-to-Binary-Computational-Bridge"
+  },
+  "families_mapped": [
+    "F02_Flow", "F17_Turbulence", "F03_Information", "F01_Resonance",
+    "F04_Growth", "F05_Energy", "F06_Distribution", "F07_Geometry",
+    "F08_Wave", "F09_Symmetry", "F10_Particle", "F11_Dependency",
+    "F12_Topology", "F13_Reaction", "F14_Fluid_Structure",
+    "F15_Oscillation", "F16_Emergence", "F18_Diffusion",
+    "F19_Scaling", "F20_Optimization", "F21_Elasticity"
+  ]
+}

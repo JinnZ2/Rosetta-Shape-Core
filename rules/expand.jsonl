@@ -1,3 +1,8 @@
 {"when":{"op":"EXPAND","args":["GEOM.TRI"]},"then":"GEOM.TETRA","priority":10,"why":"Triangle extruded to simplex","provenance":{"note":"demo"}}
 {"when":{"op":"STRUCTURE","args":["ANIMAL.SPIDER","STRUCT.WEB"]},"then":"GEOM.NET","priority":8,"why":"web lattice → network abstraction"}
 {"when":{"op":"ALIGN","args":["ANIMAL.BEE","CONST.PHI"]},"then":"CAP.HEX_OPTIMIZATION","priority":5,"guard":{"requires":["CAP.SWARM_COORDINATION"]},"why":"phi-aligned packing uplifts hex efficiency"}
+{"when":{"op":"EXPAND","args":["SHAPE.OCTA"]},"then":"CAP.OCTAHEDRAL_STATE","priority":9,"why":"Octahedron's 6 vertices encode 8 states (3 bits) — the geometric-to-binary encoding basis"}
+{"when":{"op":"ALIGN","args":["SHAPE.OCTA","CONST.PHI"]},"then":"CAP.GEOMETRIC_ENCODING","priority":7,"why":"φ-coherence across octahedral eigenstates enables lossless geometric encoding"}
+{"when":{"op":"STRUCTURE","args":["SHAPE.OCTA","STRUCT.VORTEX_MEMORY"]},"then":"CAP.SEED_EXPANSION","priority":6,"why":"Topological vortex memory on octahedral lattice enables deterministic seed re-expansion"}
+{"when":{"op":"ALIGN","args":["PROTO.SENSOR_SUITE","SHAPE.OCTA"]},"then":"CAP.PARALLEL_SENSING","priority":6,"why":"22 parallel sensors compress to 8 octahedral states via PAD mapping"}
+{"when":{"op":"EXPAND","args":["SHAPE.TETRA"]},"then":"SHAPE.OCTA","priority":8,"why":"Tetrahedron dual-expands to octahedron — fire→balance transition"}

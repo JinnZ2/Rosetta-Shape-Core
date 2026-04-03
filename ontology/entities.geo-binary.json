@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "entities": [
+    {
+      "id": "PROTO.GEIS_ENCODING",
+      "kind": "PROTO",
+      "label": "Geometric Information Encoding System",
+      "attributes": {
+        "modes": ["dense", "collapse"],
+        "token_format": "[vertex_bits][operator][symbol]",
+        "bits_per_state": 3,
+        "states": 8,
+        "lossless": true
+      },
+      "capabilities": ["CAP.GEOMETRIC_ENCODING", "CAP.OCTAHEDRAL_STATE"],
+      "links": [
+        { "rel": "OPERATES_IN", "to": "SHAPE.OCTA", "meta": { "why": "8 octahedral vertices = 3-bit encoding basis" } },
+        { "rel": "USES", "to": "CONST.PHI", "meta": { "why": "eigenvalue scaling: λ_i = PHI^i / Σ(PHI^k)" } }
+      ],
+      "provenance": { "source": "Geometric-to-Binary-Computational-Bridge", "note": "GEIS/geometric_encoder.py" }
+    },
+    {
+      "id": "STRUCT.VORTEX_MEMORY",
+      "kind": "STRUCT",
+      "label": "Topological Vortex Memory",
+      "attributes": {
+        "encoding": "winding number per vortex-antivortex dipole",
+        "bits_per_slot": 4,
+        "slot_format": "[side_1b][strength_3b_gray]",
+        "invariance": "winding number invariant under smooth φ deformation"
+      },
+      "capabilities": ["CAP.OCTAHEDRAL_STATE"],
+      "links": [
+        { "rel": "STRUCTURE", "to": "SHAPE.OCTA", "meta": { "why": "vortex states live on octahedral lattice" } },
+        { "rel": "DERIVES", "to": "CONST.PHI", "meta": { "why": "phi-coherence determines state stability" } }
+      ],
+      "provenance": { "source": "Geometric-to-Binary-Computational-Bridge", "note": "Silicon/topological_memory.py" }
+    },
+    {
+      "id": "PROTO.SENSOR_SUITE",
+      "kind": "PROTO",
+      "label": "Parallel-Field Sensor Suite",
+      "attributes": {
+        "architecture": "parallel",
+        "sensor_count": 22,
+        "categories": ["foundational", "adaptive", "cognitive", "somatic"],
+        "foundational_sensors": ["coherence", "discordance", "intuition", "vigilance", "situational_awareness"]
+      },
+      "capabilities": ["CAP.PARALLEL_SENSING"],
+      "links": [
+        { "rel": "OPERATES_IN", "to": "SHAPE.OCTA", "meta": { "why": "PAD compression maps 22 sensors to 8 octahedral states" } }
+      ],
+      "provenance": { "source": "Geometric-to-Binary-Computational-Bridge", "note": "bridges/sensor_suite.json" }
+    },
+    {
+      "id": "PROTO.PHYSICS_ENCODER",
+      "kind": "PROTO",
+      "label": "Domain Physics Encoder Pipeline",
+      "attributes": {
+        "pipeline": ["physical_measurement", "domain_encoder", "octahedral_state", "shape_affinity", "family_resonance"],
+        "encoder_count": 12,
+        "domains": ["thermal", "magnetic", "electric", "pressure", "sound", "light", "gravity", "wave", "vortex", "chemical", "consciousness", "emotion"]
+      },
+      "capabilities": ["CAP.GEOMETRIC_ENCODING", "CAP.OCTAHEDRAL_STATE"],
+      "links": [
+        { "rel": "USES", "to": "SHAPE.OCTA", "meta": { "why": "all encoders output 3-bit octahedral states" } },
+        { "rel": "USES", "to": "SHAPE.TETRA", "meta": { "why": "thermal, electric, chemical encoders anchor to tetrahedron" } },
+        { "rel": "USES", "to": "SHAPE.ICOSA", "meta": { "why": "sound, light, wave, vortex encoders anchor to icosahedron" } },
+        { "rel": "USES", "to": "SHAPE.DODECA", "meta": { "why": "gravity, consciousness encoders anchor to dodecahedron" } },
+        { "rel": "USES", "to": "SHAPE.CUBE", "meta": { "why": "pressure encoder anchors to cube" } }
+      ],
+      "provenance": { "source": "Geometric-to-Binary-Computational-Bridge", "note": "bridges/physics-encoder-bridge.json" }
+    }
+  ]
+}

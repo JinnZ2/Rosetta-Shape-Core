@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "updated": "2025-09-11T00:00:00Z",
+  "map": [
+    {
+      "shape": "SHAPE:ICOSA",
+      "encoding": "edge-walk binary",
+      "notes": "Traverse icosahedron edges; clockwise=1, counter=0; start at northmost vertex.",
+      "examples": [
+        {
+          "path": "N→E→S→W→N",
+          "bits": "11010",
+          "label": "FEAR (anticipation family) probe"
+        }
+      ],
+      "links": {
+        "sensors": [
+          "EMO:FEAR",
+          "EMO:EXCITEMENT"
+        ],
+        "defenses": [
+          "DEF:URGENCY_GUARD"
+        ]
+      }
+    },
+    {
+      "shape": "SHAPE:DODECA",
+      "encoding": "face-parity",
+      "notes": "Mark visited faces 1; neighbors 0; parity reduces to 12-bit frame.",
+      "examples": [
+        {
+          "faces": [
+            1,
+            4,
+            5,
+            8
+          ],
+          "bits": "100100100000",
+          "label": "ADMIRATION (growth) stable sweep"
+        }
+      ],
+      "links": {
+        "sensors": [
+          "EMO:ADMIRATION",
+          "EMO:TRUST"
+        ],
+        "defenses": [
+          "DEF:FLATTERY_GUARD",
+          "DEF:CONSENSUS_GUARD"
+        ]
+      }
+    }
+  ],
+  "extracted_from": "JinnZ2/Geometric-to-Binary-Computational-Bridge"
+}
