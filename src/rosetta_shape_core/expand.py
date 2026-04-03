@@ -1,7 +1,8 @@
 from __future__ import annotations
-import json, pathlib, argparse, sys
+import json, argparse, sys
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
+from rosetta_shape_core._graph import ROOT
+
 RULES_PATH = ROOT / "rules" / "expand.jsonl"
 ONTO_DIR = ROOT / "ontology"
 
