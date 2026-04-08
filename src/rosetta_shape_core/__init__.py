@@ -14,6 +14,7 @@ from rosetta_shape_core.narrative_physics import analyze_consistency
 from rosetta_shape_core.knowledge_dna import trace_narrative
 from rosetta_shape_core.first_principles_audit import audit_function, full_audit, generate_report
 from rosetta_shape_core.octahedral_session_cache import SessionCache, OctState
+from rosetta_shape_core.octa_triple import OctaTriple, OctaToken
 
 __all__ = [
     "RosettaGraph",
@@ -31,4 +32,6 @@ __all__ = [
     "generate_report",
     "SessionCache",
     "OctState",
+    "OctaTriple",
+    "OctaToken",
 ]
