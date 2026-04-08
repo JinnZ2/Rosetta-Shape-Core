@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-b03f87031e11b144c760eab0ec5ce9c193f8e1e8.idx
-./.git/objects/pack/pack-b03f87031e11b144c760eab0ec5ce9c193f8e1e8.pack
-./.git/objects/pack/pack-b03f87031e11b144c760eab0ec5ce9c193f8e1e8.rev
+./.git/objects/pack/pack-a0ef9c34f83d643c0606c7ad62d60807e30becad.idx
+./.git/objects/pack/pack-a0ef9c34f83d643c0606c7ad62d60807e30becad.pack
+./.git/objects/pack/pack-a0ef9c34f83d643c0606c7ad62d60807e30becad.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -261,6 +261,7 @@
 ./src/rosetta_shape_core/first_principles_audit.py
 ./src/rosetta_shape_core/knowledge_dna.py
 ./src/rosetta_shape_core/narrative_physics.py
+./src/rosetta_shape_core/octahedral_session_cache.py
 ./src/rosetta_shape_core/query.py
 ./src/rosetta_shape_core/seeds.py
 ./src/rosetta_shape_core/self_audit.py
@@ -276,5 +277,6 @@
 ./tests/test_narrative_physics.py
 ./tests/test_schema.py
 ./tests/test_self_audit.py
+./tests/test_session_cache.py
 ./tests/test_sim.py
 ./tests/test_validator.py
