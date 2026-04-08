@@ -13,6 +13,7 @@ from rosetta_shape_core.constraint_agent import ConstraintAgent
 from rosetta_shape_core.narrative_physics import analyze_consistency
 from rosetta_shape_core.knowledge_dna import trace_narrative
 from rosetta_shape_core.first_principles_audit import audit_function, full_audit, generate_report
+from rosetta_shape_core.octahedral_session_cache import SessionCache, OctState
 
 __all__ = [
     "RosettaGraph",
@@ -28,4 +29,6 @@ __all__ = [
     "audit_function",
     "full_audit",
     "generate_report",
+    "SessionCache",
+    "OctState",
 ]
