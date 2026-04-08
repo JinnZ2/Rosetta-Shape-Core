@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-a0ef9c34f83d643c0606c7ad62d60807e30becad.idx
-./.git/objects/pack/pack-a0ef9c34f83d643c0606c7ad62d60807e30becad.pack
-./.git/objects/pack/pack-a0ef9c34f83d643c0606c7ad62d60807e30becad.rev
+./.git/objects/pack/pack-87cc0f3d60ac2316f741c9234bb68a4f70a62e61.idx
+./.git/objects/pack/pack-87cc0f3d60ac2316f741c9234bb68a4f70a62e61.pack
+./.git/objects/pack/pack-87cc0f3d60ac2316f741c9234bb68a4f70a62e61.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -181,6 +181,7 @@
 ./examples/relational_graph.html
 ./examples/validate_ontology.py
 ./fieldlink-pull.sh
+./geometric_computation_selector_v2.py
 ./logs/fieldlink_lock_20250911.json
 ./next_tasks.unified.json
 ./ontology/_id_registry.json
