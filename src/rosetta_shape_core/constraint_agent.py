@@ -35,22 +35,17 @@ from __future__ import annotations
 import argparse
 import json
 import math
-import sys
-from collections import defaultdict
 from fractions import Fraction
-from typing import Any
 
 from rosetta_shape_core.explore import (
     BRANCHING_K,
     FAMILY_VERTEX_LOADING,
-    PAD_STATES,
     SEED_VERTICES,
     RosettaGraph,
     discover,
     home_base,
     hunt_shadows,
 )
-
 
 # ── Exact fraction arithmetic ──────────────────────────────────────
 

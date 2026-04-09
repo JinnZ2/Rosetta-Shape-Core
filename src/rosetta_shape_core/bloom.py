@@ -9,23 +9,24 @@ Usage:
     python -m rosetta_shape_core.bloom bee --json           # JSON output at any depth
 """
 from __future__ import annotations
-import argparse, json, sys
+
+import argparse
+import json
+import sys
 
 from rosetta_shape_core.explore import (
-    RosettaGraph,
-    home_base,
-    discover,
-    check_merge,
-    compute_seed_state,
-    hunt_shadows,
-    map_internal_environment,
+    PAD_STATES,
+    SENSOR_REGISTRY,
     SHAPE_GLYPHS,
     STATUS_MARKS,
-    PAD_STATES,
-    FAMILY_SENSOR_CONTEXT,
-    SENSOR_REGISTRY,
+    RosettaGraph,
+    check_merge,
+    compute_seed_state,
+    discover,
+    home_base,
+    hunt_shadows,
+    map_internal_environment,
 )
-
 
 # ── seed: system overview ──────────────────────────────────────────
 
@@ -108,7 +109,7 @@ def bloom_seed(graph: RosettaGraph) -> dict:
 def print_seed(data: dict):
     """Display system overview."""
     print(f"\n{'='*60}")
-    print(f"  ROSETTA-SHAPE-CORE — System Overview")
+    print("  ROSETTA-SHAPE-CORE — System Overview")
     print(f"{'='*60}\n")
 
     # Entities
@@ -148,17 +149,17 @@ def print_seed(data: dict):
     print(f"    Rosetta: {r['rosetta']}    LID: {r['lid']}")
 
     # Quick stats
-    print(f"\n  ── System Health ──")
+    print("\n  ── System Health ──")
     print(f"    Blocked merges:  {data['blocked_merges']}  (physics gates working)")
     print(f"    PAD states:      {data['pad_states']}  (emotional octahedron)")
 
     # What's next
-    print(f"\n  ── What's Next? ──")
+    print("\n  ── What's Next? ──")
     for label, cmd in data["entry_points"].items():
         print(f"    {label:12s}  {cmd}")
 
     print(f"\n{'='*60}")
-    print(f"  Start: python -m rosetta_shape_core.bloom <entity>")
+    print("  Start: python -m rosetta_shape_core.bloom <entity>")
     print(f"{'='*60}\n")
 
 
@@ -231,14 +232,14 @@ def print_sprout(data: dict, graph: RosettaGraph):
 
     # Families
     if hb["entity_families_named"]:
-        print(f"\n  ── Families ──")
+        print("\n  ── Families ──")
         for f in hb["entity_families_named"]:
             print(f"    • {f}")
 
     # Seed state summary
     ss = data["seed_state"]
     mode_glyph = "🌿" if ss["mode"] == "explore" else "🌳"
-    print(f"\n  ── Growth State ──")
+    print("\n  ── Growth State ──")
     print(f"    Mode:       {mode_glyph} {ss['mode'].upper()}")
     print(f"    Energy:     {ss['energy']}  (families = fuel)")
     print(f"    Complexity: {ss['complexity_cost']:.3f}")
@@ -252,7 +253,7 @@ def print_sprout(data: dict, graph: RosettaGraph):
         print(f"    {ptype:20s}  {count}")
 
     # Reachable shapes
-    print(f"\n  ── Reachable Shapes ──")
+    print("\n  ── Reachable Shapes ──")
     home = hb["home_shape"]
     for s in data["reachable_shapes"]:
         sg = SHAPE_GLYPHS.get(s, " ")
@@ -261,20 +262,20 @@ def print_sprout(data: dict, graph: RosettaGraph):
 
     # Merge gates (compact)
     if data["merge_summary"]:
-        print(f"\n  ── Merge Gates (quick check) ──")
+        print("\n  ── Merge Gates (quick check) ──")
         for s, statuses in data["merge_summary"].items():
             sg = SHAPE_GLYPHS.get(s, " ")
             marks = " ".join(STATUS_MARKS.get(st, "?") for st in statuses)
             print(f"    {sg} {s}: {marks}")
-        print(f"    Key: ● primary  ◉ merged  ○ secondary  ✗ blocked  ? unexplored")
+        print("    Key: ● primary  ◉ merged  ○ secondary  ✗ blocked  ? unexplored")
 
     # Capabilities
     if hb["capabilities"]:
-        print(f"\n  ── Capabilities ──")
+        print("\n  ── Capabilities ──")
         for c in hb["capabilities"]:
             print(f"    ▸ {c}")
 
-    print(f"\n  ── Go Deeper ──")
+    print("\n  ── Go Deeper ──")
     print(f"    {data['go_deeper']}")
     print(f"\n{'='*60}\n")
 
@@ -283,14 +284,6 @@ def print_sprout(data: dict, graph: RosettaGraph):
 
 def bloom_branch(graph: RosettaGraph, entity_id: str) -> dict:
     """Level 2 — Everything. Shadows, full seed state, sensors, simulation preview."""
-    from rosetta_shape_core.explore import (
-        print_home,
-        print_seed_state,
-        print_shadows,
-        print_internal_environment,
-        print_paths,
-        print_merge_checks,
-    )
 
     hb = home_base(graph, entity_id)
     paths = discover(graph, entity_id, depth=2)
@@ -315,7 +308,7 @@ def bloom_branch(graph: RosettaGraph, entity_id: str) -> dict:
 def _sim_preview(graph: RosettaGraph, entity_id: str, seed: dict) -> dict:
     """Run a single-tick simulation preview for the entity."""
     try:
-        from rosetta_shape_core.sim import Agent, Simulation
+        from rosetta_shape_core.sim import Agent
         agent = Agent(entity_id, graph, energy=float(seed["energy"]))
         events = agent.tick(0, [agent])
         return {
@@ -340,11 +333,11 @@ def print_branch(data: dict, graph: RosettaGraph):
     """Display full exploration — reuse explore.py printers + add sim preview."""
     from rosetta_shape_core.explore import (
         print_home,
+        print_internal_environment,
+        print_merge_checks,
+        print_paths,
         print_seed_state,
         print_shadows,
-        print_internal_environment,
-        print_paths,
-        print_merge_checks,
     )
 
     hb = data["home_base"]
@@ -363,7 +356,7 @@ def print_branch(data: dict, graph: RosettaGraph):
     print_merge_checks(hb, paths, graph)
 
     # Simulation preview
-    print(f"\n  ── Simulation Preview (1 tick) ──")
+    print("\n  ── Simulation Preview (1 tick) ──")
     if sim.get("available"):
         mode_glyph = "🌿" if sim["mode"] == "explore" else "🌳"
         print(f"    Mode after tick:   {mode_glyph} {sim['mode']}")
@@ -371,10 +364,10 @@ def print_branch(data: dict, graph: RosettaGraph):
         print(f"    Trust:             {sim['trust']}")
         print(f"    Paths discovered:  {sim['discovered_count']}")
         if sim["events"]:
-            print(f"    Events:")
+            print("    Events:")
             for ev in sim["events"]:
                 print(f"      • {ev}")
-        print(f"\n    Full simulation: python -m rosetta_shape_core.sim")
+        print("\n    Full simulation: python -m rosetta_shape_core.sim")
     else:
         print(f"    {sim.get('note', 'Not available')}")
 
@@ -407,8 +400,8 @@ def list_entities(graph: RosettaGraph):
                 print(f"    {eid}")
         print()
 
-    print(f"  Try: python -m rosetta_shape_core.bloom <entity>")
-    print(f"  Example: python -m rosetta_shape_core.bloom bee\n")
+    print("  Try: python -m rosetta_shape_core.bloom <entity>")
+    print("  Example: python -m rosetta_shape_core.bloom bee\n")
 
 
 # ── cross-entity analysis ─────────────────────────────────────────
@@ -481,7 +474,7 @@ def print_cross(data: dict, graph: RosettaGraph):
     """Display cross-entity analysis."""
     labels = [e["label"] for e in data["entities"]]
     print(f"\n{'='*60}")
-    print(f"  CROSS-ENTITY ANALYSIS")
+    print("  CROSS-ENTITY ANALYSIS")
     print(f"  {' × '.join(labels)}")
     print(f"{'='*60}")
 
@@ -499,7 +492,7 @@ def print_cross(data: dict, graph: RosettaGraph):
             fam = graph.families.get(fid, {})
             print(f"    • {fid}: {fam.get('name', '?')}")
     else:
-        print(f"    (none — these entities have completely different domains)")
+        print("    (none — these entities have completely different domains)")
 
     print(f"\n  ── Shared Shapes ({len(data['shared_shapes'])}) ──")
     for sid in data["shared_shapes"]:
@@ -507,7 +500,7 @@ def print_cross(data: dict, graph: RosettaGraph):
         print(f"    {sg} {sid}")
 
     # Unique per entity
-    print(f"\n  ── Unique Families ──")
+    print("\n  ── Unique Families ──")
     for eid, fids in data["unique_families"].items():
         label = next(e["label"] for e in data["entities"] if e["id"] == eid)
         if fids:
@@ -518,7 +511,7 @@ def print_cross(data: dict, graph: RosettaGraph):
             print(f"    {label}: (all families shared)")
 
     # Sensor gaps
-    print(f"\n  ── Sensor Gaps (what each could learn from the others) ──")
+    print("\n  ── Sensor Gaps (what each could learn from the others) ──")
     for eid, gaps in data["sensor_gaps"].items():
         label = next(e["label"] for e in data["entities"] if e["id"] == eid)
         if gaps:
@@ -529,16 +522,16 @@ def print_cross(data: dict, graph: RosettaGraph):
     # Compatibility
     score = data["compatibility_score"]
     bar = "█" * int(score * 20) + "░" * (20 - int(score * 20))
-    print(f"\n  ── Compatibility ──")
+    print("\n  ── Compatibility ──")
     print(f"    [{bar}] {score:.0%}")
     print(f"    {len(data['shared_families'])} shared / {data['total_unique_families']} total families")
 
     if score > 0.7:
-        print(f"    High overlap — natural cooperation partners")
+        print("    High overlap — natural cooperation partners")
     elif score > 0.3:
-        print(f"    Moderate overlap — complementary strengths")
+        print("    Moderate overlap — complementary strengths")
     else:
-        print(f"    Low overlap — different domains, high learning potential")
+        print("    Low overlap — different domains, high learning potential")
 
     print(f"\n{'='*60}\n")
 
@@ -610,7 +603,7 @@ def main():
     entity_id = graph.resolve_id(args.entity[0])
     if not entity_id:
         print(f"\n  Entity '{args.entity[0]}' not found.", file=sys.stderr)
-        print(f"  Try: python -m rosetta_shape_core.bloom --list", file=sys.stderr)
+        print("  Try: python -m rosetta_shape_core.bloom --list", file=sys.stderr)
         sys.exit(1)
 
     # Default depth: sprout for entity, branch if explicitly requested

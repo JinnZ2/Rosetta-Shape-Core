@@ -1,7 +1,6 @@
 """Tests for the Bloom Engine — seed, sprout, branch depths."""
-from rosetta_shape_core.bloom import bloom_seed, bloom_sprout, bloom_branch
+from rosetta_shape_core.bloom import bloom_branch, bloom_seed, bloom_sprout
 from rosetta_shape_core.explore import RosettaGraph
-
 
 # ── Seed depth ────────────────────────────────────────────────────
 

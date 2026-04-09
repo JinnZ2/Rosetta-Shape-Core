@@ -1,0 +1,166 @@
+{
+  "id": "AI_TRAINING.MODULE_MATURITY",
+  "version": "1.0",
+  "updated": "2026-04-09T00:00:00Z",
+  "description": "Honest assessment of module maturity across Rosetta-Shape-Core. Every module has a level: stable (tested, depended-on), maturing (functional, growing), or early (sketch, proof-of-concept). AI agents should trust stable modules and treat early modules as exploratory.",
+
+  "maturity_levels": {
+    "stable": "Tested, depended-on by other modules, safe to build against. Changes here require full test suite pass.",
+    "maturing": "Functional and tested but still evolving. API may shift. Usable but not frozen.",
+    "early": "Proof-of-concept or sketch. Conceptually sound but thin implementation. Not yet load-bearing."
+  },
+
+  "modules": [
+    {
+      "module": "_graph.py",
+      "maturity": "stable",
+      "lines": 115,
+      "test_file": "test_explore.py",
+      "role": "Graph loader — loads ontology, rules, bridges, families, LID atlas",
+      "notes": "Core dependency for everything. Clean, minimal, well-tested."
+    },
+    {
+      "module": "_bridges.py",
+      "maturity": "maturing",
+      "lines": 165,
+      "test_file": "test_bridges.py",
+      "role": "Bridge resolver — indexes bridge mappings for runtime lookup",
+      "notes": "New module. Index works but bridge data uses descriptive text, not clean IDs in most cases. Will activate more as bridges adopt standardized ID references."
+    },
+    {
+      "module": "_sensors.py",
+      "maturity": "stable",
+      "lines": 0,
+      "test_file": "test_explore.py",
+      "role": "Sensor registry, PAD states, family-sensor context",
+      "notes": "Well-tested via explore tests. Sensor shapes limited to a few currently."
+    },
+    {
+      "module": "_seed.py",
+      "maturity": "stable",
+      "lines": 0,
+      "test_file": "test_explore.py",
+      "role": "Seed physics — compute_seed_state, branching threshold, saturation",
+      "notes": "Core growth mechanics. Tested via explore and sim tests."
+    },
+    {
+      "module": "_shadows.py",
+      "maturity": "stable",
+      "lines": 0,
+      "test_file": "test_explore.py",
+      "role": "Shadow hunting — anomaly detection, phi patterns, boundary mapping",
+      "notes": "Tested. Provides economic equations, signal distortions, narrative physics."
+    },
+    {
+      "module": "explore.py",
+      "maturity": "stable",
+      "lines": 337,
+      "test_file": "test_explore.py",
+      "role": "Discovery engine — home_base, discover (5 path types), check_merge",
+      "notes": "Central module. Re-exports all submodules. Handles LID rules, Rosetta rules, direct links, bridge connections, family affinities. Now includes bridge_mapping path type."
+    },
+    {
+      "module": "expand.py",
+      "maturity": "stable",
+      "lines": 0,
+      "test_file": "test_expand.py",
+      "role": "Rule engine — priority-sorted, guard-gated expansion",
+      "notes": "Tested. Rules are JSONL-based. Clean and minimal."
+    },
+    {
+      "module": "bloom.py",
+      "maturity": "stable",
+      "lines": 0,
+      "test_file": "test_bloom.py",
+      "role": "Entry point — seed/sprout/branch exploration depths",
+      "notes": "CLI entry point. Well-tested at all three depths."
+    },
+    {
+      "module": "sim.py",
+      "maturity": "maturing",
+      "lines": 612,
+      "test_file": "test_sim.py",
+      "role": "Multi-agent ecosystem simulation with energy/trust dynamics",
+      "notes": "Functional, 25 tests. Now includes EnergyLedger with per-tick tracking, saturation/non-negative violation detection. Energy model is open-system (not closed conservation) — documented."
+    },
+    {
+      "module": "self_audit.py",
+      "maturity": "stable",
+      "lines": 609,
+      "test_file": "test_self_audit.py",
+      "role": "8 structural checks + 7 immutable axioms + CORDYCEPS detection",
+      "notes": "Load-bearing safety module. Checks physics guards, merge gates, scope, CORDYCEPS patterns, conservation, provenance, life-bearing, use constraints."
+    },
+    {
+      "module": "validator.py",
+      "maturity": "stable",
+      "lines": 0,
+      "test_file": "test_validator.py",
+      "role": "Schema + referential integrity validation",
+      "notes": "Validates JSON Schema 2020-12, entity references, bridge refs, fieldlink topology."
+    },
+    {
+      "module": "constraint_agent.py",
+      "maturity": "stable",
+      "lines": 0,
+      "test_file": "test_constraint_agent.py",
+      "role": "Exact-fraction constraint geometry agent",
+      "notes": "Uses Fraction arithmetic (no float drift). Resource-budgeted. Well-tested."
+    },
+    {
+      "module": "narrative_physics.py",
+      "maturity": "early",
+      "lines": 356,
+      "test_file": "test_narrative_physics.py",
+      "role": "Manipulation vs practice detection via constraint consistency",
+      "notes": "Conceptually ambitious — detects manipulation signatures in narratives. Implementation is functional but thin. Tests exist but are basic. Not yet integrated into sim or explore."
+    },
+    {
+      "module": "knowledge_dna.py",
+      "maturity": "early",
+      "lines": 372,
+      "test_file": "test_knowledge_dna.py",
+      "role": "Narrative provenance tracing",
+      "notes": "Encodes knowledge provenance chains. Early-stage — works in isolation but not wired into other modules. Tests are basic."
+    },
+    {
+      "module": "first_principles_audit.py",
+      "maturity": "early",
+      "lines": 894,
+      "test_file": "test_first_principles_audit.py",
+      "role": "Deep axiom verification — DMAIC, sensitivity analysis, FMEA",
+      "notes": "Most ambitious module. Implements full DMAIC analysis cycle, sensitivity analysis, FMEA. Powerful for engineering verification but orthogonal to core system. Not called by any other module. Standalone tool."
+    },
+    {
+      "module": "query.py",
+      "maturity": "maturing",
+      "lines": 0,
+      "test_file": null,
+      "role": "Graph/shape querying CLI",
+      "notes": "Functional CLI tool. No dedicated test file."
+    },
+    {
+      "module": "octahedral_session_cache.py",
+      "maturity": "maturing",
+      "lines": 0,
+      "test_file": "test_session_cache.py",
+      "role": "8-state session caching using octahedral encoding",
+      "notes": "Tested. Uses PAD states for cache key computation."
+    },
+    {
+      "module": "diagnostic.py",
+      "maturity": "maturing",
+      "lines": 0,
+      "test_file": null,
+      "role": "Diagnostic utilities",
+      "notes": "Supporting module. No dedicated tests."
+    }
+  ],
+
+  "summary": {
+    "stable": 8,
+    "maturing": 5,
+    "early": 3,
+    "recommendation": "Build against stable modules. Use maturing modules with awareness they may change. Treat early modules as research — read them for ideas, don't depend on their APIs."
+  }
+}

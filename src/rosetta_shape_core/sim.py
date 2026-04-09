@@ -10,17 +10,25 @@ Usage:
     python -m rosetta_shape_core.sim --agents bee,octopus,quartz,mycelium,cordyceps
 """
 from __future__ import annotations
-import json, math, random, argparse, sys, pathlib
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
+import argparse
+import json
+import pathlib
+import random
+import sys
 
-# Import from the exploration engine
 from rosetta_shape_core.explore import (
-    RosettaGraph, home_base, discover, compute_seed_state,
-    check_merge, SENSOR_REGISTRY, PAD_STATES, SHAPE_GLYPHS,
-    FAMILY_SENSOR_CONTEXT, SEED_VERTICES, BRANCHING_K,
+    BRANCHING_K,
+    PAD_STATES,
+    SENSOR_REGISTRY,
+    SHAPE_GLYPHS,
+    RosettaGraph,
+    compute_seed_state,
+    discover,
+    home_base,
 )
 
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 # ── Agent ──────────────────────────────────────────────────────────
 
@@ -367,6 +375,89 @@ class Agent:
 
 # ── Simulation ─────────────────────────────────────────────────────
 
+class EnergyLedger:
+    """Track system-wide energy flows per tick.
+
+    The simulation models an open thermodynamic system: expansion injects
+    energy (like sunlight feeding a forest), exploration and maintenance
+    dissipate it (thermodynamic cost of structure).  Cooperation transfers
+    are zero-sum.
+
+    This ledger makes the flows explicit so that:
+    - Energy creation (expansion recovery) is bounded and tracked
+    - Energy destruction (exploration, maintenance) is accounted
+    - The net flow per tick is visible and auditable
+    - Violations of expected bounds trigger warnings
+    """
+
+    def __init__(self, agents: list[Agent]):
+        self.ticks: list[dict] = []
+        self.initial_total = sum(a.energy for a in agents)
+
+    def record_tick(self, tick_num: int, agents: list[Agent], events: list[dict]):
+        """Snapshot energy state after a tick and compute flows."""
+        current_total = sum(a.energy for a in agents)
+        prev_total = self.ticks[-1]["total_energy"] if self.ticks else self.initial_total
+
+        # Classify energy flows from events
+        injected = sum(e.get("energy_gain", 0) for e in events)
+        spent = sum(e.get("energy_cost", 0) for e in events)
+        # Maintenance costs are not in events — compute from delta
+        net_delta = current_total - prev_total
+
+        violations = []
+
+        # Saturation check: no single agent holds >60% of total energy
+        if current_total > 0:
+            for a in agents:
+                ratio = a.energy / current_total
+                if ratio > 0.60 and len(agents) > 2:
+                    violations.append(
+                        f"SATURATION: {a.label} holds {ratio:.0%} of total energy"
+                    )
+
+        # Non-negative check
+        for a in agents:
+            if a.energy < 0:
+                violations.append(
+                    f"NON_NEGATIVE: {a.label} has negative energy ({a.energy:.3f})"
+                )
+
+        self.ticks.append({
+            "tick": tick_num,
+            "total_energy": round(current_total, 6),
+            "net_delta": round(net_delta, 6),
+            "injected": round(injected, 6),
+            "spent": round(spent, 6),
+            "agent_energies": {a.label: round(a.energy, 3) for a in agents},
+            "violations": violations,
+        })
+
+    def summary(self) -> dict:
+        """Return the full energy audit."""
+        if not self.ticks:
+            return {"initial": self.initial_total, "ticks": []}
+
+        final_total = self.ticks[-1]["total_energy"]
+        all_violations = []
+        for t in self.ticks:
+            all_violations.extend(t["violations"])
+
+        return {
+            "initial_total": round(self.initial_total, 6),
+            "final_total": round(final_total, 6),
+            "net_change": round(final_total - self.initial_total, 6),
+            "ticks_recorded": len(self.ticks),
+            "violations": all_violations,
+            "conservation_note": (
+                "This is an OPEN system: expansion injects energy (photosynthesis analog), "
+                "exploration and maintenance dissipate it (thermodynamic cost). "
+                "Cooperation transfers are zero-sum. Conservation applies to transfers, "
+                "not to the full system — same as biology."
+            ),
+        }
+
+
 class Simulation:
     """Run multiple agents through the Rosetta ecosystem."""
 
@@ -386,6 +477,8 @@ class Simulation:
                 )
                 self.agents.append(agent)
 
+        self.energy_ledger = EnergyLedger(self.agents)
+
     def run(self, ticks: int = 12) -> dict:
         """Run the simulation for N ticks."""
         for t in range(1, ticks + 1):
@@ -399,10 +492,14 @@ class Simulation:
                 tick_events.extend(events)
             self.events.extend(tick_events)
 
+            # Record energy state after each tick
+            self.energy_ledger.record_tick(t, self.agents, tick_events)
+
         return {
             "ticks": ticks,
             "agents": [a.summary() for a in self.agents],
             "events": self.events,
+            "energy_audit": self.energy_ledger.summary(),
         }
 
 
@@ -424,7 +521,7 @@ def print_tick(tick_num: int, events: list[dict], agents: list[Agent]):
     """Print one tick's events."""
     print(f"\n  ── Tick {tick_num} {'─'*48}")
     if not events:
-        print(f"    (quiet)")
+        print("    (quiet)")
         return
 
     for e in events:
@@ -460,7 +557,7 @@ def print_status(agents: list[Agent], tick_num: int):
 def print_finale(agents: list[Agent]):
     """Print the final state."""
     print(f"\n{'='*64}")
-    print(f"  FINAL STATE")
+    print("  FINAL STATE")
     print(f"{'='*64}")
 
     ranked = sorted(agents, key=lambda a: -a.trust)
@@ -489,7 +586,7 @@ def print_finale(agents: list[Agent]):
                 print(f"    Growth: {', '.join(growth)}")
 
     # Emergent patterns
-    print(f"\n  ── Emergent Patterns ──")
+    print("\n  ── Emergent Patterns ──")
 
     most_connected = max(agents, key=lambda a: len(set(c[0] for c in a.connections)))
     if most_connected.connections:

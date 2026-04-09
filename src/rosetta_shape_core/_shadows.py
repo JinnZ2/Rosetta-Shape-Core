@@ -1,5 +1,6 @@
 """Shadow hunting — hidden phi-patterns, equation boundaries, economic instruments."""
 from __future__ import annotations
+
 import math
 
 from rosetta_shape_core._seed import SEED_VERTICES

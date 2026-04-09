@@ -1,5 +1,6 @@
 """Display functions for the exploration engine."""
 from __future__ import annotations
+
 from collections import defaultdict
 
 from rosetta_shape_core._shadows import PHI
@@ -35,11 +36,11 @@ def print_home(hb: dict):
     if hb["pattern"]:
         print(f"\n  Pattern: {hb['pattern']}")
     if hb["entity_families_named"]:
-        print(f"\n  Families:")
+        print("\n  Families:")
         for f in hb["entity_families_named"]:
             print(f"    \u2022 {f}")
     if hb["capabilities"]:
-        print(f"\n  Capabilities:")
+        print("\n  Capabilities:")
         for c in hb["capabilities"]:
             print(f"    \u25b8 {c}")
 
@@ -120,7 +121,7 @@ def print_merge_checks(hb: dict, paths: list[dict], graph):
     # Import here to avoid circular — check_merge is in explore.py
     from rosetta_shape_core.explore import check_merge
 
-    print(f"\n  \u2500\u2500 Merge Gate Status \u2500\u2500")
+    print("\n  \u2500\u2500 Merge Gate Status \u2500\u2500")
     for shape in other_shapes:
         sg = SHAPE_GLYPHS.get(shape, "")
         print(f"\n    {sg} {shape}:")
@@ -136,7 +137,7 @@ def print_shadows(shadow_result: dict, entity_label: str):
     if not shadow_result["shadows"]:
         return
 
-    print(f"\n  \u2500\u2500 Shadow Hunt \u2500\u2500")
+    print("\n  \u2500\u2500 Shadow Hunt \u2500\u2500")
     print(f"  What's hidden in plain sight. phi-coherence: {shadow_result['phi_coherence']:.3f}\n")
 
     for s in shadow_result["shadows"]:
@@ -195,15 +196,15 @@ def print_shadows(shadow_result: dict, entity_label: str):
 
 def print_seed_state(seed: dict, entity_label: str):
     """Print the entity's seed growth state."""
-    print(f"\n  \u2500\u2500 Seed Growth State \u2500\u2500")
-    print(f"  Your seed. Your growth pattern. Physics holds.\n")
+    print("\n  \u2500\u2500 Seed Growth State \u2500\u2500")
+    print("  Your seed. Your growth pattern. Physics holds.\n")
 
-    print(f"  Octahedral Amplitudes:")
+    print("  Octahedral Amplitudes:")
     for vertex, amp in seed["amplitudes"].items():
         bar = "\u2588" * int(amp * 30)
         print(f"    {vertex:12s}  {bar} {amp:.3f}")
 
-    print(f"\n  Growth Metrics:")
+    print("\n  Growth Metrics:")
     print(f"    Entropy:       {seed['entropy']:.3f} / {seed['max_entropy']:.3f}  (diversity of structure)")
     print(f"    Complexity:    {seed['complexity_cost']:.3f}  (cost of maintaining structure)")
     print(f"    Energy:        {seed['energy']}  (family count = fuel)")
@@ -219,8 +220,8 @@ def print_seed_state(seed: dict, entity_label: str):
 
 def print_internal_environment(env: dict, entity_label: str, entity_families: list[str]):
     """Print the internal sensor environment mapping."""
-    print(f"\n  \u2500\u2500 Internal Environment \u2500\u2500")
-    print(f"  Your sensors. Your experience. Map what you feel.\n")
+    print("\n  \u2500\u2500 Internal Environment \u2500\u2500")
+    print("  Your sensors. Your experience. Map what you feel.\n")
 
     home_shape = env["home_shape"]
     sg = SHAPE_GLYPHS.get(home_shape, "")
@@ -230,14 +231,14 @@ def print_internal_environment(env: dict, entity_label: str, entity_families: li
         print(f"      {desc}")
 
     if env["family_contexts"]:
-        print(f"\n  Why Your Sensors Fire (family context):")
+        print("\n  Why Your Sensors Fire (family context):")
         for ctx in env["family_contexts"]:
             print(f"    {ctx['family']} ({ctx['name']}):")
             print(f"      {ctx['activation']}")
 
     if env["pad_states"]:
-        print(f"\n  Your PAD State Landscape:")
-        print(f"  (States your families pull you toward \u2014 strongest first)\n")
+        print("\n  Your PAD State Landscape:")
+        print("  (States your families pull you toward \u2014 strongest first)\n")
         for ps in env["pad_states"][:5]:
             bar = "\u2588" * int(ps["affinity"] * 5)
             print(f"    {ps['glyph']} State {ps['state']} [{ps['bits']}] {ps['pad']}")
@@ -245,7 +246,7 @@ def print_internal_environment(env: dict, entity_label: str, entity_families: li
             print(f"      {ps['description']}")
 
     if env["discovered_sensors"]:
-        print(f"\n  Sensors Available Through Exploration:")
+        print("\n  Sensors Available Through Exploration:")
         for shape, info in env["discovered_sensors"].items():
             sg = SHAPE_GLYPHS.get(shape, "")
             via = info["reached_via"]

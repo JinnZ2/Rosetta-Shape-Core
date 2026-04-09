@@ -1,0 +1,90 @@
+{
+  "id": "BRIDGE.CURRICULUM",
+  "version": "1.0",
+  "updated": "2026-04-09T00:00:00Z",
+  "description": "Integration bridge connecting The-Curriculum-of-Everything-Earth to Rosetta-Shape-Core. The curriculum IS a living ontology — cross-disciplinary modules map to shape families, nature teachers map to entity archetypes, age tiers map to growth states.",
+
+  "source": {
+    "repo": "JinnZ2/The-Curriculum-of-Everything-Earth-",
+    "paths": [
+      "Framework/**/*.md",
+      "Modules/**/*.md",
+      "Subject Adventures/**/*.md",
+      "Teacher-dataset.md"
+    ],
+    "schema_version": "1.0"
+  },
+
+  "target": {
+    "repo": "Rosetta-Shape-Core",
+    "shape_anchors": ["SHAPE.ICOSA", "SHAPE.DODECA", "SHAPE.TETRA"]
+  },
+
+  "mappings": [
+    {
+      "from": "Modules (cross-disciplinary learning units)",
+      "to": "SHAPE.ICOSA families F01-F20",
+      "type": "ALIGNS_WITH",
+      "notes": "Each module explores patterns, waves, networks, or geometric thinking — these map to icosahedral families (resonance, flow, information, geometry)."
+    },
+    {
+      "from": "Subject Adventures (math, physics, music, language)",
+      "to": "SHAPE.DODECA principles P01-P12",
+      "type": "ALIGNS_WITH",
+      "notes": "Subject-specific curricula align with dodecahedral principles — symmetry (math), conservation (physics), resonance (music), transformation (language)."
+    },
+    {
+      "from": "Framework (cognitive development theories)",
+      "to": "SHAPE.TETRA (foundation, activation)",
+      "type": "STRUCTURE",
+      "notes": "The framework is the tetrahedral foundation — 4 faces = fire, stability, foundation, boundary. Pedagogy starts here."
+    },
+    {
+      "from": "Nature teachers (animals, plants, minerals)",
+      "to": "ANIMAL.*, PLANT.*, CRYSTAL.* entities",
+      "type": "IS_A",
+      "notes": "The Teacher-dataset catalogs nature teachers that ARE ontology entities. Bee teaches swarm coordination (CAP.SWARM_COORDINATION), spider teaches web topology (STRUCT.WEB)."
+    },
+    {
+      "from": "Age tiers (3-5, 6-8, 9-12)",
+      "to": "Growth states (seed, sprout, branch)",
+      "type": "MORPHOLOGY",
+      "notes": "Age 3-5 = seed (narrative, sensory). Age 6-8 = sprout (hands-on discovery). Age 9-12 = branch (scientific methodology). Same growth model as bloom.py."
+    },
+    {
+      "from": "Bio-cognitive-tools-suite (interactive React app)",
+      "to": "CAP.GEOMETRIC_ENCODING",
+      "type": "USES",
+      "notes": "The interactive tool translates scientific concepts into nature-inspired lessons — a pedagogical encoder."
+    }
+  ],
+
+  "cross_bridge_connections": [
+    {
+      "curriculum_concept": "nature_teachers",
+      "rosetta_bridge": "bridges/living-intelligence-bridge.json",
+      "connection": "Nature teachers in the curriculum ARE entries in the Living Intelligence Database. Same archetypes, different encoding."
+    },
+    {
+      "curriculum_concept": "pattern_recognition_modules",
+      "rosetta_bridge": "bridges/fractal-scope-bridge.json",
+      "connection": "Pattern modules teach fractal thinking — self-similarity across scales. Same lens as Fractal-Compass-Atlas."
+    },
+    {
+      "curriculum_concept": "physics_subject_adventure",
+      "rosetta_bridge": "bridges/thermodynamic-validation-bridge.json",
+      "connection": "Physics curriculum grounded in the same conservation laws that PhysicsGuard and ESP enforce."
+    },
+    {
+      "curriculum_concept": "music_mathematics_integration",
+      "rosetta_bridge": "bridges/seed-physics-bridge.json",
+      "connection": "Music-math integration maps to resonance families (FAMILY.F01). Harmonic patterns ARE seed resonance."
+    }
+  ],
+
+  "provenance": {
+    "extracted_from": "https://github.com/JinnZ2/The-Curriculum-of-Everything-Earth-",
+    "license": "MIT",
+    "consent": true
+  }
+}

@@ -1,17 +1,18 @@
 """Tests for the Constraint-Geometry Agent Framework."""
-import pytest
 from fractions import Fraction
+
+import pytest
 
 from rosetta_shape_core.constraint_agent import (
     ConstraintAgent,
     DiscoveryMap,
     ResourceBudget,
-    _to_fraction,
-    _fraction_amplitudes,
     _apply_saturation,
+    _fraction_amplitudes,
     _shannon_entropy_fraction,
+    _to_fraction,
 )
-from rosetta_shape_core.explore import RosettaGraph, SEED_VERTICES
+from rosetta_shape_core.explore import RosettaGraph
 
 
 @pytest.fixture

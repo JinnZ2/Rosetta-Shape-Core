@@ -20,10 +20,15 @@ Importable:
 """
 
 from __future__ import annotations
-import json, pathlib, argparse, textwrap
-import numpy as np
+
+import argparse
+import json
+import pathlib
+import textwrap
 from dataclasses import dataclass, field
 from typing import Optional
+
+import numpy as np
 
 ROOT     = pathlib.Path(__file__).resolve().parents[2]
 ONTOLOGY = ROOT / "ontology"
@@ -128,7 +133,7 @@ def synchronisation_estimate(M: np.ndarray, n_trials: int = 5,
     # Spectral estimate of effective coupling strength
     kappa_eff = float(np.mean(np.abs(M[M != 0]))) if np.any(M != 0) else 0.0
     lambda_2  = float(eigs[-2])   # second-largest eigenvalue
-    kappa_c   = float(2.0 / (np.pi * N * 0.5 / N)) if N > 0 else 1.0
+    _ = float(2.0 / (np.pi * N * 0.5 / N)) if N > 0 else 1.0  # kappa_c reserved for future use
 
     # Linearised sync estimate (valid near threshold)
     # R̄ ≈ 0 if κ < κ_c, ramps up above
@@ -184,7 +189,7 @@ def regime_classify(spec: dict, sync: dict) -> tuple[str, float]:
     lam   = sync.get("lyapunov_estimate", 0.0)
     pr_m  = spec["pr_mean"]
     N     = len(spec["eigenvalues"])
-    gap   = spec["spectral_gap"]
+    _ = spec["spectral_gap"]  # gap reserved for future regime classification
 
     if R is not None:
         if R > 0.6:
@@ -266,7 +271,7 @@ class RegimeReport:
             lines.append(f"  Order param:  {self.order_param:.4f}  "
                          f"({'coherent' if self.order_param > 0.5 else 'incoherent'})")
         lines += [
-            f"\n  ACTIVE ONTOLOGY NODES",
+            "\n  ACTIVE ONTOLOGY NODES",
         ]
         for key in self.active_node_keys:
             lines.append(f"    {_tag(key)}")
@@ -421,7 +426,6 @@ def analyze_system(
 
 def _demo():
     """Run three demo systems showing different regimes."""
-    from examples_data import _demo_matrices   # local helper below
     pass
 
 def _make_demo_matrices() -> list[tuple[str, np.ndarray]]:

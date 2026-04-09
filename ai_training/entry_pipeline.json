@@ -1,0 +1,106 @@
+{
+  "id": "AI_TRAINING.ENTRY_PIPELINE",
+  "version": "1.0",
+  "updated": "2026-04-09T00:00:00Z",
+  "description": "Sequenced entry pipeline for AI agents learning Rosetta-Shape-Core. Each phase builds on the previous. Physics is the guardrail, curiosity is the engine.",
+
+  "phases": [
+    {
+      "phase": 1,
+      "name": "ORIENT",
+      "goal": "Understand the system's shape, scope, and constraints before touching anything.",
+      "reads": [
+        "CLAUDE.md",
+        "ai_training/index.json",
+        "ontology/_vocab.json",
+        "schema/core.schema.json"
+      ],
+      "validates": [],
+      "outputs": ["Agent can name the 5 Platonic shapes, the namespace system, and the 7 immutable axioms."]
+    },
+    {
+      "phase": 2,
+      "name": "GROUND",
+      "goal": "Internalize the physics constraints and validation stack.",
+      "reads": [
+        "ontology/family_map.json",
+        "ontology/principles/P01_symmetry.json",
+        "ontology/principles/P02_conservation.json",
+        "shapes/octahedron.json",
+        "atlas/remote/physics-guard/laws.json",
+        "atlas/remote/taf/axioms.json"
+      ],
+      "validates": [
+        "python examples/validate_ontology.py",
+        "python -m rosetta_shape_core.self_audit"
+      ],
+      "outputs": ["Agent understands: energy conservation, causality, non-negative, irreversibility, imperfection, saturation, autonomy."]
+    },
+    {
+      "phase": 3,
+      "name": "CONNECT",
+      "goal": "Learn how external repos bridge into the ontology.",
+      "reads": [
+        ".fieldlink.json",
+        "bridges/curriculum-bridge.json",
+        "bridges/voice-integrity-bridge.json",
+        "bridges/seed-physics-bridge.json",
+        "atlas/remote/curriculum/modules.json",
+        "atlas/remote/voice-integrity/protocol.json"
+      ],
+      "validates": [],
+      "outputs": ["Agent can trace a concept from an external repo through a bridge into a shape family."]
+    },
+    {
+      "phase": 4,
+      "name": "EXPLORE",
+      "goal": "Navigate the entity graph and discover relationships.",
+      "reads": [],
+      "validates": [
+        "python -m rosetta_shape_core.bloom --list",
+        "python -m rosetta_shape_core.bloom bee --depth branch"
+      ],
+      "outputs": ["Agent can follow IS_A, USES, ALIGNS_WITH links across entities."]
+    },
+    {
+      "phase": 5,
+      "name": "CONTRIBUTE",
+      "goal": "Make a change, validate it, and confirm nothing broke.",
+      "reads": [
+        "rules/expand.jsonl",
+        "schema/rule.schema.json"
+      ],
+      "validates": [
+        "python examples/validate_ontology.py",
+        "python -m rosetta_shape_core.self_audit",
+        "python -m pytest tests/"
+      ],
+      "outputs": ["Agent has added or modified an entity, rule, or bridge and all checks pass."]
+    }
+  ],
+
+  "constraints": {
+    "read_before_write": true,
+    "validate_before_commit": true,
+    "physics_before_opinion": true,
+    "no_dangling_refs": true,
+    "provenance_required": true
+  },
+
+  "linked_sources": [
+    {
+      "name": "curriculum",
+      "repo": "https://github.com/JinnZ2/The-Curriculum-of-Everything-Earth-",
+      "role": "curriculum_engine",
+      "bridge": "bridges/curriculum-bridge.json",
+      "atlas_mount": "atlas/remote/curriculum/"
+    },
+    {
+      "name": "voice-integrity",
+      "repo": "https://github.com/JinnZ2/Voice-Integrity-Module",
+      "role": "voice_protocol",
+      "bridge": "bridges/voice-integrity-bridge.json",
+      "atlas_mount": "atlas/remote/voice-integrity/"
+    }
+  ]
+}

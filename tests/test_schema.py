@@ -1,27 +1,30 @@
-import json, pathlib, re
-from rosetta_shape_core.validator import (
-    validate_files,
-    validate_ontology,
-    validate_shapes,
-    validate_bridges,
-    validate_seeds,
-    validate_fieldlink,
-    validate_mesh,
-    load_shapes,
-)
+import json
+import pathlib
+import re
+
 from rosetta_shape_core.seeds import (
+    all_essences,
     all_seeds,
     all_shape_ids,
     get_seed,
     get_seed_by_name,
-    select_by_traits,
-    select_by_element,
-    select_by_sensor,
-    select_by_essence,
-    traits_for_essence,
-    all_essences,
     resonance,
     seed_traits_vector,
+    select_by_element,
+    select_by_essence,
+    select_by_sensor,
+    select_by_traits,
+    traits_for_essence,
+)
+from rosetta_shape_core.validator import (
+    load_shapes,
+    validate_bridges,
+    validate_fieldlink,
+    validate_files,
+    validate_mesh,
+    validate_ontology,
+    validate_seeds,
+    validate_shapes,
 )
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]

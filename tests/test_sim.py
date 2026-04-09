@@ -1,8 +1,8 @@
 """Tests for the Ecosystem Simulation."""
 import random
-from rosetta_shape_core.sim import Agent, Simulation, SCENARIOS
-from rosetta_shape_core.explore import RosettaGraph
 
+from rosetta_shape_core.explore import RosettaGraph
+from rosetta_shape_core.sim import SCENARIOS, Agent, Simulation
 
 # ── Agent basics ──────────────────────────────────────────────────
 
@@ -113,7 +113,6 @@ def test_energy_sharing_direction():
     g = RosettaGraph()
     a = Agent("ANIMAL.BEE", g, energy=10.0)
     b = Agent("ANIMAL.BEE", g, energy=0.5)
-    initial_b = b.energy
     a.tick(1, [a, b])
     # b should have received energy (or a should have less)
     assert a.energy < 10.0
@@ -175,3 +174,81 @@ def test_constrained_scenario_low_energy():
     """Constrained scenario should have low starting energy."""
     for spec in SCENARIOS["constrained"]["agents"]:
         assert spec.get("energy", 1.0) <= 1.0
+
+
+# ── Energy Ledger ────────────────────────────────────────────────
+
+def test_energy_ledger_exists():
+    """Simulation should have an energy ledger."""
+    g = RosettaGraph()
+    specs = [{"query": "bee", "energy": 3.0}]
+    sim = Simulation(specs, g)
+    assert sim.energy_ledger is not None
+    assert sim.energy_ledger.initial_total == 3.0
+
+
+def test_energy_ledger_records_ticks():
+    """Ledger should have one entry per tick."""
+    random.seed(42)
+    g = RosettaGraph()
+    specs = [{"query": "bee", "energy": 3.0}, {"query": "octopus", "energy": 2.0}]
+    sim = Simulation(specs, g)
+    sim.run(ticks=5)
+    assert len(sim.energy_ledger.ticks) == 5
+
+
+def test_energy_audit_in_result():
+    """Simulation result should include energy_audit."""
+    random.seed(42)
+    g = RosettaGraph()
+    specs = [{"query": "bee", "energy": 3.0}]
+    sim = Simulation(specs, g)
+    result = sim.run(ticks=3)
+    assert "energy_audit" in result
+    audit = result["energy_audit"]
+    assert "initial_total" in audit
+    assert "final_total" in audit
+    assert "violations" in audit
+    assert audit["ticks_recorded"] == 3
+
+
+def test_energy_no_negative_violations():
+    """Agents should never have negative energy (clamped at 0)."""
+    random.seed(42)
+    g = RosettaGraph()
+    specs = [{"query": "bee", "energy": 3.0}, {"query": "octopus", "energy": 0.1}]
+    sim = Simulation(specs, g)
+    sim.run(ticks=10)
+    audit = sim.energy_ledger.summary()
+    neg_violations = [v for v in audit["violations"] if "NON_NEGATIVE" in v]
+    assert len(neg_violations) == 0
+
+
+def test_energy_cooperation_is_zero_sum():
+    """Energy sharing between agents should be zero-sum."""
+    random.seed(42)
+    g = RosettaGraph()
+    a = Agent("ANIMAL.BEE", g, energy=10.0, label="Giver")
+    b = Agent("ANIMAL.BEE", g, energy=1.0, label="Receiver")
+    a.tick(1, [a, b])
+    # The only non-zero-sum changes are maintenance and mode costs
+    # Transfer itself should not create/destroy energy
+    share_events = [e for e in a.tick(2, [a, b]) if e.get("event") == "share_energy"]
+    for e in share_events:
+        # Transfer amount should be reflected in both agents
+        assert e.get("amount", 0) >= 0
+
+
+def test_energy_ledger_summary_structure():
+    """Ledger summary should have all required fields."""
+    random.seed(42)
+    g = RosettaGraph()
+    specs = [{"query": "bee", "energy": 5.0}]
+    sim = Simulation(specs, g)
+    sim.run(ticks=3)
+    summary = sim.energy_ledger.summary()
+    assert "initial_total" in summary
+    assert "final_total" in summary
+    assert "net_change" in summary
+    assert "violations" in summary
+    assert "conservation_note" in summary

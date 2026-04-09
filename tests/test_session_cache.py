@@ -1,18 +1,15 @@
 """Tests for octahedral session cache."""
 from __future__ import annotations
 
-import json
-import time
 import tempfile
-import pytest
+import time
 
 from rosetta_shape_core.octahedral_session_cache import (
-    OctState,
     CacheEntry,
     InvalidationGraph,
+    OctState,
     SessionCache,
 )
-
 
 # ── OctState ──────────────────────────────────────────
 

@@ -15,7 +15,12 @@ Importable:
 """
 
 from __future__ import annotations
-import json, pathlib, re, sys, argparse, textwrap
+
+import argparse
+import json
+import pathlib
+import re
+import textwrap
 from typing import Optional
 
 ROOT     = pathlib.Path(__file__).resolve().parents[2]
