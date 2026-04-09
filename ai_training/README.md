@@ -27,6 +27,29 @@ It links two upstream training sources into the ontology graph.
 - **Curriculum** maps to SHAPE.ICOSA (20 faces = 20 learning families) and SHAPE.DODECA (12 faces = 12 principles). Nature teachers from the curriculum align with ontology entities (ANIMAL.*, PLANT.*, CRYSTAL.*).
 - **Voice Integrity** maps to the sensor system — voice modes are sensors, silence is a valid signal state. Prosodic patterns bridge to octahedral encoding (SHAPE.OCTA).
 
+## Safe Entry Script
+
+Run the guarded entry point before doing any work:
+
+```bash
+./ai_training/safe_entry.sh              # Full pipeline (orient + ground + validate)
+./ai_training/safe_entry.sh orient       # Phase 1: Check core files exist
+./ai_training/safe_entry.sh ground       # Phase 2: Validate schemas + self-audit
+./ai_training/safe_entry.sh validate     # Run full test suite
+./ai_training/safe_entry.sh explore      # List all entities
+./ai_training/safe_entry.sh pre-commit   # Safety gate — run before every commit
+./ai_training/safe_entry.sh status       # System health dashboard
+```
+
+**Safety protections built in:**
+- Verifies you're in the right repo with the package installed
+- Checks that immutable axioms and use constraints are intact
+- Scans for secrets in the staging area (blocks `.env`, `*.key`, credentials)
+- Warns on modifications to protected files (`_vocab.json`, `core.schema.json`)
+- Pre-commit gate runs ontology validation, self-audit, and tests before allowing commit
+- Scans diffs for destructive patterns (`rm -rf`, `force push`, `reset --hard`)
+- Verifies `extracted_from` provenance on all atlas files
+
 ## For AI Agents
 
-Start with `entry_pipeline.json`. It defines the read order, what to validate, and how to confirm you understand the system before making changes. The pipeline enforces: **read before write, validate before commit, physics before opinion.**
+Start with `safe_entry.sh` or `entry_pipeline.json`. They define the read order, what to validate, and how to confirm you understand the system before making changes. The pipeline enforces: **read before write, validate before commit, physics before opinion.**
