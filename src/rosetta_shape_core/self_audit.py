@@ -22,8 +22,10 @@ Usage:
     python -m rosetta_shape_core.self_audit --fix
 """
 from __future__ import annotations
-import json, pathlib, sys, argparse
-from collections import defaultdict
+
+import argparse
+import json
+import sys
 
 from rosetta_shape_core._graph import ROOT
 
@@ -560,15 +562,15 @@ def print_audit(results: list[AuditResult]):
                 text = f.replace("[warn] ", "")
                 print(f"{prefix}  {text}")
         elif r.passed:
-            print(f"    All clear.")
+            print("    All clear.")
 
     print(f"\n{'=' * 64}")
     if failed == 0:
         print(f"  VERDICT: CLEAN — {passed}/{total} checks passed")
-        print(f"  The physics holds. The system is life-bearing.")
+        print("  The physics holds. The system is life-bearing.")
     else:
         print(f"  VERDICT: {'CORRUPTED' if failed > 2 else 'SUSPECT'} — {failed}/{total} checks FAILED")
-        print(f"  Review findings above. Something may be outside scope.")
+        print("  Review findings above. Something may be outside scope.")
     print(f"{'=' * 64}")
     print()
 

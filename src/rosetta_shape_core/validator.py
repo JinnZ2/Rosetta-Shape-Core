@@ -1,8 +1,11 @@
 from __future__ import annotations
-import json, pathlib
+
+import json
+
 from jsonschema import Draft202012Validator
 
 from rosetta_shape_core._graph import ROOT
+
 ONTOLOGY_SCHEMA = json.loads((ROOT / "schema" / "core.schema.json").read_text(encoding="utf-8"))
 SHAPE_SCHEMA = json.loads((ROOT / "schema" / "shape.schema.json").read_text(encoding="utf-8"))
 SEED_SCHEMA = json.loads((ROOT / "schema" / "shape.seed.schema.json").read_text(encoding="utf-8"))

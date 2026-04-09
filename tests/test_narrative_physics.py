@@ -1,9 +1,11 @@
 """Tests for the Narrative Physics — Constraint Consistency Analysis."""
 from rosetta_shape_core.narrative_physics import (
-    Constraint, Behavior, AnalysisResult,
-    analyze_consistency, example_consistent, example_manipulation,
+    Behavior,
+    Constraint,
+    analyze_consistency,
+    example_consistent,
+    example_manipulation,
 )
-
 
 # ── Data structures ───────────────────────────────────────────────
 

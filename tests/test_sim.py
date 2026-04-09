@@ -1,8 +1,8 @@
 """Tests for the Ecosystem Simulation."""
 import random
-from rosetta_shape_core.sim import Agent, Simulation, EnergyLedger, SCENARIOS
-from rosetta_shape_core.explore import RosettaGraph
 
+from rosetta_shape_core.explore import RosettaGraph
+from rosetta_shape_core.sim import SCENARIOS, Agent, Simulation
 
 # ── Agent basics ──────────────────────────────────────────────────
 
@@ -113,7 +113,6 @@ def test_energy_sharing_direction():
     g = RosettaGraph()
     a = Agent("ANIMAL.BEE", g, energy=10.0)
     b = Agent("ANIMAL.BEE", g, energy=0.5)
-    initial_b = b.energy
     a.tick(1, [a, b])
     # b should have received energy (or a should have less)
     assert a.energy < 10.0
@@ -231,11 +230,7 @@ def test_energy_cooperation_is_zero_sum():
     g = RosettaGraph()
     a = Agent("ANIMAL.BEE", g, energy=10.0, label="Giver")
     b = Agent("ANIMAL.BEE", g, energy=1.0, label="Receiver")
-    total_before = a.energy + b.energy
     a.tick(1, [a, b])
-    # Cooperation transfer is zero-sum; only maintenance changes total
-    # So total should decrease by maintenance costs, NOT by transfer
-    total_after = a.energy + b.energy
     # The only non-zero-sum changes are maintenance and mode costs
     # Transfer itself should not create/destroy energy
     share_events = [e for e in a.tick(2, [a, b]) if e.get("event") == "share_energy"]

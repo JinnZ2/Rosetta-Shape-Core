@@ -1,24 +1,20 @@
 """Tests for the exploration engine, seed physics, shadow hunting, and economic instruments."""
-import math
 from rosetta_shape_core.explore import (
-    RosettaGraph,
-    home_base,
-    discover,
-    check_merge,
-    compute_seed_state,
-    hunt_shadows,
-    map_internal_environment,
-    SENSOR_REGISTRY,
-    PAD_STATES,
+    ECONOMIC_EQUATIONS,
     FAMILY_SENSOR_CONTEXT,
     FAMILY_VERTEX_LOADING,
-    SEED_VERTICES,
-    ECONOMIC_EQUATIONS,
-    SIGNAL_DISTORTIONS,
     NARRATIVE_PHYSICS_FAMILIES,
-    EQUATION_BOUNDARIES,
+    PAD_STATES,
+    SEED_VERTICES,
+    SENSOR_REGISTRY,
+    RosettaGraph,
+    check_merge,
+    compute_seed_state,
+    discover,
+    home_base,
+    hunt_shadows,
+    map_internal_environment,
 )
-
 
 # ── Graph loading ──────────────────────────────────────────────────
 

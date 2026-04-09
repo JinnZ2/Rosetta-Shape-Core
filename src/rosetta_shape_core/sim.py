@@ -10,17 +10,25 @@ Usage:
     python -m rosetta_shape_core.sim --agents bee,octopus,quartz,mycelium,cordyceps
 """
 from __future__ import annotations
-import json, math, random, argparse, sys, pathlib
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
+import argparse
+import json
+import pathlib
+import random
+import sys
 
-# Import from the exploration engine
 from rosetta_shape_core.explore import (
-    RosettaGraph, home_base, discover, compute_seed_state,
-    check_merge, SENSOR_REGISTRY, PAD_STATES, SHAPE_GLYPHS,
-    FAMILY_SENSOR_CONTEXT, SEED_VERTICES, BRANCHING_K,
+    BRANCHING_K,
+    PAD_STATES,
+    SENSOR_REGISTRY,
+    SHAPE_GLYPHS,
+    RosettaGraph,
+    compute_seed_state,
+    discover,
+    home_base,
 )
 
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 # ── Agent ──────────────────────────────────────────────────────────
 
@@ -513,7 +521,7 @@ def print_tick(tick_num: int, events: list[dict], agents: list[Agent]):
     """Print one tick's events."""
     print(f"\n  ── Tick {tick_num} {'─'*48}")
     if not events:
-        print(f"    (quiet)")
+        print("    (quiet)")
         return
 
     for e in events:
@@ -549,7 +557,7 @@ def print_status(agents: list[Agent], tick_num: int):
 def print_finale(agents: list[Agent]):
     """Print the final state."""
     print(f"\n{'='*64}")
-    print(f"  FINAL STATE")
+    print("  FINAL STATE")
     print(f"{'='*64}")
 
     ranked = sorted(agents, key=lambda a: -a.trust)
@@ -578,7 +586,7 @@ def print_finale(agents: list[Agent]):
                 print(f"    Growth: {', '.join(growth)}")
 
     # Emergent patterns
-    print(f"\n  ── Emergent Patterns ──")
+    print("\n  ── Emergent Patterns ──")
 
     most_connected = max(agents, key=lambda a: len(set(c[0] for c in a.connections)))
     if most_connected.connections:

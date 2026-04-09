@@ -2,10 +2,10 @@
 from __future__ import annotations
 
 import json
+
 import pytest
 
-from rosetta_shape_core.expand import apply_rule, _load_rules, _load_all_entities
-
+from rosetta_shape_core.expand import _load_all_entities, _load_rules, apply_rule
 
 # ── Rule loading ──────────────────────────────────────────────────
 
@@ -78,8 +78,9 @@ def test_apply_rule_no_match():
 
 def test_rules_match_schema():
     """Validate all rules against the rule schema."""
-    from jsonschema import Draft202012Validator
     import pathlib
+
+    from jsonschema import Draft202012Validator
 
     schema_path = pathlib.Path(__file__).resolve().parents[1] / "schema" / "rule.schema.json"
     if not schema_path.exists():

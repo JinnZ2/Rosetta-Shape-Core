@@ -1,21 +1,20 @@
 """Tests for the self-audit module — 8 structural checks, immutable axioms,
 CORDYCEPS detection, and overall verdict."""
 from rosetta_shape_core.self_audit import (
-    IMMUTABLE_AXIOMS,
-    CORDYCEPS_PATTERNS,
     ALL_CHECKS,
+    CORDYCEPS_PATTERNS,
+    IMMUTABLE_AXIOMS,
     AuditResult,
-    run_audit,
-    check_physics_guards_present,
-    check_merge_gates_active,
-    check_scope_violations,
-    check_cordyceps_patterns,
     check_conservation_audit,
-    check_provenance_chain,
+    check_cordyceps_patterns,
     check_life_bearing,
+    check_merge_gates_active,
+    check_physics_guards_present,
+    check_provenance_chain,
+    check_scope_violations,
     check_use_constraints,
+    run_audit,
 )
-
 
 # ── Immutable axioms ─────────────────────────────────────────────
 

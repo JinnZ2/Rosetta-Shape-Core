@@ -1,7 +1,11 @@
 """Tests for KnowledgeDNA — Backward Trace Engine."""
 from rosetta_shape_core.knowledge_dna import (
-    NarrativeNode, TraceResult, trace_narrative, PROBES,
-    example_traceable, example_broken_chain, example_structural_manipulation,
+    PROBES,
+    NarrativeNode,
+    example_broken_chain,
+    example_structural_manipulation,
+    example_traceable,
+    trace_narrative,
 )
 
 

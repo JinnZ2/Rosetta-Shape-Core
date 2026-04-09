@@ -9,9 +9,11 @@ Usage:
     python -m rosetta_shape_core.narrative_physics --example
 """
 from __future__ import annotations
-import argparse, json, sys
-from dataclasses import dataclass, field
 
+import argparse
+import json
+import sys
+from dataclasses import dataclass, field
 
 # ── constraint geometry ────────────────────────────────────────────
 
@@ -175,24 +177,24 @@ def print_analysis(result: AnalysisResult):
     vg = VERDICT_GLYPHS.get(result.verdict, "?")
 
     print(f"\n{'='*60}")
-    print(f"  NARRATIVE PHYSICS — Constraint Consistency Analysis")
+    print("  NARRATIVE PHYSICS — Constraint Consistency Analysis")
     print(f"{'='*60}")
     print(f"\n  Claimed tradition: {result.claimed_tradition}")
     print(f"  Constraints: {len(result.constraints)}")
     print(f"  Behaviors observed: {len(result.behaviors)}")
 
-    print(f"\n  ── Metrics ──")
+    print("\n  ── Metrics ──")
     print(f"    Consistency ratio:       {result.consistency_ratio:.1%}")
     print(f"    Selective score:         {result.selective_score:.1%}")
     print(f"    In-group bias ratio:     {result.ingroup_bias_ratio:.1f}:1")
     print(f"    Rationalization density: {result.rationalization_density:.1%}")
 
     if result.cordyceps_flags:
-        print(f"\n  ── CORDYCEPS Flags ──")
+        print("\n  ── CORDYCEPS Flags ──")
         for flag in result.cordyceps_flags:
             print(f"    ✗ {flag}")
 
-    print(f"\n  ── Verdict ──")
+    print("\n  ── Verdict ──")
     print(f"    {vg} {result.verdict}")
 
     print(f"\n{'='*60}\n")

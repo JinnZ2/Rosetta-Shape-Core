@@ -1,6 +1,8 @@
 """Graph loader — RosettaGraph and data loading utilities."""
 from __future__ import annotations
-import json, pathlib
+
+import json
+import pathlib
 
 from rosetta_shape_core._bridges import BridgeIndex
 

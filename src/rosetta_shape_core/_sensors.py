@@ -1,7 +1,7 @@
 """Internal environment — sensor registry, PAD states, family context."""
 from __future__ import annotations
-from collections import defaultdict
 
+from collections import defaultdict
 
 # Complete sensor registry: shape -> [(sensor, glyph, description)]
 SENSOR_REGISTRY = {

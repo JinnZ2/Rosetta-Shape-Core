@@ -7,9 +7,10 @@ a correctness bug.
 
 Run with: pytest tests/test_benchmark.py -v
 """
-import time
 import random
-from rosetta_shape_core.explore import RosettaGraph, home_base, discover, check_merge
+import time
+
+from rosetta_shape_core.explore import RosettaGraph, check_merge, discover, home_base
 from rosetta_shape_core.sim import Simulation
 
 
@@ -49,7 +50,7 @@ def test_resolve_all_entities_time():
     """Resolving every entity by label should complete quickly."""
     g = RosettaGraph()
     labels = list(g.label_to_id.keys())
-    _, elapsed = _timed(lambda: [g.resolve_id(l) for l in labels])
+    _, elapsed = _timed(lambda: [g.resolve_id(label) for label in labels])
     per_entity = elapsed / max(len(labels), 1) * 1000  # ms
     assert per_entity < 5.0, f"Resolution: {per_entity:.2f}ms/entity (budget: 5ms)"
 

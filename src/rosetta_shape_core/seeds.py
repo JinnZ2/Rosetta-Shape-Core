@@ -24,7 +24,9 @@ Usage:
     ids = all_shape_ids()  # → ["SHAPE.CUBE", "SHAPE.DODECA", ...]
 """
 from __future__ import annotations
-import json, pathlib
+
+import json
+import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 CATALOG_PATH = ROOT / "data" / "seed-catalog.json"

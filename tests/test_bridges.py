@@ -1,10 +1,12 @@
 """Tests for the bridge resolver (_bridges.py)."""
 from rosetta_shape_core._bridges import (
-    BridgeIndex, _scan_ids, _extract_shape_targets,
-    _extract_family_refs, _extract_entity_refs,
+    BridgeIndex,
+    _extract_entity_refs,
+    _extract_family_refs,
+    _extract_shape_targets,
+    _scan_ids,
 )
 from rosetta_shape_core.explore import RosettaGraph
-
 
 # ── ID scanning ──────────────────────────────────────────────────
 
