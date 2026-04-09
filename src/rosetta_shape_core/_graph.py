@@ -2,6 +2,8 @@
 from __future__ import annotations
 import json, pathlib
 
+from rosetta_shape_core._bridges import BridgeIndex
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 
@@ -33,6 +35,7 @@ class RosettaGraph:
         self.rules = []
         self.lid_rules = []
         self.bridges = {}
+        self.bridge_index: BridgeIndex | None = None
         self.blocked_merges = []
         self._load_all()
 
@@ -92,6 +95,7 @@ class RosettaGraph:
                 data = _load_json(p)
                 bid = data.get("id", p.stem)
                 self.bridges[bid] = data
+        self.bridge_index = BridgeIndex(self.bridges)
 
     def resolve_id(self, query: str) -> str | None:
         """Resolve a fuzzy query to a rosetta_id."""

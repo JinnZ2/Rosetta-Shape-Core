@@ -18,6 +18,7 @@ from collections import defaultdict
 
 # ── submodule re-exports (preserve all existing import paths) ─────
 from rosetta_shape_core._graph import RosettaGraph, _load_json, _load_jsonl, ROOT  # noqa: F401
+from rosetta_shape_core._bridges import BridgeIndex  # noqa: F401
 
 from rosetta_shape_core._sensors import (  # noqa: F401
     SENSOR_REGISTRY, PAD_STATES, FAMILY_SENSOR_CONTEXT,
@@ -179,8 +180,13 @@ def discover(graph: RosettaGraph, entity_id: str, depth: int = 1) -> list[dict]:
             "target": link.get("to", ""),
         })
 
-    # 4) Bridge connections
+    # 4) Bridge connections (cross_bridge_connections — legacy path)
     paths.extend(_find_bridge_connections(graph, entity_id))
+
+    # 4b) Bridge mapping resolution (computationally active bridges)
+    if graph.bridge_index:
+        families = ent.get("rosetta_families", [])
+        paths.extend(graph.bridge_index.resolve_paths(entity_id, families))
 
     # 5) Family affinity exploration
     families = ent.get("rosetta_families", [])
@@ -260,6 +266,18 @@ def check_merge(graph: RosettaGraph, family_id: str, shape_id: str) -> dict:
             return {
                 "status": "blocked",
                 "reason": b.get("reason", "Merge blocked by physics gate"),
+            }
+
+    # Consult bridge index for frontier merges
+    if graph.bridge_index:
+        endorsement = graph.bridge_index.endorses_merge(family_id, shape_id)
+        if endorsement:
+            return {
+                "status": "bridge_endorsed",
+                "reason": (
+                    f"Bridge {endorsement['bridge']} endorses {family_id} on {shape_id} "
+                    f"via {endorsement['relation']}. {endorsement.get('notes', '')}"
+                ),
             }
 
     return {
