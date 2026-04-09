@@ -252,3 +252,51 @@ def test_energy_ledger_summary_structure():
     assert "net_change" in summary
     assert "violations" in summary
     assert "conservation_note" in summary
+
+
+def test_energy_conservation_closed_system():
+    """Total system energy (agents + environment) should be conserved."""
+    random.seed(42)
+    g = RosettaGraph()
+    specs = [
+        {"query": "bee", "energy": 3.0},
+        {"query": "octopus", "energy": 2.0},
+        {"query": "mycelium", "energy": 0.5},
+    ]
+    sim = Simulation(specs, g)
+    initial_system = sum(a.energy for a in sim.agents) + sim.env["energy"]
+    result = sim.run(ticks=20)
+    final_agents = sum(a["energy"] for a in result["agents"])
+    final_env = result["environment_energy"]
+    final_system = final_agents + final_env
+    # Conservation: total should be unchanged within float tolerance
+    assert abs(final_system - initial_system) < 0.05, (
+        f"Conservation violated: initial={initial_system:.4f}, "
+        f"final={final_system:.4f} (agents={final_agents:.4f} + env={final_env:.4f})"
+    )
+
+
+def test_environment_energy_in_result():
+    """Simulation result should include environment_energy."""
+    random.seed(42)
+    g = RosettaGraph()
+    specs = [{"query": "bee", "energy": 3.0}]
+    sim = Simulation(specs, g)
+    result = sim.run(ticks=3)
+    assert "environment_energy" in result
+    assert result["environment_energy"] >= 0
+
+
+def test_no_conservation_violations():
+    """No CONSERVATION violations should appear in the energy audit."""
+    random.seed(42)
+    g = RosettaGraph()
+    specs = [
+        {"query": "bee", "energy": 5.0},
+        {"query": "octopus", "energy": 3.0},
+    ]
+    sim = Simulation(specs, g)
+    result = sim.run(ticks=15)
+    audit = result["energy_audit"]
+    conservation_violations = [v for v in audit["violations"] if "CONSERVATION" in v]
+    assert conservation_violations == [], f"Conservation violated: {conservation_violations}"

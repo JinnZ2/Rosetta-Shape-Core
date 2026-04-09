@@ -30,11 +30,30 @@ def _scan_ids(text: str, prefix: str | None = None) -> list[str]:
 
 # ── Mapping extraction ────────────────────────────────────────────
 
+_SHAPE_KEYS = (
+    "to", "target_shape", "rosetta_shape", "shape_anchor",
+    "rosetta_shape_anchor", "shape", "platonic_shape",
+    "from", "notes", "rationale", "description",
+)
+
+_FAMILY_KEYS = (
+    "to", "rosetta_families", "rosetta_family", "rosetta_principle",
+    "families", "family", "principles", "principle_names",
+    "family_affinity", "family_name", "family_map",
+    "from", "notes", "rationale", "description",
+)
+
+_ENTITY_KEYS = (
+    "to", "from", "rosetta_id", "rosetta_capability",
+    "rosetta_analog", "rosetta_parallel",
+    "notes", "rationale", "description",
+)
+
+
 def _extract_shape_targets(mapping: dict) -> list[str]:
     """Pull SHAPE.* references from a mapping's values."""
     targets: list[str] = []
-    for key in ("to", "target_shape", "rosetta_shape", "shape_anchor",
-                "rosetta_shape_anchor", "from", "notes"):
+    for key in _SHAPE_KEYS:
         val = mapping.get(key, "")
         if isinstance(val, str):
             targets.extend(_scan_ids(val, "SHAPE."))
@@ -47,14 +66,13 @@ def _extract_shape_targets(mapping: dict) -> list[str]:
         for a in anchors:
             if isinstance(a, str):
                 targets.extend(_scan_ids(a, "SHAPE."))
-    return list(dict.fromkeys(targets))  # deduplicate preserving order
+    return list(dict.fromkeys(targets))
 
 
 def _extract_family_refs(mapping: dict) -> list[str]:
     """Pull FAMILY.* or PRINCIPLE.* references."""
     refs: list[str] = []
-    for key in ("to", "rosetta_families", "rosetta_family", "rosetta_principle",
-                "from", "notes"):
+    for key in _FAMILY_KEYS:
         val = mapping.get(key)
         if isinstance(val, str):
             refs.extend(_scan_ids(val, "FAMILY."))
@@ -70,13 +88,55 @@ def _extract_family_refs(mapping: dict) -> list[str]:
 def _extract_entity_refs(mapping: dict) -> list[str]:
     """Pull entity-style IDs (ANIMAL.*, CAP.*, PROTO.*, etc.)."""
     refs: list[str] = []
-    for key in ("to", "from", "rosetta_id", "notes"):
+    for key in _ENTITY_KEYS:
         val = mapping.get(key, "")
         if isinstance(val, str):
-            for m in _scan_ids(val):
-                if not m.startswith(("SHAPE.", "FAMILY.", "PRINCIPLE.")):
-                    refs.append(m)
+            for found in _scan_ids(val):
+                if not found.startswith(("SHAPE.", "FAMILY.", "PRINCIPLE.")):
+                    refs.append(found)
     return list(dict.fromkeys(refs))
+
+
+# ── Deep walk ─────────────────────────────────────────────────────
+
+# Top-level keys that are metadata, not mapping content.
+_SKIP_KEYS = frozenset({
+    "id", "version", "updated", "description", "source", "target",
+    "provenance", "cross_bridge_connections", "$schema",
+})
+
+
+def _walk_mapping_dicts(obj: dict | list, depth: int = 0) -> list[dict]:
+    """Recursively find every dict-inside-a-list in a bridge structure.
+
+    Bridges use many different array names (``mappings``, ``encoders``,
+    ``sensors``, ``axioms``, ``modules``, ``states``, ``clusters``, etc.).
+    Rather than hard-coding each name, we walk the tree and yield every
+    dict that lives inside a list — those are the mapping rows.
+    """
+    results: list[dict] = []
+    if depth > 4:  # safety bound
+        return results
+
+    if isinstance(obj, dict):
+        for key, val in obj.items():
+            if key in _SKIP_KEYS:
+                continue
+            if isinstance(val, list):
+                for item in val:
+                    if isinstance(item, dict):
+                        results.append(item)
+                    elif isinstance(item, list):
+                        results.extend(_walk_mapping_dicts(item, depth + 1))
+            elif isinstance(val, dict):
+                results.extend(_walk_mapping_dicts(val, depth + 1))
+    elif isinstance(obj, list):
+        for item in obj:
+            if isinstance(item, dict):
+                results.append(item)
+            elif isinstance(item, list):
+                results.extend(_walk_mapping_dicts(item, depth + 1))
+    return results
 
 
 # ── Bridge index ──────────────────────────────────────────────────
@@ -109,8 +169,11 @@ class BridgeIndex:
                 anchors = [target["shape_anchor"]]
             self.bridge_shapes[bid] = [a for a in anchors if isinstance(a, str)]
 
-            # Index mappings
-            for mapping in bdata.get("mappings", []):
+            # Walk ALL nested structures — bridges use many different array
+            # names (mappings, encoders, sensors, axioms, modules, etc.).
+            # Instead of hard-coding each name, we recursively find every
+            # dict inside every list and extract IDs from it.
+            for mapping in _walk_mapping_dicts(bdata):
                 for shape in _extract_shape_targets(mapping):
                     self.by_shape.setdefault(shape, []).append((bid, mapping))
                 for fam in _extract_family_refs(mapping):

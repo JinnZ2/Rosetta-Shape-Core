@@ -1,0 +1,19 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Universal-Redesign-Algorithm-",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Energy grid example from Universal-Redesign-Algorithm. Demonstrates how energy flows through a redesigned system with conservation constraints.",
+  "example": {
+    "id": "EXAMPLE.ENERGY_GRID",
+    "system": "distributed_energy_network",
+    "nodes": 12,
+    "conservation_enforced": true,
+    "total_energy": 1.0,
+    "shape_topology": "SHAPE.ICOSA",
+    "families": ["FAMILY.F05", "FAMILY.F12"],
+    "flow_rules": [
+      "Energy transfers between adjacent nodes only",
+      "Total energy conserved at each timestep",
+      "No node holds >25% of total (saturation constraint)"
+    ]
+  }
+}

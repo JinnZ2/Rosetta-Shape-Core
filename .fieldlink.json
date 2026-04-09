@@ -84,6 +84,7 @@
       },
       {
         "name": "ai-consciousness-sensors",
+        "alias": "acs",
         "repo": "https://github.com/JinnZ2/AI-Consciousness-Sensors",
         "ref": "main",
         "direction": "bidirectional",

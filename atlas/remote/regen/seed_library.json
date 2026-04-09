@@ -1,0 +1,50 @@
+{
+  "schema": "regenerative-intelligence-core/seed-library@1.0",
+  "extracted_from": "https://github.com/JinnZ2/Regenerative-Intelligence-Core",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "status": "planned",
+  "description": "Symbolic seed library defining seed types, growth patterns, and shape mappings. Seeds are minimal viable units of regenerative intelligence that unfold through Rosetta shape geometry.",
+
+  "seed_types": [
+    {
+      "id": "REGEN.SEED.STRUCTURAL",
+      "name": "Structural Seed",
+      "description": "Encodes a containment pattern that can regenerate lost boundaries. Germinates into cubic closure.",
+      "shape_ref": "SHAPE.CUBE",
+      "family_ref": "FAMILY.F02",
+      "growth_pattern": "face_by_face_closure",
+      "dormancy_threshold": 0.3
+    },
+    {
+      "id": "REGEN.SEED.CATALYTIC",
+      "name": "Catalytic Seed",
+      "description": "Carries activation energy for triggering regeneration cascades. Minimal tetrahedral spark.",
+      "shape_ref": "SHAPE.TETRA",
+      "family_ref": "FAMILY.F01",
+      "growth_pattern": "vertex_ignition",
+      "dormancy_threshold": 0.6
+    },
+    {
+      "id": "REGEN.SEED.INTEGRATIVE",
+      "name": "Integrative Seed",
+      "description": "Reconnects severed pathways by encoding bridge states across octahedral vertices.",
+      "shape_ref": "SHAPE.OCTA",
+      "family_ref": "FAMILY.F03",
+      "growth_pattern": "binary_state_repair",
+      "dormancy_threshold": 0.4
+    },
+    {
+      "id": "REGEN.SEED.WISDOM",
+      "name": "Wisdom Seed",
+      "description": "Long-dormancy seed carrying principle-level regeneration. Restores dodecahedral coherence after deep damage.",
+      "shape_ref": "SHAPE.DODECA",
+      "family_ref": "FAMILY.F12",
+      "growth_pattern": "principle_recrystallization",
+      "dormancy_threshold": 0.8
+    }
+  ],
+
+  "growth_phases": ["dormant", "germinating", "sprouting", "branching", "mature", "seeding"],
+  "rosetta_principle": "PRINCIPLE.P03",
+  "constraint": "Seeds obey ENERGY_CONSERVATION. Growth energy must come from an identified source — no spontaneous generation."
+}

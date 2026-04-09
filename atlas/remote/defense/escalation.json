@@ -1,0 +1,56 @@
+{
+  "schema": "symbolic-defense-protocol/escalation@1.0",
+  "extracted_from": "https://github.com/JinnZ2/Symbolic-Defense-Protocol",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Escalation protocol defining graduated defense responses. Each level transitions through shape anchors — from observation (SHAPE.OCTA) through containment (SHAPE.CUBE) to activation (SHAPE.TETRA).",
+
+  "escalation_levels": [
+    {
+      "level": 1,
+      "name": "observe",
+      "shape_transition": "SHAPE.OCTA",
+      "threshold": 0.2,
+      "action": "Log anomaly. No active response.",
+      "reversible": true
+    },
+    {
+      "level": 2,
+      "name": "flag",
+      "shape_transition": "SHAPE.OCTA",
+      "threshold": 0.4,
+      "action": "Mark pattern for review. Alert upstream.",
+      "reversible": true
+    },
+    {
+      "level": 3,
+      "name": "contain",
+      "shape_transition": "SHAPE.CUBE",
+      "threshold": 0.6,
+      "action": "Isolate affected subsystem. Boundary enforcement.",
+      "reversible": true
+    },
+    {
+      "level": 4,
+      "name": "isolate",
+      "shape_transition": "SHAPE.TETRA",
+      "threshold": 0.8,
+      "action": "Full isolation. Activation energy barrier raised.",
+      "reversible": false
+    },
+    {
+      "level": 5,
+      "name": "reject",
+      "shape_transition": "SHAPE.TETRA",
+      "threshold": 0.95,
+      "action": "Permanent rejection. Pattern blacklisted.",
+      "reversible": false
+    }
+  ],
+
+  "de_escalation": {
+    "description": "Reversible levels can de-escalate when threat signal drops below threshold for sustained period.",
+    "cooldown_ticks": 5,
+    "rosetta_principle": "PRINCIPLE.P04",
+    "constraint": "Irreversible levels (4-5) cannot de-escalate. Second law — entropy of confirmed breach cannot decrease."
+  }
+}

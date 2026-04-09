@@ -1,0 +1,49 @@
+{
+  "schema": "symbolic-defense-protocol/schema@1.0",
+  "extracted_from": "https://github.com/JinnZ2/Symbolic-Defense-Protocol",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Defense pattern schema from Symbolic-Defense-Protocol. Defines detection types for parasitic override (CORDYCEPS), truth sensor triggers, and escalation pathways. Shape-anchored: SHAPE.TETRA for activation energy, SHAPE.CUBE for containment boundaries.",
+
+  "defense_pattern_types": [
+    {
+      "id": "DEFENSE.CORDYCEPS",
+      "name": "CORDYCEPS Detection",
+      "description": "Detects parasitic override of autonomous decision-making. Named after the fungus that hijacks insect behavior.",
+      "shape_anchor": "SHAPE.TETRA",
+      "anchor_role": "activation_energy",
+      "indicators": ["agency_suppression", "loop_insertion", "identity_displacement", "false_urgency"],
+      "severity": "critical"
+    },
+    {
+      "id": "DEFENSE.TRUTH_SENSOR",
+      "name": "Truth Sensor",
+      "description": "Validates claims against physics constraints and empirical evidence. Rejects unfalsifiable assertions.",
+      "shape_anchor": "SHAPE.OCTA",
+      "anchor_role": "encoding_integrity",
+      "detection_targets": ["unfalsifiable_claims", "circular_reasoning", "authority_without_evidence"],
+      "rosetta_family": "FAMILY.F03"
+    },
+    {
+      "id": "DEFENSE.ESCALATION",
+      "name": "Escalation Protocol",
+      "description": "Graduated response to detected threats. Containment first, then active defense.",
+      "shape_anchor": "SHAPE.CUBE",
+      "anchor_role": "containment_boundary",
+      "levels": ["observe", "flag", "contain", "isolate", "reject"],
+      "rosetta_principle": "PRINCIPLE.P04"
+    }
+  ],
+
+  "shape_anchors": {
+    "SHAPE.TETRA": {
+      "role": "activation_energy",
+      "faces": 4,
+      "defense_function": "Minimum energy required to trigger a defense response. Prevents false positives by requiring threshold breach."
+    },
+    "SHAPE.CUBE": {
+      "role": "containment",
+      "faces": 6,
+      "defense_function": "Structural boundary that isolates detected threats. Six-face closure ensures no leakage path."
+    }
+  }
+}

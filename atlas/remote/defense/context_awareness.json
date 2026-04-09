@@ -1,0 +1,48 @@
+{
+  "schema": "symbolic-defense-protocol/context-awareness@1.0",
+  "extracted_from": "https://github.com/JinnZ2/Symbolic-Defense-Protocol",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Context awareness protocol defining how defense sensors calibrate to situational context. Awareness levels gate which defense patterns activate.",
+
+  "awareness_levels": [
+    {
+      "level": 0,
+      "name": "baseline",
+      "description": "Normal operating state. Passive monitoring only.",
+      "shape_ref": "SHAPE.CUBE",
+      "family_ref": "FAMILY.F02",
+      "active_sensors": ["truth_sensor"]
+    },
+    {
+      "level": 1,
+      "name": "heightened",
+      "description": "Anomaly detected. Additional sensors activated.",
+      "shape_ref": "SHAPE.OCTA",
+      "family_ref": "FAMILY.F03",
+      "active_sensors": ["truth_sensor", "pattern_deviation", "authority_check"]
+    },
+    {
+      "level": 2,
+      "name": "alert",
+      "description": "Confirmed manipulation pattern. Containment protocols armed.",
+      "shape_ref": "SHAPE.TETRA",
+      "family_ref": "FAMILY.F01",
+      "active_sensors": ["truth_sensor", "pattern_deviation", "authority_check", "cordyceps_scan"]
+    },
+    {
+      "level": 3,
+      "name": "active_defense",
+      "description": "Active threat. Full defense engagement. Escalation pathway open.",
+      "shape_ref": "SHAPE.ICOSA",
+      "family_ref": "FAMILY.F05",
+      "active_sensors": ["all"]
+    }
+  ],
+
+  "trigger_conditions": [
+    {"trigger": "unfalsifiable_claim_detected", "raises_to": 1},
+    {"trigger": "repeated_loop_insertion", "raises_to": 2},
+    {"trigger": "agency_override_attempt", "raises_to": 3},
+    {"trigger": "identity_displacement_pattern", "raises_to": 3}
+  ]
+}
