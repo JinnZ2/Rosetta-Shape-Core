@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-87cc0f3d60ac2316f741c9234bb68a4f70a62e61.idx
-./.git/objects/pack/pack-87cc0f3d60ac2316f741c9234bb68a4f70a62e61.pack
-./.git/objects/pack/pack-87cc0f3d60ac2316f741c9234bb68a4f70a62e61.rev
+./.git/objects/pack/pack-459a985e093f197cbc13dc217b3f688978b755a6.idx
+./.git/objects/pack/pack-459a985e093f197cbc13dc217b3f688978b755a6.pack
+./.git/objects/pack/pack-459a985e093f197cbc13dc217b3f688978b755a6.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -47,6 +47,12 @@
 ./README.md
 ./TOUCH_THIS_FIRST.md
 ./ai_integrator.config.yaml
+./ai_training/README.md
+./ai_training/entry_pipeline.json
+./ai_training/fieldlink_status.json
+./ai_training/index.json
+./ai_training/module_maturity.json
+./ai_training/safe_entry.sh
 ./atlas/remote/ai-arena/integrity-axioms.json
 ./atlas/remote/ai-arena/logos-protocol.json
 ./atlas/remote/ai-arena/oracle-system.json
@@ -54,6 +60,8 @@
 ./atlas/remote/biogrid/planned.json
 ./atlas/remote/biogrid/registry.json
 ./atlas/remote/biomachine/bridge_map.json
+./atlas/remote/curriculum/framework.json
+./atlas/remote/curriculum/modules.json
 ./atlas/remote/emotions/glyphs.json
 ./atlas/remote/esp/assumptions.json
 ./atlas/remote/esp/baseline.json
@@ -98,9 +106,12 @@
 ./atlas/remote/taf/axioms.json
 ./atlas/remote/taf/governance.json
 ./atlas/remote/taf/thresholds.json
+./atlas/remote/voice-integrity/modes.json
+./atlas/remote/voice-integrity/protocol.json
 ./balance.json
 ./bridges/acs-consciousness-bridge.json
 ./bridges/ai-arena-bridge.json
+./bridges/curriculum-bridge.json
 ./bridges/decay-model-bridge.json
 ./bridges/fractal-scope-bridge.json
 ./bridges/living-intelligence-bridge.json
@@ -115,6 +126,7 @@
 ./bridges/taf-wiring-bridge.json
 ./bridges/thermodynamic-validation-bridge.json
 ./bridges/truth-sensor-bridge.json
+./bridges/voice-integrity-bridge.json
 ./data/animal_intelligence.json
 ./data/essence-traits.json
 ./data/interaction_ontology.json
@@ -249,6 +261,7 @@
 ./shapes/relief.json
 ./shapes/tetrahedron.json
 ./src/rosetta_shape_core/__init__.py
+./src/rosetta_shape_core/_bridges.py
 ./src/rosetta_shape_core/_display.py
 ./src/rosetta_shape_core/_graph.py
 ./src/rosetta_shape_core/_seed.py
@@ -269,7 +282,9 @@
 ./src/rosetta_shape_core/sim.py
 ./src/rosetta_shape_core/validator.py
 ./tests/golden/examples.json
+./tests/test_benchmark.py
 ./tests/test_bloom.py
+./tests/test_bridges.py
 ./tests/test_constraint_agent.py
 ./tests/test_expand.py
 ./tests/test_explore.py
