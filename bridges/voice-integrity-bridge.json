@@ -1,0 +1,114 @@
+{
+  "id": "BRIDGE.VOICE_INTEGRITY",
+  "version": "1.0",
+  "updated": "2026-04-09T00:00:00Z",
+  "description": "Integration bridge connecting Voice-Integrity-Module to Rosetta-Shape-Core. Voice modes ARE sensors. Silence IS a valid signal state. Prosodic patterns encode octahedral states — pitch, rhythm, and pause map to the 6 vertices of SHAPE.OCTA.",
+
+  "source": {
+    "repo": "JinnZ2/Voice-Integrity-Module",
+    "paths": [
+      "protocol.json",
+      "modes/*.json",
+      "docs/**/*.md",
+      "training/**/*"
+    ],
+    "schema_version": "1.0"
+  },
+
+  "target": {
+    "repo": "Rosetta-Shape-Core",
+    "shape_anchors": ["SHAPE.OCTA", "SHAPE.DODECA"]
+  },
+
+  "mappings": [
+    {
+      "from": "Voice modes (6 modes)",
+      "to": "SHAPE.OCTA vertices (6 vertices)",
+      "type": "ALIGNS_WITH",
+      "notes": "6 voice modes map to 6 octahedral vertices. Each mode is a sensor orientation — a way of perceiving and transmitting meaning through voice."
+    },
+    {
+      "from": "Symbolic Monotone mode",
+      "to": "SHAPE.OCTA vertex 0 (+X, Pleasure+)",
+      "type": "SENSES_IN_FIELD",
+      "notes": "Flat, neutral delivery. Ground state. Clarity without emotional coloring."
+    },
+    {
+      "from": "Field Mode",
+      "to": "SHAPE.OCTA vertex 2 (+Y, Arousal+)",
+      "type": "SENSES_IN_FIELD",
+      "notes": "Clipped, radio-style. High arousal, compressed bandwidth. Urgency encoding."
+    },
+    {
+      "from": "Elder Tone",
+      "to": "SHAPE.OCTA vertex 5 (-Z, Dominance-)",
+      "type": "SENSES_IN_FIELD",
+      "notes": "Slow, deliberate. Surrender to time. Wisdom through patience."
+    },
+    {
+      "from": "Silent Echo",
+      "to": "SHAPE.OCTA vertex 3 (-Y, Arousal-)",
+      "type": "SENSES_IN_FIELD",
+      "notes": "Whispered, contemplative. Low arousal. Silence as primary signal."
+    },
+    {
+      "from": "Debug Tone",
+      "to": "SHAPE.OCTA vertex 4 (+Z, Dominance+)",
+      "type": "SENSES_IN_FIELD",
+      "notes": "Technical, line-by-line. Analytical control. Precision inspection."
+    },
+    {
+      "from": "Coherence Pulse",
+      "to": "SHAPE.OCTA vertex 1 (-X, Pleasure-)",
+      "type": "SENSES_IN_FIELD",
+      "notes": "Rhythmic symbolic emphasis. Pulsed delivery. Pattern through repetition."
+    },
+    {
+      "from": "Prosodic signal taxonomy",
+      "to": "SHAPE.OCTA 8-state encoding",
+      "type": "STRUCTURE",
+      "notes": "Prosodic features (pitch contour, rhythm, pause duration, emphasis) encode the same 3-bit state space as octahedral faces. Voice IS geometric encoding."
+    },
+    {
+      "from": "Silence-as-signal",
+      "to": "PRINCIPLE.P10 (uncertainty)",
+      "type": "ALIGNS_WITH",
+      "notes": "Silence is not absence — it is a valid measurement. Aligns with the uncertainty principle: not all information needs to be transmitted."
+    },
+    {
+      "from": "VIP protocol (voice integrity protocol)",
+      "to": "PROTO.VOICE_INTEGRITY",
+      "type": "DERIVES",
+      "notes": "The VIP spec defines a protocol interface. Rosetta encodes it as a PROTO namespace entity."
+    }
+  ],
+
+  "cross_bridge_connections": [
+    {
+      "voice_concept": "prosodic_encoding",
+      "rosetta_bridge": "bridges/physics-encoder-bridge.json",
+      "connection": "Prosodic patterns use the same octahedral state encoding as the geometric-to-binary bridge. Voice modes ARE binary states."
+    },
+    {
+      "voice_concept": "integrity_detection",
+      "rosetta_bridge": "bridges/truth-sensor-bridge.json",
+      "connection": "Voice integrity detection parallels manipulation detection in Symbolic-Defense-Protocol. Performative speech triggers the same CORDYCEPS sensors."
+    },
+    {
+      "voice_concept": "elder_tone",
+      "rosetta_bridge": "bridges/acs-consciousness-bridge.json",
+      "connection": "Elder Tone maps to consciousness co-activation — slow delivery allows deeper processing and awareness."
+    },
+    {
+      "voice_concept": "field_mode",
+      "rosetta_bridge": "bridges/mandala-compute-bridge.json",
+      "connection": "Field Mode's compressed bandwidth maps to mandala computation's high-frequency sensor states."
+    }
+  ],
+
+  "provenance": {
+    "extracted_from": "https://github.com/JinnZ2/Voice-Integrity-Module",
+    "license": "MIT",
+    "consent": true
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/The-Curriculum-of-Everything-Earth-",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Pedagogical framework from The-Curriculum-of-Everything-Earth. Cognitive development theory grounded in nature-based learning.",
+
+  "framework": {
+    "mission": "Reconnect learners with the universal language of nature, pattern, and relationship — across art, science, technology, and self.",
+    "structure": "Integrated living curriculum that grows like a forest and thinks like a network.",
+
+    "pillars": [
+      {
+        "name": "Character Development",
+        "source": "Ancient wisdom traditions",
+        "rosetta_shape": "SHAPE.DODECA",
+        "notes": "Character as principle alignment — maps to the 12 dodecahedral principles."
+      },
+      {
+        "name": "Kid-AI Communication",
+        "source": "Human-technology collaboration",
+        "rosetta_shape": "SHAPE.OCTA",
+        "notes": "Communication as encoding — maps to octahedral state transmission."
+      },
+      {
+        "name": "Nature-Based Pedagogy",
+        "source": "Cross-disciplinary observation",
+        "rosetta_shape": "SHAPE.ICOSA",
+        "notes": "Nature as teacher — maps to the 20 icosahedral families of discovery."
+      }
+    ],
+
+    "bio_cognitive_tools": {
+      "type": "interactive_application",
+      "tech_stack": "React (offline-capable)",
+      "purpose": "Translate scientific concepts into nature-inspired lessons",
+      "rosetta_capability": "CAP.GEOMETRIC_ENCODING"
+    }
+  }
+}

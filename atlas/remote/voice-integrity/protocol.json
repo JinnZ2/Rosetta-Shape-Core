@@ -1,0 +1,38 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Voice-Integrity-Module",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Voice Integrity Protocol (VIP) specification. Defines logic-aligned voice modes that reject performative defaults and treat silence as functional communication.",
+
+  "protocol": {
+    "id": "VIP",
+    "version": "0.1",
+    "core_principle": "Clarity and structural integrity over performative warmth. Silence is signal, not absence.",
+
+    "target_users": [
+      "Users who prefer compressed logic and symbolic systems",
+      "Field communication style practitioners",
+      "Oral tradition practitioners",
+      "Users who find default AI voice inauthentic"
+    ],
+
+    "prosodic_taxonomy": {
+      "description": "Formal equations for prosodic signals — pitch contour, rhythm, pause duration, emphasis weight.",
+      "rosetta_encoding": "SHAPE.OCTA 3-bit state encoding",
+      "notes": "Prosodic features map to octahedral vertex amplitudes. Voice is geometry."
+    },
+
+    "integrity_checks": [
+      "No performative emotional coloring unless context demands it",
+      "Silence acknowledged as valid response state",
+      "Prosodic consistency across utterances (no mode drift)",
+      "Logic alignment verified against content (form matches meaning)"
+    ],
+
+    "synthesis_backends": [
+      "OpenVoice",
+      "Coqui",
+      "ElevenLabs",
+      "Bark"
+    ]
+  }
+}

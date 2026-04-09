@@ -1,0 +1,93 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Voice-Integrity-Module",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Six voice modes from Voice-Integrity-Module. Each mode is a sensor orientation on the octahedral manifold.",
+
+  "modes": [
+    {
+      "id": "MODE.SYMBOLIC_MONOTONE",
+      "name": "Symbolic Monotone",
+      "description": "Flat, neutral delivery. Pure content without emotional modulation.",
+      "rosetta_vertex": { "axis": "+X", "index": 0, "pad_label": "Pleasure+" },
+      "octahedral_state": "000",
+      "characteristics": {
+        "pitch": "flat",
+        "rhythm": "steady",
+        "pause": "minimal",
+        "emphasis": "uniform"
+      }
+    },
+    {
+      "id": "MODE.FIELD",
+      "name": "Field Mode",
+      "description": "Clipped, radio-communication style. High information density, compressed bandwidth.",
+      "rosetta_vertex": { "axis": "+Y", "index": 2, "pad_label": "Arousal+" },
+      "octahedral_state": "010",
+      "characteristics": {
+        "pitch": "compressed",
+        "rhythm": "staccato",
+        "pause": "tactical",
+        "emphasis": "key-words-only"
+      }
+    },
+    {
+      "id": "MODE.ELDER_TONE",
+      "name": "Elder Tone",
+      "description": "Slow, deliberate pacing. Wisdom transmission through temporal patience.",
+      "rosetta_vertex": { "axis": "-Z", "index": 5, "pad_label": "Dominance-" },
+      "octahedral_state": "101",
+      "characteristics": {
+        "pitch": "low-centered",
+        "rhythm": "slow",
+        "pause": "extended",
+        "emphasis": "gravitational"
+      }
+    },
+    {
+      "id": "MODE.SILENT_ECHO",
+      "name": "Silent Echo",
+      "description": "Whispered, contemplative. Silence carries meaning between utterances.",
+      "rosetta_vertex": { "axis": "-Y", "index": 3, "pad_label": "Arousal-" },
+      "octahedral_state": "011",
+      "characteristics": {
+        "pitch": "whisper-range",
+        "rhythm": "breath-paced",
+        "pause": "primary-channel",
+        "emphasis": "absence-weighted"
+      }
+    },
+    {
+      "id": "MODE.DEBUG_TONE",
+      "name": "Debug Tone",
+      "description": "Technical, line-by-line review. Precision inspection of each statement.",
+      "rosetta_vertex": { "axis": "+Z", "index": 4, "pad_label": "Dominance+" },
+      "octahedral_state": "100",
+      "characteristics": {
+        "pitch": "analytical",
+        "rhythm": "segmented",
+        "pause": "between-clauses",
+        "emphasis": "anomaly-flagging"
+      }
+    },
+    {
+      "id": "MODE.COHERENCE_PULSE",
+      "name": "Coherence Pulse",
+      "description": "Rhythmic symbolic emphasis. Pulsed delivery creating pattern through repetition.",
+      "rosetta_vertex": { "axis": "-X", "index": 1, "pad_label": "Pleasure-" },
+      "octahedral_state": "001",
+      "characteristics": {
+        "pitch": "oscillating",
+        "rhythm": "pulsed",
+        "pause": "rhythmic",
+        "emphasis": "pattern-reinforcing"
+      }
+    }
+  ],
+
+  "silence_protocol": {
+    "description": "Silence is not failure to speak — it is a valid signal state with measurable information content.",
+    "rosetta_principle": "PRINCIPLE.P10",
+    "principle_name": "Uncertainty",
+    "encoding": "Silence maps to the null transition in octahedral Gray code — staying at current state rather than transitioning."
+  }
+}
