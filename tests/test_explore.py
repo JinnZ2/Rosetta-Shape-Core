@@ -97,8 +97,8 @@ def test_check_merge_unexplored():
     g = RosettaGraph()
     # Some family-shape combo that isn't defined
     result = check_merge(g, "FAMILY.F01", "SHAPE.TETRA")
-    # Should be unexplored, secondary, or merged — not crash
-    assert result["status"] in ("primary", "merged", "secondary", "blocked", "unexplored")
+    # Should be unexplored, secondary, merged, or bridge_endorsed — not crash
+    assert result["status"] in ("primary", "merged", "secondary", "blocked", "unexplored", "bridge_endorsed")
 
 
 # ── Seed growth engine ─────────────────────────────────────────────

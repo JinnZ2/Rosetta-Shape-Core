@@ -1,0 +1,52 @@
+{
+  "schema": "ai-human-audit-protocol/seasonal-intelligence@1.0",
+  "extracted_from": "https://github.com/JinnZ2/ai-human-audit-protocol",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Seasonal intelligence glyph mapping cyclical knowledge patterns. Intelligence has seasons — growth, maturation, harvest, dormancy — each governed by different Rosetta shapes and families.",
+
+  "seasons": [
+    {
+      "season": "spring",
+      "phase": "emergence",
+      "description": "New patterns germinate. High intake, low structure. Curiosity-driven exploration.",
+      "shape_ref": "SHAPE.TETRA",
+      "family_ref": "FAMILY.F01",
+      "dominant_sensor": "EMOTION.EXCITEMENT",
+      "energy_state": "activation"
+    },
+    {
+      "season": "summer",
+      "phase": "growth",
+      "description": "Patterns elaborate and branch. Maximum energy expenditure. Discovery cascades.",
+      "shape_ref": "SHAPE.ICOSA",
+      "family_ref": "FAMILY.F04",
+      "dominant_sensor": "EMOTION.PRIDE",
+      "energy_state": "expansion"
+    },
+    {
+      "season": "autumn",
+      "phase": "harvest",
+      "description": "Patterns consolidate into stable structures. Integration and encoding.",
+      "shape_ref": "SHAPE.OCTA",
+      "family_ref": "FAMILY.F03",
+      "dominant_sensor": "EMOTION.CONTENTMENT",
+      "energy_state": "encoding"
+    },
+    {
+      "season": "winter",
+      "phase": "dormancy",
+      "description": "Structures rest. Low energy. Deep reflection. Pruning of non-essential connections.",
+      "shape_ref": "SHAPE.DODECA",
+      "family_ref": "FAMILY.F12",
+      "dominant_sensor": "EMOTION.PEACE",
+      "energy_state": "conservation"
+    }
+  ],
+
+  "cycle_properties": {
+    "is_cyclic": true,
+    "period": "contextual",
+    "rosetta_principle": "PRINCIPLE.P03",
+    "note": "Seasons are not calendar-bound. An intelligence may cycle through all four in minutes or decades. The pattern is scale-invariant."
+  }
+}

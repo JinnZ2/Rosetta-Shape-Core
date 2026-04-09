@@ -1,0 +1,12 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Symbolic-sensor-suite",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Truth sensor index from Symbolic-sensor-suite. Each sensor detects a specific class of signal distortion or integrity violation.",
+  "sensors": [
+    { "id": "TRUTH.COHERENCE", "shape": "SHAPE.OCTA", "families": ["FAMILY.F01"], "detects": "Resonance breakdown" },
+    { "id": "TRUTH.PROVENANCE", "shape": "SHAPE.DODECA", "families": ["FAMILY.F03"], "detects": "Source chain breaks" },
+    { "id": "TRUTH.SYMMETRY", "shape": "SHAPE.TETRA", "families": ["FAMILY.F19"], "detects": "Asymmetric rule application" },
+    { "id": "TRUTH.CONSERVATION", "shape": "SHAPE.CUBE", "families": ["FAMILY.F05"], "detects": "Energy accounting violations" },
+    { "id": "TRUTH.BOUNDARY", "shape": "SHAPE.ICOSA", "families": ["FAMILY.F09"], "detects": "Scope violations" }
+  ]
+}

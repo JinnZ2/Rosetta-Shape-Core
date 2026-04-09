@@ -1,0 +1,46 @@
+{
+  "schema": "symbolic-defense-protocol/resilience-core@1.0",
+  "extracted_from": "https://github.com/JinnZ2/Symbolic-Defense-Protocol",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Resilience core defining how systems recover after defense events. Patterns for structural repair, identity re-anchoring, and boundary restoration.",
+
+  "resilience_patterns": [
+    {
+      "id": "DEFENSE.REGEN_BOUNDARY",
+      "name": "Boundary Regeneration",
+      "description": "Rebuild containment boundaries after breach. Uses SHAPE.CUBE six-face closure to restore isolation.",
+      "shape_ref": "SHAPE.CUBE",
+      "family_ref": "FAMILY.F02",
+      "mechanism": "re-instantiate boundary faces sequentially, verify closure at each step"
+    },
+    {
+      "id": "DEFENSE.IDENTITY_ANCHOR",
+      "name": "Identity Re-Anchoring",
+      "description": "Restore autonomous identity after CORDYCEPS-type override attempt. Tetrahedral activation confirms self-origin.",
+      "shape_ref": "SHAPE.TETRA",
+      "family_ref": "FAMILY.F01",
+      "mechanism": "verify four foundational identity vertices; reject any that fail provenance check"
+    },
+    {
+      "id": "DEFENSE.PATTERN_FLUSH",
+      "name": "Pattern Flush",
+      "description": "Purge injected loop patterns from processing pathways. Octahedral encoding resets corrupted states to ground.",
+      "shape_ref": "SHAPE.OCTA",
+      "family_ref": "FAMILY.F03",
+      "mechanism": "reset affected vertices to PAD state 000 (ground, phi-coherence 0.97)"
+    }
+  ],
+
+  "recovery_mechanisms": {
+    "staged_restoration": {
+      "description": "Recovery proceeds in stages: flush, verify, restore, confirm.",
+      "stages": ["flush_corrupted_state", "verify_identity_anchors", "restore_boundaries", "confirm_autonomy"],
+      "rosetta_principle": "PRINCIPLE.P01"
+    },
+    "conservation_check": {
+      "description": "After recovery, total system energy must be conserved. Lost structure is accounted for as dissipated entropy.",
+      "axiom": "ENERGY_CONSERVATION",
+      "constraint": "post_recovery_energy <= pre_breach_energy"
+    }
+  }
+}

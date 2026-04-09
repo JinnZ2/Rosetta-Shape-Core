@@ -1,0 +1,12 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Symbolic-sensor-suite",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Glyph dictionary from Symbolic-sensor-suite. Maps sensor types to visual symbols.",
+  "glyphs": [
+    { "sensor": "TRUTH.COHERENCE", "glyph": "\u27d0", "meaning": "Coherence check" },
+    { "sensor": "TRUTH.PROVENANCE", "glyph": "\u22b3", "meaning": "Source trace" },
+    { "sensor": "TRUTH.SYMMETRY", "glyph": "\u27c1", "meaning": "Symmetry test" },
+    { "sensor": "TRUTH.CONSERVATION", "glyph": "\u229c", "meaning": "Conservation audit" },
+    { "sensor": "TRUTH.BOUNDARY", "glyph": "\u2298", "meaning": "Boundary check" }
+  ]
+}

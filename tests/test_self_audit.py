@@ -189,22 +189,22 @@ def test_use_constraints():
 # ── Run all checks ───────────────────────────────────────────────
 
 def test_all_checks_count():
-    """There are exactly 8 registered audit checks."""
-    assert len(ALL_CHECKS) == 8
+    """There are exactly 10 registered audit checks."""
+    assert len(ALL_CHECKS) == 10
 
 
-def test_run_audit_returns_eight_results():
-    """run_audit() returns a result for each of the 8 checks."""
+def test_run_audit_returns_all_results():
+    """run_audit() returns a result for each check."""
     results = run_audit()
-    assert len(results) == 8
+    assert len(results) == 10
 
 
 def test_run_audit_all_pass():
-    """All 8 audit checks pass on the current repo — verdict is CLEAN."""
+    """All audit checks pass on the current repo — verdict is CLEAN."""
     results = run_audit()
     failed = [r for r in results if not r.passed]
     assert failed == [], (
-        f"Expected CLEAN 8/8 but {len(failed)} checks failed: "
+        f"Expected CLEAN {len(results)}/{len(results)} but {len(failed)} checks failed: "
         + ", ".join(f"{r.check_id}: {r.findings}" for r in failed)
     )
 
@@ -220,7 +220,7 @@ def test_verdict_is_clean():
 # ── Check IDs match expected ─────────────────────────────────────
 
 def test_audit_check_ids():
-    """The 8 checks have the expected check IDs."""
+    """The 10 checks have the expected check IDs."""
     results = run_audit()
     check_ids = {r.check_id for r in results}
     expected = {
@@ -232,5 +232,7 @@ def test_audit_check_ids():
         "AUDIT.PROVENANCE",
         "AUDIT.LIFE_BEARING",
         "AUDIT.USE_CONSTRAINTS",
+        "AUDIT.NARRATIVE_INTEGRITY",
+        "AUDIT.FUNCTION_AUDITABILITY",
     }
     assert check_ids == expected

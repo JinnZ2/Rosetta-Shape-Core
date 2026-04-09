@@ -1,0 +1,49 @@
+{
+  "schema": "geometric-manifold/invariants@1.0",
+  "extracted_from": "https://github.com/JinnZ2/Geometric-manifold-",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "status": "planned",
+  "description": "Manifold invariants defining topological properties and basin structures. Each invariant class maps to a Rosetta shape whose geometry encodes the invariant's character.",
+
+  "invariant_classes": [
+    {
+      "id": "MANIFOLD.EULER",
+      "name": "Euler Characteristic",
+      "description": "V - E + F = 2 for all closed convex polyhedra. The topological fingerprint that all five Platonic solids share.",
+      "formula": "V - E + F",
+      "value_for_platonic": 2,
+      "shape_ref": "SHAPE.DODECA",
+      "family_ref": "FAMILY.F12",
+      "note": "Euler characteristic is invariant under continuous deformation — it survives any homeomorphism."
+    },
+    {
+      "id": "MANIFOLD.GENUS",
+      "name": "Genus",
+      "description": "Number of handles on a surface. Genus 0 = sphere (Platonic solids). Higher genus = more complex topology.",
+      "base_value": 0,
+      "shape_ref": "SHAPE.ICOSA",
+      "family_ref": "FAMILY.F04"
+    },
+    {
+      "id": "MANIFOLD.CURVATURE_BASIN",
+      "name": "Curvature Basin",
+      "description": "Regions of a manifold where Gaussian curvature concentrates. Basins act as attractors for dynamic flows.",
+      "shape_ref": "SHAPE.OCTA",
+      "family_ref": "FAMILY.F03",
+      "basin_types": ["elliptic_positive", "hyperbolic_negative", "parabolic_zero"]
+    }
+  ],
+
+  "basin_structures": {
+    "attractor_basins": {
+      "description": "Stable configurations the manifold relaxes toward. Each Platonic solid is a curvature basin attractor.",
+      "attractors": ["SHAPE.TETRA", "SHAPE.CUBE", "SHAPE.OCTA", "SHAPE.ICOSA", "SHAPE.DODECA"],
+      "rosetta_principle": "PRINCIPLE.P01"
+    },
+    "transition_saddles": {
+      "description": "Unstable equilibria between basins. Shape transitions pass through saddle points requiring activation energy.",
+      "shape_ref": "SHAPE.TETRA",
+      "constraint": "ENERGY_CONSERVATION — transition cost equals curvature difference between source and target basin."
+    }
+  }
+}
