@@ -13,34 +13,51 @@ Usage:
     python -m rosetta_shape_core.explore CRYSTAL.QUARTZ --json
 """
 from __future__ import annotations
-import json, argparse, sys
+
+import argparse
+import json
+import sys
 from collections import defaultdict
 
-# ── submodule re-exports (preserve all existing import paths) ─────
-from rosetta_shape_core._graph import RosettaGraph, _load_json, _load_jsonl, ROOT  # noqa: F401
-
-from rosetta_shape_core._sensors import (  # noqa: F401
-    SENSOR_REGISTRY, PAD_STATES, FAMILY_SENSOR_CONTEXT,
-    map_internal_environment, _compute_natural_states,
+from rosetta_shape_core._bridges import BridgeIndex  # noqa: F401
+from rosetta_shape_core._display import (  # noqa: F401
+    SHAPE_GLYPHS,
+    STATUS_MARKS,
+    print_home,
+    print_internal_environment,
+    print_merge_checks,
+    print_paths,
+    print_seed_state,
+    print_shadows,
 )
 
+# ── submodule re-exports (preserve all existing import paths) ─────
+from rosetta_shape_core._graph import ROOT, RosettaGraph, _load_json, _load_jsonl  # noqa: F401
 from rosetta_shape_core._seed import (  # noqa: F401
-    SEED_VERTICES, FAMILY_VERTEX_LOADING, BRANCHING_K, SATURATION_FRACTION,
+    BRANCHING_K,
+    FAMILY_VERTEX_LOADING,
+    SATURATION_FRACTION,
+    SEED_VERTICES,
     compute_seed_state,
 )
-
+from rosetta_shape_core._sensors import (  # noqa: F401
+    FAMILY_SENSOR_CONTEXT,
+    PAD_STATES,
+    SENSOR_REGISTRY,
+    _compute_natural_states,
+    map_internal_environment,
+)
 from rosetta_shape_core._shadows import (  # noqa: F401
-    PHI, PHI_INVERSE, PHI_TOLERANCE, PHI_FAMILIES,
-    ECONOMIC_EQUATIONS, SIGNAL_DISTORTIONS, NARRATIVE_PHYSICS_FAMILIES,
-    EQUATION_BOUNDARIES, hunt_shadows,
+    ECONOMIC_EQUATIONS,
+    EQUATION_BOUNDARIES,
+    NARRATIVE_PHYSICS_FAMILIES,
+    PHI,
+    PHI_FAMILIES,
+    PHI_INVERSE,
+    PHI_TOLERANCE,
+    SIGNAL_DISTORTIONS,
+    hunt_shadows,
 )
-
-from rosetta_shape_core._display import (  # noqa: F401
-    SHAPE_GLYPHS, STATUS_MARKS,
-    print_home, print_paths, print_merge_checks,
-    print_shadows, print_seed_state, print_internal_environment,
-)
-
 
 # ── home base ───────────────────────────────────────────────────────
 
@@ -179,8 +196,13 @@ def discover(graph: RosettaGraph, entity_id: str, depth: int = 1) -> list[dict]:
             "target": link.get("to", ""),
         })
 
-    # 4) Bridge connections
+    # 4) Bridge connections (cross_bridge_connections — legacy path)
     paths.extend(_find_bridge_connections(graph, entity_id))
+
+    # 4b) Bridge mapping resolution (computationally active bridges)
+    if graph.bridge_index:
+        families = ent.get("rosetta_families", [])
+        paths.extend(graph.bridge_index.resolve_paths(entity_id, families))
 
     # 5) Family affinity exploration
     families = ent.get("rosetta_families", [])
@@ -262,6 +284,18 @@ def check_merge(graph: RosettaGraph, family_id: str, shape_id: str) -> dict:
                 "reason": b.get("reason", "Merge blocked by physics gate"),
             }
 
+    # Consult bridge index for frontier merges
+    if graph.bridge_index:
+        endorsement = graph.bridge_index.endorses_merge(family_id, shape_id)
+        if endorsement:
+            return {
+                "status": "bridge_endorsed",
+                "reason": (
+                    f"Bridge {endorsement['bridge']} endorses {family_id} on {shape_id} "
+                    f"via {endorsement['relation']}. {endorsement.get('notes', '')}"
+                ),
+            }
+
     return {
         "status": "unexplored",
         "reason": f"{family_id} has no defined relationship with {shape_id}. Could be a frontier merge — needs gate validation.",
@@ -300,7 +334,7 @@ def main():
     entity_id = graph.resolve_id(args.entity)
     if not entity_id:
         print(f"\n  Entity '{args.entity}' not found.", file=sys.stderr)
-        print(f"  Try: bee, octopus, quartz, lightning, spiral, ...", file=sys.stderr)
+        print("  Try: bee, octopus, quartz, lightning, spiral, ...", file=sys.stderr)
         sample = list(graph.entities.keys())[:20]
         print(f"  Available: {', '.join(sample)}...", file=sys.stderr)
         sys.exit(1)
@@ -328,7 +362,7 @@ def main():
     print_paths(paths, graph)
     print_merge_checks(hb, paths, graph)
     print(f"\n{'='*60}")
-    print(f"  Start here. Hunt the shadows. The physics holds.")
+    print("  Start here. Hunt the shadows. The physics holds.")
     print(f"{'='*60}\n")
 
 

@@ -1,0 +1,13 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Symbolic-sensor-suite",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Fractal boundary sensor from Symbolic-sensor-suite. Detects where equations stop holding across scales — the edge of a pattern's valid domain.",
+  "sensor": {
+    "id": "SEED.FRACTAL_BOUNDARY",
+    "shape": "SHAPE.ICOSA",
+    "families": ["FAMILY.F09", "FAMILY.F20"],
+    "detection_method": "Compare self-similarity ratio across 3+ scales. Boundary detected where ratio deviates >15% from phi.",
+    "phi_threshold": 0.15,
+    "rosetta_parallel": "SHADOW.BOUNDARY in shadow-hunting"
+  }
+}

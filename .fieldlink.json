@@ -84,6 +84,7 @@
       },
       {
         "name": "ai-consciousness-sensors",
+        "alias": "acs",
         "repo": "https://github.com/JinnZ2/AI-Consciousness-Sensors",
         "ref": "main",
         "direction": "bidirectional",
@@ -487,6 +488,45 @@
         "consent": { "license": "CC0-1.0", "share_ok": true }
       },
       {
+        "name": "curriculum",
+        "repo": "https://github.com/JinnZ2/The-Curriculum-of-Everything-Earth-",
+        "ref": "main",
+        "direction": "inbound",
+        "role": "curriculum_engine",
+        "paths": [
+          "Framework/**/*.md",
+          "Modules/**/*.md",
+          "Subject Adventures/**/*.md",
+          "Teacher-dataset.md",
+          "Bio-cognitive-tools-suite/**/*"
+        ],
+        "mounts": [
+          { "remote": "Modules/modules_index.json", "as": "atlas/remote/curriculum/modules.json", "status": "active" },
+          { "remote": "Framework/framework_index.json", "as": "atlas/remote/curriculum/framework.json", "status": "active" }
+        ],
+        "bridge": "bridges/curriculum-bridge.json",
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
+        "name": "voice-integrity",
+        "repo": "https://github.com/JinnZ2/Voice-Integrity-Module",
+        "ref": "main",
+        "direction": "inbound",
+        "role": "voice_protocol",
+        "paths": [
+          "protocol.json",
+          "modes/*.json",
+          "docs/**/*.md",
+          "training/**/*"
+        ],
+        "mounts": [
+          { "remote": "protocol.json", "as": "atlas/remote/voice-integrity/protocol.json", "status": "active" },
+          { "remote": "modes/modes_index.json", "as": "atlas/remote/voice-integrity/modes.json", "status": "active" }
+        ],
+        "bridge": "bridges/voice-integrity-bridge.json",
+        "consent": { "license": "MIT", "share_ok": true }
+      },
+      {
         "name": "narrative-physics",
         "repo": "local",
         "ref": "main",
@@ -530,11 +570,12 @@
       "shapes/**/*.json",
       "bridges/**/*.json",
       "atlas/**/*.json",
-      "protocols/**/*.md"
+      "protocols/**/*.md",
+      "ai_training/**/*.json"
     ],
 
     "merge": {
-      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "soms", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard", "seed-physics", "ai-arena", "mathematic-economics", "narrative-physics", "shadow-hunting"],
+      "order": ["local", "polyhedral", "emotions", "defense", "audit", "ai-consciousness-sensors", "biogrid", "regen", "geometric-manifold", "fractal-compass", "fractal-compass-core", "biomachine-ecology", "mandala", "symbolic-sensor-suite", "geo-binary-bridge", "universal-redesign", "soms", "living-intelligence", "thermodynamic-accountability", "earth-systems-physics", "physics-guard", "seed-physics", "ai-arena", "mathematic-economics", "curriculum", "voice-integrity", "narrative-physics", "shadow-hunting"],
       "strategy": "deep-merge"
     },
 

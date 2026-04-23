@@ -1,5 +1,6 @@
 """Seed growth engine — octahedral amplitudes, Shannon entropy, explore/expand mode."""
 from __future__ import annotations
+
 import math
 
 from rosetta_shape_core._sensors import PAD_STATES

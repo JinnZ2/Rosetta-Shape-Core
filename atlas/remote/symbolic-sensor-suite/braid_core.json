@@ -1,0 +1,14 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Symbolic-sensor-suite",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Braid core from Symbolic-sensor-suite. Interwoven sensor channels that must be read together — no single sensor gives the full picture.",
+  "braid": {
+    "id": "BRAID.CORE",
+    "channels": ["TRUTH.COHERENCE", "TRUTH.PROVENANCE", "TRUTH.SYMMETRY"],
+    "shape": "SHAPE.OCTA",
+    "families": ["FAMILY.F01", "FAMILY.F03", "FAMILY.F19"],
+    "principle": "No single channel is sufficient. Manipulation targets one channel at a time — braiding forces multi-channel verification.",
+    "minimum_channels": 2,
+    "integrity_rule": "If any 2 of 3 channels flag simultaneously, escalate to full audit."
+  }
+}

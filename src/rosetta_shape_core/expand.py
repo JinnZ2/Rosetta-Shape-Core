@@ -1,5 +1,8 @@
 from __future__ import annotations
-import json, argparse, sys
+
+import argparse
+import json
+import sys
 
 from rosetta_shape_core._graph import ROOT
 
@@ -35,7 +38,7 @@ def apply_rule(op: str, args: list[str], have_caps: list[str] | None = None) -> 
     subj_caps = set(subj.get("capabilities", [])) | set(have_caps or [])
     for r in rules:
         w = r.get("when", {})
-        if w.get("op") != op: 
+        if w.get("op") != op:
             continue
         if w.get("args") != args:
             continue

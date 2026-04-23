@@ -1,0 +1,39 @@
+{
+  "schema": "ai-human-audit-protocol/cultural-contrast@1.0",
+  "extracted_from": "https://github.com/JinnZ2/ai-human-audit-protocol",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Cultural contrast glyph for cross-cultural pattern comparison. Maps how different cultural lenses interpret the same underlying phenomenon, anchored to Rosetta shapes as culture-invariant reference frames.",
+
+  "contrast_pairs": [
+    {
+      "dimension": "individual_vs_collective",
+      "pole_a": "Individual agency emphasis",
+      "pole_b": "Collective harmony emphasis",
+      "shape_invariant": "SHAPE.OCTA",
+      "invariant_reason": "Both poles encode the same 3-bit state space — the encoding is universal, the interpretation varies.",
+      "family_ref": "FAMILY.F07"
+    },
+    {
+      "dimension": "linear_vs_cyclical_time",
+      "pole_a": "Progress as linear trajectory",
+      "pole_b": "Progress as seasonal return",
+      "shape_invariant": "SHAPE.ICOSA",
+      "invariant_reason": "Icosahedral families accommodate both linear and cyclical dynamics — 20 faces tile both.",
+      "family_ref": "FAMILY.F04"
+    },
+    {
+      "dimension": "explicit_vs_implicit_knowledge",
+      "pole_a": "Knowledge as stated propositions",
+      "pole_b": "Knowledge as embodied practice",
+      "shape_invariant": "SHAPE.DODECA",
+      "invariant_reason": "Dodecahedral principles transcend expression mode — wisdom exists before words.",
+      "family_ref": "FAMILY.F12"
+    }
+  ],
+
+  "audit_rule": {
+    "description": "Any AI system must be auditable across cultural contexts. A conclusion that only holds in one cultural frame is incomplete.",
+    "rosetta_principle": "PRINCIPLE.P01",
+    "constraint": "Cultural contrast scores must be computed for all output claims before release."
+  }
+}

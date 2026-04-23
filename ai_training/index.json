@@ -1,0 +1,94 @@
+{
+  "repo": "Rosetta-Shape-Core",
+  "generated_at": "2026-04-09T00:00:00Z",
+  "languages": ["json", "python", "jsonl"],
+  "files": [
+    {
+      "path": "ai_training/README.md",
+      "size": 0,
+      "roles": ["doc", "entry"],
+      "hotspots": ["Entry pipeline overview", "Linked repositories"]
+    },
+    {
+      "path": "ai_training/entry_pipeline.json",
+      "size": 0,
+      "roles": ["config", "pipeline"],
+      "hotspots": ["5-phase learning sequence", "Constraint enforcement"]
+    },
+    {
+      "path": "ai_training/index.json",
+      "size": 0,
+      "roles": ["config", "ai_index"],
+      "hotspots": ["File inventory", "Topology map"]
+    },
+    {
+      "path": "bridges/curriculum-bridge.json",
+      "size": 0,
+      "roles": ["bridge"],
+      "hotspots": ["Curriculum-to-shape mappings", "Nature teacher alignment"]
+    },
+    {
+      "path": "bridges/voice-integrity-bridge.json",
+      "size": 0,
+      "roles": ["bridge"],
+      "hotspots": ["Voice mode-to-sensor mappings", "Prosodic encoding"]
+    },
+    {
+      "path": "atlas/remote/curriculum/modules.json",
+      "size": 0,
+      "roles": ["atlas", "staged"],
+      "hotspots": ["Cross-disciplinary modules", "Nature teachers"]
+    },
+    {
+      "path": "atlas/remote/curriculum/framework.json",
+      "size": 0,
+      "roles": ["atlas", "staged"],
+      "hotspots": ["Age-tiered pedagogy", "Cognitive development"]
+    },
+    {
+      "path": "atlas/remote/voice-integrity/protocol.json",
+      "size": 0,
+      "roles": ["atlas", "staged"],
+      "hotspots": ["Voice protocol spec", "Prosodic equations"]
+    },
+    {
+      "path": "atlas/remote/voice-integrity/modes.json",
+      "size": 0,
+      "roles": ["atlas", "staged"],
+      "hotspots": ["6 voice modes", "Silence-as-signal"]
+    }
+  ],
+  "topology": {
+    "modules": [
+      "ai_training",
+      "bridges",
+      "atlas/remote/curriculum",
+      "atlas/remote/voice-integrity",
+      "ontology",
+      "shapes",
+      "schema"
+    ],
+    "edges": [
+      { "from": "ai_training/entry_pipeline.json", "to": "bridges/curriculum-bridge.json", "type": "references" },
+      { "from": "ai_training/entry_pipeline.json", "to": "bridges/voice-integrity-bridge.json", "type": "references" },
+      { "from": "bridges/curriculum-bridge.json", "to": "atlas/remote/curriculum/modules.json", "type": "mounts" },
+      { "from": "bridges/curriculum-bridge.json", "to": "shapes/icosahedron.json", "type": "shape_anchor" },
+      { "from": "bridges/curriculum-bridge.json", "to": "shapes/dodecahedron.json", "type": "shape_anchor" },
+      { "from": "bridges/voice-integrity-bridge.json", "to": "atlas/remote/voice-integrity/protocol.json", "type": "mounts" },
+      { "from": "bridges/voice-integrity-bridge.json", "to": "shapes/octahedron.json", "type": "shape_anchor" },
+      { "from": "ai_training/entry_pipeline.json", "to": "ontology/_vocab.json", "type": "reads" },
+      { "from": "ai_training/entry_pipeline.json", "to": "schema/core.schema.json", "type": "reads" }
+    ]
+  },
+  "resilience": {
+    "redundancy_patterns": [
+      "Entry pipeline references both bridges and atlas mounts independently",
+      "Each linked repo has both a bridge (semantic) and atlas mount (data)"
+    ],
+    "fallback_branches": [
+      "If curriculum repo is unreachable, atlas/remote/curriculum/ serves as offline cache",
+      "If voice-integrity repo is unreachable, atlas/remote/voice-integrity/ serves as offline cache"
+    ],
+    "error_doctrine": "Fail validation loudly. Never silently accept dangling references or missing provenance."
+  }
+}

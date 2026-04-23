@@ -1,0 +1,16 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Universal-Redesign-Algorithm-",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Redesign schema from Universal-Redesign-Algorithm. Defines transformation patterns for restructuring systems according to physics constraints.",
+  "schema": {
+    "id": "REDESIGN.SCHEMA.V1",
+    "required_fields": ["system_id", "current_state", "target_state", "constraints", "energy_budget"],
+    "constraint_types": ["conservation", "causality", "non_negative", "saturation"],
+    "rosetta_shapes": {
+      "analysis": "SHAPE.OCTA",
+      "restructure": "SHAPE.TETRA",
+      "verify": "SHAPE.DODECA"
+    },
+    "families": ["FAMILY.F05", "FAMILY.F11"]
+  }
+}

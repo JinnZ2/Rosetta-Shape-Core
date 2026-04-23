@@ -1,28 +1,26 @@
 """Tests for the First Principles Audit — Six Sigma DMAIC validation engine."""
 import json
-import math
 
 import pytest
 
 from rosetta_shape_core.first_principles_audit import (
-    ParameterSpec,
+    KNOWN_BIAS_PATTERNS,
     AssumptionRecord,
     DesignChoice,
-    extract_function_signature,
-    catalog_parameters,
-    sensitivity_analysis,
-    boundary_test,
-    generate_fmea,
-    capability_analysis,
-    monte_carlo_capability,
+    ParameterSpec,
     audit_function,
-    flag_biases,
+    boundary_test,
+    capability_analysis,
+    catalog_parameters,
     compare_formulations,
+    extract_function_signature,
+    flag_biases,
     full_audit,
+    generate_fmea,
     generate_report,
-    KNOWN_BIAS_PATTERNS,
+    monte_carlo_capability,
+    sensitivity_analysis,
 )
-
 
 # ── Helpers / Fixtures ───────────────────────────────────────────────
 

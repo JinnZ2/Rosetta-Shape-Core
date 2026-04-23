@@ -1,0 +1,52 @@
+{
+  "id": "AI_TRAINING.FIELDLINK_STATUS",
+  "version": "1.0",
+  "updated": "2026-04-09T00:00:00Z",
+  "description": "Honest accounting of fieldlink source coverage. Distinguishes between what is declared in .fieldlink.json and what is actually populated in atlas/remote/. Physics demands honesty — this file is the provenance check on our own scope.",
+
+  "summary": {
+    "declared_sources": 27,
+    "atlas_directories_populated": 19,
+    "atlas_directories_missing": 8,
+    "total_staged_files": 55,
+    "note": "Missing directories have declared fieldlink entries but no atlas data yet. The system degrades gracefully — bridges still resolve, validation still passes — but these are aspirational links, not live data."
+  },
+
+  "sources": [
+    { "name": "polyhedral",                "atlas_dir": "polyhedral",           "files": 4,  "status": "active" },
+    { "name": "emotions",                  "atlas_dir": "emotions",             "files": 1,  "status": "partial", "note": "2 declared mounts missing (atlas.json, emotion_glyphs.json)" },
+    { "name": "defense",                   "atlas_dir": null,                   "files": 0,  "status": "declared_only", "note": "4 mounts declared, none staged" },
+    { "name": "audit",                     "atlas_dir": null,                   "files": 0,  "status": "declared_only", "note": "3 mounts declared, none staged" },
+    { "name": "ai-consciousness-sensors",  "atlas_dir": null,                   "files": 0,  "status": "declared_only", "note": "3 mounts declared, none staged (acs/ alias exists but with different data)" },
+    { "name": "biogrid",                   "atlas_dir": "biogrid",              "files": 2,  "status": "active" },
+    { "name": "regen",                     "atlas_dir": null,                   "files": 0,  "status": "planned", "note": "3 exports declared, all status: planned" },
+    { "name": "geometric-manifold",        "atlas_dir": null,                   "files": 0,  "status": "planned", "note": "2 exports declared, all status: planned" },
+    { "name": "fractal-compass",           "atlas_dir": "fractal-compass",      "files": 5,  "status": "active" },
+    { "name": "fractal-compass-core",      "atlas_dir": null,                   "files": 0,  "status": "bridge_only", "note": "No atlas mounts, uses bridge_modules only" },
+    { "name": "biomachine-ecology",        "atlas_dir": "biomachine",           "files": 1,  "status": "active" },
+    { "name": "mandala",                   "atlas_dir": "mandala",              "files": 4,  "status": "active" },
+    { "name": "symbolic-sensor-suite",     "atlas_dir": null,                   "files": 0,  "status": "declared_only", "note": "4 mounts declared, none staged" },
+    { "name": "geo-binary-bridge",         "atlas_dir": "geo-binary-bridge",    "files": 6,  "status": "active" },
+    { "name": "universal-redesign",        "atlas_dir": null,                   "files": 0,  "status": "declared_only", "note": "2 mounts declared, none staged" },
+    { "name": "soms",                      "atlas_dir": "soms",                 "files": 1,  "status": "active" },
+    { "name": "living-intelligence",       "atlas_dir": "living-intelligence",  "files": 2,  "status": "active" },
+    { "name": "thermodynamic-accountability","atlas_dir": "taf",                "files": 3,  "status": "active" },
+    { "name": "earth-systems-physics",     "atlas_dir": "esp",                  "files": 4,  "status": "active" },
+    { "name": "physics-guard",             "atlas_dir": "physics-guard",        "files": 3,  "status": "active" },
+    { "name": "seed-physics",              "atlas_dir": "seed-physics",         "files": 3,  "status": "active" },
+    { "name": "ai-arena",                  "atlas_dir": "ai-arena",             "files": 4,  "status": "active" },
+    { "name": "mathematic-economics",      "atlas_dir": "mathematic-economics", "files": 3,  "status": "active" },
+    { "name": "curriculum",                "atlas_dir": "curriculum",            "files": 2,  "status": "active" },
+    { "name": "voice-integrity",           "atlas_dir": "voice-integrity",      "files": 2,  "status": "active" },
+    { "name": "narrative-physics",         "atlas_dir": "narrative-physics",     "files": 2,  "status": "active" },
+    { "name": "shadow-hunting",            "atlas_dir": "shadow-hunting",       "files": 3,  "status": "active" }
+  ],
+
+  "status_key": {
+    "active": "Atlas data staged and bridge resolves. Live integration.",
+    "partial": "Some declared mounts are staged, others missing.",
+    "declared_only": "Fieldlink entry exists, mounts declared, but no atlas data staged.",
+    "planned": "Exports declared with status: planned. Data not yet generated.",
+    "bridge_only": "No atlas mounts — integration via bridge_modules (Python imports) only."
+  }
+}

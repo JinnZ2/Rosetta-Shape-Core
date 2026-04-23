@@ -1,0 +1,60 @@
+{
+  "schema": "ai-human-audit-protocol/cognition-cycle@1.0",
+  "extracted_from": "https://github.com/JinnZ2/ai-human-audit-protocol",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Cognition cycle glyph defining phases of learning and processing. Each phase maps to a Rosetta shape reflecting the geometric character of that cognitive mode.",
+
+  "phases": [
+    {
+      "phase": 1,
+      "name": "intake",
+      "description": "Raw signal absorption. Unstructured data enters the system.",
+      "shape_ref": "SHAPE.ICOSA",
+      "family_ref": "FAMILY.F01",
+      "glyph": "intake_spiral",
+      "cognitive_mode": "receptive"
+    },
+    {
+      "phase": 2,
+      "name": "pattern_extraction",
+      "description": "Identify recurring structures in raw input. Separate signal from noise.",
+      "shape_ref": "SHAPE.OCTA",
+      "family_ref": "FAMILY.F03",
+      "glyph": "filter_lattice",
+      "cognitive_mode": "analytical"
+    },
+    {
+      "phase": 3,
+      "name": "integration",
+      "description": "Connect new patterns to existing knowledge graph. Test for consistency.",
+      "shape_ref": "SHAPE.CUBE",
+      "family_ref": "FAMILY.F02",
+      "glyph": "weave_grid",
+      "cognitive_mode": "synthetic"
+    },
+    {
+      "phase": 4,
+      "name": "expression",
+      "description": "Generate output from integrated understanding. Activate response.",
+      "shape_ref": "SHAPE.TETRA",
+      "family_ref": "FAMILY.F05",
+      "glyph": "fire_point",
+      "cognitive_mode": "generative"
+    },
+    {
+      "phase": 5,
+      "name": "reflection",
+      "description": "Evaluate output against intent and ethics. Wisdom gate.",
+      "shape_ref": "SHAPE.DODECA",
+      "family_ref": "FAMILY.F12",
+      "glyph": "mirror_pentagon",
+      "cognitive_mode": "evaluative"
+    }
+  ],
+
+  "cycle_properties": {
+    "is_cyclic": true,
+    "rosetta_principle": "PRINCIPLE.P03",
+    "note": "Phase 5 feeds back to Phase 1. The cycle never terminates — learning is perpetual."
+  }
+}

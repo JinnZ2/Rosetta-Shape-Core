@@ -1,0 +1,79 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/The-Curriculum-of-Everything-Earth-",
+  "extracted_at": "2026-04-09T00:00:00Z",
+  "description": "Cross-disciplinary learning modules from The-Curriculum-of-Everything-Earth. Each module maps to Rosetta shape families.",
+
+  "modules": [
+    {
+      "id": "MODULE.PATTERNS",
+      "name": "Pattern Recognition",
+      "domain": "cross-disciplinary",
+      "rosetta_families": ["FAMILY.F01", "FAMILY.F09"],
+      "description": "Exploring patterns across nature, mathematics, and art. Resonance and geometry as universal languages."
+    },
+    {
+      "id": "MODULE.WAVES",
+      "name": "Waves and Oscillation",
+      "domain": "physics-music",
+      "rosetta_families": ["FAMILY.F01", "FAMILY.F02"],
+      "description": "Sound, light, and water waves as expressions of resonance and flow."
+    },
+    {
+      "id": "MODULE.NETWORKS",
+      "name": "Networks and Connection",
+      "domain": "biology-technology",
+      "rosetta_families": ["FAMILY.F12", "FAMILY.F03"],
+      "description": "Mycelial networks, neural networks, and communication systems. Information flow through connected structures."
+    },
+    {
+      "id": "MODULE.GEOMETRIC_THINKING",
+      "name": "Geometric Thinking",
+      "domain": "mathematics-art",
+      "rosetta_families": ["FAMILY.F09", "FAMILY.F20"],
+      "description": "Platonic solids, tessellations, and spatial reasoning. Geometry as the language of structure."
+    }
+  ],
+
+  "subject_adventures": [
+    {
+      "id": "SUBJECT.MATHEMATICS",
+      "rosetta_principle": "PRINCIPLE.P01",
+      "principle_name": "Symmetry",
+      "description": "Mathematics as the study of symmetry, pattern, and invariance."
+    },
+    {
+      "id": "SUBJECT.PHYSICS",
+      "rosetta_principle": "PRINCIPLE.P02",
+      "principle_name": "Conservation",
+      "description": "Physics as the study of what is conserved when everything else changes."
+    },
+    {
+      "id": "SUBJECT.MUSIC_MATH",
+      "rosetta_principle": "PRINCIPLE.P06",
+      "principle_name": "Resonance",
+      "description": "Music-mathematics integration. Harmonic series, frequency ratios, and acoustic geometry."
+    },
+    {
+      "id": "SUBJECT.LANGUAGE_TECH",
+      "rosetta_principle": "PRINCIPLE.P11",
+      "principle_name": "Transformation",
+      "description": "Language evolution and technology as transformation engines."
+    }
+  ],
+
+  "age_tiers": [
+    { "range": "3-5", "rosetta_growth_state": "seed", "pedagogy": "Narrative and sensory immersion" },
+    { "range": "6-8", "rosetta_growth_state": "sprout", "pedagogy": "Hands-on discovery and experimentation" },
+    { "range": "9-12", "rosetta_growth_state": "branch", "pedagogy": "Scientific methodology and abstract reasoning" }
+  ],
+
+  "nature_teachers": {
+    "description": "Subset of nature teachers that map directly to Rosetta ontology entities.",
+    "examples": [
+      { "teacher": "Bee", "entity": "ANIMAL.BEE", "capability": "CAP.SWARM_COORDINATION" },
+      { "teacher": "Spider", "entity": "ANIMAL.SPIDER", "capability": "CAP.WEB_TOPOLOGY" },
+      { "teacher": "Owl", "entity": "ANIMAL.OWL", "capability": "CAP.NOCTURNAL_SENSING" },
+      { "teacher": "Quartz", "entity": "CRYSTAL.QUARTZ", "capability": "CAP.PIEZOELECTRIC" }
+    ]
+  }
+}

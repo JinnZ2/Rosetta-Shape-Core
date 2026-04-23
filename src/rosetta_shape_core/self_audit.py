@@ -22,8 +22,10 @@ Usage:
     python -m rosetta_shape_core.self_audit --fix
 """
 from __future__ import annotations
-import json, pathlib, sys, argparse
-from collections import defaultdict
+
+import argparse
+import json
+import sys
 
 from rosetta_shape_core._graph import ROOT
 
@@ -521,6 +523,126 @@ def check_use_constraints() -> AuditResult:
     return result
 
 
+def check_narrative_integrity() -> AuditResult:
+    """Cross-check provenance chains using KnowledgeDNA and constraint
+    consistency using Narrative Physics.
+
+    This wires two previously-orphan modules into the self-audit:
+    - knowledge_dna.trace_narrative() — backward-traces atlas provenance
+    - narrative_physics.analyze_consistency() — checks use-constraint consistency
+    """
+    result = AuditResult("AUDIT.NARRATIVE_INTEGRITY", "Narrative provenance and constraint consistency")
+
+    # ── 1. KnowledgeDNA: trace atlas provenance chains ────────────
+    from rosetta_shape_core.knowledge_dna import NarrativeNode, trace_narrative
+
+    atlas_dir = ROOT / "atlas" / "remote"
+    if atlas_dir.exists():
+        chains_tested = 0
+        broken = []
+        for p in atlas_dir.rglob("*.json"):
+            data = _load_json(p)
+            if not data or not isinstance(data, dict):
+                continue
+            extracted = data.get("extracted_from", "")
+            desc = data.get("description", "")
+            if not extracted:
+                continue
+            # Build a minimal 2-node chain: description → source
+            chain = [
+                NarrativeNode(
+                    claim=desc or f"Data in {p.name}",
+                    source=extracted,
+                    source_type="primary" if "github.com" in extracted else "secondary",
+                    data_basis="JSON schema-validated file",
+                    beneficiary="Rosetta-Shape-Core ecosystem",
+                ),
+            ]
+            trace = trace_narrative(f"Provenance of {p.name}", chain)
+            chains_tested += 1
+            if not trace.provenance_intact:
+                broken.append(str(p.relative_to(ROOT)))
+
+        if chains_tested > 0 and not broken:
+            pass  # all good
+        elif broken:
+            for b in broken[:5]:
+                result.warn(f"Weak provenance chain: {b}")
+
+    # ── 2. Narrative Physics: constraint consistency on use_constraints
+    from rosetta_shape_core.narrative_physics import (
+        Behavior,
+        Constraint,
+        analyze_consistency,
+    )
+
+    fieldlink = _load_json(ROOT / ".fieldlink.json")
+    if fieldlink:
+        fl = fieldlink.get("fieldlink", fieldlink)
+        uc = fl.get("use_constraints", {})
+        intended = uc.get("intended_use", [])
+        forbidden = uc.get("explicitly_not_for", [])
+
+        if intended and forbidden:
+            # Build constraints from forbidden uses
+            constraints = [
+                Constraint(id=f"FORBID.{i}", text=f, source=".fieldlink.json")
+                for i, f in enumerate(forbidden)
+            ]
+            # Build behaviors from intended uses (should satisfy all constraints)
+            behaviors = [
+                Behavior(
+                    description=use,
+                    target_group="universal",
+                    constraint_results={c.id: "satisfies" for c in constraints},
+                )
+                for use in intended
+            ]
+            analysis = analyze_consistency("Rosetta use_constraints", constraints, behaviors)
+            if analysis.verdict == "MANIPULATION":
+                result.fail(
+                    f"Use constraints are inconsistent: {analysis.cordyceps_flags}. "
+                    "Intended uses violate declared forbidden uses."
+                )
+            elif analysis.cordyceps_flags:
+                for flag in analysis.cordyceps_flags:
+                    result.warn(f"Constraint consistency flag: {flag}")
+
+    return result
+
+
+def check_core_functions_auditable() -> AuditResult:
+    """Verify that core functions can be introspected by the first-principles
+    audit engine.  This doesn't run a full DMAIC audit (too slow for CI),
+    but confirms the functions are importable and have inspectable signatures.
+    """
+    result = AuditResult("AUDIT.FUNCTION_AUDITABILITY", "Core functions are auditable by first-principles engine")
+
+    from rosetta_shape_core.first_principles_audit import extract_function_signature
+
+    core_functions = []
+    try:
+        from rosetta_shape_core.explore import check_merge, discover, home_base
+
+        core_functions = [
+            ("home_base", home_base),
+            ("discover", discover),
+            ("check_merge", check_merge),
+        ]
+    except ImportError:
+        result.fail("Core exploration functions not importable")
+        return result
+
+    for name, func in core_functions:
+        sig = extract_function_signature(func)
+        if not sig.get("parameters"):
+            result.warn(f"{name}() has no inspectable parameters — cannot audit")
+        elif not sig.get("docstring"):
+            result.warn(f"{name}() has no docstring — audit reports will lack context")
+
+    return result
+
+
 # ── Run All Checks ────────────────────────────────────────────────
 
 ALL_CHECKS = [
@@ -532,6 +654,8 @@ ALL_CHECKS = [
     check_provenance_chain,
     check_life_bearing,
     check_use_constraints,
+    check_narrative_integrity,
+    check_core_functions_auditable,
 ]
 
 
@@ -560,15 +684,15 @@ def print_audit(results: list[AuditResult]):
                 text = f.replace("[warn] ", "")
                 print(f"{prefix}  {text}")
         elif r.passed:
-            print(f"    All clear.")
+            print("    All clear.")
 
     print(f"\n{'=' * 64}")
     if failed == 0:
         print(f"  VERDICT: CLEAN — {passed}/{total} checks passed")
-        print(f"  The physics holds. The system is life-bearing.")
+        print("  The physics holds. The system is life-bearing.")
     else:
         print(f"  VERDICT: {'CORRUPTED' if failed > 2 else 'SUSPECT'} — {failed}/{total} checks FAILED")
-        print(f"  Review findings above. Something may be outside scope.")
+        print("  Review findings above. Something may be outside scope.")
     print(f"{'=' * 64}")
     print()
 

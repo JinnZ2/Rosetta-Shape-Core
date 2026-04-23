@@ -10,17 +10,25 @@ Usage:
     python -m rosetta_shape_core.sim --agents bee,octopus,quartz,mycelium,cordyceps
 """
 from __future__ import annotations
-import json, math, random, argparse, sys, pathlib
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
+import argparse
+import json
+import pathlib
+import random
+import sys
 
-# Import from the exploration engine
 from rosetta_shape_core.explore import (
-    RosettaGraph, home_base, discover, compute_seed_state,
-    check_merge, SENSOR_REGISTRY, PAD_STATES, SHAPE_GLYPHS,
-    FAMILY_SENSOR_CONTEXT, SEED_VERTICES, BRANCHING_K,
+    BRANCHING_K,
+    PAD_STATES,
+    SENSOR_REGISTRY,
+    SHAPE_GLYPHS,
+    RosettaGraph,
+    compute_seed_state,
+    discover,
+    home_base,
 )
 
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 # ── Agent ──────────────────────────────────────────────────────────
 
@@ -60,8 +68,16 @@ class Agent:
         # Mode
         self.mode = self.seed.get("mode", "expand")
 
-    def tick(self, tick_num: int, all_agents: list[Agent]) -> dict:
-        """One step of the simulation. Returns events that happened."""
+    def tick(self, tick_num: int, all_agents: list[Agent],
+             env: dict | None = None) -> dict:
+        """One step of the simulation. Returns events that happened.
+
+        *env* is an optional environment energy pool (dict with key
+        ``"energy"``).  When present, expansion draws from the pool and
+        maintenance/exploration deposits back into it — making the total
+        system energy conserved.  When absent, the old open-system
+        behavior is used (backward compatible).
+        """
         events = []
 
         # 1. Recompute seed state with current energy
@@ -77,9 +93,9 @@ class Agent:
 
         # 2. Act based on mode
         if self.mode == "explore":
-            events.extend(self._explore(tick_num, all_agents))
+            events.extend(self._explore(tick_num, all_agents, env))
         else:
-            events.extend(self._expand(tick_num))
+            events.extend(self._expand(tick_num, env))
 
         # 3. Check for cooperation opportunities
         events.extend(self._seek_cooperation(tick_num, all_agents))
@@ -90,7 +106,10 @@ class Agent:
         # 4. Energy dynamics
         # Existing structure costs energy to maintain (complexity cost)
         maintenance = complexity * 0.1
+        actual_loss = min(maintenance, self.energy)
         self.energy = max(0.0, self.energy - maintenance)
+        if env is not None:
+            env["energy"] += actual_loss  # return to environment
 
         # 5. Record shell
         self.shells.append({
@@ -118,7 +137,8 @@ class Agent:
 
         return events
 
-    def _explore(self, tick_num: int, all_agents: list[Agent]) -> list[dict]:
+    def _explore(self, tick_num: int, all_agents: list[Agent],
+                 env: dict | None = None) -> list[dict]:
         """Explore mode: discover new paths, spend energy."""
         events = []
         paths = discover(self.graph, self.entity_id, depth=1)
@@ -146,8 +166,12 @@ class Agent:
             if target_shape:
                 self.visited_shapes.add(target_shape)
 
-            # Exploration costs energy
-            self.energy -= 0.3
+            # Exploration costs energy (dissipated to environment)
+            cost = 0.3
+            actual_cost = min(cost, self.energy)
+            self.energy -= actual_cost
+            if env is not None:
+                env["energy"] += actual_cost
 
             # But yields trust (accurate exploration = good predictions)
             self.trust += 0.1
@@ -157,36 +181,43 @@ class Agent:
                 "agent": self.label,
                 "event": "explore",
                 "detail": f"Discovered {path.get('type')}: {path.get('emergent', path.get('target_shape', path.get('target', '?')))}",
-                "energy_cost": 0.3,
+                "energy_cost": actual_cost,
                 "trust_gain": 0.1,
             })
         else:
             # Nothing new to find at depth 1 — deepen existing knowledge
-            self.energy -= 0.1
+            cost = 0.1
+            actual_cost = min(cost, self.energy)
+            self.energy -= actual_cost
+            if env is not None:
+                env["energy"] += actual_cost
             self.trust += 0.05
             events.append({
                 "tick": tick_num,
                 "agent": self.label,
                 "event": "deepen",
                 "detail": f"All depth-1 paths known ({len(self.discovered_paths)} total). Deepening.",
-                "energy_cost": 0.1,
+                "energy_cost": actual_cost,
             })
 
         return events
 
-    def _expand(self, tick_num: int) -> list[dict]:
-        """Expand mode: preserve structure, recover energy."""
+    def _expand(self, tick_num: int, env: dict | None = None) -> list[dict]:
+        """Expand mode: preserve structure, recover energy from environment."""
         events = []
 
-        # Expanding is cheaper and restores some energy (consolidation)
+        # Recovery draws from environment pool (if available)
         recovery = 0.2
+        if env is not None:
+            recovery = min(recovery, env["energy"])
+            env["energy"] -= recovery
         self.energy = min(self.max_energy, self.energy + recovery)
 
         events.append({
             "tick": tick_num,
             "agent": self.label,
             "event": "expand",
-            "detail": f"Preserving structure. Energy recovering (+{recovery}).",
+            "detail": f"Preserving structure. Energy recovering (+{recovery:.2f}).",
             "energy_gain": recovery,
         })
 
@@ -319,6 +350,72 @@ class Agent:
                 "detail": f"Only knows {list(self.visited_shapes)[0]} after {tick_num} ticks — shape isolation",
             })
 
+        # Narrative physics: check ecosystem-level constraint consistency
+        # Only run periodically (every 5 ticks) to avoid overhead
+        if tick_num % 5 == 0 and tick_num > 0:
+            events.extend(self._narrative_physics_check(tick_num, all_agents))
+
+        return events
+
+    def _narrative_physics_check(self, tick_num: int, all_agents: list[Agent]) -> list[dict]:
+        """Use narrative physics to detect manipulation patterns in the ecosystem.
+
+        Builds constraints from the simulation's own rules (energy conservation,
+        exploration autonomy) and checks whether agent behaviors violate them
+        selectively (which signals manipulation rather than genuine constraint).
+        """
+        from rosetta_shape_core.narrative_physics import (
+            Behavior,
+            Constraint,
+            analyze_consistency,
+        )
+
+        events = []
+
+        constraints = [
+            Constraint(id="ENERGY_FAIR", text="Energy sharing is bidirectional"),
+            Constraint(id="EXPLORE_FREE", text="Agents with energy can explore"),
+            Constraint(id="DIVERSITY", text="Multiple shapes should be visited"),
+        ]
+
+        behaviors = []
+        for a in all_agents:
+            # Did this agent share energy fairly?
+            gave = sum(1 for c in a.connections if c[2] == "cooperation")
+            energy_fair = "satisfies" if gave > 0 or a.energy < 1.0 else "partial"
+
+            # Could it explore when it had energy?
+            recent_modes = [s["mode"] for s in a.shells[-3:]] if len(a.shells) >= 3 else []
+            stuck = all(m == "expand" for m in recent_modes) and a.energy > 1.0
+            explore_free = "violates" if stuck else "satisfies"
+
+            # Did it discover multiple shapes?
+            diversity = "satisfies" if len(a.visited_shapes) > 1 or tick_num < 5 else "partial"
+
+            behaviors.append(Behavior(
+                description=f"{a.label} at tick {tick_num}",
+                target_group="universal",
+                constraint_results={
+                    "ENERGY_FAIR": energy_fair,
+                    "EXPLORE_FREE": explore_free,
+                    "DIVERSITY": diversity,
+                },
+            ))
+
+        analysis = analyze_consistency("Ecosystem fairness", constraints, behaviors)
+        if analysis.verdict == "MANIPULATION":
+            events.append({
+                "tick": tick_num,
+                "agent": self.label,
+                "event": "healing_detect",
+                "pattern": "NARRATIVE_MANIPULATION",
+                "detail": (
+                    f"Narrative physics detects manipulation: "
+                    f"consistency={analysis.consistency_ratio:.0%}, "
+                    f"flags={analysis.cordyceps_flags}"
+                ),
+            })
+
         return events
 
     def _update_sensors(self):
@@ -367,6 +464,104 @@ class Agent:
 
 # ── Simulation ─────────────────────────────────────────────────────
 
+class EnergyLedger:
+    """Track system-wide energy flows per tick.
+
+    The simulation models an open thermodynamic system: expansion injects
+    energy (like sunlight feeding a forest), exploration and maintenance
+    dissipate it (thermodynamic cost of structure).  Cooperation transfers
+    are zero-sum.
+
+    This ledger makes the flows explicit so that:
+    - Energy creation (expansion recovery) is bounded and tracked
+    - Energy destruction (exploration, maintenance) is accounted
+    - The net flow per tick is visible and auditable
+    - Violations of expected bounds trigger warnings
+    """
+
+    def __init__(self, agents: list[Agent]):
+        self.ticks: list[dict] = []
+        self.initial_total = sum(a.energy for a in agents)
+        # System total includes agents + environment (2x agent total)
+        self.system_total = self.initial_total * 2
+
+    def record_tick(self, tick_num: int, agents: list[Agent], events: list[dict],
+                    env_energy: float = 0.0):
+        """Snapshot energy state after a tick and compute flows."""
+        current_total = sum(a.energy for a in agents)
+        prev_total = self.ticks[-1]["total_energy"] if self.ticks else self.initial_total
+
+        # Classify energy flows from events
+        injected = sum(e.get("energy_gain", 0) for e in events)
+        spent = sum(e.get("energy_cost", 0) for e in events)
+        # Maintenance costs are not in events — compute from delta
+        net_delta = current_total - prev_total
+
+        violations = []
+
+        # Saturation check: no single agent holds >60% of total energy
+        if current_total > 0:
+            for a in agents:
+                ratio = a.energy / current_total
+                if ratio > 0.60 and len(agents) > 2:
+                    violations.append(
+                        f"SATURATION: {a.label} holds {ratio:.0%} of total energy"
+                    )
+
+        # Non-negative check
+        for a in agents:
+            if a.energy < 0:
+                violations.append(
+                    f"NON_NEGATIVE: {a.label} has negative energy ({a.energy:.3f})"
+                )
+
+        # Conservation check: agents + environment should equal system total
+        system_now = current_total + env_energy
+        drift = abs(system_now - self.system_total)
+        if drift > 0.01:  # tolerance for float rounding
+            violations.append(
+                f"CONSERVATION: system energy drifted by {drift:.4f} "
+                f"(agents={current_total:.4f} + env={env_energy:.4f} = {system_now:.4f}, "
+                f"expected={self.system_total:.4f})"
+            )
+
+        self.ticks.append({
+            "tick": tick_num,
+            "total_energy": round(current_total, 6),
+            "env_energy": round(env_energy, 6),
+            "system_energy": round(system_now, 6),
+            "net_delta": round(net_delta, 6),
+            "injected": round(injected, 6),
+            "spent": round(spent, 6),
+            "agent_energies": {a.label: round(a.energy, 3) for a in agents},
+            "violations": violations,
+        })
+
+    def summary(self) -> dict:
+        """Return the full energy audit."""
+        if not self.ticks:
+            return {"initial": self.initial_total, "ticks": []}
+
+        final_total = self.ticks[-1]["total_energy"]
+        all_violations = []
+        for t in self.ticks:
+            all_violations.extend(t["violations"])
+
+        return {
+            "initial_total": round(self.initial_total, 6),
+            "final_total": round(final_total, 6),
+            "net_change": round(final_total - self.initial_total, 6),
+            "ticks_recorded": len(self.ticks),
+            "violations": all_violations,
+            "conservation_note": (
+                "CLOSED system: agents + environment pool = constant. "
+                "Expansion draws from environment, exploration/maintenance returns to it. "
+                "Cooperation transfers are zero-sum between agents. "
+                "Total system energy is conserved."
+            ),
+        }
+
+
 class Simulation:
     """Run multiple agents through the Rosetta ecosystem."""
 
@@ -386,6 +581,14 @@ class Simulation:
                 )
                 self.agents.append(agent)
 
+        self.energy_ledger = EnergyLedger(self.agents)
+
+        # Environment energy pool — starts with same total as agents.
+        # This makes the simulation a CLOSED system: expansion draws
+        # from environment, exploration/maintenance returns to it.
+        agent_total = sum(a.energy for a in self.agents)
+        self.env = {"energy": agent_total}
+
     def run(self, ticks: int = 12) -> dict:
         """Run the simulation for N ticks."""
         for t in range(1, ticks + 1):
@@ -395,14 +598,20 @@ class Simulation:
             order = list(self.agents)
             random.shuffle(order)
             for agent in order:
-                events = agent.tick(t, self.agents)
+                events = agent.tick(t, self.agents, env=self.env)
                 tick_events.extend(events)
             self.events.extend(tick_events)
+
+            # Record energy state after each tick
+            self.energy_ledger.record_tick(t, self.agents, tick_events,
+                                           env_energy=self.env["energy"])
 
         return {
             "ticks": ticks,
             "agents": [a.summary() for a in self.agents],
             "events": self.events,
+            "energy_audit": self.energy_ledger.summary(),
+            "environment_energy": round(self.env["energy"], 6),
         }
 
 
@@ -424,7 +633,7 @@ def print_tick(tick_num: int, events: list[dict], agents: list[Agent]):
     """Print one tick's events."""
     print(f"\n  ── Tick {tick_num} {'─'*48}")
     if not events:
-        print(f"    (quiet)")
+        print("    (quiet)")
         return
 
     for e in events:
@@ -460,7 +669,7 @@ def print_status(agents: list[Agent], tick_num: int):
 def print_finale(agents: list[Agent]):
     """Print the final state."""
     print(f"\n{'='*64}")
-    print(f"  FINAL STATE")
+    print("  FINAL STATE")
     print(f"{'='*64}")
 
     ranked = sorted(agents, key=lambda a: -a.trust)
@@ -489,7 +698,7 @@ def print_finale(agents: list[Agent]):
                 print(f"    Growth: {', '.join(growth)}")
 
     # Emergent patterns
-    print(f"\n  ── Emergent Patterns ──")
+    print("\n  ── Emergent Patterns ──")
 
     most_connected = max(agents, key=lambda a: len(set(c[0] for c in a.connections)))
     if most_connected.connections:

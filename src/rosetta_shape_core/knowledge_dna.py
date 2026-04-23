@@ -9,9 +9,11 @@ Usage:
     python -m rosetta_shape_core.knowledge_dna --json
 """
 from __future__ import annotations
-import argparse, json, sys
-from dataclasses import dataclass, field
 
+import argparse
+import json
+import sys
+from dataclasses import dataclass, field
 
 # ── data structures ───────────────────────────────────────────────
 
@@ -191,13 +193,13 @@ def print_trace(result: TraceResult):
     vg = VERDICT_GLYPHS.get(result.verdict, "?")
 
     print(f"\n{'='*60}")
-    print(f"  KNOWLEDGE DNA — Backward Trace")
+    print("  KNOWLEDGE DNA — Backward Trace")
     print(f"{'='*60}")
     print(f"\n  Narrative: {result.narrative}")
     print(f"  Chain length: {result.chain_length}")
 
     # Show chain
-    print(f"\n  ── Narrative Chain ──")
+    print("\n  ── Narrative Chain ──")
     for i, node in enumerate(result.chain):
         depth = "  " * i
         arrow = "→" if i < len(result.chain) - 1 else "⊙"
@@ -211,7 +213,7 @@ def print_trace(result: TraceResult):
             print(f"    {depth}  Benefits: {node.beneficiary}")
 
     # Probes
-    print(f"\n  ── Probe Results ──")
+    print("\n  ── Probe Results ──")
     print(f"    Provenance intact:     {'✓' if result.provenance_intact else '✗'}  ({result.details.get('provenance_ratio', 0):.0%})")
     print(f"    Evidence chain:        {result.details.get('evidence_ratio', 0):.0%}")
     print(f"    Root source type:      {result.root_source_type}")
@@ -221,11 +223,11 @@ def print_trace(result: TraceResult):
         print(f"      Reason: {result.asymmetry_reason}")
 
     if result.flags:
-        print(f"\n  ── Flags ──")
+        print("\n  ── Flags ──")
         for flag in result.flags:
             print(f"    ✗ {flag}")
 
-    print(f"\n  ── Verdict ──")
+    print("\n  ── Verdict ──")
     print(f"    {vg} {result.verdict}")
 
     print(f"\n{'='*60}\n")
