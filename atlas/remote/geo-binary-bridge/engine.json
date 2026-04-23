@@ -1,0 +1,64 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Geometric-to-Binary-Computational-Bridge/tree/main/Engine",
+  "extracted_at": "2026-04-23T00:00:00Z",
+  "description": "Geometric computation engine. Symmetry detection, spatial grids, optimization, and transformation — the computational substrate for converting geometric representations into binary structures.",
+
+  "modules": {
+    "symmetry_detector": {
+      "file": "Engine/symmetry_detector.py",
+      "role": "Detect and classify symmetry patterns in geometric structures",
+      "rosetta_principle": "PRINCIPLE.P01",
+      "rosetta_shape": "SHAPE.DODECA",
+      "families": ["FAMILY.F09"],
+      "description": "Identifies rotational, reflective, and translational symmetries. Maps directly to Principle P01 (Symmetry). Symmetry detection IS the first principle check."
+    },
+    "geometric_solver": {
+      "file": "Engine/geometric_solver.py",
+      "role": "Solve geometric constraint systems",
+      "rosetta_shape": "SHAPE.TETRA",
+      "families": ["FAMILY.F09", "FAMILY.F11"],
+      "description": "Constraint satisfaction over geometric structures. Parallels Rosetta's constraint_agent.py but operates on spatial geometry rather than symbolic ontology."
+    },
+    "geometric_transformer_engine": {
+      "file": "Engine/geometric_transformer_engine.py",
+      "role": "Core transformation engine — geometric to binary",
+      "rosetta_shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F03", "FAMILY.F09"],
+      "description": "The bridge concept itself: geometric representations → binary computational structures. Information (F03) is preserved across the transform; geometry (F09) provides the encoding basis."
+    },
+    "spatial_grid": {
+      "file": "Engine/spatial_grid.py",
+      "role": "Spatial grid data structure for organizing geometric data",
+      "rosetta_shape": "SHAPE.CUBE",
+      "families": ["FAMILY.F08"],
+      "description": "Cubic grid for spatial indexing. Matter (F08) provides the containment structure. Enables efficient spatial queries."
+    },
+    "kt_annealer": {
+      "file": "Engine/kt_annealer.py",
+      "role": "Simulated annealing optimization on geometric landscapes",
+      "rosetta_shape": "SHAPE.TETRA",
+      "families": ["FAMILY.F05"],
+      "description": "Optimization via thermal annealing. Energy-Thermo (F05) is the governing family. Finds low-energy configurations in geometric search spaces."
+    },
+    "simd_optimizer": {
+      "file": "Engine/simd_optimizer.py",
+      "role": "SIMD vectorization for parallel geometric operations",
+      "rosetta_shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F11"],
+      "description": "Parallel computation on geometric data. Engineering (F11) optimization applied to batch octahedral state operations."
+    },
+    "magnonic_sublayer": {
+      "file": "Engine/magnonic_sublayer.py",
+      "role": "Spin-wave computational substrate",
+      "rosetta_shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F10"],
+      "description": "Magnonic (spin-wave) computation layer. Particle physics (F10) provides the theoretical basis. Physical substrate for octahedral state read/write via Zeeman coupling."
+    }
+  },
+
+  "rosetta_connections": {
+    "constraint_agent_parallel": "Engine/geometric_solver.py parallels src/rosetta_shape_core/constraint_agent.py — both solve constraint systems, one spatial, one symbolic",
+    "symmetry_principle": "Engine/symmetry_detector.py implements PRINCIPLE.P01 computationally — detecting symmetry IS the first principle",
+    "optimization_physics": "Engine/kt_annealer.py implements AXIOM.ENERGY_CONSERVATION in search — the annealing schedule IS thermodynamic cost"
+  }
+}

@@ -200,10 +200,39 @@
     }
   },
   "computational_layer": {
-    "description": "Geometric computation capabilities built on octahedral encoding. Recent additions include sparse GlyphState (5000x memory reduction), octahedral log sieve, and geometric factorization up to 77+ bits.",
+    "description": "Geometric computation capabilities built on octahedral encoding. Includes GEIS (encoding runtime), Engine (solvers/optimizers), Negentropic (consciousness metrics), and geometric_intelligence (research framework).",
     "modules": {
-      "GEIS": "Geometric Encoding Intelligence System — octahedral state management and tensor operations",
-      "Engine": "KT annealer, spatial grid, symmetry detector, magnonic sublayer, SIMD optimizer",
+      "GEIS": {
+        "description": "Geometric Encoding Intelligence System — octahedral state management, tensor operations, geometric sensing",
+        "staged_at": "atlas/remote/geo-binary-bridge/geis.json",
+        "key_modules": ["octahedral_state.py", "state_tensor.py", "geometric_encoder.py", "geometric_sense.py"],
+        "primary_shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F09", "FAMILY.F03", "FAMILY.F14"]
+      },
+      "Engine": {
+        "description": "Geometric computation engine — symmetry detection, constraint solving, annealing, SIMD optimization",
+        "staged_at": "atlas/remote/geo-binary-bridge/engine.json",
+        "key_modules": ["symmetry_detector.py", "geometric_solver.py", "kt_annealer.py", "magnonic_sublayer.py"],
+        "primary_shape": "SHAPE.OCTA",
+        "families": ["FAMILY.F09", "FAMILY.F05", "FAMILY.F10", "FAMILY.F11"],
+        "principle_link": "PRINCIPLE.P01 — symmetry_detector.py implements the first principle computationally"
+      },
+      "Negentropic": {
+        "description": "Negentropic computation — consciousness metric M(S), alignment thermodynamics, empirical auditing",
+        "staged_at": "atlas/remote/geo-binary-bridge/negentropic.json",
+        "key_modules": ["consciousness_metric.py", "alignment_thermodynamics.py", "empirical_audit.py"],
+        "primary_shape": "SHAPE.DODECA",
+        "families": ["FAMILY.F05", "FAMILY.F16", "FAMILY.F06"],
+        "caveat": "Core physics established; consciousness metric M(S) is theoretical — empirical validation pending"
+      },
+      "geometric_intelligence": {
+        "description": "Research framework — resonance sensors, curiosity engine, constraint agent, protection engine, zero-knowledge proofs",
+        "staged_at": "atlas/remote/geo-binary-bridge/geometric_intelligence.json",
+        "key_modules": ["resonance_sensors.py", "curiosity_engine.py", "geometric_protection_engine.py", "geometric_zk.py"],
+        "primary_shape": "SHAPE.ICOSA",
+        "families": ["FAMILY.F01", "FAMILY.F02", "FAMILY.F03", "FAMILY.F12"],
+        "novel_capability": "geometric_zk.py — zero-knowledge geometric proofs (no Rosetta parallel yet)"
+      },
       "experiments": "Geometric factorization, holographic smoothness, number-theoretic energy functions"
     },
     "sensor_suite": {
