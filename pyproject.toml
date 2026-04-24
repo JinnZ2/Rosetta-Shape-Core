@@ -22,6 +22,10 @@ rosetta-expand = "rosetta_shape_core.expand:main"
 rosetta-audit = "rosetta_shape_core.self_audit:main"
 rosetta-query = "rosetta_shape_core.query:main"
 rosetta-agent = "rosetta_shape_core.constraint_agent:main"
+rsc-mandala-bridge = "rsc_mandala_bridge.bridge:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [project.urls]
 Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"
