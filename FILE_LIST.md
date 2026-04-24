@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-1a488332e309b830c61e10bee1450796d50d5530.idx
-./.git/objects/pack/pack-1a488332e309b830c61e10bee1450796d50d5530.pack
-./.git/objects/pack/pack-1a488332e309b830c61e10bee1450796d50d5530.rev
+./.git/objects/pack/pack-54dbdef032af1d6229735d59490b4e895e008afa.idx
+./.git/objects/pack/pack-54dbdef032af1d6229735d59490b4e895e008afa.pack
+./.git/objects/pack/pack-54dbdef032af1d6229735d59490b4e895e008afa.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -83,8 +83,12 @@
 ./atlas/remote/fractal-compass/mandelbrot.json
 ./atlas/remote/fractal-compass/seed_glyph.json
 ./atlas/remote/geo-binary-bridge/bridges.json
+./atlas/remote/geo-binary-bridge/engine.json
 ./atlas/remote/geo-binary-bridge/fabrication_schema.json
+./atlas/remote/geo-binary-bridge/geis.json
+./atlas/remote/geo-binary-bridge/geometric_intelligence.json
 ./atlas/remote/geo-binary-bridge/glyph_to_geometric.json
+./atlas/remote/geo-binary-bridge/negentropic.json
 ./atlas/remote/geo-binary-bridge/octahedral_encoder.json
 ./atlas/remote/geo-binary-bridge/octahedral_state_encoding.json
 ./atlas/remote/geo-binary-bridge/sensor_suite.json
