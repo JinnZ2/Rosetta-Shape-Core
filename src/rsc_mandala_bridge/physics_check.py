@@ -7,6 +7,10 @@ that in without adding a hard dependency: if the physics module is
 importable we use it; if not we degrade to a cheap phi/harmonic ratio
 check so the Mandala still sees ``physics_check`` in every signature.
 
+The real guard requires ``numpy``. Install it (``pip install numpy``) to
+activate the ``PhysicsGroundedProtection`` engine; otherwise the fallback
+ratio check runs and the result is tagged ``engine='fallback_ratios'``.
+
 Only shape basins get checked — their (faces, edges, vertices) triple
 carries the geometric ratios the guard operates on. Other basins pass
 through unchanged.
