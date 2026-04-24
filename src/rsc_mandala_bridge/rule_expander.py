@@ -33,6 +33,7 @@ class RuleBasinExpander:
 
     def __init__(self, rsc_root: Optional[pathlib.Path] = None):
         self.root = pathlib.Path(rsc_root) if rsc_root is not None else _default_root()
+        self.last_warnings: List[str] = []
 
     def expand(
         self,
@@ -58,7 +59,9 @@ class RuleBasinExpander:
         produced: dict[str, Basin] = {}
         fired_signatures: set[tuple] = set()
 
-        for _ in range(_MAX_CASCADE_DEPTH):
+        self.last_warnings = []
+        converged = False
+        for pass_idx in range(_MAX_CASCADE_DEPTH):
             new_this_pass = 0
             for rule in rules:
                 key = _rule_signature(rule)
@@ -81,7 +84,17 @@ class RuleBasinExpander:
                 fired_signatures.add(key)
                 new_this_pass += 1
             if new_this_pass == 0:
+                converged = True
                 break
+
+        if not converged:
+            # We hit the cap with rules still firing — the cascade is either
+            # very deep or has a cycle. Surface it so callers can raise the cap
+            # or inspect their rule set rather than silently losing basins.
+            self.last_warnings.append(
+                f"rule cascade did not converge within {_MAX_CASCADE_DEPTH} passes "
+                f"(last pass fired {new_this_pass} new rules); check rules/expand.jsonl for cycles"
+            )
 
         return list(produced.values())
 

@@ -21,6 +21,7 @@ of existing ones.
 
 from rsc_mandala_bridge.bridge import BridgeReport, build_basins
 from rsc_mandala_bridge.fieldlink_projector import FieldlinkProjector
+from rsc_mandala_bridge.physics_check import physics_check_basins
 from rsc_mandala_bridge.rule_expander import RuleBasinExpander
 from rsc_mandala_bridge.schema_check import (
     BasinSchemaError,
@@ -42,5 +43,6 @@ __all__ = [
     "Substrate",
     "build_basins",
     "check_atlas_staleness",
+    "physics_check_basins",
     "validate_basin_against_schema",
 ]

@@ -71,6 +71,55 @@ def test_real_repo_rule_basins_are_generative():
     assert {"CAP.OCTAHEDRAL_STATE", "CAP.GEOMETRIC_ENCODING"}.issubset(produced)
 
 
+def test_cascade_warning_fires_when_depth_cap_hit(tmp_path: pathlib.Path):
+    """A chain of N > MAX_CASCADE_DEPTH rules should emit a warning."""
+    from rsc_mandala_bridge.rule_expander import _MAX_CASCADE_DEPTH, RuleBasinExpander
+    from rsc_mandala_bridge.types import Basin, Substrate
+
+    # Minimum layout: rules dir + ontology dir.
+    (tmp_path / "ontology").mkdir()
+    rules_dir = tmp_path / "rules"
+    rules_dir.mkdir()
+
+    # Build a strict chain: SHAPE.CHAIN_0 → CAP.CHAIN_1 → CAP.CHAIN_2 → ...
+    # longer than the cascade cap so the fixed point is never reached.
+    # Write rules in REVERSE dependency order so each pass only fires one —
+    # rules for step N are iterated before step N-1 exists, so they can't
+    # all cascade inside a single pass.
+    total = _MAX_CASCADE_DEPTH + 3
+    lines = []
+    for i in range(total, 0, -1):
+        prev = "SHAPE.CHAIN_0" if i == 1 else f"CAP.CHAIN_{i - 1}"
+        lines.append(
+            f'{{"when":{{"op":"EXPAND","args":["{prev}"]}},"then":"CAP.CHAIN_{i}","priority":1}}'
+        )
+    (rules_dir / "expand.jsonl").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    seed = [Basin(
+        domain="test",
+        substrate=Substrate(name="shape.chain_0", lid_id="SHAPE.CHAIN_0"),
+        support=(), depth=0.0,
+    )]
+    expander = RuleBasinExpander(tmp_path)
+    produced = expander.expand(seed)
+
+    assert len(produced) == _MAX_CASCADE_DEPTH, (
+        f"expected exactly {_MAX_CASCADE_DEPTH} basins before cap, got {len(produced)}"
+    )
+    assert expander.last_warnings, "cap was hit but no warning was emitted"
+    assert "did not converge" in expander.last_warnings[0]
+
+
+def test_cascade_warning_absent_when_converged():
+    real_root = pathlib.Path(__file__).resolve().parents[2]
+    from rsc_mandala_bridge.rule_expander import RuleBasinExpander
+    from rsc_mandala_bridge.shape_projector import ShapeProjector
+
+    expander = RuleBasinExpander(real_root)
+    expander.expand(ShapeProjector(real_root).project_all())
+    assert expander.last_warnings == []
+
+
 def test_rule_basin_signature_preserves_why_and_priority():
     real_root = pathlib.Path(__file__).resolve().parents[2]
     shape_basins = ShapeProjector(real_root).project_all()

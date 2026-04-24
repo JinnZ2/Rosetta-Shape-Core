@@ -19,6 +19,7 @@ from typing import Iterable, List, Optional
 
 from rsc_mandala_bridge._paths import rsc_root as _default_root
 from rsc_mandala_bridge.fieldlink_projector import FieldlinkProjector
+from rsc_mandala_bridge.physics_check import physics_check_basins
 from rsc_mandala_bridge.rule_expander import RuleBasinExpander
 from rsc_mandala_bridge.schema_check import (
     BasinSchemaError,
@@ -37,16 +38,23 @@ class BridgeReport:
     fieldlink_basin_count: int = 0
     rule_basin_count: int = 0
     schema_errors: List[str] = field(default_factory=list)
+    rule_warnings: List[str] = field(default_factory=list)
+    physics_checked: bool = False
 
     @property
     def ok(self) -> bool:
-        return not self.schema_errors and self.staleness.usable
+        return (
+            not self.schema_errors
+            and not self.rule_warnings
+            and self.staleness.usable
+        )
 
 
 def build_basins(
     rsc_root: Optional[pathlib.Path] = None,
     *,
     validate_schemas: bool = True,
+    physics_check: bool = True,
     ambient_capabilities: Optional[Iterable[str]] = None,
 ) -> BridgeReport:
     """Run the shape, fieldlink, and rule projectors and bundle the result.
@@ -60,6 +68,12 @@ def build_basins(
         When True (default), every shape basin is round-tripped through
         ``schema/shape.schema.json``. Errors are collected into the report
         rather than raised so a partial failure doesn't mask the rest.
+    physics_check:
+        When True (default), shape basins pass through
+        ``physics_grounded_protection.golden_ratio_alignment`` and the
+        result is annotated onto ``basin.signature['physics_check']``. The
+        Mandala's verification asymmetry risk (called out in the briefing)
+        is partially mitigated when basins arrive pre-flagged.
     ambient_capabilities:
         Extra capability IDs to pass to the rule expander's guards. Used
         when the runtime wants to simulate "what if this capability were
@@ -81,6 +95,9 @@ def build_basins(
 
     basins = shape_basins + fieldlink_basins + rule_basins
 
+    if physics_check:
+        physics_check_basins(shape_basins, rsc_root=root)
+
     schema_errors: list[str] = []
     if validate_schemas:
         for basin in basins:
@@ -96,6 +113,8 @@ def build_basins(
         fieldlink_basin_count=len(fieldlink_basins),
         rule_basin_count=len(rule_basins),
         schema_errors=schema_errors,
+        rule_warnings=list(rule_expander.last_warnings),
+        physics_checked=physics_check,
     )
 
 
@@ -114,7 +133,9 @@ def main() -> int:
                 "atlas_usable": report.staleness.usable,
                 "recommend_pull": report.staleness.recommend_pull,
                 "warnings": report.staleness.warnings,
+                "rule_warnings": report.rule_warnings,
                 "schema_errors": report.schema_errors,
+                "physics_checked": report.physics_checked,
             },
             indent=2,
         )
