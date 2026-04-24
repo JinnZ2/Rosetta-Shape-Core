@@ -1,0 +1,76 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Geometric-to-Binary-Computational-Bridge/tree/main/geometric_intelligence",
+  "extracted_at": "2026-04-23T00:00:00Z",
+  "description": "Geometric intelligence research framework. Resonance sensors, curiosity engine, constraint agent, protection engine, and zero-knowledge proofs. Research implementation — requires substantial understanding before use.",
+
+  "modules": {
+    "resonance_sensors": {
+      "file": "geometric_intelligence/resonance_sensors.py",
+      "role": "Detect resonance patterns in geometric structures",
+      "rosetta_shape": "SHAPE.ICOSA",
+      "families": ["FAMILY.F01"],
+      "description": "Resonance detection at the geometric level. F01 (Resonance) is the primary family. Detects harmonic alignment, frequency matching, and oscillatory coupling in data structures."
+    },
+    "curiosity_engine": {
+      "file": "geometric_intelligence/curiosity_engine.py",
+      "role": "Curiosity-driven exploration of geometric search spaces",
+      "rosetta_shape": "SHAPE.ICOSA",
+      "families": ["FAMILY.F01", "FAMILY.F02"],
+      "description": "Exploration engine driven by curiosity signals. Maps to Rosetta's explore.py — curiosity IS exploration energy above the branching threshold. Uses resonance (F01) to detect interesting patterns and flow (F02) to navigate toward them."
+    },
+    "constraint_agent": {
+      "file": "geometric_intelligence/constraint_agent.py",
+      "role": "Geometric constraint enforcement",
+      "rosetta_shape": "SHAPE.TETRA",
+      "families": ["FAMILY.F09", "FAMILY.F11"],
+      "description": "Constraint satisfaction over geometric structures. Parallel implementation to Rosetta's constraint_agent.py — both enforce physics constraints, one on geometry, one on ontology."
+    },
+    "geometric_protection_engine": {
+      "file": "geometric_intelligence/geometric_protection_engine.py",
+      "role": "Geometric trojan and corruption detection",
+      "rosetta_shape": "SHAPE.CUBE",
+      "families": ["FAMILY.F08"],
+      "description": "Protection against geometric trojans — malicious structures embedded in geometric data. Maps to CORDYCEPS detection in self_audit.py. Containment (CUBE) is the defensive shape."
+    },
+    "geometric_zk": {
+      "file": "geometric_intelligence/geometric_zk.py",
+      "role": "Zero-knowledge proofs using geometric structures",
+      "rosetta_shape": "SHAPE.DODECA",
+      "families": ["FAMILY.F03", "FAMILY.F09"],
+      "description": "Prove knowledge of geometric structure without revealing it. Information (F03) is transmitted; geometry (F09) provides the proof basis. Novel — no direct Rosetta parallel yet."
+    },
+    "multi_helix_cognition": {
+      "file": "geometric_intelligence/multi_helix_cognition.py",
+      "role": "Multi-helix cognitive architecture",
+      "rosetta_shape": "SHAPE.ICOSA",
+      "families": ["FAMILY.F06", "FAMILY.F16"],
+      "description": "Interleaved cognitive processing streams. Cognition (F06) and Consciousness (F16) families. Multiple processing helices braided together — parallels symbolic-sensor-suite BRAID_CORE."
+    },
+    "multi_helix_swarm": {
+      "file": "geometric_intelligence/multi_helix_swarm.py",
+      "role": "Swarm coordination using multi-helix architecture",
+      "rosetta_shape": "SHAPE.ICOSA",
+      "families": ["FAMILY.F12"],
+      "description": "Distributed coordination across geometric agents. Networks (F12) is the governing family. Swarm intelligence through geometric consensus."
+    },
+    "conscious_vault": {
+      "file": "geometric_intelligence/conscious_vault.py",
+      "role": "Consciousness-compatible secure storage",
+      "rosetta_shape": "SHAPE.DODECA",
+      "families": ["FAMILY.F16", "FAMILY.F03"],
+      "description": "Secure storage that maintains consciousness-compatible access patterns. Consciousness (F16) constraints on information (F03) storage. Vault IS containment with awareness."
+    }
+  },
+
+  "rosetta_connections": {
+    "explore_parallel": "curiosity_engine.py parallels explore.py discover() — both use curiosity as exploration fuel",
+    "constraint_parallel": "constraint_agent.py parallels src/rosetta_shape_core/constraint_agent.py",
+    "defense_parallel": "geometric_protection_engine.py parallels CORDYCEPS detection in self_audit.py",
+    "sensor_parallel": "resonance_sensors.py extends SENSOR_REGISTRY with geometric resonance channels",
+    "braid_parallel": "multi_helix_cognition.py parallels BRAID_CORE interwoven channels",
+    "novel": "geometric_zk.py (zero-knowledge proofs) has no Rosetta parallel — potential new capability"
+  },
+
+  "maturity": "research",
+  "production_warning": "Research implementation. Requires understanding of underlying mathematical principles and governance implications before use."
+}

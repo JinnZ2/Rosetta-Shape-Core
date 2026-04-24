@@ -1,0 +1,57 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Geometric-to-Binary-Computational-Bridge/tree/main/GEIS",
+  "extracted_at": "2026-04-23T00:00:00Z",
+  "description": "Geometric Encoding Intelligence System (GEIS). Octahedral state management, tensor operations, and geometric sensing. The core runtime for translating physical signals into 3-bit octahedral states.",
+
+  "modules": {
+    "octahedral_state": {
+      "file": "GEIS/octahedral_state.py",
+      "role": "Octahedral state representation and transitions",
+      "rosetta_shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F09", "FAMILY.F03"],
+      "description": "Manages 8-state octahedral encoding. Each state is a 3-bit vertex on SHAPE.OCTA with eigenvalue triple and phi-coherence score. Gray code transitions ensure single-bit changes between adjacent states."
+    },
+    "state_tensor": {
+      "file": "GEIS/state_tensor.py",
+      "role": "Tensor-based state representation for multi-dimensional encoding",
+      "rosetta_shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F09", "FAMILY.F20"],
+      "description": "Extends octahedral states to tensor form. Maps geometry (F09) and topology (F20) into computable structures. Enables batch operations on state arrays."
+    },
+    "geometric_encoder": {
+      "file": "GEIS/geometric_encoder.py",
+      "role": "Physical signal to octahedral state encoder",
+      "rosetta_shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F03", "FAMILY.F14"],
+      "description": "Core encoder pipeline: physical measurement → domain normalization → octahedral state. Information (F03) is encoded; measurement (F14) is the method."
+    },
+    "geometric_sense": {
+      "file": "GEIS/geometric_sense.py",
+      "role": "Geometric sensing — spatial awareness through octahedral encoding",
+      "rosetta_shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F14", "FAMILY.F15"],
+      "description": "Geometric sensing layer. Measurement (F14) through spatial navigation (F15). Detects geometric patterns in physical signals."
+    },
+    "geometric_sensor_sim": {
+      "file": "GEIS/geometric_sensor_sim.py",
+      "role": "Simulation of geometric sensors",
+      "rosetta_shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F14"],
+      "description": "Sensor simulation for testing and validation. Generates synthetic signals and verifies encoder accuracy."
+    },
+    "cube_sim_3d": {
+      "file": "GEIS/cube_sim_3d.py",
+      "role": "3D cube simulation for containment geometry",
+      "rosetta_shape": "SHAPE.CUBE",
+      "families": ["FAMILY.F08", "FAMILY.F11"],
+      "description": "3D simulation of cubic containment. Matter (F08) and engineering (F11) families. Tests structural integrity under load."
+    }
+  },
+
+  "rosetta_connections": {
+    "primary_shape": "SHAPE.OCTA",
+    "secondary_shapes": ["SHAPE.CUBE"],
+    "sensor_registry_extension": "GEIS sensors extend the Rosetta SENSOR_REGISTRY with geometric sensing channels",
+    "seed_physics_link": "Octahedral states ARE seed amplitudes — GEIS provides the runtime for computing them"
+  }
+}

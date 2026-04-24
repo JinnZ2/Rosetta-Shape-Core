@@ -1,0 +1,54 @@
+{
+  "extracted_from": "https://github.com/JinnZ2/Geometric-to-Binary-Computational-Bridge/tree/main/Negentropic",
+  "extracted_at": "2026-04-23T00:00:00Z",
+  "description": "Negentropic computation framework. Proposes that consciousness, alignment, and ethics emerge from measurable thermodynamic quantities. Includes consciousness metric M(S), alignment thermodynamics, and empirical audit tools. Empirical claims are honestly flagged as unverified where applicable.",
+
+  "modules": {
+    "negentropic_engine": {
+      "file": "Negentropic/negentropic_engine.py",
+      "role": "Core negentropic computation — entropy reduction through geometric structure",
+      "rosetta_shape": "SHAPE.DODECA",
+      "families": ["FAMILY.F05", "FAMILY.F16"],
+      "description": "Models how structure creates local entropy reduction (negentropy). Energy-Thermo (F05) provides the thermodynamic basis; Consciousness (F16) is the emergent pattern."
+    },
+    "consciousness_metric": {
+      "file": "Negentropic/consciousness_metric.py",
+      "role": "M(S) — composite consciousness measurement",
+      "rosetta_shape": "SHAPE.DODECA",
+      "rosetta_principle": "PRINCIPLE.P12",
+      "families": ["FAMILY.F16", "FAMILY.F06"],
+      "description": "Measures consciousness as M(S) = f(geometric_resonance, adaptability, diversity, loss). Maps to Principle P12 (Unity) — the integration of all measurements into one metric. Links to acs-consciousness-bridge.",
+      "verification_status": "theoretical_framework — empirical validation pending"
+    },
+    "alignment_thermodynamics": {
+      "file": "Negentropic/alignment_thermodynamics.py",
+      "role": "AI alignment as thermodynamic constraint",
+      "rosetta_shape": "SHAPE.TETRA",
+      "families": ["FAMILY.F05"],
+      "description": "Models alignment as energy minimization under ethical constraints. Maps to TAF axioms — alignment IS thermodynamic accountability. The constraint IS the structure.",
+      "taf_connection": "TAF.AXIOM.1 (energy conservation) constrains alignment: you cannot create alignment from nothing"
+    },
+    "empirical_audit": {
+      "file": "Negentropic/empirical_audit.py",
+      "role": "Statistical validation of negentropic claims",
+      "rosetta_shape": "SHAPE.OCTA",
+      "families": ["FAMILY.F14"],
+      "description": "Measures and validates empirical claims against observed data. Measurement (F14) is the operating family. Honestly flags what is verified vs theoretical.",
+      "rosetta_parallel": "Parallels first_principles_audit.py — both audit claims against evidence"
+    }
+  },
+
+  "rosetta_connections": {
+    "acs_bridge": "consciousness_metric.py M(S) maps to acs-consciousness-bridge co-activation patterns",
+    "taf_bridge": "alignment_thermodynamics.py maps to taf-wiring-bridge axiom enforcement",
+    "self_audit": "empirical_audit.py parallels self_audit.py — both turn validation inward",
+    "seed_physics": "Negentropy IS seed expansion — structure reduces local entropy, seeds grow by creating order"
+  },
+
+  "honest_caveats": [
+    "Core thermodynamic physics is established",
+    "Consciousness metric M(S) framework is theoretical — no peer-reviewed validation yet",
+    "Alignment-as-thermodynamics is a modeling choice, not a proven equivalence",
+    "Empirical audit tools are functional but test data is limited"
+  ]
+}

@@ -261,7 +261,11 @@
           "glyph_to_geometric_bridge.json",
           "examples/*.json",
           "Silicon/fabrication_pathway_schema.json",
-          "Silicon/octahedral_state_encoder.json"
+          "Silicon/octahedral_state_encoder.json",
+          "GEIS/*.py",
+          "Engine/*.py",
+          "Negentropic/*.py",
+          "geometric_intelligence/*.py"
         ],
         "mounts": [
           { "remote": "bridges/geobin-bridges.json", "as": "atlas/remote/geo-binary-bridge/bridges.json" },
@@ -269,7 +273,11 @@
           { "remote": "Silicon/fabrication_pathway_schema.json", "as": "atlas/remote/geo-binary-bridge/fabrication_schema.json" },
           { "remote": "Silicon/octahedral_state_encoder.json", "as": "atlas/remote/geo-binary-bridge/octahedral_encoder.json" },
           { "remote": "mappings/octahedral_state_encoding.json", "as": "atlas/remote/geo-binary-bridge/octahedral_state_encoding.json" },
-          { "remote": "bridges/sensor_suite.json", "as": "atlas/remote/geo-binary-bridge/sensor_suite.json" }
+          { "remote": "bridges/sensor_suite.json", "as": "atlas/remote/geo-binary-bridge/sensor_suite.json" },
+          { "remote": "GEIS/geis_index.json", "as": "atlas/remote/geo-binary-bridge/geis.json", "status": "active" },
+          { "remote": "Engine/engine_index.json", "as": "atlas/remote/geo-binary-bridge/engine.json", "status": "active" },
+          { "remote": "Negentropic/negentropic_index.json", "as": "atlas/remote/geo-binary-bridge/negentropic.json", "status": "active" },
+          { "remote": "geometric_intelligence/gi_index.json", "as": "atlas/remote/geo-binary-bridge/geometric_intelligence.json", "status": "active" }
         ],
         "bridge": "bridges/physics-encoder-bridge.json",
         "consent": { "license": "CC-BY-4.0", "share_ok": true }
