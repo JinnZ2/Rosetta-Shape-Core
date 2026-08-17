@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rosetta-shape-core/schema/adaptive_run.schema.json",
+  "title": "Adaptive Simulation Run Record",
+  "description": "Schema for one line of an adaptive-simulation provenance log (JSONL). Each record is a complete, replayable account of a single simulation run: the parameters it used, the seed it ran under, what it produced, which claims held, and the reasoning that led to the next run.",
+  "type": "object",
+  "required": [
+    "run_id",
+    "model_name",
+    "parameters",
+    "random_seed",
+    "timestamp",
+    "duration_seconds",
+    "outcomes",
+    "claim_results",
+    "reasoning_chain"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable identifier for this run. Derived from model, iteration and seed so the same experiment yields the same id."
+    },
+    "model_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Registered model this run executed (e.g. forest, fluctuating)."
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Full parameter set handed to the model. Must be JSON-native so the run can be replayed from the log alone."
+    },
+    "random_seed": {
+      "type": "integer",
+      "description": "Seed of the RNG stream this run consumed. Replaying with this seed and these parameters reproduces the outcomes."
+    },
+    "timestamp": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Unix time at which the record was written."
+    },
+    "duration_seconds": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Wall-clock cost of the run. Non-negative — time does not run backwards (IRREVERSIBILITY)."
+    },
+    "outcomes": {
+      "type": "object",
+      "description": "Measured results of the run. Model-specific; keys are whatever the model reports."
+    },
+    "claim_results": {
+      "type": "object",
+      "description": "Verdict per claim tested against this run's outcomes.",
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["passed", "failed", "inconclusive"]
+      }
+    },
+    "reasoning_chain": {
+      "type": "array",
+      "description": "Ordered reasoning steps the agent took after observing this run. Empty only if nothing was recorded.",
+      "items": { "$ref": "#/$defs/reasoning_step" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "reasoning_step": {
+      "type": "object",
+      "title": "Reasoning Step",
+      "description": "One observation -> hypothesis -> action link in the chain. Keeps provenance intact: every parameter change points back at the observation that motivated it.",
+      "required": [
+        "step_id",
+        "timestamp",
+        "agent_name",
+        "observation",
+        "hypothesis",
+        "action",
+        "parameters_changed",
+        "expected_outcome"
+      ],
+      "properties": {
+        "step_id": { "type": "string", "minLength": 1 },
+        "timestamp": { "type": "number", "minimum": 0 },
+        "agent_name": { "type": "string", "minLength": 1 },
+        "observation": {
+          "type": "string",
+          "description": "What was measured — no interpretation."
+        },
+        "hypothesis": {
+          "type": "string",
+          "description": "Why the agent thinks the observation looks the way it does."
+        },
+        "action": {
+          "type": "string",
+          "description": "What the agent changed in response."
+        },
+        "parameters_changed": {
+          "type": "object",
+          "description": "Parameter name -> [old_value, new_value].",
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "expected_outcome": {
+          "type": "string",
+          "description": "What the agent expects the next run to show if the hypothesis holds. Written before the next run — this is what makes the step falsifiable."
+        },
+        "parent_step_id": {
+          "type": ["string", "null"],
+          "description": "Step this one descends from, or null at the root of a chain."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

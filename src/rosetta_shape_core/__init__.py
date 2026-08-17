@@ -1,5 +1,13 @@
 """Rosetta-Shape-Core — symbolic ontology and rules engine."""
 
+from rosetta_shape_core.adaptive_sim import (
+    AdaptiveAgent,
+    Claim,
+    ProvenanceLogger,
+    SimulationRunner,
+    run_experiment,
+    validate_log,
+)
 from rosetta_shape_core.constraint_agent import ConstraintAgent
 from rosetta_shape_core.explore import (
     RosettaGraph,
@@ -25,6 +33,12 @@ __all__ = [
     "hunt_shadows",
     "map_internal_environment",
     "ConstraintAgent",
+    "AdaptiveAgent",
+    "Claim",
+    "ProvenanceLogger",
+    "SimulationRunner",
+    "run_experiment",
+    "validate_log",
     "analyze_consistency",
     "trace_narrative",
     "audit_function",

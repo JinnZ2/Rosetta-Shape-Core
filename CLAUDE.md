@@ -9,7 +9,7 @@ Symbolic ontology + rules engine. Shapes, organisms, machines, and phenomena are
 ## Quick Orientation
 
 ```
-schema/           JSON Schema 2020-12 (core, shape, bridge, rule, seed, ai_index)
+schema/           JSON Schema 2020-12 (core, shape, bridge, rule, seed, ai_index, adaptive_run)
 ontology/         Vocabulary, entities, capabilities, family map, principles
 rules/            Expansion rules as JSONL (expand.jsonl)
 shapes/           Platonic solids + emergent forms (6 shapes)
@@ -20,6 +20,7 @@ src/rosetta_shape_core/
   explore.py      Discovery engine (5 path types, seed physics, shadow hunting)
   expand.py       Rule engine (priority-sorted, guard-gated)
   sim.py          Multi-agent ecosystem simulation
+  adaptive_sim.py Claim-driven experiments: run → test claims → agent adapts → provenance log
   self_audit.py   8 structural checks + 7 immutable axioms
   validator.py    Schema + referential integrity (ontology, shapes, bridges, rules, mesh)
   constraint_agent.py   Exact-fraction constraint geometry agent
@@ -46,6 +47,9 @@ python -m rosetta_shape_core.expand ALIGN ANIMAL.BEE CONST.PHI --have CAP.SWARM_
 python -m rosetta_shape_core.sim --ticks 10
 python -m rosetta_shape_core.self_audit --json
 python scripts/generate.py entity ANIMAL.OWL Owl
+
+python -m rosetta_shape_core.adaptive_sim --model forest        # claim-driven experiment loop
+python -m rosetta_shape_core.adaptive_sim --validate-log data/adaptive_sim/provenance_forest.jsonl
 ```
 
 ## Data Model
@@ -110,7 +114,7 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 
 ## Validation Stack
 
-1. **Schema validation** — JSON Schema 2020-12 for ontology, shapes, bridges, rules, seeds
+1. **Schema validation** — JSON Schema 2020-12 for ontology, shapes, bridges, rules, seeds, adaptive run records
 2. **Referential integrity** — all `links[*].to` resolve, bridge shape refs exist
 3. **Fieldlink topology** — mount sync, source consistency, mesh reachability
 4. **Self-audit** — 8 checks: physics guards, merge gates, scope, CORDYCEPS, conservation, provenance, life-bearing, use constraints
