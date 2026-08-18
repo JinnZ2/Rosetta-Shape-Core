@@ -1,6 +1,7 @@
 """Tests for octahedral triple encoder."""
 import pytest
-from rosetta_shape_core.octa_triple import OctaTriple, OctaToken, GLYPHS
+
+from rosetta_shape_core.octa_triple import GLYPHS, OctaToken, OctaTriple
 
 
 @pytest.fixture

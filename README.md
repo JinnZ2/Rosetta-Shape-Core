@@ -164,4 +164,5 @@ Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"
 - **Bridges** → [`/bridges/rosetta-bridges.json`](bridges/rosetta-bridges.json)
 - **Atlas (staged)** → after running `./fieldlink-pull.sh`, see [`.fieldlink/merge_stage`](.fieldlink/merge_stage)
 - **Protocols** → [`/protocols`](protocols)
+- **Adaptive simulation** → [`docs/adaptive-simulation.md`](docs/adaptive-simulation.md) (claim-driven experiment loop, schema: `schema/adaptive_run.schema.json`)
 - **Scripts** → [`/scripts/validate.sh`](scripts/validate.sh)

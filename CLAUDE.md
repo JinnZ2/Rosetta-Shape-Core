@@ -9,7 +9,7 @@ Symbolic ontology + rules engine. Shapes, organisms, machines, and phenomena are
 ## Quick Orientation
 
 ```
-schema/           JSON Schema 2020-12 (core, shape, bridge, rule, seed, ai_index)
+schema/           JSON Schema 2020-12 (core, shape, bridge, rule, seed, ai_index, adaptive_run)
 ontology/         Vocabulary, entities, capabilities, family map, principles
 rules/            Expansion rules as JSONL (expand.jsonl)
 shapes/           Platonic solids + emergent forms (6 shapes)
@@ -20,6 +20,8 @@ src/rosetta_shape_core/
   explore.py      Discovery engine (5 path types, seed physics, shadow hunting)
   expand.py       Rule engine (priority-sorted, guard-gated)
   sim.py          Multi-agent ecosystem simulation
+  adaptive_sim.py Claim-driven experiments: run → test claims → agent adapts → provenance log
+  discrepancy.py  Spec ambiguities as multiple-choice sweeps: options → runs → verdict
   self_audit.py   8 structural checks + 7 immutable axioms
   validator.py    Schema + referential integrity (ontology, shapes, bridges, rules, mesh)
   constraint_agent.py   Exact-fraction constraint geometry agent
@@ -46,6 +48,11 @@ python -m rosetta_shape_core.expand ALIGN ANIMAL.BEE CONST.PHI --have CAP.SWARM_
 python -m rosetta_shape_core.sim --ticks 10
 python -m rosetta_shape_core.self_audit --json
 python scripts/generate.py entity ANIMAL.OWL Owl
+
+python -m rosetta_shape_core.adaptive_sim --model forest        # claim-driven experiment loop
+python -m rosetta_shape_core.adaptive_sim --validate-log data/adaptive_sim/provenance_forest.jsonl
+python -m rosetta_shape_core.discrepancy --list                  # open modelling questions
+python -m rosetta_shape_core.discrepancy --id forest_update_order --seeds 8
 ```
 
 ## Data Model
@@ -110,7 +117,7 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 
 ## Validation Stack
 
-1. **Schema validation** — JSON Schema 2020-12 for ontology, shapes, bridges, rules, seeds
+1. **Schema validation** — JSON Schema 2020-12 for ontology, shapes, bridges, rules, seeds, adaptive run records
 2. **Referential integrity** — all `links[*].to` resolve, bridge shape refs exist
 3. **Fieldlink topology** — mount sync, source consistency, mesh reachability
 4. **Self-audit** — 8 checks: physics guards, merge gates, scope, CORDYCEPS, conservation, provenance, life-bearing, use constraints
@@ -130,6 +137,13 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 2. ID format: `SHAPE.NAME`
 3. Required: id, name, families. Include bridges (sensors, defenses, protocols, bridge_glyphs)
 4. Run `python examples/validate_ontology.py`
+
+### Resolve a spec discrepancy
+1. Add the knob to the model in `adaptive_sim.py`, defaulting to current behavior
+2. `register(Discrepancy(...))` in `discrepancy.py` with an `origin` and 2+ options
+3. `prefer`: `max`/`min` for a quality metric, `distinguish` when neither reading is better
+4. Run `python -m rosetta_shape_core.discrepancy --id <id> --seeds 8`
+5. A `tie` is a result — add seeds or write a sharper claim, don't pick by hand
 
 ### Add a sibling repo
 1. Stage extracts in `atlas/remote/<repo>/` with `extracted_from` field

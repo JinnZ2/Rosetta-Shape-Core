@@ -1,0 +1,592 @@
+[
+  {
+    "discrepancy_id": "fluct_switch_semantics",
+    "question": "How does a switching *rate* become a per-step *probability*?",
+    "origin": "The prototype used switching_rate directly as a probability. The agent multiplies that rate by 1.3 when exploring, so it crosses 1.0 \u2014 where a raw rate stops being a probability. Run in that regime (rate 2.0), which is where the readings come apart.",
+    "model": "fluctuating",
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "metric": "mean_fixation_time",
+    "prefer": "distinguish",
+    "options": [
+      {
+        "label": "exponential",
+        "description": "1 - exp(-rate*dt) \u2014 bounded for any rate",
+        "params": {
+          "switch_semantics": "exponential"
+        },
+        "claim_pass_rate": 1.0,
+        "claim_tests": 16,
+        "claims": {
+          "fluctuating_fixation": {
+            "passed": 8
+          },
+          "fluctuating_slow_persistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "mean_fixation_time",
+          "n": 8,
+          "mean": 149.5425,
+          "std": 7.5740090110852085,
+          "values": [
+            136.235,
+            137.9,
+            154.755,
+            149.54,
+            156.855,
+            153.115,
+            151.355,
+            156.585
+          ]
+        },
+        "run_ids": [
+          "7932c28a3277",
+          "5282253fc6d0",
+          "a16be3618ab4",
+          "0c15046b651d",
+          "1e0ee0154a7d",
+          "71e1978bb58e",
+          "0fb6b3b41071",
+          "23064164bb20"
+        ]
+      },
+      {
+        "label": "clamped",
+        "description": "min(rate*dt, 1) \u2014 linear until it saturates",
+        "params": {
+          "switch_semantics": "clamped"
+        },
+        "claim_pass_rate": 1.0,
+        "claim_tests": 16,
+        "claims": {
+          "fluctuating_fixation": {
+            "passed": 8
+          },
+          "fluctuating_slow_persistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "mean_fixation_time",
+          "n": 8,
+          "mean": 126.259375,
+          "std": 5.912672004633351,
+          "values": [
+            132.89,
+            129.2,
+            129.135,
+            130.935,
+            130.345,
+            120.97,
+            114.725,
+            121.875
+          ]
+        },
+        "run_ids": [
+          "90b542d080b7",
+          "2ef7386175db",
+          "99dbc9c8ea48",
+          "17bcfba337c6",
+          "62a9d18490aa",
+          "976a0691c39e",
+          "a5800b227266",
+          "79908f2c9ad2"
+        ]
+      },
+      {
+        "label": "rate_direct",
+        "description": "rate used as-is, as the prototype did",
+        "params": {
+          "switch_semantics": "rate_direct"
+        },
+        "claim_pass_rate": 1.0,
+        "claim_tests": 16,
+        "claims": {
+          "fluctuating_fixation": {
+            "passed": 8
+          },
+          "fluctuating_slow_persistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "mean_fixation_time",
+          "n": 8,
+          "mean": 126.259375,
+          "std": 5.912672004633351,
+          "values": [
+            132.89,
+            129.2,
+            129.135,
+            130.935,
+            130.345,
+            120.97,
+            114.725,
+            121.875
+          ]
+        },
+        "run_ids": [
+          "15b48638c7f3",
+          "ff812efa3470",
+          "f84af34252fe",
+          "8f3af33ea46c",
+          "24088e596659",
+          "badbb81c14b0",
+          "22d0ab3854e0",
+          "d4da66f0c8c0"
+        ]
+      }
+    ],
+    "verdict": "separated",
+    "winner": null,
+    "ranking": [
+      "exponential",
+      "clamped",
+      "rate_direct"
+    ],
+    "explanation": "The options genuinely differ, and neither direction is better on its face \u2014 this is a modelling decision, not something the sim can settle. Differences on mean_fixation_time: exponential vs clamped: 149.5 vs 126.3; exponential vs rate_direct: 149.5 vs 126.3."
+  },
+  {
+    "discrepancy_id": "fluct_dt_regime",
+    "question": "What time horizon was the fluctuating model meant to run for?",
+    "origin": "The shipped provenance log records dt=0.01 with num_steps=3000 \u2014 30 time units \u2014 but the prototype code never read dt at all. Either the log means a short horizon, or dt was meant to shrink the step and the horizon should grow to compensate.",
+    "model": "fluctuating",
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "metric": "fixation_probability.coexistence",
+    "prefer": "min",
+    "options": [
+      {
+        "label": "short_horizon",
+        "description": "dt=0.01, 3000 steps \u2014 the logged configuration",
+        "params": {
+          "dt": 0.01,
+          "num_steps": 3000
+        },
+        "claim_pass_rate": 1.0,
+        "claim_tests": 16,
+        "claims": {
+          "fluctuating_fixation": {
+            "passed": 8
+          },
+          "fluctuating_slow_persistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "fixation_probability.coexistence",
+          "n": 8,
+          "mean": 0.20625,
+          "std": 0.10439558180306291,
+          "values": [
+            0.1,
+            0.25,
+            0.25,
+            0.3,
+            0.3,
+            0.3,
+            0.0,
+            0.15
+          ]
+        },
+        "run_ids": [
+          "9871ab4d90ce",
+          "de43a5b170e5",
+          "0826ea110a68",
+          "0877d1c85c50",
+          "4fb6cd170408",
+          "663c3e36a3fa",
+          "01cf92670e28",
+          "8a841b059212"
+        ]
+      },
+      {
+        "label": "rescaled_horizon",
+        "description": "dt=0.01, 300000 steps \u2014 same 3000 time units as dt=1",
+        "params": {
+          "dt": 0.01,
+          "num_steps": 300000
+        },
+        "claim_pass_rate": 1.0,
+        "claim_tests": 16,
+        "claims": {
+          "fluctuating_fixation": {
+            "passed": 8
+          },
+          "fluctuating_slow_persistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "fixation_probability.coexistence",
+          "n": 8,
+          "mean": 0.0,
+          "std": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "run_ids": [
+          "03d78ac3a92b",
+          "3de7ff026a7d",
+          "513bc6cd8025",
+          "d685c67ec5ba",
+          "41e705cbcfa5",
+          "656cc2b7833e",
+          "88b3d862bffe",
+          "417ec7d5d132"
+        ]
+      },
+      {
+        "label": "unit_dt",
+        "description": "dt=1.0, 60000 steps \u2014 one switch draw per Moran step",
+        "params": {
+          "dt": 1.0,
+          "num_steps": 60000
+        },
+        "claim_pass_rate": 1.0,
+        "claim_tests": 16,
+        "claims": {
+          "fluctuating_fixation": {
+            "passed": 8
+          },
+          "fluctuating_slow_persistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "fixation_probability.coexistence",
+          "n": 8,
+          "mean": 0.0,
+          "std": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "run_ids": [
+          "3cb787321aea",
+          "c9e5a409196e",
+          "7307f262019b",
+          "0740868cd6bc",
+          "6705a18b43d5",
+          "415ba31a9fcc",
+          "2b10227f1647",
+          "561cfc7a1390"
+        ]
+      }
+    ],
+    "verdict": "tie",
+    "winner": null,
+    "ranking": [
+      "rescaled_horizon",
+      "unit_dt",
+      "short_horizon"
+    ],
+    "explanation": "rescaled_horizon and unit_dt are not separated by these runs. Either the choice does not matter here, or the experiment is not sharp enough to decide it \u2014 more seeds, or a claim that actually bites on the difference. short_horizon does sit apart from them, and below \u2014 so the sweep rules something out even where it cannot pick a winner."
+  },
+  {
+    "discrepancy_id": "forest_competition_radius",
+    "question": "How far does a tree's shade reach?",
+    "origin": "The prototype derived the competition radius from dispersal_range // 2, coupling how far shade reaches to how far seeds fly. Nothing in the model requires those to be the same number.",
+    "model": "forest",
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "metric": "size_distribution.r_squared",
+    "prefer": "max",
+    "options": [
+      {
+        "label": "half_dispersal",
+        "description": "radius 2 \u2014 dispersal_range // 2, the prototype coupling",
+        "params": {
+          "competition_radius": 2
+        },
+        "claim_pass_rate": 1.0,
+        "claim_tests": 16,
+        "claims": {
+          "forest_power_law": {
+            "passed": 8
+          },
+          "forest_species_coexistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "size_distribution.r_squared",
+          "n": 8,
+          "mean": 0.8006812489513887,
+          "std": 0.07306525491959917,
+          "values": [
+            0.8490898297378517,
+            0.8664977014727848,
+            0.7180593392634393,
+            0.8534087842745541,
+            0.6603853532555775,
+            0.8596683791161632,
+            0.8395404456663755,
+            0.7588001588243634
+          ]
+        },
+        "run_ids": [
+          "3ce29c8958ff",
+          "c6ff3212907a",
+          "ccb5bb643f05",
+          "a22b9c8c974b",
+          "426caefc1049",
+          "4465c3938428",
+          "4a69a8f7f867",
+          "e17bee2940f9"
+        ]
+      },
+      {
+        "label": "nearest_neighbour",
+        "description": "radius 1 \u2014 shade only the adjacent cells",
+        "params": {
+          "competition_radius": 1
+        },
+        "claim_pass_rate": 1.0,
+        "claim_tests": 16,
+        "claims": {
+          "forest_power_law": {
+            "passed": 8
+          },
+          "forest_species_coexistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "size_distribution.r_squared",
+          "n": 8,
+          "mean": 0.7978455530041664,
+          "std": 0.017440610462361252,
+          "values": [
+            0.7813042344039052,
+            0.799315127146368,
+            0.8025779493814952,
+            0.7879371485663348,
+            0.8156078961571439,
+            0.7892984823562891,
+            0.7751869712309789,
+            0.8315366147908164
+          ]
+        },
+        "run_ids": [
+          "84767ec46669",
+          "93b0ff8d5070",
+          "d1311a304259",
+          "97253d7dea2b",
+          "02313bfb324c",
+          "18b12667d56a",
+          "793926d9b788",
+          "b7f83031c76e"
+        ]
+      },
+      {
+        "label": "full_dispersal",
+        "description": "radius 4 \u2014 shade reaches as far as seeds do",
+        "params": {
+          "competition_radius": 4
+        },
+        "claim_pass_rate": 0.875,
+        "claim_tests": 16,
+        "claims": {
+          "forest_power_law": {
+            "passed": 6,
+            "failed": 2
+          },
+          "forest_species_coexistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "size_distribution.r_squared",
+          "n": 8,
+          "mean": 0.6419593036616263,
+          "std": 0.04492771624010864,
+          "values": [
+            0.6673646043493198,
+            0.7208189057287927,
+            0.5833438949249757,
+            0.6534064889340316,
+            0.6361828539420631,
+            0.671931311643138,
+            0.5741008293992165,
+            0.6285255403714738
+          ]
+        },
+        "run_ids": [
+          "b519f7ea26fa",
+          "fe4fd638ae27",
+          "2080ffb7dd7e",
+          "634da42926a6",
+          "8f234a52ae14",
+          "efe148ba0dae",
+          "ef61cce36cdb",
+          "5db2da039587"
+        ]
+      }
+    ],
+    "verdict": "tie",
+    "winner": null,
+    "ranking": [
+      "half_dispersal",
+      "nearest_neighbour",
+      "full_dispersal"
+    ],
+    "explanation": "half_dispersal and nearest_neighbour are not separated by these runs. Either the choice does not matter here, or the experiment is not sharp enough to decide it \u2014 more seeds, or a claim that actually bites on the difference. full_dispersal does sit apart from them, and below \u2014 so the sweep rules something out even where it cannot pick a winner."
+  },
+  {
+    "discrepancy_id": "forest_update_order",
+    "question": "Do trees see the forest as it was, or as it is becoming?",
+    "origin": "The prototype read competition from the previous grid but wrote growth and mortality into the next one, while seed establishment read the old grid and checked the new one for vacancy \u2014 a mix of both conventions.",
+    "model": "forest",
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "metric": "size_distribution.r_squared",
+    "prefer": "max",
+    "options": [
+      {
+        "label": "synchronous",
+        "description": "every tree sees the same forest \u2014 the previous state",
+        "params": {
+          "update_order": "synchronous"
+        },
+        "claim_pass_rate": 0.75,
+        "claim_tests": 16,
+        "claims": {
+          "forest_power_law": {
+            "failed": 4,
+            "passed": 4
+          },
+          "forest_species_coexistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "size_distribution.r_squared",
+          "n": 8,
+          "mean": 0.560296842891002,
+          "std": 0.19287339704334341,
+          "values": [
+            0.41323884721522075,
+            0.5239921823432343,
+            0.7037765199432293,
+            0.5550831679066376,
+            0.8116636291795865,
+            0.6321990690116664,
+            0.6923179984809895,
+            0.1501033290474516
+          ]
+        },
+        "run_ids": [
+          "957f70ddc058",
+          "ce821d10522a",
+          "2516d84870d9",
+          "b0a33c1a1c88",
+          "b0bbaf2ffa79",
+          "c5b53d4c9610",
+          "6dcfa44d6af8",
+          "419778047d37"
+        ]
+      },
+      {
+        "label": "asynchronous",
+        "description": "trees updated earlier already shade those updated later",
+        "params": {
+          "update_order": "asynchronous"
+        },
+        "claim_pass_rate": 0.75,
+        "claim_tests": 16,
+        "claims": {
+          "forest_power_law": {
+            "passed": 4,
+            "failed": 4
+          },
+          "forest_species_coexistence": {
+            "passed": 8
+          }
+        },
+        "metric": {
+          "name": "size_distribution.r_squared",
+          "n": 8,
+          "mean": 0.6383235715774118,
+          "std": 0.11623856570776288,
+          "values": [
+            0.7365924471080174,
+            0.7689246461842982,
+            0.7110391372871844,
+            0.5804308580324327,
+            0.5086818793729082,
+            0.4668081350513288,
+            0.7785526252581976,
+            0.5555588443249279
+          ]
+        },
+        "run_ids": [
+          "0989866ae461",
+          "bad5247bb192",
+          "e3e79a0ca01a",
+          "79be35532667",
+          "fdb4589f59e8",
+          "13b96724680a",
+          "a57a80ebdbd7",
+          "12331c3911fa"
+        ]
+      }
+    ],
+    "verdict": "tie",
+    "winner": null,
+    "ranking": [
+      "asynchronous",
+      "synchronous"
+    ],
+    "explanation": "asynchronous and synchronous are not separated by these runs. Either the choice does not matter here, or the experiment is not sharp enough to decide it \u2014 more seeds, or a claim that actually bites on the difference."
+  }
+]
