@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-37ff217d866136f755f6529c083ba0ca1e6c1bb8.idx
-./.git/objects/pack/pack-37ff217d866136f755f6529c083ba0ca1e6c1bb8.pack
-./.git/objects/pack/pack-37ff217d866136f755f6529c083ba0ca1e6c1bb8.rev
+./.git/objects/pack/pack-084acae61a12017c9c5dd8c47f018261fd49a400.idx
+./.git/objects/pack/pack-084acae61a12017c9c5dd8c47f018261fd49a400.pack
+./.git/objects/pack/pack-084acae61a12017c9c5dd8c47f018261fd49a400.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -149,6 +149,12 @@
 ./bridges/thermodynamic-validation-bridge.json
 ./bridges/truth-sensor-bridge.json
 ./bridges/voice-integrity-bridge.json
+./data/adaptive_sim/README.md
+./data/adaptive_sim/adaptive_sim_results.png
+./data/adaptive_sim/discrepancy_report.json
+./data/adaptive_sim/provenance_discrepancies.jsonl
+./data/adaptive_sim/provenance_fluctuating.jsonl
+./data/adaptive_sim/provenance_forest.jsonl
 ./data/animal_intelligence.json
 ./data/essence-traits.json
 ./data/interaction_ontology.json
@@ -187,6 +193,7 @@
 ./data/training/vocab_training.jsonl
 ./data/tri_invert_bridge.glyphs.json
 ./data/tri_invert_bridge.seed.json
+./docs/adaptive-simulation.md
 ./docs/complete-unified-system-workflow.md
 ./docs/core-pattern-mappings.md
 ./docs/field-coherence-engine.md
@@ -268,6 +275,7 @@
 ./pyproject.toml
 ./recursion.json
 ./rules/expand.jsonl
+./schema/adaptive_run.schema.json
 ./schema/ai_index.schema.json
 ./schema/bridge.schema.json
 ./schema/core.schema.json
@@ -290,9 +298,11 @@
 ./src/rosetta_shape_core/_seed.py
 ./src/rosetta_shape_core/_sensors.py
 ./src/rosetta_shape_core/_shadows.py
+./src/rosetta_shape_core/adaptive_sim.py
 ./src/rosetta_shape_core/bloom.py
 ./src/rosetta_shape_core/constraint_agent.py
 ./src/rosetta_shape_core/diagnostic.py
+./src/rosetta_shape_core/discrepancy.py
 ./src/rosetta_shape_core/expand.py
 ./src/rosetta_shape_core/explore.py
 ./src/rosetta_shape_core/first_principles_audit.py
@@ -327,11 +337,13 @@
 ./tests/mandala_bridge/test_shape_projector.py
 ./tests/mandala_bridge/test_staleness.py
 ./tests/mandala_bridge/test_types.py
+./tests/test_adaptive_sim.py
 ./tests/test_benchmark.py
 ./tests/test_bloom.py
 ./tests/test_bridges.py
 ./tests/test_constraint_agent.py
 ./tests/test_diagnostic.py
+./tests/test_discrepancy.py
 ./tests/test_expand.py
 ./tests/test_explore.py
 ./tests/test_first_principles_audit.py
