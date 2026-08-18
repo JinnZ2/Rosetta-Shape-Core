@@ -60,6 +60,30 @@
       "type": "array",
       "description": "Ordered reasoning steps the agent took after observing this run. Empty only if nothing was recorded.",
       "items": { "$ref": "#/$defs/reasoning_step" }
+    },
+    "experiment": {
+      "type": "object",
+      "title": "Discrepancy Arm",
+      "description": "Present when the run is one arm of a discrepancy sweep — a fork in the model's specification that was resolved by experiment rather than by assertion. Absent for ordinary adaptive-loop runs.",
+      "required": ["discrepancy_id", "option_label"],
+      "properties": {
+        "discrepancy_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Which open question this run is evidence about."
+        },
+        "option_label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Which reading of the question this run took."
+        },
+        "option_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Position of the option in the discrepancy's option list."
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false,

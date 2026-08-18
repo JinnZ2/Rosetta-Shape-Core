@@ -10,6 +10,27 @@ library port into `src/rosetta_shape_core/adaptive_sim.py`).
 | `provenance_fluctuating.jsonl` | 5 runs of the fluctuating-environment Moran model; claims failed, the agent lowered `switching_rate` each iteration. |
 | `adaptive_sim_results.png` | Size distribution, claim status, and parameter evolution for those runs. |
 
+## Discrepancy sweeps
+
+| File | What it is |
+|------|------------|
+| `discrepancy_report.json` | Verdicts for all four registered discrepancies at 8 seeds. |
+| `provenance_discrepancies.jsonl` | All 88 arms behind those verdicts, each tagged with its `experiment.option_label`. |
+
+Regenerate with:
+
+```bash
+rm -f data/adaptive_sim/provenance_discrepancies.jsonl
+python -m rosetta_shape_core.discrepancy --all --seeds 8 --json \
+  --log data/adaptive_sim/provenance_discrepancies.jsonl \
+  > data/adaptive_sim/discrepancy_report.json
+```
+
+Unlike the prototype logs below, these *are* reproducible — same seeds, same
+numbers. See [`docs/adaptive-simulation.md`](../../docs/adaptive-simulation.md#discrepancies).
+
+## Prototype logs
+
 These are kept as **fixtures, not as ground truth**. The test suite validates
 every line against `schema/adaptive_run.schema.json`, so the record format
 cannot drift away from logs that were already written. The numbers in them come

@@ -18,6 +18,7 @@ from rosetta_shape_core.adaptive_sim import (
     SimulationRecord,
     SimulationRunner,
     _power_law_fit,
+    derive_seed,
     fmt,
     get_fluctuating_claims,
     get_forest_claims,
@@ -62,8 +63,10 @@ def test_sample_logs_validate(log_path):
     assert report["records"] > 0
 
 
-def test_sample_logs_are_present():
-    assert len(SAMPLE_LOGS) == 2
+def test_expected_sample_logs_are_present():
+    names = {p.name for p in SAMPLE_LOGS}
+    assert {"provenance_forest.jsonl", "provenance_fluctuating.jsonl"} <= names
+    assert "provenance_discrepancies.jsonl" in names
 
 
 def test_validate_record_rejects_missing_field():
@@ -136,6 +139,24 @@ def test_forest_competition_radius_is_configurable():
     assert ForestScalingSim(params, random.Random(1)).competition_radius == 5
 
 
+def test_forest_asynchronous_updating_changes_the_outcome():
+    """Reading competition off the grid mid-sweep is a different model."""
+    sync = ForestScalingSim(dict(SMALL_FOREST, update_order="synchronous"),
+                            random.Random(4)).run()
+    async_ = ForestScalingSim(dict(SMALL_FOREST, update_order="asynchronous"),
+                              random.Random(4)).run()
+    assert sync != async_
+    assert async_["num_trees"] > 0
+
+
+def test_forest_direct_competition_matches_the_table_on_a_static_grid():
+    sim = ForestScalingSim(SMALL_FOREST, random.Random(5))
+    sim._build_sat()
+    for i, j in ((0, 0), (3, 7), (sim.grid_size - 1, sim.grid_size - 1)):
+        assert sim._direct_competition(sim.grid, i, j) == pytest.approx(
+            sim._local_competition(i, j))
+
+
 def test_forest_empty_grid_analyzes_cleanly():
     params = dict(SMALL_FOREST, initial_density=0.0, num_steps=1)
     out = ForestScalingSim(params, random.Random(1)).run()
@@ -195,6 +216,39 @@ def test_fluctuating_switch_probability_stays_a_probability():
 def test_fluctuating_edge_states_switch_more_slowly():
     sim = FluctuatingPopSim(SMALL_FLUCT)
     assert sim._switch_probability(0) < sim._switch_probability(sim.num_states // 2)
+
+
+def test_fluctuating_saturating_semantics_are_indistinguishable():
+    """A probability above 1 never announces itself — it just saturates.
+
+    random() < 1.0 and random() < 2.0 are the same test, so the prototype's
+    out-of-range rate behaves exactly like clamping.
+    """
+    params = dict(SMALL_FLUCT, switching_rate=2.0, base_seed=3)
+    clamped = FluctuatingPopSim(dict(params, switch_semantics="clamped")).run()
+    direct = FluctuatingPopSim(dict(params, switch_semantics="rate_direct")).run()
+    exponential = FluctuatingPopSim(dict(params, switch_semantics="exponential")).run()
+    assert clamped == direct
+    assert exponential != direct
+
+
+def test_fluctuating_rate_direct_can_exceed_one():
+    sim = FluctuatingPopSim(dict(SMALL_FLUCT, switching_rate=4.0,
+                                 switch_semantics="rate_direct"))
+    assert sim._switch_probability(2) > 1.0
+
+
+def test_derive_seed_avoids_the_overlap_that_addition_creates():
+    """Neighbouring base seeds must not share replicate streams."""
+    a = {derive_seed(1, rep) for rep in range(20)}
+    b = {derive_seed(2, rep) for rep in range(20)}
+    assert not (a & b)
+    assert derive_seed(1, 0) == derive_seed(1, 0)
+
+
+def test_fluctuating_neighbouring_seeds_give_independent_results():
+    runs = [FluctuatingPopSim(dict(SMALL_FLUCT, base_seed=s)).run() for s in (1, 2, 3)]
+    assert len({r["mean_fixation_time"] for r in runs}) == 3
 
 
 def test_fluctuating_dt_scales_switching():

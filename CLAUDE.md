@@ -21,6 +21,7 @@ src/rosetta_shape_core/
   expand.py       Rule engine (priority-sorted, guard-gated)
   sim.py          Multi-agent ecosystem simulation
   adaptive_sim.py Claim-driven experiments: run → test claims → agent adapts → provenance log
+  discrepancy.py  Spec ambiguities as multiple-choice sweeps: options → runs → verdict
   self_audit.py   8 structural checks + 7 immutable axioms
   validator.py    Schema + referential integrity (ontology, shapes, bridges, rules, mesh)
   constraint_agent.py   Exact-fraction constraint geometry agent
@@ -50,6 +51,8 @@ python scripts/generate.py entity ANIMAL.OWL Owl
 
 python -m rosetta_shape_core.adaptive_sim --model forest        # claim-driven experiment loop
 python -m rosetta_shape_core.adaptive_sim --validate-log data/adaptive_sim/provenance_forest.jsonl
+python -m rosetta_shape_core.discrepancy --list                  # open modelling questions
+python -m rosetta_shape_core.discrepancy --id forest_update_order --seeds 8
 ```
 
 ## Data Model
@@ -134,6 +137,13 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 2. ID format: `SHAPE.NAME`
 3. Required: id, name, families. Include bridges (sensors, defenses, protocols, bridge_glyphs)
 4. Run `python examples/validate_ontology.py`
+
+### Resolve a spec discrepancy
+1. Add the knob to the model in `adaptive_sim.py`, defaulting to current behavior
+2. `register(Discrepancy(...))` in `discrepancy.py` with an `origin` and 2+ options
+3. `prefer`: `max`/`min` for a quality metric, `distinguish` when neither reading is better
+4. Run `python -m rosetta_shape_core.discrepancy --id <id> --seeds 8`
+5. A `tie` is a result — add seeds or write a sharper claim, don't pick by hand
 
 ### Add a sibling repo
 1. Stage extracts in `atlas/remote/<repo>/` with `extracted_from` field

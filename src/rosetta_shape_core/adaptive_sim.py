@@ -77,9 +77,13 @@ class SimulationRecord:
     outcomes: dict
     claim_results: dict
     reasoning_chain: list
+    experiment: Optional[dict] = None
 
     def to_dict(self) -> dict:
-        return _jsonify(asdict(self))
+        payload = _jsonify(asdict(self))
+        if payload.get("experiment") is None:
+            payload.pop("experiment", None)
+        return payload
 
 
 def _jsonify(value: Any) -> Any:
@@ -504,6 +508,18 @@ def _clip(value: float, lo: float, hi: float) -> float:
     return float(min(max(value, lo), hi))
 
 
+def derive_seed(base: int, index: int) -> int:
+    """Independent stream for ``(base, index)``.
+
+    Adding the index to the base is the obvious thing and the wrong thing: two
+    runs seeded 1 and 2 then share every replicate but one, so a sweep across
+    "different seeds" mostly re-measures the same trajectories and reports a
+    spread near zero. Mixing the pair through a hash keeps the streams
+    unrelated while staying fully reproducible.
+    """
+    return int(hashlib.sha256(f"{base}:{index}".encode()).hexdigest()[:16], 16)
+
+
 # ── forest metabolic scaling model ────────────────────────────────
 
 class ForestScalingSim:
@@ -537,6 +553,7 @@ class ForestScalingSim:
         # coupling) but can be set independently.
         self.competition_radius = int(
             params.get("competition_radius", self.dispersal_range // 2))
+        self.update_order = str(params.get("update_order", "synchronous"))
 
         n = self.grid_size
         self.grid = [0.0] * (n * n)
@@ -579,10 +596,29 @@ class ForestScalingSim:
                  - sat[i1 * w + j0] + sat[i0 * w + j0])
         return (total - self.grid[i * n + j]) * self.competition_strength
 
+    def _direct_competition(self, grid: list, i: int, j: int) -> float:
+        """Neighborhood sum read straight off ``grid`` — no summed-area table.
+
+        Needed for asynchronous updates, where the grid changes underneath the
+        sweep and a table built at the top of the step would be stale.
+        """
+        n = self.grid_size
+        r = self.competition_radius
+        total = 0.0
+        for a in range(max(0, i - r), min(n, i + r + 1)):
+            base = a * n
+            for b in range(max(0, j - r), min(n, j + r + 1)):
+                total += grid[base + b]
+        return (total - grid[i * n + j]) * self.competition_strength
+
     def step(self) -> None:
         n = self.grid_size
         rng = self.rng
-        self._build_sat()
+        # Asynchronous: every tree sees the forest as it stands mid-sweep, so
+        # trees updated earlier already shade those updated later.
+        asynchronous = self.update_order == "asynchronous"
+        if not asynchronous:
+            self._build_sat()
         new_grid = list(self.grid)
         new_species = list(self.species_grid)
 
@@ -595,7 +631,8 @@ class ForestScalingSim:
                 if size <= 0:
                     continue
                 alive.append((i, j))
-                comp = self._local_competition(i, j)
+                comp = (self._direct_competition(new_grid, i, j) if asynchronous
+                        else self._local_competition(i, j))
                 growth = max(0.0, size ** self.metabolic_exponent * 0.1 - comp * 0.001)
                 new_grid[idx] = size + growth
                 stress = comp / (size + 1)
@@ -614,7 +651,9 @@ class ForestScalingSim:
                 target = ni * n + nj
                 if new_grid[target] != 0:
                     continue
-                local_light = 1.0 - min(1.0, self._local_competition(ni, nj) * 0.0001)
+                comp_here = (self._direct_competition(new_grid, ni, nj) if asynchronous
+                             else self._local_competition(ni, nj))
+                local_light = 1.0 - min(1.0, comp_here * 0.0001)
                 if rng.random() < local_light:
                     new_grid[target] = self.min_size * (1 + rng.expovariate(2.0))
                     new_species[target] = self.species_grid[pi * n + pj]
@@ -704,8 +743,9 @@ class FluctuatingPopSim:
     pushes ``switching_rate``.
 
     Each replicate draws its own stream from ``base_seed`` (which the runner
-    sets to the run's seed), so a single replicate can be reproduced without
-    replaying the ones before it. The shared ``rng`` is accepted for interface
+    sets to the run's seed) via :func:`derive_seed`, so a single replicate can
+    be reproduced without replaying the ones before it, and neighbouring base
+    seeds do not share replicates. The shared ``rng`` is accepted for interface
     symmetry with other models and left unused.
     """
 
@@ -715,6 +755,7 @@ class FluctuatingPopSim:
         self.num_states = int(params.get("num_states", 5))
         self.switching_rate = float(params.get("switching_rate", 0.1))
         self.dt = float(params.get("dt", 1.0))
+        self.switch_semantics = str(params.get("switch_semantics", "exponential"))
         self.growth_rate_fast = float(params.get("growth_rate_fast", 1.0))
         self.growth_rate_ratio = float(params.get("growth_rate_ratio", 0.95))
         self.growth_rate_slow = self.growth_rate_fast * self.growth_rate_ratio
@@ -732,8 +773,21 @@ class FluctuatingPopSim:
         self.carrying_capacities = caps[:self.num_states]
 
     def _switch_probability(self, state: int) -> float:
-        """Total outflow rate from ``state``, converted to a per-step probability."""
+        """Total outflow rate from ``state``, as a per-step probability.
+
+        ``switch_semantics`` selects how a rate becomes a probability:
+
+        ``exponential``   ``1 - exp(-rate * dt)`` — bounded for any rate.
+        ``clamped``       ``min(rate * dt, 1)`` — linear until it saturates.
+        ``rate_direct``   the rate used as a probability and ``dt`` ignored —
+                          the prototype's reading, which silently exceeds 1
+                          once the agent pushes ``switching_rate`` up.
+        """
         rate = self.switching_rate * 0.5 * len(self._neighbors(state))
+        if self.switch_semantics == "rate_direct":
+            return rate
+        if self.switch_semantics == "clamped":
+            return min(1.0, rate * self.dt)
         return 1.0 - math.exp(-rate * self.dt)
 
     def _neighbors(self, state: int) -> list:
@@ -800,7 +854,7 @@ class FluctuatingPopSim:
         }
 
     def run(self) -> dict:
-        results = [self._run_replicate(self.base_seed + rep)
+        results = [self._run_replicate(derive_seed(self.base_seed, rep))
                    for rep in range(self.num_replicates)]
         total = len(results)
         fixation_times = [r["steps"] for r in results if r["fast_fixes"] or r["slow_fixes"]]

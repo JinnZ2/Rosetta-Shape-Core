@@ -9,6 +9,12 @@ from rosetta_shape_core.adaptive_sim import (
     validate_log,
 )
 from rosetta_shape_core.constraint_agent import ConstraintAgent
+from rosetta_shape_core.discrepancy import (
+    DISCREPANCIES,
+    Discrepancy,
+    Option,
+)
+from rosetta_shape_core.discrepancy import explore as explore_discrepancy
 from rosetta_shape_core.explore import (
     RosettaGraph,
     check_merge,
@@ -39,6 +45,10 @@ __all__ = [
     "SimulationRunner",
     "run_experiment",
     "validate_log",
+    "Discrepancy",
+    "Option",
+    "DISCREPANCIES",
+    "explore_discrepancy",
     "analyze_consistency",
     "trace_narrative",
     "audit_function",
