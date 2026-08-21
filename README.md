@@ -164,5 +164,6 @@ Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"
 - **Bridges** → [`/bridges/rosetta-bridges.json`](bridges/rosetta-bridges.json)
 - **Atlas (staged)** → after running `./fieldlink-pull.sh`, see [`.fieldlink/merge_stage`](.fieldlink/merge_stage)
 - **Protocols** → [`/protocols`](protocols)
+- **Rosetta operator (T1–T5)** → [`docs/rosetta-operator.md`](docs/rosetta-operator.md) (cross-domain constraint-solution transfer; schemas: `schema/rosetta_entry.schema.json`, `schema/gate_log.schema.json`)
 - **Adaptive simulation** → [`docs/adaptive-simulation.md`](docs/adaptive-simulation.md) (claim-driven experiment loop, schema: `schema/adaptive_run.schema.json`)
 - **Scripts** → [`/scripts/validate.sh`](scripts/validate.sh)

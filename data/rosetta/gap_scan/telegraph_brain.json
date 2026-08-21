@@ -1,0 +1,67 @@
+{
+  "instance": "the nervous system as telegraph network",
+  "era": "c. 1850-1900",
+  "closed": true,
+  "axes": {
+    "material_environment": "copper line, batteries, relay stations, coal-fired industry",
+    "artifact": "the electric telegraph — signal sent down a dedicated wire to a central office",
+    "science_as_practised": "a result was a traced line: stimulus in, signal along a nerve, response out, with a velocity attached",
+    "epistemology": "to know the system was to map its wiring and clock its signals"
+  },
+  "frame": {
+    "claim": "the nervous system is a telegraph network: messages travel along dedicated lines to a central office where they are read",
+    "requires": [
+      "dedicated_line",
+      "discrete_message",
+      "signal_velocity",
+      "relay_switching",
+      "central_exchange",
+      "fixed_topology"
+    ],
+    "world_capabilities": [
+      "send_signal_along_a_line",
+      "switch_at_a_relay",
+      "concentrate_traffic_at_an_exchange",
+      "hold_a_fixed_wiring_diagram"
+    ],
+    "exterior": "the operator who reads the message at the far end",
+    "exterior_required": true
+  },
+  "artifact": {
+    "name": "the electric telegraph",
+    "capabilities": [
+      "send_signal_along_a_line",
+      "switch_at_a_relay",
+      "concentrate_traffic_at_an_exchange",
+      "hold_a_fixed_wiring_diagram"
+    ]
+  },
+  "criterion": {
+    "name": "understanding = trace the line from sender to receiver and time the signal",
+    "registers": [
+      "dedicated_line",
+      "discrete_message",
+      "signal_velocity",
+      "relay_switching",
+      "central_exchange",
+      "fixed_topology"
+    ]
+  },
+  "probes": [
+    "graded_potential",
+    "chemical_transmission",
+    "synaptic_plasticity",
+    "distributed_representation",
+    "population_oscillation",
+    "neuromodulation_without_a_line",
+    "the_wiring_changing_under_use"
+  ],
+  "operands": [
+    {"name": "conduction velocity", "provenance": "MEASURED", "note": "measured in frog nerve"},
+    {"name": "stimulus-response latency", "provenance": "MEASURED"},
+    {"name": "discreteness of the message", "provenance": "APPARATUS", "note": "telegraph traffic is discrete because the key is; the nerve was granted the same"},
+    {"name": "the central office", "provenance": "APPARATUS", "note": "the network had an exchange, so a place where it all arrives was assumed"},
+    {"name": "dedicated line per message", "provenance": "APPARATUS", "note": "one wire, one circuit — a property of the installed plant"},
+    {"name": "who reads the message", "provenance": "UNTRACED", "note": "required by the frame at the receiving end and located nowhere in it"}
+  ]
+}

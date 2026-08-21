@@ -24,6 +24,12 @@ rosetta-query = "rosetta_shape_core.query:main"
 rosetta-agent = "rosetta_shape_core.constraint_agent:main"
 rosetta-adaptive-sim = "rosetta_shape_core.adaptive_sim:main"
 rosetta-discrepancy = "rosetta_shape_core.discrepancy:main"
+rosetta-operator = "rosetta_shape_core.rosetta:main"
+rosetta-families = "rosetta_shape_core.families:main"
+rosetta-entry = "rosetta_shape_core.entry:main"
+rosetta-scope = "rosetta_shape_core.scope:main"
+rosetta-gate-log = "rosetta_shape_core.gate_log:main"
+rosetta-gap-scan = "rosetta_shape_core.gap_scan:main"
 rsc-mandala-bridge = "rsc_mandala_bridge.bridge:main"
 
 [tool.setuptools.packages.find]

@@ -1,0 +1,68 @@
+{
+  "instance": "the cosmos as clockwork",
+  "era": "c. 1650-1750",
+  "closed": true,
+  "axes": {
+    "material_environment": "water, wind and animal power; gears cut by hand; the pendulum newly regulated",
+    "artifact": "the escapement clock and the orrery — the most impressive machines of the era",
+    "science_as_practised": "a result was a mechanism exhibited: gears, contact, transmitted determination",
+    "epistemology": "to know a thing was to be able to build one that did the same"
+  },
+  "frame": {
+    "claim": "the cosmos is a mechanism: bodies move by fixed rule, set going once and thereafter running without further intervention",
+    "requires": [
+      "initial_setting",
+      "absolute_time",
+      "absolute_space",
+      "rigid_transmission",
+      "conserved_running",
+      "determinate_trajectory"
+    ],
+    "world_capabilities": [
+      "move_by_fixed_rule",
+      "keep_time",
+      "transmit_determination_by_contact",
+      "run_on_without_input",
+      "be_taken_apart_into_parts"
+    ],
+    "exterior": "the setter who wound it",
+    "exterior_required": true
+  },
+  "artifact": {
+    "name": "the escapement clock",
+    "capabilities": [
+      "move_by_fixed_rule",
+      "keep_time",
+      "transmit_determination_by_contact",
+      "run_on_without_input",
+      "be_taken_apart_into_parts"
+    ]
+  },
+  "criterion": {
+    "name": "understanding = exhibit a mechanism that reproduces the motion",
+    "registers": [
+      "initial_setting",
+      "absolute_time",
+      "absolute_space",
+      "rigid_transmission",
+      "conserved_running",
+      "determinate_trajectory"
+    ]
+  },
+  "probes": [
+    "field",
+    "action_at_a_distance",
+    "statistical_law",
+    "irreversibility",
+    "self_organisation",
+    "frame_dependence_of_simultaneity"
+  ],
+  "operands": [
+    {"name": "orbital period", "provenance": "MEASURED", "note": "observed and tabulated"},
+    {"name": "planetary distance", "provenance": "MEASURED", "note": "triangulated"},
+    {"name": "absolute time", "provenance": "APPARATUS", "note": "the clock keeps one time for everything on it; the cosmos was granted the same"},
+    {"name": "rigid transmission", "provenance": "APPARATUS", "note": "gear teeth touch; the requirement of contact came from the gear train"},
+    {"name": "initial setting", "provenance": "UNTRACED", "note": "the winding is required by the frame and observed nowhere"},
+    {"name": "part decomposability", "provenance": "APPARATUS", "note": "a clock comes apart into parts because it was assembled from them"}
+  ]
+}

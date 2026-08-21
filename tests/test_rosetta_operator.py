@@ -1,0 +1,510 @@
+"""Tests for the Rosetta operator stack — T1 rosetta, T2 families, T3 entry,
+T4 scope, T5 gate log, plus gap_scan."""
+import json
+import pathlib
+
+import pytest
+from jsonschema import Draft202012Validator
+
+from rosetta_shape_core import entry as entry_mod
+from rosetta_shape_core import families as fam
+from rosetta_shape_core import gap_scan as gs
+from rosetta_shape_core import gate_log as gl
+from rosetta_shape_core import rosetta as rop
+from rosetta_shape_core import scope as sc
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+
+MODULES = [rop, fam, entry_mod, sc, gl, gs]
+
+
+# ── every module carries its own selftest ─────────────────────────
+
+@pytest.mark.parametrize("module", MODULES, ids=lambda m: m.__name__.rsplit(".", 1)[-1])
+def test_module_selftest_passes(module):
+    assert module.selftest() == []
+
+
+@pytest.mark.parametrize("module", MODULES, ids=lambda m: m.__name__.rsplit(".", 1)[-1])
+def test_module_selftest_cli_exits_zero(module, capsys):
+    assert module.main(["--selftest"]) == 0
+    assert "FAIL" not in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("module", MODULES, ids=lambda m: m.__name__.rsplit(".", 1)[-1])
+def test_module_states_the_constraints(module):
+    """Each file restates the repo constraints at the top. That is the spec."""
+    doc = module.__doc__ or ""
+    assert "CONSTRAINTS" in doc
+    assert "markers to explore" in doc
+    assert "no moral labels" in doc
+
+
+@pytest.mark.parametrize("module", MODULES, ids=lambda m: m.__name__.rsplit(".", 1)[-1])
+def test_modules_are_stdlib_only(module):
+    """Phone-buildable: no third-party imports in the operator stack."""
+    src = pathlib.Path(module.__file__).read_text(encoding="utf-8")
+    for line in src.splitlines():
+        line = line.strip()
+        if line.startswith("import ") or line.startswith("from "):
+            root = line.split()[1].split(".")[0]
+            assert root in {
+                "__future__", "argparse", "dataclasses", "datetime", "json",
+                "pathlib", "re", "sys", "typing", "rosetta_shape_core",
+            }, f"{module.__name__}: non-stdlib import {root!r}"
+
+
+# ── T2 families ───────────────────────────────────────────────────
+
+def test_seed_families_survive_their_own_falsifier():
+    assert fam.audit_families() == []
+
+
+def test_every_family_decomposes_to_named_physical_terms():
+    for f in fam.FAMILIES.values():
+        assert f.decomposition
+        assert set(f.decomposition) <= fam.PHYSICAL_TERMS
+
+
+def test_family_with_no_physical_decomposition_is_misfiled():
+    findings = fam.audit_family(fam.Family("VIBES", "a feeling", ("mood",)))
+    assert findings and "mis-filed" in findings[0]
+
+
+def test_register_family_rejects_a_misfiled_family():
+    with pytest.raises(ValueError):
+        fam.register_family(fam.Family("HUNCH", "a hunch", ("intuition",)))
+    assert "HUNCH" not in fam.FAMILIES
+
+
+def test_register_family_accepts_a_new_physical_term_and_resolves_it():
+    surface = fam.Family("CAPILLARITY", "rise against gravity in a narrow channel",
+                         ("surface_tension", "length", "density", "gravitational_field"),
+                         ("capillary",))
+    try:
+        fam.register_family(surface)
+        assert fam.resolve("capillary") == "CAPILLARITY"
+        assert fam.audit_families() == []
+    finally:
+        fam.FAMILIES.pop("CAPILLARITY", None)
+        fam._reindex()
+    assert fam.resolve("capillary") is None
+
+
+def test_register_family_rejects_duplicates():
+    with pytest.raises(ValueError):
+        fam.register_family(fam.FAMILIES["FLOW"])
+
+
+@pytest.mark.parametrize("term,expected", [
+    ("gravity", "GRAVITY_LOAD"), ("load", "GRAVITY_LOAD"), ("heat", "THERMAL_EXCHANGE"),
+    ("STRAIN", "STRAIN"), ("deformation", "STRAIN"), ("phase", "PHASE"),
+])
+def test_alias_resolution(term, expected):
+    assert fam.resolve(term) == expected
+
+
+def test_resolve_does_not_invent_families():
+    assert fam.resolve("astrology") is None
+    assert fam.resolve("") is None
+
+
+# ── T3 entry ──────────────────────────────────────────────────────
+
+def test_shipped_entries_validate():
+    assert entry_mod.validate_file() == []
+
+
+def test_shipped_entries_are_lint_clean():
+    assert entry_mod.lint_file() == []
+
+
+def test_entries_validate_against_the_json_schema():
+    schema = json.loads((ROOT / "schema" / "rosetta_entry.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    raws = entry_mod.load_raw()
+    assert raws
+    for d in raws:
+        assert list(validator.iter_errors(d)) == [], d.get("id")
+
+
+def test_entry_requires_forcing_terms_that_resolve():
+    bad = {
+        "source_system": "x", "configuration": "y", "move_ported": "z",
+        "forcing_terms": ["astrology"], "scope": {"produces": [], "stops": []},
+    }
+    assert any("resolves to no family" in e for e in entry_mod.validate_entry(bad))
+
+
+def test_entry_must_report_where_it_stops():
+    d = {
+        "source_system": "x", "configuration": "y", "move_ported": "z",
+        "forcing_terms": ["FLOW"], "scope": {"produces": ["here"]},
+    }
+    assert any("scope.stops missing" in e for e in entry_mod.validate_entry(d))
+
+
+def test_entry_rejects_unknown_fields():
+    d = {
+        "source_system": "x", "configuration": "y", "move_ported": "z",
+        "forcing_terms": ["FLOW"], "scope": {"produces": [], "stops": []},
+        "conclusion": "defended",
+    }
+    assert any("unknown field: conclusion" in e for e in entry_mod.validate_entry(d))
+
+
+def test_lint_flags_intent_attribution_and_moral_labels():
+    d = {"configuration": "the crystal wants to reach the lowest energy",
+         "move_ported": "a good move", "scope": {}}
+    findings = entry_mod.lint_entry(d)
+    assert any("intent attribution" in f for f in findings)
+    assert any("moral label" in f for f in findings)
+
+
+def test_entry_key_derivation_and_uniqueness():
+    assert entry_mod.Entry.from_dict({"source_system": "grass blade"}).key == "ENTRY.GRASS_BLADE"
+    keys = [e.key for e in entry_mod.load_entries()]
+    assert len(keys) == len(set(keys))
+
+
+def test_gate_history_dict_is_normalised_to_a_list():
+    e = entry_mod.Entry.from_dict({
+        "source_system": "x",
+        "gate_history": {"date": "2025-01-01", "model": "m", "register": "r"},
+    })
+    assert isinstance(e.gate_history, list) and len(e.gate_history) == 1
+
+
+def test_bad_jsonl_line_reports_its_line_number(tmp_path):
+    p = tmp_path / "entries.jsonl"
+    p.write_text('{"source_system": "ok"}\nnot json\n', encoding="utf-8")
+    with pytest.raises(ValueError) as exc:
+        entry_mod.load_raw(p)
+    assert ":2:" in str(exc.value)
+
+
+# ── T4 scope ──────────────────────────────────────────────────────
+
+def test_platonic_solids_satisfy_euler():
+    for tok in ("TETRAHEDRON", "CUBE", "OCTAHEDRON", "DODECAHEDRON", "ICOSAHEDRON"):
+        p = sc.SHAPE_PROPERTIES[tok]
+        assert p["vertices"] - p["edges"] + p["faces"] == 2
+
+
+def test_duals_are_mutual():
+    for tok, p in sc.SHAPE_PROPERTIES.items():
+        dual = p.get("dual")
+        if dual:
+            assert sc.SHAPE_PROPERTIES[dual]["dual"] == tok
+
+
+def test_no_observations_is_not_adequate():
+    assert sc.classify([]).status == sc.NO_DATA
+
+
+def test_holding_everywhere_is_adequate_at_this_scope():
+    v = sc.classify([sc.Observation("HEXAGON", "tiles_plane", True)])
+    assert v.status == sc.ADEQUATE
+    assert "untested outside" in v.reading
+
+
+def test_failing_everywhere_grades_the_token_a_placeholder():
+    v = sc.classify([sc.Observation("BLOB", "vertices", False), sc.Observation("BLOB", "edges", False)])
+    assert v.status == sc.PLACEHOLDER
+    assert "no structural claim" in v.reading
+
+
+def test_failing_past_a_scale_measures_a_boundary():
+    v = sc.classify([
+        sc.Observation("OCTAHEDRON", "p", True, scale=1.0),
+        sc.Observation("OCTAHEDRON", "p", True, scale=2.0),
+        sc.Observation("OCTAHEDRON", "p", False, scale=5.0),
+    ])
+    assert (v.status, v.boundary_scale, v.direction) == (sc.BOUNDED, 5.0, "above")
+
+
+def test_failing_below_a_scale_is_also_a_boundary():
+    v = sc.classify([
+        sc.Observation("X", "p", False, scale=0.1),
+        sc.Observation("X", "p", True, scale=2.0),
+    ])
+    assert (v.status, v.boundary_scale, v.direction) == (sc.BOUNDED, 0.1, "below")
+
+
+def test_interleaved_scales_are_indeterminate():
+    v = sc.classify([
+        sc.Observation("X", "p", True, scale=1.0),
+        sc.Observation("X", "p", False, scale=2.0),
+        sc.Observation("X", "p", True, scale=3.0),
+    ])
+    assert v.status == sc.INDETERMINATE
+
+
+def test_condition_separable_observations_are_bounded_without_a_scale():
+    v = sc.classify([
+        sc.Observation("HEXAGON", "tiles", True, condition="flat region"),
+        sc.Observation("HEXAGON", "tiles", False, condition="closed surface"),
+    ])
+    assert v.status == sc.BOUNDED and v.boundary_scale is None
+    assert "closed surface" in v.failing_conditions
+
+
+def test_shipped_observations_grade_both_carried_tokens():
+    vs = sc.verdicts()
+    assert vs["HEXAGON"].status == sc.BOUNDED
+    assert vs["OCTAHEDRON"].status == sc.BOUNDED
+    assert vs["OCTAHEDRON"].boundary_scale == 3.0
+
+
+def test_repo_audit_criterion_every_entry_reports_a_stop():
+    assert sc.audit_entries() == []
+
+
+def test_audit_flags_an_entry_that_never_stops():
+    e = entry_mod.Entry(source_system="x", configuration="y", scope={"produces": ["everywhere"], "stops": []})
+    findings = sc.audit_entries([e])
+    assert findings and "this is the flag" in findings[0]
+
+
+def test_carried_tokens_have_formal_properties_to_predict_from():
+    assert sc.audit_tokens() == []
+
+
+def test_properties_does_not_invent_a_shape():
+    assert sc.properties("NOT_A_SHAPE") == {}
+
+
+# ── T1 rosetta ────────────────────────────────────────────────────
+
+def test_docstring_carries_the_not():
+    doc = rop.__doc__
+    assert "WHAT THE OPERATOR IS NOT" in doc
+    for word in ("animacy", "sentience", "agency", "interior"):
+        assert word in doc
+
+
+def test_shared_forcing_licenses_transfer():
+    ms = rop.run(rop.Problem(["flow", "strain"]))
+    assert ms
+    assert all(m.licensing == rop.SHARED_FORCING for m in ms)
+    assert ms[0].entry_key == "ENTRY.GRASS_RECONFIGURATION"
+    assert ms[0].shared_terms == ["FLOW", "STRAIN"]
+
+
+def test_no_shared_term_is_shared_form_and_withheld_by_default():
+    p = rop.Problem(["resonance"])
+    assert rop.run(p) == []
+    leads = rop.run(p, include_unlicensed=True)
+    assert leads and all(m.licensing == rop.SHARED_FORM for m in leads)
+    assert "Coincidence until a mechanism appears" in leads[0].reading
+
+
+def test_matches_are_sorted_by_shared_forcing_count():
+    ms = rop.run(rop.Problem(["gravity", "strain", "pressure"]))
+    counts = [len(m.shared_terms) for m in ms]
+    assert counts == sorted(counts, reverse=True)
+
+
+def test_a_match_carries_the_stops_with_the_move():
+    ms = rop.run(rop.Problem(["strain", "pressure"]))
+    honeycomb = next(m for m in ms if m.entry_key == "ENTRY.HONEYCOMB_PARTITION")
+    assert honeycomb.move_ported.startswith("when partitioning a plane")
+    assert any("Euler" in s for s in honeycomb.stops)
+    assert honeycomb.token_status == sc.BOUNDED
+
+
+def test_licensing_never_claimed_without_a_shared_term():
+    for fid in fam.FAMILIES:
+        for m in rop.run(rop.Problem([fid]), include_unlicensed=True):
+            assert (m.licensing == rop.SHARED_FORCING) == bool(m.shared_terms)
+
+
+def test_unresolved_problem_terms_are_reported_not_silently_dropped():
+    p = rop.Problem(["flow", "astrology"])
+    assert p.families == ["FLOW"]
+    assert p.unresolved == ["astrology"]
+
+
+def test_by_source_is_the_what_would_x_do_here_lookup():
+    assert [e.key for e in rop.by_source("grass")] == ["ENTRY.GRASS_RECONFIGURATION"]
+    assert rop.by_source("telephone") == []
+
+
+# ── T5 gate log ───────────────────────────────────────────────────
+
+def test_gate_log_ships_empty_and_valid():
+    assert gl.validate_file() == []
+    assert gl.load_records() == []
+
+
+def test_gate_record_requires_a_date_a_model_and_a_register():
+    for missing in ("date", "model", "register", "key"):
+        d = {"date": "2025-01-01", "key": "k", "model": "m", "register": "r"}
+        d.pop(missing)
+        assert any(missing in e for e in gl.validate_record(d))
+
+
+def test_gate_record_date_must_be_iso():
+    assert any("ISO date" in e for e in gl.validate_record(
+        {"date": "01/01/2025", "key": "k", "model": "m", "register": "r"}))
+
+
+def test_gate_records_validate_against_the_json_schema():
+    schema = json.loads((ROOT / "schema" / "gate_log.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    rec = gl.GateRecord("2025-01-01", "a-slug", "some-model", "the register", refused=["the other register"])
+    assert list(validator.iter_errors(rec.to_dict())) == []
+    for d in gl.load_raw():
+        assert list(validator.iter_errors(d)) == []
+
+
+def test_append_record_round_trips(tmp_path):
+    p = tmp_path / "gate_log.jsonl"
+    rec = gl.GateRecord("2025-03-04", "a-term", "a-model", "the register it unlocked",
+                        refused=["the register it would not hold"], slug="ENTRY.HONEYCOMB_PARTITION")
+    gl.append_record(rec, p)
+    back = gl.load_records(p)
+    assert len(back) == 1 and back[0].to_dict() == rec.to_dict()
+    assert gl.validate_file(p) == []
+
+
+def test_append_record_refuses_an_invalid_record(tmp_path):
+    with pytest.raises(ValueError):
+        gl.append_record(gl.GateRecord("nope", "k", "m", "r"), tmp_path / "g.jsonl")
+
+
+def test_renaming_a_slug_orphans_its_gate_record():
+    orphan = gl.GateRecord("2025-01-01", "k", "m", "r", slug="ENTRY.RENAMED_AWAY")
+    findings = gl.check_slugs([orphan])
+    assert findings and "orphaned" in findings[0]
+    assert gl.check_slugs([gl.GateRecord("2025-01-01", "k", "m", "r", slug="ENTRY.HONEYCOMB_PARTITION")]) == []
+
+
+def test_entry_gate_history_is_harvested_into_the_log():
+    e = entry_mod.Entry(
+        source_system="x", configuration="y",
+        id="ENTRY.X",
+        gate_history=[{"date": "2024-02-02", "model": "m", "register": "the register", "key": "a-glyph"}],
+    )
+    recs = gl.from_entries([e])
+    assert len(recs) == 1
+    assert (recs[0].model, recs[0].key, recs[0].entry) == ("m", "a-glyph", "ENTRY.X")
+    assert gl.validate_record(recs[0].to_dict()) == []
+
+
+def test_summary_reports_the_window_and_the_refusals():
+    recs = [
+        gl.GateRecord("2024-06-01", "a", "model-one", "register-one", refused=["r"]),
+        gl.GateRecord("2025-01-01", "b", "model-two", "register-two", refused=["r"]),
+    ]
+    s = gl.summary(recs)
+    assert s["records"] == 2
+    assert (s["first"], s["last"]) == ("2024-06-01", "2025-01-01")
+    assert s["refusals"] == {"r": 2}
+    assert s["models"] == ["model-one", "model-two"]
+
+
+# ── gap_scan ──────────────────────────────────────────────────────
+
+def test_shipped_instances_are_closed_and_valid():
+    paths = gs.list_instances()
+    assert paths
+    for p in paths:
+        d = json.loads(p.read_text(encoding="utf-8"))
+        assert gs.validate_instance(d) == []
+        assert d.get("closed") is True
+
+
+@pytest.mark.parametrize("name", ["clockwork", "telegraph_brain"])
+def test_closed_instances_fire_every_shape_class(name):
+    report = gs.scan_instance(name)
+    assert report.fired == ["G1", "G2", "G3", "G4"]
+
+
+def test_clockwork_reports_the_expected_shape():
+    r = gs.scan_instance("clockwork")
+    g = {x.id: x for x in r.gaps}
+    assert "field" in g["G1"].items
+    assert any("absolute time" in i for i in g["G2"].items)
+    assert g["G4"].items == ["the setter who wound it"]
+    assert r.provenance["orbital period"] == gs.MEASURED
+    assert r.provenance["initial setting"] == gs.UNTRACED
+
+
+def test_g1_reports_only_terms_the_criterion_cannot_register():
+    g = gs.g1_missing_slot(
+        gs.Frame("c", requires=["a", "b"]),
+        gs.Criterion("crit", registers=["a"]),
+        probes=["c", "a"],
+    )
+    assert g.fired and g.items == ["b", "c"]
+
+
+def test_g2_reports_apparatus_and_untraced_operands_only():
+    g = gs.g2_imported_boundary([
+        gs.Operand("m", gs.MEASURED), gs.Operand("k", gs.APPARATUS), gs.Operand("u", gs.UNTRACED)])
+    assert g.fired and len(g.items) == 2
+    assert not gs.g2_imported_boundary([gs.Operand("m", gs.MEASURED)]).fired
+
+
+def test_g3_fires_only_when_the_world_is_inside_the_machine():
+    art = gs.Artifact("machine", ["x", "y", "z"])
+    assert gs.g3_substrate_ceiling(gs.Frame("c", world_capabilities=["x", "y"]), art).fired
+    assert not gs.g3_substrate_ceiling(gs.Frame("c", world_capabilities=["x", "beyond"]), art).fired
+    assert not gs.g3_substrate_ceiling(gs.Frame("c"), art).fired
+
+
+def test_g4_fires_only_on_an_exterior_that_cannot_be_located():
+    crit = gs.Criterion("crit", registers=["a"])
+    assert gs.g4_exterior(gs.Frame("c", exterior="the setter", exterior_required=True), crit, []).fired
+    assert not gs.g4_exterior(gs.Frame("c", exterior="a", exterior_required=True), crit, []).fired
+    assert not gs.g4_exterior(
+        gs.Frame("c", exterior="m", exterior_required=True), crit, [gs.Operand("m", gs.MEASURED)]).fired
+    assert not gs.g4_exterior(gs.Frame("c"), crit, []).fired
+
+
+def test_scan_derives_nothing_it_was_not_given():
+    r = gs.scan(gs.Frame("c", requires=["a"]), gs.Artifact("m", ["x"]),
+                gs.Criterion("crit", registers=["a"]), [gs.Operand("o", gs.MEASURED)])
+    assert r.fired == []
+
+
+def test_instance_without_an_identifiable_artifact_is_rejected():
+    errors = gs.validate_instance({"frame": {"claim": "c"}, "artifact": {}, "criterion": {}})
+    assert any("dominant artifact" in e for e in errors)
+
+
+def test_unknown_provenance_is_rejected():
+    errors = gs.validate_instance({
+        "frame": {"claim": "c"}, "artifact": {"name": "a"}, "criterion": {},
+        "operands": [{"name": "o", "provenance": "GUESSED"}]})
+    assert any("provenance" in e for e in errors)
+
+
+def test_missing_instance_reports_cleanly():
+    assert gs.main(["--example", "no_such_instance"]) == 1
+
+
+# ── CLI smoke ─────────────────────────────────────────────────────
+
+@pytest.mark.parametrize("argv,module", [
+    (["--list"], fam), (["--audit"], fam), (["--term", "gravity"], fam),
+    (["--validate"], entry_mod), (["--lint"], entry_mod), (["--list"], entry_mod),
+    (["--audit"], sc), (["--all"], sc), (["--shape", "HEXAGON"], sc),
+    (["--classify", "HEXAGON"], sc),
+    (["--forcing", "flow"], rop), (["--source", "grass"], rop),
+    (["--list"], gl), (["--summary"], gl), (["--validate"], gl), (["--check-slugs"], gl),
+    (["--list"], gs), (["--example", "clockwork"], gs),
+])
+def test_cli_paths_exit_zero(argv, module, capsys):
+    assert module.main(argv) == 0
+    assert capsys.readouterr().out
+
+
+@pytest.mark.parametrize("argv,module", [
+    (["--list"], fam), (["--validate"], entry_mod), (["--all"], sc),
+    (["--forcing", "flow"], rop), (["--list"], gl), (["--example", "clockwork"], gs),
+])
+def test_json_output_parses(argv, module, capsys):
+    module.main(argv + ["--json"])
+    json.loads(capsys.readouterr().out)
