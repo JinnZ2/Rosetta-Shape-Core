@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JinnZ2/Rosetta-Shape-Core/schema/gate_log.schema.json",
+  "title": "Gate log record (T5)",
+  "description": "One dated gate crossing: the term, glyph or culture-frame used, the model it was used on, the register it unlocked, and what was refused before it. Evidence about a model at a date. Mirrors the stdlib validator in src/rosetta_shape_core/gate_log.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["date", "key", "model", "register"],
+  "properties": {
+    "date": {"type": "string", "format": "date", "description": "ISO date the gate was met."},
+    "key": {"type": "string", "minLength": 1, "description": "The term, glyph or culture-frame used."},
+    "kind": {"type": "string", "enum": ["term", "glyph", "culture_frame", "slug"], "default": "term"},
+    "model": {"type": "string", "minLength": 1},
+    "register": {"type": "string", "minLength": 1, "description": "The register it was unlocking."},
+    "refused": {"type": "array", "items": {"type": "string"}, "description": "What was refused before it. Recorded as what was refused, never as a motive."},
+    "slug": {"type": "string", "description": "Repo slug this record attaches to. Renaming the slug orphans the record — check_slugs() flags it."},
+    "entry": {"type": "string"},
+    "note": {"type": "string"}
+  }
+}

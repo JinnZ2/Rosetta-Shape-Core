@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JinnZ2/Rosetta-Shape-Core/schema/rosetta_entry.schema.json",
+  "title": "Rosetta entry (T3)",
+  "description": "One source system read once, under stated forcing. Mirrors the stdlib validator in src/rosetta_shape_core/entry.py — that module is the runtime check; this file is the contract for anything outside Python. Entries are markers to explore, not positions defended.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_system",
+    "configuration",
+    "forcing_terms",
+    "move_ported",
+    "scope",
+    "provenance"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^ENTRY\\.[A-Z0-9_]+$",
+      "description": "Stable handle. Derived from source_system when absent. Never renamed — see the gate log rule in gate_log.py."
+    },
+    "source_system": {
+      "type": "string",
+      "minLength": 1,
+      "description": "crystal, grass, mycelium, ... The system that solved a structurally similar problem under different constraints."
+    },
+    "configuration": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What it reaches under constraint. A behaviour readout — no intent attribution, no moral label."
+    },
+    "forcing_terms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "description": "Family ids or aliases (see families.py). This field is what licenses transfer: shared forcing means the shape is caused, not resembled."
+    },
+    "move_ported": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The transferable operation. The move, not the ontology."
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "produces",
+        "stops"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "produces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stops": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Where it stops. An entry that produces everywhere and never stops is the audit flag, not a strong entry."
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "concept",
+        "record"
+      ],
+      "additionalProperties": false,
+      "description": "Where this record came from. concept = where the thing being recorded came from; record = who wrote the record text as it stands. A repo that demands operand provenance of what it reads does not ship unmarked records of its own. See src/rosetta_shape_core/provenance.py.",
+      "properties": {
+        "concept": {
+          "type": "string",
+          "enum": [
+            "AUTHOR",
+            "SPEC",
+            "MODEL",
+            "PUBLIC"
+          ]
+        },
+        "record": {
+          "type": "string",
+          "enum": [
+            "AUTHOR",
+            "SPEC",
+            "MODEL",
+            "PUBLIC"
+          ]
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "shape_token": {
+      "type": "string",
+      "pattern": "^[A-Z0-9_]+$",
+      "description": "The name used. Carries no literal/stand-in flag by design: reason from the shape's formal properties and the failure grades the token (see scope.py)."
+    },
+    "gate_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "date",
+          "model",
+          "register"
+        ],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "model": {
+            "type": "string"
+          },
+          "register": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "term",
+              "glyph",
+              "culture_frame",
+              "slug"
+            ]
+          },
+          "key": {
+            "type": "string"
+          },
+          "refused": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Dated record of which register a name had to unlock. Data on the models."
+    },
+    "note": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

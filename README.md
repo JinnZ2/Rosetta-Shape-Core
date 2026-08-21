@@ -135,7 +135,7 @@ Folder layout
 	•	tests/ — schema + golden tests
 
 
-MIT License.
+CC0 1.0 Universal — public domain dedication. See `LICENSE`.
 
 **FILENAME:** `pyproject.toml`
 ```toml
@@ -164,5 +164,7 @@ Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"
 - **Bridges** → [`/bridges/rosetta-bridges.json`](bridges/rosetta-bridges.json)
 - **Atlas (staged)** → after running `./fieldlink-pull.sh`, see [`.fieldlink/merge_stage`](.fieldlink/merge_stage)
 - **Protocols** → [`/protocols`](protocols)
+- **Rosetta operator (T1–T5)** → [`docs/rosetta-operator.md`](docs/rosetta-operator.md) (cross-domain constraint-solution transfer; schemas: `schema/rosetta_entry.schema.json`, `schema/gate_log.schema.json`)
+- **Reading protocol** → [`docs/reading-protocol.md`](docs/reading-protocol.md) (read an artifact against the constraint set operating at its date)
 - **Adaptive simulation** → [`docs/adaptive-simulation.md`](docs/adaptive-simulation.md) (claim-driven experiment loop, schema: `schema/adaptive_run.schema.json`)
 - **Scripts** → [`/scripts/validate.sh`](scripts/validate.sh)
