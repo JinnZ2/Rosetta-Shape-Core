@@ -5,6 +5,14 @@ A family is one physical term. Nothing else. The nine seeded here are the
 loads a body is under continuously from birth: gravity, pressure, gradient,
 diffusion, thermal exchange, flow, resonance, phase, strain.
 
+PROVENANCE OF THE SEED LIST — read this before using it
+    The nine below came in with the build specification (provenance
+    concept=SPEC, record=MODEL). They are not the repo author's own family
+    set. That set is outstanding, and the seed list is a working stand-in
+    until it arrives: correct against it, do not treat it as the base.
+    ``register_family()`` is how the author's terms enter, and it requires
+    a provenance block like everything else here.
+
 GROUNDING
     The vocabulary is proprioception-derived. The transducer that produced it
     was calibrated by these terms before any symbolic layer existed, so an
@@ -35,8 +43,12 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from dataclasses import asdict, dataclass
-from typing import Dict, Iterable, List, Optional
+from dataclasses import asdict, dataclass, field
+from typing import Any, Dict, Iterable, List, Optional
+
+from rosetta_shape_core.provenance import MODEL, SPEC
+from rosetta_shape_core.provenance import make as make_provenance
+from rosetta_shape_core.provenance import validate as validate_provenance
 
 # ── the lexicon a family must decompose into ──────────────────────
 #
@@ -97,13 +109,22 @@ class Family:
     decomposition: tuple = ()
     aliases: tuple = ()
     note: str = ""
+    provenance: Dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return asdict(self)
 
 
-def _f(id_: str, term: str, decomposition: Iterable[str], aliases: Iterable[str] = (), note: str = "") -> Family:
-    return Family(id_, term, tuple(decomposition), tuple(aliases), note)
+_SEED_PROVENANCE = make_provenance(
+    SPEC, MODEL,
+    note="family named in the build spec; the physical term and its decomposition written during the build",
+)
+
+
+def _f(id_: str, term: str, decomposition: Iterable[str], aliases: Iterable[str] = (), note: str = "",
+       provenance: Optional[Dict[str, Any]] = None) -> Family:
+    return Family(id_, term, tuple(decomposition), tuple(aliases), note,
+                  dict(provenance or _SEED_PROVENANCE))
 
 
 SEED_FAMILIES: List[Family] = [
@@ -219,6 +240,7 @@ def audit_family(family: Family) -> List[str]:
         findings.append(f"{family.id}: no physical term stated")
     if not family.decomposition:
         findings.append(f"{family.id}: mis-filed — decomposes to nothing")
+    findings.extend(validate_provenance(family.provenance, where=family.id or "family"))
     for token in family.decomposition:
         if token not in PHYSICAL_TERMS:
             findings.append(
@@ -263,9 +285,12 @@ def selftest() -> List[str]:
         fails.append("alias resolution broken for 'heat'")
     if resolve("nonsense_term") is not None:
         fails.append("resolve() invented a family")
-    bad = Family("VIBES", "a feeling about a system", ("mood",))
-    if not audit_family(bad):
+    bad = Family("VIBES", "a feeling about a system", ("mood",), provenance=_SEED_PROVENANCE)
+    if not any("mis-filed" in f for f in audit_family(bad)):
         fails.append("falsifier failed to catch a family with no physical decomposition")
+    unmarked = Family("UNMARKED", "a term", ("length",))
+    if not any("provenance" in f for f in audit_family(unmarked)):
+        fails.append("a family with no provenance was accepted")
     if len(FAMILIES) < 9:
         fails.append("seed family list is short")
     return fails

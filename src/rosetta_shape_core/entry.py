@@ -10,6 +10,13 @@ One entry is one source system read once, under stated forcing.
     scope           where it produces / where it stops
     shape_token     the name used
     gate_history    [{date, model, register}, ...]
+    provenance      {concept, record} — where the entry came from
+
+``provenance`` is required. A repo that demands operand provenance of
+everything it reads cannot ship unmarked records of its own: an entry whose
+source system was named by the author but written up by a model reads as
+fully authored unless it says otherwise, and that is unrecoverable later.
+See provenance.py.
 
 ``forcing_terms`` is the load-bearing field. Two systems reaching the same
 configuration under the same forcing is SHARED FORCING: the shape is caused
@@ -46,11 +53,12 @@ from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List, Optional
 
 from rosetta_shape_core.families import resolve as resolve_family
+from rosetta_shape_core.provenance import validate as validate_provenance
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 ENTRIES_PATH = ROOT / "data" / "rosetta" / "entries.jsonl"
 
-REQUIRED_FIELDS = ("source_system", "configuration", "forcing_terms", "move_ported", "scope")
+REQUIRED_FIELDS = ("source_system", "configuration", "forcing_terms", "move_ported", "scope", "provenance")
 OPTIONAL_FIELDS = ("id", "shape_token", "gate_history", "note", "sources")
 
 # Advisory lint only. These are not moral judgements about the words; they
@@ -76,6 +84,7 @@ class Entry:
     forcing_terms: List[str] = field(default_factory=list)
     move_ported: str = ""
     scope: Dict[str, List[str]] = field(default_factory=dict)
+    provenance: Dict[str, Any] = field(default_factory=dict)
     id: Optional[str] = None
     shape_token: Optional[str] = None
     gate_history: List[Dict[str, Any]] = field(default_factory=list)
@@ -113,6 +122,7 @@ class Entry:
             forcing_terms=list(d.get("forcing_terms", [])),
             move_ported=d.get("move_ported", ""),
             scope=dict(d.get("scope", {})),
+            provenance=dict(d.get("provenance", {})),
             id=d.get("id"),
             shape_token=d.get("shape_token"),
             gate_history=list(gh),
@@ -165,6 +175,9 @@ def validate_entry(d: Dict[str, Any]) -> List[str]:
                     errors.append(f"scope.{half} missing — the entry must say where it {half}")
                 elif not isinstance(scope[half], list) or not all(isinstance(s, str) for s in scope[half]):
                     errors.append(f"scope.{half} must be a list of strings")
+
+    if "provenance" in d:
+        errors.extend(validate_provenance(d["provenance"], where="entry"))
 
     st = d.get("shape_token")
     if st is not None and (not isinstance(st, str) or st != st.upper()):
@@ -275,6 +288,11 @@ def format_entry(e: Entry) -> str:
         lines.append(f"      stops         {s}")
     for g in e.gate_history:
         lines.append(f"      gate          {g.get('date', '?')} {g.get('model', '?')} — {g.get('register', '?')}")
+    if e.provenance:
+        lines.append(f"      provenance    concept {e.provenance.get('concept', '?')} / "
+                     f"record {e.provenance.get('record', '?')}")
+        if e.provenance.get("note"):
+            lines.append(f"                    {e.provenance['note']}")
     return "\n".join(lines)
 
 
@@ -289,6 +307,7 @@ def selftest() -> List[str]:
         "forcing_terms": ["GRAVITY_LOAD", "strain"],
         "move_ported": "a move",
         "scope": {"produces": ["here"], "stops": ["there"]},
+        "provenance": {"concept": "MODEL", "record": "MODEL"},
     }
     if validate_entry(ok):
         fails.append("valid entry rejected")
@@ -299,6 +318,9 @@ def selftest() -> List[str]:
         fails.append("entry with no scope.stops accepted")
     if not validate_entry({**ok, "shape_token": "hexagon"}):
         fails.append("lowercase shape_token accepted")
+    unmarked = {k: v for k, v in ok.items() if k != "provenance"}
+    if not any("provenance" in e for e in validate_entry(unmarked)):
+        fails.append("entry with no provenance accepted")
     if not lint_entry({**ok, "configuration": "the system wants to minimise energy"}):
         fails.append("lint missed intent attribution")
     if lint_entry(ok):

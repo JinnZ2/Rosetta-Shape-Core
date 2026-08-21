@@ -10,12 +10,13 @@ from rosetta_shape_core import entry as entry_mod
 from rosetta_shape_core import families as fam
 from rosetta_shape_core import gap_scan as gs
 from rosetta_shape_core import gate_log as gl
+from rosetta_shape_core import provenance as prov
 from rosetta_shape_core import rosetta as rop
 from rosetta_shape_core import scope as sc
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-MODULES = [rop, fam, entry_mod, sc, gl, gs]
+MODULES = [rop, fam, entry_mod, sc, gl, prov, gs]
 
 
 # ── every module carries its own selftest ─────────────────────────
@@ -56,6 +57,13 @@ def test_modules_are_stdlib_only(module):
 
 # ── T2 families ───────────────────────────────────────────────────
 
+def test_seed_families_are_marked_spec_derived_not_authored():
+    """The nine came in with the build spec. Nothing may quietly claim AUTHOR."""
+    for f in fam.FAMILIES.values():
+        assert f.provenance.get("concept") == prov.SPEC, f.id
+        assert f.provenance.get("record") == prov.MODEL, f.id
+
+
 def test_seed_families_survive_their_own_falsifier():
     assert fam.audit_families() == []
 
@@ -67,20 +75,28 @@ def test_every_family_decomposes_to_named_physical_terms():
 
 
 def test_family_with_no_physical_decomposition_is_misfiled():
-    findings = fam.audit_family(fam.Family("VIBES", "a feeling", ("mood",)))
-    assert findings and "mis-filed" in findings[0]
+    findings = fam.audit_family(fam.Family("VIBES", "a feeling", ("mood",),
+                                           provenance=prov.make(prov.MODEL)))
+    assert any("mis-filed" in f for f in findings)
 
 
 def test_register_family_rejects_a_misfiled_family():
     with pytest.raises(ValueError):
-        fam.register_family(fam.Family("HUNCH", "a hunch", ("intuition",)))
+        fam.register_family(fam.Family("HUNCH", "a hunch", ("intuition",),
+                                       provenance=prov.make(prov.MODEL)))
     assert "HUNCH" not in fam.FAMILIES
+
+
+def test_register_family_rejects_a_family_with_no_provenance():
+    with pytest.raises(ValueError):
+        fam.register_family(fam.Family("UNMARKED", "a term", ("length",)))
+    assert "UNMARKED" not in fam.FAMILIES
 
 
 def test_register_family_accepts_a_new_physical_term_and_resolves_it():
     surface = fam.Family("CAPILLARITY", "rise against gravity in a narrow channel",
                          ("surface_tension", "length", "density", "gravitational_field"),
-                         ("capillary",))
+                         ("capillary",), provenance=prov.make(prov.MODEL))
     try:
         fam.register_family(surface)
         assert fam.resolve("capillary") == "CAPILLARITY"
@@ -159,6 +175,30 @@ def test_lint_flags_intent_attribution_and_moral_labels():
     findings = entry_mod.lint_entry(d)
     assert any("intent attribution" in f for f in findings)
     assert any("moral label" in f for f in findings)
+
+
+def test_entry_without_provenance_is_rejected():
+    d = {
+        "source_system": "x", "configuration": "y", "move_ported": "z",
+        "forcing_terms": ["FLOW"], "scope": {"produces": ["a"], "stops": ["b"]},
+    }
+    assert any("provenance" in e for e in entry_mod.validate_entry(d))
+    d["provenance"] = {"concept": "MINE", "record": "MODEL"}
+    assert any("not one of" in e for e in entry_mod.validate_entry(d))
+
+
+def test_shipped_entries_record_where_they_came_from():
+    """The attribution is a regression guard: nothing drifts to AUTHOR."""
+    got = {e.key: (e.provenance["concept"], e.provenance["record"])
+           for e in entry_mod.load_entries()}
+    assert got == {
+        "ENTRY.GRASS_RECONFIGURATION": (prov.AUTHOR, prov.MODEL),
+        "ENTRY.HONEYCOMB_PARTITION": (prov.AUTHOR, prov.MODEL),
+        "ENTRY.CRYSTAL_HABIT": (prov.AUTHOR, prov.MODEL),
+        "ENTRY.MYCELIAL_ROUTING": (prov.SPEC, prov.MODEL),
+        "ENTRY.TRABECULAR_ALIGNMENT": (prov.MODEL, prov.MODEL),
+        "ENTRY.SOAP_FILM_SPAN": (prov.MODEL, prov.MODEL),
+    }
 
 
 def test_entry_key_derivation_and_uniqueness():
@@ -481,6 +521,24 @@ def test_unknown_provenance_is_rejected():
     assert any("provenance" in e for e in errors)
 
 
+def test_instance_without_provenance_is_rejected():
+    errors = gs.validate_instance({"frame": {"claim": "c"}, "artifact": {"name": "a"}, "criterion": {}})
+    assert any("provenance" in e for e in errors)
+
+
+def test_shipped_instances_are_marked_spec_derived():
+    for name in ("clockwork", "telegraph_brain"):
+        r = gs.scan_instance(name)
+        assert r.record_provenance["concept"] == prov.SPEC
+        assert r.record_provenance["record"] == prov.MODEL
+
+
+def test_gap_scan_states_which_axis_it_is_on():
+    doc = gs.__doc__
+    assert "cross-INSTANCE" in doc
+    assert "not Rosetta's" in doc
+
+
 def test_missing_instance_reports_cleanly():
     assert gs.main(["--example", "no_such_instance"]) == 1
 
@@ -508,3 +566,74 @@ def test_cli_paths_exit_zero(argv, module, capsys):
 def test_json_output_parses(argv, module, capsys):
     module.main(argv + ["--json"])
     json.loads(capsys.readouterr().out)
+
+
+# ── provenance ────────────────────────────────────────────────────
+
+def test_every_shipped_record_is_marked():
+    assert prov.audit() == []
+
+
+def test_provenance_audit_covers_all_four_artifact_sets():
+    s = prov.summary()
+    assert set(s) == {"entries", "families", "observations", "gap_scan instances"}
+    assert all(block["count"] > 0 for block in s.values())
+
+
+def test_provenance_requires_both_halves_from_the_vocabulary():
+    assert prov.validate({"concept": prov.AUTHOR, "record": prov.MODEL}) == []
+    assert prov.validate(None)
+    assert prov.validate({"concept": prov.AUTHOR})
+    assert prov.validate({"concept": "MINE", "record": prov.MODEL})
+    assert prov.validate({"concept": prov.AUTHOR, "record": prov.MODEL, "vibe": "x"})
+
+
+def test_make_refuses_to_emit_an_unmarkable_block():
+    with pytest.raises(ValueError):
+        prov.make("NOPE")
+    assert prov.make(prov.SPEC, prov.MODEL, note="n") == {
+        "concept": prov.SPEC, "record": prov.MODEL, "note": "n"}
+
+
+def test_tally_counts_unmarked_records_rather_than_dropping_them():
+    t = prov.tally([{"concept": prov.AUTHOR, "record": prov.MODEL}, None])
+    assert t["concept"] == {prov.AUTHOR: 1, "(unmarked)": 1}
+
+
+def test_observations_are_marked_public_concept_model_record():
+    for o in sc.load_observations():
+        assert o.provenance["concept"] == prov.PUBLIC
+        assert o.provenance["record"] == prov.MODEL
+
+
+def test_entry_schema_requires_provenance():
+    schema = json.loads((ROOT / "schema" / "rosetta_entry.schema.json").read_text(encoding="utf-8"))
+    assert "provenance" in schema["required"]
+    enum = schema["properties"]["provenance"]["properties"]["concept"]["enum"]
+    assert set(enum) == set(prov.ORIGINS)
+
+
+# ── license ───────────────────────────────────────────────────────
+
+def test_repo_license_is_cc0():
+    text = (ROOT / "LICENSE").read_text(encoding="utf-8")
+    assert "CC0 1.0 Universal" in text
+    assert 'license = {text = "CC0-1.0"}' in (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+
+
+@pytest.mark.parametrize("module", MODULES, ids=lambda m: m.__name__.rsplit(".", 1)[-1])
+def test_modules_carry_the_spdx_line(module):
+    first = pathlib.Path(module.__file__).read_text(encoding="utf-8").splitlines()[0]
+    assert first == "# SPDX-License-Identifier: CC0-1.0"
+
+
+# ── docs ──────────────────────────────────────────────────────────
+
+def test_reading_protocol_is_present_and_linked():
+    doc = (ROOT / "docs" / "reading-protocol.md")
+    assert doc.exists()
+    text = doc.read_text(encoding="utf-8")
+    for signature in ("context ceiling", "gate / register", "accepted guess"):
+        assert signature in text
+    assert "reading-protocol.md" in (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "reading-protocol.md" in (ROOT / "docs" / "rosetta-operator.md").read_text(encoding="utf-8")

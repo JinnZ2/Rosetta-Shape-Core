@@ -10,7 +10,8 @@ modules. Each one runs on its own and carries its own selftest.
 | T3 | `entry.py` + `schema/rosetta_entry.schema.json` | the entry schema |
 | T4 | `scope.py` | boundary locator |
 | T5 | `gate_log.py` + `schema/gate_log.schema.json` | the gate log |
-| — | `gap_scan.py` | four gap shape classes over an explanatory frame |
+| — | `provenance.py` | where this repo's own records came from |
+| — | `gap_scan.py` | a third axis: four gap shape classes over an explanatory frame |
 
 ```bash
 python -m rosetta_shape_core.rosetta   --forcing flow,strain --problem "sizing a roadside mast"
@@ -18,9 +19,10 @@ python -m rosetta_shape_core.families  --list
 python -m rosetta_shape_core.entry     --validate
 python -m rosetta_shape_core.scope     --audit
 python -m rosetta_shape_core.gate_log  --summary
+python -m rosetta_shape_core.provenance --summary
 python -m rosetta_shape_core.gap_scan  --example clockwork
 
-for m in rosetta families entry scope gate_log gap_scan; do
+for m in rosetta families entry scope gate_log provenance gap_scan; do
   python -m rosetta_shape_core.$m --selftest
 done
 ```
@@ -76,6 +78,13 @@ was built by physics acting on it continuously. Grass, crystal and body come
 out in the same term set because the same fields loaded all three — shared
 forcing by construction, not by analogy noticed after the fact. The
 vocabulary is a set of load responses, and the loads are the physics.
+
+**The shipped nine are a stand-in.** They came in with the build
+specification, not from the repo author, and they are marked that way
+(`concept: SPEC`). The author's own family set is outstanding; correct the
+seed list against it rather than treating it as the base.
+`register_family()` is how a term enters, and it requires provenance like
+everything else.
 
 **Falsifier**, stated and enforced: every family must decompose to named
 physical terms. One that cannot is mis-filed. `families.audit_families()` is
@@ -176,7 +185,66 @@ what a system reaches under load, never a motive and never a score.
 
 ---
 
-## gap_scan
+## Provenance of this repo's own records
+
+`gap_scan` G2 reads an operand traced to the apparatus rather than to a
+measurement. Shipping unmarked model-seeded content inside a stack built on
+that reading is the same failure one level up — a later reader takes every
+record as authored, because nothing on the record says otherwise.
+
+So every entry, family, observation and scan instance carries two origins:
+
+| field | question |
+|---|---|
+| `concept` | where the thing being recorded came from |
+| `record` | who wrote the record text as it now stands |
+
+| origin | meaning |
+|---|---|
+| `AUTHOR` | the repo author's own material |
+| `SPEC` | arrived with a build specification for this work |
+| `MODEL` | seeded by a model during a build; not the author's material |
+| `PUBLIC` | an established result in the public record, attributable to no party here |
+
+Both halves are needed because they routinely differ: a source system named
+by the author and written up during a build session is `AUTHOR` concept and
+`MODEL` record. Reading it as fully authored overstates it; reading it as
+generated erases the author.
+
+This is origin data and carries no ranking. `MODEL` is not lesser than
+`AUTHOR` — it is differently sourced, and the reason to mark it is that the
+difference is unrecoverable later.
+
+```bash
+python -m rosetta_shape_core.provenance --audit     # anything unmarked
+python -m rosetta_shape_core.provenance --summary   # origin counts per set
+```
+
+The audit is a hard check: an entry with no provenance block fails
+`entry --validate`, a family with none fails the families audit, and a scan
+instance with none fails to load.
+
+For artifacts that predate this marking — and for anything arriving from
+outside the repo — the recovery method is
+[`docs/reading-protocol.md`](reading-protocol.md): read an artifact against
+the constraint set operating at its date, using the signatures each
+constraint leaves.
+
+---
+
+## gap_scan — the third axis
+
+| | axis | move |
+|---|---|---|
+| Rosetta | cross-**domain** | crystal → your problem |
+| Mandala | cross-**scale** | grass → ecosystem |
+| gap_scan | cross-**instance** | a closed era → the current one |
+
+`gap_scan` is a third axis and it is **not Rosetta's**. It lives in this repo
+because it shares the entry discipline — named operands, provenance per
+operand, a stated scope — not because it is part of the operator. An
+instance is not a domain: do not read a gap_scan result as a transfer, and
+do not fold the two.
 
 Fad detection is not the output; it is the access method. A closed era's
 substrate metaphor is legible *because* the era ended. Running the scan on
@@ -226,7 +294,8 @@ appears). The failure scales are the highest-value output — where a shape
 stops recurring names the scale at which a new term enters, and that is a
 measurement.
 
-Together the two span the checking. They are not merged here. This repo's
+Together the two span the checking — with `gap_scan` on a third,
+cross-instance axis. They are not merged here. This repo's
 `src/rsc_mandala_bridge/` projects Rosetta artifacts into the Mandala runtime
 across the repo boundary; it is a bridge, not a merge.
 
@@ -234,8 +303,7 @@ across the repo boundary; it is a bridge, not a merge.
 
 ## License
 
-The six modules listed at the top of this document, their schemas, and the
-data under `data/rosetta/` are dedicated to the public domain under
-[CC0-1.0](https://creativecommons.org/publicdomain/zero/1.0/) — see the
-`SPDX-License-Identifier` line at the head of each module. The rest of the
-repository remains under the MIT license in `LICENSE`.
+The whole repository is dedicated to the public domain under
+[CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/) —
+see `LICENSE`. The modules listed at the top of this document also carry an
+`SPDX-License-Identifier: CC0-1.0` line at their head.

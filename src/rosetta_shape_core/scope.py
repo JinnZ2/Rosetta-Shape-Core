@@ -62,6 +62,10 @@ INDETERMINATE = "INDETERMINATE"
 # Formal properties a reader is entitled to reason from once a token is used.
 # This table is what makes a shape token falsifiable: the predictions come
 # from here, not from the entry's prose.
+#
+# Provenance: PUBLIC throughout — these are established results (Euler's
+# formula, the Platonic duals, the equal-area tiling minimum), attributable
+# to no party here. Observations carry their own provenance per record.
 SHAPE_PROPERTIES: Dict[str, Dict[str, Any]] = {
     "TRIANGLE": {"kind": "polygon", "vertices": 3, "edges": 3, "interior_angle": 60.0, "tiles_plane": True},
     "SQUARE": {"kind": "polygon", "vertices": 4, "edges": 4, "interior_angle": 90.0, "tiles_plane": True},
@@ -102,6 +106,7 @@ class Observation:
     condition: str = ""
     entry: str = ""
     note: str = ""
+    provenance: Dict[str, Any] = field(default_factory=dict)
 
     @property
     def label(self) -> str:
@@ -112,7 +117,7 @@ class Observation:
         return self.prop
 
     def to_dict(self) -> dict:
-        return {k: v for k, v in asdict(self).items() if v not in (None, "")}
+        return {k: v for k, v in asdict(self).items() if v not in (None, "", {})}
 
     @classmethod
     def from_dict(cls, d: Dict[str, Any]) -> "Observation":
@@ -124,6 +129,7 @@ class Observation:
             condition=d.get("condition", ""),
             entry=d.get("entry", ""),
             note=d.get("note", ""),
+            provenance=dict(d.get("provenance", {})),
         )
 
 

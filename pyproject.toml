@@ -9,7 +9,7 @@ description = "Stable ontology + rules runtime for symbolic Shape - Intelligence
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = ["jsonschema>=4.0,<5"]
-license = {text = "MIT"}
+license = {text = "CC0-1.0"}
 
 [project.optional-dependencies]
 dev = ["pytest>=7.0", "pytest-cov>=4.0", "ruff>=0.4", "mypy>=1.0"]
@@ -29,6 +29,7 @@ rosetta-families = "rosetta_shape_core.families:main"
 rosetta-entry = "rosetta_shape_core.entry:main"
 rosetta-scope = "rosetta_shape_core.scope:main"
 rosetta-gate-log = "rosetta_shape_core.gate_log:main"
+rosetta-provenance = "rosetta_shape_core.provenance:main"
 rosetta-gap-scan = "rosetta_shape_core.gap_scan:main"
 rsc-mandala-bridge = "rsc_mandala_bridge.bridge:main"
 

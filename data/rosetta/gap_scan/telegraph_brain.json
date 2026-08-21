@@ -2,6 +2,11 @@
   "instance": "the nervous system as telegraph network",
   "era": "c. 1850-1900",
   "closed": true,
+  "provenance": {
+    "concept": "SPEC",
+    "record": "MODEL",
+    "note": "the closed-instance method and the four shape classes are the build spec's; this instantiation — the choice of era, the operands, the probes, the capability sets — was written during the build"
+  },
   "axes": {
     "material_environment": "copper line, batteries, relay stations, coal-fired industry",
     "artifact": "the electric telegraph — signal sent down a dedicated wire to a central office",
@@ -57,11 +62,34 @@
     "the_wiring_changing_under_use"
   ],
   "operands": [
-    {"name": "conduction velocity", "provenance": "MEASURED", "note": "measured in frog nerve"},
-    {"name": "stimulus-response latency", "provenance": "MEASURED"},
-    {"name": "discreteness of the message", "provenance": "APPARATUS", "note": "telegraph traffic is discrete because the key is; the nerve was granted the same"},
-    {"name": "the central office", "provenance": "APPARATUS", "note": "the network had an exchange, so a place where it all arrives was assumed"},
-    {"name": "dedicated line per message", "provenance": "APPARATUS", "note": "one wire, one circuit — a property of the installed plant"},
-    {"name": "who reads the message", "provenance": "UNTRACED", "note": "required by the frame at the receiving end and located nowhere in it"}
+    {
+      "name": "conduction velocity",
+      "provenance": "MEASURED",
+      "note": "measured in frog nerve"
+    },
+    {
+      "name": "stimulus-response latency",
+      "provenance": "MEASURED"
+    },
+    {
+      "name": "discreteness of the message",
+      "provenance": "APPARATUS",
+      "note": "telegraph traffic is discrete because the key is; the nerve was granted the same"
+    },
+    {
+      "name": "the central office",
+      "provenance": "APPARATUS",
+      "note": "the network had an exchange, so a place where it all arrives was assumed"
+    },
+    {
+      "name": "dedicated line per message",
+      "provenance": "APPARATUS",
+      "note": "one wire, one circuit — a property of the installed plant"
+    },
+    {
+      "name": "who reads the message",
+      "provenance": "UNTRACED",
+      "note": "required by the frame at the receiving end and located nowhere in it"
+    }
   ]
 }

@@ -21,7 +21,8 @@ src/rosetta_shape_core/
   entry.py        T3 entry schema: source → configuration → forcing → move → scope
   scope.py        T4 boundary locator: where a shape token stops producing
   gate_log.py     T5 dated record of what a name had to get past
-  gap_scan.py     4 gap shape classes over an explanatory frame (closed instances)
+  provenance.py   Where this repo's own records came from (AUTHOR/SPEC/MODEL/PUBLIC)
+  gap_scan.py     3rd axis (cross-INSTANCE): 4 gap shape classes over an explanatory frame
   bloom.py        Entry point: seed → sprout → branch exploration depths
   explore.py      Discovery engine (5 path types, seed physics, shadow hunting)
   expand.py       Rule engine (priority-sorted, guard-gated)
@@ -35,7 +36,7 @@ src/rosetta_shape_core/
   knowledge_dna.py      Narrative provenance tracing
   first_principles_audit.py  Deep axiom verification
 data/rosetta/     Entries, observations, gate log, closed gap_scan instances
-tests/            654 tests (pytest)
+tests/            681 tests (pytest)
 ```
 
 ## Essential Commands
@@ -70,6 +71,8 @@ python -m rosetta_shape_core.entry --validate                # entries + forcing
 python -m rosetta_shape_core.scope --audit                   # does each entry report where it STOPS?
 python -m rosetta_shape_core.scope --classify HEXAGON        # grade a shape token from its use
 python -m rosetta_shape_core.gate_log --summary
+python -m rosetta_shape_core.provenance --audit              # anything unmarked?
+python -m rosetta_shape_core.provenance --summary            # origin counts per set
 python -m rosetta_shape_core.gap_scan --example clockwork
 ```
 
@@ -160,6 +163,7 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 1. Append one JSON object to `data/rosetta/entries.jsonl`
 2. `forcing_terms` must resolve to families (`families.py`) — this is what licenses transfer
 3. `scope.produces` and `scope.stops` are both required; an entry that never stops is the flag
+   and `provenance` is required — `{concept, record}` from AUTHOR / SPEC / MODEL / PUBLIC
 4. `python -m rosetta_shape_core.entry --validate && python -m rosetta_shape_core.entry --lint`
 5. `python -m rosetta_shape_core.scope --audit`
 6. A shape token needs no literal/stand-in flag — add observations to
@@ -192,3 +196,9 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
   which model gate it got past; renaming orphans the gate record
 - Add a third-party import to the T1–T5 modules (stdlib only, phone-buildable)
 - Put moral labels or intent attribution in the entry data structures
+- Ship an entry, family, observation or scan instance without a `provenance`
+  block — this repo demands operand provenance of what it reads, so it marks
+  its own records (`python -m rosetta_shape_core.provenance --audit`)
+- Read `gap_scan` as part of the operator — it is a third, cross-INSTANCE axis
+- Treat the nine seeded families as the author's set; they are SPEC-derived
+  stand-ins pending it

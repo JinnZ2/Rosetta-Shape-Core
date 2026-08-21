@@ -23,6 +23,17 @@ NON-TRANSFERABLE
     Instantiating one requires the current instance's own operands, which
     is why this module ships closed examples and no open ones.
 
+WHICH AXIS THIS IS
+    Rosetta   cross-DOMAIN     crystal -> your problem
+    Mandala   cross-SCALE      grass -> ecosystem
+    gap_scan  cross-INSTANCE   a closed era -> the current one
+
+    This is a third axis and it is not Rosetta's. It sits in this repo
+    because it shares the entry discipline — named operands, provenance per
+    operand, a stated scope — and not because it is part of the operator.
+    An instance is not a domain: do not read a gap_scan result as a
+    transfer, and do not fold the two.
+
 CO-VARYING AXES (per instance)
     material environment   what the era physically ran on
     artifact               its most impressive machine
@@ -130,6 +141,7 @@ class GapReport:
     gaps: List[Gap] = field(default_factory=list)
     provenance: Dict[str, str] = field(default_factory=dict)
     axes: Dict[str, str] = field(default_factory=dict)
+    record_provenance: Dict[str, Any] = field(default_factory=dict)
 
     @property
     def fired(self) -> List[str]:
@@ -142,6 +154,7 @@ class GapReport:
             "axes": self.axes,
             "gaps": [g.to_dict() for g in self.gaps],
             "provenance": self.provenance,
+            "record_provenance": self.record_provenance,
             "fired": self.fired,
         }
 
@@ -224,6 +237,7 @@ def scan(
     instance: str = "",
     era: str = "",
     axes: Optional[Dict[str, str]] = None,
+    record_provenance: Optional[Dict[str, Any]] = None,
 ) -> GapReport:
     """Run all four shape classes. Deterministic; derives nothing it was not given."""
     return GapReport(
@@ -237,6 +251,7 @@ def scan(
         ],
         provenance={o.name: o.provenance for o in operands},
         axes=dict(axes or {}),
+        record_provenance=dict(record_provenance or {}),
     )
 
 
@@ -262,11 +277,14 @@ def parse_instance(d: Dict[str, Any]) -> Dict[str, Any]:
         "instance": d.get("instance", ""),
         "era": d.get("era", ""),
         "axes": dict(d.get("axes", {})),
+        "record_provenance": dict(d.get("provenance", {})),
     }
 
 
 def validate_instance(d: Dict[str, Any]) -> List[str]:
-    errors = []
+    from rosetta_shape_core.provenance import validate as validate_provenance
+
+    errors = validate_provenance(d.get("provenance"), where=f"instance {d.get('instance', '?')}")
     for key in ("frame", "artifact", "criterion"):
         if key not in d:
             errors.append(f"missing section: {key}")
@@ -309,6 +327,9 @@ def format_report(r: GapReport) -> str:
     lines = ["", f"  GAP SCAN — {r.instance or '(unnamed instance)'}"]
     if r.era:
         lines.append(f"  era        {r.era}")
+    if r.record_provenance:
+        lines.append(f"  record     concept {r.record_provenance.get('concept', '?')} / "
+                     f"record {r.record_provenance.get('record', '?')}")
     for k in ("material_environment", "artifact", "science_as_practised", "epistemology"):
         if k in r.axes:
             lines.append(f"  {k:24s} {r.axes[k]}")
@@ -334,6 +355,9 @@ def format_report(r: GapReport) -> str:
 
 def selftest() -> List[str]:
     fails = []
+
+    if not validate_instance({"frame": {"claim": "c"}, "artifact": {"name": "a"}, "criterion": {}}):
+        fails.append("instance with no provenance accepted")
 
     frame = Frame("test claim", requires=["a", "b"], world_capabilities=["x", "y"],
                   exterior="the setter", exterior_required=True)

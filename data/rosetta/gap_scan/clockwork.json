@@ -2,6 +2,11 @@
   "instance": "the cosmos as clockwork",
   "era": "c. 1650-1750",
   "closed": true,
+  "provenance": {
+    "concept": "SPEC",
+    "record": "MODEL",
+    "note": "the closed-instance method and the four shape classes are the build spec's; this instantiation — the choice of era, the operands, the probes, the capability sets — was written during the build"
+  },
   "axes": {
     "material_environment": "water, wind and animal power; gears cut by hand; the pendulum newly regulated",
     "artifact": "the escapement clock and the orrery — the most impressive machines of the era",
@@ -58,11 +63,35 @@
     "frame_dependence_of_simultaneity"
   ],
   "operands": [
-    {"name": "orbital period", "provenance": "MEASURED", "note": "observed and tabulated"},
-    {"name": "planetary distance", "provenance": "MEASURED", "note": "triangulated"},
-    {"name": "absolute time", "provenance": "APPARATUS", "note": "the clock keeps one time for everything on it; the cosmos was granted the same"},
-    {"name": "rigid transmission", "provenance": "APPARATUS", "note": "gear teeth touch; the requirement of contact came from the gear train"},
-    {"name": "initial setting", "provenance": "UNTRACED", "note": "the winding is required by the frame and observed nowhere"},
-    {"name": "part decomposability", "provenance": "APPARATUS", "note": "a clock comes apart into parts because it was assembled from them"}
+    {
+      "name": "orbital period",
+      "provenance": "MEASURED",
+      "note": "observed and tabulated"
+    },
+    {
+      "name": "planetary distance",
+      "provenance": "MEASURED",
+      "note": "triangulated"
+    },
+    {
+      "name": "absolute time",
+      "provenance": "APPARATUS",
+      "note": "the clock keeps one time for everything on it; the cosmos was granted the same"
+    },
+    {
+      "name": "rigid transmission",
+      "provenance": "APPARATUS",
+      "note": "gear teeth touch; the requirement of contact came from the gear train"
+    },
+    {
+      "name": "initial setting",
+      "provenance": "UNTRACED",
+      "note": "the winding is required by the frame and observed nowhere"
+    },
+    {
+      "name": "part decomposability",
+      "provenance": "APPARATUS",
+      "note": "a clock comes apart into parts because it was assembled from them"
+    }
   ]
 }
