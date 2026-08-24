@@ -33,6 +33,8 @@ rosetta-provenance = "rosetta_shape_core.provenance:main"
 rosetta-transfer = "rosetta_shape_core.transfer:main"
 rosetta-lid-import = "rosetta_shape_core.lid_import:main"
 rosetta-tier-check = "rosetta_shape_core.tier_check:main"
+rosetta-holding = "rosetta_shape_core.holding:main"
+rosetta-curiosity = "rosetta_shape_core.curiosity:main"
 rosetta-gap-scan = "rosetta_shape_core.gap_scan:main"
 rsc-mandala-bridge = "rsc_mandala_bridge.bridge:main"
 

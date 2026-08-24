@@ -26,10 +26,24 @@ CHECKS
     fail   a way of knowing filed in ontology/families/
     fail   an access entry with no breaks_when. An access entry with no
            stated break point is a preference, not an access mode
+    fail   an access entry that is cheap to acquire and lands on a measured
+           claim and does not state receipt_recoverable. Cost cannot
+           separate a01 from a03 — both are cheap and both land on
+           "measured", so the mismatch flag fires on both and cannot tell
+           them apart. The discriminator is RECOVERABILITY: can you, in
+           principle, walk back to a residual event? Yes, and it is
+           transmission with lost receipts; no, and it is narrative. That
+           field has to exist or the two collapse
     warn   cost=free with lands_on=measured — cheap travel to an expensive
            destination. That mismatch IS the detector; no judgement term
            is needed
+    warn   an access mode with no uptake_maintained_by — an unfalsifiable
+           availability claim, and the uptake-decay blind spot written into
+           the schema
     warn   an entry that claims a domain and names no access
+    warn   'unmarked' not dominant in the acquired field. If it does not
+           dominate, the tagging is being guessed at rather than recorded,
+           and the field is worthless
 
 CONSTRAINTS (repo-wide, restated per file)
     - no "about the author" / working-style section, in this or any file
@@ -48,6 +62,7 @@ import argparse
 import json
 import pathlib
 import sys
+import tempfile
 from typing import Any, Dict, List, Optional
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -149,16 +164,73 @@ def check_access_states_a_break(files: Optional[List[pathlib.Path]] = None) -> L
     return findings
 
 
+def check_recoverability_stated(files: Optional[List[pathlib.Path]] = None) -> List[str]:
+    """FAIL: a cheap mode landing on a measured claim with no recoverability stated."""
+    findings = []
+    for p in (access_files() if files is None else files):
+        record = _load(p) or {}
+        if record.get("lands_on") != "measured":
+            continue
+        if record.get("cost") not in ("free", "cheap"):
+            continue
+        if not record.get("receipt_recoverable"):
+            findings.append(
+                f"{FAIL}  {p.name} ({record.get('id', p.stem)}): cheap to acquire, lands on a "
+                f"measured claim, and states no receipt_recoverable. Cost cannot separate "
+                f"narrative from transmission-with-lost-receipts — recoverability can. Without "
+                f"the field the two collapse."
+            )
+    return findings
+
+
+def check_uptake_maintenance_stated(files: Optional[List[pathlib.Path]] = None) -> List[str]:
+    """WARN: an access mode that claims to be permanently available."""
+    findings = []
+    for p in (access_files() if files is None else files):
+        record = _load(p) or {}
+        if not record.get("uptake_maintained_by"):
+            findings.append(
+                f"{WARN}  {p.name} ({record.get('id', p.stem)}): uptake_maintained_by is unset — "
+                f"an unfalsifiable availability claim. A channel with no stated maintenance "
+                f"requirement is assumed permanently open, which is uptake decay written into "
+                f"the schema as an absence."
+            )
+    return findings
+
+
+def check_acquired_is_recorded_not_guessed(entries: Optional[List[Any]] = None) -> List[str]:
+    """WARN: 'unmarked' is not dominant, so the field is being guessed rather than recorded."""
+    if entries is None:
+        from rosetta_shape_core.entry import load_entries
+        entries = load_entries()
+    if not entries:
+        return []
+    counts: Dict[str, int] = {}
+    for e in entries:
+        counts[e.acquisition] = counts.get(e.acquisition, 0) + 1
+    top = max(counts, key=lambda k: counts[k])
+    if top != "unmarked":
+        return [
+            f"{WARN}  acquired: '{top}' dominates at {counts[top]}/{len(entries)}, not 'unmarked'. "
+            f"The true state of nearly every holding in any corpus is that the field was never "
+            f"populated, so a dominant anything-else means the tagging is being guessed at rather "
+            f"than recorded, and the field is worthless."
+        ]
+    return []
+
+
 def check_cost_lands_on_mismatch(files: Optional[List[pathlib.Path]] = None) -> List[str]:
     """WARN: cost=free, lands_on=measured — cheap travel to an expensive destination."""
     findings = []
     for p in (access_files() if files is None else files):
         record = _load(p) or {}
         if record.get("cost") == "free" and record.get("lands_on") == "measured":
+            recoverable = record.get("receipt_recoverable", "unstated")
             findings.append(
                 f"{WARN}  {p.name} ({record.get('id', p.stem)}): cost=free lands_on=measured — "
                 f"cheap travel to an expensive destination. The mismatch is the reading; nothing "
-                f"further is claimed about it."
+                f"further is claimed about it. receipt_recoverable={recoverable} is what separates "
+                f"this from a mode whose source paid and whose receipts simply did not travel."
             )
     return findings
 
@@ -182,8 +254,11 @@ def check_domain_claims_name_an_access(entries: Optional[List[Any]] = None) -> L
 ALL_CHECKS = (
     check_families_are_domains,
     check_access_states_a_break,
+    check_recoverability_stated,
     check_cost_lands_on_mismatch,
+    check_uptake_maintenance_stated,
     check_domain_claims_name_an_access,
+    check_acquired_is_recorded_not_guessed,
 )
 
 
@@ -248,7 +323,6 @@ def selftest() -> List[str]:
     if check_access_states_a_break():
         fails.append("a shipped access entry has no stated break point")
 
-    import tempfile
     with tempfile.TemporaryDirectory() as td:
         d = pathlib.Path(td)
         (d / "a99-no-break.json").write_text(json.dumps(
@@ -262,6 +336,39 @@ def selftest() -> List[str]:
         (d / "f99-narrative.json").write_text(json.dumps(f21_as_filed), encoding="utf-8")
         if not check_families_are_domains([d / "f99-narrative.json"]):
             fails.append("a way of knowing filed under families/ was accepted")
+
+    if check_recoverability_stated():
+        fails.append("a shipped access mode cannot be told apart from its neighbour on cost alone")
+    if check_uptake_maintenance_stated():
+        fails.append("a shipped access mode claims availability with no maintenance requirement")
+
+    with tempfile.TemporaryDirectory() as td:
+        d = pathlib.Path(td)
+        collapsed = {"id": "a90", "name": "x", "tier": "access", "cost": "cheap",
+                     "lands_on": "measured", "breaks_when": "somewhere"}
+        (d / "a90.json").write_text(json.dumps(collapsed), encoding="utf-8")
+        if not check_recoverability_stated([d / "a90.json"]):
+            fails.append("a cheap/measured mode with no recoverability was accepted")
+        if check_recoverability_stated([d / "a90.json"]) and check_recoverability_stated(
+                [d / "a90.json"])[0].count("collapse") != 1:
+            fails.append("the collapse finding does not name what collapses")
+        (d / "a91.json").write_text(json.dumps(
+            {**collapsed, "id": "a91", "receipt_recoverable": "in_principle"}), encoding="utf-8")
+        if check_recoverability_stated([d / "a91.json"]):
+            fails.append("a mode stating recoverability was still flagged")
+        if not check_uptake_maintenance_stated([d / "a91.json"]):
+            fails.append("a mode with no uptake_maintained_by was accepted")
+
+    from rosetta_shape_core.entry import Entry
+    guessed = [Entry(source_system="x", configuration="y", id=f"E{i}", acquired="transmitted")
+               for i in range(3)]
+    if not check_acquired_is_recorded_not_guessed(guessed):
+        fails.append("a corpus where 'transmitted' dominates was not flagged as guessed")
+    honest = [Entry(source_system="x", configuration="y", id=f"E{i}") for i in range(3)]
+    if check_acquired_is_recorded_not_guessed(honest):
+        fails.append("a corpus reading unmarked was flagged")
+    if check_acquired_is_recorded_not_guessed([]):
+        fails.append("an empty corpus produced a distribution finding")
 
     # a01 is the flag the spec named: free cost, measured claim.
     warned = check_cost_lands_on_mismatch()
@@ -278,6 +385,9 @@ def selftest() -> List[str]:
     if check_domain_claims_name_an_access([both]):
         fails.append("an entry naming both a domain and an access was flagged")
 
+    ids = {(_load(p) or {}).get("id") for p in access_files()}
+    if not {"a01", "a03", "a07"} <= ids:
+        fails.append(f"access tier is missing a member: {sorted(ids)}")
     if len(family_files()) != 20:
         fails.append(f"ontology/families/ holds {len(family_files())} files, expected f01-f20")
     if not access_files():

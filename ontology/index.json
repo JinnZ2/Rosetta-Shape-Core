@@ -186,8 +186,8 @@
     "status": "MARKER UNDER EXPLORATION — not a settled ontology, expected to change after experiment, not to be enforced as an invariant",
     "closure": "open. The tier admits new members without restructuring, which is the requirement rather than a limitation. No shape is assigned, no face count is implied, and no solid is to be re-derived from the number of files present.",
     "schema": "schema/access.schema.json",
-    "members_present": 1,
-    "candidates_pending": 5,
+    "members_present": 3,
+    "candidates_pending": 4,
     "registry": [
       {
         "id": "a01",
@@ -195,10 +195,28 @@
         "name": "narrative-constraint",
         "file": "ontology/access/a01-narrative-constraint.json",
         "derived_from": "FAMILY.F21",
-        "seed": "Read structure off the symmetry of rule application"
+        "seed": "Read structure off the symmetry of rule application",
+        "receipt_recoverable": "none"
+      },
+      {
+        "id": "a03",
+        "rosetta_id": "ACCESS.A03",
+        "name": "transmission",
+        "file": "ontology/access/a03-transmission.json",
+        "seed": "Acquired from another observer's output, not own contact",
+        "receipt_recoverable": "in_principle"
+      },
+      {
+        "id": "a07",
+        "rosetta_id": "ACCESS.A07",
+        "name": "internal-consistency",
+        "file": "ontology/access/a07-internal-consistency.json",
+        "seed": "Check held items against each other; no new input",
+        "receipt_recoverable": "n/a"
       }
     ],
-    "candidates": "ontology/access/_candidates.json — a02..a06, none with a stated break point yet, so none is a member"
+    "candidates": "ontology/access/_candidates.json — a02, a04, a05, a06, none with a stated break point yet, so none is a member",
+    "discriminator": "receipt_recoverable. Cost does not separate a01 from a03 — both are cheap and both land on 'measured'. Whether you can in principle walk back to a residual event does."
   },
   "principles": {
     "count": 12,

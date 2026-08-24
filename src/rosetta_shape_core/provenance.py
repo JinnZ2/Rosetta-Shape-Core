@@ -113,6 +113,7 @@ def _collect() -> Dict[str, List[Dict[str, Any]]]:
     from rosetta_shape_core.entry import load_raw as load_entries_raw
     from rosetta_shape_core.families import FAMILIES
     from rosetta_shape_core.gap_scan import list_instances
+    from rosetta_shape_core.holding import load_raw as load_holdings_raw
     from rosetta_shape_core.scope import load_observations
     from rosetta_shape_core.transfer import load_raw as load_transfers_raw
 
@@ -127,6 +128,7 @@ def _collect() -> Dict[str, List[Dict[str, Any]]]:
         "families": [{"id": f.id, "provenance": f.provenance} for f in FAMILIES.values()],
         "observations": [o.to_dict() for o in load_observations()],
         "transfers": load_transfers_raw(),
+        "holdings": load_holdings_raw(),
         "gap_scan instances": instances,
     }
 

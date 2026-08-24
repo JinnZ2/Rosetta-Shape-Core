@@ -24,6 +24,8 @@ src/rosetta_shape_core/
   transfer.py     Outcomes: what happened when a move was actually carried over
   lid_import.py   Import scoped attributes from Living-Intelligence-Database as entries
   tier_check.py   Domains of the world (f01–f20) vs ways of knowing (a01…)
+  holding.py      Contact log in, trajectories out — decay/circulation/ossification
+  curiosity.py    Allocator: which expensive contact gets paid for, plus the offset
   provenance.py   Where this repo's own records came from (AUTHOR/SPEC/MODEL/PUBLIC)
   gap_scan.py     3rd axis (cross-INSTANCE): 4 gap shape classes over an explanatory frame
   bloom.py        Entry point: seed → sprout → branch exploration depths
@@ -40,7 +42,7 @@ src/rosetta_shape_core/
   first_principles_audit.py  Deep axiom verification
 data/rosetta/     Entries (6 hand-written + 225 imported), observations, transfers,
                   gate log, closed gap_scan instances
-tests/            763 tests (pytest)
+tests/            800 tests (pytest)
 ```
 
 ## Essential Commands
@@ -84,6 +86,9 @@ python -m rosetta_shape_core.gate_log --summary
 python -m rosetta_shape_core.provenance --audit              # anything unmarked?
 python -m rosetta_shape_core.provenance --summary            # origin counts per set
 python -m rosetta_shape_core.tier_check                       # ways of knowing in the family set?
+python -m rosetta_shape_core.holding --trajectories           # computed on read, never stored
+python -m rosetta_shape_core.holding --gaps                   # which operator reaches which gap
+python -m rosetta_shape_core.curiosity --allocate --budget 10
 python -m rosetta_shape_core.gap_scan --example clockwork
 ```
 
@@ -232,3 +237,10 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
   it is a preference, not an access mode
 - Give the access tier a face assignment, a fixed count, or a polytope closure;
   it admits new members without restructuring, and that is the requirement
+- Separate two access modes on cost alone — a01 and a03 share the signature;
+  `receipt_recoverable` is the discriminator and is required when cheap+measured
+- Write a trajectory into a holding record — they are computed on read, and a
+  stored one is a judgement frozen at write time
+- Default `decay_class` to d1, or read an unknown `referent_rate` as slow
+- Allocate curiosity entirely to the flag queue; it reaches KNOWN_MISSING only,
+  and the offset is what reaches an axis nothing in the record marks

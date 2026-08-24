@@ -10,12 +10,6 @@
       "breaks_when": null
     },
     {
-      "id": "a03",
-      "name": "transmission",
-      "sketch": "taught or given. Carries the source's observer, not the receipts",
-      "breaks_when": null
-    },
-    {
       "id": "a04",
       "name": "borrowed-instrument",
       "sketch": "read another observer's response rather than the world directly",
@@ -38,5 +32,8 @@
     "concept": "SPEC",
     "record": "SPEC",
     "note": "candidate list and sketches quoted from the tier separation spec; no field here was written during the build"
-  }
+  },
+  "entered": [
+    "a03 transmission — breaks_when written, now ontology/access/a03-transmission.json"
+  ]
 }

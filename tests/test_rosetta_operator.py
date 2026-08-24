@@ -1,15 +1,18 @@
 """Tests for the Rosetta operator stack — T1 rosetta, T2 families, T3 entry,
 T4 scope, T5 gate log, plus gap_scan."""
+import datetime
 import json
 import pathlib
 
 import pytest
 from jsonschema import Draft202012Validator
 
+from rosetta_shape_core import curiosity as cur
 from rosetta_shape_core import entry as entry_mod
 from rosetta_shape_core import families as fam
 from rosetta_shape_core import gap_scan as gs
 from rosetta_shape_core import gate_log as gl
+from rosetta_shape_core import holding as hold
 from rosetta_shape_core import lid_import as lid
 from rosetta_shape_core import provenance as prov
 from rosetta_shape_core import rosetta as rop
@@ -19,7 +22,7 @@ from rosetta_shape_core import transfer as tr
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, tier, gs]
+MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, tier, hold, cur, gs]
 
 
 # ── every module carries its own selftest ─────────────────────────
@@ -54,7 +57,8 @@ def test_modules_are_stdlib_only(module):
             root = line.split()[1].split(".")[0]
             assert root in {
                 "__future__", "argparse", "dataclasses", "datetime", "json",
-                "pathlib", "re", "sys", "tempfile", "typing", "rosetta_shape_core",
+                "pathlib", "re", "statistics", "sys", "tempfile", "typing", "math",
+                "rosetta_shape_core",
             }, f"{module.__name__}: non-stdlib import {root!r}"
 
 
@@ -741,8 +745,13 @@ def test_every_shipped_record_is_marked():
 
 def test_provenance_audit_covers_every_artifact_set():
     s = prov.summary()
-    assert set(s) == {"entries", "families", "observations", "transfers", "gap_scan instances"}
-    assert all(block["count"] > 0 for block in s.values())
+    assert set(s) == {"entries", "families", "observations", "transfers", "holdings",
+                      "gap_scan instances"}
+    APPEND_ONLY_AND_EMPTY = {"holdings"}  # a contact is a recorded event; none logged yet
+    for name, block in s.items():
+        if name in APPEND_ONLY_AND_EMPTY:
+            continue
+        assert block["count"] > 0, name
 
 
 def test_provenance_requires_both_halves_from_the_vocabulary():
@@ -1129,7 +1138,7 @@ def test_candidates_are_not_members_of_the_tier():
     assert path not in tier.access_files()
     doc = json.loads(path.read_text(encoding="utf-8"))
     ids = [c["id"] for c in doc["candidates"]]
-    assert ids == ["a02", "a03", "a04", "a05", "a06"]
+    assert ids == ["a02", "a04", "a05", "a06"], "a03 has a break point now and became a member"
     for c in doc["candidates"]:
         assert c["breaks_when"] is None
 
@@ -1183,3 +1192,225 @@ def test_claiming_a_domain_without_an_access_is_reported():
     both = entry_mod.Entry(source_system="x", configuration="y", id="ENTRY.X",
                            domain="f05", access="a01")
     assert tier.check_domain_claims_name_an_access([both]) == []
+
+
+# ── the discriminator: cost cannot tell a01 from a03 ──────────────
+
+ACCESS_SCHEMA = json.loads((ROOT / "schema" / "access.schema.json").read_text(encoding="utf-8"))
+
+
+def _access(aid):
+    for p in tier.access_files():
+        d = json.loads(p.read_text(encoding="utf-8"))
+        if d["id"] == aid:
+            return d
+    raise AssertionError(f"no access entry {aid}")
+
+
+def test_a01_and_a03_are_indistinguishable_on_cost_signature():
+    """Both cheap to acquire, both land on measured. Cost cannot separate them."""
+    a01, a03 = _access("a01"), _access("a03")
+    assert a01["cost"] in ("free", "cheap") and a03["cost"] in ("free", "cheap")
+    assert a01["lands_on"] == a03["lands_on"] == "measured"
+
+
+def test_recoverability_is_what_separates_them():
+    assert _access("a01")["receipt_recoverable"] == "none"
+    assert _access("a03")["receipt_recoverable"] == "in_principle"
+    assert _access("a07")["receipt_recoverable"] == "n/a"
+    assert "receipt_recoverable" in ACCESS_SCHEMA["required"]
+
+
+def test_a_cheap_measured_mode_without_recoverability_fails():
+    assert tier.check_recoverability_stated() == []
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        d = pathlib.Path(td) / "a90.json"
+        d.write_text(json.dumps({"id": "a90", "name": "x", "tier": "access", "cost": "cheap",
+                                 "lands_on": "measured", "breaks_when": "somewhere"}))
+        findings = tier.check_recoverability_stated([d])
+        assert findings and "collapse" in findings[0]
+
+
+def test_a03_reclassifies_to_a01_when_receipts_are_gone_in_fact():
+    breaks = _access("a03")["breaks_when"]
+    assert any("reclassify" in b for b in breaks)
+    assert "none" in _access("a03")["uptake_decays_when"]
+
+
+def test_every_access_mode_states_what_keeps_its_channel_open():
+    assert tier.check_uptake_maintenance_stated() == []
+    for aid in ("a01", "a03", "a07"):
+        rec = _access(aid)
+        assert rec["uptake_maintained_by"].strip()
+        assert rec["uptake_decays_when"].strip()
+
+
+def test_a07_never_lands_on_measured():
+    """An audit can only refute. Passing means no contradiction found among what is held."""
+    a07 = _access("a07")
+    assert a07["channel"] == "none"
+    assert "measured" not in a07["lands_on"]
+    assert set(a07["sub_modes"]) == {"d1_dimensional", "d2_semantic", "d3_lineage"}
+
+
+@pytest.mark.parametrize("aid", ["a01", "a03", "a07"])
+def test_access_entries_validate(aid):
+    assert list(Draft202012Validator(ACCESS_SCHEMA).iter_errors(_access(aid))) == []
+
+
+# ── holdings: recorded contacts, derived trajectories ─────────────
+
+TODAY = datetime.date(2026, 8, 24)
+
+
+def _h(**kw):
+    base = {"holding_id": "h", "provenance": {"concept": "MODEL", "record": "MODEL"}}
+    base.update(kw)
+    return hold.Holding.from_dict(base)
+
+
+def test_the_ratio_is_the_reading_not_the_age():
+    slow = _h(referent_rate="slow", contact_log=[{"t": "2025-08-24", "kind": "residual"}])
+    fast = _h(referent_rate="fast", contact_log=[{"t": "2026-07-01", "kind": "residual"}])
+    assert hold.decay_ratio(slow, TODAY) < 1.0, "365 days on a slow referent is fine"
+    assert hold.decay_ratio(fast, TODAY) >= 1.0, "54 days on a fast referent is already gone"
+
+
+def test_unknown_rate_never_becomes_slow():
+    assert hold.decay_ratio(_h(referent_rate="unknown"), TODAY) is None
+    assert hold.RATE_DAYS["unknown"] is None
+    assert cur.priority(_h(referent_rate="unknown"), TODAY) is None
+
+
+def test_confirmed_stable_and_unrefreshed_are_not_merged():
+    """Conflating these is the failure the whole tier exists to catch."""
+    s1 = _h(referent_rate="slow", contact_log=[{"t": "2026-08-01", "kind": "residual",
+                                                "result": "confirmed"}])
+    s2 = _h(referent_rate="slow", contact_log=[])
+    assert hold.STALE_CONFIRMED_STABLE in hold.trajectories(s1, {}, TODAY)
+    assert hold.STALE_UNREFRESHED in hold.trajectories(s2, {}, TODAY)
+    assert hold.STALE_UNREFRESHED not in hold.trajectories(s1, {}, TODAY)
+    assert hold.STALE_CONFIRMED_STABLE not in hold.trajectories(s2, {}, TODAY)
+
+
+def test_discrepancy_is_the_learning_counter():
+    learn = _h(referent_rate="slow",
+               contact_log=[{"t": "2026-08-01", "kind": "residual", "result": "discrepant"}])
+    assert hold.TOWARD_LEARNING in hold.trajectories(learn, {}, TODAY)
+    assert "new information" in hold.reading(hold.TOWARD_LEARNING)
+
+
+def test_circulation_reads_as_confirmation_and_is_not():
+    circ = _h(holding_id="c", restatement_count=7, referent_rate="slow", contact_log=[])
+    assert hold.TOWARD_CIRCULATION in hold.trajectories(circ, {}, TODAY)
+    assert any(f.startswith("CIRCULATION") for f in hold.audit([circ], TODAY))
+
+
+def test_a_cycle_with_no_residual_anchor_is_circulation_not_false():
+    a = _h(holding_id="a", support_ids=["b"], referent_rate="slow")
+    b = _h(holding_id="b", support_ids=["a"], referent_rate="slow")
+    assert not hold.residual_anchored(a, {"a": a, "b": b})
+    findings = hold.audit([a, b], TODAY)
+    assert any("CIRCULATION" in f for f in findings)
+    assert not any("false" in f.lower() and "not as false" not in f.lower() for f in findings)
+
+
+def test_zero_discrepancies_over_many_contacts_is_reported_not_resolved():
+    amb = _h(holding_id="amb", referent_rate="slow",
+             contact_log=[{"t": "2026-08-01", "kind": "residual"} for _ in range(21)])
+    findings = [f for f in hold.audit([amb], TODAY) if "AMBIGUOUS" in f]
+    assert findings and "Not resolvable" in findings[0]
+
+
+def test_decay_class_defaults_to_undiagnosed_never_to_d1():
+    assert _h().decay_class == hold.UNDIAGNOSED
+    assert hold.DECAY_CLASSES[-1] == hold.UNDIAGNOSED
+    stale = _h(referent_rate="fast", contact_log=[{"t": "2026-01-01", "kind": "residual"}])
+    flagged = [f for f in hold.audit([stale], TODAY) if "PREMATURE_D1" in f]
+    assert flagged and "another receiver still resolves it" in flagged[0]
+
+
+def test_a_cross_observer_check_clears_the_premature_d1_flag():
+    checked = _h(referent_rate="fast", cross_observer_checked=True,
+                 contact_log=[{"t": "2026-01-01", "kind": "residual"}])
+    assert not any("PREMATURE_D1" in f for f in hold.audit([checked], TODAY))
+
+
+def test_a_trajectory_may_never_be_written_into_the_record():
+    d = {"holding_id": "x", "provenance": {"concept": "MODEL", "record": "MODEL"},
+         "trajectory": hold.DECAY}
+    assert any("computed on read" in e for e in hold.validate_holding(d))
+
+
+def test_holdings_validate_against_the_json_schema():
+    schema = json.loads((ROOT / "schema" / "holding.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    for d in hold.load_raw():
+        assert list(validator.iter_errors(d)) == [], d.get("holding_id")
+    good = {"holding_id": "h1", "provenance": {"concept": "MODEL", "record": "MODEL"},
+            "contact_log": [{"t": "2026-01-01", "kind": "residual", "result": "discrepant"}],
+            "referent_rate": "slow"}
+    assert list(validator.iter_errors(good)) == []
+
+
+def test_gap_reach_classes_do_not_collide_with_gap_scan():
+    """gap_scan numbers G1-G4 on a different axis. These are spelled out on purpose."""
+    assert set(hold.GAP_REACH) == {hold.KNOWN_MISSING, hold.KNOWN_UNRESOLVED, hold.UNMARKED_GAP}
+    assert not any(k.startswith("G") and k[1:].isdigit() for k in hold.GAP_REACH)
+    assert [g.id for g in gs.scan(gs.Frame("c"), gs.Artifact("m"), gs.Criterion("c"), []).gaps] == \
+        ["G1", "G2", "G3", "G4"]
+
+
+# ── curiosity: the allocator ──────────────────────────────────────
+
+def test_load_bearing_and_decayed_outranks_fresh_and_isolated():
+    load = _h(holding_id="load", referent_rate="fast", dependents=["a", "b", "c"],
+              contact_log=[{"t": "2026-01-01", "kind": "residual"}])
+    leaf = _h(holding_id="leaf", referent_rate="fast", dependents=[],
+              contact_log=[{"t": "2026-08-20", "kind": "residual"}])
+    assert cur.priority(load, TODAY) > cur.priority(leaf, TODAY)
+
+
+def test_an_allocation_with_no_offset_is_refused():
+    """Zero offset is the self-sealing configuration, not an aggressive one."""
+    leaf = _h(holding_id="leaf", referent_rate="fast",
+              contact_log=[{"t": "2026-08-20", "kind": "residual"}])
+    for bad in (0, -0.5, 1.0, 3):
+        with pytest.raises(ValueError):
+            cur.allocate(10, [leaf], offset_fraction=bad)
+    ok = cur.allocate(10, [leaf], offset_fraction=0.2, as_of=TODAY)
+    assert ok.offset == 2
+    assert ok.unrankable == hold.UNMARKED_GAP
+
+
+def test_the_queue_only_ever_reaches_known_missing():
+    leaf = _h(holding_id="leaf", referent_rate="fast",
+              contact_log=[{"t": "2026-08-20", "kind": "residual"}])
+    assert all(r["reach"] == hold.KNOWN_MISSING for r in cur.rank([leaf], TODAY))
+    assert "cross-station" in hold.GAP_REACH[hold.UNMARKED_GAP]
+
+
+def test_unrankable_holdings_are_reported_not_dropped():
+    unknown = _h(holding_id="u", referent_rate="unknown")
+    leaf = _h(holding_id="leaf", referent_rate="fast",
+              contact_log=[{"t": "2026-08-20", "kind": "residual"}])
+    rows = cur.rank([unknown, leaf], TODAY)
+    assert [r["holding_id"] for r in rows] == ["leaf", "u"]
+    assert "why_unrankable" in rows[-1]
+
+
+def test_audit_triggers_are_recorded_conditions():
+    fired = cur.triggered(_h(discrepancy_count=1, scope_misses=2, restatement_count=3))
+    assert set(fired) <= set(cur.AUDIT_TRIGGERS)
+    assert cur.triggered(_h()) == []
+
+
+# ── the acquired distribution is a check, not a hope ──────────────
+
+def test_unmarked_must_dominate_or_the_field_is_worthless():
+    assert tier.check_acquired_is_recorded_not_guessed() == []
+    guessed = [entry_mod.Entry(source_system="x", configuration="y", id=f"E{i}",
+                               acquired="transmitted") for i in range(3)]
+    findings = tier.check_acquired_is_recorded_not_guessed(guessed)
+    assert findings and "guessed at rather than recorded" in findings[0]

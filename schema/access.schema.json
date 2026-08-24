@@ -5,7 +5,19 @@
   "description": "A way of knowing, not a domain of the world. f01-f20 are domains OF the world; an access entry is a domain of REPRESENTATIONS of it, or a route by which a reading is obtained. Different tier, not a further face. STATUS: MARKER UNDER EXPLORATION — not a settled ontology, expected to change after experiment, not to be enforced as an invariant. The access tier admits new members without restructuring; that is the requirement, not a limitation. There is deliberately no face_assignment, no fixed count, no polytope closure and no duality or incidence check here, and no solid is to be re-derived from the number of files present.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "name", "tier", "channel", "operation", "valid_on", "breaks_when", "cost", "lands_on", "status"],
+  "required": [
+    "id",
+    "name",
+    "tier",
+    "channel",
+    "operation",
+    "valid_on",
+    "breaks_when",
+    "cost",
+    "lands_on",
+    "receipt_recoverable",
+    "status"
+  ],
   "properties": {
     "id": {
       "type": "string",
@@ -17,58 +29,213 @@
       "pattern": "^ACCESS\\.[A-Z0-9_]+$",
       "description": "Dot-namespaced form for the code tables and the id registry. Repo convention bridge; the tier-local id above is the one the spec names."
     },
-    "name": {"type": "string", "minLength": 1},
-    "tier": {"const": "access"},
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tier": {
+      "const": "access"
+    },
     "channel": {
       "type": "string",
-      "enum": ["residual", "transmitted", "unmarked"],
-      "description": "residual: the world pushed back on your own reading. transmitted: taught or given, carrying the source's observer without the receipts. unmarked: not recorded — legitimate, and expected to dominate."
+      "enum": [
+        "residual",
+        "transmitted",
+        "unmarked",
+        "none"
+      ],
+      "description": "residual: the world pushed back on your own reading. transmitted: taught or given, carrying the source's observer without the receipts. unmarked: not recorded — legitimate, and expected to dominate. none: no new input at all — the mode checks held items against each other."
     },
-    "operation": {"type": "string", "minLength": 1, "description": "What the access actually does. One line."},
-    "valid_on": {"type": "string", "minLength": 1, "description": "Conditions under which it holds."},
-    "breaks_when": {
+    "operation": {
       "type": "string",
       "minLength": 1,
-      "description": "MANDATORY, may not be null or empty. An access entry with no stated break point is a preference, not an access mode, and is rejected at validation."
+      "description": "What the access actually does. One line."
     },
-    "cost": {"type": "string", "enum": ["free", "cheap", "expensive"]},
+    "valid_on": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      ],
+      "description": "Conditions under which it holds. One line or a list."
+    },
+    "breaks_when": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      ],
+      "description": "MANDATORY, may not be null or empty. An access entry with no stated break point is a preference, not an access mode, and is rejected at validation. One line or a list."
+    },
+    "cost": {
+      "type": "string",
+      "enum": [
+        "free",
+        "cheap",
+        "expensive"
+      ]
+    },
     "lands_on": {
       "type": "string",
       "description": "Which confidence tier the output claims. Cheap travel to an expensive destination is the detector: cost=free with lands_on=measured is a mismatch worth a warning, and no judgement term is needed to say so."
     },
-    "status": {"type": "string", "enum": ["marker", "tested", "retired"]},
+    "receipt_recoverable": {
+      "type": "string",
+      "enum": [
+        "in_principle",
+        "in_fact",
+        "none",
+        "n/a"
+      ],
+      "description": "THE DISCRIMINATOR. Cost does not separate a01 from a03 — both are cheap to acquire and both land on 'measured', so the cost-mismatch flag fires on both and cannot tell them apart. What separates them is whether you can, in principle, walk back to a residual event. in_principle: the source paid and receipts exist upstream, they just did not travel with the holding — transmission with lost receipts. none: nobody paid anywhere and no upstream receipt exists to recover — narrative. in_fact: recoverable and the path is still recorded. n/a: the mode takes no input, so there is nothing to walk back to."
+    },
+    "carries": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "What arrives with the holding. A mode that carries content and the source's observer but not the receipts is the shape of transmission.",
+      "properties": {
+        "content": {
+          "type": "boolean"
+        },
+        "source_O": {
+          "type": "boolean"
+        },
+        "receipts": {
+          "type": "boolean"
+        }
+      }
+    },
+    "sub_modes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Variants sharing the channel. Kept inside one entry rather than split out, so that a variant which arrived the same way keeps its lineage visible even when it sits at a different position in the stack."
+    },
+    "uptake_maintained_by": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What keeps this channel open at the receiver. An access mode with no maintenance requirement stated is assumed permanently available, which is the uptake-decay blind spot written into the schema."
+    },
+    "uptake_decays_when": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What closes the channel at the receiver — with the referent unchanged, the emission unchanged, and the holding untouched in the record."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "marker",
+        "tested",
+        "retired"
+      ]
+    },
     "derived_from": {
       "type": "string",
       "description": "Prior id this entry was filed under, kept so the old slug still resolves. A slug carries a content pointer and a record of which gate it got past; a move that drops the pointer orphans the second."
     },
-    "symbol": {"type": "string"},
-    "tags": {"type": "array", "items": {"type": "string"}},
+    "symbol": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "key_equations": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "formula"],
-        "properties": {"name": {"type": "string"}, "formula": {"type": "string"}, "why": {"type": "string"}}
+        "required": [
+          "name",
+          "formula"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "formula": {
+            "type": "string"
+          },
+          "why": {
+            "type": "string"
+          }
+        }
       }
     },
-    "resonates_with": {"type": "array", "items": {"type": "string"}},
+    "resonates_with": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "explore_paths": {
       "type": "array",
       "items": {
         "type": "object",
-        "properties": {"question": {"type": "string"}, "follow": {"type": "string"}}
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "follow": {
+            "type": "string"
+          }
+        }
       }
     },
     "provenance": {
       "type": "object",
-      "required": ["concept", "record"],
+      "required": [
+        "concept",
+        "record"
+      ],
       "additionalProperties": false,
       "description": "Added beyond the tier spec's field list: this repo does not ship a record without one. See src/rosetta_shape_core/provenance.py.",
       "properties": {
-        "concept": {"type": "string", "enum": ["AUTHOR", "SPEC", "MODEL", "PUBLIC"]},
-        "record": {"type": "string", "enum": ["AUTHOR", "SPEC", "MODEL", "PUBLIC"]},
-        "date": {"type": "string", "format": "date"},
-        "note": {"type": "string"}
+        "concept": {
+          "type": "string",
+          "enum": [
+            "AUTHOR",
+            "SPEC",
+            "MODEL",
+            "PUBLIC"
+          ]
+        },
+        "record": {
+          "type": "string",
+          "enum": [
+            "AUTHOR",
+            "SPEC",
+            "MODEL",
+            "PUBLIC"
+          ]
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "note": {
+          "type": "string"
+        }
       }
     }
   }

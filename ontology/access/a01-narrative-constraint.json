@@ -11,23 +11,64 @@
   "breaks_when": "the cases are not comparable, so an asymmetry in application may be a real difference between the cases rather than a selective rule; or the constraint was never stated, so consistency is being measured against a rule the reader supplied. And structurally: it operates on representations, so it cannot separate an inconsistent account from an inconsistent world — a faithful account of an asymmetric situation scores the same as a selective account of a symmetric one.",
   "cost": "free",
   "lands_on": "measured",
+  "receipt_recoverable": "none",
+  "carries": {
+    "content": true,
+    "source_O": true,
+    "receipts": false
+  },
   "status": "marker",
+  "uptake_maintained_by": "enough comparable cases held in view at once for an asymmetry in application to be visible at all",
+  "uptake_decays_when": "the cases stop being held side by side, or the stated constraint is paraphrased between readings so the comparison is no longer against one rule",
   "key_equations": [
-    { "name": "Consistency Ratio", "formula": "C = satisfied / (satisfied + violated)" },
-    { "name": "Selective Score", "formula": "S = |C_ingroup - C_outgroup| / max(C_ingroup, C_outgroup)" },
-    { "name": "Rationalization Density", "formula": "R = rationalized_violations / total_violations" },
-    { "name": "In-group Bias Ratio", "formula": "B = violations_outgroup / violations_ingroup" }
+    {
+      "name": "Consistency Ratio",
+      "formula": "C = satisfied / (satisfied + violated)"
+    },
+    {
+      "name": "Selective Score",
+      "formula": "S = |C_ingroup - C_outgroup| / max(C_ingroup, C_outgroup)"
+    },
+    {
+      "name": "Rationalization Density",
+      "formula": "R = rationalized_violations / total_violations"
+    },
+    {
+      "name": "In-group Bias Ratio",
+      "formula": "B = violations_outgroup / violations_ingroup"
+    }
   ],
-  "resonates_with": ["FAMILY.F09", "FAMILY.F19", "FAMILY.F03", "FAMILY.F05"],
+  "resonates_with": [
+    "FAMILY.F09",
+    "FAMILY.F19",
+    "FAMILY.F03",
+    "FAMILY.F05"
+  ],
   "explore_paths": [
-    { "question": "How does constraint consistency relate to trust?", "follow": "FAMILY.F16" },
-    { "question": "What measurement instruments detect selective application?", "follow": "FAMILY.F14" },
-    { "question": "How does information entropy reveal rationalization?", "follow": "FAMILY.F03" }
+    {
+      "question": "How does constraint consistency relate to trust?",
+      "follow": "FAMILY.F16"
+    },
+    {
+      "question": "What measurement instruments detect selective application?",
+      "follow": "FAMILY.F14"
+    },
+    {
+      "question": "How does information entropy reveal rationalization?",
+      "follow": "FAMILY.F03"
+    }
   ],
-  "tags": ["constraint", "consistency", "manipulation-detection", "symmetry", "narrative-physics", "CORDYCEPS"],
+  "tags": [
+    "constraint",
+    "consistency",
+    "manipulation-detection",
+    "symmetry",
+    "narrative-physics",
+    "CORDYCEPS"
+  ],
   "provenance": {
     "concept": "AUTHOR",
     "record": "MODEL",
-    "note": "the equations, symbol, resonances, explore paths and tags are carried over verbatim from ontology/families/f21-narrative-constraint.json. The tier reassignment is the author's spec; channel, operation, valid_on and breaks_when were written during the build and are the fields to check first"
+    "note": "the equations, symbol, resonances, explore paths and tags are carried over verbatim from ontology/families/f21-narrative-constraint.json. The tier reassignment is the author's spec; channel, operation, valid_on and breaks_when were written during the build and are the fields to check first; receipt_recoverable=none is what separates this from a03 — nobody paid anywhere, so there is no upstream receipt to recover"
   }
 }
