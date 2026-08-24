@@ -22,6 +22,7 @@ src/rosetta_shape_core/
   scope.py        T4 boundary locator: where a shape token stops producing
   gate_log.py     T5 dated record of what a name had to get past
   transfer.py     Outcomes: what happened when a move was actually carried over
+  lid_import.py   Import scoped attributes from Living-Intelligence-Database as entries
   provenance.py   Where this repo's own records came from (AUTHOR/SPEC/MODEL/PUBLIC)
   gap_scan.py     3rd axis (cross-INSTANCE): 4 gap shape classes over an explanatory frame
   bloom.py        Entry point: seed → sprout → branch exploration depths
@@ -36,8 +37,9 @@ src/rosetta_shape_core/
   narrative_physics.py  Manipulation vs practice detection via constraint consistency
   knowledge_dna.py      Narrative provenance tracing
   first_principles_audit.py  Deep axiom verification
-data/rosetta/     Entries, observations, gate log, closed gap_scan instances
-tests/            717 tests (pytest)
+data/rosetta/     Entries (6 hand-written + 225 imported), observations, transfers,
+                  gate log, closed gap_scan instances
+tests/            739 tests (pytest)
 ```
 
 ## Essential Commands
@@ -74,6 +76,8 @@ python -m rosetta_shape_core.scope --audit                   # does each entry r
 python -m rosetta_shape_core.scope --stops                   # is each stop measured, or only claimed?
 python -m rosetta_shape_core.transfer --audit                # what the outcomes say the corpus should fix
 python -m rosetta_shape_core.transfer --criterion            # error rate of the licensing criterion
+python -m rosetta_shape_core.rosetta --open                  # entries whose loads nobody has named
+python -m rosetta_shape_core.lid_import --lid <path> --dry-run
 python -m rosetta_shape_core.scope --classify HEXAGON        # grade a shape token from its use
 python -m rosetta_shape_core.gate_log --summary
 python -m rosetta_shape_core.provenance --audit              # anything unmarked?
@@ -174,8 +178,12 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 5. `python -m rosetta_shape_core.scope --audit`
 6. A shape token needs no literal/stand-in flag — add observations to
    `data/rosetta/observations.jsonl` and the failures grade the token
-7. A stop starts ASSERTED. Carrying the move and recording the outcome in
-   `data/rosetta/transfers.jsonl` is what makes it MEASURED
+7. A stop starts ASSERTED, or CITED if it names the source that established it.
+   Carrying the move and recording the outcome in `data/rosetta/transfers.jsonl`
+   is what makes it MEASURED — evidence about the source is not evidence about the move
+8. A field with no source may ship marked: OPEN / UNKNOWN / CONDITIONAL / PARTIAL /
+   DUE_FOR_UPDATE. A hole is not a guess. Marking is checked both ways — OPEN on a
+   filled field is an error
 
 ### Resolve a spec discrepancy
 1. Add the knob to the model in `adaptive_sim.py`, defaulting to current behavior
@@ -208,7 +216,10 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
   block — this repo demands operand provenance of what it reads, so it marks
   its own records (`python -m rosetta_shape_core.provenance --audit`)
 - Read `gap_scan` as part of the operator — it is a third, cross-INSTANCE axis
-- Treat an ASSERTED stop as a measured boundary — it is a claim nobody has tested
+- Treat an ASSERTED or CITED stop as a measured boundary — only MEASURED means a move
+  was carried to it and stopped
+- Fill forcing_terms or move_ported on an imported entry with a guess; mark it or leave
+  it OPEN, which is the invitation
 - License a transfer on a shared term that sets neither configuration (SHARED_PRESENT)
 - Treat the nine seeded families as the author's set; they are SPEC-derived
   stand-ins pending it

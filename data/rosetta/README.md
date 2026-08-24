@@ -7,6 +7,8 @@ record per line, stdlib-readable.
 |------|--------|---------------|
 | `entries.jsonl` | `entry.py` (T3) | source systems read under stated forcing |
 | `observations.jsonl` | `scope.py` (T4) | predictions run from a shape token's formal properties, and what happened |
+| `entries.lid.jsonl` | `lid_import.py` | 225 entries imported from the Living Intelligence Database — the author's definitions, limits and citations, with forcing terms and the move marked OPEN |
+| `observations.lid.jsonl` | `lid_import.py` | 225 falsifiability statements as tests stated and not run |
 | `transfers.jsonl` | `transfer.py` | what happened when a move was actually carried to a problem — outcome, where it broke, what the break indicts |
 | `gate_log.jsonl` | `gate_log.py` (T5) | dated record of what a name had to get past. **Ships empty** — a record is observed evidence about a model, so nothing goes in that was not observed |
 | `gap_scan/*.json` | `gap_scan.py` | closed instances: eras that ended, so the substrate metaphor is legible |
@@ -34,6 +36,26 @@ python -m rosetta_shape_core.provenance --summary   # origin counts per set
 
 Of the six seed entries, three are the author's material and three are not.
 The nine families are SPEC-derived stand-ins pending the author's own set.
+
+## Fields that are not filled yet
+
+A record with a hole in it is not the same as a record with a guess in it, so a
+field may ship marked:
+
+| status | meaning |
+|---|---|
+| `OPEN` | open for experimentation — nobody has fixed it, and that is the invitation |
+| `UNKNOWN` | not known, and not currently being worked |
+| `CONDITIONAL` | holds only under a condition that is not yet stated |
+| `PARTIAL` | some of it is there; more is needed |
+| `DUE_FOR_UPDATE` | was filled, and something has since superseded it |
+
+Marking is checked both ways: `OPEN` requires the field to be empty, `PARTIAL`
+requires it filled. It is not a way to silence a check.
+
+The 225 imported entries all carry `forcing_terms`, `forcing_dominant` and
+`move_ported` as `OPEN`. They are on file and cannot license a transfer until
+someone names the loads — `python -m rosetta_shape_core.rosetta --open`.
 
 ## Recording a transfer
 

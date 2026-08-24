@@ -34,6 +34,10 @@ REPO AUDIT CRITERION
     catch. So each stop carries a status:
 
       ASSERTED   written down, never tested. Unaudited, not wrong.
+      CITED      the boundary is established in the source system's own
+                 literature and the stop names that source. Real evidence,
+                 about the SOURCE — nobody has yet carried a move to it and
+                 watched the move stop. Two different claims, so two states.
       MEASURED   something was carried to it and it stopped there —
                  a transfer that broke at it, or an observation that tested it
       CONTESTED  something produced straight past it. The stop is wrong,
@@ -68,9 +72,17 @@ from typing import Any, Dict, List, Optional
 from rosetta_shape_core.entry import Entry, load_entries
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-OBSERVATIONS_PATH = ROOT / "data" / "rosetta" / "observations.jsonl"
+OBSERVATIONS_DIR = ROOT / "data" / "rosetta"
+OBSERVATIONS_PATH = OBSERVATIONS_DIR / "observations.jsonl"
+
+
+def observation_files() -> List[pathlib.Path]:
+    if not OBSERVATIONS_DIR.exists():
+        return []
+    return sorted(OBSERVATIONS_DIR.glob("observations*.jsonl"))
 
 ASSERTED = "ASSERTED"
+CITED = "CITED"
 MEASURED = "MEASURED"
 CONTESTED = "CONTESTED"
 
@@ -118,11 +130,16 @@ class Observation:
     supersaturation. It is optional: where the failure is by condition
     rather than by scale, leave it out and name the condition in
     ``condition``.
+
+    ``holds`` may be None, meaning the test is STATED AND NOT RUN. A
+    predicted test is not a failed one, and flattening the two would let an
+    unrun prediction read as evidence. Pending observations are counted and
+    excluded from the verdict.
     """
 
     shape_token: str = ""
     prop: str = ""
-    holds: bool = False
+    holds: Optional[bool] = None
     scale: Optional[float] = None
     condition: str = ""
     entry: str = ""
@@ -139,14 +156,15 @@ class Observation:
         return self.prop
 
     def to_dict(self) -> dict:
-        return {k: v for k, v in asdict(self).items() if v not in (None, "", {})}
+        return {k: v for k, v in asdict(self).items()
+                if v is not None and v != "" and v != {}}
 
     @classmethod
     def from_dict(cls, d: Dict[str, Any]) -> "Observation":
         return cls(
             shape_token=d.get("shape_token", ""),
             prop=d.get("prop", d.get("property", "")),
-            holds=bool(d.get("holds")),
+            holds=d["holds"] if isinstance(d.get("holds"), bool) else None,
             scale=d.get("scale"),
             condition=d.get("condition", ""),
             entry=d.get("entry", ""),
@@ -189,9 +207,15 @@ def classify(observations: List[Observation]) -> ScopeVerdict:
     if not obs:
         return ScopeVerdict(token, NO_DATA, reading="no predictions run — the token is untested, not adequate")
 
-    held = [o for o in obs if o.holds]
-    failed = [o for o in obs if not o.holds]
+    held = [o for o in obs if o.holds is True]
+    failed = [o for o in obs if o.holds is False]
+    pending = [o for o in obs if o.holds is None]
 
+    if not held and not failed:
+        return ScopeVerdict(
+            token, NO_DATA, reading=f"{len(pending)} test(s) stated and none run — "
+                                    f"the token is untested, not adequate",
+        )
     if not failed:
         return ScopeVerdict(
             token, ADEQUATE, len(held), 0,
@@ -240,8 +264,7 @@ def classify(observations: List[Observation]) -> ScopeVerdict:
 
 # ── io ────────────────────────────────────────────────────────────
 
-def load_observations(path: Optional[pathlib.Path] = None) -> List[Observation]:
-    p = pathlib.Path(path) if path else OBSERVATIONS_PATH
+def _read_observations(p: pathlib.Path) -> List[Observation]:
     if not p.exists():
         return []
     out = []
@@ -253,6 +276,16 @@ def load_observations(path: Optional[pathlib.Path] = None) -> List[Observation]:
             out.append(Observation.from_dict(json.loads(line)))
         except json.JSONDecodeError as exc:
             raise ValueError(f"{p.name}:{n}: {exc}") from exc
+    return out
+
+
+def load_observations(path: Optional[pathlib.Path] = None) -> List[Observation]:
+    """One file if given, else every observations*.jsonl in data/rosetta."""
+    if path is not None:
+        return _read_observations(pathlib.Path(path))
+    out: List[Observation] = []
+    for p in observation_files():
+        out.extend(_read_observations(p))
     return out
 
 
@@ -271,6 +304,12 @@ def verdicts(observations: Optional[List[Observation]] = None) -> Dict[str, Scop
 
 
 # ── stop status: asserted, measured, contested ────────────────────
+
+def pending_tests(observations: Optional[List[Observation]] = None) -> List[Observation]:
+    """Predictions written down and not yet run. The corpus's open experiments."""
+    obs = load_observations() if observations is None else observations
+    return [o for o in obs if o.holds is None]
+
 
 def stop_status(entries: Optional[List[Entry]] = None,
                 observations: Optional[List[Observation]] = None,
@@ -294,6 +333,9 @@ def stop_status(entries: Optional[List[Entry]] = None,
         for rec in e.stop_records:
             evidence = []
             status = ASSERTED
+            if rec.get("cited"):
+                status = CITED
+                evidence.append(f"cited: {rec['cited'][:70]}")
             if rec["id"] in confirms.get(e.key, []):
                 status = MEASURED
                 evidence.append("a transfer broke at it")
@@ -302,7 +344,9 @@ def stop_status(entries: Optional[List[Entry]] = None,
                 evidence.append("a transfer produced past it")
             for o in obs:
                 if o.entry == e.key and o.stop == rec["id"]:
-                    if o.holds:
+                    if o.holds is None:
+                        evidence.append(f"test stated, not run: {o.prop}")
+                    elif o.holds:
                         if status != CONTESTED:
                             status = MEASURED
                         evidence.append(f"observation: {o.prop}")
@@ -316,7 +360,7 @@ def stop_status(entries: Optional[List[Entry]] = None,
 
 def stop_tally(status: Optional[Dict[str, List[Dict[str, Any]]]] = None) -> Dict[str, int]:
     st = stop_status() if status is None else status
-    counts = {ASSERTED: 0, MEASURED: 0, CONTESTED: 0}
+    counts = {ASSERTED: 0, CITED: 0, MEASURED: 0, CONTESTED: 0}
     for rows in st.values():
         for r in rows:
             counts[r["status"]] += 1
@@ -343,16 +387,16 @@ def format_stop_report(status: Optional[Dict[str, List[Dict[str, Any]]]] = None)
     for key in sorted(st):
         lines.append(f"  {key}")
         for r in st[key]:
-            mark = {MEASURED: "●", CONTESTED: "✗", ASSERTED: "○"}[r["status"]]
+            mark = {MEASURED: "●", CITED: "◐", CONTESTED: "✗", ASSERTED: "○"}[r["status"]]
             lines.append(f"      {mark} {r['status']:<10s} [{r['id']}] {r['says'][:64]}")
             for ev in r["evidence"]:
                 lines.append(f"                   {ev}")
         lines.append("")
-    lines.append(f"  measured {counts[MEASURED]} / asserted {counts[ASSERTED]} / "
-                 f"contested {counts[CONTESTED]}  "
-                 f"({100 * counts[MEASURED] // total}% of stops have been carried to)")
-    lines.append("  An asserted stop is unaudited, not wrong. Measuring one takes a transfer")
-    lines.append("  or an observation — see data/rosetta/transfers.jsonl.")
+    lines.append(f"  measured {counts[MEASURED]} / cited {counts[CITED]} / "
+                 f"asserted {counts[ASSERTED]} / contested {counts[CONTESTED]}  "
+                 f"({100 * counts[MEASURED] // total}% have been carried to)")
+    lines.append("  A CITED stop has evidence about the source system. It still is not a")
+    lines.append("  measurement of the move stopping — that takes a transfer.")
     lines.append("")
     return "\n".join(lines)
 
@@ -361,13 +405,18 @@ def format_stop_report(status: Optional[Dict[str, List[Dict[str, Any]]]] = None)
 
 def audit_entries(entries: Optional[List[Entry]] = None) -> List[str]:
     """Does each entry report where it stops? Empty return = nothing flagged."""
+    from rosetta_shape_core.entry import EXCUSES_EMPTY
+
     ents = load_entries() if entries is None else entries
     findings: List[str] = []
     for e in ents:
-        if not e.stops:
-            findings.append(f"{e.key}: reports no stop — matches everywhere, never fails; this is the flag")
-        if not e.produces:
-            findings.append(f"{e.key}: reports no scope of production — nothing to test")
+        for half, text in (("stops", "reports no stop — matches everywhere, never fails; this is the flag"),
+                           ("produces", "reports no scope of production — nothing to test")):
+            if getattr(e, half):
+                continue
+            if e.status_of(f"scope.{half}") in EXCUSES_EMPTY:
+                continue  # declared open, which is a statement rather than a silence
+            findings.append(f"{e.key}: {text}")
     return findings
 
 
@@ -404,6 +453,12 @@ def selftest() -> List[str]:
     fails = []
     if classify([]).status != NO_DATA:
         fails.append("empty observation set not reported as NO_DATA")
+
+    if classify([Observation("X", "p", None)]).status != NO_DATA:
+        fails.append("a stated-but-unrun test was treated as evidence")
+    mixed = classify([Observation("X", "p", True), Observation("X", "p", None)])
+    if mixed.status != ADEQUATE:
+        fails.append("a pending test spoiled a verdict it should have been excluded from")
 
     all_hold = [Observation("HEXAGON", "tiles_plane", True), Observation("HEXAGON", "interior_angle", True)]
     if classify(all_hold).status != ADEQUATE:
@@ -458,8 +513,15 @@ def selftest() -> List[str]:
         fails.append("no stops found to grade")
     if counts[MEASURED] == 0:
         fails.append("not one stop has been carried to — the audit criterion has no floor")
-    if counts[ASSERTED] == 0:
+    if counts[ASSERTED] + counts[CITED] == 0:
         fails.append("every stop reads as measured, which would be too good to be true")
+    if counts[MEASURED] >= counts[CITED] + counts[ASSERTED]:
+        fails.append("more stops carried to than not — check the precedence, that is unlikely")
+    cited = sc_cited = [r for rows in st.values() for r in rows if r["status"] == CITED]
+    if not cited:
+        fails.append("no stop names the source that established it")
+    if any(not r["evidence"] for r in sc_cited):
+        fails.append("a CITED stop reports no citation")
     if contested_stops():
         fails.append("an entry produces past its own stated stop")
     hex_stops = {r["id"]: r["status"] for r in st["ENTRY.HONEYCOMB_PARTITION"]}
@@ -532,8 +594,9 @@ def main(argv: Optional[List[str]] = None) -> int:
                 print(f"  FLAG  {x}")
             for x in advisories:
                 print(f"  ⚠     {x}")
-            print(f"  stops: {counts[MEASURED]} measured / {counts[ASSERTED]} asserted / "
-                  f"{counts[CONTESTED]} contested — an asserted stop is unaudited (--stops for detail)")
+            print(f"  stops: {counts[MEASURED]} measured / {counts[CITED]} cited / "
+                  f"{counts[ASSERTED]} asserted / {counts[CONTESTED]} contested — "
+                  f"only measured means a move was carried to it (--stops for detail)")
             print("scope audit: CLEAN" if not findings else f"scope audit: {len(findings)} flag(s)")
         return 1 if findings else 0
 

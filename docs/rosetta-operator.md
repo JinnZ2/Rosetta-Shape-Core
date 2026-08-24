@@ -11,6 +11,7 @@ modules. Each one runs on its own and carries its own selftest.
 | T4 | `scope.py` | boundary locator |
 | T5 | `gate_log.py` + `schema/gate_log.schema.json` | the gate log |
 | — | `transfer.py` | what happened when a move was actually carried over |
+| — | `lid_import.py` | import scoped attributes from the Living Intelligence Database |
 | — | `provenance.py` | where this repo's own records came from |
 | — | `gap_scan.py` | a third axis: four gap shape classes over an explanatory frame |
 
@@ -22,11 +23,12 @@ python -m rosetta_shape_core.entry     --validate
 python -m rosetta_shape_core.scope     --audit
 python -m rosetta_shape_core.scope     --stops
 python -m rosetta_shape_core.transfer  --audit
+python -m rosetta_shape_core.rosetta   --open      # entries whose loads nobody has named
 python -m rosetta_shape_core.gate_log  --summary
 python -m rosetta_shape_core.provenance --summary
 python -m rosetta_shape_core.gap_scan  --example clockwork
 
-for m in rosetta families entry scope gate_log transfer provenance gap_scan; do
+for m in rosetta families entry scope gate_log transfer provenance lid_import gap_scan; do
   python -m rosetta_shape_core.$m --selftest
 done
 ```
@@ -161,15 +163,22 @@ repo exists to catch. So each stop carries a status:
 | status | meaning |
 |---|---|
 | `ASSERTED` | written down, never tested. Unaudited, not wrong |
+| `CITED` | the boundary is established in the source system's own literature, and the stop names that source |
 | `MEASURED` | something was carried to it and it stopped there |
 | `CONTESTED` | something produced straight past it. The stop is wrong, or its condition was never met |
+
+`CITED` and `MEASURED` are two different claims and the repo refuses to
+flatten them. A citation is evidence about the **source system** — the gecko's
+adhesion really does fall 60–80% under contamination, measured, published.
+That is not evidence that anyone carried a move to that boundary and watched
+the move stop. Only a transfer or an observation does that.
 
 Evidence comes from `transfers.jsonl` (a move was ported and broke at it) and
 from observations carrying a `stop` field. `scope.py --stops` prints the
 detail; the ratio is reported and not enforced, because asserting a stop is
 how an entry starts and measuring it is what the corpus is for.
 
-At the time of writing: **4 measured, 14 asserted, 0 contested.**
+At the time of writing: **5 measured, 538 cited, 14 asserted, 0 contested.**
 
 ---
 
@@ -220,6 +229,75 @@ measurement.
 No moral labels in the data structures, and no intent attribution.
 `entry.py --lint` reports both as advisories: a configuration is a readout of
 what a system reaches under load, never a motive and never a score.
+
+---
+
+## Fields that are not filled yet
+
+A record with a hole in it is not the same as a record with a guess in it, and
+the repo can tell them apart. Any field of an entry may carry a status:
+
+| status | meaning |
+|---|---|
+| `OPEN` | open for experimentation — nobody has fixed it, and that is the invitation |
+| `UNKNOWN` | not known, and not currently being worked |
+| `CONDITIONAL` | holds only under a condition that is not yet stated |
+| `PARTIAL` | some of it is there; more is needed |
+| `DUE_FOR_UPDATE` | it was filled, and something has since superseded it |
+
+A required field left empty is an error **unless** it is marked, which is what
+lets an entry enter the corpus with its forcing terms honestly open rather
+than invented. The contract is checked both ways — `OPEN` and `UNKNOWN`
+require the field to be empty, `PARTIAL` and `DUE_FOR_UPDATE` require it
+filled — so marking is not a way to silence a check.
+
+Status is orthogonal to provenance. Provenance says where a record came from;
+status says how finished it is.
+
+**An entry whose forcing terms are `OPEN` is never matched.** There is nothing
+to license on. It is still worth carrying: a source system on file, waiting
+for someone to name the loads. `rosetta.py --open` lists them, because an
+entry nobody has finished is an experiment on offer rather than a defect.
+
+An entry that *is* matched but whose `move_ported` is open comes back saying
+so. Being under the same load as a system nobody has read yet is a real
+result — it just is not a transfer.
+
+---
+
+## Importing from the Living Intelligence Database
+
+The [Living Intelligence Database](https://github.com/JinnZ2/Living-Intelligence-Database)
+carries, per scoped attribute, an operational definition, the limits of the
+measurement, a falsifiability statement, and a citation. Four of the things an
+entry needs are already there, and already the author's words.
+
+```bash
+python -m rosetta_shape_core.lid_import --lid ../living-intelligence-database --dry-run
+```
+
+| LID | Rosetta |
+|---|---|
+| `scope.definition` | `configuration` |
+| `scope.measurement_limits` | `scope.stops`, split by sentence, each carrying `evidence.source` as `cited` |
+| `scope.condition` | `scope.produces`, where present |
+| `evidence.source` | `sources` |
+| `scope.falsifiability` | an **observation** with `holds` unset — a test on the books nobody has run |
+| — | `forcing_terms`, `forcing_dominant`, `move_ported`: marked `OPEN` |
+
+**A falsifiability statement is not a stop.** A stop says where a move stops
+producing; a falsifier says what observation would kill the claim. Flattening
+them would turn an unrun prediction into evidence.
+
+**The missing fields are marked, not guessed.** Guessing them would put a
+model's physics reading under the author's name across the whole corpus at
+once — the failure this repo exists to catch, at scale.
+
+Re-running is safe: records already on file are kept as they stand, matched by
+id, so a hand-filled field is never undone by the next import.
+
+Current state: **225 imported entries**, all with their loads open, and 225
+stated tests nobody has run.
 
 ---
 
@@ -282,6 +360,16 @@ So every entry, family, observation and scan instance carries two origins:
 | `PUBLIC` | an established result in the public record, attributable to no party here |
 
 Marked sets: entries, families, observations, transfers, gap_scan instances.
+
+Current state — the import changed this picture substantially:
+
+```
+entries       (231)  concept  AUTHOR 228, MODEL 2, SPEC 1   record  AUTHOR 225, MODEL 6
+families        (9)  concept  SPEC 9                        record  MODEL 9
+observations  (236)  concept  AUTHOR 225, PUBLIC 11         record  AUTHOR 225, MODEL 11
+transfers       (5)  concept  PUBLIC 5                      record  MODEL 5
+gap_scan        (2)  concept  SPEC 2                        record  MODEL 2
+```
 
 Both halves are needed because they routinely differ: a source system named
 by the author and written up during a build session is `AUTHOR` concept and

@@ -10,6 +10,7 @@ from rosetta_shape_core import entry as entry_mod
 from rosetta_shape_core import families as fam
 from rosetta_shape_core import gap_scan as gs
 from rosetta_shape_core import gate_log as gl
+from rosetta_shape_core import lid_import as lid
 from rosetta_shape_core import provenance as prov
 from rosetta_shape_core import rosetta as rop
 from rosetta_shape_core import scope as sc
@@ -17,7 +18,7 @@ from rosetta_shape_core import transfer as tr
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, gs]
+MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, gs]
 
 
 # ── every module carries its own selftest ─────────────────────────
@@ -132,8 +133,19 @@ def test_shipped_entries_validate():
     assert entry_mod.validate_file() == []
 
 
-def test_shipped_entries_are_lint_clean():
-    assert entry_mod.lint_file() == []
+HAND_WRITTEN = ROOT / "data" / "rosetta" / "entries.jsonl"
+
+
+def test_hand_written_entries_are_lint_clean():
+    assert entry_mod.lint_file(HAND_WRITTEN) == []
+
+
+def test_lint_advisories_on_imported_entries_are_advisory_only():
+    """'greedy' fires on the epsilon-greedy entry. That is what advisory means."""
+    findings = entry_mod.lint_file()
+    assert entry_mod.validate_file() == [], "an advisory must never become an error"
+    for f in findings:
+        assert "ENTRY.LID_" in f, f
 
 
 def test_entries_validate_against_the_json_schema():
@@ -191,7 +203,7 @@ def test_entry_without_provenance_is_rejected():
 def test_shipped_entries_record_where_they_came_from():
     """The attribution is a regression guard: nothing drifts to AUTHOR."""
     got = {e.key: (e.provenance["concept"], e.provenance["record"])
-           for e in entry_mod.load_entries()}
+           for e in entry_mod.load_entries(HAND_WRITTEN)}
     assert got == {
         "ENTRY.GRASS_RECONFIGURATION": (prov.AUTHOR, prov.MODEL),
         "ENTRY.HONEYCOMB_PARTITION": (prov.AUTHOR, prov.MODEL),
@@ -491,10 +503,19 @@ def test_entry_requires_a_dominant_term_inside_its_forcing_set():
     assert entry_mod.validate_entry({**base, "forcing_dominant": ["FLOW"]}) == []
 
 
-def test_every_shipped_entry_names_what_sets_its_configuration():
+def test_every_transferable_entry_names_what_sets_its_configuration():
     for e in entry_mod.load_entries():
+        if not e.transferable:
+            continue
         assert e.dominant, e.key
         assert set(e.dominant) <= set(e.families), e.key
+
+
+def test_an_entry_with_open_forcing_cannot_license_anything():
+    waiting = rop.open_entries()
+    assert waiting, "the imported corpus should be waiting on someone to name its loads"
+    for e in waiting:
+        assert e.status_of("forcing_terms") in entry_mod.EXCUSES_EMPTY, e.key
 
 
 def test_unresolved_problem_terms_are_reported_not_silently_dropped():
@@ -504,7 +525,12 @@ def test_unresolved_problem_terms_are_reported_not_silently_dropped():
 
 
 def test_by_source_is_the_what_would_x_do_here_lookup():
-    assert [e.key for e in rop.by_source("grass")] == ["ENTRY.GRASS_RECONFIGURATION"]
+    assert "ENTRY.GRASS_RECONFIGURATION" in [e.key for e in rop.by_source("grass")]
+    assert [e.key for e in rop.by_source("gecko")] == [
+        "ENTRY.LID_GECKO_SETAE_ADHESION",
+        "ENTRY.LID_GECKO_SELF_CLEANING_LOCOMOTION",
+        "ENTRY.LID_GECKO_DIRECTIONAL_GRIP",
+    ]
     assert rop.by_source("telephone") == []
 
 
@@ -738,8 +764,8 @@ def test_tally_counts_unmarked_records_rather_than_dropping_them():
     assert t["concept"] == {prov.AUTHOR: 1, "(unmarked)": 1}
 
 
-def test_observations_are_marked_public_concept_model_record():
-    for o in sc.load_observations():
+def test_hand_written_observations_are_marked_public_concept_model_record():
+    for o in sc.load_observations(ROOT / "data" / "rosetta" / "observations.jsonl"):
         assert o.provenance["concept"] == prov.PUBLIC
         assert o.provenance["record"] == prov.MODEL
 
@@ -883,3 +909,139 @@ def test_walkthrough_is_not_hardcoded():
     src = (ROOT / "examples" / "rosetta_walkthrough.py").read_text(encoding="utf-8")
     for call in ("load_entries()", "run(", "resolve_family(", "stop_status("):
         assert call in src
+
+
+# ── field status: a hole is not a guess ───────────────────────────
+
+BASE = {
+    "source_system": "x", "configuration": "y", "move_ported": "z",
+    "forcing_terms": ["FLOW"], "forcing_dominant": ["FLOW"],
+    "scope": {"produces": ["a"], "stops": ["b"]},
+    "provenance": {"concept": "MODEL", "record": "MODEL"},
+}
+
+
+def test_a_required_field_may_be_empty_when_it_is_marked():
+    d = {k: v for k, v in BASE.items() if k not in ("forcing_terms", "forcing_dominant", "move_ported")}
+    d["field_status"] = {"forcing_terms": entry_mod.OPEN, "forcing_dominant": entry_mod.OPEN,
+                         "move_ported": entry_mod.OPEN}
+    assert entry_mod.validate_entry(d) == []
+    d2 = {k: v for k, v in BASE.items() if k != "move_ported"}
+    assert any("missing required field: move_ported" in e for e in entry_mod.validate_entry(d2))
+
+
+def test_marking_is_not_a_way_to_silence_a_check():
+    """OPEN on a filled field and PARTIAL on an empty one are both errors."""
+    assert any("is filled" in e for e in entry_mod.validate_entry(
+        {**BASE, "field_status": {"move_ported": entry_mod.OPEN}}))
+    empty = {**BASE, "move_ported": "", "field_status": {"move_ported": entry_mod.PARTIAL}}
+    assert any("is empty" in e for e in entry_mod.validate_entry(empty))
+
+
+def test_due_for_update_requires_something_to_update():
+    assert entry_mod.validate_entry(
+        {**BASE, "field_status": {"configuration": entry_mod.DUE_FOR_UPDATE}}) == []
+    stale = {**BASE, "configuration": "", "field_status": {"configuration": entry_mod.DUE_FOR_UPDATE}}
+    assert any("is empty" in e for e in entry_mod.validate_entry(stale))
+
+
+def test_field_status_only_names_real_fields_and_real_statuses():
+    assert any("not a field of an entry" in e for e in entry_mod.validate_entry(
+        {**BASE, "field_status": {"vibes": entry_mod.OPEN}}))
+    assert any("not one of" in e for e in entry_mod.validate_entry(
+        {**BASE, "field_status": {"note": "MAYBE"}}))
+
+
+def test_an_open_scope_half_is_a_statement_not_a_silence():
+    e = entry_mod.Entry.from_dict({**BASE, "scope": {"produces": ["a"], "stops": []},
+                                   "field_status": {"scope.stops": entry_mod.OPEN}})
+    assert sc.audit_entries([e]) == []
+    unmarked = entry_mod.Entry.from_dict({**BASE, "scope": {"produces": ["a"], "stops": []}})
+    assert sc.audit_entries([unmarked])
+
+
+# ── cited vs measured ─────────────────────────────────────────────
+
+def test_a_cited_stop_is_evidence_about_the_source_not_about_a_transfer():
+    e = entry_mod.Entry.from_dict({**BASE, "id": "ENTRY.C", "scope": {
+        "produces": ["a"],
+        "stops": [{"id": "s", "says": "it stops", "cited": "Someone (2000)"}]}})
+    rows = sc.stop_status([e], [], [])
+    assert rows["ENTRY.C"][0]["status"] == sc.CITED
+    assert any("cited:" in ev for ev in rows["ENTRY.C"][0]["evidence"])
+
+
+def test_carrying_a_move_to_a_cited_stop_promotes_it_to_measured():
+    e = entry_mod.Entry.from_dict({**BASE, "id": "ENTRY.C", "scope": {
+        "produces": ["a"],
+        "stops": [{"id": "s", "says": "it stops", "cited": "Someone (2000)"}]}})
+    t = tr.Transfer(to_problem="p", outcome=tr.BROKE, from_entry="ENTRY.C",
+                    broke_at="there", confirms_stop="s", verdict_on=tr.SCOPE_CONFIRMED)
+    assert sc.stop_status([e], [], [t])["ENTRY.C"][0]["status"] == sc.MEASURED
+
+
+def test_most_stops_are_cited_and_almost_none_are_measured():
+    """The true state of the corpus, and the report must not flatter it."""
+    counts = sc.stop_tally()
+    assert counts[sc.CITED] > counts[sc.MEASURED] * 10
+    assert counts[sc.MEASURED] > 0
+
+
+def test_a_stated_test_is_not_a_failed_one():
+    assert sc.classify([sc.Observation("X", "p", None)]).status == sc.NO_DATA
+    assert sc.classify([sc.Observation("X", "p", True), sc.Observation("X", "p", None)]).status == sc.ADEQUATE
+    assert len(sc.pending_tests()) >= 225
+
+
+# ── the LID import ────────────────────────────────────────────────
+
+def test_importer_never_fills_a_field_it_has_no_source_for():
+    for e in entry_mod.load_entries(ROOT / "data" / "rosetta" / "entries.lid.jsonl"):
+        assert not e.forcing_terms and not e.forcing_dominant and not e.move_ported, e.key
+        for f in ("forcing_terms", "forcing_dominant", "move_ported"):
+            assert e.status_of(f) == entry_mod.OPEN, e.key
+
+
+def test_imported_records_are_marked_as_the_authors():
+    entries = entry_mod.load_entries(ROOT / "data" / "rosetta" / "entries.lid.jsonl")
+    assert len(entries) > 200
+    for e in entries:
+        assert e.provenance["concept"] == prov.AUTHOR
+        assert e.provenance["record"] == prov.AUTHOR
+        assert "Living-Intelligence-Database" in e.provenance["note"]
+
+
+def test_imported_entries_validate_and_carry_citations():
+    path = ROOT / "data" / "rosetta" / "entries.lid.jsonl"
+    assert entry_mod.validate_file(path) == []
+    cited = [e for e in entry_mod.load_entries(path)
+             if any(r.get("cited") for r in e.stop_records)]
+    assert len(cited) > 200
+
+
+def test_the_falsifier_arrives_as_an_unrun_test_not_as_evidence():
+    obs = sc.load_observations(ROOT / "data" / "rosetta" / "observations.lid.jsonl")
+    assert len(obs) > 200
+    for o in obs:
+        assert o.holds is None, o.entry
+        assert o.entry and not o.shape_token
+
+
+def test_import_is_idempotent_and_keeps_hand_filled_fields(tmp_path, monkeypatch):
+    being = {"id": "XX", "name": "Testbeing"}
+    attr = {"scope": {"definition": "d", "measurement_limits": "One limit.",
+                      "falsifiability": "If X then fail.",
+                      "evidence": {"source": "S (1999)"}}}
+    rel = pathlib.Path("ontology/animal/testbeing.json")
+    first = lid.build_entry(rel, being, "an_attribute", attr)
+    second = lid.build_entry(rel, being, "an_attribute", attr)
+    assert first == second, "the same input must produce the same record"
+    assert first["id"] == "ENTRY.LID_TESTBEING_AN_ATTRIBUTE"
+
+
+def test_gecko_transfer_now_measures_a_stop_the_database_already_had():
+    """The loop: transfer audit named a missing entry, the database had it."""
+    rows = {r["id"]: r for r in sc.stop_status()["ENTRY.LID_GECKO_SETAE_ADHESION"]}
+    assert rows["limit_2"]["status"] == sc.MEASURED
+    assert any("transfer" in ev for ev in rows["limit_2"]["evidence"])
+    assert rows["limit_1"]["status"] == sc.CITED

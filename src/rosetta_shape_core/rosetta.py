@@ -45,6 +45,17 @@ WHAT LICENSES A TRANSFER
 
     Only the first two are returned by default.
 
+ENTRIES THAT CANNOT YET LICENSE ANYTHING
+    An entry whose forcing terms are marked OPEN is not matched at all —
+    there is nothing to license on. It is still worth carrying: a source
+    system on file, waiting for someone to name the loads. ``--open`` lists
+    them, because an entry nobody has finished is an experiment on offer
+    rather than a defect.
+
+    An entry that IS matched but whose move_ported is open comes back with
+    that said out loud. Being under the same load as a system nobody has
+    read yet is a real result — it just is not a transfer.
+
     Because the family vocabulary is physics-denominated by construction
     (see families.py), an overlap in forcing terms is a statement about the
     loads, not a resemblance noticed after the fact. That is why "pattern
@@ -74,7 +85,7 @@ import argparse
 import json
 import sys
 from dataclasses import asdict, dataclass, field
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from rosetta_shape_core.entry import Entry, load_entries
 from rosetta_shape_core.families import FAMILIES
@@ -143,6 +154,7 @@ class Match:
     stops: List[str] = field(default_factory=list)
     shape_token: Optional[str] = None
     token_status: str = ""
+    open_fields: Dict[str, str] = field(default_factory=dict)
     reading: str = ""
 
     def to_dict(self) -> dict:
@@ -213,6 +225,7 @@ def match(problem: Problem, entry: Entry) -> Match:
         stops=entry.stops,
         shape_token=entry.shape_token,
         token_status=token_status,
+        open_fields=dict(entry.field_status),
         reading=_reading(lic, shared, shared_dominant, entry),
     )
 
@@ -227,7 +240,7 @@ def run(problem: Problem, entries: Optional[List[Entry]] = None, *,
     shapes both. Asking for unlicensed matches implies the weak ones too:
     they sit between, and hiding the middle would misrank what is shown.
     """
-    ents = load_entries() if entries is None else entries
+    ents = [e for e in (load_entries() if entries is None else entries) if e.transferable]
     wanted = list(LICENSED)
     if include_weak or include_unlicensed:
         wanted.append(SHARED_PRESENT)
@@ -237,6 +250,12 @@ def run(problem: Problem, entries: Optional[List[Entry]] = None, *,
     matches.sort(key=lambda m: (GRADES.index(m.licensing), -len(m.shared_dominant),
                                 -len(m.shared_terms), m.entry_key))
     return matches
+
+
+def open_entries(entries: Optional[List[Entry]] = None) -> List[Entry]:
+    """Entries on file that cannot yet license a transfer. Offers, not defects."""
+    ents = load_entries() if entries is None else entries
+    return [e for e in ents if not e.transferable]
 
 
 def by_source(name: str, entries: Optional[List[Entry]] = None) -> List[Entry]:
@@ -255,6 +274,12 @@ def format_match(m: Match) -> str:
     lines.append(f"      MOVE       {m.move_ported}")
     if m.shape_token:
         lines.append(f"      token      {m.shape_token} ({m.token_status})")
+    if m.open_fields.get("move_ported"):
+        lines.append(f"      OPEN       move_ported is {m.open_fields['move_ported']} — this entry is "
+                     f"under your loads and nobody has named what transfers. An invitation, not a transfer.")
+    for name, status in sorted(m.open_fields.items()):
+        if name != "move_ported":
+            lines.append(f"      {status:<10s} {name}")
     for s in m.stops:
         lines.append(f"      stops      {s}")
     if m.entry_only_terms:
@@ -315,8 +340,8 @@ def selftest() -> List[str]:
     if run(lonely, ents):
         fails.append("RESONANCE matched an entry that does not carry it")
     unl = run(lonely, ents, include_unlicensed=True)
-    if len(unl) != len(ents):
-        fails.append("include_unlicensed did not return every entry")
+    if len(unl) != len([e for e in ents if e.transferable]):
+        fails.append("include_unlicensed did not return every entry that can license")
     if any(m.licensing != SHARED_FORM for m in unl):
         fails.append("shared-form matches mis-licensed")
 
@@ -325,6 +350,12 @@ def selftest() -> List[str]:
     grades = [GRADES.index(m.licensing) for m in ordered]
     if grades != sorted(grades):
         fails.append("matches not sorted strongest grade first")
+
+    if open_entries(ents) and any(e.transferable for e in open_entries(ents)):
+        fails.append("open_entries returned an entry that can license")
+    for m in run(Problem(["flow"], dominant_terms=["flow"]), ents):
+        if not next(e for e in ents if e.key == m.entry_key).transferable:
+            fails.append(f"{m.entry_key}: matched despite open forcing terms")
 
     if not by_source("grass", ents):
         fails.append("by_source('grass') found nothing")
@@ -347,6 +378,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--dominant", help="which of those terms SETS your configuration (comma-separated)")
     ap.add_argument("--problem", default="", help="one line describing the problem (not used for matching)")
     ap.add_argument("--source", help="'what would X do here?' — show the entries for X")
+    ap.add_argument("--open", action="store_true", dest="show_open",
+                    help="entries that cannot license yet — the loads are unnamed, and that is the ask")
     ap.add_argument("--weak", action="store_true", help="also show shared-present matches (term acts on both, shapes neither)")
     ap.add_argument("--unlicensed", action="store_true", help="also show shared-form matches (leads, not transfers)")
     ap.add_argument("--json", action="store_true")
@@ -359,6 +392,19 @@ def main(argv: Optional[List[str]] = None) -> int:
             print(f"FAIL  {line}")
         print("rosetta: OK" if not f else f"rosetta: {len(f)} FAILED")
         return 1 if f else 0
+
+    if args.show_open:
+        waiting = open_entries()
+        if args.json:
+            print(json.dumps([e.to_dict() for e in waiting], indent=2))
+        else:
+            print(f"\n  OPEN ENTRIES ({len(waiting)}) — on file, not yet able to license a transfer\n")
+            for e in waiting:
+                print(f"  {e.key}")
+                print(f"      {e.source_system}")
+                print(f"      waiting on: {', '.join(f'{k} {v}' for k, v in sorted(e.field_status.items()))}")
+            print("\n  Naming the loads is the experiment on offer. See families.py for the vocabulary.\n")
+        return 0
 
     if args.source:
         found = by_source(args.source)

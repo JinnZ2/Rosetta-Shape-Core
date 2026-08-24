@@ -282,10 +282,17 @@ def audit(transfers: Optional[List[Transfer]] = None, entries: Optional[List[Ent
                     f"The source '{t.from_source}' is unrecorded — this is a pointer to a missing entry."
                 )
         if t.verdict_on == SOURCE_READING:
-            findings.append(
-                f"{t.key}: the reading of '{t.from_entry or t.from_source}' was revised after the "
-                f"fact. Whatever configuration or forcing was attributed to it needs re-checking."
-            )
+            entry = by_key.get(t.from_entry)
+            if entry is not None and entry.status_of("configuration") != "DUE_FOR_UPDATE":
+                findings.append(
+                    f"{t.key}: the reading of {t.from_entry} was revised after the fact. Mark its "
+                    f"configuration DUE_FOR_UPDATE — the entry still states the superseded reading."
+                )
+            elif entry is None:
+                findings.append(
+                    f"{t.key}: the reading of '{t.from_source}' was revised after the fact. Any entry "
+                    f"written from it needs the current reading, not the one that was ported."
+                )
         if t.verdict_on == LICENSING:
             findings.append(
                 f"{t.key}: licensed {t.licensing or '(grade unrecorded)'} and did not port. "
@@ -400,6 +407,17 @@ def selftest() -> List[str]:
         fails.append("stop contradictions not collected")
     if not any("contested" in f for f in audit([past], ents)):
         fails.append("producing past a stated stop was not reported")
+
+    from rosetta_shape_core.entry import Entry
+    stale = Entry.from_dict({"id": "ENTRY.STALE", "source_system": "x", "configuration": "an old reading"})
+    revised = Transfer.from_dict({"from_entry": "ENTRY.STALE", "to_problem": "p", "outcome": HELD,
+                                  "verdict_on": SOURCE_READING,
+                                  "provenance": {"concept": "MODEL", "record": "MODEL"}})
+    if not any("DUE_FOR_UPDATE" in f for f in audit([revised], [stale])):
+        fails.append("a revised source reading did not point at the entry that still states it")
+    marked = Entry.from_dict({**stale.to_dict(), "field_status": {"configuration": "DUE_FOR_UPDATE"}})
+    if any("DUE_FOR_UPDATE" in f for f in audit([revised], [marked])):
+        fails.append("an entry already marked DUE_FOR_UPDATE was flagged again")
 
     if validate_file():
         fails.append("shipped transfers.jsonl does not validate")
