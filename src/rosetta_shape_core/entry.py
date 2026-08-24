@@ -14,6 +14,20 @@ One entry is one source system read once, under stated forcing.
     provenance      {concept, record} — where the entry came from
     field_status    {field: status} — how finished each field is
 
+HOLDING RECORD — optional, and mostly unmarked on purpose
+
+    domain      f01..f20, the domain OF the world this reading is in
+    access      a01.., the way of knowing it was reached by
+    acquired    residual | transmitted | unmarked
+
+    ``unmarked`` is a legitimate value and is expected to dominate. An
+    absent ``acquired`` reads as unmarked; neither is backfilled with a
+    guess, because a guess about how a reading was obtained is exactly the
+    kind of thing that becomes unrecoverable once it is written down.
+
+    Claiming a domain while naming no access is reported by tier_check —
+    "unmarked" is an answer, a missing field is not the same thing.
+
 FIELD STATUS — an entry may ship unfinished, and say so
     A record with a hole in it is not the same thing as a record with a
     guess in it, and the repo should be able to tell them apart. So a field
@@ -109,7 +123,16 @@ def entry_files() -> List[pathlib.Path]:
 
 REQUIRED_FIELDS = ("source_system", "configuration", "forcing_terms", "forcing_dominant",
                    "move_ported", "scope", "provenance")
-OPTIONAL_FIELDS = ("id", "shape_token", "gate_history", "note", "sources", "field_status")
+OPTIONAL_FIELDS = ("id", "shape_token", "gate_history", "note", "sources", "field_status",
+                   "domain", "access", "acquired")
+
+RESIDUAL = "residual"
+TRANSMITTED = "transmitted"
+UNMARKED = "unmarked"
+ACQUISITION_CHANNELS = (RESIDUAL, TRANSMITTED, UNMARKED)
+
+_DOMAIN_RE = re.compile(r"^f(0[1-9]|1[0-9]|20)$")
+_ACCESS_RE = re.compile(r"^a[0-9]{2}$")
 
 OPEN = "OPEN"
 UNKNOWN = "UNKNOWN"
@@ -174,6 +197,9 @@ class Entry:
     note: str = ""
     sources: List[str] = field(default_factory=list)
     field_status: Dict[str, str] = field(default_factory=dict)
+    domain: str = ""
+    access: str = ""
+    acquired: str = ""
 
     @property
     def key(self) -> str:
@@ -206,6 +232,11 @@ class Entry:
             if r["id"] == stop_id:
                 return r
         return None
+
+    @property
+    def acquisition(self) -> str:
+        """How the reading was obtained. Absent reads as unmarked, not as missing."""
+        return self.acquired or UNMARKED
 
     def status_of(self, field_name: str) -> str:
         """Status of one field. Empty string = settled, i.e. nothing flagged."""
@@ -277,6 +308,9 @@ class Entry:
             note=d.get("note", ""),
             sources=list(d.get("sources", [])),
             field_status=dict(d.get("field_status", {})),
+            domain=d.get("domain", ""),
+            access=d.get("access", ""),
+            acquired=d.get("acquired", ""),
         )
 
 
@@ -412,6 +446,18 @@ def validate_entry(d: Dict[str, Any]) -> List[str]:
     if "provenance" in d:
         errors.extend(validate_provenance(d["provenance"], where="entry"))
 
+    dom = d.get("domain")
+    if dom is not None and (not isinstance(dom, str) or not _DOMAIN_RE.match(dom)):
+        errors.append(f"domain {dom!r} is not one of f01..f20 — the domains OF the world. "
+                      f"A way of knowing goes in access, not here")
+    acc = d.get("access")
+    if acc is not None and (not isinstance(acc, str) or not _ACCESS_RE.match(acc)):
+        errors.append(f"access {acc!r} is not a tier-local access id (a01..)")
+    acq = d.get("acquired")
+    if acq is not None and acq not in ACQUISITION_CHANNELS:
+        errors.append(f"acquired {acq!r} not one of {ACQUISITION_CHANNELS} — "
+                      f"'unmarked' is a legitimate value and is expected to dominate")
+
     st = d.get("shape_token")
     if st is not None and (not isinstance(st, str) or st != st.upper()):
         errors.append("shape_token must be an uppercase string")
@@ -530,6 +576,9 @@ def format_entry(e: Entry) -> str:
         lines.append(f"      stops         [{r['id']}] {r['says']}")
     for g in e.gate_history:
         lines.append(f"      gate          {g.get('date', '?')} {g.get('model', '?')} — {g.get('register', '?')}")
+    if e.domain or e.access or e.acquired:
+        lines.append(f"      holding       domain {e.domain or '—'} / access {e.access or '—'} / "
+                     f"acquired {e.acquisition}")
     if e.field_status:
         for name, status in sorted(e.field_status.items()):
             lines.append(f"      {status:<14s} {name} — {STATUS_MEANING[status]}")
@@ -580,6 +629,19 @@ def selftest() -> List[str]:
         fails.append("structured stop not normalised")
     if Entry.from_dict(ok).stop_ids != ["stop_0"]:
         fails.append("bare-string stop did not get a positional id")
+
+    if Entry.from_dict(ok).acquisition != UNMARKED:
+        fails.append("an unrecorded acquisition did not read as unmarked")
+    if Entry.from_dict({**ok, "acquired": RESIDUAL}).acquisition != RESIDUAL:
+        fails.append("a recorded acquisition was not returned")
+    if validate_entry({**ok, "domain": "f05", "access": "a01", "acquired": UNMARKED}):
+        fails.append("a valid holding record was rejected")
+    if not validate_entry({**ok, "domain": "f21"}):
+        fails.append("domain f21 accepted — f21 is not a domain of the world")
+    if not validate_entry({**ok, "access": "F21"}):
+        fails.append("a non-access-id accepted in the access field")
+    if not validate_entry({**ok, "acquired": "guessed"}):
+        fails.append("an unknown acquisition channel accepted")
 
     open_entry = {k: v for k, v in ok.items() if k not in ("forcing_terms", "forcing_dominant", "move_ported")}
     open_entry["field_status"] = {"forcing_terms": OPEN, "forcing_dominant": OPEN, "move_ported": OPEN}

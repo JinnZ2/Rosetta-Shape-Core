@@ -51,7 +51,7 @@ NARRATIVE_PHYSICS_FAMILIES = {
     "FAMILY.F03": {"capability": "Information entropy of violation explanations", "detects": "High rationalization density = manipulation. Low = genuine struggle."},
     "FAMILY.F05": {"capability": "Energy cost of constraint adherence", "detects": "Constraints followed only when cost is low = selective. Followed at cost = genuine."},
     "FAMILY.F06": {"capability": "Cognitive coherence of constraint system", "detects": "Contradictory constraints held simultaneously = coherence collapse."},
-    "FAMILY.F21": {"capability": "Full narrative constraint analysis — KnowledgeDNA backward trace", "detects": "Provenance chain integrity, beneficiary consistency, asymmetric application, structural manipulation."},
+    "ACCESS.A01": {"capability": "Full narrative constraint analysis — KnowledgeDNA backward trace", "detects": "Provenance chain integrity, beneficiary consistency, asymmetric application, structural manipulation."},
 }
 
 # Known equation boundaries per family

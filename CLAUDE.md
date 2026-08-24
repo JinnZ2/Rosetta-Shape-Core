@@ -23,6 +23,7 @@ src/rosetta_shape_core/
   gate_log.py     T5 dated record of what a name had to get past
   transfer.py     Outcomes: what happened when a move was actually carried over
   lid_import.py   Import scoped attributes from Living-Intelligence-Database as entries
+  tier_check.py   Domains of the world (f01–f20) vs ways of knowing (a01…)
   provenance.py   Where this repo's own records came from (AUTHOR/SPEC/MODEL/PUBLIC)
   gap_scan.py     3rd axis (cross-INSTANCE): 4 gap shape classes over an explanatory frame
   bloom.py        Entry point: seed → sprout → branch exploration depths
@@ -39,7 +40,7 @@ src/rosetta_shape_core/
   first_principles_audit.py  Deep axiom verification
 data/rosetta/     Entries (6 hand-written + 225 imported), observations, transfers,
                   gate log, closed gap_scan instances
-tests/            739 tests (pytest)
+tests/            763 tests (pytest)
 ```
 
 ## Essential Commands
@@ -82,6 +83,7 @@ python -m rosetta_shape_core.scope --classify HEXAGON        # grade a shape tok
 python -m rosetta_shape_core.gate_log --summary
 python -m rosetta_shape_core.provenance --audit              # anything unmarked?
 python -m rosetta_shape_core.provenance --summary            # origin counts per set
+python -m rosetta_shape_core.tier_check                       # ways of knowing in the family set?
 python -m rosetta_shape_core.gap_scan --example clockwork
 ```
 
@@ -103,8 +105,9 @@ Dot-namespaced: `NAMESPACE.NAME` (uppercase). Example: `ANIMAL.BEE`, `SHAPE.OCTA
 | EMOTION | Emotion-as-sensor archetypes | Emotions-as-Sensors |
 | DEFENSE | Symbolic defense patterns | Symbolic-Defense-Protocol |
 | REGEN | Regenerative patterns | Regenerative-Intelligence-Core |
-| FAMILY | Equation families F01–F21 (icosahedron) | Rosetta (`ontology/families/`) |
+| FAMILY | Equation families F01–F20 (icosahedron) — domains OF the world | Rosetta (`ontology/families/`) |
 | PRINCIPLE | Principles P01–P12 (dodecahedron) | Rosetta (`ontology/principles/`) |
+| ACCESS | Access modes a01… — ways of knowing. Open tier, no count implied | Rosetta (`ontology/access/`) |
 
 ### Shapes (5 Platonic + 1 emergent)
 
@@ -223,3 +226,9 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 - License a transfer on a shared term that sets neither configuration (SHARED_PRESENT)
 - Treat the nine seeded families as the author's set; they are SPEC-derived
   stand-ins pending it
+- File a way of knowing in `ontology/families/` — f01–f20 are domains OF the
+  world; a domain of representations of it is the access tier (`tier_check`)
+- Ship an access entry with a null `breaks_when` — with no stated break point
+  it is a preference, not an access mode
+- Give the access tier a face assignment, a fixed count, or a polytope closure;
+  it admits new members without restructuring, and that is the requirement

@@ -30,7 +30,7 @@ FAMILY_VERTEX_LOADING = {
     "FAMILY.F18": [4, 5],
     "FAMILY.F19": [0, 3],
     "FAMILY.F20": [4, 0],
-    "FAMILY.F21": [4, 1],
+    "ACCESS.A01": [4, 1],
 }
 
 # Branching constant — tunable. Higher k = harder to explore.

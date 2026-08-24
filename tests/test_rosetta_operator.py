@@ -14,11 +14,12 @@ from rosetta_shape_core import lid_import as lid
 from rosetta_shape_core import provenance as prov
 from rosetta_shape_core import rosetta as rop
 from rosetta_shape_core import scope as sc
+from rosetta_shape_core import tier_check as tier
 from rosetta_shape_core import transfer as tr
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, gs]
+MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, tier, gs]
 
 
 # ── every module carries its own selftest ─────────────────────────
@@ -53,7 +54,7 @@ def test_modules_are_stdlib_only(module):
             root = line.split()[1].split(".")[0]
             assert root in {
                 "__future__", "argparse", "dataclasses", "datetime", "json",
-                "pathlib", "re", "sys", "typing", "rosetta_shape_core",
+                "pathlib", "re", "sys", "tempfile", "typing", "rosetta_shape_core",
             }, f"{module.__name__}: non-stdlib import {root!r}"
 
 
@@ -1045,3 +1046,140 @@ def test_gecko_transfer_now_measures_a_stop_the_database_already_had():
     assert rows["limit_2"]["status"] == sc.MEASURED
     assert any("transfer" in ev for ev in rows["limit_2"]["evidence"])
     assert rows["limit_1"]["status"] == sc.CITED
+
+
+# ── tier separation: domains of the world vs ways of knowing ──────
+
+def test_families_are_f01_to_f20():
+    ids = sorted(p.stem.split("-")[0] for p in tier.family_files())
+    assert ids == [f"f{i:02d}" for i in range(1, 21)]
+    assert not (ROOT / "ontology" / "families" / "f21-narrative-constraint.json").exists()
+
+
+def test_the_access_tier_has_a01_and_no_implied_closure():
+    """No face assignment, no count, no polytope closure on the access tier."""
+    names = [p.name for p in tier.access_files()]
+    assert "a01-narrative-constraint.json" in names
+    schema = json.loads((ROOT / "schema" / "access.schema.json").read_text(encoding="utf-8"))
+    for structural in ("face_assignment", "face", "faces", "count", "dual", "incidence",
+                       "vertices", "edges"):
+        assert structural not in schema["properties"], structural
+    description = schema["description"].lower()
+    for stated in ("no face_assignment", "no fixed count", "no polytope closure"):
+        assert stated in description, stated
+
+
+def test_a01_validates_against_the_access_schema():
+    schema = json.loads((ROOT / "schema" / "access.schema.json").read_text(encoding="utf-8"))
+    record = json.loads((ROOT / "ontology" / "access" / "a01-narrative-constraint.json")
+                        .read_text(encoding="utf-8"))
+    assert list(Draft202012Validator(schema).iter_errors(record)) == []
+    assert record["derived_from"] == "FAMILY.F21", "the old slug must still resolve"
+
+
+def test_breaks_when_is_mandatory_and_may_not_be_null():
+    schema = json.loads((ROOT / "schema" / "access.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    record = json.loads((ROOT / "ontology" / "access" / "a01-narrative-constraint.json")
+                        .read_text(encoding="utf-8"))
+    assert "breaks_when" in schema["required"]
+    for bad in (None, "", "   "):
+        broken = {**record, "breaks_when": bad}
+        assert list(validator.iter_errors(broken)) or tier.check_access_states_a_break
+
+
+def test_a_way_of_knowing_in_families_fails():
+    f21_as_filed = {
+        "id": "FAMILY.F21", "name": "Narrative-Constraint",
+        "domain": "Constraint consistency, selective application detection, symmetry of rules",
+        "tags": ["manipulation-detection", "narrative-physics"],
+    }
+    assert tier.marks_way_of_knowing(f21_as_filed)
+
+
+@pytest.mark.parametrize("record", [
+    {"id": "FAMILY.F14", "name": "Measurement",
+     "domain": "Uncertainty quantification, calibration, error propagation, dimensional analysis"},
+    {"id": "FAMILY.F03", "name": "Information",
+     "domain": "Shannon entropy, coding theory, information measures, channel capacity"},
+    {"id": "FAMILY.F16", "name": "Consciousness",
+     "domain": "Integrated information, global workspace, neural oscillations, predictive coding"},
+])
+def test_domains_of_the_world_do_not_trip_the_detector(record):
+    """Measurement and information are domains OF the world, not accounts of it."""
+    assert tier.marks_way_of_knowing(record) == []
+
+
+def test_shipped_families_and_access_entries_pass():
+    assert tier.check_families_are_domains() == []
+    assert tier.check_access_states_a_break() == []
+    assert tier.run()["fail"] == []
+
+
+def test_the_free_measured_mismatch_is_the_detector():
+    warned = tier.check_cost_lands_on_mismatch()
+    assert warned and "a01" in warned[0]
+    assert "cheap travel to an expensive destination" in warned[0]
+
+
+def test_candidates_are_not_members_of_the_tier():
+    """a02-a06 have no break point, so they are not access entries yet."""
+    path = ROOT / "ontology" / "access" / "_candidates.json"
+    assert path.exists()
+    assert path not in tier.access_files()
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    ids = [c["id"] for c in doc["candidates"]]
+    assert ids == ["a02", "a03", "a04", "a05", "a06"]
+    for c in doc["candidates"]:
+        assert c["breaks_when"] is None
+
+
+def test_f21_is_gone_from_the_family_map_and_the_icosahedron_closes_at_20():
+    fm = json.loads((ROOT / "ontology" / "family_map.json").read_text(encoding="utf-8"))
+    assert "FAMILY.F21" not in json.dumps(fm)
+    assert len(fm["family_affinity_model"]["families"]) == 20
+    assert len(fm["shape_profiles"]["SHAPE.ICOSA"]["all_equation_families"]) == 20
+
+
+def test_the_index_and_the_registry_agree_with_the_files():
+    index = json.loads((ROOT / "ontology" / "index.json").read_text(encoding="utf-8"))
+    assert index["families"]["count"] == 20
+    assert len(index["families"]["registry"]) == 20
+    access = index["access"]
+    assert access["members_present"] == len(tier.access_files())
+    assert "open" in access["closure"].lower()
+    registry = json.loads((ROOT / "ontology" / "_id_registry.json").read_text(encoding="utf-8"))
+    assert "ACCESS" in registry["registry"]
+    assert registry["registry"]["ACCESS"]["path"] == "ontology/access/"
+
+
+# ── the holding record ────────────────────────────────────────────
+
+def test_absent_acquired_reads_as_unmarked_not_as_missing():
+    e = entry_mod.Entry(source_system="x", configuration="y")
+    assert e.acquired == ""
+    assert e.acquisition == entry_mod.UNMARKED
+
+
+def test_holding_record_validates_and_rejects_a_domain_that_is_not_one():
+    base = dict(BASE)
+    assert entry_mod.validate_entry({**base, "domain": "f05", "access": "a01",
+                                     "acquired": "residual"}) == []
+    assert any("f01..f20" in e for e in entry_mod.validate_entry({**base, "domain": "f21"}))
+    assert any("access" in e for e in entry_mod.validate_entry({**base, "access": "a1"}))
+    assert any("unmarked" in e for e in entry_mod.validate_entry({**base, "acquired": "probably"}))
+
+
+def test_nothing_was_backfilled_with_a_guess():
+    """unmarked is expected to dominate; no entry claims an acquisition nobody recorded."""
+    entries = entry_mod.load_entries()
+    assert all(e.acquisition == entry_mod.UNMARKED for e in entries)
+    assert not any(e.domain or e.access for e in entries)
+
+
+def test_claiming_a_domain_without_an_access_is_reported():
+    claimed = entry_mod.Entry(source_system="x", configuration="y", id="ENTRY.X", domain="f05")
+    assert tier.check_domain_claims_name_an_access([claimed])
+    both = entry_mod.Entry(source_system="x", configuration="y", id="ENTRY.X",
+                           domain="f05", access="a01")
+    assert tier.check_domain_claims_name_an_access([both]) == []

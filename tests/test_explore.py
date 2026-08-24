@@ -211,10 +211,16 @@ def test_sensor_registry_completeness():
 
 
 def test_family_sensor_context_completeness():
-    """All 21 families should have sensor context."""
-    for i in range(1, 22):
+    """All 20 families should have sensor context."""
+    for i in range(1, 21):
         fid = f"FAMILY.F{i:02d}"
         assert fid in FAMILY_SENSOR_CONTEXT
+
+
+def test_access_tier_kept_its_sensor_context():
+    """F21 became ACCESS.A01. The capability moved with it rather than being dropped."""
+    assert "FAMILY.F21" not in FAMILY_SENSOR_CONTEXT
+    assert "ACCESS.A01" in FAMILY_SENSOR_CONTEXT
 
 
 # ── Constants ──────────────────────────────────────────────────────
@@ -224,10 +230,15 @@ def test_seed_vertices_count():
 
 
 def test_family_vertex_loading_coverage():
-    """All 21 families should have vertex loading."""
-    for i in range(1, 22):
+    """All 20 families should have vertex loading."""
+    for i in range(1, 21):
         fid = f"FAMILY.F{i:02d}"
         assert fid in FAMILY_VERTEX_LOADING
+
+
+def test_access_tier_kept_its_vertex_loading():
+    assert "FAMILY.F21" not in FAMILY_VERTEX_LOADING
+    assert "ACCESS.A01" in FAMILY_VERTEX_LOADING
 
 
 def test_economic_equations_count():

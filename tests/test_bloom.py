@@ -9,7 +9,7 @@ def test_seed_returns_structure():
     data = bloom_seed(g)
     assert data["depth"] == "seed"
     assert data["entities"]["total"] > 0
-    assert data["families"]["total"] == 21
+    assert data["families"]["total"] == 20  # f01-f20; f21 moved to the access tier
     assert data["shapes"]["total"] == 5
     assert data["bridges"]["total"] > 0
     assert "entry_points" in data
