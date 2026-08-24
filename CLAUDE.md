@@ -26,6 +26,7 @@ src/rosetta_shape_core/
   tier_check.py   Domains of the world (f01–f20) vs ways of knowing (a01…)
   holding.py      Contact log in, trajectories out — decay/circulation/ossification
   curiosity.py    Allocator: which expensive contact gets paid for, plus the offset
+  shape_read.py   SHAPE = the constraint set a geometry solves (see SHAPE_SPEC.md)
   provenance.py   Where this repo's own records came from (AUTHOR/SPEC/MODEL/PUBLIC)
   gap_scan.py     3rd axis (cross-INSTANCE): 4 gap shape classes over an explanatory frame
   bloom.py        Entry point: seed → sprout → branch exploration depths
@@ -42,7 +43,7 @@ src/rosetta_shape_core/
   first_principles_audit.py  Deep axiom verification
 data/rosetta/     Entries (6 hand-written + 225 imported), observations, transfers,
                   gate log, closed gap_scan instances
-tests/            800 tests (pytest)
+tests/            818 tests (pytest)
 ```
 
 ## Essential Commands
@@ -89,6 +90,8 @@ python -m rosetta_shape_core.tier_check                       # ways of knowing 
 python -m rosetta_shape_core.holding --trajectories           # computed on read, never stored
 python -m rosetta_shape_core.holding --gaps                   # which operator reaches which gap
 python -m rosetta_shape_core.curiosity --allocate --budget 10
+python -m rosetta_shape_core.shape_read --classify-shapes    # entry, or geometry note?
+python -m rosetta_shape_core.shape_read --audit
 python -m rosetta_shape_core.gap_scan --example clockwork
 ```
 
@@ -207,6 +210,18 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 4. Add to `merge.order`
 5. Run `self_audit` (CLEAN) + `validate_ontology.py` (OK)
 
+## SHAPE means one thing
+
+`SHAPE_SPEC.md` at the repo root is the definition and is upstream of every
+repo in the ecosystem that uses the word. **A SHAPE is the constraint set a
+geometry is a solution to** — not the geometry, not the picture, not the name
+the field gave it. Point at that file rather than restating it.
+
+Consequence for this repo: `shapes/*.json` are geometry notes (marked in the
+files), `data/rosetta/shape_reads.jsonl` holds shape entries, and the
+operator's `forcing_terms` are a constraint set — which is why licensing on
+them is licensing on the shape rather than on the readout.
+
 ## Do Not
 
 - Break JSON Schema 2020-12 compatibility
@@ -244,3 +259,11 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 - Default `decay_class` to d1, or read an unknown `referent_rate` as slow
 - Allocate curiosity entirely to the flag queue; it reaches KNOWN_MISSING only,
   and the offset is what reaches an axis nothing in the record marks
+- Use "shape" for a geometry. The geometry is the readout and the QUESTION;
+  the shape is the constraint set it solves (`SHAPE_SPEC.md` §1)
+- Call a record a shape entry without a removal test — it is a geometry note,
+  and must be marked as one (`SHAPE_SPEC.md` §10)
+- Read an external, heterogeneous constraint's geometry as an optimum; it is a
+  transcript of terrain (§5)
+- State a constraint as a cost. The measurable quantity is dissipation — work
+  lost per unit delivered, in joules (§9)

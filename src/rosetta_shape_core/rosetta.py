@@ -38,10 +38,14 @@ WHAT LICENSES A TRANSFER
       SHARED PRESENT   the only shared terms set neither configuration. Both
                        systems are under the term; neither is shaped by it.
                        Weak, and the commonest way to fool yourself.
-      SHARED FORM      the shapes coincide and no common term is named.
+      SHARED FORM      the GEOMETRIES coincide and no common term is named.
                        Coincidence until a mechanism appears. Reported, not
                        suppressed — an unlicensed match is a lead, and the
                        work it asks for is finding the term or dropping it.
+                       This grade is the misread SHAPE_SPEC.md section 2
+                       blocks — matching geometries across domains — which
+                       is why it is withheld by default rather than ranked
+                       last.
 
     Only the first two are returned by default.
 
@@ -60,6 +64,13 @@ ENTRIES THAT CANNOT YET LICENSE ANYTHING
     (see families.py), an overlap in forcing terms is a statement about the
     loads, not a resemblance noticed after the fact. That is why "pattern
     matching" is the wrong reading of this operator.
+
+    Forcing terms ARE a constraint set, so licensing on them is licensing on
+    the shape in the sense SHAPE_SPEC.md section 1 defines — the constraint
+    set a geometry is a solution to. Two systems sharing a constraint set
+    converge on the geometry whether or not anything else is shared. The
+    operator was already on that side of the line; the vocabulary in this
+    file now says so.
 
 AXES
     Rosetta is cross-DOMAIN transfer (crystal -> your problem).
@@ -193,8 +204,10 @@ def _reading(licensing: str, shared: List[str], shared_dominant: List[str], entr
             f"yourself into a transfer."
         )
     return (
-        "unlicensed: no forcing term in common. Coincidence until a mechanism appears. "
-        "Either name the term both systems are under, or drop the match — do not port on the form alone."
+        "unlicensed: no forcing term in common. The geometries coincide and nothing is named that "
+        "acts on both — coincidence until a mechanism appears. Either name the term, or drop the "
+        "match; a geometry ported without its constraints is a picture that matches and a claim "
+        "that is empty."
     )
 
 

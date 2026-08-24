@@ -1,5 +1,9 @@
 # Reading protocol
 
+> Referenced from [`SHAPE_SPEC.md`](../SHAPE_SPEC.md) section 10 as
+> READING_PROTOCOL.md. Every repo in the set is a marker for a sensed shape
+> needing exploration, not a position under defense.
+
 How to read the artifacts in this repo set: **against the constraint set that
 was operating at their date**, not as free-standing prose.
 

@@ -17,12 +17,13 @@ from rosetta_shape_core import lid_import as lid
 from rosetta_shape_core import provenance as prov
 from rosetta_shape_core import rosetta as rop
 from rosetta_shape_core import scope as sc
+from rosetta_shape_core import shape_read as sr
 from rosetta_shape_core import tier_check as tier
 from rosetta_shape_core import transfer as tr
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, tier, hold, cur, gs]
+MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, tier, hold, cur, sr, gs]
 
 
 # ── every module carries its own selftest ─────────────────────────
@@ -427,7 +428,7 @@ def test_no_shared_term_is_shared_form_and_withheld_by_default():
     assert rop.run(p) == []
     leads = rop.run(p, include_unlicensed=True)
     assert leads and all(m.licensing == rop.SHARED_FORM for m in leads)
-    assert "Coincidence until a mechanism appears" in leads[0].reading
+    assert "coincidence until a mechanism appears" in leads[0].reading.lower()
 
 
 def test_matches_are_sorted_by_shared_forcing_count():
@@ -746,7 +747,7 @@ def test_every_shipped_record_is_marked():
 def test_provenance_audit_covers_every_artifact_set():
     s = prov.summary()
     assert set(s) == {"entries", "families", "observations", "transfers", "holdings",
-                      "gap_scan instances"}
+                      "shape reads", "gap_scan instances"}
     APPEND_ONLY_AND_EMPTY = {"holdings"}  # a contact is a recorded event; none logged yet
     for name, block in s.items():
         if name in APPEND_ONLY_AND_EMPTY:
@@ -1414,3 +1415,118 @@ def test_unmarked_must_dominate_or_the_field_is_worthless():
                                acquired="transmitted") for i in range(3)]
     findings = tier.check_acquired_is_recorded_not_guessed(guessed)
     assert findings and "guessed at rather than recorded" in findings[0]
+
+
+# ── SHAPE_SPEC: a shape is the constraint set, not the geometry ───
+
+SHAPE_READ_SCHEMA = json.loads((ROOT / "schema" / "shape_read.schema.json").read_text(encoding="utf-8"))
+
+
+def test_the_spec_is_shipped_and_pointed_at_not_restated():
+    spec = ROOT / "SHAPE_SPEC.md"
+    assert spec.exists()
+    text = spec.read_text(encoding="utf-8")
+    assert "SHAPE  =  the constraint set a geometry is a solution to" in text
+    doc = (ROOT / "src" / "rosetta_shape_core" / "shape_read.py").read_text(encoding="utf-8")
+    assert "SHAPE_SPEC.md is upstream of this module" in doc
+
+
+def test_every_file_in_shapes_is_marked_a_geometry_note():
+    """faces, edges, vertices and no constraint set. Marking, not criticism."""
+    rows = sr.classify_shapes_dir()
+    assert len(rows) == 6
+    for r in rows:
+        assert r["read_class"] == sr.GEOMETRY_NOTE, r["file"]
+        assert r["declared"] == sr.GEOMETRY_NOTE, f"{r['file']} is not marked in the file itself"
+        assert "removal_test" in r["missing"]
+
+
+def test_shape_files_still_validate_with_the_marking():
+    schema = json.loads((ROOT / "schema" / "shape.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    for f in sorted((ROOT / "shapes").glob("*.json")):
+        assert list(validator.iter_errors(json.loads(f.read_text(encoding="utf-8")))) == [], f.name
+
+
+def test_the_removal_test_is_what_separates_an_entry_from_a_note():
+    full = {p: "x" for p in sr.SHAPE_ENTRY_PARTS}
+    assert sr.classify(full) == "shape_entry"
+    for part in sr.SHAPE_ENTRY_PARTS:
+        without = {k: v for k, v in full.items() if k != part}
+        assert sr.classify(without) == sr.GEOMETRY_NOTE
+        assert sr.missing_parts(without) == [part]
+
+
+def test_an_unchanged_removal_test_means_the_read_is_wrong():
+    """If the form is unchanged the constraint was not load-bearing."""
+    base = json.loads((ROOT / "data" / "rosetta" / "shape_reads.jsonl")
+                      .read_text(encoding="utf-8").splitlines()[0])
+    unchanged = {**base, "removal_test": {**base["removal_test"], "result": "unchanged"}}
+    assert any("not load-bearing" in e for e in sr.validate_read(unchanged))
+    assert sr.validate_read({**unchanged, "status": "refuted"}) == [], \
+        "a failed transfer is a measurement, not an embarrassment"
+
+
+def test_shipped_reads_validate_against_schema_and_module():
+    assert sr.validate_file() == []
+    validator = Draft202012Validator(SHAPE_READ_SCHEMA)
+    raws = sr.load_raw()
+    assert len(raws) == 3
+    for d in raws:
+        assert list(validator.iter_errors(d)) == [], d.get("id")
+
+
+def test_cost_framing_is_flagged_and_dissipation_is_not():
+    costed = sr.ShapeRead.from_dict({
+        "id": "SHAPE_READ.C", "solving_for": "x", "geometry": "g",
+        "why_not_the_other_geometry": {"other_geometry": "o", "recovered_term": "t"},
+        "removal_test": {"constraint": "c", "absent_in": "a", "result": "unrun"},
+        "constraints": [{"name": "the cost of pumping", "sits": sr.INTERNAL_UNIFORM}]})
+    assert any("dissipation" in f for f in sr.audit([costed]))
+    assert not any("COST_FRAMING" in f for f in sr.audit(sr.load_reads()))
+
+
+def test_an_external_constraint_geometry_is_not_read_as_an_optimum():
+    terrain = sr.ShapeRead.from_dict({
+        "id": "SHAPE_READ.T", "geometry": "g", "solving_for": "the optimal routing of sediment",
+        "why_not_the_other_geometry": {"other_geometry": "o", "recovered_term": "t"},
+        "removal_test": {"constraint": "c", "absent_in": "a", "result": "unrun"},
+        "constraints": [{"name": "whatever rock was hit", "sits": sr.EXTERNAL_HETEROGENEOUS}]})
+    assert any("transcript of terrain" in f for f in sr.audit([terrain]))
+
+
+def test_the_delta_read_declares_its_external_constraint():
+    delta = next(r for r in sr.load_reads() if "DELTA" in r.id)
+    assert delta.external_constraints
+    assert delta.status == sr.MARKER
+    assert delta.removal_test["result"] == sr.UNRUN, "stated and not run is not tested"
+
+
+def test_every_constraint_says_where_it_sits():
+    for r in sr.load_reads():
+        for c in r.constraints:
+            assert c["sits"] in sr.SITS, r.id
+
+
+def test_reads_carry_independent_recurrence_not_just_an_exponent():
+    """The fit describes the surviving sample; separate runs converging is the evidence."""
+    for r in sr.load_reads():
+        assert len(r.independent_recurrence) >= 3, r.id
+    assert sr.audit() == []
+
+
+def test_shared_form_is_named_as_the_blocked_misread():
+    doc = rop.__doc__
+    assert "GEOMETRIES coincide" in doc
+    assert "SHAPE_SPEC.md section 2" in doc
+    m = rop.match(rop.Problem(["resonance"], dominant_terms=["resonance"]),
+                  entry_mod.load_entries(HAND_WRITTEN)[0])
+    assert m.licensing == rop.SHARED_FORM
+    assert "picture that matches" in m.reading
+
+
+def test_the_operator_licenses_on_a_constraint_set():
+    """Forcing terms are a constraint set, which is what section 1 calls a shape."""
+    assert "constraint set" in rop.__doc__
+    assert "SHAPE_SPEC.md section 1" in rop.__doc__
+    assert "SHAPE_SPEC.md section 1" in sc.__doc__
