@@ -1,5 +1,16 @@
 name: AI Integrator
 
+# Regenerates the machine-readable index and the file listings, then commits
+# them back to main.
+#
+# This used to be two workflows — this one and a "File Lister" — both firing on
+# push to main and both pushing. The File Lister was faster and always won the
+# race; this one committed its work and then failed on a rejected push, every
+# run since 2026-04-03, leaving AI_INDEX.json 45 commits stale while reporting
+# a red X nobody acted on. They are one workflow now, and the push retries onto
+# a rebase rather than giving up, so a human pushing mid-run cannot resurrect
+# the same failure.
+
 on:
   workflow_dispatch:
   push:
@@ -9,9 +20,16 @@ on:
 permissions:
   contents: write
 
+# One writer to main at a time. Not cancel-in-progress: a superseded run has
+# already regenerated the index, and dropping it would just re-stale the file.
+concurrency:
+  group: main-writer
+  cancel-in-progress: false
+
 jobs:
   run:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,33 +41,50 @@ jobs:
         with:
           python-version: '3.11'
 
+      # The tests are not run here on purpose: ci.yml already runs the full
+      # suite on 3.9, 3.11 and 3.12 for the same push. Running them a fourth
+      # time gated nothing.
       - name: Install dependencies
         run: |
-          pip install pyyaml jsonschema pytest -e .
-
-      - name: Run tests
-        run: |
-          python -m pytest tests/ -v
+          pip install pyyaml
 
       - name: Run AI Integrator
         run: |
           python scripts/ai_integrator.py --repo-root . --config ai_integrator.config.yaml
-          
-      - name: List all files and dirs
+
+      # -path ./.git -prune keeps the listings from filling with git internals.
+      - name: List files and directories
         run: |
-          echo "# Repo File List" > FILE_LIST.md
-          find . -type f | sort >> FILE_LIST.md
-          echo "# Repo Directory List" > DIR_LIST.md
-          find . -type d | sort >> DIR_LIST.md
-          
+          {
+            echo "# Repo File List"
+            find . -path ./.git -prune -o -type f -print | sort
+          } > FILE_LIST.md
+          {
+            echo "# Repo Directory List"
+            find . -path ./.git -prune -o -type d -print | sort
+          } > DIR_LIST.md
+
       - name: Commit outputs
         run: |
           git config user.name "ai-integrator-bot"
           git config user.email "actions@github.com"
-          git add AI_INDEX.json AI_NOTES.md || true
+          git add AI_INDEX.json AI_NOTES.md FILE_LIST.md DIR_LIST.md || true
+
           if git diff --staged --quiet; then
             echo "No changes to commit."
-          else
-            git commit -m "add AI_INDEX.json + AI_NOTES.md"
-            git push
+            exit 0
           fi
+
+          git commit -m "regenerate AI_INDEX.json, AI_NOTES.md and file listings"
+
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "pushed on attempt ${attempt}"
+              exit 0
+            fi
+            echo "push rejected — rebasing onto origin/main and retrying (attempt ${attempt})"
+            git pull --rebase origin main
+          done
+
+          echo "could not push after 3 attempts"
+          exit 1
