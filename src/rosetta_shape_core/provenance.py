@@ -5,7 +5,7 @@ The operator stack already demands operand provenance of everything it
 looks at (gap_scan G2: a boundary traced to the apparatus rather than to a
 measurement). Shipping model-seeded content unmarked inside that stack is
 the same failure, one level up: a later reader — including anyone applying
-the reading protocol in docs/reading-protocol.md — takes every record as
+the reading protocol in READING_PROTOCOL.md — takes every record as
 authored, because nothing on the record says otherwise.
 
 So every entry, family and scan instance carries two origins:

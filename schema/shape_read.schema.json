@@ -2,17 +2,27 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/JinnZ2/Rosetta-Shape-Core/schema/shape_read.schema.json",
   "title": "Shape read",
-  "description": "A SHAPE is the constraint set a geometry is a solution to — not the geometry, not the picture, not the name the field gave it. See SHAPE_SPEC.md, which is upstream of this file and is not restated here. A record carrying solving_for, constraints, why_not_the_other_geometry and a removal_test is a shape entry. A record missing the removal test is a geometry note, and is marked as one rather than rejected.",
+  "description": "A SHAPE is the constraint set a geometry is a solution to — not the geometry, not the picture, not the name the field gave it. See SHAPE_SPEC.md, which is upstream of this file and is not restated here. A record carrying solving_for, constraints, why_not_the_other_geometry and a removal_test is a shape entry. A record missing the removal test is a geometry note, and is marked as one rather than rejected. METHOD_SPEC.md states the epistemic class of that spec and is read first: constraint-set reasoning is a METHOD, not a claim, and a method is not falsifiable and does not need to be. The falsifiable layer is the individual read, which is why removal_test is required here.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "geometry", "solving_for", "constraints", "why_not_the_other_geometry",
-               "removal_test", "status", "provenance"],
+  "required": [
+    "id",
+    "geometry",
+    "solving_for",
+    "constraints",
+    "why_not_the_other_geometry",
+    "removal_test",
+    "status",
+    "provenance"
+  ],
   "properties": {
-    "id": {"type": "string", "pattern": "^SHAPE_READ\\.[A-Z0-9_]+$"},
+    "id": {
+      "type": "string",
+      "pattern": "^SHAPE_READ\\.[A-Z0-9_]+$"
+    },
     "geometry": {
       "type": "string",
-      "minLength": 1,
-      "description": "What is visible of the shape. The readout, not the object — and the QUESTION, not the answer."
+      "description": "What is visible of the shape. The readout, not the object — and the QUESTION, not the answer. May be empty only on a shadow read, where the geometry is not visible and the shape is described by the gaps it casts instead."
     },
     "solving_for": {
       "type": "string",
@@ -25,45 +35,86 @@
       "description": "Read order step 2. What bounds the solution. Include the external and heterogeneous ones — substrate the system did not choose — not only the ones internal to the flow rule.",
       "items": {
         "type": "object",
-        "required": ["name", "sits"],
+        "required": [
+          "name",
+          "sits"
+        ],
         "additionalProperties": false,
         "properties": {
-          "name": {"type": "string", "minLength": 1},
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
           "sits": {
             "type": "string",
-            "enum": ["internal_uniform", "external_heterogeneous"],
+            "enum": [
+              "internal_uniform",
+              "external_heterogeneous"
+            ],
             "description": "internal_uniform: boundary known in advance, same everywhere — the geometry is a solution to a stated problem. external_heterogeneous: the boundary is whatever substrate was hit — the geometry is a record of the substrate, and must not be read as an optimum."
           },
           "ratio": {
             "type": "string",
             "description": "State constraints as ratios, not lengths. Lengths are outputs; ratios set the form."
           },
-          "note": {"type": "string"}
+          "note": {
+            "type": "string"
+          }
         }
       }
     },
     "why_not_the_other_geometry": {
       "type": "object",
-      "required": ["other_geometry", "recovered_term"],
+      "required": [
+        "other_geometry",
+        "recovered_term"
+      ],
       "additionalProperties": false,
       "description": "Read order step 3, and the instrument. Steps 1 and 2 can be done wrong and still look finished; this one fails loudly.",
       "properties": {
-        "other_geometry": {"type": "string", "minLength": 1},
-        "recovered_term": {"type": "string", "minLength": 1,
-                           "description": "The variable the discrepancy located."},
-        "note": {"type": "string"}
+        "other_geometry": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recovered_term": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The variable the discrepancy located."
+        },
+        "note": {
+          "type": "string"
+        }
       }
     },
     "removal_test": {
       "type": "object",
-      "required": ["constraint", "absent_in", "result"],
+      "required": [
+        "constraint",
+        "absent_in",
+        "result"
+      ],
       "additionalProperties": false,
       "description": "Which constraint, if REMOVED, changes the geometry — plus a case where it is genuinely absent. If the form is unchanged the constraint was not load-bearing and the read is wrong. A failed test is a measurement, not an embarrassment: it locates a constraint that differs between the two cases.",
       "properties": {
-        "constraint": {"type": "string", "minLength": 1},
-        "absent_in": {"type": "string", "minLength": 1},
-        "observed_form": {"type": "string"},
-        "result": {"type": "string", "enum": ["differs", "unchanged", "unrun"]}
+        "constraint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "absent_in": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_form": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string",
+          "enum": [
+            "differs",
+            "unchanged",
+            "unrun"
+          ]
+        }
       }
     },
     "scale_index": {
@@ -71,31 +122,218 @@
       "additionalProperties": false,
       "description": "Every physical instance has a characteristic scale; below and above it the same mechanism reads as noise. Locating it is part of the read.",
       "properties": {
-        "characteristic_scale": {"type": "string"},
+        "characteristic_scale": {
+          "type": "string"
+        },
         "across_levels": {
           "type": "string",
-          "enum": ["invariant", "drifts", "unknown"],
+          "enum": [
+            "invariant",
+            "drifts",
+            "unknown"
+          ],
           "description": "invariant: one mechanism. drifts: family resemblance, and the read is weaker than it looks. Not yet measured for any shape in this ecosystem."
         }
       }
     },
     "independent_recurrence": {
       "type": "array",
-      "items": {"type": "string"},
+      "items": {
+        "type": "string"
+      },
       "description": "Different substrates, different materials, no shared ancestry, same geometry. Separate runs converging is what carries the weight — a fitted exponent is a label on it, and the fit describes the surviving sample."
     },
-    "status": {"type": "string", "enum": ["geometry_note", "marker", "tested", "refuted"]},
-    "note": {"type": "string"},
+    "status": {
+      "type": "string",
+      "enum": [
+        "geometry_note",
+        "marker",
+        "tested",
+        "refuted"
+      ]
+    },
+    "note": {
+      "type": "string"
+    },
     "provenance": {
       "type": "object",
-      "required": ["concept", "record"],
+      "required": [
+        "concept",
+        "record"
+      ],
       "additionalProperties": false,
       "properties": {
-        "concept": {"type": "string", "enum": ["AUTHOR", "SPEC", "MODEL", "PUBLIC"]},
-        "record": {"type": "string", "enum": ["AUTHOR", "SPEC", "MODEL", "PUBLIC"]},
-        "date": {"type": "string", "format": "date"},
-        "note": {"type": "string"}
+        "concept": {
+          "type": "string",
+          "enum": [
+            "AUTHOR",
+            "SPEC",
+            "MODEL",
+            "PUBLIC"
+          ]
+        },
+        "record": {
+          "type": "string",
+          "enum": [
+            "AUTHOR",
+            "SPEC",
+            "MODEL",
+            "PUBLIC"
+          ]
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "read_path": {
+      "type": "string",
+      "enum": [
+        "direct",
+        "shadow"
+      ],
+      "default": "direct",
+      "description": "direct: the geometry is visible and the read order applies. shadow: it is not — often because the constraint that would make it visible is the one nobody is measuring — so the shape is described by the gaps it casts."
+    },
+    "tangents": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Shadow reads only. Each statement is one gap; the object is what they are all tangent to. They will look scattered and may appear to conflict — they are separate tangents to one boundary, not competing claims, and a linear reading discards half the outline."
+    },
+    "outline_state": {
+      "type": "string",
+      "enum": [
+        "under_outlined",
+        "constrained"
+      ],
+      "description": "Shadow reads only. The read is complete when the gaps constrain the object to one form. Until then it is under-outlined, which is a stated state and not a failure."
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A separate readout from the pattern. A read at 0.4 is not a claim held at 0.4 — it is an uncoalesced marker with a stated gradient, and is not to be resolved in either direction on its behalf.",
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "comfort_threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "basis": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "REMOVAL_TEST_PASSED",
+              "TRANSFERRED_OUT_OF_DOMAIN",
+              "SCALE_HELD",
+              "REMOVAL_TEST_FAILED",
+              "CONSTRAINT_NOT_LOAD_BEARING"
+            ]
+          },
+          "description": "What moved it. RECURRENCE_COUNT is deliberately absent and is rejected at validation: a read is NOT upgraded by more instances sharing the geometry without a checked constraint set."
+        }
+      }
+    },
+    "disappearances": {
+      "type": "array",
+      "description": "A shape appearing tells you the constraints were met. A shape disappearing tells you at least one was removed, but not which — informative and underdetermined. A timestamped intervention bounds the candidate set; that is the handle. Reporting a disappearance as a failed pattern reports the wrong finding: it is the constraint set being changed.",
+      "items": {
+        "type": "object",
+        "required": [
+          "absent_from"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "absent_from": {
+            "type": "string",
+            "minLength": 1
+          },
+          "since": {
+            "type": "string",
+            "description": "The timestamped intervention."
+          },
+          "bounded_candidates": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sample_frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "If a domain is removed from the frame, the recurrence check cannot run there by construction and returns a null that reads as absence. An excluded domain is UNTESTED, not inapplicable.",
+      "properties": {
+        "admitted": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excluded": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "domain"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "domain": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          }
+        }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "read_path": {
+            "const": "shadow"
+          }
+        },
+        "required": [
+          "read_path"
+        ]
+      },
+      "then": {
+        "required": [
+          "tangents",
+          "outline_state"
+        ]
+      },
+      "else": {
+        "properties": {
+          "geometry": {
+            "minLength": 1
+          }
+        }
+      }
+    }
+  ]
 }

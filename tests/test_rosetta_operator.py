@@ -804,14 +804,36 @@ def test_modules_carry_the_spdx_line(module):
 
 # ── docs ──────────────────────────────────────────────────────────
 
-def test_reading_protocol_is_present_and_linked():
-    doc = (ROOT / "docs" / "reading-protocol.md")
-    assert doc.exists()
-    text = doc.read_text(encoding="utf-8")
-    for signature in ("context ceiling", "gate / register", "accepted guess"):
+def test_the_three_specs_are_at_root_and_read_in_order():
+    """METHOD_SPEC -> SHAPE_SPEC -> READING_PROTOCOL. Section 6 sets the order."""
+    method = (ROOT / "METHOD_SPEC.md").read_text(encoding="utf-8")
+    shape = (ROOT / "SHAPE_SPEC.md").read_text(encoding="utf-8")
+    protocol = (ROOT / "READING_PROTOCOL.md").read_text(encoding="utf-8")
+    assert "A METHOD IS NOT FALSIFIABLE" in method
+    assert "SHAPE  =  the constraint set a geometry is a solution to" in shape
+    for link in ("METHOD_SPEC.md", "SHAPE_SPEC.md"):
+        assert link in protocol, link
+    assert not (ROOT / "docs" / "reading-protocol.md").exists()
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    for link in ("METHOD_SPEC.md", "SHAPE_SPEC.md", "READING_PROTOCOL.md"):
+        assert link in readme, link
+
+
+def test_reading_protocol_carries_marker_status_and_blocked_conflations():
+    text = (ROOT / "READING_PROTOCOL.md").read_text(encoding="utf-8")
+    for signature in ("context ceiling", "gate / register", "accepted"):
         assert signature in text
-    assert "reading-protocol.md" in (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "reading-protocol.md" in (ROOT / "docs" / "rosetta-operator.md").read_text(encoding="utf-8")
+    assert "MARKER STATUS" in text
+    assert "BLOCKED CONFLATIONS" in text
+
+
+def test_the_third_blocked_conflation_is_the_shadow_read():
+    """METHOD_SPEC section 4 cites it by number."""
+    text = (ROOT / "READING_PROTOCOL.md").read_text(encoding="utf-8")
+    third = text.split("### 3. ")[1].split("### 4.")[0]
+    assert "tangents" in third.lower()
+    assert "not competing claims" in third
+    assert "METHOD_SPEC.md §4" in third or "METHOD_SPEC.md" in third
 
 
 # ── transfers: what happened when a move was carried over ─────────
@@ -1530,3 +1552,117 @@ def test_the_operator_licenses_on_a_constraint_set():
     assert "constraint set" in rop.__doc__
     assert "SHAPE_SPEC.md section 1" in rop.__doc__
     assert "SHAPE_SPEC.md section 1" in sc.__doc__
+
+
+# ── METHOD_SPEC: the method is not the falsifiable layer ──────────
+
+def test_the_falsifiable_layer_is_the_read_not_the_method():
+    method = (ROOT / "METHOD_SPEC.md").read_text(encoding="utf-8")
+    assert "The falsifiable layer is the INDIVIDUAL READ" in method
+    assert "removal test" in sr.__doc__ and "per read" in sr.__doc__
+    # and it is actually enforced: every shipped read carries one
+    for r in sr.load_reads():
+        assert r.removal_test.get("constraint"), r.id
+
+
+def test_confidence_is_never_raised_by_recurrence_alone():
+    """NOT upgraded by more instances sharing the geometry without a checked constraint set."""
+    base = sr.load_raw()[0]
+    bad = {**base, "confidence": {"value": 0.9, "basis": [sr.RECURRENCE_COUNT]}}
+    assert any("blocked misread wearing a number" in e for e in sr.validate_read(bad))
+    assert sr.RECURRENCE_COUNT not in sr.CONFIDENCE_BASIS
+    ok = {**base, "confidence": {"value": 0.8, "basis": [sr.REMOVAL_TEST_PASSED, sr.SCALE_HELD]}}
+    assert sr.validate_read(ok) == []
+
+
+def test_confidence_is_a_separate_readout_not_a_claim_strength():
+    base = sr.load_raw()[0]
+    low = sr.ShapeRead.from_dict({**base, "confidence": {
+        "value": 0.4, "comfort_threshold": 0.7, "basis": [sr.REMOVAL_TEST_PASSED]}})
+    findings = sr.audit([low])
+    assert any("uncoalesced marker" in f for f in findings)
+    assert any("do not resolve it in either direction" in f for f in findings)
+
+
+def test_a_disappearance_is_the_constraint_set_changing_not_a_falsification():
+    base = sr.load_raw()[0]
+    wrong = sr.ShapeRead.from_dict({
+        **base, "status": "refuted",
+        "disappearances": [{"absent_from": "a market after a rule change",
+                            "since": "2026-01-01", "bounded_candidates": ["the rule that changed"]}]})
+    findings = sr.audit([wrong])
+    assert any("WRONG_FINDING" in f for f in findings)
+    assert any("not which" in f for f in findings)
+
+
+def test_a_disappearance_without_a_timestamp_is_fully_underdetermined():
+    base = sr.load_raw()[0]
+    unbounded = sr.ShapeRead.from_dict({**base, "disappearances": [{"absent_from": "somewhere"}]})
+    assert any("UNBOUNDED" in f and "bounds the candidate set" in f
+               for f in sr.audit([unbounded]))
+    untapped = sr.ShapeRead.from_dict({**base, "disappearances": [
+        {"absent_from": "somewhere", "since": "2026-01-01"}]})
+    assert any("has not been used" in f for f in sr.audit([untapped]))
+
+
+def test_an_excluded_domain_is_untested_not_inapplicable():
+    """Substrate exclusion returns a null that reads as absence."""
+    base = sr.load_raw()[0]
+    excluded = sr.ShapeRead.from_dict({**base, "sample_frame": {
+        "admitted": ["termite colonies"],
+        "excluded": [{"domain": "human settlement", "reason": "treated as a separate category"}]}})
+    findings = sr.audit([excluded])
+    assert any("UNTESTED, not inapplicable" in f for f in findings)
+    assert any("by construction" in f for f in findings)
+
+
+# ── the shadow read ───────────────────────────────────────────────
+
+SHADOW = {
+    "id": "SHAPE_READ.SHADOW", "geometry": "", "solving_for": "a quantity",
+    "constraints": [{"name": "c", "sits": sr.INTERNAL_UNIFORM}],
+    "why_not_the_other_geometry": {"other_geometry": "o", "recovered_term": "t"},
+    "removal_test": {"constraint": "c", "absent_in": "a", "result": "unrun"},
+    "read_path": sr.SHADOW, "tangents": ["one gap", "another gap"],
+    "outline_state": sr.UNDER_OUTLINED, "status": sr.MARKER,
+    "provenance": {"concept": "MODEL", "record": "MODEL"},
+}
+
+
+def test_a_shadow_read_needs_tangents_and_an_outline_state():
+    assert sr.validate_read(SHADOW) == []
+    assert any("tangents" in e for e in sr.validate_read(
+        {k: v for k, v in SHADOW.items() if k != "tangents"}))
+    assert any("outline_state" in e for e in sr.validate_read(
+        {k: v for k, v in SHADOW.items() if k != "outline_state"}))
+
+
+def test_a_shadow_read_may_have_no_visible_geometry_but_still_carries_a_removal_test():
+    """The geometry is often not visible; the falsifiable layer stays required."""
+    schema = Draft202012Validator(SHAPE_READ_SCHEMA)
+    assert list(schema.iter_errors(SHADOW)) == []
+    direct_empty = {**SHADOW, "read_path": sr.DIRECT}
+    for k in ("tangents", "outline_state"):
+        direct_empty.pop(k)
+    assert list(schema.iter_errors(direct_empty)), "a direct read with no geometry should fail"
+    assert SHADOW["removal_test"]["constraint"]
+
+
+def test_under_outlined_is_a_stated_state_not_a_finished_read():
+    assert any("not a failure" in e for e in sr.validate_read({**SHADOW, "status": sr.TESTED}))
+    findings = sr.audit([sr.ShapeRead.from_dict(SHADOW)])
+    assert any("UNDER_OUTLINED" in f for f in findings)
+    assert any("stated state, not a failure" in f for f in findings)
+
+
+def test_shadow_tangents_are_exempt_from_consistency_checking():
+    """A consistency audit over tangents reports conflicts that are not conflicts."""
+    assert sr.ShapeRead.from_dict(SHADOW).consistency_exempt
+    assert not sr.ShapeRead.from_dict(sr.load_raw()[0]).consistency_exempt
+    assert any("not competing claims" in f
+               for f in sr.audit([sr.ShapeRead.from_dict(SHADOW)]))
+
+
+def test_tangents_on_a_direct_read_are_rejected():
+    base = sr.load_raw()[0]
+    assert any("shadow read" in e for e in sr.validate_read({**base, "tangents": ["g"]}))

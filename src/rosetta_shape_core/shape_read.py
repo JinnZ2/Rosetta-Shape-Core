@@ -3,7 +3,17 @@
 
 SHAPE_SPEC.md is upstream of this module and of every repo in the ecosystem
 that uses the word. It is not restated here; this file points at it and
-implements the checks it specifies.
+implements the checks it specifies. METHOD_SPEC.md states the epistemic
+class of that spec and is read first.
+
+THE METHOD IS NOT THE FALSIFIABLE LAYER
+    Constraint-set reasoning is a METHOD, in the class of the scientific
+    method, dimensional analysis and syllogistic logic. A method is not
+    falsifiable and does not need to be; it is evaluated on yield. The
+    falsifiable layer is the INDIVIDUAL READ, which is why every shape entry
+    here is required to carry a removal test and why a record without one is
+    demoted rather than accepted. Refutation happens per read, in this file,
+    at validate_read().
 
     SHAPE  =  the constraint set a geometry is a solution to.
               NOT the geometry. NOT the picture. NOT the name.
@@ -71,6 +81,32 @@ INTERNAL_UNIFORM = "internal_uniform"
 EXTERNAL_HETEROGENEOUS = "external_heterogeneous"
 SITS = (INTERNAL_UNIFORM, EXTERNAL_HETEROGENEOUS)
 
+DIRECT = "direct"
+SHADOW = "shadow"
+READ_PATHS = (DIRECT, SHADOW)
+
+UNDER_OUTLINED = "under_outlined"
+CONSTRAINED = "constrained"
+OUTLINE_STATES = (UNDER_OUTLINED, CONSTRAINED)
+
+# What may raise or lower a read's confidence. Confidence is a separate
+# readout from the pattern: a read at 0.4 is an uncoalesced marker with a
+# stated gradient, not a claim held at 0.4.
+REMOVAL_TEST_PASSED = "REMOVAL_TEST_PASSED"
+TRANSFERRED_OUT_OF_DOMAIN = "TRANSFERRED_OUT_OF_DOMAIN"
+SCALE_HELD = "SCALE_HELD"
+UPGRADES = (REMOVAL_TEST_PASSED, TRANSFERRED_OUT_OF_DOMAIN, SCALE_HELD)
+
+REMOVAL_TEST_FAILED = "REMOVAL_TEST_FAILED"
+CONSTRAINT_NOT_LOAD_BEARING = "CONSTRAINT_NOT_LOAD_BEARING"
+DOWNGRADES = (REMOVAL_TEST_FAILED, CONSTRAINT_NOT_LOAD_BEARING)
+
+CONFIDENCE_BASIS = UPGRADES + DOWNGRADES
+
+# Explicitly not a basis. More instances sharing the geometry, with no
+# constraint set checked, is the blocked misread wearing a number.
+RECURRENCE_COUNT = "RECURRENCE_COUNT"
+
 DIFFERS = "differs"
 UNCHANGED = "unchanged"
 UNRUN = "unrun"
@@ -78,7 +114,8 @@ RESULTS = (DIFFERS, UNCHANGED, UNRUN)
 
 REQUIRED_FIELDS = ("id", "geometry", "solving_for", "constraints",
                    "why_not_the_other_geometry", "removal_test", "status", "provenance")
-OPTIONAL_FIELDS = ("scale_index", "independent_recurrence", "note")
+OPTIONAL_FIELDS = ("scale_index", "independent_recurrence", "note", "read_path", "tangents",
+                   "outline_state", "confidence", "disappearances", "sample_frame")
 
 # The four parts a shape entry carries. Missing the last one demotes the
 # record to a geometry note.
@@ -104,6 +141,12 @@ class ShapeRead:
     scale_index: Dict[str, Any] = field(default_factory=dict)
     independent_recurrence: List[str] = field(default_factory=list)
     status: str = MARKER
+    read_path: str = DIRECT
+    tangents: List[str] = field(default_factory=list)
+    outline_state: str = ""
+    confidence: Dict[str, Any] = field(default_factory=dict)
+    disappearances: List[Dict[str, Any]] = field(default_factory=list)
+    sample_frame: Dict[str, Any] = field(default_factory=dict)
     note: str = ""
     provenance: Dict[str, Any] = field(default_factory=dict)
 
@@ -111,6 +154,22 @@ class ShapeRead:
     def is_shape_entry(self) -> bool:
         """Carries all four parts. Missing the removal test makes it a note."""
         return all(getattr(self, p) for p in SHAPE_ENTRY_PARTS)
+
+    @property
+    def is_shadow(self) -> bool:
+        return self.read_path == SHADOW
+
+    @property
+    def consistency_exempt(self) -> bool:
+        """A shadow read's tangents are not competing claims.
+
+        Each statement is one gap and the object is what they are all
+        tangent to, so apparent contradiction between them is not a finding.
+        An internal-consistency audit pointed at a shadow read reports
+        conflicts that are not conflicts — see READING_PROTOCOL.md, third
+        blocked conflation.
+        """
+        return self.is_shadow
 
     @property
     def external_constraints(self) -> List[Dict[str, Any]]:
@@ -131,6 +190,12 @@ class ShapeRead:
             scale_index=dict(d.get("scale_index", {})),
             independent_recurrence=list(d.get("independent_recurrence", [])),
             status=d.get("status", MARKER),
+            read_path=d.get("read_path", DIRECT),
+            tangents=list(d.get("tangents", [])),
+            outline_state=d.get("outline_state", ""),
+            confidence=dict(d.get("confidence", {})),
+            disappearances=list(d.get("disappearances", [])),
+            sample_frame=dict(d.get("sample_frame", {})),
             note=d.get("note", ""),
             provenance=dict(d.get("provenance", {})),
         )
@@ -209,6 +274,55 @@ def validate_read(d: Dict[str, Any]) -> List[str]:
         if rt.get("result") == UNRUN and status == TESTED:
             errors.append("status 'tested' with an unrun removal test")
 
+    path = d.get("read_path", DIRECT)
+    if path not in READ_PATHS:
+        errors.append(f"read_path {path!r} not one of {READ_PATHS}")
+    if path == SHADOW:
+        if not d.get("tangents"):
+            errors.append("a shadow read describes the shape by the gaps it casts — it must "
+                          "carry tangents")
+        if d.get("outline_state") not in OUTLINE_STATES:
+            errors.append(f"a shadow read must state its outline_state, one of {OUTLINE_STATES}")
+        if d.get("outline_state") == UNDER_OUTLINED and d.get("status") == TESTED:
+            errors.append("status 'tested' on an under-outlined shadow read. Under-outlined is a "
+                          "stated state, not a failure — and not a finished read either")
+    elif d.get("tangents") or d.get("outline_state"):
+        errors.append("tangents and outline_state belong to a shadow read; set read_path")
+
+    conf = d.get("confidence")
+    if isinstance(conf, dict) and conf:
+        v = conf.get("value")
+        if not isinstance(v, (int, float)) or not 0.0 <= float(v) <= 1.0:
+            errors.append("confidence.value must be a number between 0 and 1")
+        t = conf.get("comfort_threshold")
+        if t is not None and (not isinstance(t, (int, float)) or not 0.0 <= float(t) <= 1.0):
+            errors.append("confidence.comfort_threshold must be a number between 0 and 1")
+        basis = conf.get("basis", [])
+        if not isinstance(basis, list):
+            errors.append("confidence.basis must be a list")
+        else:
+            for b in basis:
+                if b == RECURRENCE_COUNT:
+                    errors.append(
+                        "confidence.basis names RECURRENCE_COUNT. A read is NOT upgraded by more "
+                        "instances sharing the geometry without a checked constraint set — that "
+                        "is the blocked misread wearing a number")
+                elif b not in CONFIDENCE_BASIS:
+                    errors.append(f"confidence.basis {b!r} not one of {CONFIDENCE_BASIS}")
+
+    for i, dis in enumerate(d.get("disappearances", [])):
+        if not isinstance(dis, dict):
+            errors.append(f"disappearances[{i}] is not an object")
+            continue
+        if not dis.get("absent_from"):
+            errors.append(f"disappearances[{i}] names no case it is absent from")
+
+    frame = d.get("sample_frame")
+    if isinstance(frame, dict) and frame:
+        for i, ex in enumerate(frame.get("excluded", [])):
+            if not isinstance(ex, dict) or not ex.get("domain"):
+                errors.append(f"sample_frame.excluded[{i}] names no domain")
+
     if "provenance" in d:
         errors.extend(validate_provenance(d["provenance"], where="shape read"))
     return errors
@@ -252,6 +366,49 @@ def audit(reads: Optional[List[ShapeRead]] = None) -> List[str]:
                 f"NO_RECURRENCE  {r.id}: no independent recurrence listed. A fitted exponent "
                 f"describes the surviving sample; separate runs converging on the same geometry "
                 f"across unrelated substrates is what carries the weight.")
+
+        # A disappearance is the constraint set being changed, not the shape
+        # being falsified. Reporting it as a failed pattern reports the wrong
+        # finding.
+        if r.disappearances and r.status == REFUTED and \
+                r.removal_test.get("result") != UNCHANGED:
+            findings.append(
+                f"WRONG_FINDING  {r.id}: marked refuted on a disappearance rather than on a "
+                f"removal test that came back unchanged. A shape disappearing tells you at least "
+                f"one constraint was removed, not which, and not that the read was wrong. That is "
+                f"the constraint set being changed.")
+        for dis in r.disappearances:
+            if not dis.get("since"):
+                findings.append(
+                    f"UNBOUNDED      {r.id}: a disappearance from '{dis.get('absent_from')}' with "
+                    f"no timestamp. Disappearance is informative and underdetermined; a "
+                    f"timestamped intervention is what bounds the candidate set.")
+            elif not dis.get("bounded_candidates"):
+                findings.append(
+                    f"UNBOUNDED      {r.id}: a timestamped disappearance from "
+                    f"'{dis.get('absent_from')}' with no candidate set bounded by it. The "
+                    f"timestamp is the handle; it has not been used.")
+
+        for ex in r.sample_frame.get("excluded", []):
+            findings.append(
+                f"EXCLUDED       {r.id}: '{ex.get('domain')}' is out of the sample frame, so the "
+                f"recurrence check cannot run there by construction. A null over it is UNTESTED, "
+                f"not inapplicable, and must not be reported as absence.")
+
+        if r.is_shadow and r.outline_state == UNDER_OUTLINED:
+            findings.append(
+                f"UNDER_OUTLINED {r.id}: {len(r.tangents)} tangent(s), and the gaps do not yet "
+                f"constrain the object to one form. A stated state, not a failure — and the "
+                f"tangents are not competing claims, so a consistency check over them reports "
+                f"conflicts that are not conflicts.")
+
+        conf = r.confidence
+        if conf.get("value") is not None and conf.get("comfort_threshold") is not None \
+                and float(conf["value"]) < float(conf["comfort_threshold"]):
+            findings.append(
+                f"BELOW_COMFORT  {r.id}: confidence {conf['value']} under the stated threshold "
+                f"{conf['comfort_threshold']}. An uncoalesced marker with a stated gradient — "
+                f"do not resolve it in either direction on its behalf.")
 
         if not r.scale_index.get("characteristic_scale"):
             findings.append(
@@ -397,6 +554,72 @@ def selftest() -> List[str]:
         fails.append("a file in shapes/ classified as a shape entry — none carries a constraint set")
     if any(s["declared"] != GEOMETRY_NOTE for s in shapes):
         fails.append("a file in shapes/ is not marked with its read class")
+
+    # METHOD_SPEC section 5: confidence is a separate readout, and recurrence
+    # alone may never raise it.
+    if validate_read({**full, "confidence": {"value": 0.4, "comfort_threshold": 0.7,
+                                             "basis": [REMOVAL_TEST_PASSED]}}):
+        fails.append("a stated confidence with a legitimate basis was rejected")
+    if not any("blocked misread wearing a number" in e for e in validate_read(
+            {**full, "confidence": {"value": 0.9, "basis": [RECURRENCE_COUNT]}})):
+        fails.append("confidence raised on recurrence count alone was accepted")
+    if not validate_read({**full, "confidence": {"value": 2}}):
+        fails.append("a confidence outside 0..1 was accepted")
+    below = ShapeRead.from_dict({**full, "confidence": {"value": 0.4, "comfort_threshold": 0.7,
+                                                        "basis": [REMOVAL_TEST_PASSED]}})
+    if not any("do not resolve it" in f for f in audit([below])):
+        fails.append("a read under its comfort threshold was not reported as uncoalesced")
+
+    # section 3: a disappearance is the constraint set changing.
+    dis = {**full, "status": REFUTED,
+           "removal_test": {**full["removal_test"], "result": DIFFERS},
+           "disappearances": [{"absent_from": "a market after a rule change", "since": "2026-01-01",
+                               "bounded_candidates": ["the rule that changed"]}]}
+    if not any("WRONG_FINDING" in f for f in audit([ShapeRead.from_dict(dis)])):
+        fails.append("a read refuted on a disappearance was not flagged as the wrong finding")
+    unbounded = ShapeRead.from_dict({**full, "disappearances": [{"absent_from": "somewhere"}]})
+    if not any("UNBOUNDED" in f for f in audit([unbounded])):
+        fails.append("an untimestamped disappearance was not flagged")
+    untapped = ShapeRead.from_dict({**full, "disappearances": [
+        {"absent_from": "somewhere", "since": "2026-01-01"}]})
+    if not any("has not been used" in f for f in audit([untapped])):
+        fails.append("a timestamped disappearance with no bounded candidates was not flagged")
+
+    # section 3: substrate exclusion returns a null that reads as absence.
+    excluded = ShapeRead.from_dict({**full, "sample_frame": {
+        "admitted": ["termite colonies"],
+        "excluded": [{"domain": "human settlement", "reason": "treated as a separate category"}]}})
+    findings = audit([excluded])
+    if not any("UNTESTED, not inapplicable" in f for f in findings):
+        fails.append("an excluded domain was not reported as untested by construction")
+
+    # section 4: the shadow read.
+    shadow = {**full, "read_path": SHADOW, "geometry": "",
+              "tangents": ["one gap", "another gap"], "outline_state": UNDER_OUTLINED,
+              "status": MARKER}
+    if validate_read(shadow):
+        fails.append(f"a shadow read was rejected: {validate_read(shadow)[0]}")
+    if not any("outline_state" in e for e in validate_read(
+            {**full, "read_path": SHADOW, "tangents": ["g"]})):
+        fails.append("a shadow read with no outline state was accepted")
+    if not any("tangents" in e for e in validate_read({**full, "read_path": SHADOW})):
+        fails.append("a shadow read with no tangents was accepted")
+    if not any("not a failure" in e for e in validate_read({**shadow, "status": TESTED})):
+        fails.append("an under-outlined shadow read was accepted as tested")
+    sr_shadow = ShapeRead.from_dict(shadow)
+    if not sr_shadow.consistency_exempt:
+        fails.append("a shadow read was not exempted from consistency checking")
+    if ShapeRead.from_dict(full).consistency_exempt:
+        fails.append("a direct read was exempted from consistency checking")
+    if not any("not competing claims" in f for f in audit([sr_shadow])):
+        fails.append("an under-outlined shadow read did not say its tangents are not conflicts")
+    if not any("shadow read" in e for e in validate_read({**full, "tangents": ["g"]})):
+        fails.append("tangents on a direct read were accepted")
+
+    if not (ROOT / "METHOD_SPEC.md").exists():
+        fails.append("METHOD_SPEC.md is missing — it states the epistemic class and is read first")
+    if not (ROOT / "READING_PROTOCOL.md").exists():
+        fails.append("READING_PROTOCOL.md is missing")
 
     if validate_file():
         fails.append("shipped shape_reads.jsonl does not validate")

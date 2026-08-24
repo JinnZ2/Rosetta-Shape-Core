@@ -43,7 +43,7 @@ src/rosetta_shape_core/
   first_principles_audit.py  Deep axiom verification
 data/rosetta/     Entries (6 hand-written + 225 imported), observations, transfers,
                   gate log, closed gap_scan instances
-tests/            818 tests (pytest)
+tests/            831 tests (pytest)
 ```
 
 ## Essential Commands
@@ -210,6 +210,22 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 4. Add to `merge.order`
 5. Run `self_audit` (CLEAN) + `validate_ontology.py` (OK)
 
+## Three specs at the root, read in order
+
+| | |
+|---|---|
+| `METHOD_SPEC.md` | epistemic class. Read before evaluating anything here as a claim |
+| `SHAPE_SPEC.md` | definition, read order, removal test |
+| `READING_PROTOCOL.md` | marker status, blocked conflations |
+
+**Constraint-set reasoning is a METHOD**, in the class of the scientific
+method and dimensional analysis. A method is not falsifiable and does not
+need to be — it is evaluated on yield. The falsifiable layer is the
+individual read, which is why every shape entry carries a removal test.
+Demanding falsifiability of the procedure is a category error; the same
+objection stated against the scientific method ("it always resolves to 'the
+experiment was confounded'") is visibly wrong.
+
 ## SHAPE means one thing
 
 `SHAPE_SPEC.md` at the repo root is the definition and is upstream of every
@@ -266,4 +282,15 @@ them is licensing on the shape rather than on the readout.
 - Read an external, heterogeneous constraint's geometry as an optimum; it is a
   transcript of terrain (§5)
 - State a constraint as a cost. The measurable quantity is dissipation — work
-  lost per unit delivered, in joules (§9)
+  lost per unit delivered, in joules (SHAPE_SPEC §9)
+- Demand that the METHOD be falsifiable — that is a category error; the
+  removal test per read is where refutation happens (METHOD_SPEC §1)
+- Raise a read's confidence on recurrence count. More instances sharing the
+  geometry with no constraint set checked is not an upgrade (METHOD_SPEC §5)
+- Report a disappearance as a failed pattern. It is the constraint set being
+  changed; the timestamp bounds the candidates (METHOD_SPEC §3)
+- Report a null over an excluded domain as absence — it is untested by
+  construction (METHOD_SPEC §3)
+- Run a consistency check over a shadow read's tangents and report the
+  apparent conflicts. They are tangents to one boundary, not competing
+  claims (METHOD_SPEC §4)
