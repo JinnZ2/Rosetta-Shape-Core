@@ -21,6 +21,7 @@ src/rosetta_shape_core/
   entry.py        T3 entry schema: source → configuration → forcing → move → scope
   scope.py        T4 boundary locator: where a shape token stops producing
   gate_log.py     T5 dated record of what a name had to get past
+  transfer.py     Outcomes: what happened when a move was actually carried over
   provenance.py   Where this repo's own records came from (AUTHOR/SPEC/MODEL/PUBLIC)
   gap_scan.py     3rd axis (cross-INSTANCE): 4 gap shape classes over an explanatory frame
   bloom.py        Entry point: seed → sprout → branch exploration depths
@@ -36,7 +37,7 @@ src/rosetta_shape_core/
   knowledge_dna.py      Narrative provenance tracing
   first_principles_audit.py  Deep axiom verification
 data/rosetta/     Entries, observations, gate log, closed gap_scan instances
-tests/            681 tests (pytest)
+tests/            717 tests (pytest)
 ```
 
 ## Essential Commands
@@ -63,12 +64,16 @@ python -m rosetta_shape_core.discrepancy --list                  # open modellin
 python -m rosetta_shape_core.discrepancy --id forest_update_order --seeds 8
 
 # Rosetta operator (T1–T5) — stdlib only, selftest per module
-python -m rosetta_shape_core.rosetta --forcing flow,strain --problem "sizing a mast"
+python examples/rosetta_walkthrough.py                       # one problem, end to end
+python -m rosetta_shape_core.rosetta --forcing flow,strain --dominant flow
 python -m rosetta_shape_core.rosetta --source grass          # "what would X do here?"
 python -m rosetta_shape_core.families --list                 # the physics base
 python -m rosetta_shape_core.families --audit                # falsifier: does each decompose?
 python -m rosetta_shape_core.entry --validate                # entries + forcing terms resolve
 python -m rosetta_shape_core.scope --audit                   # does each entry report where it STOPS?
+python -m rosetta_shape_core.scope --stops                   # is each stop measured, or only claimed?
+python -m rosetta_shape_core.transfer --audit                # what the outcomes say the corpus should fix
+python -m rosetta_shape_core.transfer --criterion            # error rate of the licensing criterion
 python -m rosetta_shape_core.scope --classify HEXAGON        # grade a shape token from its use
 python -m rosetta_shape_core.gate_log --summary
 python -m rosetta_shape_core.provenance --audit              # anything unmarked?
@@ -161,13 +166,16 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 
 ### Add a Rosetta entry (T3)
 1. Append one JSON object to `data/rosetta/entries.jsonl`
-2. `forcing_terms` must resolve to families (`families.py`) — this is what licenses transfer
+2. `forcing_terms` must resolve to families (`families.py`); `forcing_dominant` names
+   the subset that SETS the configuration — presence alone is too cheap to license transfer
 3. `scope.produces` and `scope.stops` are both required; an entry that never stops is the flag
    and `provenance` is required — `{concept, record}` from AUTHOR / SPEC / MODEL / PUBLIC
 4. `python -m rosetta_shape_core.entry --validate && python -m rosetta_shape_core.entry --lint`
 5. `python -m rosetta_shape_core.scope --audit`
 6. A shape token needs no literal/stand-in flag — add observations to
    `data/rosetta/observations.jsonl` and the failures grade the token
+7. A stop starts ASSERTED. Carrying the move and recording the outcome in
+   `data/rosetta/transfers.jsonl` is what makes it MEASURED
 
 ### Resolve a spec discrepancy
 1. Add the knob to the model in `adaptive_sim.py`, defaulting to current behavior
@@ -200,5 +208,7 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
   block — this repo demands operand provenance of what it reads, so it marks
   its own records (`python -m rosetta_shape_core.provenance --audit`)
 - Read `gap_scan` as part of the operator — it is a third, cross-INSTANCE axis
+- Treat an ASSERTED stop as a measured boundary — it is a claim nobody has tested
+- License a transfer on a shared term that sets neither configuration (SHARED_PRESENT)
 - Treat the nine seeded families as the author's set; they are SPEC-derived
   stand-ins pending it

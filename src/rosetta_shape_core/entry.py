@@ -5,12 +5,26 @@ One entry is one source system read once, under stated forcing.
 
     source_system   crystal, grass, mycelium, ...
     configuration   what it reaches under constraint
-    forcing_terms   [family, ...]  — this is what licenses transfer
+    forcing_terms   [family, ...]  — every term acting on the source
+    forcing_dominant [family, ...]  — the subset that SETS the configuration
     move_ported     the transferable operation
     scope           where it produces / where it stops
     shape_token     the name used
     gate_history    [{date, model, register}, ...]
     provenance      {concept, record} — where the entry came from
+
+``forcing_dominant`` is required and must be a subset of ``forcing_terms``.
+Presence of a shared term is too cheap a test on its own: strain acts on
+nearly every physical system, so matching on presence licenses almost every
+pair and the distinction erodes in practice while still looking rigorous.
+What licenses a transfer is a term that is *setting* the configuration, not
+one that merely happens to be present. An entry that cannot name which term
+sets its configuration has not been read closely enough to port from.
+
+A stop may be a plain string or ``{"id": ..., "says": ...}``. Give it an id
+when something references it — a transfer that broke there, an observation
+that tested it. Bare strings get positional ids, which move if the list is
+reordered, so anything referenced should be given an explicit one.
 
 ``provenance`` is required. A repo that demands operand provenance of
 everything it reads cannot ship unmarked records of its own: an entry whose
@@ -58,7 +72,8 @@ from rosetta_shape_core.provenance import validate as validate_provenance
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 ENTRIES_PATH = ROOT / "data" / "rosetta" / "entries.jsonl"
 
-REQUIRED_FIELDS = ("source_system", "configuration", "forcing_terms", "move_ported", "scope", "provenance")
+REQUIRED_FIELDS = ("source_system", "configuration", "forcing_terms", "forcing_dominant",
+                   "move_ported", "scope", "provenance")
 OPTIONAL_FIELDS = ("id", "shape_token", "gate_history", "note", "sources")
 
 # Advisory lint only. These are not moral judgements about the words; they
@@ -75,6 +90,15 @@ MORAL_TOKENS = (
 )
 
 
+def normalize_stop(stop: Any, index: int = 0) -> Dict[str, str]:
+    """A stop as {id, says}. Bare strings get a positional id."""
+    if isinstance(stop, str):
+        return {"id": f"stop_{index}", "says": stop}
+    if isinstance(stop, dict):
+        return {"id": str(stop.get("id", f"stop_{index}")), "says": str(stop.get("says", ""))}
+    return {"id": f"stop_{index}", "says": str(stop)}
+
+
 @dataclass
 class Entry:
     """One marker. Not a position."""
@@ -82,6 +106,7 @@ class Entry:
     source_system: str
     configuration: str
     forcing_terms: List[str] = field(default_factory=list)
+    forcing_dominant: List[str] = field(default_factory=list)
     move_ported: str = ""
     scope: Dict[str, List[str]] = field(default_factory=dict)
     provenance: Dict[str, Any] = field(default_factory=dict)
@@ -104,8 +129,44 @@ class Entry:
         return list(self.scope.get("produces", []))
 
     @property
+    def stop_records(self) -> List[Dict[str, str]]:
+        """Stops as {id, says}, whether written as strings or as objects."""
+        return [normalize_stop(s, i) for i, s in enumerate(self.scope.get("stops", []))]
+
+    @property
     def stops(self) -> List[str]:
-        return list(self.scope.get("stops", []))
+        """Stop texts, for display."""
+        return [r["says"] for r in self.stop_records]
+
+    @property
+    def stop_ids(self) -> List[str]:
+        return [r["id"] for r in self.stop_records]
+
+    def stop(self, stop_id: str) -> Optional[Dict[str, str]]:
+        for r in self.stop_records:
+            if r["id"] == stop_id:
+                return r
+        return None
+
+    @property
+    def dominant(self) -> List[str]:
+        """Resolved family ids of the terms that set the configuration."""
+        out = []
+        for t in self.forcing_dominant:
+            fid = resolve_family(t)
+            if fid and fid not in out:
+                out.append(fid)
+        return out
+
+    @property
+    def families(self) -> List[str]:
+        """Resolved family ids of every term acting on the source."""
+        out = []
+        for t in self.forcing_terms:
+            fid = resolve_family(t)
+            if fid and fid not in out:
+                out.append(fid)
+        return out
 
     def to_dict(self) -> dict:
         d = asdict(self)
@@ -120,6 +181,7 @@ class Entry:
             source_system=d.get("source_system", ""),
             configuration=d.get("configuration", ""),
             forcing_terms=list(d.get("forcing_terms", [])),
+            forcing_dominant=list(d.get("forcing_dominant", [])),
             move_ported=d.get("move_ported", ""),
             scope=dict(d.get("scope", {})),
             provenance=dict(d.get("provenance", {})),
@@ -165,6 +227,23 @@ def validate_entry(d: Dict[str, Any]) -> List[str]:
                 if resolve_family(t) is None:
                     errors.append(f"forcing term '{t}' resolves to no family (see families.py)")
 
+    fd = d.get("forcing_dominant")
+    if fd is not None:
+        if not isinstance(fd, list) or not all(isinstance(t, str) for t in fd):
+            errors.append("forcing_dominant must be a list of strings")
+        elif not fd:
+            errors.append("forcing_dominant is empty — name the term(s) that SET the configuration; "
+                          "presence alone is too cheap a test to license transfer")
+        else:
+            present = {resolve_family(t) for t in (ft or []) if isinstance(t, str)}
+            for t in fd:
+                fid = resolve_family(t)
+                if fid is None:
+                    errors.append(f"dominant term '{t}' resolves to no family (see families.py)")
+                elif fid not in present:
+                    errors.append(f"dominant term '{t}' is not in forcing_terms — a term cannot set "
+                                  f"a configuration it is not acting on")
+
     scope = d.get("scope")
     if scope is not None:
         if not isinstance(scope, dict):
@@ -173,8 +252,23 @@ def validate_entry(d: Dict[str, Any]) -> List[str]:
             for half in ("produces", "stops"):
                 if half not in scope:
                     errors.append(f"scope.{half} missing — the entry must say where it {half}")
-                elif not isinstance(scope[half], list) or not all(isinstance(s, str) for s in scope[half]):
-                    errors.append(f"scope.{half} must be a list of strings")
+                elif not isinstance(scope[half], list):
+                    errors.append(f"scope.{half} must be a list")
+                elif half == "produces" and not all(isinstance(s, str) for s in scope[half]):
+                    errors.append("scope.produces must be a list of strings")
+            stops = scope.get("stops")
+            if isinstance(stops, list):
+                seen = set()
+                for i, st in enumerate(stops):
+                    if not isinstance(st, (str, dict)):
+                        errors.append(f"scope.stops[{i}] must be a string or an object")
+                        continue
+                    rec = normalize_stop(st, i)
+                    if not rec["says"].strip():
+                        errors.append(f"scope.stops[{i}] says nothing")
+                    if rec["id"] in seen:
+                        errors.append(f"scope.stops[{i}]: duplicate stop id {rec['id']!r}")
+                    seen.add(rec["id"])
 
     if "provenance" in d:
         errors.extend(validate_provenance(d["provenance"], where="entry"))
@@ -279,13 +373,14 @@ def format_entry(e: Entry) -> str:
     lines.append(f"      source        {e.source_system}")
     lines.append(f"      configuration {e.configuration}")
     lines.append(f"      forcing       {', '.join(e.forcing_terms)}")
+    lines.append(f"      sets it       {', '.join(e.forcing_dominant)}")
     lines.append(f"      move          {e.move_ported}")
     if e.shape_token:
         lines.append(f"      shape_token   {e.shape_token}")
     for s in e.produces:
         lines.append(f"      produces      {s}")
-    for s in e.stops:
-        lines.append(f"      stops         {s}")
+    for r in e.stop_records:
+        lines.append(f"      stops         [{r['id']}] {r['says']}")
     for g in e.gate_history:
         lines.append(f"      gate          {g.get('date', '?')} {g.get('model', '?')} — {g.get('register', '?')}")
     if e.provenance:
@@ -305,6 +400,7 @@ def selftest() -> List[str]:
         "source_system": "test system",
         "configuration": "a configuration reached under load",
         "forcing_terms": ["GRAVITY_LOAD", "strain"],
+        "forcing_dominant": ["strain"],
         "move_ported": "a move",
         "scope": {"produces": ["here"], "stops": ["there"]},
         "provenance": {"concept": "MODEL", "record": "MODEL"},
@@ -321,6 +417,19 @@ def selftest() -> List[str]:
     unmarked = {k: v for k, v in ok.items() if k != "provenance"}
     if not any("provenance" in e for e in validate_entry(unmarked)):
         fails.append("entry with no provenance accepted")
+    if not any("not in forcing_terms" in e for e in validate_entry({**ok, "forcing_dominant": ["FLOW"]})):
+        fails.append("a dominant term outside forcing_terms was accepted")
+    if not any("forcing_dominant is empty" in e for e in validate_entry({**ok, "forcing_dominant": []})):
+        fails.append("an entry naming no dominant term was accepted")
+    structured = {**ok, "scope": {"produces": ["here"],
+                                  "stops": [{"id": "there", "says": "it stops there"}]}}
+    if validate_entry(structured):
+        fails.append("structured stop rejected")
+    e = Entry.from_dict(structured)
+    if e.stop_ids != ["there"] or e.stops != ["it stops there"]:
+        fails.append("structured stop not normalised")
+    if Entry.from_dict(ok).stop_ids != ["stop_0"]:
+        fails.append("bare-string stop did not get a positional id")
     if not lint_entry({**ok, "configuration": "the system wants to minimise energy"}):
         fails.append("lint missed intent attribution")
     if lint_entry(ok):

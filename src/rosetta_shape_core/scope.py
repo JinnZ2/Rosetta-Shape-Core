@@ -27,6 +27,23 @@ REPO AUDIT CRITERION
     Does the entry report where it STOPS? An entry that matches everywhere
     and never fails is the flag.
 
+    That criterion has a soft floor, and this module now reports it: a stop
+    can be satisfied by ASSERTING one. A stop nobody has hit is a reasoned
+    claim, and a corpus of reasoned claims about where things stop is the
+    same shape as a frame that never fails — the thing the repo exists to
+    catch. So each stop carries a status:
+
+      ASSERTED   written down, never tested. Unaudited, not wrong.
+      MEASURED   something was carried to it and it stopped there —
+                 a transfer that broke at it, or an observation that tested it
+      CONTESTED  something produced straight past it. The stop is wrong,
+                 or its condition was never met.
+
+    Evidence comes from data/rosetta/transfers.jsonl (entry-level: a move
+    was ported and broke) and from observations carrying a ``stop`` field.
+    The ratio is reported and not enforced: asserting a stop is how an entry
+    starts, and measuring it is what the corpus is for.
+
 CONSTRAINTS (repo-wide, restated per file)
     - no "about the author" / working-style section, in this or any file
     - entries are markers to explore, not positions defended; the correct
@@ -52,6 +69,10 @@ from rosetta_shape_core.entry import Entry, load_entries
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 OBSERVATIONS_PATH = ROOT / "data" / "rosetta" / "observations.jsonl"
+
+ASSERTED = "ASSERTED"
+MEASURED = "MEASURED"
+CONTESTED = "CONTESTED"
 
 NO_DATA = "NO_DATA"
 ADEQUATE = "ADEQUATE"
@@ -99,12 +120,13 @@ class Observation:
     ``condition``.
     """
 
-    shape_token: str
-    prop: str
-    holds: bool
+    shape_token: str = ""
+    prop: str = ""
+    holds: bool = False
     scale: Optional[float] = None
     condition: str = ""
     entry: str = ""
+    stop: str = ""
     note: str = ""
     provenance: Dict[str, Any] = field(default_factory=dict)
 
@@ -128,6 +150,7 @@ class Observation:
             scale=d.get("scale"),
             condition=d.get("condition", ""),
             entry=d.get("entry", ""),
+            stop=d.get("stop", ""),
             note=d.get("note", ""),
             provenance=dict(d.get("provenance", {})),
         )
@@ -237,12 +260,101 @@ def by_token(observations: Optional[List[Observation]] = None) -> Dict[str, List
     obs = load_observations() if observations is None else observations
     grouped: Dict[str, List[Observation]] = {}
     for o in obs:
+        if not o.shape_token:
+            continue  # an observation on an entry stop, not on a token
         grouped.setdefault(o.shape_token.upper(), []).append(o)
     return grouped
 
 
 def verdicts(observations: Optional[List[Observation]] = None) -> Dict[str, ScopeVerdict]:
     return {tok: classify(group) for tok, group in sorted(by_token(observations).items())}
+
+
+# ── stop status: asserted, measured, contested ────────────────────
+
+def stop_status(entries: Optional[List[Entry]] = None,
+                observations: Optional[List[Observation]] = None,
+                transfers: Optional[List[Any]] = None) -> Dict[str, List[Dict[str, Any]]]:
+    """Per entry, per stop: has anything actually been carried to it?
+
+    Deferred import of transfer.py: rosetta.py imports this module, and
+    transfer.py sits downstream of both. Importing it at call time keeps the
+    module graph acyclic without weakening the check.
+    """
+    from rosetta_shape_core.transfer import stop_confirmations, stop_contradictions
+
+    ents = load_entries() if entries is None else entries
+    obs = load_observations() if observations is None else observations
+    confirms = stop_confirmations(transfers)
+    contradicts = stop_contradictions(transfers)
+
+    out: Dict[str, List[Dict[str, Any]]] = {}
+    for e in ents:
+        rows = []
+        for rec in e.stop_records:
+            evidence = []
+            status = ASSERTED
+            if rec["id"] in confirms.get(e.key, []):
+                status = MEASURED
+                evidence.append("a transfer broke at it")
+            if rec["id"] in contradicts.get(e.key, []):
+                status = CONTESTED
+                evidence.append("a transfer produced past it")
+            for o in obs:
+                if o.entry == e.key and o.stop == rec["id"]:
+                    if o.holds:
+                        if status != CONTESTED:
+                            status = MEASURED
+                        evidence.append(f"observation: {o.prop}")
+                    else:
+                        status = CONTESTED
+                        evidence.append(f"observation produced past it: {o.prop}")
+            rows.append({"id": rec["id"], "says": rec["says"], "status": status, "evidence": evidence})
+        out[e.key] = rows
+    return out
+
+
+def stop_tally(status: Optional[Dict[str, List[Dict[str, Any]]]] = None) -> Dict[str, int]:
+    st = stop_status() if status is None else status
+    counts = {ASSERTED: 0, MEASURED: 0, CONTESTED: 0}
+    for rows in st.values():
+        for r in rows:
+            counts[r["status"]] += 1
+    return counts
+
+
+def contested_stops(status: Optional[Dict[str, List[Dict[str, Any]]]] = None) -> List[str]:
+    """A stop something produced straight past. This one is a defect, not a gap."""
+    st = stop_status() if status is None else status
+    out = []
+    for key, rows in st.items():
+        for r in rows:
+            if r["status"] == CONTESTED:
+                out.append(f"{key} [{r['id']}]: produced past a stated stop — '{r['says']}'. "
+                           f"Either the stop is wrong or its condition was never met.")
+    return out
+
+
+def format_stop_report(status: Optional[Dict[str, List[Dict[str, Any]]]] = None) -> str:
+    st = stop_status() if status is None else status
+    counts = stop_tally(st)
+    total = sum(counts.values()) or 1
+    lines = ["", "  STOP STATUS — is the boundary measured, or only claimed?", ""]
+    for key in sorted(st):
+        lines.append(f"  {key}")
+        for r in st[key]:
+            mark = {MEASURED: "●", CONTESTED: "✗", ASSERTED: "○"}[r["status"]]
+            lines.append(f"      {mark} {r['status']:<10s} [{r['id']}] {r['says'][:64]}")
+            for ev in r["evidence"]:
+                lines.append(f"                   {ev}")
+        lines.append("")
+    lines.append(f"  measured {counts[MEASURED]} / asserted {counts[ASSERTED]} / "
+                 f"contested {counts[CONTESTED]}  "
+                 f"({100 * counts[MEASURED] // total}% of stops have been carried to)")
+    lines.append("  An asserted stop is unaudited, not wrong. Measuring one takes a transfer")
+    lines.append("  or an observation — see data/rosetta/transfers.jsonl.")
+    lines.append("")
+    return "\n".join(lines)
 
 
 # ── the repo audit ────────────────────────────────────────────────
@@ -339,8 +451,27 @@ def selftest() -> List[str]:
 
     if audit_entries():
         fails.append("shipped entries do not all report a stop")
+
+    st = stop_status()
+    counts = stop_tally(st)
+    if sum(counts.values()) == 0:
+        fails.append("no stops found to grade")
+    if counts[MEASURED] == 0:
+        fails.append("not one stop has been carried to — the audit criterion has no floor")
+    if counts[ASSERTED] == 0:
+        fails.append("every stop reads as measured, which would be too good to be true")
+    if contested_stops():
+        fails.append("an entry produces past its own stated stop")
+    hex_stops = {r["id"]: r["status"] for r in st["ENTRY.HONEYCOMB_PARTITION"]}
+    if hex_stops.get("closed_surface") != MEASURED:
+        fails.append("a transfer that broke at a stated stop did not mark it measured")
+    if hex_stops.get("cost_not_on_wall_length") != ASSERTED:
+        fails.append("an untested stop did not read as asserted")
     if not load_observations():
         fails.append("observations.jsonl is empty")
+    if any(o.shape_token == "" for o in load_observations()) and not any(
+            o.stop for o in load_observations()):
+        fails.append("an observation targets neither a token nor a stop")
     return fails
 
 
@@ -350,6 +481,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--classify", metavar="TOKEN", help="grade one token from its observations")
     ap.add_argument("--all", action="store_true", help="grade every token with observations")
     ap.add_argument("--audit", action="store_true", help="repo audit: does each entry report where it stops?")
+    ap.add_argument("--stops", action="store_true", help="per-stop status: asserted, measured, contested")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--selftest", action="store_true")
     args = ap.parse_args(argv)
@@ -380,16 +512,28 @@ def main(argv: Optional[List[str]] = None) -> int:
         print(json.dumps(v.to_dict(), indent=2) if args.json else format_verdict(v))
         return 0
 
-    if args.audit:
-        findings = audit_entries()
-        advisories = audit_tokens()
+    if args.stops:
+        st = stop_status()
         if args.json:
-            print(json.dumps({"flags": findings, "advisories": advisories, "clean": not findings}, indent=2))
+            print(json.dumps({"stops": st, "tally": stop_tally(st)}, indent=2))
+        else:
+            print(format_stop_report(st))
+        return 0
+
+    if args.audit:
+        findings = audit_entries() + contested_stops()
+        advisories = audit_tokens()
+        counts = stop_tally()
+        if args.json:
+            print(json.dumps({"flags": findings, "advisories": advisories,
+                              "stops": counts, "clean": not findings}, indent=2))
         else:
             for x in findings:
                 print(f"  FLAG  {x}")
             for x in advisories:
                 print(f"  ⚠     {x}")
+            print(f"  stops: {counts[MEASURED]} measured / {counts[ASSERTED]} asserted / "
+                  f"{counts[CONTESTED]} contested — an asserted stop is unaudited (--stops for detail)")
             print("scope audit: CLEAN" if not findings else f"scope audit: {len(findings)} flag(s)")
         return 1 if findings else 0
 

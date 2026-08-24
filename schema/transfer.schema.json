@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JinnZ2/Rosetta-Shape-Core/schema/transfer.schema.json",
+  "title": "Transfer record",
+  "description": "One attempt to carry a move from a source system to a problem, and what it did there. The entry set records systems that reached a working configuration; this records what happened when a move was actually ported. Mirrors the stdlib validator in src/rosetta_shape_core/transfer.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["to_problem", "outcome", "verdict_on", "provenance"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^TRANSFER\\.[A-Z0-9_]+$"},
+    "from_entry": {"type": "string", "description": "Entry the move came from. Must resolve. Absent means the source system is unrecorded — a pointer to an entry nobody has written."},
+    "from_source": {"type": "string", "description": "Source system, when no entry covers it. One of from_entry / from_source is required."},
+    "to_problem": {"type": "string", "minLength": 1},
+    "problem_forcing": {"type": "array", "items": {"type": "string"}},
+    "problem_dominant": {"type": "array", "items": {"type": "string"}},
+    "licensing": {"type": "string", "enum": ["SHARED_DOMINANT", "SHARED_FORCING", "SHARED_PRESENT", "SHARED_FORM"], "description": "The grade read at the time. Omit when nobody computed one — an invented grade would make the criterion look tested when it was not."},
+    "outcome": {"type": "string", "enum": ["HELD", "PARTIAL", "BROKE"]},
+    "broke_at": {"type": "string", "description": "Where it stopped working. Required unless the outcome is HELD."},
+    "confirms_stop": {"type": "string", "description": "Stop id in from_entry that this transfer actually hit, turning it from asserted into measured."},
+    "produced_past": {"type": "string", "description": "Stop id in from_entry that this transfer produced straight past. The stop is contested."},
+    "verdict_on": {
+      "type": "string",
+      "enum": ["NONE", "SCOPE_CONFIRMED", "ENTRY_SCOPE", "SOURCE_READING", "LICENSING", "PROBLEM_FRAMING"],
+      "description": "What the outcome indicts. HELD admits NONE or SOURCE_READING — a move can port while the account of the source is later corrected."
+    },
+    "reading": {"type": "string"},
+    "sources": {"type": "array", "items": {"type": "string"}},
+    "note": {"type": "string"},
+    "provenance": {
+      "type": "object",
+      "required": ["concept", "record"],
+      "additionalProperties": false,
+      "properties": {
+        "concept": {"type": "string", "enum": ["AUTHOR", "SPEC", "MODEL", "PUBLIC"]},
+        "record": {"type": "string", "enum": ["AUTHOR", "SPEC", "MODEL", "PUBLIC"]},
+        "date": {"type": "string", "format": "date"},
+        "note": {"type": "string"}
+      }
+    }
+  }
+}

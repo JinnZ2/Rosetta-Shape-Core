@@ -13,10 +13,11 @@ from rosetta_shape_core import gate_log as gl
 from rosetta_shape_core import provenance as prov
 from rosetta_shape_core import rosetta as rop
 from rosetta_shape_core import scope as sc
+from rosetta_shape_core import transfer as tr
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-MODULES = [rop, fam, entry_mod, sc, gl, prov, gs]
+MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, gs]
 
 
 # ── every module carries its own selftest ─────────────────────────
@@ -201,6 +202,33 @@ def test_shipped_entries_record_where_they_came_from():
     }
 
 
+def test_stops_may_be_strings_or_objects_and_normalise_the_same():
+    bare = entry_mod.Entry.from_dict({"source_system": "x", "scope": {"stops": ["it stops"]}})
+    assert bare.stop_records == [{"id": "stop_0", "says": "it stops"}]
+    named = entry_mod.Entry.from_dict(
+        {"source_system": "x", "scope": {"stops": [{"id": "here", "says": "it stops"}]}})
+    assert named.stop_ids == ["here"]
+    assert named.stops == bare.stops == ["it stops"]
+    assert named.stop("here")["says"] == "it stops"
+    assert named.stop("nope") is None
+
+
+def test_duplicate_stop_ids_are_rejected():
+    d = {
+        "source_system": "x", "configuration": "y", "move_ported": "z",
+        "forcing_terms": ["FLOW"], "forcing_dominant": ["FLOW"],
+        "provenance": {"concept": "MODEL", "record": "MODEL"},
+        "scope": {"produces": ["a"], "stops": [{"id": "dup", "says": "one"},
+                                               {"id": "dup", "says": "two"}]},
+    }
+    assert any("duplicate stop id" in e for e in entry_mod.validate_entry(d))
+
+
+def test_every_shipped_stop_has_an_explicit_id():
+    for e in entry_mod.load_entries():
+        assert e.stop_ids and not any(sid.startswith("stop_") for sid in e.stop_ids), e.key
+
+
 def test_entry_key_derivation_and_uniqueness():
     assert entry_mod.Entry.from_dict({"source_system": "grass blade"}).key == "ENTRY.GRASS_BLADE"
     keys = [e.key for e in entry_mod.load_entries()]
@@ -310,6 +338,52 @@ def test_carried_tokens_have_formal_properties_to_predict_from():
     assert sc.audit_tokens() == []
 
 
+# ── stops: asserted vs measured ───────────────────────────────────
+
+def test_a_stop_nobody_carried_to_reads_asserted():
+    st = sc.stop_status()
+    hexagon = {r["id"]: r["status"] for r in st["ENTRY.HONEYCOMB_PARTITION"]}
+    assert hexagon["cost_not_on_wall_length"] == sc.ASSERTED
+
+
+def test_a_transfer_that_broke_at_a_stated_stop_measures_it():
+    st = sc.stop_status()
+    hexagon = {r["id"]: r for r in st["ENTRY.HONEYCOMB_PARTITION"]}
+    assert hexagon["closed_surface"]["status"] == sc.MEASURED
+    assert any("transfer" in ev for ev in hexagon["closed_surface"]["evidence"])
+
+
+def test_an_observation_on_a_stop_measures_it():
+    st = sc.stop_status()
+    bone = {r["id"]: r for r in st["ENTRY.TRABECULAR_ALIGNMENT"]}
+    assert bone["no_set_point_under_unloading"]["status"] == sc.MEASURED
+    assert any("observation" in ev for ev in bone["no_set_point_under_unloading"]["evidence"])
+
+
+def test_producing_past_a_stated_stop_contests_it():
+    e = entry_mod.Entry(source_system="x", configuration="y", id="ENTRY.X",
+                        scope={"produces": ["a"], "stops": [{"id": "s", "says": "it stops"}]})
+    t = tr.Transfer(to_problem="p", outcome=tr.BROKE, from_entry="ENTRY.X",
+                    produced_past="s", verdict_on=tr.ENTRY_SCOPE)
+    st = sc.stop_status([e], [], [t])
+    assert st["ENTRY.X"][0]["status"] == sc.CONTESTED
+    assert sc.contested_stops(st)
+
+
+def test_the_corpus_reports_its_own_measured_ratio_honestly():
+    counts = sc.stop_tally()
+    assert counts[sc.MEASURED] > 0, "no stop has been carried to — the criterion has no floor"
+    assert counts[sc.ASSERTED] > counts[sc.MEASURED], "most stops are still claims; say so"
+    assert counts[sc.CONTESTED] == 0
+
+
+def test_an_observation_may_target_a_stop_instead_of_a_token():
+    stop_obs = [o for o in sc.load_observations() if o.stop]
+    assert stop_obs
+    assert all(not o.shape_token for o in stop_obs)
+    assert "" not in sc.by_token()
+
+
 def test_properties_does_not_invent_a_shape():
     assert sc.properties("NOT_A_SHAPE") == {}
 
@@ -355,8 +429,72 @@ def test_a_match_carries_the_stops_with_the_move():
 
 def test_licensing_never_claimed_without_a_shared_term():
     for fid in fam.FAMILIES:
-        for m in rop.run(rop.Problem([fid]), include_unlicensed=True):
-            assert (m.licensing == rop.SHARED_FORCING) == bool(m.shared_terms)
+        for m in rop.run(rop.Problem([fid], dominant_terms=[fid]), include_unlicensed=True):
+            assert (m.licensing == rop.SHARED_FORM) == (not m.shared_terms)
+            if m.licensing == rop.SHARED_DOMINANT:
+                assert m.shared_dominant
+
+
+# ── dominance: the fix for a criterion that licensed almost everything ──
+
+def test_presence_alone_cannot_reach_the_top_grade():
+    """No dominant term named on the problem side — nothing can grade DOMINANT."""
+    for m in rop.run(rop.Problem(["strain"]), include_weak=True, include_unlicensed=True):
+        assert m.licensing != rop.SHARED_DOMINANT
+
+
+def test_a_term_that_shapes_neither_side_grades_weak_and_is_withheld():
+    weak = rop.run(rop.Problem(["strain"]), include_weak=True)
+    graded_weak = [m for m in weak if m.licensing == rop.SHARED_PRESENT]
+    assert graded_weak, "strain sets neither the bare problem nor grass — expected SHARED_PRESENT"
+    assert not [m for m in rop.run(rop.Problem(["strain"])) if m.licensing == rop.SHARED_PRESENT]
+
+
+def test_dominance_selects_exactly_the_entries_the_term_shapes():
+    entries = entry_mod.load_entries()
+    top = {m.entry_key for m in rop.run(rop.Problem(["strain"], dominant_terms=["strain"]), entries)
+           if m.licensing == rop.SHARED_DOMINANT}
+    assert top == {e.key for e in entries if "STRAIN" in e.dominant}
+    assert "ENTRY.GRASS_RECONFIGURATION" not in top
+
+
+def test_one_sided_dominance_is_licensed_but_not_top_grade():
+    """Strain sets the problem and not grass: shared, one-sided, still worth porting."""
+    ms = rop.run(rop.Problem(["strain"], dominant_terms=["strain"]))
+    grass = next(m for m in ms if m.entry_key == "ENTRY.GRASS_RECONFIGURATION")
+    assert grass.licensing == rop.SHARED_FORCING
+    assert grass.shared_dominant == []
+
+
+def test_matches_sort_strongest_grade_first():
+    ms = rop.run(rop.Problem(["flow", "strain"], dominant_terms=["flow"]),
+                 include_weak=True, include_unlicensed=True)
+    grades = [rop.GRADES.index(m.licensing) for m in ms]
+    assert grades == sorted(grades)
+
+
+def test_problem_dominant_must_be_among_its_own_forcing_terms():
+    assert rop.Problem(["flow"], dominant_terms=["strain"]).dominant == []
+
+
+def test_entry_requires_a_dominant_term_inside_its_forcing_set():
+    base = {
+        "source_system": "x", "configuration": "y", "move_ported": "z",
+        "forcing_terms": ["FLOW"], "scope": {"produces": ["a"], "stops": ["b"]},
+        "provenance": {"concept": "MODEL", "record": "MODEL"},
+    }
+    assert any("forcing_dominant" in e for e in entry_mod.validate_entry(base))
+    assert any("forcing_dominant is empty" in e
+               for e in entry_mod.validate_entry({**base, "forcing_dominant": []}))
+    assert any("not in forcing_terms" in e
+               for e in entry_mod.validate_entry({**base, "forcing_dominant": ["STRAIN"]}))
+    assert entry_mod.validate_entry({**base, "forcing_dominant": ["FLOW"]}) == []
+
+
+def test_every_shipped_entry_names_what_sets_its_configuration():
+    for e in entry_mod.load_entries():
+        assert e.dominant, e.key
+        assert set(e.dominant) <= set(e.families), e.key
 
 
 def test_unresolved_problem_terms_are_reported_not_silently_dropped():
@@ -574,9 +712,9 @@ def test_every_shipped_record_is_marked():
     assert prov.audit() == []
 
 
-def test_provenance_audit_covers_all_four_artifact_sets():
+def test_provenance_audit_covers_every_artifact_set():
     s = prov.summary()
-    assert set(s) == {"entries", "families", "observations", "gap_scan instances"}
+    assert set(s) == {"entries", "families", "observations", "transfers", "gap_scan instances"}
     assert all(block["count"] > 0 for block in s.values())
 
 
@@ -637,3 +775,111 @@ def test_reading_protocol_is_present_and_linked():
         assert signature in text
     assert "reading-protocol.md" in (ROOT / "README.md").read_text(encoding="utf-8")
     assert "reading-protocol.md" in (ROOT / "docs" / "rosetta-operator.md").read_text(encoding="utf-8")
+
+
+# ── transfers: what happened when a move was carried over ─────────
+
+def test_shipped_transfers_validate():
+    assert tr.validate_file() == []
+
+
+def test_transfers_validate_against_the_json_schema():
+    schema = json.loads((ROOT / "schema" / "transfer.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    raws = tr.load_raw()
+    assert raws
+    for d in raws:
+        assert list(validator.iter_errors(d)) == [], d.get("id")
+
+
+def test_a_transfer_that_did_not_hold_must_say_where():
+    d = {"from_source": "x", "to_problem": "p", "outcome": tr.BROKE,
+         "verdict_on": tr.ENTRY_SCOPE, "provenance": {"concept": "MODEL", "record": "MODEL"}}
+    assert any("broke_at" in e for e in tr.validate_transfer(d))
+
+
+def test_a_transfer_that_did_not_hold_must_indict_something():
+    d = {"from_source": "x", "to_problem": "p", "outcome": tr.PARTIAL, "broke_at": "here",
+         "verdict_on": tr.NONE, "provenance": {"concept": "MODEL", "record": "MODEL"}}
+    assert any("cannot be NONE" in e for e in tr.validate_transfer(d))
+
+
+def test_a_move_can_hold_while_the_source_reading_is_revised():
+    """The two are independent — that is 'port the move, not the ontology' as data."""
+    d = {"from_source": "termite mound", "to_problem": "p", "outcome": tr.HELD,
+         "verdict_on": tr.SOURCE_READING, "provenance": {"concept": "PUBLIC", "record": "MODEL"}}
+    assert tr.validate_transfer(d) == []
+    assert any("not one of" in e or "admits" in e
+               for e in tr.validate_transfer({**d, "verdict_on": tr.LICENSING}))
+
+
+def test_a_transfer_must_come_from_somewhere():
+    d = {"to_problem": "p", "outcome": tr.HELD, "verdict_on": tr.NONE,
+         "provenance": {"concept": "MODEL", "record": "MODEL"}}
+    assert any("from_source" in e for e in tr.validate_transfer(d))
+
+
+def test_stop_references_must_resolve_against_the_entry():
+    d = {"from_entry": "ENTRY.HONEYCOMB_PARTITION", "to_problem": "p", "outcome": tr.BROKE,
+         "broke_at": "x", "confirms_stop": "not_a_stop", "verdict_on": tr.SCOPE_CONFIRMED,
+         "provenance": {"concept": "MODEL", "record": "MODEL"}}
+    assert any("is not a stop of" in e for e in tr.validate_transfer(d))
+
+
+def test_scope_confirmed_requires_the_stop_it_confirms():
+    d = {"from_entry": "ENTRY.HONEYCOMB_PARTITION", "to_problem": "p", "outcome": tr.BROKE,
+         "broke_at": "x", "verdict_on": tr.SCOPE_CONFIRMED,
+         "provenance": {"concept": "MODEL", "record": "MODEL"}}
+    assert any("confirms_stop" in e for e in tr.validate_transfer(d))
+
+
+def test_an_unrecorded_source_is_reported_as_a_missing_entry():
+    missing = tr.unrecorded_sources()
+    assert missing
+    findings = tr.audit()
+    assert any("pointer to a missing entry" in f for f in findings)
+
+
+def test_a_break_the_entry_did_not_state_is_a_finding_against_the_entry():
+    e = entry_mod.Entry(source_system="x", configuration="y", id="ENTRY.X",
+                        scope={"produces": ["a"], "stops": [{"id": "s", "says": "it stops"}]})
+    t = tr.Transfer(to_problem="p", outcome=tr.BROKE, from_entry="ENTRY.X",
+                    broke_at="somewhere else", verdict_on=tr.ENTRY_SCOPE)
+    assert any("understates its scope" in f for f in tr.audit([t], [e]))
+
+
+def test_criterion_report_does_not_claim_a_clean_bill_without_evidence():
+    r = tr.criterion_report()
+    assert r["transfers"] == len(tr.load_transfers())
+    assert r["graded_at_the_time"] <= r["transfers"]
+    assert r["against_the_criterion"] == r["verdicts"].get(tr.LICENSING, 0)
+
+
+def test_transfer_grade_vocabulary_matches_the_operator():
+    """transfer.py holds GRADES locally to keep the module graph acyclic."""
+    assert tr.GRADES == rop.GRADES
+
+
+# ── the worked example ────────────────────────────────────────────
+
+def test_walkthrough_runs_and_teaches_the_two_steps_people_skip(capsys):
+    import importlib.util
+    path = ROOT / "examples" / "rosetta_walkthrough.py"
+    spec = importlib.util.spec_from_file_location("rosetta_walkthrough", path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    assert mod.main() == 0
+    out = capsys.readouterr().out
+    assert "SHARED_DOMINANT" in out and "SHARED_PRESENT" in out
+    assert "ENTRY.GRASS_RECONFIGURATION" in out
+    assert "ASSERTED" in out
+    for wrong in ("WRONG READING A", "WRONG READING B", "WRONG READING C"):
+        assert wrong in out
+    assert "RIGHT READING" in out
+
+
+def test_walkthrough_is_not_hardcoded():
+    """Every claim in it is computed, so it cannot teach a stale entry set."""
+    src = (ROOT / "examples" / "rosetta_walkthrough.py").read_text(encoding="utf-8")
+    for call in ("load_entries()", "run(", "resolve_family(", "stop_status("):
+        assert call in src

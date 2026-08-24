@@ -9,6 +9,7 @@
     "source_system",
     "configuration",
     "forcing_terms",
+    "forcing_dominant",
     "move_ported",
     "scope",
     "provenance"
@@ -37,6 +38,14 @@
       },
       "description": "Family ids or aliases (see families.py). This field is what licenses transfer: shared forcing means the shape is caused, not resembled."
     },
+    "forcing_dominant": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "description": "The subset of forcing_terms that SETS the configuration. Presence of a shared term is too cheap a test to license transfer on its own — strain acts on nearly everything. Every member must also appear in forcing_terms."
+    },
     "move_ported": {
       "type": "string",
       "minLength": 1,
@@ -58,10 +67,32 @@
         },
         "stops": {
           "type": "array",
+          "description": "Where it stops. An entry that produces everywhere and never stops is the audit flag, not a strong entry. A stop may be a plain string or an object with an id, and it needs an explicit id before a transfer or observation can reference it.",
           "items": {
-            "type": "string"
-          },
-          "description": "Where it stops. An entry that produces everywhere and never stops is the audit flag, not a strong entry."
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "id",
+                  "says"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9_]+$"
+                  },
+                  "says": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            ]
+          }
         }
       }
     },
