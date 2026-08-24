@@ -8,6 +8,7 @@
 ./AI_INDEX.json
 ./AI_NOTES.md
 ./CLAUDE.md
+./DIR_LIST.md
 ./EMERGENT_PATTERN/Example.json
 ./FIELD_ECHO.json
 ./FILE_LIST.md

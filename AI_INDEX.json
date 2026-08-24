@@ -1,6 +1,6 @@
 {
   "repo": "Rosetta-Shape-Core",
-  "generated_at": "2026-08-24T02:46:11.415834Z",
+  "generated_at": "2026-08-24T02:47:03.542680Z",
   "languages": [
     "json",
     "md",
@@ -983,8 +983,8 @@
     {
       "path": "AI_INDEX.json",
       "lang": "json",
-      "size": 52839,
-      "hash": "0ccb1318740739ff359f89470bd53d3c33a0118a",
+      "size": 77787,
+      "hash": "bce694a373a8dfc58ecf81a2b26cede84761b873",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2906,8 +2906,8 @@
     {
       "path": "AI_NOTES.md",
       "lang": "md",
-      "size": 2517,
-      "hash": "1d9a73639fa3d7f38d454ce82d18411d736c8271",
+      "size": 4112,
+      "hash": "6a224fa3cc96f4304a1f1020e40535ea28a1ac9f",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2919,8 +2919,8 @@
     {
       "path": "FILE_LIST.md",
       "lang": "md",
-      "size": 13739,
-      "hash": "f78b826cfddba92b59722030557e4830f1fd9909",
+      "size": 12754,
+      "hash": "4f178a31d659d9b769b325f8e9f43ad1783485bd",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2941,6 +2941,16 @@
         "fieldlink",
         "schema-ref"
       ]
+    },
+    {
+      "path": "DIR_LIST.md",
+      "lang": "md",
+      "size": 1219,
+      "hash": "db85bc328d5c065cc49b3df82217a748ef8e55f4",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
     },
     {
       "path": "ai_training/README.md",
