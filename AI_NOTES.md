@@ -1,60 +1,93 @@
 # AI Notes
 
-- Files indexed: 207
+- Files indexed: 303
 - Languages: json, md, python, toml, yaml
-- Hotspot files: 50
+- Hotspot files: 83
 
 ## Hotspots
-- scripts/generate.py: entity-id
-- data/training/generate.py: entity-id, fieldlink
-- tests/test_constraint_agent.py: entity-id
-- tests/test_sim.py: entity-id
-- tests/test_bloom.py: entity-id
-- tests/test_expand.py: entity-id
-- tests/test_schema.py: fieldlink
-- tests/test_validator.py: fieldlink
-- tests/test_explore.py: entity-id
-- src/rosetta_shape_core/explore.py: entity-id
-- src/rosetta_shape_core/validator.py: fieldlink
+- examples/mandala_basins.py: fieldlink
+- src/rsc_mandala_bridge/__init__.py: fieldlink
+- src/rsc_mandala_bridge/fieldlink_projector.py: fieldlink
+- src/rsc_mandala_bridge/bridge.py: fieldlink
+- src/rsc_mandala_bridge/rule_expander.py: entity-id
+- src/rsc_mandala_bridge/staleness.py: fieldlink
+- src/rosetta_shape_core/_bridges.py: entity-id, schema-ref
 - src/rosetta_shape_core/self_audit.py: fieldlink
-- atlas/remote/biomachine/bridge_map.json: fieldlink
-- atlas/remote/taf/axioms.json: fieldlink
+- src/rosetta_shape_core/validator.py: fieldlink
+- src/rosetta_shape_core/explore.py: entity-id
+- data/training/generate.py: entity-id, fieldlink
+- tests/test_octa_triple.py: entity-id
+- tests/test_sim.py: entity-id
+- tests/test_explore.py: entity-id
+- tests/test_bloom.py: entity-id
+- tests/test_bridges.py: entity-id
+- tests/test_schema.py: fieldlink
+- tests/test_constraint_agent.py: entity-id
+- tests/test_expand.py: entity-id
+- tests/test_validator.py: fieldlink
+- tests/mandala_bridge/test_fieldlink.py: fieldlink
+- tests/mandala_bridge/test_staleness.py: fieldlink
+- tests/mandala_bridge/conftest.py: entity-id
+- tests/mandala_bridge/test_bridge.py: entity-id, fieldlink
+- tests/mandala_bridge/test_shape_projector.py: entity-id
+- tests/mandala_bridge/test_schema_check.py: entity-id
+- tests/mandala_bridge/test_rule_expansion.py: entity-id
+- tests/mandala_bridge/test_mandala_atlas.py: fieldlink
+- scripts/generate.py: entity-id
+- AI_INDEX.json: fieldlink, todo
 - atlas/remote/taf/governance.json: fieldlink
+- atlas/remote/taf/axioms.json: fieldlink
 - atlas/remote/taf/thresholds.json: fieldlink
-- atlas/remote/shadow-hunting/detection-methods.json: entity-id
-- atlas/remote/shadow-hunting/coupling-framework.json: entity-id
 - atlas/remote/living-intelligence/rules.json: fieldlink
 - atlas/remote/living-intelligence/atlas.json: entity-id
+- atlas/remote/shadow-hunting/coupling-framework.json: entity-id
+- atlas/remote/shadow-hunting/detection-methods.json: entity-id
+- atlas/remote/curriculum/modules.json: entity-id
+- atlas/remote/curriculum/framework.json: entity-id
 - atlas/remote/mandala/connect.json: fieldlink
 - atlas/remote/mandala/shapes.json: entity-id, fieldlink
 - atlas/remote/mandala/glyphs.json: fieldlink
+- atlas/remote/geo-binary-bridge/octahedral_state_encoding.json: entity-id, fieldlink
+- atlas/remote/biomachine/bridge_map.json: fieldlink
+- ontology/entities.sample.json: entity-id
+- ontology/capabilities.json: entity-id
+- ontology/entities.geo-binary.json: entity-id
+- ai_training/entry_pipeline.json: fieldlink
+- ai_training/module_maturity.json: fieldlink
+- ai_training/fieldlink_status.json: fieldlink
 - EMERGENT_PATTERN/Example.json: todo
-- bridges/soms-bridge.json: entity-id
-- bridges/living-intelligence-bridge.json: entity-id, fieldlink
-- bridges/rosetta-bridges.json: entity-id
+- tests/golden/examples.json: entity-id
 - bridges/mandala-compute-bridge.json: entity-id
-- bridges/shadow-hunting-bridge.json: entity-id
 - bridges/decay-model-bridge.json: schema-ref
-- schema/core.schema.json: schema-ref
+- bridges/physics-encoder-bridge.json: entity-id
+- bridges/curriculum-bridge.json: entity-id
+- bridges/rosetta-bridges.json: entity-id
+- bridges/soms-bridge.json: entity-id
+- bridges/shadow-hunting-bridge.json: entity-id
+- bridges/living-intelligence-bridge.json: entity-id, fieldlink
+- schema/gate_log.schema.json: schema-ref
 - schema/bridge.schema.json: schema-ref
+- schema/core.schema.json: schema-ref
+- schema/rosetta_entry.schema.json: schema-ref
 - schema/ai_index.schema.json: schema-ref
-- schema/rule.schema.json: schema-ref
 - schema/shape.schema.json: schema-ref
 - schema/shape.seed.schema.json: schema-ref
-- tests/golden/examples.json: entity-id
-- ontology/capabilities.json: entity-id
-- ontology/entities.sample.json: entity-id
+- schema/rule.schema.json: schema-ref
+- schema/transfer.schema.json: schema-ref
+- schema/adaptive_run.schema.json: schema-ref
 - ai_integrator.config.yaml: fieldlink, schema-ref, todo
+- CLAUDE.md: entity-id, fieldlink
+- AI_NOTES.md: fieldlink, todo
 - FILE_LIST.md: fieldlink
-- CLAUDE.md: entity-id, fieldlink, schema-ref
 - README.md: entity-id, fieldlink, schema-ref
-- protocols/seed-growth-protocol.md: entity-id
-- protocols/mandala-compute-protocol.md: entity-id, fieldlink
-- protocols/README.md: fieldlink
+- ai_training/README.md: entity-id
+- docs/unified-bridge-schema.md: schema-ref
+- docs/unified-bridge-integration-guide.md: fieldlink
 - docs/to-do-list.md: entity-id
 - docs/unified-pattern-bridge-schema.md: schema-ref
-- docs/unified-bridge-integration-guide.md: fieldlink
-- docs/unified-bridge-schema.md: schema-ref
+- protocols/seed-growth-protocol.md: entity-id
+- protocols/README.md: fieldlink
+- protocols/mandala-compute-protocol.md: entity-id, fieldlink
 
 ## Next
 - Fill resilience.possibility_matrix entries for hypotheses & checks.
