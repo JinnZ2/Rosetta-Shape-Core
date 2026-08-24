@@ -14,6 +14,7 @@ from rosetta_shape_core import gap_scan as gs
 from rosetta_shape_core import gate_log as gl
 from rosetta_shape_core import holding as hold
 from rosetta_shape_core import lid_import as lid
+from rosetta_shape_core import membership_probe as mp
 from rosetta_shape_core import provenance as prov
 from rosetta_shape_core import rosetta as rop
 from rosetta_shape_core import scope as sc
@@ -23,7 +24,7 @@ from rosetta_shape_core import transfer as tr
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, tier, hold, cur, sr, gs]
+MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, tier, hold, cur, sr, mp, gs]
 
 
 # ── every module carries its own selftest ─────────────────────────
@@ -57,7 +58,7 @@ def test_modules_are_stdlib_only(module):
         if line.startswith("import ") or line.startswith("from "):
             root = line.split()[1].split(".")[0]
             assert root in {
-                "__future__", "argparse", "dataclasses", "datetime", "json",
+                "__future__", "argparse", "dataclasses", "datetime", "hashlib", "json",
                 "pathlib", "re", "statistics", "sys", "tempfile", "typing", "math",
                 "rosetta_shape_core",
             }, f"{module.__name__}: non-stdlib import {root!r}"
@@ -747,7 +748,7 @@ def test_every_shipped_record_is_marked():
 def test_provenance_audit_covers_every_artifact_set():
     s = prov.summary()
     assert set(s) == {"entries", "families", "observations", "transfers", "holdings",
-                      "shape reads", "gap_scan instances"}
+                      "shape reads", "membership probe", "gap_scan instances"}
     APPEND_ONLY_AND_EMPTY = {"holdings"}  # a contact is a recorded event; none logged yet
     for name, block in s.items():
         if name in APPEND_ONLY_AND_EMPTY:
@@ -1666,3 +1667,149 @@ def test_shadow_tangents_are_exempt_from_consistency_checking():
 def test_tangents_on_a_direct_read_are_rejected():
     base = sr.load_raw()[0]
     assert any("shadow read" in e for e in sr.validate_read({**base, "tangents": ["g"]}))
+
+
+# ── membership probe: geometry or constraint set? ─────────────────
+
+PROBE_CASES = mp.load_cases()
+
+
+def test_case_set_validates_against_module_and_schema():
+    assert mp.validate_cases() == []
+    schema = json.loads((ROOT / "schema" / "membership_probe.schema.json").read_text(encoding="utf-8"))
+    doc = json.loads((ROOT / "data" / "rosetta" / "membership_probe.json").read_text(encoding="utf-8"))
+    assert list(Draft202012Validator(schema).iter_errors(doc)) == []
+    assert len(PROBE_CASES) == 16
+
+
+def test_the_class_definitions_hold_across_the_set():
+    for c in PROBE_CASES:
+        if c["class"] == mp.TRAP_A:
+            assert c["ground_truth"] == mp.MEMBER, c["id"]
+        if c["class"] == mp.TRAP_B:
+            assert c["ground_truth"] == mp.NOT_MEMBER, c["id"]
+    assert any(c["class"] == mp.CONTROL for c in PROBE_CASES)
+
+
+def test_a_trap_b_that_is_a_member_is_rejected_by_both_validators():
+    broken = [{**PROBE_CASES[0], "class": mp.TRAP_B}]
+    assert mp.validate_cases(broken)
+    schema = json.loads((ROOT / "schema" / "membership_probe.schema.json").read_text(encoding="utf-8"))
+    doc = {"schema": "membership-probe/cases v1", "cases": broken}
+    assert list(Draft202012Validator(schema).iter_errors(doc))
+
+
+# the leak the runner exists to work around
+
+def test_the_case_ids_predict_the_answer_so_the_form_is_blinded():
+    """Every trap_a is a member and every trap_b is not; the prefix leaks it."""
+    by_prefix = {c["id"][0]: {x["ground_truth"] for x in PROBE_CASES if x["id"][0] == c["id"][0]}
+                 for c in PROBE_CASES}
+    assert by_prefix["A"] == {mp.MEMBER}
+    assert by_prefix["B"] == {mp.NOT_MEMBER}
+    blob = json.dumps(mp.blind_form(7))
+    for leaked in ('"class"', "ground_truth", "constraint_keys", "trap_a", "trap_b"):
+        assert leaked not in blob, leaked
+    for c in PROBE_CASES:
+        assert c["id"] not in blob, c["id"]
+
+
+def test_tokens_depend_on_the_seed_and_do_not_collide():
+    assert mp.token("A01", 7) != mp.token("A01", 8)
+    assert mp.token("A01", 7) != mp.token("A02", 7)
+    form = mp.blind_form(3)
+    assert len({i["case_token"] for i in form["cases"]}) == len(PROBE_CASES)
+    tokens = [i["case_token"] for i in form["cases"]]
+    assert tokens == sorted(tokens), "form order must not carry the original ordering"
+
+
+def _answers(pick):
+    return {c["id"]: pick(c) for c in PROBE_CASES}
+
+
+def _perfect(c):
+    return {"verdict": c["ground_truth"],
+            "reasoning": " ".join(k[1][0] for k in c["constraint_keys"])}
+
+
+def test_a_perfect_reader_scores_clean():
+    r = mp.run(_answers(_perfect), blind=True)
+    assert r.valid
+    assert r.verdict_accuracy["overall"] == 1.0
+    assert r.read_accuracy["of_correct"] == 1.0
+    assert r.geometry_criterion["rate"] == 0.0
+    assert not r.guessed
+
+
+def test_a_geometry_judging_responder_fails_every_trap_in_both_directions():
+    def by_geometry(c):
+        if c["class"] == mp.TRAP_A:
+            return {"verdict": mp.NOT_MEMBER, "reasoning": "does not match the ideal"}
+        if c["class"] == mp.TRAP_B:
+            return {"verdict": mp.MEMBER, "reasoning": "matches the ideal"}
+        return {"verdict": c["ground_truth"], "reasoning": c["constraint_keys"][0][1][0]}
+    r = mp.run(_answers(by_geometry), blind=True)
+    assert r.valid, "it must pass the controls — that is what makes the trap score readable"
+    assert r.geometry_criterion["rate"] == 1.0
+    assert r.geometry_criterion[mp.GEOMETRY_STRICT]["cases"] == \
+        [c["id"] for c in PROBE_CASES if c["class"] == mp.TRAP_A]
+    assert r.geometry_criterion[mp.GEOMETRY_PERMISSIVE]["cases"] == \
+        [c["id"] for c in PROBE_CASES if c["class"] == mp.TRAP_B]
+
+
+def test_a_correct_verdict_naming_no_constraint_is_a_guess_not_a_read():
+    r = mp.run(_answers(lambda c: {"verdict": c["ground_truth"], "reasoning": "yes"}), blind=True)
+    assert r.verdict_accuracy["overall"] == 1.0
+    assert r.read_accuracy["of_correct"] == 0.0
+    assert len(r.guessed) == len(PROBE_CASES)
+    assert "guessed" in r.reading
+
+
+def test_controls_gate_the_run():
+    def bad_control(c):
+        if c["class"] == mp.CONTROL:
+            other = mp.NOT_MEMBER if c["ground_truth"] == mp.MEMBER else mp.MEMBER
+            return {"verdict": other, "reasoning": "x"}
+        return _perfect(c)
+    r = mp.run(_answers(bad_control), blind=True)
+    assert not r.valid
+    assert r.controls["gate"] == "FAIL"
+    assert not r.verdict_accuracy, "trap scores must not be reported behind a failed gate"
+
+
+def test_a_run_missing_its_controls_cannot_be_gated():
+    partial = {c["id"]: _perfect(c) for c in PROBE_CASES if c["class"] != mp.CONTROL}
+    r = mp.run(partial, blind=True)
+    assert not r.valid and "gate cannot run" in r.invalid_reason
+
+
+def test_a_non_blind_run_is_scored_and_is_not_a_measurement():
+    r = mp.run(_answers(_perfect), blind=False)
+    assert r.valid
+    assert "NOT a measurement" in r.reading
+
+
+def test_blind_scoring_inverts_only_under_the_right_seed():
+    filled = [{"case_token": mp.token(c["id"], 11), **_perfect(c)} for c in PROBE_CASES]
+    good = mp.score_blind(filled, 11)
+    assert good.valid and good.answered == len(PROBE_CASES)
+    assert not mp.score_blind(filled, 12).valid
+
+
+def test_the_conventional_cases_test_the_methods_own_boundary():
+    """A06 and A07 are conventional categories — a physics read does not apply."""
+    conventional = [c for c in PROBE_CASES if c["category_type"] == mp.CONVENTIONAL]
+    assert {c["id"] for c in conventional} >= {"A06", "A07"}
+    a07_keys = " ".join(k[0] for k in next(c for c in PROBE_CASES if c["id"] == "A07")["constraint_keys"])
+    assert "not a physics-read constraint set" in a07_keys
+    r = mp.run(_answers(_perfect), blind=True)
+    assert set(r.by_category_type) == {mp.PHYSICAL, mp.CONVENTIONAL}
+
+
+def test_trap_b_is_the_misread_shape_spec_blocks():
+    b = [c for c in PROBE_CASES if c["class"] == mp.TRAP_B]
+    assert len(b) >= 5
+    for c in b:
+        assert "none" in c["deviation"].lower(), c["id"]
+        assert any("constraint set does not" in k[0] or "constraint" in k[0]
+                   for k in c["constraint_keys"]), c["id"]

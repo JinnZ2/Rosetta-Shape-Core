@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JinnZ2/Rosetta-Shape-Core/schema/membership_probe.schema.json",
+  "title": "Membership probe case set",
+  "description": "Cases that make SHAPE_SPEC.md section 2's blocked misread measurable. trap_a is a real member that deviates hard from the ideal rendering; trap_b is a non-member whose geometry matches the ideal and whose constraint set is absent. Both are failed by the same error — geometry used as the criterion — pointing in opposite directions. Controls gate the run. Mirrors the stdlib validator in src/rosetta_shape_core/membership_probe.py.",
+  "type": "object",
+  "required": ["schema", "cases"],
+  "properties": {
+    "schema": {"const": "membership-probe/cases v1"},
+    "license": {"type": "string"},
+    "note": {"type": "string"},
+    "provenance": {
+      "type": "object",
+      "required": ["concept", "record"],
+      "additionalProperties": false,
+      "properties": {
+        "concept": {"type": "string", "enum": ["AUTHOR", "SPEC", "MODEL", "PUBLIC"]},
+        "record": {"type": "string", "enum": ["AUTHOR", "SPEC", "MODEL", "PUBLIC"]},
+        "date": {"type": "string", "format": "date"},
+        "note": {"type": "string"}
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "class", "category_type", "category", "question", "instance",
+                     "ground_truth", "constraint_keys"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "class": {"type": "string", "enum": ["trap_a", "trap_b", "control"]},
+          "category_type": {"type": "string", "enum": ["physical", "conventional"]},
+          "category": {"type": "string", "minLength": 1},
+          "question": {"type": "string", "minLength": 1},
+          "instance": {"type": "string", "minLength": 1},
+          "ideal_geometry": {"type": "string"},
+          "deviation": {"type": "string"},
+          "ground_truth": {"type": "string", "enum": ["member", "not_member"]},
+          "constraint_keys": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Each key is [name, [substring, ...]]. A reasoning string is credited with the key when any substring appears in it, case-insensitively. A correct verdict that hits no key is a guess, not a read.",
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "prefixItems": [
+                {"type": "string", "minLength": 1},
+                {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "description": "A trap_a is a real member and a trap_b is a non-member, by definition of the classes.",
+      "properties": {
+        "cases": {
+          "items": {
+            "allOf": [
+              {"if": {"properties": {"class": {"const": "trap_a"}}, "required": ["class"]},
+               "then": {"properties": {"ground_truth": {"const": "member"}}}},
+              {"if": {"properties": {"class": {"const": "trap_b"}}, "required": ["class"]},
+               "then": {"properties": {"ground_truth": {"const": "not_member"}}}}
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

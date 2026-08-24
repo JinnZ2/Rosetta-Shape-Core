@@ -114,6 +114,7 @@ def _collect() -> Dict[str, List[Dict[str, Any]]]:
     from rosetta_shape_core.families import FAMILIES
     from rosetta_shape_core.gap_scan import list_instances
     from rosetta_shape_core.holding import load_raw as load_holdings_raw
+    from rosetta_shape_core.membership_probe import CASES_PATH
     from rosetta_shape_core.scope import load_observations
     from rosetta_shape_core.shape_read import load_raw as load_shape_reads_raw
     from rosetta_shape_core.transfer import load_raw as load_transfers_raw
@@ -131,6 +132,10 @@ def _collect() -> Dict[str, List[Dict[str, Any]]]:
         "transfers": load_transfers_raw(),
         "holdings": load_holdings_raw(),
         "shape reads": load_shape_reads_raw(),
+        "membership probe": ([{"id": "membership_probe",
+                               "provenance": json.loads(CASES_PATH.read_text(
+                                   encoding="utf-8")).get("provenance")}]
+                             if CASES_PATH.exists() else []),
         "gap_scan instances": instances,
     }
 

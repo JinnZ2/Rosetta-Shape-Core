@@ -27,6 +27,7 @@ src/rosetta_shape_core/
   holding.py      Contact log in, trajectories out — decay/circulation/ossification
   curiosity.py    Allocator: which expensive contact gets paid for, plus the offset
   shape_read.py   SHAPE = the constraint set a geometry solves (see SHAPE_SPEC.md)
+  membership_probe.py  Does a responder judge by geometry or by constraint set?
   provenance.py   Where this repo's own records came from (AUTHOR/SPEC/MODEL/PUBLIC)
   gap_scan.py     3rd axis (cross-INSTANCE): 4 gap shape classes over an explanatory frame
   bloom.py        Entry point: seed → sprout → branch exploration depths
@@ -43,7 +44,7 @@ src/rosetta_shape_core/
   first_principles_audit.py  Deep axiom verification
 data/rosetta/     Entries (6 hand-written + 225 imported), observations, transfers,
                   gate log, closed gap_scan instances
-tests/            831 tests (pytest)
+tests/            850 tests (pytest)
 ```
 
 ## Essential Commands
@@ -92,6 +93,8 @@ python -m rosetta_shape_core.holding --gaps                   # which operator r
 python -m rosetta_shape_core.curiosity --allocate --budget 10
 python -m rosetta_shape_core.shape_read --classify-shapes    # entry, or geometry note?
 python -m rosetta_shape_core.shape_read --audit
+python -m rosetta_shape_core.membership_probe --cases
+python -m rosetta_shape_core.membership_probe --blank --seed 7 > form.json
 python -m rosetta_shape_core.gap_scan --example clockwork
 ```
 
