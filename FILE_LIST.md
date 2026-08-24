@@ -26,9 +26,9 @@
 ./.git/logs/HEAD
 ./.git/logs/refs/heads/main
 ./.git/logs/refs/remotes/origin/main
-./.git/objects/pack/pack-26d27cbf71d561400da8fecdd4304ec6e7b65ee6.idx
-./.git/objects/pack/pack-26d27cbf71d561400da8fecdd4304ec6e7b65ee6.pack
-./.git/objects/pack/pack-26d27cbf71d561400da8fecdd4304ec6e7b65ee6.rev
+./.git/objects/pack/pack-57555a12c9366a95ba70baf8eb3f73eaa00db0a0.idx
+./.git/objects/pack/pack-57555a12c9366a95ba70baf8eb3f73eaa00db0a0.pack
+./.git/objects/pack/pack-57555a12c9366a95ba70baf8eb3f73eaa00db0a0.rev
 ./.git/refs/heads/main
 ./.git/refs/remotes/origin/main
 ./.git/shallow
@@ -162,10 +162,13 @@
 ./data/narrative-physics-sample.json
 ./data/rosetta/README.md
 ./data/rosetta/entries.jsonl
+./data/rosetta/entries.lid.jsonl
 ./data/rosetta/gap_scan/clockwork.json
 ./data/rosetta/gap_scan/telegraph_brain.json
 ./data/rosetta/gate_log.jsonl
 ./data/rosetta/observations.jsonl
+./data/rosetta/observations.lid.jsonl
+./data/rosetta/transfers.jsonl
 ./data/sacred_geometry.json
 ./data/seed-catalog.json
 ./data/semantic_suppression_model.json
@@ -216,6 +219,7 @@
 ./docs/unified-grounding-system.md
 ./docs/unified-pattern-bridge-schema.md
 ./docs/unified-proposed.md
+./docs/worked-example.md
 ./examples/audit_system_constants.py
 ./examples/build_relational_graph.py
 ./examples/curiosity_map.html
@@ -229,6 +233,7 @@
 ./examples/phi_lattice_explorer.png
 ./examples/phi_lattice_explorer.py
 ./examples/relational_graph.html
+./examples/rosetta_walkthrough.py
 ./examples/validate_ontology.py
 ./fieldlink-pull.sh
 ./geometric_computation_selector_v2.py
@@ -292,6 +297,7 @@
 ./schema/rule.schema.json
 ./schema/shape.schema.json
 ./schema/shape.seed.schema.json
+./schema/transfer.schema.json
 ./scripts/ai_integrator.py
 ./scripts/generate.py
 ./shap_compiler.py
@@ -321,6 +327,7 @@
 ./src/rosetta_shape_core/gap_scan.py
 ./src/rosetta_shape_core/gate_log.py
 ./src/rosetta_shape_core/knowledge_dna.py
+./src/rosetta_shape_core/lid_import.py
 ./src/rosetta_shape_core/narrative_physics.py
 ./src/rosetta_shape_core/octa_triple.py
 ./src/rosetta_shape_core/octahedral_session_cache.py
@@ -331,6 +338,7 @@
 ./src/rosetta_shape_core/seeds.py
 ./src/rosetta_shape_core/self_audit.py
 ./src/rosetta_shape_core/sim.py
+./src/rosetta_shape_core/transfer.py
 ./src/rosetta_shape_core/validator.py
 ./src/rsc_mandala_bridge/__init__.py
 ./src/rsc_mandala_bridge/__main__.py
