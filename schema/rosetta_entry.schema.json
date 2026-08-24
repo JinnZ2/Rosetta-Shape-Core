@@ -9,6 +9,7 @@
     "source_system",
     "configuration",
     "forcing_terms",
+    "forcing_dominant",
     "move_ported",
     "scope",
     "provenance"
@@ -26,21 +27,25 @@
     },
     "configuration": {
       "type": "string",
-      "minLength": 1,
-      "description": "What it reaches under constraint. A behaviour readout — no intent attribution, no moral label."
+      "description": "What it reaches under constraint. A behaviour readout — no intent attribution, no moral label. May be empty only when field_status marks it OPEN, UNKNOWN or CONDITIONAL."
     },
     "forcing_terms": {
       "type": "array",
-      "minItems": 1,
       "items": {
         "type": "string"
       },
-      "description": "Family ids or aliases (see families.py). This field is what licenses transfer: shared forcing means the shape is caused, not resembled."
+      "description": "Family ids or aliases (see families.py). This field is what licenses transfer: shared forcing means the shape is caused, not resembled. May be empty only when field_status marks it OPEN, UNKNOWN or CONDITIONAL — an entry whose loads are unnamed is on file but cannot license a transfer."
+    },
+    "forcing_dominant": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The subset of forcing_terms that SETS the configuration. Presence of a shared term is too cheap a test to license transfer on its own — strain acts on nearly everything. Every member must also appear in forcing_terms. May be empty only when field_status marks it OPEN, UNKNOWN or CONDITIONAL; that conditional requirement is enforced by the stdlib validator in src/rosetta_shape_core/entry.py, which is the runtime check."
     },
     "move_ported": {
       "type": "string",
-      "minLength": 1,
-      "description": "The transferable operation. The move, not the ontology."
+      "description": "The transferable operation. The move, not the ontology. May be empty only when field_status marks it OPEN, UNKNOWN or CONDITIONAL — a source system on file whose transferable operation nobody has named yet."
     },
     "scope": {
       "type": "object",
@@ -58,10 +63,36 @@
         },
         "stops": {
           "type": "array",
+          "description": "Where it stops. An entry that produces everywhere and never stops is the audit flag, not a strong entry. A stop may be a plain string or an object with an id, and it needs an explicit id before a transfer or observation can reference it.",
           "items": {
-            "type": "string"
-          },
-          "description": "Where it stops. An entry that produces everywhere and never stops is the audit flag, not a strong entry."
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "id",
+                  "says"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9_]+$"
+                  },
+                  "says": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "cited": {
+                    "type": "string",
+                    "description": "The source that established this boundary in the source system's own literature. Evidence about the SOURCE — not a record of anyone having carried a move to it. scope.py grades the two differently: CITED vs MEASURED."
+                  }
+                }
+              }
+            ]
+          }
         }
       }
     },
@@ -159,6 +190,20 @@
       "items": {
         "type": "string"
       }
+    },
+    "field_status": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "enum": [
+          "OPEN",
+          "UNKNOWN",
+          "CONDITIONAL",
+          "PARTIAL",
+          "DUE_FOR_UPDATE"
+        ]
+      },
+      "description": "How finished each field is. A record with a hole in it is not the same as a record with a guess in it. A required field left empty is an error unless marked OPEN, UNKNOWN or CONDITIONAL. Checked both ways: OPEN and UNKNOWN require the field to be empty, PARTIAL and DUE_FOR_UPDATE require it filled. Orthogonal to provenance — provenance says where a record came from, status says how finished it is."
     }
   }
 }

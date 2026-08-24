@@ -30,6 +30,8 @@ rosetta-entry = "rosetta_shape_core.entry:main"
 rosetta-scope = "rosetta_shape_core.scope:main"
 rosetta-gate-log = "rosetta_shape_core.gate_log:main"
 rosetta-provenance = "rosetta_shape_core.provenance:main"
+rosetta-transfer = "rosetta_shape_core.transfer:main"
+rosetta-lid-import = "rosetta_shape_core.lid_import:main"
 rosetta-gap-scan = "rosetta_shape_core.gap_scan:main"
 rsc-mandala-bridge = "rsc_mandala_bridge.bridge:main"
 
