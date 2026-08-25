@@ -1,0 +1,42 @@
+{
+  "id": "a03",
+  "rosetta_id": "ACCESS.A03",
+  "name": "transmission",
+  "tier": "access",
+  "channel": "transmitted",
+  "operation": "holding acquired from another observer's output rather than from own contact with the referent",
+  "carries": {
+    "content": true,
+    "source_O": true,
+    "receipts": false
+  },
+  "cost": "cheap",
+  "lands_on": "measured",
+  "receipt_recoverable": "in_principle",
+  "valid_on": [
+    "source had residual contact with the referent",
+    "referent has not moved faster than the chain's transit time",
+    "chain depth is bounded and known"
+  ],
+  "breaks_when": [
+    "chain depth unknown — no way to bound accumulated O",
+    "referent changes faster than transmission latency (stale on arrival, arrives looking fresh)",
+    "source's station occludes the same axis as receiver's (correlated error reads as independent confirmation)",
+    "circulation mistaken for confirmation — N restatements of one source counted as N sources",
+    "receipts unrecoverable in fact, not just absent in transit — then it is a01, reclassify"
+  ],
+  "sub_modes": {
+    "t1_direct": "one hop from a residual observer. depth 1.",
+    "t2_chained": "multiple hops. O accumulates per hop, unlogged.",
+    "t3_institutional": "passed through a review filter. filter has its own O (register, fundability, publishability) applied as selection, not as content.",
+    "t4_formation": "acquired pre-verbally / during training. depth unknown, source unrecoverable, and it is the layer that does the reading rather than a holding that gets read."
+  },
+  "uptake_maintained_by": "keeping the chain logged as the holding travels — recoverability survives only while the path back is written down at each hop",
+  "uptake_decays_when": "no hop records the path, at which point recoverability degrades from in_principle to none and the holding has become a01 whether or not anyone reclassifies it",
+  "status": "marker",
+  "provenance": {
+    "concept": "AUTHOR",
+    "record": "AUTHOR",
+    "note": "id, name, channel, operation, carries, cost, lands_on, receipt_recoverable, valid_on, breaks_when, sub_modes and status are the author's text, quoted verbatim from the tier spec. uptake_maintained_by and uptake_decays_when were written during the build to satisfy the unfalsifiable-availability check the same spec defines"
+  }
+}

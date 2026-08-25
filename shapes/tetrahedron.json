@@ -1,16 +1,39 @@
 {
   "id": "SHAPE.TETRA",
   "name": "Tetrahedron",
+  "read_class": "geometry_note",
+  "read_note": "faces, edges and vertices with no constraint set, so this is a geometry note rather than a shape entry — see SHAPE_SPEC.md section 10. A vertex count is a true statement about a polyhedron and says nothing about what problem the polyhedron solves. Marking, not criticism.",
   "faces": 4,
   "edges": 6,
   "vertices": 4,
-  "families": ["fire", "stability", "foundation", "boundary"],
-  "polyhedral": { "maps_to": "simplex foundation" },
-  "bridges": {
-    "sensors": ["anger", "pride", "pressure"],
-    "defenses": ["def.se.01", "def.fr.03"],
-    "protocols": [],
-    "bridge_glyphs": ["🛡️", "🏅", "⏱️"]
+  "families": [
+    "fire",
+    "stability",
+    "foundation",
+    "boundary"
+  ],
+  "polyhedral": {
+    "maps_to": "simplex foundation"
   },
-  "provenance": { "version": "2.0", "updated": "2025-09-11T00:00:00Z" }
+  "bridges": {
+    "sensors": [
+      "anger",
+      "pride",
+      "pressure"
+    ],
+    "defenses": [
+      "def.se.01",
+      "def.fr.03"
+    ],
+    "protocols": [],
+    "bridge_glyphs": [
+      "🛡️",
+      "🏅",
+      "⏱️"
+    ]
+  },
+  "provenance": {
+    "version": "2.0",
+    "updated": "2025-09-11T00:00:00Z"
+  }
 }

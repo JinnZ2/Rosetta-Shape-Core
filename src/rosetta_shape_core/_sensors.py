@@ -71,7 +71,7 @@ FAMILY_SENSOR_CONTEXT = {
     "FAMILY.F18": {"name": "Relativity",     "activation": "Sensors fire on frame-of-reference shifts. Consistent frames = trust. Frame mismatch = confusion."},
     "FAMILY.F19": {"name": "Statistical",    "activation": "Sensors fire on distribution changes. Expected distribution = contentment. Anomaly = vigilance. Phase transition = excitement."},
     "FAMILY.F20": {"name": "Topology",       "activation": "Sensors fire on invariant changes. Preserved topology = dignity. Torn topology = fear. New genus = curiosity."},
-    "FAMILY.F21": {"name": "Narrative-Constraint", "activation": "Sensors fire on constraint consistency. Symmetric application = trust. Selective application = vigilance. Broken symmetry = anger. Rationalization spike = confusion."},
+    "ACCESS.A01": {"name": "Narrative-Constraint", "activation": "Sensors fire on constraint consistency. Symmetric application = trust. Selective application = vigilance. Broken symmetry = anger. Rationalization spike = confusion."},
 }
 
 
@@ -137,7 +137,7 @@ def _compute_natural_states(families: list[str]) -> list[dict]:
         "FAMILY.F18": [7, 6],
         "FAMILY.F19": [0, 4],
         "FAMILY.F20": [7, 4],
-        "FAMILY.F21": [4, 3, 7],
+        "ACCESS.A01": [4, 3, 7],
     }
 
     for fid in families:

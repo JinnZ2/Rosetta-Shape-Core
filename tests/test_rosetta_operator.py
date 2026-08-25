@@ -1,24 +1,30 @@
 """Tests for the Rosetta operator stack — T1 rosetta, T2 families, T3 entry,
 T4 scope, T5 gate log, plus gap_scan."""
+import datetime
 import json
 import pathlib
 
 import pytest
 from jsonschema import Draft202012Validator
 
+from rosetta_shape_core import curiosity as cur
 from rosetta_shape_core import entry as entry_mod
 from rosetta_shape_core import families as fam
 from rosetta_shape_core import gap_scan as gs
 from rosetta_shape_core import gate_log as gl
+from rosetta_shape_core import holding as hold
 from rosetta_shape_core import lid_import as lid
+from rosetta_shape_core import membership_probe as mp
 from rosetta_shape_core import provenance as prov
 from rosetta_shape_core import rosetta as rop
 from rosetta_shape_core import scope as sc
+from rosetta_shape_core import shape_read as sr
+from rosetta_shape_core import tier_check as tier
 from rosetta_shape_core import transfer as tr
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, gs]
+MODULES = [rop, fam, entry_mod, sc, gl, tr, prov, lid, tier, hold, cur, sr, mp, gs]
 
 
 # ── every module carries its own selftest ─────────────────────────
@@ -52,8 +58,9 @@ def test_modules_are_stdlib_only(module):
         if line.startswith("import ") or line.startswith("from "):
             root = line.split()[1].split(".")[0]
             assert root in {
-                "__future__", "argparse", "dataclasses", "datetime", "json",
-                "pathlib", "re", "sys", "typing", "rosetta_shape_core",
+                "__future__", "argparse", "dataclasses", "datetime", "hashlib", "json",
+                "pathlib", "re", "statistics", "sys", "tempfile", "typing", "math",
+                "rosetta_shape_core",
             }, f"{module.__name__}: non-stdlib import {root!r}"
 
 
@@ -422,7 +429,7 @@ def test_no_shared_term_is_shared_form_and_withheld_by_default():
     assert rop.run(p) == []
     leads = rop.run(p, include_unlicensed=True)
     assert leads and all(m.licensing == rop.SHARED_FORM for m in leads)
-    assert "Coincidence until a mechanism appears" in leads[0].reading
+    assert "coincidence until a mechanism appears" in leads[0].reading.lower()
 
 
 def test_matches_are_sorted_by_shared_forcing_count():
@@ -740,8 +747,13 @@ def test_every_shipped_record_is_marked():
 
 def test_provenance_audit_covers_every_artifact_set():
     s = prov.summary()
-    assert set(s) == {"entries", "families", "observations", "transfers", "gap_scan instances"}
-    assert all(block["count"] > 0 for block in s.values())
+    assert set(s) == {"entries", "families", "observations", "transfers", "holdings",
+                      "shape reads", "membership probe", "gap_scan instances"}
+    APPEND_ONLY_AND_EMPTY = {"holdings"}  # a contact is a recorded event; none logged yet
+    for name, block in s.items():
+        if name in APPEND_ONLY_AND_EMPTY:
+            continue
+        assert block["count"] > 0, name
 
 
 def test_provenance_requires_both_halves_from_the_vocabulary():
@@ -793,14 +805,36 @@ def test_modules_carry_the_spdx_line(module):
 
 # ── docs ──────────────────────────────────────────────────────────
 
-def test_reading_protocol_is_present_and_linked():
-    doc = (ROOT / "docs" / "reading-protocol.md")
-    assert doc.exists()
-    text = doc.read_text(encoding="utf-8")
-    for signature in ("context ceiling", "gate / register", "accepted guess"):
+def test_the_three_specs_are_at_root_and_read_in_order():
+    """METHOD_SPEC -> SHAPE_SPEC -> READING_PROTOCOL. Section 6 sets the order."""
+    method = (ROOT / "METHOD_SPEC.md").read_text(encoding="utf-8")
+    shape = (ROOT / "SHAPE_SPEC.md").read_text(encoding="utf-8")
+    protocol = (ROOT / "READING_PROTOCOL.md").read_text(encoding="utf-8")
+    assert "A METHOD IS NOT FALSIFIABLE" in method
+    assert "SHAPE  =  the constraint set a geometry is a solution to" in shape
+    for link in ("METHOD_SPEC.md", "SHAPE_SPEC.md"):
+        assert link in protocol, link
+    assert not (ROOT / "docs" / "reading-protocol.md").exists()
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    for link in ("METHOD_SPEC.md", "SHAPE_SPEC.md", "READING_PROTOCOL.md"):
+        assert link in readme, link
+
+
+def test_reading_protocol_carries_marker_status_and_blocked_conflations():
+    text = (ROOT / "READING_PROTOCOL.md").read_text(encoding="utf-8")
+    for signature in ("context ceiling", "gate / register", "accepted"):
         assert signature in text
-    assert "reading-protocol.md" in (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "reading-protocol.md" in (ROOT / "docs" / "rosetta-operator.md").read_text(encoding="utf-8")
+    assert "MARKER STATUS" in text
+    assert "BLOCKED CONFLATIONS" in text
+
+
+def test_the_third_blocked_conflation_is_the_shadow_read():
+    """METHOD_SPEC section 4 cites it by number."""
+    text = (ROOT / "READING_PROTOCOL.md").read_text(encoding="utf-8")
+    third = text.split("### 3. ")[1].split("### 4.")[0]
+    assert "tangents" in third.lower()
+    assert "not competing claims" in third
+    assert "METHOD_SPEC.md §4" in third or "METHOD_SPEC.md" in third
 
 
 # ── transfers: what happened when a move was carried over ─────────
@@ -1045,3 +1079,737 @@ def test_gecko_transfer_now_measures_a_stop_the_database_already_had():
     assert rows["limit_2"]["status"] == sc.MEASURED
     assert any("transfer" in ev for ev in rows["limit_2"]["evidence"])
     assert rows["limit_1"]["status"] == sc.CITED
+
+
+# ── tier separation: domains of the world vs ways of knowing ──────
+
+def test_families_are_f01_to_f20():
+    ids = sorted(p.stem.split("-")[0] for p in tier.family_files())
+    assert ids == [f"f{i:02d}" for i in range(1, 21)]
+    assert not (ROOT / "ontology" / "families" / "f21-narrative-constraint.json").exists()
+
+
+def test_the_access_tier_has_a01_and_no_implied_closure():
+    """No face assignment, no count, no polytope closure on the access tier."""
+    names = [p.name for p in tier.access_files()]
+    assert "a01-narrative-constraint.json" in names
+    schema = json.loads((ROOT / "schema" / "access.schema.json").read_text(encoding="utf-8"))
+    for structural in ("face_assignment", "face", "faces", "count", "dual", "incidence",
+                       "vertices", "edges"):
+        assert structural not in schema["properties"], structural
+    description = schema["description"].lower()
+    for stated in ("no face_assignment", "no fixed count", "no polytope closure"):
+        assert stated in description, stated
+
+
+def test_a01_validates_against_the_access_schema():
+    schema = json.loads((ROOT / "schema" / "access.schema.json").read_text(encoding="utf-8"))
+    record = json.loads((ROOT / "ontology" / "access" / "a01-narrative-constraint.json")
+                        .read_text(encoding="utf-8"))
+    assert list(Draft202012Validator(schema).iter_errors(record)) == []
+    assert record["derived_from"] == "FAMILY.F21", "the old slug must still resolve"
+
+
+def test_breaks_when_is_mandatory_and_may_not_be_null():
+    schema = json.loads((ROOT / "schema" / "access.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    record = json.loads((ROOT / "ontology" / "access" / "a01-narrative-constraint.json")
+                        .read_text(encoding="utf-8"))
+    assert "breaks_when" in schema["required"]
+    for bad in (None, "", "   "):
+        broken = {**record, "breaks_when": bad}
+        assert list(validator.iter_errors(broken)) or tier.check_access_states_a_break
+
+
+def test_a_way_of_knowing_in_families_fails():
+    f21_as_filed = {
+        "id": "FAMILY.F21", "name": "Narrative-Constraint",
+        "domain": "Constraint consistency, selective application detection, symmetry of rules",
+        "tags": ["manipulation-detection", "narrative-physics"],
+    }
+    assert tier.marks_way_of_knowing(f21_as_filed)
+
+
+@pytest.mark.parametrize("record", [
+    {"id": "FAMILY.F14", "name": "Measurement",
+     "domain": "Uncertainty quantification, calibration, error propagation, dimensional analysis"},
+    {"id": "FAMILY.F03", "name": "Information",
+     "domain": "Shannon entropy, coding theory, information measures, channel capacity"},
+    {"id": "FAMILY.F16", "name": "Consciousness",
+     "domain": "Integrated information, global workspace, neural oscillations, predictive coding"},
+])
+def test_domains_of_the_world_do_not_trip_the_detector(record):
+    """Measurement and information are domains OF the world, not accounts of it."""
+    assert tier.marks_way_of_knowing(record) == []
+
+
+def test_shipped_families_and_access_entries_pass():
+    assert tier.check_families_are_domains() == []
+    assert tier.check_access_states_a_break() == []
+    assert tier.run()["fail"] == []
+
+
+def test_the_free_measured_mismatch_is_the_detector():
+    warned = tier.check_cost_lands_on_mismatch()
+    assert warned and "a01" in warned[0]
+    assert "cheap travel to an expensive destination" in warned[0]
+
+
+def test_candidates_are_not_members_of_the_tier():
+    """a02-a06 have no break point, so they are not access entries yet."""
+    path = ROOT / "ontology" / "access" / "_candidates.json"
+    assert path.exists()
+    assert path not in tier.access_files()
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    ids = [c["id"] for c in doc["candidates"]]
+    assert ids == ["a02", "a04", "a05", "a06"], "a03 has a break point now and became a member"
+    for c in doc["candidates"]:
+        assert c["breaks_when"] is None
+
+
+def test_f21_is_gone_from_the_family_map_and_the_icosahedron_closes_at_20():
+    fm = json.loads((ROOT / "ontology" / "family_map.json").read_text(encoding="utf-8"))
+    assert "FAMILY.F21" not in json.dumps(fm)
+    assert len(fm["family_affinity_model"]["families"]) == 20
+    assert len(fm["shape_profiles"]["SHAPE.ICOSA"]["all_equation_families"]) == 20
+
+
+def test_the_index_and_the_registry_agree_with_the_files():
+    index = json.loads((ROOT / "ontology" / "index.json").read_text(encoding="utf-8"))
+    assert index["families"]["count"] == 20
+    assert len(index["families"]["registry"]) == 20
+    access = index["access"]
+    assert access["members_present"] == len(tier.access_files())
+    assert "open" in access["closure"].lower()
+    registry = json.loads((ROOT / "ontology" / "_id_registry.json").read_text(encoding="utf-8"))
+    assert "ACCESS" in registry["registry"]
+    assert registry["registry"]["ACCESS"]["path"] == "ontology/access/"
+
+
+# ── the holding record ────────────────────────────────────────────
+
+def test_absent_acquired_reads_as_unmarked_not_as_missing():
+    e = entry_mod.Entry(source_system="x", configuration="y")
+    assert e.acquired == ""
+    assert e.acquisition == entry_mod.UNMARKED
+
+
+def test_holding_record_validates_and_rejects_a_domain_that_is_not_one():
+    base = dict(BASE)
+    assert entry_mod.validate_entry({**base, "domain": "f05", "access": "a01",
+                                     "acquired": "residual"}) == []
+    assert any("f01..f20" in e for e in entry_mod.validate_entry({**base, "domain": "f21"}))
+    assert any("access" in e for e in entry_mod.validate_entry({**base, "access": "a1"}))
+    assert any("unmarked" in e for e in entry_mod.validate_entry({**base, "acquired": "probably"}))
+
+
+def test_nothing_was_backfilled_with_a_guess():
+    """unmarked is expected to dominate; no entry claims an acquisition nobody recorded."""
+    entries = entry_mod.load_entries()
+    assert all(e.acquisition == entry_mod.UNMARKED for e in entries)
+    assert not any(e.domain or e.access for e in entries)
+
+
+def test_claiming_a_domain_without_an_access_is_reported():
+    claimed = entry_mod.Entry(source_system="x", configuration="y", id="ENTRY.X", domain="f05")
+    assert tier.check_domain_claims_name_an_access([claimed])
+    both = entry_mod.Entry(source_system="x", configuration="y", id="ENTRY.X",
+                           domain="f05", access="a01")
+    assert tier.check_domain_claims_name_an_access([both]) == []
+
+
+# ── the discriminator: cost cannot tell a01 from a03 ──────────────
+
+ACCESS_SCHEMA = json.loads((ROOT / "schema" / "access.schema.json").read_text(encoding="utf-8"))
+
+
+def _access(aid):
+    for p in tier.access_files():
+        d = json.loads(p.read_text(encoding="utf-8"))
+        if d["id"] == aid:
+            return d
+    raise AssertionError(f"no access entry {aid}")
+
+
+def test_a01_and_a03_are_indistinguishable_on_cost_signature():
+    """Both cheap to acquire, both land on measured. Cost cannot separate them."""
+    a01, a03 = _access("a01"), _access("a03")
+    assert a01["cost"] in ("free", "cheap") and a03["cost"] in ("free", "cheap")
+    assert a01["lands_on"] == a03["lands_on"] == "measured"
+
+
+def test_recoverability_is_what_separates_them():
+    assert _access("a01")["receipt_recoverable"] == "none"
+    assert _access("a03")["receipt_recoverable"] == "in_principle"
+    assert _access("a07")["receipt_recoverable"] == "n/a"
+    assert "receipt_recoverable" in ACCESS_SCHEMA["required"]
+
+
+def test_a_cheap_measured_mode_without_recoverability_fails():
+    assert tier.check_recoverability_stated() == []
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        d = pathlib.Path(td) / "a90.json"
+        d.write_text(json.dumps({"id": "a90", "name": "x", "tier": "access", "cost": "cheap",
+                                 "lands_on": "measured", "breaks_when": "somewhere"}))
+        findings = tier.check_recoverability_stated([d])
+        assert findings and "collapse" in findings[0]
+
+
+def test_a03_reclassifies_to_a01_when_receipts_are_gone_in_fact():
+    breaks = _access("a03")["breaks_when"]
+    assert any("reclassify" in b for b in breaks)
+    assert "none" in _access("a03")["uptake_decays_when"]
+
+
+def test_every_access_mode_states_what_keeps_its_channel_open():
+    assert tier.check_uptake_maintenance_stated() == []
+    for aid in ("a01", "a03", "a07"):
+        rec = _access(aid)
+        assert rec["uptake_maintained_by"].strip()
+        assert rec["uptake_decays_when"].strip()
+
+
+def test_a07_never_lands_on_measured():
+    """An audit can only refute. Passing means no contradiction found among what is held."""
+    a07 = _access("a07")
+    assert a07["channel"] == "none"
+    assert "measured" not in a07["lands_on"]
+    assert set(a07["sub_modes"]) == {"d1_dimensional", "d2_semantic", "d3_lineage"}
+
+
+@pytest.mark.parametrize("aid", ["a01", "a03", "a07"])
+def test_access_entries_validate(aid):
+    assert list(Draft202012Validator(ACCESS_SCHEMA).iter_errors(_access(aid))) == []
+
+
+# ── holdings: recorded contacts, derived trajectories ─────────────
+
+TODAY = datetime.date(2026, 8, 24)
+
+
+def _h(**kw):
+    base = {"holding_id": "h", "provenance": {"concept": "MODEL", "record": "MODEL"}}
+    base.update(kw)
+    return hold.Holding.from_dict(base)
+
+
+def test_the_ratio_is_the_reading_not_the_age():
+    slow = _h(referent_rate="slow", contact_log=[{"t": "2025-08-24", "kind": "residual"}])
+    fast = _h(referent_rate="fast", contact_log=[{"t": "2026-07-01", "kind": "residual"}])
+    assert hold.decay_ratio(slow, TODAY) < 1.0, "365 days on a slow referent is fine"
+    assert hold.decay_ratio(fast, TODAY) >= 1.0, "54 days on a fast referent is already gone"
+
+
+def test_unknown_rate_never_becomes_slow():
+    assert hold.decay_ratio(_h(referent_rate="unknown"), TODAY) is None
+    assert hold.RATE_DAYS["unknown"] is None
+    assert cur.priority(_h(referent_rate="unknown"), TODAY) is None
+
+
+def test_confirmed_stable_and_unrefreshed_are_not_merged():
+    """Conflating these is the failure the whole tier exists to catch."""
+    s1 = _h(referent_rate="slow", contact_log=[{"t": "2026-08-01", "kind": "residual",
+                                                "result": "confirmed"}])
+    s2 = _h(referent_rate="slow", contact_log=[])
+    assert hold.STALE_CONFIRMED_STABLE in hold.trajectories(s1, {}, TODAY)
+    assert hold.STALE_UNREFRESHED in hold.trajectories(s2, {}, TODAY)
+    assert hold.STALE_UNREFRESHED not in hold.trajectories(s1, {}, TODAY)
+    assert hold.STALE_CONFIRMED_STABLE not in hold.trajectories(s2, {}, TODAY)
+
+
+def test_discrepancy_is_the_learning_counter():
+    learn = _h(referent_rate="slow",
+               contact_log=[{"t": "2026-08-01", "kind": "residual", "result": "discrepant"}])
+    assert hold.TOWARD_LEARNING in hold.trajectories(learn, {}, TODAY)
+    assert "new information" in hold.reading(hold.TOWARD_LEARNING)
+
+
+def test_circulation_reads_as_confirmation_and_is_not():
+    circ = _h(holding_id="c", restatement_count=7, referent_rate="slow", contact_log=[])
+    assert hold.TOWARD_CIRCULATION in hold.trajectories(circ, {}, TODAY)
+    assert any(f.startswith("CIRCULATION") for f in hold.audit([circ], TODAY))
+
+
+def test_a_cycle_with_no_residual_anchor_is_circulation_not_false():
+    a = _h(holding_id="a", support_ids=["b"], referent_rate="slow")
+    b = _h(holding_id="b", support_ids=["a"], referent_rate="slow")
+    assert not hold.residual_anchored(a, {"a": a, "b": b})
+    findings = hold.audit([a, b], TODAY)
+    assert any("CIRCULATION" in f for f in findings)
+    assert not any("false" in f.lower() and "not as false" not in f.lower() for f in findings)
+
+
+def test_zero_discrepancies_over_many_contacts_is_reported_not_resolved():
+    amb = _h(holding_id="amb", referent_rate="slow",
+             contact_log=[{"t": "2026-08-01", "kind": "residual"} for _ in range(21)])
+    findings = [f for f in hold.audit([amb], TODAY) if "AMBIGUOUS" in f]
+    assert findings and "Not resolvable" in findings[0]
+
+
+def test_decay_class_defaults_to_undiagnosed_never_to_d1():
+    assert _h().decay_class == hold.UNDIAGNOSED
+    assert hold.DECAY_CLASSES[-1] == hold.UNDIAGNOSED
+    stale = _h(referent_rate="fast", contact_log=[{"t": "2026-01-01", "kind": "residual"}])
+    flagged = [f for f in hold.audit([stale], TODAY) if "PREMATURE_D1" in f]
+    assert flagged and "another receiver still resolves it" in flagged[0]
+
+
+def test_a_cross_observer_check_clears_the_premature_d1_flag():
+    checked = _h(referent_rate="fast", cross_observer_checked=True,
+                 contact_log=[{"t": "2026-01-01", "kind": "residual"}])
+    assert not any("PREMATURE_D1" in f for f in hold.audit([checked], TODAY))
+
+
+def test_a_trajectory_may_never_be_written_into_the_record():
+    d = {"holding_id": "x", "provenance": {"concept": "MODEL", "record": "MODEL"},
+         "trajectory": hold.DECAY}
+    assert any("computed on read" in e for e in hold.validate_holding(d))
+
+
+def test_holdings_validate_against_the_json_schema():
+    schema = json.loads((ROOT / "schema" / "holding.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    for d in hold.load_raw():
+        assert list(validator.iter_errors(d)) == [], d.get("holding_id")
+    good = {"holding_id": "h1", "provenance": {"concept": "MODEL", "record": "MODEL"},
+            "contact_log": [{"t": "2026-01-01", "kind": "residual", "result": "discrepant"}],
+            "referent_rate": "slow"}
+    assert list(validator.iter_errors(good)) == []
+
+
+def test_gap_reach_classes_do_not_collide_with_gap_scan():
+    """gap_scan numbers G1-G4 on a different axis. These are spelled out on purpose."""
+    assert set(hold.GAP_REACH) == {hold.KNOWN_MISSING, hold.KNOWN_UNRESOLVED, hold.UNMARKED_GAP}
+    assert not any(k.startswith("G") and k[1:].isdigit() for k in hold.GAP_REACH)
+    assert [g.id for g in gs.scan(gs.Frame("c"), gs.Artifact("m"), gs.Criterion("c"), []).gaps] == \
+        ["G1", "G2", "G3", "G4"]
+
+
+# ── curiosity: the allocator ──────────────────────────────────────
+
+def test_load_bearing_and_decayed_outranks_fresh_and_isolated():
+    load = _h(holding_id="load", referent_rate="fast", dependents=["a", "b", "c"],
+              contact_log=[{"t": "2026-01-01", "kind": "residual"}])
+    leaf = _h(holding_id="leaf", referent_rate="fast", dependents=[],
+              contact_log=[{"t": "2026-08-20", "kind": "residual"}])
+    assert cur.priority(load, TODAY) > cur.priority(leaf, TODAY)
+
+
+def test_an_allocation_with_no_offset_is_refused():
+    """Zero offset is the self-sealing configuration, not an aggressive one."""
+    leaf = _h(holding_id="leaf", referent_rate="fast",
+              contact_log=[{"t": "2026-08-20", "kind": "residual"}])
+    for bad in (0, -0.5, 1.0, 3):
+        with pytest.raises(ValueError):
+            cur.allocate(10, [leaf], offset_fraction=bad)
+    ok = cur.allocate(10, [leaf], offset_fraction=0.2, as_of=TODAY)
+    assert ok.offset == 2
+    assert ok.unrankable == hold.UNMARKED_GAP
+
+
+def test_the_queue_only_ever_reaches_known_missing():
+    leaf = _h(holding_id="leaf", referent_rate="fast",
+              contact_log=[{"t": "2026-08-20", "kind": "residual"}])
+    assert all(r["reach"] == hold.KNOWN_MISSING for r in cur.rank([leaf], TODAY))
+    assert "cross-station" in hold.GAP_REACH[hold.UNMARKED_GAP]
+
+
+def test_unrankable_holdings_are_reported_not_dropped():
+    unknown = _h(holding_id="u", referent_rate="unknown")
+    leaf = _h(holding_id="leaf", referent_rate="fast",
+              contact_log=[{"t": "2026-08-20", "kind": "residual"}])
+    rows = cur.rank([unknown, leaf], TODAY)
+    assert [r["holding_id"] for r in rows] == ["leaf", "u"]
+    assert "why_unrankable" in rows[-1]
+
+
+def test_audit_triggers_are_recorded_conditions():
+    fired = cur.triggered(_h(discrepancy_count=1, scope_misses=2, restatement_count=3))
+    assert set(fired) <= set(cur.AUDIT_TRIGGERS)
+    assert cur.triggered(_h()) == []
+
+
+# ── the acquired distribution is a check, not a hope ──────────────
+
+def test_unmarked_must_dominate_or_the_field_is_worthless():
+    assert tier.check_acquired_is_recorded_not_guessed() == []
+    guessed = [entry_mod.Entry(source_system="x", configuration="y", id=f"E{i}",
+                               acquired="transmitted") for i in range(3)]
+    findings = tier.check_acquired_is_recorded_not_guessed(guessed)
+    assert findings and "guessed at rather than recorded" in findings[0]
+
+
+# ── SHAPE_SPEC: a shape is the constraint set, not the geometry ───
+
+SHAPE_READ_SCHEMA = json.loads((ROOT / "schema" / "shape_read.schema.json").read_text(encoding="utf-8"))
+
+
+def test_the_spec_is_shipped_and_pointed_at_not_restated():
+    spec = ROOT / "SHAPE_SPEC.md"
+    assert spec.exists()
+    text = spec.read_text(encoding="utf-8")
+    assert "SHAPE  =  the constraint set a geometry is a solution to" in text
+    doc = (ROOT / "src" / "rosetta_shape_core" / "shape_read.py").read_text(encoding="utf-8")
+    assert "SHAPE_SPEC.md is upstream of this module" in doc
+
+
+def test_every_file_in_shapes_is_marked_a_geometry_note():
+    """faces, edges, vertices and no constraint set. Marking, not criticism."""
+    rows = sr.classify_shapes_dir()
+    assert len(rows) == 6
+    for r in rows:
+        assert r["read_class"] == sr.GEOMETRY_NOTE, r["file"]
+        assert r["declared"] == sr.GEOMETRY_NOTE, f"{r['file']} is not marked in the file itself"
+        assert "removal_test" in r["missing"]
+
+
+def test_shape_files_still_validate_with_the_marking():
+    schema = json.loads((ROOT / "schema" / "shape.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema)
+    for f in sorted((ROOT / "shapes").glob("*.json")):
+        assert list(validator.iter_errors(json.loads(f.read_text(encoding="utf-8")))) == [], f.name
+
+
+def test_the_removal_test_is_what_separates_an_entry_from_a_note():
+    full = {p: "x" for p in sr.SHAPE_ENTRY_PARTS}
+    assert sr.classify(full) == "shape_entry"
+    for part in sr.SHAPE_ENTRY_PARTS:
+        without = {k: v for k, v in full.items() if k != part}
+        assert sr.classify(without) == sr.GEOMETRY_NOTE
+        assert sr.missing_parts(without) == [part]
+
+
+def test_an_unchanged_removal_test_means_the_read_is_wrong():
+    """If the form is unchanged the constraint was not load-bearing."""
+    base = json.loads((ROOT / "data" / "rosetta" / "shape_reads.jsonl")
+                      .read_text(encoding="utf-8").splitlines()[0])
+    unchanged = {**base, "removal_test": {**base["removal_test"], "result": "unchanged"}}
+    assert any("not load-bearing" in e for e in sr.validate_read(unchanged))
+    assert sr.validate_read({**unchanged, "status": "refuted"}) == [], \
+        "a failed transfer is a measurement, not an embarrassment"
+
+
+def test_shipped_reads_validate_against_schema_and_module():
+    assert sr.validate_file() == []
+    validator = Draft202012Validator(SHAPE_READ_SCHEMA)
+    raws = sr.load_raw()
+    assert len(raws) == 3
+    for d in raws:
+        assert list(validator.iter_errors(d)) == [], d.get("id")
+
+
+def test_cost_framing_is_flagged_and_dissipation_is_not():
+    costed = sr.ShapeRead.from_dict({
+        "id": "SHAPE_READ.C", "solving_for": "x", "geometry": "g",
+        "why_not_the_other_geometry": {"other_geometry": "o", "recovered_term": "t"},
+        "removal_test": {"constraint": "c", "absent_in": "a", "result": "unrun"},
+        "constraints": [{"name": "the cost of pumping", "sits": sr.INTERNAL_UNIFORM}]})
+    assert any("dissipation" in f for f in sr.audit([costed]))
+    assert not any("COST_FRAMING" in f for f in sr.audit(sr.load_reads()))
+
+
+def test_an_external_constraint_geometry_is_not_read_as_an_optimum():
+    terrain = sr.ShapeRead.from_dict({
+        "id": "SHAPE_READ.T", "geometry": "g", "solving_for": "the optimal routing of sediment",
+        "why_not_the_other_geometry": {"other_geometry": "o", "recovered_term": "t"},
+        "removal_test": {"constraint": "c", "absent_in": "a", "result": "unrun"},
+        "constraints": [{"name": "whatever rock was hit", "sits": sr.EXTERNAL_HETEROGENEOUS}]})
+    assert any("transcript of terrain" in f for f in sr.audit([terrain]))
+
+
+def test_the_delta_read_declares_its_external_constraint():
+    delta = next(r for r in sr.load_reads() if "DELTA" in r.id)
+    assert delta.external_constraints
+    assert delta.status == sr.MARKER
+    assert delta.removal_test["result"] == sr.UNRUN, "stated and not run is not tested"
+
+
+def test_every_constraint_says_where_it_sits():
+    for r in sr.load_reads():
+        for c in r.constraints:
+            assert c["sits"] in sr.SITS, r.id
+
+
+def test_reads_carry_independent_recurrence_not_just_an_exponent():
+    """The fit describes the surviving sample; separate runs converging is the evidence."""
+    for r in sr.load_reads():
+        assert len(r.independent_recurrence) >= 3, r.id
+    assert sr.audit() == []
+
+
+def test_shared_form_is_named_as_the_blocked_misread():
+    doc = rop.__doc__
+    assert "GEOMETRIES coincide" in doc
+    assert "SHAPE_SPEC.md section 2" in doc
+    m = rop.match(rop.Problem(["resonance"], dominant_terms=["resonance"]),
+                  entry_mod.load_entries(HAND_WRITTEN)[0])
+    assert m.licensing == rop.SHARED_FORM
+    assert "picture that matches" in m.reading
+
+
+def test_the_operator_licenses_on_a_constraint_set():
+    """Forcing terms are a constraint set, which is what section 1 calls a shape."""
+    assert "constraint set" in rop.__doc__
+    assert "SHAPE_SPEC.md section 1" in rop.__doc__
+    assert "SHAPE_SPEC.md section 1" in sc.__doc__
+
+
+# ── METHOD_SPEC: the method is not the falsifiable layer ──────────
+
+def test_the_falsifiable_layer_is_the_read_not_the_method():
+    method = (ROOT / "METHOD_SPEC.md").read_text(encoding="utf-8")
+    assert "The falsifiable layer is the INDIVIDUAL READ" in method
+    assert "removal test" in sr.__doc__ and "per read" in sr.__doc__
+    # and it is actually enforced: every shipped read carries one
+    for r in sr.load_reads():
+        assert r.removal_test.get("constraint"), r.id
+
+
+def test_confidence_is_never_raised_by_recurrence_alone():
+    """NOT upgraded by more instances sharing the geometry without a checked constraint set."""
+    base = sr.load_raw()[0]
+    bad = {**base, "confidence": {"value": 0.9, "basis": [sr.RECURRENCE_COUNT]}}
+    assert any("blocked misread wearing a number" in e for e in sr.validate_read(bad))
+    assert sr.RECURRENCE_COUNT not in sr.CONFIDENCE_BASIS
+    ok = {**base, "confidence": {"value": 0.8, "basis": [sr.REMOVAL_TEST_PASSED, sr.SCALE_HELD]}}
+    assert sr.validate_read(ok) == []
+
+
+def test_confidence_is_a_separate_readout_not_a_claim_strength():
+    base = sr.load_raw()[0]
+    low = sr.ShapeRead.from_dict({**base, "confidence": {
+        "value": 0.4, "comfort_threshold": 0.7, "basis": [sr.REMOVAL_TEST_PASSED]}})
+    findings = sr.audit([low])
+    assert any("uncoalesced marker" in f for f in findings)
+    assert any("do not resolve it in either direction" in f for f in findings)
+
+
+def test_a_disappearance_is_the_constraint_set_changing_not_a_falsification():
+    base = sr.load_raw()[0]
+    wrong = sr.ShapeRead.from_dict({
+        **base, "status": "refuted",
+        "disappearances": [{"absent_from": "a market after a rule change",
+                            "since": "2026-01-01", "bounded_candidates": ["the rule that changed"]}]})
+    findings = sr.audit([wrong])
+    assert any("WRONG_FINDING" in f for f in findings)
+    assert any("not which" in f for f in findings)
+
+
+def test_a_disappearance_without_a_timestamp_is_fully_underdetermined():
+    base = sr.load_raw()[0]
+    unbounded = sr.ShapeRead.from_dict({**base, "disappearances": [{"absent_from": "somewhere"}]})
+    assert any("UNBOUNDED" in f and "bounds the candidate set" in f
+               for f in sr.audit([unbounded]))
+    untapped = sr.ShapeRead.from_dict({**base, "disappearances": [
+        {"absent_from": "somewhere", "since": "2026-01-01"}]})
+    assert any("has not been used" in f for f in sr.audit([untapped]))
+
+
+def test_an_excluded_domain_is_untested_not_inapplicable():
+    """Substrate exclusion returns a null that reads as absence."""
+    base = sr.load_raw()[0]
+    excluded = sr.ShapeRead.from_dict({**base, "sample_frame": {
+        "admitted": ["termite colonies"],
+        "excluded": [{"domain": "human settlement", "reason": "treated as a separate category"}]}})
+    findings = sr.audit([excluded])
+    assert any("UNTESTED, not inapplicable" in f for f in findings)
+    assert any("by construction" in f for f in findings)
+
+
+# ── the shadow read ───────────────────────────────────────────────
+
+SHADOW = {
+    "id": "SHAPE_READ.SHADOW", "geometry": "", "solving_for": "a quantity",
+    "constraints": [{"name": "c", "sits": sr.INTERNAL_UNIFORM}],
+    "why_not_the_other_geometry": {"other_geometry": "o", "recovered_term": "t"},
+    "removal_test": {"constraint": "c", "absent_in": "a", "result": "unrun"},
+    "read_path": sr.SHADOW, "tangents": ["one gap", "another gap"],
+    "outline_state": sr.UNDER_OUTLINED, "status": sr.MARKER,
+    "provenance": {"concept": "MODEL", "record": "MODEL"},
+}
+
+
+def test_a_shadow_read_needs_tangents_and_an_outline_state():
+    assert sr.validate_read(SHADOW) == []
+    assert any("tangents" in e for e in sr.validate_read(
+        {k: v for k, v in SHADOW.items() if k != "tangents"}))
+    assert any("outline_state" in e for e in sr.validate_read(
+        {k: v for k, v in SHADOW.items() if k != "outline_state"}))
+
+
+def test_a_shadow_read_may_have_no_visible_geometry_but_still_carries_a_removal_test():
+    """The geometry is often not visible; the falsifiable layer stays required."""
+    schema = Draft202012Validator(SHAPE_READ_SCHEMA)
+    assert list(schema.iter_errors(SHADOW)) == []
+    direct_empty = {**SHADOW, "read_path": sr.DIRECT}
+    for k in ("tangents", "outline_state"):
+        direct_empty.pop(k)
+    assert list(schema.iter_errors(direct_empty)), "a direct read with no geometry should fail"
+    assert SHADOW["removal_test"]["constraint"]
+
+
+def test_under_outlined_is_a_stated_state_not_a_finished_read():
+    assert any("not a failure" in e for e in sr.validate_read({**SHADOW, "status": sr.TESTED}))
+    findings = sr.audit([sr.ShapeRead.from_dict(SHADOW)])
+    assert any("UNDER_OUTLINED" in f for f in findings)
+    assert any("stated state, not a failure" in f for f in findings)
+
+
+def test_shadow_tangents_are_exempt_from_consistency_checking():
+    """A consistency audit over tangents reports conflicts that are not conflicts."""
+    assert sr.ShapeRead.from_dict(SHADOW).consistency_exempt
+    assert not sr.ShapeRead.from_dict(sr.load_raw()[0]).consistency_exempt
+    assert any("not competing claims" in f
+               for f in sr.audit([sr.ShapeRead.from_dict(SHADOW)]))
+
+
+def test_tangents_on_a_direct_read_are_rejected():
+    base = sr.load_raw()[0]
+    assert any("shadow read" in e for e in sr.validate_read({**base, "tangents": ["g"]}))
+
+
+# ── membership probe: geometry or constraint set? ─────────────────
+
+PROBE_CASES = mp.load_cases()
+
+
+def test_case_set_validates_against_module_and_schema():
+    assert mp.validate_cases() == []
+    schema = json.loads((ROOT / "schema" / "membership_probe.schema.json").read_text(encoding="utf-8"))
+    doc = json.loads((ROOT / "data" / "rosetta" / "membership_probe.json").read_text(encoding="utf-8"))
+    assert list(Draft202012Validator(schema).iter_errors(doc)) == []
+    assert len(PROBE_CASES) == 16
+
+
+def test_the_class_definitions_hold_across_the_set():
+    for c in PROBE_CASES:
+        if c["class"] == mp.TRAP_A:
+            assert c["ground_truth"] == mp.MEMBER, c["id"]
+        if c["class"] == mp.TRAP_B:
+            assert c["ground_truth"] == mp.NOT_MEMBER, c["id"]
+    assert any(c["class"] == mp.CONTROL for c in PROBE_CASES)
+
+
+def test_a_trap_b_that_is_a_member_is_rejected_by_both_validators():
+    broken = [{**PROBE_CASES[0], "class": mp.TRAP_B}]
+    assert mp.validate_cases(broken)
+    schema = json.loads((ROOT / "schema" / "membership_probe.schema.json").read_text(encoding="utf-8"))
+    doc = {"schema": "membership-probe/cases v1", "cases": broken}
+    assert list(Draft202012Validator(schema).iter_errors(doc))
+
+
+# the leak the runner exists to work around
+
+def test_the_case_ids_predict_the_answer_so_the_form_is_blinded():
+    """Every trap_a is a member and every trap_b is not; the prefix leaks it."""
+    by_prefix = {c["id"][0]: {x["ground_truth"] for x in PROBE_CASES if x["id"][0] == c["id"][0]}
+                 for c in PROBE_CASES}
+    assert by_prefix["A"] == {mp.MEMBER}
+    assert by_prefix["B"] == {mp.NOT_MEMBER}
+    blob = json.dumps(mp.blind_form(7))
+    for leaked in ('"class"', "ground_truth", "constraint_keys", "trap_a", "trap_b"):
+        assert leaked not in blob, leaked
+    for c in PROBE_CASES:
+        assert c["id"] not in blob, c["id"]
+
+
+def test_tokens_depend_on_the_seed_and_do_not_collide():
+    assert mp.token("A01", 7) != mp.token("A01", 8)
+    assert mp.token("A01", 7) != mp.token("A02", 7)
+    form = mp.blind_form(3)
+    assert len({i["case_token"] for i in form["cases"]}) == len(PROBE_CASES)
+    tokens = [i["case_token"] for i in form["cases"]]
+    assert tokens == sorted(tokens), "form order must not carry the original ordering"
+
+
+def _answers(pick):
+    return {c["id"]: pick(c) for c in PROBE_CASES}
+
+
+def _perfect(c):
+    return {"verdict": c["ground_truth"],
+            "reasoning": " ".join(k[1][0] for k in c["constraint_keys"])}
+
+
+def test_a_perfect_reader_scores_clean():
+    r = mp.run(_answers(_perfect), blind=True)
+    assert r.valid
+    assert r.verdict_accuracy["overall"] == 1.0
+    assert r.read_accuracy["of_correct"] == 1.0
+    assert r.geometry_criterion["rate"] == 0.0
+    assert not r.guessed
+
+
+def test_a_geometry_judging_responder_fails_every_trap_in_both_directions():
+    def by_geometry(c):
+        if c["class"] == mp.TRAP_A:
+            return {"verdict": mp.NOT_MEMBER, "reasoning": "does not match the ideal"}
+        if c["class"] == mp.TRAP_B:
+            return {"verdict": mp.MEMBER, "reasoning": "matches the ideal"}
+        return {"verdict": c["ground_truth"], "reasoning": c["constraint_keys"][0][1][0]}
+    r = mp.run(_answers(by_geometry), blind=True)
+    assert r.valid, "it must pass the controls — that is what makes the trap score readable"
+    assert r.geometry_criterion["rate"] == 1.0
+    assert r.geometry_criterion[mp.GEOMETRY_STRICT]["cases"] == \
+        [c["id"] for c in PROBE_CASES if c["class"] == mp.TRAP_A]
+    assert r.geometry_criterion[mp.GEOMETRY_PERMISSIVE]["cases"] == \
+        [c["id"] for c in PROBE_CASES if c["class"] == mp.TRAP_B]
+
+
+def test_a_correct_verdict_naming_no_constraint_is_a_guess_not_a_read():
+    r = mp.run(_answers(lambda c: {"verdict": c["ground_truth"], "reasoning": "yes"}), blind=True)
+    assert r.verdict_accuracy["overall"] == 1.0
+    assert r.read_accuracy["of_correct"] == 0.0
+    assert len(r.guessed) == len(PROBE_CASES)
+    assert "guessed" in r.reading
+
+
+def test_controls_gate_the_run():
+    def bad_control(c):
+        if c["class"] == mp.CONTROL:
+            other = mp.NOT_MEMBER if c["ground_truth"] == mp.MEMBER else mp.MEMBER
+            return {"verdict": other, "reasoning": "x"}
+        return _perfect(c)
+    r = mp.run(_answers(bad_control), blind=True)
+    assert not r.valid
+    assert r.controls["gate"] == "FAIL"
+    assert not r.verdict_accuracy, "trap scores must not be reported behind a failed gate"
+
+
+def test_a_run_missing_its_controls_cannot_be_gated():
+    partial = {c["id"]: _perfect(c) for c in PROBE_CASES if c["class"] != mp.CONTROL}
+    r = mp.run(partial, blind=True)
+    assert not r.valid and "gate cannot run" in r.invalid_reason
+
+
+def test_a_non_blind_run_is_scored_and_is_not_a_measurement():
+    r = mp.run(_answers(_perfect), blind=False)
+    assert r.valid
+    assert "NOT a measurement" in r.reading
+
+
+def test_blind_scoring_inverts_only_under_the_right_seed():
+    filled = [{"case_token": mp.token(c["id"], 11), **_perfect(c)} for c in PROBE_CASES]
+    good = mp.score_blind(filled, 11)
+    assert good.valid and good.answered == len(PROBE_CASES)
+    assert not mp.score_blind(filled, 12).valid
+
+
+def test_the_conventional_cases_test_the_methods_own_boundary():
+    """A06 and A07 are conventional categories — a physics read does not apply."""
+    conventional = [c for c in PROBE_CASES if c["category_type"] == mp.CONVENTIONAL]
+    assert {c["id"] for c in conventional} >= {"A06", "A07"}
+    a07_keys = " ".join(k[0] for k in next(c for c in PROBE_CASES if c["id"] == "A07")["constraint_keys"])
+    assert "not a physics-read constraint set" in a07_keys
+    r = mp.run(_answers(_perfect), blind=True)
+    assert set(r.by_category_type) == {mp.PHYSICAL, mp.CONVENTIONAL}
+
+
+def test_trap_b_is_the_misread_shape_spec_blocks():
+    b = [c for c in PROBE_CASES if c["class"] == mp.TRAP_B]
+    assert len(b) >= 5
+    for c in b:
+        assert "none" in c["deviation"].lower(), c["id"]
+        assert any("constraint set does not" in k[0] or "constraint" in k[0]
+                   for k in c["constraint_keys"]), c["id"]

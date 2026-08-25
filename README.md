@@ -165,7 +165,10 @@ Homepage = "https://github.com/JinnZ2/Rosetta-Shape-Core"
 - **Atlas (staged)** → after running `./fieldlink-pull.sh`, see [`.fieldlink/merge_stage`](.fieldlink/merge_stage)
 - **Protocols** → [`/protocols`](protocols)
 - **Rosetta operator (T1–T5)** → [`docs/rosetta-operator.md`](docs/rosetta-operator.md) (cross-domain constraint-solution transfer; schemas: `schema/rosetta_entry.schema.json`, `schema/gate_log.schema.json`)
+- **Shape reads (implementation)** → [`docs/shape-reads.md`](docs/shape-reads.md)
+- **Membership probe** → [`docs/membership-probe.md`](docs/membership-probe.md) — a runnable test of whether a responder judges category membership by geometry or by constraint set
+- **Tier separation** → [`docs/tier-separation.md`](docs/tier-separation.md) (domains of the world f01–f20 vs ways of knowing a01…; schema: `schema/access.schema.json`)
 - **Worked example** → [`docs/worked-example.md`](docs/worked-example.md) — run `python examples/rosetta_walkthrough.py` for one problem carried end to end
-- **Reading protocol** → [`docs/reading-protocol.md`](docs/reading-protocol.md) (read an artifact against the constraint set operating at its date)
+- **Method, shape, reading** → [`METHOD_SPEC.md`](METHOD_SPEC.md) → [`SHAPE_SPEC.md`](SHAPE_SPEC.md) → [`READING_PROTOCOL.md`](READING_PROTOCOL.md). Read in that order: epistemic class, then definition, then marker status and blocked conflations. CC0, upstream of every repo using these words
 - **Adaptive simulation** → [`docs/adaptive-simulation.md`](docs/adaptive-simulation.md) (claim-driven experiment loop, schema: `schema/adaptive_run.schema.json`)
 - **Scripts** → [`/scripts/validate.sh`](scripts/validate.sh)

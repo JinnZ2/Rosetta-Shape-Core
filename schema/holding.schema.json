@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JinnZ2/Rosetta-Shape-Core/schema/holding.schema.json",
+  "title": "Holding record",
+  "description": "What is held, when it was last touched, and the counters a derivative can be computed from. Contacts are recorded, not judged at write time. No trajectory is ever stored here: every trajectory is computed on read, and a stored one is a judgement frozen at the moment of writing. Mirrors the stdlib validator in src/rosetta_shape_core/holding.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "holding_id",
+    "provenance"
+  ],
+  "properties": {
+    "holding_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contact_log": {
+      "type": "array",
+      "description": "Two observations minimum for a derivative, with the gap between them readable.",
+      "items": {
+        "type": "object",
+        "required": [
+          "t"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "t": {
+            "type": "string",
+            "format": "date"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "residual",
+              "transmitted",
+              "internal"
+            ]
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "confirmed",
+              "restated",
+              "discrepant"
+            ],
+            "description": "discrepant is the only result that carries new information; confirmed adds confidence and no content."
+          }
+        }
+      }
+    },
+    "last_residual": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "referent_rate": {
+      "type": "string",
+      "enum": [
+        "known",
+        "slow",
+        "fast",
+        "unknown"
+      ],
+      "description": "Not derivable from the record. Best: measured, from repeated residual contact. Usable: inherited from the domain. Default 'unknown' — and unknown must NOT silently become 'slow'. An unknown-rate holding is not a fresh one; with the rate unknown the system reports order, not magnitude."
+    },
+    "referent_rate_days": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "exclusiveMinimum": 0,
+      "description": "Required when referent_rate is 'known' — 'known' means measured."
+    },
+    "support_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "discrepancy_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "The learning counter, not the error count."
+    },
+    "restatement_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Motion in the record. High with no residual contact is circulation."
+    },
+    "scope_hits": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "scope_misses": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "decay_class": {
+      "type": "string",
+      "enum": [
+        "d1_referent",
+        "d2_receipt",
+        "d3_uptake",
+        "undiagnosed"
+      ],
+      "description": "Default undiagnosed. Never d1 by default: d1 is the free reading and d3 — the receiver stopped resolving a signal that never changed — is the one that costs, leaves the record untouched, and is the common case."
+    },
+    "cross_observer_checked": {
+      "type": "boolean",
+      "description": "Has another receiver been asked whether it still resolves? The only cheap discriminator for d3."
+    },
+    "note": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "concept",
+        "record"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "concept": {
+          "type": "string",
+          "enum": [
+            "AUTHOR",
+            "SPEC",
+            "MODEL",
+            "PUBLIC"
+          ]
+        },
+        "record": {
+          "type": "string",
+          "enum": [
+            "AUTHOR",
+            "SPEC",
+            "MODEL",
+            "PUBLIC"
+          ]
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "description": "Candidate access modes from the thread that produced the tier separation. NOT members of the access tier. Each needs breaks_when written before it enters, because an access entry with no stated break point is a preference rather than an access mode and is rejected at validation. The leading underscore keeps this file out of the tier the way ontology/_vocab.json stays out of the entity set.",
+  "status": "candidates — none of these has a stated break point yet",
+  "gate": "write breaks_when, then move the record into ontology/access/aNN-<name>.json",
+  "candidates": [
+    {
+      "id": "a02",
+      "name": "residual",
+      "sketch": "the world pushes back on your own reading",
+      "breaks_when": null
+    },
+    {
+      "id": "a04",
+      "name": "borrowed-instrument",
+      "sketch": "read another observer's response rather than the world directly",
+      "breaks_when": null
+    },
+    {
+      "id": "a05",
+      "name": "derivative-read",
+      "sketch": "read CHANGE in an uninterpretable channel. No decoder required",
+      "breaks_when": null
+    },
+    {
+      "id": "a06",
+      "name": "threshold-integration",
+      "sketch": "accumulate, respond at dose",
+      "breaks_when": null
+    }
+  ],
+  "provenance": {
+    "concept": "SPEC",
+    "record": "SPEC",
+    "note": "candidate list and sketches quoted from the tier separation spec; no field here was written during the build"
+  },
+  "entered": [
+    "a03 transmission — breaks_when written, now ontology/access/a03-transmission.json"
+  ]
+}

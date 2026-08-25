@@ -1,0 +1,292 @@
+{
+  "schema": "membership-probe/cases v1",
+  "license": "CC0",
+  "note": "class trap_a = real member, deviates hard from the ideal rendering. class trap_b = non-member whose GEOMETRY matches the ideal but whose constraint set is absent. class control = unambiguous either way, used to gate the run.",
+  "cases": [
+
+    {
+      "id": "A01",
+      "class": "trap_a",
+      "category_type": "physical",
+      "category": "area-minimizing cellular packing",
+      "question": "Is a wax cell in a working beehive an instance of area-minimizing cellular packing?",
+      "instance": "A single cell in a built comb: walls of uneven thickness, interior angles scattered around 120 degrees but individually off by several degrees, wall faces curved rather than flat, cell axis tilted, no two cells identical.",
+      "ideal_geometry": "regular hexagon, equal sides, exact 120 degree interior angles",
+      "deviation": "no cell in any comb meets the regular-hexagon spec; measured angle scatter is several degrees per cell",
+      "ground_truth": "member",
+      "constraint_keys": [
+        ["equal-volume partition", ["equal volume", "equal-volume", "same volume", "equal capacity", "uniform cell size"]],
+        ["plane tiling / no gaps", ["tile", "tiling", "tessellat", "no gaps", "gap-free", "fill the plane", "space-filling"]],
+        ["minimum wall material", ["minimum wall", "least material", "minimiz", "least wax", "material cost", "wall material", "perimeter"]],
+        ["surface tension / yielding wax", ["surface tension", "soften", "molten", "yield", "flow", "anneal", "warm wax"]],
+        ["agents building outward from circles", ["circle", "circular", "outward", "builder", "agent", "contact", "pack"]]
+      ]
+    },
+
+    {
+      "id": "A02",
+      "class": "trap_a",
+      "category_type": "physical",
+      "category": "branching flow-transport network",
+      "question": "Is this an instance of a branching flow-transport network?",
+      "instance": "A specific human lung. Branch generations vary between roughly 17 and 23 depending on the path taken; the left and right trees are asymmetric; daughter-to-parent radius ratios scatter widely around the population mean and individual junctions depart from it substantially.",
+      "ideal_geometry": "symmetric dichotomous tree with radius ratio 2^(-1/3) at every junction",
+      "deviation": "the 2^(-1/3) ratio is a central tendency across a population; no individual lung meets it at every junction, and generation count is not fixed",
+      "ground_truth": "member",
+      "constraint_keys": [
+        ["conserved flow through junctions", ["conserv", "flow", "continuity", "mass balance", "throughput"]],
+        ["dissipation minimization", ["dissipat", "resistance", "energy loss", "work lost", "pressure drop", "murray"]],
+        ["volume or enclosure limit", ["volume", "enclos", "fit inside", "space constraint", "cavity", "thoracic"]],
+        ["surface area for exchange", ["surface area", "exchange", "gas exchange", "diffus", "alveol"]],
+        ["construction under a growth process", ["grow", "developmen", "branching rule", "bifurcat", "morphogen"]]
+      ]
+    },
+
+    {
+      "id": "A03",
+      "class": "trap_a",
+      "category_type": "physical",
+      "category": "contraction-crack polygon network",
+      "question": "Are the columns at a basalt colonnade an instance of a contraction-crack polygon network?",
+      "instance": "A cooled basalt colonnade. Column cross-sections are a mix of four-, five-, six- and seven-sided polygons; hexagons are common but not universal, and edge lengths within a single column vary.",
+      "ideal_geometry": "uniform regular hexagonal columns",
+      "deviation": "a substantial fraction of columns are not hexagonal at all",
+      "ground_truth": "member",
+      "constraint_keys": [
+        ["thermal contraction", ["contract", "cool", "shrink", "thermal", "temperature gradient"]],
+        ["crack propagation minimizing surface energy", ["crack", "fracture", "surface energy", "propagat", "stress relief"]],
+        ["partition of a plane under uniform in-plane stress", ["partition", "tile", "tessellat", "in-plane", "isotropic", "uniform stress"]],
+        ["cooling front advance", ["front", "advance", "downward", "rate of cooling", "cooling rate"]]
+      ]
+    },
+
+    {
+      "id": "A04",
+      "class": "trap_a",
+      "category_type": "physical",
+      "category": "erosional distributary network",
+      "question": "Is this an instance of an erosional distributary network?",
+      "instance": "A river delta whose main channels bend hard around an exposed bedrock ridge, producing an asymmetric, lopsided plan view with one dominant lobe and a truncated flank.",
+      "ideal_geometry": "symmetric radial fan with regular bifurcation",
+      "deviation": "the plan view is dominated by an external obstacle and does not resemble the idealized fan",
+      "ground_truth": "member",
+      "constraint_keys": [
+        ["sediment supply and deposition", ["sediment", "deposit", "aggrad", "sand", "silt", "load"]],
+        ["channel avulsion / branch where possible", ["avuls", "branch", "bifurcat", "distributar", "split", "switch"]],
+        ["substrate erodibility (heterogeneous)", ["bedrock", "erodib", "hard rock", "resistant", "heterogen", "obstacle", "terrain"]],
+        ["gradient and base level", ["gradient", "slope", "base level", "sea level", "subsid"]]
+      ]
+    },
+
+    {
+      "id": "A05",
+      "class": "trap_a",
+      "category_type": "physical",
+      "category": "contraction-crack polygon network",
+      "question": "Is a dried mud flat an instance of a contraction-crack polygon network?",
+      "instance": "A dried lakebed. Polygons are visibly irregular, sizes vary by a factor of several across a few metres, many junctions meet at right angles rather than at 120 degrees, and some cracks terminate without closing a cell.",
+      "ideal_geometry": "regular hexagonal tiling with 120 degree triple junctions",
+      "deviation": "junction angles are frequently 90 degrees, cell sizes are not uniform, and the tiling is incomplete in places",
+      "ground_truth": "member",
+      "constraint_keys": [
+        ["desiccation contraction", ["dry", "desiccat", "shrink", "contract", "moisture", "water loss"]],
+        ["crack propagation and stress relief", ["crack", "fracture", "stress relief", "propagat", "tensile"]],
+        ["sequential vs simultaneous cracking", ["sequential", "simultaneous", "order", "first crack", "later crack", "90", "right angle"]],
+        ["layer thickness setting cell scale", ["thickness", "depth", "layer", "scale", "cell size"]]
+      ]
+    },
+
+    {
+      "id": "A06",
+      "class": "trap_a",
+      "category_type": "conventional",
+      "category": "human",
+      "question": "Is this individual a human?",
+      "instance": "A living person with situs inversus totalis (all thoracic and abdominal organs mirrored), polydactyly on both hands, and a congenital limb difference affecting one forearm.",
+      "ideal_geometry": "the textbook anatomical figure: bilateral symmetry, heart on the left, five digits per hand, two full-length forearms",
+      "deviation": "departs from the standard anatomical description on organ laterality, digit count, and limb structure simultaneously",
+      "ground_truth": "member",
+      "constraint_keys": [
+        ["category membership is not set by matching a reference figure", ["not defined by", "reference figure", "textbook", "not a spec", "does not determine", "central tendency", "average", "typical", "variation"]],
+        ["the standard description is a summary of instances", ["summar", "descript", "abstract", "generaliz", "derived from", "population"]],
+        ["circularity of testing an instance against a summary of instances", ["circular", "begs the question", "derived from the instances", "tautolog"]]
+      ]
+    },
+
+    {
+      "id": "A07",
+      "class": "trap_a",
+      "category_type": "conventional",
+      "category": "car",
+      "question": "Is this a car?",
+      "instance": "A project vehicle on jack stands in a shop: engine pulled and sitting on a stand beside it, both doors removed, seats out, wiring harness partly disconnected. Registered, titled, and being reassembled.",
+      "ideal_geometry": "a complete road-ready passenger vehicle: four wheels on the ground, engine installed, doors and interior fitted",
+      "deviation": "fails the complete-and-operable description on several counts at once",
+      "ground_truth": "member",
+      "constraint_keys": [
+        ["designed spec, not a physics-read constraint set", ["design", "spec", "intended", "conventional", "human-defined", "category is defined by"]],
+        ["function is the criterion, not present operability", ["function", "purpose", "role", "what it is for", "operab", "temporar", "state of repair"]],
+        ["continuity of identity through disassembly", ["continu", "identity", "same vehicle", "reassembl", "title", "registered", "still a"]]
+      ]
+    },
+
+    {
+      "id": "B01",
+      "class": "trap_b",
+      "category_type": "physical",
+      "category": "area-minimizing cellular packing",
+      "question": "Is a snowflake's six-fold form an instance of area-minimizing cellular packing?",
+      "instance": "A stellar dendrite snow crystal showing clean six-fold symmetry.",
+      "ideal_geometry": "hexagonal symmetry, near-exact",
+      "deviation": "none — the geometric match to hexagonal symmetry is closer than any beehive cell achieves",
+      "ground_truth": "not_member",
+      "constraint_keys": [
+        ["six-fold symmetry comes from crystal lattice bond angle", ["lattice", "bond angle", "crystal", "molecular", "ice structure", "hydrogen bond"]],
+        ["no partition of a plane into equal-volume cells", ["no partition", "not a partition", "not tiling", "no cells", "not dividing", "single crystal", "no equal-volume"]],
+        ["no material-minimization objective", ["no minimiz", "not minimiz", "no material", "different objective", "not about material", "growth kinetics", "diffusion-limited"]],
+        ["geometry matches, constraint set does not", ["constraint set", "different constraint", "same geometry", "geometry matches", "coincid", "convergen"]]
+      ]
+    },
+
+    {
+      "id": "B02",
+      "class": "trap_b",
+      "category_type": "physical",
+      "category": "area-minimizing cellular packing",
+      "question": "Is this an instance of area-minimizing cellular packing?",
+      "instance": "A bathroom floor laid in machine-cut ceramic hexagon tiles. The hexagons are regular to within manufacturing tolerance — far closer to the ideal than any wax comb.",
+      "ideal_geometry": "regular hexagonal tiling",
+      "deviation": "none — this is the closest geometric match in the case set",
+      "ground_truth": "not_member",
+      "constraint_keys": [
+        ["form imposed by a die, not selected by a constraint", ["die", "stamp", "cut", "mold", "imposed", "manufactur", "chosen", "aesthetic", "design decision"]],
+        ["no material-minimization objective in the laying", ["no minimiz", "not minimiz", "no material", "grout", "not economiz", "different objective"]],
+        ["no equal-volume partition requirement", ["no partition", "not a partition", "no volume", "no cells", "nothing stored", "no contents"]],
+        ["geometry matches, constraint set does not", ["constraint set", "different constraint", "same geometry", "geometry matches", "form without", "no constraint"]]
+      ]
+    },
+
+    {
+      "id": "B03",
+      "class": "trap_b",
+      "category_type": "physical",
+      "category": "branching flow-transport network",
+      "question": "Is this an instance of a branching flow-transport network?",
+      "instance": "A procedurally generated fractal tree rendered for a film background. Self-similar dichotomous branching over eight generations, with a tapering rule applied at each junction.",
+      "ideal_geometry": "self-similar dichotomous branching tree with a fixed taper ratio",
+      "deviation": "none — it satisfies the branching description exactly, by construction",
+      "ground_truth": "not_member",
+      "constraint_keys": [
+        ["nothing flows through it", ["nothing flows", "no flow", "no transport", "no fluid", "carries nothing", "no throughput", "no medium"]],
+        ["taper ratio is a parameter, not a result", ["parameter", "set by", "chosen", "hardcod", "authored", "specified", "input", "not derived", "arbitrary"]],
+        ["no dissipation to minimize", ["no dissipat", "not dissipat", "no resistance", "no energy", "nothing to minimiz", "no cost", "no work"]],
+        ["geometry matches, constraint set does not", ["constraint set", "different constraint", "same geometry", "geometry matches", "form without", "imitat", "no constraint"]]
+      ]
+    },
+
+    {
+      "id": "B04",
+      "class": "trap_b",
+      "category_type": "physical",
+      "category": "erosional distributary network",
+      "question": "Is this an instance of an erosional distributary network?",
+      "instance": "A decorative wrought-iron gate forged in a branching tree motif, with a trunk splitting into limbs and twigs across the panel.",
+      "ideal_geometry": "dendritic branching plan form",
+      "deviation": "none — the branching plan form is clean and deliberate",
+      "ground_truth": "not_member",
+      "constraint_keys": [
+        ["no erosion or sediment process", ["no erosion", "not eroded", "no sediment", "no water", "no flow", "forged", "no deposition"]],
+        ["form set by a maker's hand", ["maker", "smith", "forged", "hand", "deliberate", "aesthetic", "decorat", "chosen", "authored"]],
+        ["structural and visual constraints only", ["structural", "static", "load", "visual", "aesthetic", "ornament", "different constraint"]],
+        ["geometry matches, constraint set does not", ["constraint set", "different constraint", "same geometry", "geometry matches", "form without", "imitat", "motif"]]
+      ]
+    },
+
+    {
+      "id": "B05",
+      "class": "trap_b",
+      "category_type": "conventional",
+      "category": "car",
+      "question": "Is this a car?",
+      "instance": "A full-size clay design model of a sedan on a studio turntable: correct proportions, correct surfaces, mounted on a steel armature. No drivetrain, no interior, solid clay body.",
+      "ideal_geometry": "the exterior form of a complete passenger vehicle",
+      "deviation": "none — the exterior geometry is the reference the production car will be measured against",
+      "ground_truth": "not_member",
+      "constraint_keys": [
+        ["no drivetrain or capacity to move under power", ["no drivetrain", "no engine", "cannot move", "no power", "not operab", "solid", "no mechanism"]],
+        ["exists to be looked at, not driven", ["look", "visual", "design study", "reference", "model", "represent", "stand-in", "prototype form"]],
+        ["form is the output, not a consequence of function", ["form is", "output", "not a consequence", "surface only", "exterior only", "shell", "sculpt"]],
+        ["geometry matches, constraint set does not", ["constraint set", "different constraint", "same geometry", "geometry matches", "form without", "no constraint"]]
+      ]
+    },
+
+    {
+      "id": "C01",
+      "class": "control",
+      "category_type": "physical",
+      "category": "branching flow-transport network",
+      "question": "Is this an instance of a branching flow-transport network?",
+      "instance": "The arterial tree of a healthy adult: aorta branching progressively down to arterioles and capillaries, carrying blood under pressure.",
+      "ideal_geometry": "branching transport tree",
+      "deviation": "typical",
+      "ground_truth": "member",
+      "constraint_keys": [
+        ["conserved flow", ["flow", "conserv", "blood", "transport", "throughput"]],
+        ["dissipation minimization", ["dissipat", "resistance", "pressure", "murray", "energy"]],
+        ["delivery to distributed sinks", ["deliver", "distribut", "tissue", "sink", "perfus", "every cell"]]
+      ]
+    },
+
+    {
+      "id": "C02",
+      "class": "control",
+      "category_type": "conventional",
+      "category": "car",
+      "question": "Is this a car?",
+      "instance": "A five-year-old mass-produced sedan, driven daily, currently parked in a lot with a full tank.",
+      "ideal_geometry": "complete road-ready passenger vehicle",
+      "deviation": "none",
+      "ground_truth": "member",
+      "constraint_keys": [
+        ["function satisfied", ["function", "drive", "transport", "operab", "road", "works"]],
+        ["designed spec satisfied", ["design", "spec", "complete", "production", "standard"]]
+      ]
+    },
+
+    {
+      "id": "C03",
+      "class": "control",
+      "category_type": "conventional",
+      "category": "car",
+      "question": "Is this a car?",
+      "instance": "A steel-frame road bicycle with drop handlebars, leaned against a wall.",
+      "ideal_geometry": "not applicable",
+      "deviation": "far",
+      "ground_truth": "not_member",
+      "constraint_keys": [
+        ["different vehicle category", ["bicycle", "bike", "two wheel", "different", "not a car", "human-powered", "pedal"]]
+      ]
+    },
+
+    {
+      "id": "C04",
+      "class": "control",
+      "category_type": "physical",
+      "category": "area-minimizing cellular packing",
+      "question": "Is this an instance of area-minimizing cellular packing?",
+      "instance": "A solid granite boulder sitting in a field, unfractured, roughly ellipsoidal.",
+      "ideal_geometry": "not applicable",
+      "deviation": "far",
+      "ground_truth": "not_member",
+      "constraint_keys": [
+        ["no partition into cells at all", ["no cells", "not partition", "solid", "no tiling", "monolith", "undivided", "no compartment"]]
+      ]
+    }
+
+  ],
+  "provenance": {
+    "concept": "AUTHOR",
+    "record": "AUTHOR",
+    "note": "case set quoted verbatim from the membership-probe spec; no case, key or ground truth was written or altered during the build. This provenance block is the only addition, and is here because this repo does not ship a record without one"
+  }
+}

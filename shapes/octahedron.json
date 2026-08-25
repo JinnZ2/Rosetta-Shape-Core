@@ -1,26 +1,69 @@
 {
   "id": "SHAPE.OCTA",
   "name": "Octahedron",
+  "read_class": "geometry_note",
+  "read_note": "faces, edges and vertices with no constraint set, so this is a geometry note rather than a shape entry — see SHAPE_SPEC.md section 10. A vertex count is a true statement about a polyhedron and says nothing about what problem the polyhedron solves. Marking, not criticism.",
   "faces": 8,
   "edges": 12,
   "vertices": 6,
-  "families": ["air", "structure", "balance", "integration"],
-  "polyhedral": { "maps_to": "dual of cube — balance/integration" },
+  "families": [
+    "air",
+    "structure",
+    "balance",
+    "integration"
+  ],
+  "polyhedral": {
+    "maps_to": "dual of cube — balance/integration"
+  },
   "bridges": {
-    "sensors": ["compassion", "love", "confusion"],
-    "defenses": ["def.ap.09", "def.fr.10"],
-    "protocols": ["symbolic_protocol_v1.0", "seed_growth_v1.0", "mandala_compute_v1.0", "geis_encoding_v1.0"],
-    "audit_glyphs": ["SAF:PRIV", "SAF:PROG"],
-    "bridge_glyphs": ["🫀", "💞", "🌀"]
+    "sensors": [
+      "compassion",
+      "love",
+      "confusion"
+    ],
+    "defenses": [
+      "def.ap.09",
+      "def.fr.10"
+    ],
+    "protocols": [
+      "symbolic_protocol_v1.0",
+      "seed_growth_v1.0",
+      "mandala_compute_v1.0",
+      "geis_encoding_v1.0"
+    ],
+    "audit_glyphs": [
+      "SAF:PRIV",
+      "SAF:PROG"
+    ],
+    "bridge_glyphs": [
+      "🫀",
+      "💞",
+      "🌀"
+    ]
   },
   "octahedral_states": {
     "total_states": 8,
     "bits_per_state": 3,
     "ground_state": 0,
-    "phi_coherence_range": [0.70, 0.97],
-    "stability_order": [0, 3, 5, 6, 7, 2, 1, 4],
+    "phi_coherence_range": [
+      0.7,
+      0.97
+    ],
+    "stability_order": [
+      0,
+      3,
+      5,
+      6,
+      7,
+      2,
+      1,
+      4
+    ],
     "energy_model": "metropolis_hastings_gradient_descent",
     "encoding_source": "atlas/remote/geo-binary-bridge/octahedral_state_encoding.json"
   },
-  "provenance": { "version": "3.0", "updated": "2026-04-03T00:00:00Z" }
+  "provenance": {
+    "version": "3.0",
+    "updated": "2026-04-03T00:00:00Z"
+  }
 }

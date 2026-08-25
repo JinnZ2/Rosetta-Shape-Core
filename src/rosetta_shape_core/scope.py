@@ -13,6 +13,15 @@ The falsification does double duty: it kills the prediction and it grades
 the token. No annotation is required for that to work — the artifact is
 testable as it stands.
 
+WHAT A SHAPE TOKEN IS HERE
+    A token in an entry names a GEOMETRY — the readout — and this module
+    grades it by reasoning from that geometry's formal properties. Under
+    SHAPE_SPEC.md section 1 the shape is the constraint set the geometry is
+    a solution to, which lives in the entry's forcing terms, not in the
+    token. The two are graded separately on purpose: a token can be adequate
+    while the constraint set is unnamed, and a constraint set can license a
+    transfer with no token at all.
+
 PRECEDENT
     Algebra is valid over discrete relations and closed forms; its boundary
     is continuous change. Calculus is valid over smooth differentiable

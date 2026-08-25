@@ -5,7 +5,7 @@ The operator stack already demands operand provenance of everything it
 looks at (gap_scan G2: a boundary traced to the apparatus rather than to a
 measurement). Shipping model-seeded content unmarked inside that stack is
 the same failure, one level up: a later reader — including anyone applying
-the reading protocol in docs/reading-protocol.md — takes every record as
+the reading protocol in READING_PROTOCOL.md — takes every record as
 authored, because nothing on the record says otherwise.
 
 So every entry, family and scan instance carries two origins:
@@ -113,7 +113,10 @@ def _collect() -> Dict[str, List[Dict[str, Any]]]:
     from rosetta_shape_core.entry import load_raw as load_entries_raw
     from rosetta_shape_core.families import FAMILIES
     from rosetta_shape_core.gap_scan import list_instances
+    from rosetta_shape_core.holding import load_raw as load_holdings_raw
+    from rosetta_shape_core.membership_probe import CASES_PATH
     from rosetta_shape_core.scope import load_observations
+    from rosetta_shape_core.shape_read import load_raw as load_shape_reads_raw
     from rosetta_shape_core.transfer import load_raw as load_transfers_raw
 
     instances = []
@@ -127,6 +130,12 @@ def _collect() -> Dict[str, List[Dict[str, Any]]]:
         "families": [{"id": f.id, "provenance": f.provenance} for f in FAMILIES.values()],
         "observations": [o.to_dict() for o in load_observations()],
         "transfers": load_transfers_raw(),
+        "holdings": load_holdings_raw(),
+        "shape reads": load_shape_reads_raw(),
+        "membership probe": ([{"id": "membership_probe",
+                               "provenance": json.loads(CASES_PATH.read_text(
+                                   encoding="utf-8")).get("provenance")}]
+                             if CASES_PATH.exists() else []),
         "gap_scan instances": instances,
     }
 

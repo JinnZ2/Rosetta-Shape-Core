@@ -1,0 +1,33 @@
+{
+  "id": "a07",
+  "rosetta_id": "ACCESS.A07",
+  "name": "internal-consistency",
+  "tier": "access",
+  "channel": "none",
+  "operation": "check held items against each other; no new input",
+  "cost": "cheap",
+  "lands_on": "refuted | unresolved",
+  "receipt_recoverable": "n/a",
+  "valid_on": [
+    "two or more holdings that make claims about the same referent or share a dimension",
+    "the holdings were not all formed the same way — correlated error is invisible to this mode"
+  ],
+  "breaks_when": [
+    "coherence read as correctness — a consistent wrong set passes",
+    "run only on holdings sharing one formation; correlated error is invisible to it",
+    "used as a substitute for residual rather than a filter before it"
+  ],
+  "sub_modes": {
+    "d1_dimensional": "units, sign, conservation. decisive when it fires.",
+    "d2_semantic": "one term carrying two referents. catches category collapse.",
+    "d3_lineage": "support graph. finds circulation and floating holdings."
+  },
+  "uptake_maintained_by": "holding enough of the set in view at once for two items to be compared, and keeping the dimensional and semantic passes in practice",
+  "uptake_decays_when": "the set grows past what can be held together, or one term's two referents become habitual enough to stop reading as two — the contradiction is still there and stops being seen",
+  "status": "marker",
+  "provenance": {
+    "concept": "AUTHOR",
+    "record": "AUTHOR",
+    "note": "id, name, channel, operation, cost, lands_on, receipt_recoverable, breaks_when, sub_modes and status are the author's text, quoted verbatim from the tier spec. valid_on, uptake_maintained_by and uptake_decays_when were written during the build — valid_on because the schema requires it and the spec's entry omitted it"
+  }
+}

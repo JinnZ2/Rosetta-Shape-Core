@@ -23,6 +23,11 @@ src/rosetta_shape_core/
   gate_log.py     T5 dated record of what a name had to get past
   transfer.py     Outcomes: what happened when a move was actually carried over
   lid_import.py   Import scoped attributes from Living-Intelligence-Database as entries
+  tier_check.py   Domains of the world (f01–f20) vs ways of knowing (a01…)
+  holding.py      Contact log in, trajectories out — decay/circulation/ossification
+  curiosity.py    Allocator: which expensive contact gets paid for, plus the offset
+  shape_read.py   SHAPE = the constraint set a geometry solves (see SHAPE_SPEC.md)
+  membership_probe.py  Does a responder judge by geometry or by constraint set?
   provenance.py   Where this repo's own records came from (AUTHOR/SPEC/MODEL/PUBLIC)
   gap_scan.py     3rd axis (cross-INSTANCE): 4 gap shape classes over an explanatory frame
   bloom.py        Entry point: seed → sprout → branch exploration depths
@@ -39,7 +44,7 @@ src/rosetta_shape_core/
   first_principles_audit.py  Deep axiom verification
 data/rosetta/     Entries (6 hand-written + 225 imported), observations, transfers,
                   gate log, closed gap_scan instances
-tests/            739 tests (pytest)
+tests/            850 tests (pytest)
 ```
 
 ## Essential Commands
@@ -82,6 +87,14 @@ python -m rosetta_shape_core.scope --classify HEXAGON        # grade a shape tok
 python -m rosetta_shape_core.gate_log --summary
 python -m rosetta_shape_core.provenance --audit              # anything unmarked?
 python -m rosetta_shape_core.provenance --summary            # origin counts per set
+python -m rosetta_shape_core.tier_check                       # ways of knowing in the family set?
+python -m rosetta_shape_core.holding --trajectories           # computed on read, never stored
+python -m rosetta_shape_core.holding --gaps                   # which operator reaches which gap
+python -m rosetta_shape_core.curiosity --allocate --budget 10
+python -m rosetta_shape_core.shape_read --classify-shapes    # entry, or geometry note?
+python -m rosetta_shape_core.shape_read --audit
+python -m rosetta_shape_core.membership_probe --cases
+python -m rosetta_shape_core.membership_probe --blank --seed 7 > form.json
 python -m rosetta_shape_core.gap_scan --example clockwork
 ```
 
@@ -103,8 +116,9 @@ Dot-namespaced: `NAMESPACE.NAME` (uppercase). Example: `ANIMAL.BEE`, `SHAPE.OCTA
 | EMOTION | Emotion-as-sensor archetypes | Emotions-as-Sensors |
 | DEFENSE | Symbolic defense patterns | Symbolic-Defense-Protocol |
 | REGEN | Regenerative patterns | Regenerative-Intelligence-Core |
-| FAMILY | Equation families F01–F21 (icosahedron) | Rosetta (`ontology/families/`) |
+| FAMILY | Equation families F01–F20 (icosahedron) — domains OF the world | Rosetta (`ontology/families/`) |
 | PRINCIPLE | Principles P01–P12 (dodecahedron) | Rosetta (`ontology/principles/`) |
+| ACCESS | Access modes a01… — ways of knowing. Open tier, no count implied | Rosetta (`ontology/access/`) |
 
 ### Shapes (5 Platonic + 1 emergent)
 
@@ -199,6 +213,34 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 4. Add to `merge.order`
 5. Run `self_audit` (CLEAN) + `validate_ontology.py` (OK)
 
+## Three specs at the root, read in order
+
+| | |
+|---|---|
+| `METHOD_SPEC.md` | epistemic class. Read before evaluating anything here as a claim |
+| `SHAPE_SPEC.md` | definition, read order, removal test |
+| `READING_PROTOCOL.md` | marker status, blocked conflations |
+
+**Constraint-set reasoning is a METHOD**, in the class of the scientific
+method and dimensional analysis. A method is not falsifiable and does not
+need to be — it is evaluated on yield. The falsifiable layer is the
+individual read, which is why every shape entry carries a removal test.
+Demanding falsifiability of the procedure is a category error; the same
+objection stated against the scientific method ("it always resolves to 'the
+experiment was confounded'") is visibly wrong.
+
+## SHAPE means one thing
+
+`SHAPE_SPEC.md` at the repo root is the definition and is upstream of every
+repo in the ecosystem that uses the word. **A SHAPE is the constraint set a
+geometry is a solution to** — not the geometry, not the picture, not the name
+the field gave it. Point at that file rather than restating it.
+
+Consequence for this repo: `shapes/*.json` are geometry notes (marked in the
+files), `data/rosetta/shape_reads.jsonl` holds shape entries, and the
+operator's `forcing_terms` are a constraint set — which is why licensing on
+them is licensing on the shape rather than on the readout.
+
 ## Do Not
 
 - Break JSON Schema 2020-12 compatibility
@@ -223,3 +265,35 @@ JSONL, one rule per line. Sorted by descending `priority`; first match wins. Opt
 - License a transfer on a shared term that sets neither configuration (SHARED_PRESENT)
 - Treat the nine seeded families as the author's set; they are SPEC-derived
   stand-ins pending it
+- File a way of knowing in `ontology/families/` — f01–f20 are domains OF the
+  world; a domain of representations of it is the access tier (`tier_check`)
+- Ship an access entry with a null `breaks_when` — with no stated break point
+  it is a preference, not an access mode
+- Give the access tier a face assignment, a fixed count, or a polytope closure;
+  it admits new members without restructuring, and that is the requirement
+- Separate two access modes on cost alone — a01 and a03 share the signature;
+  `receipt_recoverable` is the discriminator and is required when cheap+measured
+- Write a trajectory into a holding record — they are computed on read, and a
+  stored one is a judgement frozen at write time
+- Default `decay_class` to d1, or read an unknown `referent_rate` as slow
+- Allocate curiosity entirely to the flag queue; it reaches KNOWN_MISSING only,
+  and the offset is what reaches an axis nothing in the record marks
+- Use "shape" for a geometry. The geometry is the readout and the QUESTION;
+  the shape is the constraint set it solves (`SHAPE_SPEC.md` §1)
+- Call a record a shape entry without a removal test — it is a geometry note,
+  and must be marked as one (`SHAPE_SPEC.md` §10)
+- Read an external, heterogeneous constraint's geometry as an optimum; it is a
+  transcript of terrain (§5)
+- State a constraint as a cost. The measurable quantity is dissipation — work
+  lost per unit delivered, in joules (SHAPE_SPEC §9)
+- Demand that the METHOD be falsifiable — that is a category error; the
+  removal test per read is where refutation happens (METHOD_SPEC §1)
+- Raise a read's confidence on recurrence count. More instances sharing the
+  geometry with no constraint set checked is not an upgrade (METHOD_SPEC §5)
+- Report a disappearance as a failed pattern. It is the constraint set being
+  changed; the timestamp bounds the candidates (METHOD_SPEC §3)
+- Report a null over an excluded domain as absence — it is untested by
+  construction (METHOD_SPEC §3)
+- Run a consistency check over a shadow read's tangents and report the
+  apparent conflicts. They are tangents to one boundary, not competing
+  claims (METHOD_SPEC §4)

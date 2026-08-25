@@ -204,6 +204,25 @@
         ]
       },
       "description": "How finished each field is. A record with a hole in it is not the same as a record with a guess in it. A required field left empty is an error unless marked OPEN, UNKNOWN or CONDITIONAL. Checked both ways: OPEN and UNKNOWN require the field to be empty, PARTIAL and DUE_FOR_UPDATE require it filled. Orthogonal to provenance — provenance says where a record came from, status says how finished it is."
+    },
+    "domain": {
+      "type": "string",
+      "pattern": "^f(0[1-9]|1[0-9]|20)$",
+      "description": "The domain OF the world this reading is in, f01..f20. A way of knowing is a different tier and goes in `access`; see schema/access.schema.json."
+    },
+    "access": {
+      "type": "string",
+      "pattern": "^a[0-9]{2}$",
+      "description": "The access mode this reading was reached by, a01.. . Claiming a domain and naming no access is reported by tier_check."
+    },
+    "acquired": {
+      "type": "string",
+      "enum": [
+        "residual",
+        "transmitted",
+        "unmarked"
+      ],
+      "description": "residual: the world pushed back on your own reading. transmitted: taught or given, carrying the source's observer without the receipts. unmarked: not recorded — a legitimate value, expected to dominate, and never backfilled with a guess. An absent field reads as unmarked."
     }
   }
 }

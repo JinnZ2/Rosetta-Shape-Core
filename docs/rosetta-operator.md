@@ -391,7 +391,7 @@ instance with none fails to load.
 
 For artifacts that predate this marking — and for anything arriving from
 outside the repo — the recovery method is
-[`docs/reading-protocol.md`](reading-protocol.md): read an artifact against
+[`READING_PROTOCOL.md`](../READING_PROTOCOL.md): read an artifact against
 the constraint set operating at its date, using the signatures each
 constraint leaves.
 
