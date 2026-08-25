@@ -1,8 +1,8 @@
 # AI Notes
 
-- Files indexed: 304
+- Files indexed: 322
 - Languages: json, md, python, toml, yaml
-- Hotspot files: 83
+- Hotspot files: 87
 
 ## Hotspots
 - examples/mandala_basins.py: fieldlink
@@ -65,15 +65,19 @@
 - bridges/soms-bridge.json: entity-id
 - bridges/shadow-hunting-bridge.json: entity-id
 - bridges/living-intelligence-bridge.json: entity-id, fieldlink
+- schema/membership_probe.schema.json: schema-ref
 - schema/gate_log.schema.json: schema-ref
 - schema/bridge.schema.json: schema-ref
 - schema/core.schema.json: schema-ref
 - schema/rosetta_entry.schema.json: schema-ref
 - schema/ai_index.schema.json: schema-ref
+- schema/holding.schema.json: schema-ref
 - schema/shape.schema.json: schema-ref
 - schema/shape.seed.schema.json: schema-ref
+- schema/shape_read.schema.json: schema-ref
 - schema/rule.schema.json: schema-ref
 - schema/transfer.schema.json: schema-ref
+- schema/access.schema.json: schema-ref
 - schema/adaptive_run.schema.json: schema-ref
 - ai_integrator.config.yaml: fieldlink, schema-ref, todo
 - CLAUDE.md: entity-id, fieldlink

@@ -45,6 +45,7 @@
 ./examples
 ./logs
 ./ontology
+./ontology/access
 ./ontology/families
 ./ontology/principles
 ./prompts

@@ -1,6 +1,6 @@
 {
   "repo": "Rosetta-Shape-Core",
-  "generated_at": "2026-08-24T02:47:03.542680Z",
+  "generated_at": "2026-08-25T04:33:10.992151Z",
   "languages": [
     "json",
     "md",
@@ -294,8 +294,18 @@
     {
       "path": "src/rosetta_shape_core/rosetta.py",
       "lang": "python",
-      "size": 21385,
-      "hash": "017c3e66f90c5175eb486b1128f786d0a8933328",
+      "size": 22171,
+      "hash": "2858ed5340c22e0dd83080c82b9b110018654a94",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/curiosity.py",
+      "lang": "python",
+      "size": 12334,
+      "hash": "b5dd10f1658783257a0414c068533688b2bb1d0b",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -368,7 +378,7 @@
       "path": "src/rosetta_shape_core/_shadows.py",
       "lang": "python",
       "size": 15080,
-      "hash": "16993dd044bdecf86d90972619b471eb52153699",
+      "hash": "25a23fd90556fbbc665fb925c34272a4b0d6e2d9",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -387,8 +397,8 @@
     {
       "path": "src/rosetta_shape_core/provenance.py",
       "lang": "python",
-      "size": 9017,
-      "hash": "7f3839944c52468e91842ad455ce7504355c4080",
+      "size": 9586,
+      "hash": "61bc1ba1acd7909258d72bb57406ccf5dd5cef62",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -418,7 +428,7 @@
       "path": "src/rosetta_shape_core/_sensors.py",
       "lang": "python",
       "size": 10486,
-      "hash": "0fc48a3b79f4a9f6432b3d931ae90da22e91cf3c",
+      "hash": "be60a737e1ae8e060b2b216cc4b0edc579b40918",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -477,6 +487,36 @@
       "hotspots": [
         "fieldlink"
       ]
+    },
+    {
+      "path": "src/rosetta_shape_core/shape_read.py",
+      "lang": "python",
+      "size": 34212,
+      "hash": "6d771ca22aae79de4e53eec2692fcc4652ff64c4",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/holding.py",
+      "lang": "python",
+      "size": 29289,
+      "hash": "3d805ac13f8bd9287f3bc006cb52f9aa983bfddd",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/tier_check.py",
+      "lang": "python",
+      "size": 19329,
+      "hash": "5b7dbd0d4d43243cb413ebc3ccbfa6c25254ed0c",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
     },
     {
       "path": "src/rosetta_shape_core/first_principles_audit.py",
@@ -544,7 +584,7 @@
       "path": "src/rosetta_shape_core/_seed.py",
       "lang": "python",
       "size": 3646,
-      "hash": "5ccf11a53e4b6820bf3fb28659341ab3f893ee2c",
+      "hash": "7c28d7cfbb9fd24a1d798ffe2dac7609f23c6fee",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -555,6 +595,16 @@
       "lang": "python",
       "size": 14713,
       "hash": "a8e810761711eb87117b5f2765b8be71ef0ff9fa",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "src/rosetta_shape_core/membership_probe.py",
+      "lang": "python",
+      "size": 23168,
+      "hash": "ef3dd36d42847fef7ca7b0ed79fa29f886b9d6cf",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -573,8 +623,8 @@
     {
       "path": "src/rosetta_shape_core/scope.py",
       "lang": "python",
-      "size": 27244,
-      "hash": "83768729a5061e3b002c9f24304d6e17b050c3dd",
+      "size": 27758,
+      "hash": "2938a7bbd131c46cc22d96ae3bbab439f9c28eef",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -593,8 +643,8 @@
     {
       "path": "src/rosetta_shape_core/entry.py",
       "lang": "python",
-      "size": 28913,
-      "hash": "c78941094595846dce38a2c1a04488b8fe7f570c",
+      "size": 31931,
+      "hash": "34cb14a13130191dde5263488315566542bed0c4",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -660,8 +710,8 @@
     {
       "path": "tests/test_rosetta_operator.py",
       "lang": "python",
-      "size": 44306,
-      "hash": "d334a91f5abba245a204b3a6d52fd390a5f5db3b",
+      "size": 79470,
+      "hash": "10f988021fa905b459794e08751de579d1c51d30",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -670,8 +720,8 @@
     {
       "path": "tests/test_explore.py",
       "lang": "python",
-      "size": 8395,
-      "hash": "5ae0618f46560874ca204b1d096d91cfcc62991d",
+      "size": 8788,
+      "hash": "8941ff4da58995366fbdeaa53c5947d3255d18b3",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -712,8 +762,8 @@
     {
       "path": "tests/test_bloom.py",
       "lang": "python",
-      "size": 3448,
-      "hash": "2a3ad48bc3dfc319f2276e4c26f2607f931811aa",
+      "size": 3489,
+      "hash": "f51196543ab3cfb0af999cbd33c78f8868e7a836",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -983,8 +1033,8 @@
     {
       "path": "AI_INDEX.json",
       "lang": "json",
-      "size": 77787,
-      "hash": "bce694a373a8dfc58ecf81a2b26cede84761b873",
+      "size": 78009,
+      "hash": "eb78b3db54f64a13921a31710e44f4c898bc27b8",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -1848,8 +1898,8 @@
     {
       "path": "ontology/family_map.json",
       "lang": "json",
-      "size": 25599,
-      "hash": "578b9eca181efd08602ed2e84f24ff9d72abd5d7",
+      "size": 28407,
+      "hash": "991ee797b5ff30678e51a9663e60afeb62fb5e7a",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -1870,8 +1920,8 @@
     {
       "path": "ontology/index.json",
       "lang": "json",
-      "size": 7488,
-      "hash": "7d0ae49e338cf7063aa91cd17d2e445f2a15366d",
+      "size": 10832,
+      "hash": "03b95052327e367d7ac233903402fdf8e0c4bf79",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -1880,8 +1930,8 @@
     {
       "path": "ontology/_id_registry.json",
       "lang": "json",
-      "size": 2370,
-      "hash": "e22198cadb24d3f2f069179005200bbb83bda41e",
+      "size": 3024,
+      "hash": "04c3d19646feceb91e603c2d6523c5be0abe3969",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -1904,6 +1954,46 @@
       "lang": "json",
       "size": 1394,
       "hash": "48924c1f2d6457902b5df7f43007377f933d516b",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/access/a03-transmission.json",
+      "lang": "json",
+      "size": 2346,
+      "hash": "5d81cae5607fcc1c817bb437c6d824f55141f966",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/access/a01-narrative-constraint.json",
+      "lang": "json",
+      "size": 3095,
+      "hash": "a9afbe6a2625fe719719a5a846622bb87aa11f23",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/access/a07-internal-consistency.json",
+      "lang": "json",
+      "size": 1793,
+      "hash": "64ac13e58ccdbf07685dcd1a8d272ffa45344036",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "ontology/access/_candidates.json",
+      "lang": "json",
+      "size": 1542,
+      "hash": "7115eafd204da0d4e8d2f0db486501754235d377",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2054,16 +2144,6 @@
       "lang": "json",
       "size": 6899,
       "hash": "745b6aca26ecafeb6504f12c68d274caf6b22eb4",
-      "roles": [],
-      "imports": [],
-      "exports": [],
-      "hotspots": []
-    },
-    {
-      "path": "ontology/families/f21-narrative-constraint.json",
-      "lang": "json",
-      "size": 1233,
-      "hash": "a8371a5699486fb6ddc4a0a2443c1aebd8c00e3e",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2300,8 +2380,8 @@
     {
       "path": "shapes/dodecahedron.json",
       "lang": "json",
-      "size": 762,
-      "hash": "225ae1efb1892e2b0980f7ab82d2377c49b72131",
+      "size": 1288,
+      "hash": "9fa5de79d446cc938062c63c95022f06b0afba47",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2310,8 +2390,8 @@
     {
       "path": "shapes/cube.json",
       "lang": "json",
-      "size": 575,
-      "hash": "3241bad37876d32e7535d427e78462ef90ccfeb5",
+      "size": 1044,
+      "hash": "4bf1d39381bbb14487969fc03da55544201a7a02",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2320,8 +2400,8 @@
     {
       "path": "shapes/octahedron.json",
       "lang": "json",
-      "size": 958,
-      "hash": "7feebb1da9c4f07f25e8df921cccc966bfcd164f",
+      "size": 1504,
+      "hash": "79edc1431ebfc3ac76652533b32ee3e4bf7dffa1",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2330,8 +2410,8 @@
     {
       "path": "shapes/icosahedron.json",
       "lang": "json",
-      "size": 810,
-      "hash": "5f8da824a3027e394de8801bbc94c8cd628ae912",
+      "size": 1364,
+      "hash": "a5f69886d3752fa551bfb3ee7e3976f54c47e259",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2340,8 +2420,8 @@
     {
       "path": "shapes/tetrahedron.json",
       "lang": "json",
-      "size": 468,
-      "hash": "a7c0b67dcbddd3d322862101d3706317384631c9",
+      "size": 895,
+      "hash": "cfcfe15ae5baca154a2b06f219d56813b783e584",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2350,8 +2430,8 @@
     {
       "path": "shapes/relief.json",
       "lang": "json",
-      "size": 10146,
-      "hash": "5970f677a483affb2cca33c9c23ecb420f133abf",
+      "size": 10550,
+      "hash": "5bfbfc4cb1d5a707a63517e95ce5857ca37e8131",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2492,6 +2572,16 @@
       "lang": "json",
       "size": 16005,
       "hash": "2ebe6ac4da2903f47e6eff46ef3d6173237754ab",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "data/rosetta/membership_probe.json",
+      "lang": "json",
+      "size": 18148,
+      "hash": "c15a43b2d6e787f81474481c6152322e1b20ab03",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2727,6 +2817,18 @@
       "hotspots": []
     },
     {
+      "path": "schema/membership_probe.schema.json",
+      "lang": "json",
+      "size": 3425,
+      "hash": "b39382cb85581b683b12bc1331a86960d2e602be",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
       "path": "schema/gate_log.schema.json",
       "lang": "json",
       "size": 1406,
@@ -2765,8 +2867,8 @@
     {
       "path": "schema/rosetta_entry.schema.json",
       "lang": "json",
-      "size": 7301,
-      "hash": "f29e6c0f0e6bc2fc0c3237b12db9d7888a5f76fc",
+      "size": 8212,
+      "hash": "10331ca05608a931ac426459b8bc4022dc58128b",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2787,10 +2889,22 @@
       ]
     },
     {
+      "path": "schema/holding.schema.json",
+      "lang": "json",
+      "size": 4394,
+      "hash": "f01bcfb96797f560fbb630a4a817b42025a14004",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
       "path": "schema/shape.schema.json",
       "lang": "json",
-      "size": 3456,
-      "hash": "bb61217ccb0639afec135a167863a9b2a60dd10f",
+      "size": 5087,
+      "hash": "bfa88bec0c4edf41f59ce3b4e846c7404e78ccc9",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2803,6 +2917,18 @@
       "lang": "json",
       "size": 3396,
       "hash": "17f9aacfe75f54aa771d9c33ab637ec02f92becb",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "schema/shape_read.schema.json",
+      "lang": "json",
+      "size": 11034,
+      "hash": "1c9a5a7d115045ba23f3fe4f312c8df4a6254cf1",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2827,6 +2953,18 @@
       "lang": "json",
       "size": 2843,
       "hash": "ea0ac07d8dfe6675661f13508f1a52f270810e71",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": [
+        "schema-ref"
+      ]
+    },
+    {
+      "path": "schema/access.schema.json",
+      "lang": "json",
+      "size": 7709,
+      "hash": "4226e988620fed7099a0f57bc64a5d5ee22a93d6",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2893,8 +3031,8 @@
     {
       "path": "CLAUDE.md",
       "lang": "md",
-      "size": 13156,
-      "hash": "4fc9d1442682be53f7c668ac8546bdc4d3cd7dfe",
+      "size": 17864,
+      "hash": "b71bbc13b7728ebd938ae40dc6c92493d54dfca2",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2907,7 +3045,7 @@
       "path": "AI_NOTES.md",
       "lang": "md",
       "size": 4112,
-      "hash": "6a224fa3cc96f4304a1f1020e40535ea28a1ac9f",
+      "hash": "24b55b23e36f2db0ab856ada82ccb1c32411591f",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2917,10 +3055,20 @@
       ]
     },
     {
+      "path": "METHOD_SPEC.md",
+      "lang": "md",
+      "size": 8222,
+      "hash": "8f3c2a3403d3a9ac12539a440228969025b1010a",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
       "path": "FILE_LIST.md",
       "lang": "md",
-      "size": 12754,
-      "hash": "4f178a31d659d9b769b325f8e9f43ad1783485bd",
+      "size": 12768,
+      "hash": "72d439304437733a1e29fe5a9e17774a652e2567",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2931,8 +3079,8 @@
     {
       "path": "README.md",
       "lang": "md",
-      "size": 5852,
-      "hash": "f65e0a4787c683290635194575c710838c611cc6",
+      "size": 6445,
+      "hash": "a26cdeff956daeef9075979c5f0cb1bc98ff4907",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2947,6 +3095,26 @@
       "lang": "md",
       "size": 1219,
       "hash": "db85bc328d5c065cc49b3df82217a748ef8e55f4",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "READING_PROTOCOL.md",
+      "lang": "md",
+      "size": 6911,
+      "hash": "dad12a49d876c0ecf413e148c0b04ebcc053125f",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "SHAPE_SPEC.md",
+      "lang": "md",
+      "size": 7771,
+      "hash": "6aa118abbeeb6b09ebf94cb8ea6bbcebefd22df4",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -2987,8 +3155,8 @@
     {
       "path": "docs/rosetta-operator.md",
       "lang": "md",
-      "size": 21506,
-      "hash": "b01fb0251ee407978b018dba1e07040c8522d44f",
+      "size": 21504,
+      "hash": "cfe98fb35b75f51bf5a48b1e756437b0afbd48be",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -3039,6 +3207,16 @@
       "lang": "md",
       "size": 991,
       "hash": "2bc0a86ed05caee2c65148238f9e605cf70026ce",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/membership-probe.md",
+      "lang": "md",
+      "size": 3893,
+      "hash": "b511f0d3a4e1a5d83be8d46a9e0e9f7de0a1fe8b",
       "roles": [],
       "imports": [],
       "exports": [],
@@ -3139,6 +3317,26 @@
       "hotspots": []
     },
     {
+      "path": "docs/tier-separation.md",
+      "lang": "md",
+      "size": 13896,
+      "hash": "becaac7a9f75fdc1e7cba0f22429514ef31543fa",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
+      "path": "docs/shape-reads.md",
+      "lang": "md",
+      "size": 5775,
+      "hash": "27318c3ac388613d475cc499415e460ac80fdcc7",
+      "roles": [],
+      "imports": [],
+      "exports": [],
+      "hotspots": []
+    },
+    {
       "path": "docs/to-do-list.md",
       "lang": "md",
       "size": 728,
@@ -3149,16 +3347,6 @@
       "hotspots": [
         "entity-id"
       ]
-    },
-    {
-      "path": "docs/reading-protocol.md",
-      "lang": "md",
-      "size": 3560,
-      "hash": "b4339ed7b8998d01984a3ad92f73d5ea1d0bb305",
-      "roles": [],
-      "imports": [],
-      "exports": [],
-      "hotspots": []
     },
     {
       "path": "docs/unified-pattern-bridge-schema.md",
@@ -3212,8 +3400,8 @@
     {
       "path": "pyproject.toml",
       "lang": "toml",
-      "size": 1900,
-      "hash": "b52359fc4e0b883cd8784b13c8bb970d0d64a774",
+      "size": 2194,
+      "hash": "603ae49bf33ad62b2d4e2ed28da310227e0be291",
       "roles": [],
       "imports": [],
       "exports": [],
