@@ -44,6 +44,7 @@
 ./docs
 ./examples
 ./logs
+./memory-archive
 ./ontology
 ./ontology/access
 ./ontology/families

@@ -17,6 +17,7 @@
 ./METHOD_SPEC.md
 ./READING_PROTOCOL.md
 ./README.md
+./READ_ME_THIS_WAY.md
 ./SHAPE_SPEC.md
 ./TOUCH_THIS_FIRST.md
 ./ai_integrator.config.yaml
@@ -216,6 +217,7 @@
 ./fieldlink-pull.sh
 ./geometric_computation_selector_v2.py
 ./logs/fieldlink_lock_20250911.json
+./memory-archive/README.md
 ./next_tasks.unified.json
 ./ontology/_id_registry.json
 ./ontology/_vocab.json
