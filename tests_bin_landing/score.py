@@ -199,12 +199,12 @@ class LayoutRefused(Exception):
     pass
 
 
-def parse_answers(path):
+def parse_answers(path, code_pattern=r"run code:\s*(S\d+-[0-9A-F]{6})"):
     """-> list of (run_code, item_no, text). Layout per amendment 2: HEADER (run code above its
     items) or FOOTER (run code below its items), chosen by line position only; a file with items
     both before the first and after the last run code raises LayoutRefused (AMBIGUOUS_LAYOUT)."""
     lines = open(path, encoding="utf-8").read().splitlines()
-    code_rx = re.compile(r"run code:\s*(S\d+-[0-9A-F]{6})")
+    code_rx = re.compile(code_pattern)
     item_rx = re.compile(r"\s*\**\s*Item\s+(\d+)\s*\**\s*[:.\-)]\s*(.*)$")
     # segment the file at run-code lines: segments[i] = item records between code i-1 and code i
     segments, codes, cur, seg = [], [], None, []
