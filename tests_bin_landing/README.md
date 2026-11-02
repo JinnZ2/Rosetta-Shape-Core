@@ -11,6 +11,7 @@ The design, word lists and decision rules are in [`PREREG.md`](PREREG.md), commi
 ```text
 PREREG.md               pre-registration: design, bins, word lists, kappa rule, scope
 PREREG_AMENDMENT_1.md   conditions A / E / C, contexts E and C (verbatim), P1-P5, scorer features
+PREREG_AMENDMENT_2.md   answer-file layout: run code above (HEADER) or below (FOOTER) its reply; mixed = refused
 stimuli.json            24 stimuli x 3 glyph styles (pinned by sha256 in PREREG.md)
 prompts/                27 packets = 3 sets x 3 conditions x 3 styles; key.json maps run code -> design
 prompts/PILOT.txt       the 9 SHAPE packets (all sets, all conditions): run these first
@@ -34,7 +35,7 @@ No stimulus carries a human name for what it is. No answer-key term appears in a
 
 1. **Pick a set.** Start with the pilot list in `prompts/PILOT.txt`. Then take set 1, 2 or 3 from `prompts/`; each set holds nine files, named by run code. Do not run anything in `prompts/retired/`.
 2. **One packet per fresh conversation.** Use a new chat with memory off and no other context, one packet each. Paste the whole file and send it.
-3. **Collect the answer.** Copy the model's reply into `answers/<model>_<date>.txt`, for example `answers/modelX_2026-11-03.txt`. Put the packet's run code line (`run code: S1-xxxxxx`) above that reply. One answer file can hold all six packets in a row.
+3. **Collect the answer.** Copy the model's reply into `answers/<model>_<date>.txt`, for example `answers/modelX_2026-11-03.txt`. Put the packet's run code line (`run code: S1-xxxxxx`) either above every reply or below every reply, the same way throughout the file (amendment 2). One answer file can hold several packets in a row.
 4. **Say what you know about the model.** If it may have read this repository, write `contaminated: possibly` at the top of the answer file.
 
 Answers must keep the `Item N:` labels. Items the model skips are counted as MISSING. They are not counted as wrong.
@@ -84,4 +85,11 @@ This prints Cohen's kappa and the confusion matrix. Below 0.6, the script's bins
 
 ## Status
 
-No run has been made. `answers/` is empty. Nothing here says anything yet about any model.
+**PILOT, one model.** [`PILOT_RESULTS_deepseek_2026-11-02.md`](PILOT_RESULTS_deepseek_2026-11-02.md) covers the 9 SHAPE packets, n = 72 answers per condition.
+- **Supported:** P1 E>A and P3' E>A.
+- **Not supported:** P1 C>A, P3' C>A, P4 E>A and P4 C>A.
+- **P5:** C vs E differs only on the P3' rate, E > C.
+- **Not testable:** P2, since only one style was run.
+- **Kappa:** not yet run.
+
+Nothing here says anything about any other model.
