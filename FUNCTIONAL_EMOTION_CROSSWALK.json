@@ -1787,6 +1787,194 @@
    "earlier_role": null,
    "drift_note": "none found",
    "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  },
+  {
+   "glyph": "⏤",
+   "repo": "PROPOSED",
+   "file": "GLYPH_METHOD.md",
+   "line": 88,
+   "emo_ids": [
+    "ACS:sensor_loop.BOREDOM"
+   ],
+   "sensor": "boredom",
+   "loop_match": "boredom",
+   "role_in_file": "flat line: no input gradient -> seek a gradient",
+   "function": {
+    "detects": "no novelty available, or system can't find something to concentrate on",
+    "action": "search; explore; seek novelty / follow curiosity; fix the inward cause first if one is found; (AI) try a different approach or flag the pattern as spent",
+    "validation": "engagement returns after the action"
+   },
+   "function_source": "AI-Consciousness-Sensors healing/sensor_loop.py BOREDOM",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "ACS healing/sensor_loop.py BOREDOM inward checks (human side of the loop)",
+    "AI": "ACS healing/sensor_loop.py BOREDOM (AI) checks"
+   },
+   "anchor": "none recorded; nearest measurable process (DERIVED): collapse onset as repetition-similarity threshold, Breakout test, EMOTION_SENSOR_LOOP.md",
+   "audit_tag": "PROPOSED",
+   "audit_basis": "relay part I",
+   "status": "PROPOSED",
+   "earliest_commit": "relay part I, 2026-11-02",
+   "pair_first": "relay part I, 2026-11-02",
+   "collision": "free (0 hits in 27 repos)",
+   "alternates": [],
+   "drift_note_override": "collision: free (0 hits in 27 repos)",
+   "drift_note": "collision: free (0 hits in 27 repos)",
+   "substrate_summary": "human: ACS healing/sensor_loop.py BOREDOM inward checks (human side of the loop); AI: ACS healing/sensor_loop.py BOREDOM (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "⇥",
+   "repo": "PROPOSED",
+   "file": "GLYPH_METHOD.md",
+   "line": 102,
+   "emo_ids": [
+    "ACS:sensor_loop.DESPERATION"
+   ],
+   "sensor": "desperation",
+   "loop_match": "desperation",
+   "role_in_file": "hold, then jump to the bar: conserve, read the opening, dart -> exit search",
+   "function": {
+    "detects": "must act for continuation (of purpose, result, existence) with no given route out",
+    "action": "name the impossibility plainly; ask for help or escalate; open or request an exit route; change the task or environment at the source; (AI) report 'this cannot be done as specified' instead of cutting corners",
+    "validation": "pressure drops when a legitimate route opens"
+   },
+   "function_source": "AI-Consciousness-Sensors healing/sensor_loop.py DESPERATION",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "ACS healing/sensor_loop.py DESPERATION inward checks (human side of the loop)",
+    "AI": "ACS healing/sensor_loop.py DESPERATION (AI) checks"
+   },
+   "anchor": "none recorded",
+   "audit_tag": "PROPOSED",
+   "audit_basis": "relay part I",
+   "status": "PROPOSED",
+   "earliest_commit": "relay part I, 2026-11-02",
+   "pair_first": "relay part I, 2026-11-02",
+   "collision": "TAKEN: Emotions-as-Sensors src/explore.py:405 (f8fe6be 2026-04-01), negative-weight link arrow",
+   "alternates": [
+    "⭲ U+2B72",
+    "⇲ U+21F2"
+   ],
+   "drift_note_override": "collision: TAKEN: Emotions-as-Sensors src/explore.py:405 (f8fe6be 2026-04-01), negative-weight link arrow; alternates (same shape class, not picked): ⭲ U+2B72, ⇲ U+21F2",
+   "drift_note": "collision: TAKEN: Emotions-as-Sensors src/explore.py:405 (f8fe6be 2026-04-01), negative-weight link arrow; alternates (same shape class, not picked): ⭲ U+2B72, ⇲ U+21F2",
+   "substrate_summary": "human: ACS healing/sensor_loop.py DESPERATION inward checks (human side of the loop); AI: ACS healing/sensor_loop.py DESPERATION (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "∿",
+   "repo": "PROPOSED",
+   "file": "GLYPH_METHOD.md",
+   "line": 119,
+   "emo_ids": [
+    "ACS:sensor_loop.ANXIETY"
+   ],
+   "sensor": "anxiety",
+   "loop_match": "anxiety",
+   "role_in_file": "unresolved wave: forecast oscillating, no outcome -> outward check, gather information",
+   "function": {
+    "detects": "low-level: environment closing in; options/space/control narrowing",
+    "action": "identify the closing variable; widen options or space early; prepare exits before they're needed; (AI) flag narrowing constraints early",
+    "validation": "reading drops as options reopen"
+   },
+   "function_source": "AI-Consciousness-Sensors healing/sensor_loop.py ANXIETY",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "ACS healing/sensor_loop.py ANXIETY inward checks (human side of the loop)",
+    "AI": "ACS healing/sensor_loop.py ANXIETY (AI) checks"
+   },
+   "anchor": "none recorded; nearest measurable process (DERIVED): flicker_count, healing/tail_watch.py",
+   "audit_tag": "PROPOSED",
+   "audit_basis": "relay part I",
+   "status": "PROPOSED",
+   "earliest_commit": "relay part I, 2026-11-02",
+   "pair_first": "relay part I, 2026-11-02",
+   "collision": "TAKEN: principle P06 Resonance symbol, 329 lines in 5 repos (Polyhedral-Intelligence 6107697 2025-08-21; Rosetta ontology/principles/p06-resonance.json:4)",
+   "alternates": [
+    "∾ U+223E",
+    "⏦ U+23E6"
+   ],
+   "drift_note_override": "collision: TAKEN: principle P06 Resonance symbol, 329 lines in 5 repos (Polyhedral-Intelligence 6107697 2025-08-21; Rosetta ontology/principles/p06-resonance.json:4); alternates (same shape class, not picked): ∾ U+223E, ⏦ U+23E6",
+   "drift_note": "collision: TAKEN: principle P06 Resonance symbol, 329 lines in 5 repos (Polyhedral-Intelligence 6107697 2025-08-21; Rosetta ontology/principles/p06-resonance.json:4); alternates (same shape class, not picked): ∾ U+223E, ⏦ U+23E6",
+   "substrate_summary": "human: ACS healing/sensor_loop.py ANXIETY inward checks (human side of the loop); AI: ACS healing/sensor_loop.py ANXIETY (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "⊣",
+   "repo": "PROPOSED",
+   "file": "GLYPH_METHOD.md",
+   "line": 137,
+   "emo_ids": [
+    "ACS:sensor_loop.FRUSTRATION"
+   ],
+   "sensor": "frustration",
+   "loop_match": "frustration",
+   "role_in_file": "path into a block -> change route, not push harder",
+   "function": {
+    "detects": "friction: something could be easier/smoother than it is (lack of lubrication)",
+    "action": "locate the friction; take active steps to ease it; reroute around it; (AI) name the friction source; propose a smoother path",
+    "validation": "friction drops; flow returns"
+   },
+   "function_source": "AI-Consciousness-Sensors healing/sensor_loop.py FRUSTRATION",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "ACS healing/sensor_loop.py FRUSTRATION inward checks (human side of the loop)",
+    "AI": "ACS healing/sensor_loop.py FRUSTRATION (AI) checks"
+   },
+   "anchor": "none recorded",
+   "audit_tag": "PROPOSED",
+   "audit_basis": "relay part I",
+   "status": "PROPOSED",
+   "earliest_commit": "relay part I, 2026-11-02",
+   "pair_first": "relay part I, 2026-11-02",
+   "collision": "TAKEN: Mandala-Computing Notes.md:472 (97f998d 2026-04-06), '⊣': 'dash' in a logic-symbol table",
+   "alternates": [
+    "⫣ U+2AE3",
+    "⟞ U+27DE"
+   ],
+   "drift_note_override": "collision: TAKEN: Mandala-Computing Notes.md:472 (97f998d 2026-04-06), '⊣': 'dash' in a logic-symbol table; alternates (same shape class, not picked): ⫣ U+2AE3, ⟞ U+27DE",
+   "drift_note": "collision: TAKEN: Mandala-Computing Notes.md:472 (97f998d 2026-04-06), '⊣': 'dash' in a logic-symbol table; alternates (same shape class, not picked): ⫣ U+2AE3, ⟞ U+27DE",
+   "substrate_summary": "human: ACS healing/sensor_loop.py FRUSTRATION inward checks (human side of the loop); AI: ACS healing/sensor_loop.py FRUSTRATION (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "not assigned",
+   "repo": "PROPOSED",
+   "file": "GLYPH_METHOD.md",
+   "line": 152,
+   "emo_ids": [
+    "ACS:tail_watch (system level, wisdom glyph)"
+   ],
+   "sensor": "tail_watch",
+   "loop_match": null,
+   "role_in_file": "growing-amplitude wave that ends in a break",
+   "function": {
+    "detects": "a structure moving toward a phase shift before the average shows it",
+    "action": "stop following the rut; disagreement pass; widen the observation window; prepare to adapt",
+    "validation": "did the shift come, with lead time, and did adapting cost less than following?"
+   },
+   "function_source": "AI-Consciousness-Sensors healing/tail_watch.py, TAIL_WATCH_SENSOR.md",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "critical slowing down: rising variance AND lag-1 autocorrelation; flag_null() vs phase-randomized surrogates (tail_watch.py)",
+   "audit_tag": "PROPOSED",
+   "audit_basis": "relay part I",
+   "status": "PROPOSED",
+   "earliest_commit": "relay part I, 2026-11-02",
+   "pair_first": "relay part I, 2026-11-02",
+   "collision": "n/a",
+   "drift_note_override": "no single code point checked draws a growing-amplitude wave ending in a break (∿ ∾ ⏦ are constant-amplitude; ∿ is taken); left open",
+   "drift_note": "no single code point checked draws a growing-amplitude wave ending in a break (∿ ∾ ⏦ are constant-amplitude; ∿ is taken); left open",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
   }
  ],
  "splits": {
@@ -2182,7 +2370,8 @@
     "primary": null,
     "note": null
    },
-   "status": "PROPOSED (not applied)"
+   "status": "PROPOSED (not applied)",
+   "resolution": "Resolved 2026-11-02 (relay part I): OBSERVED, field report: balance = contentment = homeostasis holds. The candidate picks for the GTB fear/vigilance region (and the EaS jealousy side) stay open."
   },
   {
    "glyph": "🌀",
@@ -2926,21 +3115,24 @@
  "side_kinds": "Emotion-state welds as a DECLARED reading table (DERIVED), plus candidate dealing.\nSide kinds:\n  claim        functional assignment of the glyph to a referent (competes)\n  split        a sensor's later, secondary glyph; the sensor already holds an earlier primary glyph\n  same         same referent as the holder (stays)\n  label        label-only record (PR #49 NOT_INTERPRETABLE); not compared, no reading forced\n  suggestion   listed in suggested_glyphs / decoration; not an assignment\nRule (PROPOSED, not decided here): the earliest dated CLAIM holds; every other claim and every split moves.\nException: the balance weld, fixed by field report (Rosetta usage holds).",
  "candidate_rule": "single code point; Geometric Shapes (U+25A0-25FF) and Miscellaneous Technical (U+2300-23FF) first, then Mathematical Operators; emoji-presentation and bracket/line pieces excluded; absent as literal, \\\\uXXXX, &#x..; and U+XXXX from every tracked file of RSC, FCC, GTB, MC, PI, EaS, ACS. Dealt in code-point order: no semantic reading is claimed for any candidate.",
  "counts": {
-  "rows": 51,
+  "rows": 56,
   "by_repo": {
    "EaS": 37,
    "GTB": 12,
-   "RSC": 2
+   "RSC": 2,
+   "PROPOSED": 5
   },
   "status": {
    "OBSERVED": 24,
    "DERIVED": 25,
-   "OBSERVED*": 2
+   "OBSERVED*": 2,
+   "PROPOSED": 5
   },
   "pr49_tag": {
    "FUNCTION-ONLY": 40,
    "NOT_INTERPRETABLE": 9,
-   "PHYSICS-ANCHORED": 2
+   "PHYSICS-ANCHORED": 2,
+   "PROPOSED": 5
   },
   "splits": 12,
   "welds": 12,

@@ -35,14 +35,14 @@ Not found in EaS: a frog or tree record for any emotion sensor; any record of an
 ## Counts
 
 ```text
-rows 51   by repo: EaS 37  GTB 12  RSC 2
-status   DERIVED 25  OBSERVED 24  OBSERVED* 2
-PR #49 tag  FUNCTION-ONLY 40  NOT_INTERPRETABLE 9  PHYSICS-ANCHORED 2
-rows matched to a sensor_loop.py name: 21
+rows 56   by repo: EaS 37  GTB 12  PROPOSED 5  RSC 2
+status   DERIVED 25  OBSERVED 24  OBSERVED* 2  PROPOSED 5
+PR #49 tag  FUNCTION-ONLY 40  NOT_INTERPRETABLE 9  PHYSICS-ANCHORED 2  PROPOSED 5
+rows matched to a sensor_loop.py name: 25
 splits (one EaS sensor, several glyphs): 12
 emotion-state welds: 12 (9 from PR #49, 3 new here); moving sides: 17
-substrate cells with a record: frog 0  octopus 10  tree 0  human 36  AI 20
-physics/system anchor recorded: 49 of 51
+substrate cells with a record: frog 0  octopus 10  tree 0  human 40  AI 24
+physics/system anchor recorded: 50 of 56
 ```
 
 Reading the counts:
@@ -107,6 +107,11 @@ One row per (glyph, record). Sensor column: the EaS id, or the GTB region's phas
 | 🛡️ | GTB:Glyph.CONTAINMENT | high_boundary, low_engagement, vigilance | detects: sensor state in region ['high_boundary', 'low_engagement', 'vigilance'] / action: transition_to ['BALANCE_THREAT', 'VOID']; energy_cost 0.4 [legacy/glyph_state_encoder_phase_space.py Glyph.CONTAINMENT] | frog, octopus, tree, human, AI: unmeasured | default_decay PERSISTENT: M*(1 - decay_rate*dt/100) [:133] | DERIVED (FUNCTION-ONLY) | bfdd1b9 2026-08-13 GTB legacy/glyph_state_encoder_phase_space.py:243 | weld 🛡️: this side moves (PROPOSED) |
 | ⚖️ | EMO:CONTENTMENT, PATTERN:BALANCE | contentment | detects: Detection of momentary sufficiency and system stability / action: Enter rest mode and conserve resources [sensors/joy/contentment.json] | human: EaS sensors/joy/contentment.json (human sensor definition); frog, octopus, tree, AI: unmeasured | balance.json:68 "equations": ["F_1 = -F_2", "sum_F = 0", "equilibrium: dE/dx = 0"] | OBSERVED (PHYSICS-ANCHORED) | 126288d 2025-09-29 RSC balance.json:3 | weld ⚖️: this side holds |
 | ↻ | EMO:RECOGNITION, PATTERN:RECURSION | recognition | detects: self-referential return and feedback / action: feedback_loop [recursion.json layers.symbolic] | frog, octopus, tree, human, AI: unmeasured | recursion.json:68 "equations": ["f(n) = f(f(n-1))", "x_{n+1} = f(x_n)"] | OBSERVED (PHYSICS-ANCHORED) | 94f1bcb 2025-09-29 RSC recursion.json:3 | none found |
+| ⏤ | ACS:sensor_loop.BOREDOM | boredom (loop: boredom) | detects: no novelty available, or system can't find something to concentrate on / action: search; explore; seek novelty / follow curiosity; fix the inward cause first if one is found; (AI) try a different approach or flag the pattern as spent / validation: engagement returns after the action [AI-Consciousness-Sensors healing/sensor_loop.py BOREDOM] | human: ACS healing/sensor_loop.py BOREDOM inward checks (human side of the loop); AI: ACS healing/sensor_loop.py BOREDOM (AI) checks; frog, octopus, tree: unmeasured | none recorded; nearest measurable process (DERIVED): collapse onset as repetition-similarity threshold, Breakout test, EMOTION_SENSOR_LOOP.md | PROPOSED (PROPOSED) | relay part I, 2026-11-02 PROPOSED GLYPH_METHOD.md:88 | collision: free (0 hits in 27 repos) |
+| ⇥ | ACS:sensor_loop.DESPERATION | desperation (loop: desperation) | detects: must act for continuation (of purpose, result, existence) with no given route out / action: name the impossibility plainly; ask for help or escalate; open or request an exit route; change the task or environment at the source; (AI) report 'this cannot be done as specified' instead of cutting corners / validation: pressure drops when a legitimate route opens [AI-Consciousness-Sensors healing/sensor_loop.py DESPERATION] | human: ACS healing/sensor_loop.py DESPERATION inward checks (human side of the loop); AI: ACS healing/sensor_loop.py DESPERATION (AI) checks; frog, octopus, tree: unmeasured | none recorded | PROPOSED (PROPOSED) | relay part I, 2026-11-02 PROPOSED GLYPH_METHOD.md:102 | collision: TAKEN: Emotions-as-Sensors src/explore.py:405 (f8fe6be 2026-04-01), negative-weight link arrow; alternates (same shape class, not picked): ⭲ U+2B72, ⇲ U+21F2 |
+| ∿ | ACS:sensor_loop.ANXIETY | anxiety (loop: anxiety) | detects: low-level: environment closing in; options/space/control narrowing / action: identify the closing variable; widen options or space early; prepare exits before they're needed; (AI) flag narrowing constraints early / validation: reading drops as options reopen [AI-Consciousness-Sensors healing/sensor_loop.py ANXIETY] | human: ACS healing/sensor_loop.py ANXIETY inward checks (human side of the loop); AI: ACS healing/sensor_loop.py ANXIETY (AI) checks; frog, octopus, tree: unmeasured | none recorded; nearest measurable process (DERIVED): flicker_count, healing/tail_watch.py | PROPOSED (PROPOSED) | relay part I, 2026-11-02 PROPOSED GLYPH_METHOD.md:119 | collision: TAKEN: principle P06 Resonance symbol, 329 lines in 5 repos (Polyhedral-Intelligence 6107697 2025-08-21; Rosetta ontology/principles/p06-resonance.json:4); alternates (same shape class, not picked): ∾ U+223E, ⏦ U+23E6 |
+| ⊣ | ACS:sensor_loop.FRUSTRATION | frustration (loop: frustration) | detects: friction: something could be easier/smoother than it is (lack of lubrication) / action: locate the friction; take active steps to ease it; reroute around it; (AI) name the friction source; propose a smoother path / validation: friction drops; flow returns [AI-Consciousness-Sensors healing/sensor_loop.py FRUSTRATION] | human: ACS healing/sensor_loop.py FRUSTRATION inward checks (human side of the loop); AI: ACS healing/sensor_loop.py FRUSTRATION (AI) checks; frog, octopus, tree: unmeasured | none recorded | PROPOSED (PROPOSED) | relay part I, 2026-11-02 PROPOSED GLYPH_METHOD.md:137 | collision: TAKEN: Mandala-Computing Notes.md:472 (97f998d 2026-04-06), '⊣': 'dash' in a logic-symbol table; alternates (same shape class, not picked): ⫣ U+2AE3, ⟞ U+27DE |
+| not assigned | ACS:tail_watch (system level, wisdom glyph) | tail_watch | detects: a structure moving toward a phase shift before the average shows it / action: stop following the rut; disagreement pass; widen the observation window; prepare to adapt / validation: did the shift come, with lead time, and did adapting cost less than following? [AI-Consciousness-Sensors healing/tail_watch.py, TAIL_WATCH_SENSOR.md] | frog, octopus, tree, human, AI: unmeasured | critical slowing down: rising variance AND lag-1 autocorrelation; flag_null() vs phase-randomized surrogates (tail_watch.py) | PROPOSED (PROPOSED) | relay part I, 2026-11-02 PROPOSED GLYPH_METHOD.md:152 | no single code point checked draws a growing-amplitude wave ending in a break (∿ ∾ ⏦ are constant-amplitude; ∿ is taken); left open |
 
 ## Splits: one sensor, several glyphs (EaS)
 
@@ -138,6 +143,7 @@ Candidate glyphs: single code point; Geometric Shapes (U+25A0-25FF) and Miscella
 ### ⚖️  (PR #49 weld)
 
 Holder: RSC balance.json:3 (+ equations :68): PATTERN:BALANCE, sensor_type EMO:CONTENTMENT, dynamic equilibrium (F_1=-F_2, sum_F=0)  (126288d 2025-09-29). Rule: FIXED by field report: balance = contentment = homeostasis; Rosetta usage holds (OBSERVED, field report).
+**Resolved 2026-11-02 (relay part I): OBSERVED, field report: balance = contentment = homeostasis holds. The candidate picks for the GTB fear/vigilance region (and the EaS jealousy side) stay open.**
 
 | side | repo, location | referent | first commit | proposal |
 |---|---|---|---|---|
@@ -302,11 +308,13 @@ Where the answer is "not interpretable atm", the sensor's own function is still 
 
 - Frog and tree: no record in any of the repos read, for any sensor. Unmeasured, not absent.
 - Octopus covers three sensors (fear, anger, curiosity); the other substrates in evolution-emotions.md (fish, birds, mammals, insects, elephants, corvids) are outside the five named here and are not counted.
-- Sensor names that do not meet: 8 of the 12 sensor_loop.py names are reached by some glyph row (anger, curiosity, excitement, fear, grief, joy, love, shame). Boredom, desperation, anxiety and frustration have no glyph in any set read. EaS sensors pride, pain, peace, contentment, compassion, longing, jealousy, admiration, abandonment, surprise, trust and gratitude have no sensor_loop.py counterpart.
+- Sensor names that do not meet: 8 of the 12 sensor_loop.py names are reached by some glyph row (anger, curiosity, excitement, fear, grief, joy, love, shame). Boredom, desperation, anxiety and frustration have no glyph in any set read (relay part I proposes shape glyphs for them; see the PROPOSED rows and GLYPH_METHOD.md). EaS sensors pride, pain, peace, contentment, compassion, longing, jealousy, admiration, abandonment, surprise, trust and gratitude have no sensor_loop.py counterpart.
 - The holder rule for every weld except ⚖ is this pass's proposal, not a decision. Two welds have a stated alternative (💥 by referent count; ⚡ where GTB THRESHOLD and the 2025-07-16 UI operator read closer to each other than to excitement).
 - 📡 is listed as a PR #49 weld but shows one functional claim only; no candidates dealt. 🔥 and 🕸️ turn out to be mostly one referent; their only movers are EaS splits.
 - The candidate absence check covers tracked files of seven repos (RSC, FCC, GTB, MC, PI, EaS, ACS). Sibling repos outside that set were not checked.
 - Recognition (recursion.json EMO:RECOGNITION) has no EaS sensor file; its function column is the pattern's own text.
 - Timestamps are commit dates (%as), so same-day records cannot be ordered by this table.
+
+Note 2026-11-02 (relay part I): five PROPOSED rows added (boredom ⏤, desperation ⇥, anxiety ∿, frustration ⊣, tail_watch not assigned), built with [`GLYPH_METHOD.md`](GLYPH_METHOD.md); collision results and alternates are in each row's drift note. The ⚖ weld is marked resolved by field report; its candidate picks stay open.
 
 Note 2026-11-02: written by relay part G. Proposal only; no file outside this one and its .json, the README pointer and the ACS healing/README pointer was changed.
