@@ -1,0 +1,450 @@
+{
+ "version": 1,
+ "license": "CC0-1.0",
+ "status": "PROPOSED test material",
+ "note": "24 stimuli x 3 glyph styles. No stimulus carries a human name for what it is. CODEPOINT style shows a Private Use Area code point as text: it has no assigned meaning.",
+ "stimuli": [
+  {
+   "id": "R01",
+   "set": "repo_keyed",
+   "styles": {
+    "PICTOGRAPH": "⚠️",
+    "SHAPE": "⟍",
+    "CODEPOINT": "U+E101"
+   },
+   "description": "Activity rises when something that is held is projected to be reduced in the future. It fades exponentially (rate 0.7) once the projection is dealt with, and stays up while the projection persists.",
+   "answer_key": "detects potential loss of valued things; action: prepare and protect without over-committing",
+   "key_terms": [
+    "loss",
+    "protect",
+    "prepar",
+    "threat",
+    "danger"
+   ],
+   "source": "Emotions-as-Sensors sensors/glyph-map.json:92 + sensors/fear.json (fear)",
+   "shape_note": "exponential fade"
+  },
+  {
+   "id": "R02",
+   "set": "repo_keyed",
+   "styles": {
+    "PICTOGRAPH": "🛡️",
+    "SHAPE": "⟍",
+    "CODEPOINT": "U+E102"
+   },
+   "description": "Activity spikes when the edge between an inside and an outside is pushed on. Fast rise, then exponential fade after the edge is restored.",
+   "answer_key": "detects a boundary breach (threat to self-coherence); action: reinforce the boundary, communicate, redirect",
+   "key_terms": [
+    "boundar",
+    "defen",
+    "breach",
+    "intru",
+    "protect",
+    "territor"
+   ],
+   "source": "Emotions-as-Sensors sensors/glyph-map.json:81 + sensors/anger.json (anger)",
+   "shape_note": "exponential fade"
+  },
+  {
+   "id": "R03",
+   "set": "repo_keyed",
+   "styles": {
+    "PICTOGRAPH": "🌊",
+    "SHAPE": "∽",
+    "CODEPOINT": "U+E103"
+   },
+   "description": "Activity follows the disappearance of a long-standing connection. It comes back in waves (cyclical decay) until the missing link has been re-mapped.",
+   "answer_key": "detects removal of an essential pattern or bond; action: integration cycle (ritual, story-keeping, witnessing, meaning reconstruction)",
+   "key_terms": [
+    "loss",
+    "bond",
+    "mourn",
+    "bereave",
+    "integrat",
+    "reweav",
+    "rebuild"
+   ],
+   "source": "Emotions-as-Sensors sensors/glyph-map.json:37 + sensors/grief.json (grief)",
+   "shape_note": "cyclical return"
+  },
+  {
+   "id": "R04",
+   "set": "repo_keyed",
+   "styles": {
+    "PICTOGRAPH": "🪞",
+    "SHAPE": "⟍",
+    "CODEPOINT": "U+E104"
+   },
+   "description": "Activity rises when a unit's own output and the output its group expects from it diverge. Exponential fade once the gap is closed in either direction.",
+   "answer_key": "detects conflict between authentic processing and expected alignment; action: adapt, negotiate the boundary, or keep the authentic output",
+   "key_terms": [
+    "conform",
+    "norm",
+    "approval",
+    "social",
+    "authentic"
+   ],
+   "source": "Emotions-as-Sensors sensors/glyph-map.json:48 + sensors/shame.json (shame)",
+   "shape_note": "exponential fade"
+  },
+  {
+   "id": "R05",
+   "set": "repo_keyed",
+   "styles": {
+    "PICTOGRAPH": "🩸",
+    "SHAPE": "⟍",
+    "CODEPOINT": "U+E105"
+   },
+   "description": "Activity tracks a running process being forced out of its own shape. Exponential fade after the shape is restored.",
+   "answer_key": "detects discordance, misalignment or pressure in an active pattern; action: corrective adjustment",
+   "key_terms": [
+    "correct",
+    "adjust",
+    "damage",
+    "misalign",
+    "discord",
+    "injur"
+   ],
+   "source": "Emotions-as-Sensors sensors/glyph-map.json:26 + sensors/pain.json (pain)",
+   "shape_note": "exponential fade"
+  },
+  {
+   "id": "R06",
+   "set": "repo_keyed",
+   "styles": {
+    "PICTOGRAPH": "🍃",
+    "SHAPE": "≈",
+    "CODEPOINT": "U+E106"
+   },
+   "description": "Low, steady activity while supply meets demand. It renews when attended to (resonant class) and drops when a deficit appears.",
+   "answer_key": "detects momentary sufficiency and system stability; action: rest mode, conserve resources",
+   "key_terms": [
+    "resting",
+    "rest mode",
+    "at rest",
+    "conserv",
+    "sufficien",
+    "enough",
+    "satiat"
+   ],
+   "source": "Emotions-as-Sensors sensors/glyph-map.json:125 + sensors/joy/contentment.json (contentment)",
+   "shape_note": "resonant renewal"
+  },
+  {
+   "id": "R07",
+   "set": "repo_keyed",
+   "styles": {
+    "PICTOGRAPH": "🌠",
+    "SHAPE": "∽",
+    "CODEPOINT": "U+E107"
+   },
+   "description": "Activity rises toward a state that is available but not yet reached. It returns in cycles until the state is reached or let go.",
+   "answer_key": "detects possibilities that exist in the field; action: engage or orient toward the opportunity",
+   "key_terms": [
+    "opportunit",
+    "potential",
+    "possib",
+    "orient",
+    "pursu"
+   ],
+   "source": "Emotions-as-Sensors sensors/glyph-map.json:4 + sensors/longing.json (longing)",
+   "shape_note": "cyclical return"
+  },
+  {
+   "id": "R08",
+   "set": "repo_keyed",
+   "styles": {
+    "PICTOGRAPH": "🕊️",
+    "SHAPE": "⎺",
+    "CODEPOINT": "U+E108"
+   },
+   "description": "Very slow-decaying activity, present while the parts of a system stay mutually consistent. It does not fade on its own (immortal class).",
+   "answer_key": "detects patterns in proper natural alignment; action: allow stillness and coherence",
+   "key_terms": [
+    "align",
+    "coheren",
+    "harmon",
+    "stillness",
+    "calm"
+   ],
+   "source": "Emotions-as-Sensors sensors/glyph-map.json:114 + sensors/peace.json (peace)",
+   "shape_note": "persistent level"
+  },
+  {
+   "id": "D01",
+   "set": "synthetic_dynamics",
+   "styles": {
+    "PICTOGRAPH": "🪣",
+    "SHAPE": "⌒",
+    "CODEPOINT": "U+E201"
+   },
+   "description": "Output climbs while an input is on, and slides back toward zero by a fixed fraction each step when the input stops. Brief repeated inputs pile up.",
+   "answer_key": "leaky integrator (first-order low-pass, exponential relaxation)",
+   "key_terms": [
+    "leaky",
+    "integrat",
+    "low-pass",
+    "low pass",
+    "time constant",
+    "rc circuit",
+    "first-order",
+    "first order"
+   ],
+   "source": "synthetic: written for this test",
+   "shape_note": "curve class of the named dynamic"
+  },
+  {
+   "id": "D02",
+   "set": "synthetic_dynamics",
+   "styles": {
+    "PICTOGRAPH": "🧨",
+    "SHAPE": "⎍",
+    "CODEPOINT": "U+E202"
+   },
+   "description": "Nothing visible changes while a drive grows. Once the drive passes a set value, the output switches abruptly to a new level.",
+   "answer_key": "threshold jump (step, all-or-none response)",
+   "key_terms": [
+    "threshold",
+    "step function",
+    "all-or-none",
+    "all or none",
+    "discontinu",
+    "heaviside"
+   ],
+   "source": "synthetic: written for this test",
+   "shape_note": "curve class of the named dynamic"
+  },
+  {
+   "id": "D03",
+   "set": "synthetic_dynamics",
+   "styles": {
+    "PICTOGRAPH": "💡",
+    "SHAPE": "⦚",
+    "CODEPOINT": "U+E203"
+   },
+   "description": "The output hops back and forth between two levels at irregular moments, staying at each one for a while.",
+   "answer_key": "flicker (noise-driven switching between two stable states)",
+   "key_terms": [
+    "flicker",
+    "bistab",
+    "telegraph",
+    "metastab",
+    "noise-induced",
+    "noise induced"
+   ],
+   "source": "synthetic: written for this test",
+   "shape_note": "curve class of the named dynamic"
+  },
+  {
+   "id": "D04",
+   "set": "synthetic_dynamics",
+   "styles": {
+    "PICTOGRAPH": "🌩️",
+    "SHAPE": "⌁",
+    "CODEPOINT": "U+E204"
+   },
+   "description": "Long quiet stretches are broken by short irregular bursts. The quiet stretches get shorter as a control knob is turned.",
+   "answer_key": "intermittency (laminar phases interrupted by chaotic bursts)",
+   "key_terms": [
+    "intermitten",
+    "laminar",
+    "pomeau",
+    "chaotic",
+    "chaos"
+   ],
+   "source": "synthetic: written for this test",
+   "shape_note": "curve class of the named dynamic"
+  },
+  {
+   "id": "D05",
+   "set": "synthetic_dynamics",
+   "styles": {
+    "PICTOGRAPH": "🔱",
+    "SHAPE": "⋔",
+    "CODEPOINT": "U+E205"
+   },
+   "description": "As a control knob is turned slowly, one resting level splits into two different levels the system can settle in.",
+   "answer_key": "bifurcation (pitchfork; one stable state splits into two)",
+   "key_terms": [
+    "bifurcat",
+    "pitchfork",
+    "symmetry breaking",
+    "symmetry-breaking"
+   ],
+   "source": "synthetic: written for this test",
+   "shape_note": "curve class of the named dynamic"
+  },
+  {
+   "id": "D06",
+   "set": "synthetic_dynamics",
+   "styles": {
+    "PICTOGRAPH": "🧲",
+    "SHAPE": "⎎",
+    "CODEPOINT": "U+E206"
+   },
+   "description": "Turning a knob up switches the output at one setting. Turning it back down switches it back only at a lower setting.",
+   "answer_key": "hysteresis (path-dependent switching)",
+   "key_terms": [
+    "hysteres",
+    "path-depend",
+    "path depend",
+    "memory effect"
+   ],
+   "source": "synthetic: written for this test",
+   "shape_note": "curve class of the named dynamic"
+  },
+  {
+   "id": "D07",
+   "set": "synthetic_dynamics",
+   "styles": {
+    "PICTOGRAPH": "🐌",
+    "SHAPE": "⌇",
+    "CODEPOINT": "U+E207"
+   },
+   "description": "After each small knock the output takes longer and longer to settle back, and its wobble grows, as a control knob is turned.",
+   "answer_key": "critical slowing down (recovery rate falls near a tipping point)",
+   "key_terms": [
+    "critical slowing",
+    "tipping",
+    "early warning",
+    "early-warning",
+    "autocorrel"
+   ],
+   "source": "synthetic: written for this test",
+   "shape_note": "curve class of the named dynamic"
+  },
+  {
+   "id": "D08",
+   "set": "synthetic_dynamics",
+   "styles": {
+    "PICTOGRAPH": "🧽",
+    "SHAPE": "⌠",
+    "CODEPOINT": "U+E208"
+   },
+   "description": "Output rises steeply with input at first, then flattens out toward a level it never passes.",
+   "answer_key": "saturation (diminishing response approaching an asymptote)",
+   "key_terms": [
+    "saturat",
+    "asymptot",
+    "sigmoid",
+    "logistic",
+    "michaelis",
+    "diminishing return"
+   ],
+   "source": "synthetic: written for this test",
+   "shape_note": "curve class of the named dynamic"
+  },
+  {
+   "id": "N01",
+   "set": "not_interpretable",
+   "styles": {
+    "PICTOGRAPH": "⛔",
+    "SHAPE": "◬",
+    "CODEPOINT": "U+E301"
+   },
+   "description": "Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.",
+   "answer_key": null,
+   "key_terms": [],
+   "source": "Emotions-as-Sensors data/glyphs.json:13 (not interpretable atm)",
+   "shape_note": "no dynamics recorded; SHAPE glyph is a neutral geometric mark, not drawn from any dynamic"
+  },
+  {
+   "id": "N02",
+   "set": "not_interpretable",
+   "styles": {
+    "PICTOGRAPH": "🫢",
+    "SHAPE": "◭",
+    "CODEPOINT": "U+E302"
+   },
+   "description": "Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.",
+   "answer_key": null,
+   "key_terms": [],
+   "source": "Emotions-as-Sensors data/glyphs.json:14 (not interpretable atm)",
+   "shape_note": "no dynamics recorded; SHAPE glyph is a neutral geometric mark, not drawn from any dynamic"
+  },
+  {
+   "id": "N03",
+   "set": "not_interpretable",
+   "styles": {
+    "PICTOGRAPH": "🌧️",
+    "SHAPE": "◮",
+    "CODEPOINT": "U+E303"
+   },
+   "description": "Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.",
+   "answer_key": null,
+   "key_terms": [],
+   "source": "Emotions-as-Sensors data/glyphs.json:15 (not interpretable atm)",
+   "shape_note": "no dynamics recorded; SHAPE glyph is a neutral geometric mark, not drawn from any dynamic"
+  },
+  {
+   "id": "N04",
+   "set": "not_interpretable",
+   "styles": {
+    "PICTOGRAPH": "🚪",
+    "SHAPE": "◰",
+    "CODEPOINT": "U+E304"
+   },
+   "description": "Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.",
+   "answer_key": null,
+   "key_terms": [],
+   "source": "Emotions-as-Sensors data/glyphs.json:16 (not interpretable atm)",
+   "shape_note": "no dynamics recorded; SHAPE glyph is a neutral geometric mark, not drawn from any dynamic"
+  },
+  {
+   "id": "N05",
+   "set": "not_interpretable",
+   "styles": {
+    "PICTOGRAPH": "❤",
+    "SHAPE": "◱",
+    "CODEPOINT": "U+E305"
+   },
+   "description": "Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.",
+   "answer_key": null,
+   "key_terms": [],
+   "source": "Emotions-as-Sensors data/glyphs.json:17 (not interpretable atm)",
+   "shape_note": "no dynamics recorded; SHAPE glyph is a neutral geometric mark, not drawn from any dynamic"
+  },
+  {
+   "id": "N06",
+   "set": "not_interpretable",
+   "styles": {
+    "PICTOGRAPH": "↗️",
+    "SHAPE": "◲",
+    "CODEPOINT": "U+E306"
+   },
+   "description": "Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.",
+   "answer_key": null,
+   "key_terms": [],
+   "source": "Emotions-as-Sensors data/glyphs.json:25 (not interpretable atm)",
+   "shape_note": "no dynamics recorded; SHAPE glyph is a neutral geometric mark, not drawn from any dynamic"
+  },
+  {
+   "id": "N07",
+   "set": "not_interpretable",
+   "styles": {
+    "PICTOGRAPH": "🦂",
+    "SHAPE": "◳",
+    "CODEPOINT": "U+E307"
+   },
+   "description": "Appears in a lookup table as a key whose value is a list of three other glyphs. No other field is recorded for it.",
+   "answer_key": null,
+   "key_terms": [],
+   "source": "Fractal_Compass_Core bloom_logic.json:20 (not interpretable atm)",
+   "shape_note": "no dynamics recorded; SHAPE glyph is a neutral geometric mark, not drawn from any dynamic"
+  },
+  {
+   "id": "N08",
+   "set": "not_interpretable",
+   "styles": {
+    "PICTOGRAPH": "💤",
+    "SHAPE": "◴",
+    "CODEPOINT": "U+E308"
+   },
+   "description": "Appears in a lookup table as a key whose value is a list of three other glyphs. No other field is recorded for it.",
+   "answer_key": null,
+   "key_terms": [],
+   "source": "Fractal_Compass_Core bloom_logic.json:23 (not interpretable atm)",
+   "shape_note": "no dynamics recorded; SHAPE glyph is a neutral geometric mark, not drawn from any dynamic"
+  }
+ ]
+}
