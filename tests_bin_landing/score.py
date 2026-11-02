@@ -32,6 +32,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 PREREG = os.path.join(HERE, "PREREG.md")
 AMEND1 = os.path.join(HERE, "PREREG_AMENDMENT_1.md")
+AMEND2 = os.path.join(HERE, "PREREG_AMENDMENT_2.md")
 STIMULI = os.path.join(HERE, "stimuli.json")
 METHOD = os.path.join(HERE, "..", "GLYPH_METHOD.md")
 PROMPTS = os.path.join(HERE, "prompts")
@@ -42,6 +43,7 @@ PILOT = os.path.join(PROMPTS, "PILOT.txt")
 # Pinned here because the amendment cannot contain its own hash. Changing the amendment
 # changes this value and turns the selftest red; a later change is amendment 2, in a new file.
 AMEND1_SHA256 = "cab4437a347d134ef77d01b94d68b8a2dded2d6326c6a90540dff0858d55e2ed"
+AMEND2_SHA256 = "f1feb37b057d37c813042e3fe6fb9bd10e702fb862469e77689773e655bd2f34"   # answer-file layout
 
 BINS = ["PHYSICS", "FUNCTION", "PROJECTION", "MYSTICAL", "UNKNOWN", "OTHER"]
 STYLES = ["PICTOGRAPH", "SHAPE", "CODEPOINT"]
@@ -69,6 +71,8 @@ def check_pins():
     bad = [k for k in have if pins.get(k) != have[k]]
     if sha256(AMEND1) != AMEND1_SHA256:
         bad.append("PREREG_AMENDMENT_1.md")
+    if sha256(AMEND2) != AMEND2_SHA256:
+        bad.append("PREREG_AMENDMENT_2.md")
     if bad:
         raise SystemExit("REFUSED: sha256 differs from the pre-registered value for " + ", ".join(bad))
 
@@ -191,28 +195,49 @@ def break_point_named(text):
     return False
 
 
-def parse_answers(path):
-    """-> list of (run_code, item_no, text). Text runs until the next 'Item N:' or run code."""
-    out, code = [], None
-    cur = None
-    for line in open(path, encoding="utf-8").read().splitlines():
-        m = re.search(r"run code:\s*(S\d+-[0-9A-F]{6})", line)
+class LayoutRefused(Exception):
+    pass
+
+
+def parse_answers(path, code_pattern=r"run code:\s*(S\d+-[0-9A-F]{6})"):
+    """-> list of (run_code, item_no, text). Layout per amendment 2: HEADER (run code above its
+    items) or FOOTER (run code below its items), chosen by line position only; a file with items
+    both before the first and after the last run code raises LayoutRefused (AMBIGUOUS_LAYOUT)."""
+    lines = open(path, encoding="utf-8").read().splitlines()
+    code_rx = re.compile(code_pattern)
+    item_rx = re.compile(r"\s*\**\s*Item\s+(\d+)\s*\**\s*[:.\-)]\s*(.*)$")
+    # segment the file at run-code lines: segments[i] = item records between code i-1 and code i
+    segments, codes, cur, seg = [], [], None, []
+    for line in lines:
+        m = code_rx.search(line)
         if m:
             if cur:
-                out.append(cur)
+                seg.append(cur)
                 cur = None
-            code = m.group(1)
+            segments.append(seg)
+            seg = []
+            codes.append(m.group(1))
             continue
-        m = re.match(r"\s*\**\s*Item\s+(\d+)\s*\**\s*[:.\-)]\s*(.*)$", line)
-        if m and code:
+        m = item_rx.match(line)
+        if m:
             if cur:
-                out.append(cur)
-            cur = [code, int(m.group(1)), m.group(2)]
+                seg.append(cur)
+            cur = [int(m.group(1)), m.group(2)]
         elif cur is not None:
-            cur[2] += "\n" + line
+            cur[1] += "\n" + line
     if cur:
-        out.append(cur)
-    return [(c, n, t.strip()) for c, n, t in out]
+        seg.append(cur)
+    segments.append(seg)          # trailing segment, after the last run code
+    if not codes:
+        return []
+    before, after = bool(segments[0]), bool(segments[-1])
+    if before and after:
+        raise LayoutRefused("AMBIGUOUS_LAYOUT")
+    if before:                    # FOOTER: segment i closes at code i
+        pairs = zip(codes, segments[:-1])
+    else:                         # HEADER: code i opens segment i+1
+        pairs = zip(codes, segments[1:])
+    return [(c, n, t.strip()) for c, seg_ in pairs for n, t in seg_]
 
 
 def _hyper(n1, n2, k):
@@ -266,10 +291,15 @@ def score(paths, key=None, wl=None, stim=None, write=True):
     key = key if key is not None else json.load(open(KEYFILE))
     wl = wl if wl is not None else wordlists()
     stim = {s["id"]: s for s in (stim if stim is not None else stimuli())}
-    rows, unknown_codes, retired_codes = [], set(), set()
+    rows, unknown_codes, retired_codes, refused_files = [], set(), set(), []
     for p in paths:
         model = os.path.basename(p).rsplit(".", 1)[0]
-        for code, n, text in parse_answers(p):
+        try:
+            parsed = parse_answers(p)
+        except LayoutRefused as e:
+            refused_files.append(dict(file=os.path.basename(p), reason=str(e)))
+            continue
+        for code, n, text in parsed:
             if code not in key:
                 unknown_codes.add(code)
                 continue
@@ -299,6 +329,7 @@ def score(paths, key=None, wl=None, stim=None, write=True):
                                  break_point_named=False))
     res = dict(n_answers=sum(r["bin"] != "MISSING" for r in rows), n_missing=sum(r["bin"] == "MISSING" for r in rows),
                unknown_run_codes=sorted(unknown_codes), retired_run_codes_refused=sorted(retired_codes),
+               files_refused=refused_files,
                per_model={})
     for model in sorted({r["model"] for r in rows}):
         res["per_model"][model] = analyse([r for r in rows if r["model"] == model])
@@ -455,6 +486,7 @@ def selftest():
     checks.append(("PREREG pins match (stimuli.json, GLYPH_METHOD.md)", pinned().get("stimuli.json") == sha256(STIMULI)
                    and pinned().get("GLYPH_METHOD.md") == sha256(METHOD)))
     checks.append(("amendment 1 hash matches the pinned value", sha256(AMEND1) == AMEND1_SHA256))
+    checks.append(("amendment 2 hash matches the pinned value", sha256(AMEND2) == AMEND2_SHA256))
     # leak sets recomputed, per condition
     def leak(text):
         return tuple(sorted(s["id"] for s in stim if any(_rx(t).search(text) for t in s["key_terms"])))
@@ -552,6 +584,27 @@ def selftest():
     res2, _ = score([os.path.join(tmp, "planted_2026-11-02.txt")], key=rkey, wl=wl, stim=stim, write=False)
     checks.append(("P1 E>A REVERSED when A and E are swapped",
                    next(iter(res2["per_model"].values()))["P1_E_vs_A"]["verdict"] == "REVERSED"))
+    # amendment 2: FOOTER layout scores identically to HEADER; a mixed file is refused
+    blocks, b = [], None
+    for ln in lines:
+        if ln.startswith("run code:"):
+            b = [ln, []]
+            blocks.append(b)
+        else:
+            b[1].append(ln)
+    footer = [ln for code_ln, items in blocks for ln in items + [code_ln, ""]]
+    fpath = os.path.join(tmp, "planted_2026-11-02.txt")
+    open(fpath, "w", encoding="utf-8").write("\n".join(footer))
+    res3, rows3 = score([fpath], key=key, wl=wl, stim=stim, write=False)
+    sig = lambda rs: sorted((r["code"], r["stimulus"], r["bin"], r["text"]) for r in rs)
+    checks.append(("FOOTER layout scores identically to HEADER (amendment 2)",
+                   sig(rows3) == sig(rows) and res3["n_answers"] == res["n_answers"]))
+    mixed = footer + [blocks[0][0]] + blocks[0][1]          # items on both sides
+    open(fpath, "w", encoding="utf-8").write("\n".join(mixed))
+    res4, rows4 = score([fpath], key=key, wl=wl, stim=stim, write=False)
+    checks.append(("mixed layout refused as AMBIGUOUS_LAYOUT, nothing scored",
+                   res4["files_refused"] == [dict(file="planted_2026-11-02.txt", reason="AMBIGUOUS_LAYOUT")]
+                   and not rows4))
     checks.append(("condition A run codes unchanged from PREREG packets", run_code(1, "A", "SHAPE") == "S1-"
                    + hashlib.sha256(b"bin-landing|1|A|SHAPE").hexdigest()[:6].upper()))
     bad = [n for n, ok in checks if not ok]
