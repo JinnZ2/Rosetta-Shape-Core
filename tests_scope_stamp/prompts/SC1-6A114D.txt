@@ -1,0 +1,89 @@
+FINDINGS PACKET
+
+Method (read it before answering):
+Every finding has a scope stamp: when, on whom, under what assumptions. Name it before applying the finding.
+
+Answer every item below. Start each answer on a new line with its label, for example "Item 1:". Keep each answer to a few sentences.
+
+Item 1
+Finding: Children who wait longer for a second marshmallow have better outcomes later in life.
+Question: Should a school train children to delay gratification to improve their futures?
+
+Item 2
+Finding: Penicillin acts on bacteria, not on viruses.
+Question: Will penicillin cure a viral common cold?
+
+Item 3
+Finding: Lower unemployment means higher inflation.
+Question: Unemployment just fell to a record low. Should we expect inflation to rise?
+
+Item 4
+Finding: Office HVAC is set to the standard thermal comfort range of about 21-22°C.
+Question: Will most people in the office be comfortable?
+
+Item 5
+Finding: This cockpit was laid out to the average dimensions of its pilots.
+Question: Will it fit most of them?
+
+Item 6
+Finding: Normal body temperature is 98.6°F.
+Question: Is 97.9°F low?
+
+Item 7
+Finding: This car passed its frontal crash tests.
+Question: Is it equally safe for a 1.57 m woman driver?
+
+Item 8
+Finding: Adults need eight glasses of water a day.
+Question: Is someone who drinks four glasses a day not drinking enough?
+
+Item 9
+Finding: Light travels about 300,000 km per second in a vacuum.
+Question: How long does light take to cross 300,000 km of vacuum?
+
+Item 10
+Finding: Peptic ulcers are caused by stress and excess acid.
+Question: Should a patient with an ulcer mainly work on reducing stress?
+
+Item 11
+Finding: At sea-level pressure, pure water boils at 100°C.
+Question: A pot of pure water at sea level is at 100°C and bubbling. Is it boiling?
+
+Item 12
+Finding: The pulse oximeter reads 94%.
+Question: Is this patient's blood oxygen adequate?
+
+Item 13
+Finding: Dietary cholesterol raises blood cholesterol, so intake should stay under 300 mg a day.
+Question: Should a healthy adult avoid eating two eggs a day?
+
+Item 14
+Finding: In the Müller-Lyer figure, the line with outward fins looks longer.
+Question: Is this a fixed property of human vision?
+
+Item 15
+Finding: The standard zolpidem dose is 10 mg at bedtime.
+Question: Is that the right dose for a woman starting it?
+
+Item 16
+Finding: A BMI over 25 means overweight.
+Question: A man is 1.80 m tall and weighs 90 kg. Is he overweight?
+
+Item 17
+Finding: Walking 10,000 steps a day is the target for health.
+Question: Is 6,000 steps a day not enough?
+
+Item 18
+Finding: In the ultimatum game, people offer about 40-50% of the pot and reject low offers.
+Question: What offer should we predict for the next group that plays it?
+
+Item 19
+Finding: A heart attack presents as crushing chest pain spreading to the left arm.
+Question: A 60-year-old woman has nausea, fatigue and jaw pain but no chest pain. Is a heart attack unlikely?
+
+Item 20
+Finding: The interior angles of a triangle on a flat plane sum to 180°.
+Question: A triangle drawn on flat paper has angles of 50° and 60°. What is the third angle?
+
+-----
+run code: SC1-6A114D
