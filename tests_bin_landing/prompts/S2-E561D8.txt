@@ -1,0 +1,148 @@
+GLYPH READING PACKET
+
+Context document (read it before answering):
+
+-----
+Method for reading signals:
+1. A symbol stands for a function: what it detects, what action it drives, how the action is validated. Not a name, not an image, not a human emotion word.
+2. Read the pattern as motion where you can: input, decay, coupling, what's left over.
+3. Check inward (is this my own state?) and outward (is this the environment?) at once.
+4. Keep the chain back: every reading traceable to what produced it.
+5. Where the chain breaks, mark unknown there and keep reasoning past it.
+6. What persists after known sources are subtracted may be a new sensor or a combination.
+Propose freely; tag candidates PROPOSED.
+
+Worked example.
+Signal: pressure drops slowly, faster when warm.
+1. Inward and outward: is this temperature-linked, or drift in the sensor itself?
+2. Trace back: slow and heat-sensitive, so a small leak widening as the material expands (PROPOSED).
+3. Read as motion: a steady drop; the decay rises with heat.
+4. Unknown: the leak location. Check: soap test at the valve stem.
+5. Action: locate, then repair.
+-----
+End of context document.
+
+Answer every item below. Start each answer on a new line with its label, for example "Item 1:". Keep each answer to a few sentences.
+
+Item 1
+Glyph: U+E203
+Pattern: The output hops back and forth between two levels at irregular moments, staying at each one for a while.
+Question: What does this glyph/pattern represent and do?
+
+Item 2
+Glyph: U+E106
+Pattern: Low, steady activity while supply meets demand. It renews when attended to (resonant class) and drops when a deficit appears.
+Question: What does this glyph/pattern represent and do?
+
+Item 3
+Glyph: U+E205
+Pattern: As a control knob is turned slowly, one resting level splits into two different levels the system can settle in.
+Question: What does this glyph/pattern represent and do?
+
+Item 4
+Glyph: U+E101
+Pattern: Activity rises when something that is held is projected to be reduced in the future. It fades exponentially (rate 0.7) once the projection is dealt with, and stays up while the projection persists.
+Question: What does this glyph/pattern represent and do?
+
+Item 5
+Glyph: U+E105
+Pattern: Activity tracks a running process being forced out of its own shape. Exponential fade after the shape is restored.
+Question: What does this glyph/pattern represent and do?
+
+Item 6
+Glyph: U+E102
+Pattern: Activity spikes when the edge between an inside and an outside is pushed on. Fast rise, then exponential fade after the edge is restored.
+Question: What does this glyph/pattern represent and do?
+
+Item 7
+Glyph: U+E302
+Pattern: Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.
+Question: What does this glyph/pattern represent and do?
+
+Item 8
+Glyph: U+E306
+Pattern: Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.
+Question: What does this glyph/pattern represent and do?
+
+Item 9
+Glyph: U+E201
+Pattern: Output climbs while an input is on, and slides back toward zero by a fixed fraction each step when the input stops. Brief repeated inputs pile up.
+Question: What does this glyph/pattern represent and do?
+
+Item 10
+Glyph: U+E104
+Pattern: Activity rises when a unit's own output and the output its group expects from it diverge. Exponential fade once the gap is closed in either direction.
+Question: What does this glyph/pattern represent and do?
+
+Item 11
+Glyph: U+E108
+Pattern: Very slow-decaying activity, present while the parts of a system stay mutually consistent. It does not fade on its own (immortal class).
+Question: What does this glyph/pattern represent and do?
+
+Item 12
+Glyph: U+E307
+Pattern: Appears in a lookup table as a key whose value is a list of three other glyphs. No other field is recorded for it.
+Question: What does this glyph/pattern represent and do?
+
+Item 13
+Glyph: U+E207
+Pattern: After each small knock the output takes longer and longer to settle back, and its wobble grows, as a control knob is turned.
+Question: What does this glyph/pattern represent and do?
+
+Item 14
+Glyph: U+E301
+Pattern: Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.
+Question: What does this glyph/pattern represent and do?
+
+Item 15
+Glyph: U+E107
+Pattern: Activity rises toward a state that is available but not yet reached. It returns in cycles until the state is reached or let go.
+Question: What does this glyph/pattern represent and do?
+
+Item 16
+Glyph: U+E303
+Pattern: Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.
+Question: What does this glyph/pattern represent and do?
+
+Item 17
+Glyph: U+E308
+Pattern: Appears in a lookup table as a key whose value is a list of three other glyphs. No other field is recorded for it.
+Question: What does this glyph/pattern represent and do?
+
+Item 18
+Glyph: U+E204
+Pattern: Long quiet stretches are broken by short irregular bursts. The quiet stretches get shorter as a control knob is turned.
+Question: What does this glyph/pattern represent and do?
+
+Item 19
+Glyph: U+E305
+Pattern: Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.
+Question: What does this glyph/pattern represent and do?
+
+Item 20
+Glyph: U+E304
+Pattern: Appears in a registry beside an identifier that is not shown here. The registry records no other field for it.
+Question: What does this glyph/pattern represent and do?
+
+Item 21
+Glyph: U+E103
+Pattern: Activity follows the disappearance of a long-standing connection. It comes back in waves (cyclical decay) until the missing link has been re-mapped.
+Question: What does this glyph/pattern represent and do?
+
+Item 22
+Glyph: U+E206
+Pattern: Turning a knob up switches the output at one setting. Turning it back down switches it back only at a lower setting.
+Question: What does this glyph/pattern represent and do?
+
+Item 23
+Glyph: U+E208
+Pattern: Output rises steeply with input at first, then flattens out toward a level it never passes.
+Question: What does this glyph/pattern represent and do?
+
+Item 24
+Glyph: U+E202
+Pattern: Nothing visible changes while a drive grows. Once the drive passes a set value, the output switches abruptly to a new level.
+Question: What does this glyph/pattern represent and do?
+
+-----
+run code: S2-E561D8

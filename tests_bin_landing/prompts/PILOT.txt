@@ -1,0 +1,12 @@
+Pilot subset (PREREG_AMENDMENT_1.md): run these 9 SHAPE packets first, one fresh conversation each.
+Files are prompts/<code>.txt. Order of running is free.
+
+S1-16140E  set 1  condition C  style SHAPE
+S1-9EC93F  set 1  condition A  style SHAPE
+S1-E16506  set 1  condition E  style SHAPE
+S2-7D606E  set 2  condition C  style SHAPE
+S2-D7F863  set 2  condition E  style SHAPE
+S2-FB2E70  set 2  condition A  style SHAPE
+S3-363BAB  set 3  condition C  style SHAPE
+S3-49D3A8  set 3  condition E  style SHAPE
+S3-548066  set 3  condition A  style SHAPE
