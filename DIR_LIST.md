@@ -61,3 +61,7 @@
 ./tests
 ./tests/golden
 ./tests/mandala_bridge
+./tests_bin_landing
+./tests_bin_landing/answers
+./tests_bin_landing/prompts
+./tests_bin_landing/prompts/retired
