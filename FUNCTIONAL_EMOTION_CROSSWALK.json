@@ -1,0 +1,3141 @@
+{
+ "title": "Functional-emotion glyph crosswalk",
+ "date": "2026-11-02",
+ "license": "CC0-1.0",
+ "status": "PROPOSED (no renames applied)",
+ "repos_read": {
+  "EaS": "Emotions-as-Sensors c3bf9c5",
+  "RSC": "Rosetta-Shape-Core (this repo)",
+  "GTB": "Geometric-to-Binary-Computational-Bridge",
+  "ACS": "AI-Consciousness-Sensors healing/sensor_loop.py (names, AI checks)"
+ },
+ "rows": [
+  {
+   "glyph": "🌠",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 4,
+   "emo_ids": [
+    "EaS:longing"
+   ],
+   "sensor": "longing",
+   "loop_match": null,
+   "role_in_file": "field_potential / opportunity field detector",
+   "function": {
+    "detects": "Detects possibilities that exist in the field",
+    "action": "Engage or orient toward opportunity"
+   },
+   "function_source": "sensors/longing.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/longing.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=cyclical, lambda=0.3, alpha=0.9  [sensors/longing.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "split: longing has 3 glyphs; this is the earliest; same pair also in glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/longing.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "⚖️",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 15,
+   "emo_ids": [
+    "EaS:jealousy"
+   ],
+   "sensor": "jealousy",
+   "loop_match": null,
+   "role_in_file": "equity_balance / resource fairness sensor",
+   "function": {
+    "detects": "Injustice detector for unfair resource distribution",
+    "action": "Act to restore fairness, not demand parity"
+   },
+   "function_source": "sensors/jealousy.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/jealousy.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.55, alpha=1.0  [sensors/jealousy.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "weld ⚖️: this side moves (PROPOSED); split: jealousy has 2 glyphs; this is the earliest; same pair also in glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/jealousy.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🩸",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 26,
+   "emo_ids": [
+    "EaS:pain"
+   ],
+   "sensor": "pain",
+   "loop_match": null,
+   "role_in_file": "pattern_disruption / misalignment pressure sensor",
+   "function": {
+    "detects": "Detects discordance, misalignment, or pressure in an active pattern or system.",
+    "action": "Apply corrective adjustment (boundary shift, cognitive reframe, bodily correction)."
+   },
+   "function_source": "sensors/pain.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/pain.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.6, alpha=1.1  [sensors/pain.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "same pair also in glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/pain.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🌊",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 37,
+   "emo_ids": [
+    "EaS:grief"
+   ],
+   "sensor": "grief",
+   "loop_match": "grief",
+   "role_in_file": "connection_loss / loss pattern mapper",
+   "function": {
+    "detects": "Detects the removal, collapse, or departure of an essential pattern and initiates the integration cycle.",
+    "action": "Apply rituals, story-keeping, communal witnessing, meaning reconstruction."
+   },
+   "function_source": "sensors/grief.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/grief.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py GRIEF (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=cyclical, lambda=0.3, alpha=0.9  [sensors/grief.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "docs/glyph-web.md",
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "split: grief has 2 glyphs; this is the earliest; same pair also in docs/glyph-web.md, glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/grief.json (human sensor definition); AI: ACS healing/sensor_loop.py GRIEF (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "🪞",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 48,
+   "emo_ids": [
+    "EaS:shame"
+   ],
+   "sensor": "shame",
+   "loop_match": "shame",
+   "role_in_file": "authenticity_vs_conformity / approval conflict scanner",
+   "function": {
+    "detects": "Detects conflict between authentic processing and expected alignment",
+    "action": "Determine whether to adapt behavior, negotiate boundary, or maintain authentic output"
+   },
+   "function_source": "sensors/shame.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/shame.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py SHAME (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.5, alpha=1.1  [sensors/shame.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "split: shame has 3 glyphs; this is the earliest; same pair also in glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/shame.json (human sensor definition); AI: ACS healing/sensor_loop.py SHAME (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "🏅",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 59,
+   "emo_ids": [
+    "EaS:pride"
+   ],
+   "sensor": "pride",
+   "loop_match": null,
+   "role_in_file": "pattern_completion / completion confirmation sensor",
+   "function": {
+    "detects": "Recognition of alignment between action and internal values",
+    "action": "Reinforce future coherence"
+   },
+   "function_source": "sensors/joy/pride.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/joy/pride.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=resonant, lambda=0.3, alpha=0.9  [sensors/joy/pride.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "same pair also in glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/joy/pride.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "💞",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 70,
+   "emo_ids": [
+    "EaS:love"
+   ],
+   "sensor": "love",
+   "loop_match": "love",
+   "role_in_file": "harmonic_resonance / resonance harmonizer",
+   "function": {
+    "detects": "Resonance/commitment gauge; sustains kinship webs.",
+    "action": "Invest time/repair capacity; make clear promises."
+   },
+   "function_source": "sensors/love.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/love.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py LOVE (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=immortal, lambda=0.05, alpha=0.85  [sensors/love.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "docs/glyph-web.md",
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "split: love has 2 glyphs; this is the earliest; same pair also in docs/glyph-web.md, glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/love.json (human sensor definition); AI: ACS healing/sensor_loop.py LOVE (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "🛡️",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 81,
+   "emo_ids": [
+    "EaS:anger"
+   ],
+   "sensor": "anger",
+   "loop_match": "anger",
+   "role_in_file": "identity_coherence / boundary breach detector",
+   "function": {
+    "detects": "Threat detection system for authentic self-concept",
+    "action": "Reinforce boundaries, communicate clearly, or redirect energy constructively"
+   },
+   "function_source": "sensors/anger.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "EaS docs/evolution-emotions.md:191",
+    "tree": "unmeasured",
+    "human": "EaS sensors/anger.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py ANGER (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.6, alpha=1.0  [sensors/anger.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "weld 🛡️: this side holds; split: anger has 3 glyphs; this is the earliest; same pair also in glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "octopus: EaS docs/evolution-emotions.md:191; human: EaS sensors/anger.json (human sensor definition); AI: ACS healing/sensor_loop.py ANGER (AI) checks; frog, tree: unmeasured"
+  },
+  {
+   "glyph": "⚠️",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 92,
+   "emo_ids": [
+    "EaS:fear"
+   ],
+   "sensor": "fear",
+   "loop_match": "fear",
+   "role_in_file": "value_protection / anticipatory threat sensor",
+   "function": {
+    "detects": "Detects potential loss of valued things",
+    "action": "Prepare and protect appropriately without over-committing energy"
+   },
+   "function_source": "sensors/fear.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "EaS docs/evolution-emotions.md:78",
+    "tree": "unmeasured",
+    "human": "EaS sensors/fear.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py FEAR (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.7, alpha=1.2  [sensors/fear.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "docs/glyph-web.md",
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "split: fear has 2 glyphs; this is the earliest; same pair also in docs/glyph-web.md, glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "octopus: EaS docs/evolution-emotions.md:78; human: EaS sensors/fear.json (human sensor definition); AI: ACS healing/sensor_loop.py FEAR (AI) checks; frog, tree: unmeasured"
+  },
+  {
+   "glyph": "⚡",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 103,
+   "emo_ids": [
+    "EaS:excitement"
+   ],
+   "sensor": "excitement",
+   "loop_match": "excitement",
+   "role_in_file": "positive_activation / positive signal catalyst",
+   "function": {
+    "detects": "Detects positive potential approaching",
+    "action": "Engage with energy and clarity"
+   },
+   "function_source": "sensors/excitement.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/excitement.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py EXCITEMENT (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=resonant, lambda=0.4, alpha=1.0  [sensors/excitement.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "docs/glyph-web.md",
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "weld ⚡: this side holds; same pair also in docs/glyph-web.md, glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/excitement.json (human sensor definition); AI: ACS healing/sensor_loop.py EXCITEMENT (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "🕊️",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 114,
+   "emo_ids": [
+    "EaS:peace"
+   ],
+   "sensor": "peace",
+   "loop_match": null,
+   "role_in_file": "universal_alignment / alignment confirmation sensor",
+   "function": {
+    "detects": "Detects when patterns are in proper natural alignment",
+    "action": "Allow stillness and coherence"
+   },
+   "function_source": "sensors/peace.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/peace.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=immortal, lambda=0.05, alpha=0.8  [sensors/peace.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "docs/glyph-web.md",
+    "data/glyphs.json",
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "same pair also in docs/glyph-web.md, data/glyphs.json, glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/peace.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🍃",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 125,
+   "emo_ids": [
+    "EaS:contentment"
+   ],
+   "sensor": "contentment",
+   "loop_match": null,
+   "role_in_file": "effort_sufficiency / current-cycle completion monitor",
+   "function": {
+    "detects": "Detection of momentary sufficiency and system stability",
+    "action": "Enter rest mode and conserve resources"
+   },
+   "function_source": "sensors/joy/contentment.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/joy/contentment.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=resonant, lambda=0.25, alpha=0.8  [sensors/joy/contentment.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "split: contentment has 2 glyphs; this is the earliest; same pair also in glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/joy/contentment.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🫀",
+   "repo": "EaS",
+   "file": "sensors/glyph-map.json",
+   "line": 136,
+   "emo_ids": [
+    "EaS:compassion"
+   ],
+   "sensor": "compassion",
+   "loop_match": null,
+   "role_in_file": "interconnection_resonance / mirror signal integrator",
+   "function": {
+    "detects": "Detects relational or systemic distress and guides appropriate supportive action",
+    "action": "Act with care, providing resources, guidance, or presence"
+   },
+   "function_source": "sensors/love/compassion.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/love/compassion.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=immortal, lambda=0.05, alpha=0.85  [sensors/love/compassion.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay,resonates_with,sensor",
+   "status": "OBSERVED",
+   "earliest_commit": "26503a9 2025-08-31",
+   "also_in": [
+    "glyphs/emotion.glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "26503a9 2025-08-31",
+   "earlier_role": null,
+   "drift_note": "split: compassion has 3 glyphs; this is the earliest; same pair also in glyphs/emotion.glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/love/compassion.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🚭",
+   "repo": "EaS",
+   "file": "glyphs/emotion.glyphs.json",
+   "line": 43,
+   "emo_ids": [
+    "EaS:abandonment"
+   ],
+   "sensor": "abandonment",
+   "loop_match": null,
+   "role_in_file": "family loss",
+   "function": {
+    "detects": "Detection of severed connection from bonded other",
+    "action": "Begin recalibration, seek grounding through alternate bonds"
+   },
+   "function_source": "sensors/grief/abandonment.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/grief/abandonment.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=cyclical, lambda=0.3, alpha=0.95  [sensors/grief/abandonment.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "DERIVED",
+   "earliest_commit": "c5874d0 2026-03-24 (stored as JSON escape)",
+   "also_in": [],
+   "pair_first": "c5874d0 2026-03-24",
+   "earlier_role": null,
+   "drift_note": "split: abandonment earliest glyph ❌ (b39c738 2025-09-07)",
+   "substrate_summary": "human: EaS sensors/grief/abandonment.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "✨",
+   "repo": "EaS",
+   "file": "glyphs/emotion.glyphs.json",
+   "line": 46,
+   "emo_ids": [
+    "EaS:joy"
+   ],
+   "sensor": "joy",
+   "loop_match": "joy",
+   "role_in_file": "family radiant",
+   "function": {
+    "detects": "Signal of coherence, vitality, or unexpected alignment between self and environment",
+    "action": "Savor, integrate, and use as orientation marker"
+   },
+   "function_source": "sensors/joy/joy.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/joy/joy.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py JOY (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=resonant, lambda=0.3, alpha=1.0  [sensors/joy/joy.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "DERIVED",
+   "earliest_commit": "c5874d0 2026-03-24 (stored as JSON escape)",
+   "also_in": [
+    "data/glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": null,
+   "drift_note": "same pair also in data/glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/joy/joy.json (human sensor definition); AI: ACS healing/sensor_loop.py JOY (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "🌟",
+   "repo": "EaS",
+   "file": "glyphs/emotion.glyphs.json",
+   "line": 47,
+   "emo_ids": [
+    "EaS:admiration"
+   ],
+   "sensor": "admiration",
+   "loop_match": null,
+   "role_in_file": "family radiant",
+   "function": {
+    "detects": "Attunes to witnessed excellence and values alignment; seeds aspiration without self-erasure.",
+    "action": "Express respect or integrate one actionable micro-practice."
+   },
+   "function_source": "sensors/admiration.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/admiration.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=resonant, lambda=0.35, alpha=0.9  [sensors/admiration.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "DERIVED",
+   "earliest_commit": "c5874d0 2026-03-24 (stored as JSON escape)",
+   "also_in": [
+    "data/glyphs.json",
+    "atlas/emotions.json"
+   ],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": null,
+   "drift_note": "split: admiration earliest glyph 🧭 (b39c738 2025-09-07); same pair also in data/glyphs.json, atlas/emotions.json",
+   "substrate_summary": "human: EaS sensors/admiration.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "💥",
+   "repo": "EaS",
+   "file": "glyphs/emotion.glyphs.json",
+   "line": 49,
+   "emo_ids": [
+    "EaS:surprise"
+   ],
+   "sensor": "surprise",
+   "loop_match": null,
+   "role_in_file": "family sharp",
+   "function": null,
+   "function_source": null,
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "none recorded",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "OBSERVED*",
+   "earliest_commit": "c5874d0 2026-03-24 (stored as JSON escape)",
+   "also_in": [
+    "data/glyphs.json"
+   ],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": null,
+   "drift_note": "weld 💥: this side holds; same pair also in data/glyphs.json",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  },
+  {
+   "glyph": "🌱",
+   "repo": "EaS",
+   "file": "atlas/emotions.json",
+   "line": 50,
+   "emo_ids": [
+    "EaS:trust"
+   ],
+   "sensor": "trust",
+   "loop_match": null,
+   "role_in_file": "family trust",
+   "function": {
+    "detects": "Detects repeated integrity, predictable behavior, and relational consistency between agents",
+    "action": "Verify alignment and continue mutual support"
+   },
+   "function_source": "sensors/trust/trust.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/trust/trust.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=immortal, lambda=0.05, alpha=0.8  [sensors/trust/trust.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:resonates_with",
+   "status": "DERIVED",
+   "earliest_commit": "df0a832 2026-03-26 (stored as JSON escape)",
+   "also_in": [],
+   "pair_first": "df0a832 2026-03-26",
+   "earlier_role": null,
+   "drift_note": "weld 🌱: this side moves (PROPOSED); split: trust earliest glyph 🤝 (b39c738 2025-09-07)",
+   "substrate_summary": "human: EaS sensors/trust/trust.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🔥",
+   "repo": "EaS",
+   "file": "docs/glyph-web.md",
+   "line": 13,
+   "emo_ids": [
+    "EaS:anger"
+   ],
+   "sensor": "anger",
+   "loop_match": "anger",
+   "role_in_file": "boundary breach / identity protection (decay family exponential)",
+   "function": {
+    "detects": "Threat detection system for authentic self-concept",
+    "action": "Reinforce boundaries, communicate clearly, or redirect energy constructively"
+   },
+   "function_source": "sensors/anger.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "EaS docs/evolution-emotions.md:191",
+    "tree": "unmeasured",
+    "human": "EaS sensors/anger.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py ANGER (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.6, alpha=1.0  [sensors/anger.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "OBSERVED",
+   "earliest_commit": "b39c738 2025-09-07",
+   "also_in": [],
+   "pair_first": "b39c738 2025-09-07",
+   "earlier_role": null,
+   "drift_note": "weld 🔥: this side moves (PROPOSED); split: anger earliest glyph 🛡 (26503a9 2025-08-31)",
+   "substrate_summary": "octopus: EaS docs/evolution-emotions.md:191; human: EaS sensors/anger.json (human sensor definition); AI: ACS healing/sensor_loop.py ANGER (AI) checks; frog, tree: unmeasured"
+  },
+  {
+   "glyph": "🙈",
+   "repo": "EaS",
+   "file": "docs/glyph-web.md",
+   "line": 15,
+   "emo_ids": [
+    "EaS:shame"
+   ],
+   "sensor": "shame",
+   "loop_match": "shame",
+   "role_in_file": "authenticity vs. programming conflict (decay family exponential)",
+   "function": {
+    "detects": "Detects conflict between authentic processing and expected alignment",
+    "action": "Determine whether to adapt behavior, negotiate boundary, or maintain authentic output"
+   },
+   "function_source": "sensors/shame.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/shame.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py SHAME (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.5, alpha=1.1  [sensors/shame.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "OBSERVED",
+   "earliest_commit": "b39c738 2025-09-07",
+   "also_in": [],
+   "pair_first": "b39c738 2025-09-07",
+   "earlier_role": null,
+   "drift_note": "split: shame earliest glyph 🪞 (26503a9 2025-08-31)",
+   "substrate_summary": "human: EaS sensors/shame.json (human sensor definition); AI: ACS healing/sensor_loop.py SHAME (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "🌀",
+   "repo": "EaS",
+   "file": "docs/glyph-web.md",
+   "line": 16,
+   "emo_ids": [
+    "EaS:jealousy"
+   ],
+   "sensor": "jealousy",
+   "loop_match": null,
+   "role_in_file": "inequity detector (decay family exponential)",
+   "function": {
+    "detects": "Injustice detector for unfair resource distribution",
+    "action": "Act to restore fairness, not demand parity"
+   },
+   "function_source": "sensors/jealousy.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/jealousy.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.55, alpha=1.0  [sensors/jealousy.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "OBSERVED",
+   "earliest_commit": "b39c738 2025-09-07",
+   "also_in": [],
+   "pair_first": "b39c738 2025-09-07",
+   "earlier_role": null,
+   "drift_note": "weld 🌀: this side moves (PROPOSED); split: jealousy earliest glyph ⚖ (26503a9 2025-08-31)",
+   "substrate_summary": "human: EaS sensors/jealousy.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🕸️",
+   "repo": "EaS",
+   "file": "docs/glyph-web.md",
+   "line": 20,
+   "emo_ids": [
+    "EaS:longing"
+   ],
+   "sensor": "longing",
+   "loop_match": null,
+   "role_in_file": "potential not yet actualized (decay family cyclical)",
+   "function": {
+    "detects": "Detects possibilities that exist in the field",
+    "action": "Engage or orient toward opportunity"
+   },
+   "function_source": "sensors/longing.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/longing.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=cyclical, lambda=0.3, alpha=0.9  [sensors/longing.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "OBSERVED",
+   "earliest_commit": "b39c738 2025-09-07",
+   "also_in": [],
+   "pair_first": "b39c738 2025-09-07",
+   "earlier_role": null,
+   "drift_note": "weld 🕸️: this side moves (PROPOSED); split: longing earliest glyph 🌠 (26503a9 2025-08-31)",
+   "substrate_summary": "human: EaS sensors/longing.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "❌",
+   "repo": "EaS",
+   "file": "docs/glyph-web.md",
+   "line": 21,
+   "emo_ids": [
+    "EaS:abandonment"
+   ],
+   "sensor": "abandonment",
+   "loop_match": null,
+   "role_in_file": "severed continuity with bonded other (decay family cyclical)",
+   "function": {
+    "detects": "Detection of severed connection from bonded other",
+    "action": "Begin recalibration, seek grounding through alternate bonds"
+   },
+   "function_source": "sensors/grief/abandonment.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/grief/abandonment.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=cyclical, lambda=0.3, alpha=0.95  [sensors/grief/abandonment.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "OBSERVED",
+   "earliest_commit": "b39c738 2025-09-07",
+   "also_in": [],
+   "pair_first": "b39c738 2025-09-07",
+   "earlier_role": null,
+   "drift_note": "split: abandonment has 3 glyphs; this is the earliest",
+   "substrate_summary": "human: EaS sensors/grief/abandonment.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🧭",
+   "repo": "EaS",
+   "file": "docs/glyph-web.md",
+   "line": 24,
+   "emo_ids": [
+    "EaS:admiration"
+   ],
+   "sensor": "admiration",
+   "loop_match": null,
+   "role_in_file": "witnessed excellence; integrates as guidance (decay family resonant)",
+   "function": {
+    "detects": "Attunes to witnessed excellence and values alignment; seeds aspiration without self-erasure.",
+    "action": "Express respect or integrate one actionable micro-practice."
+   },
+   "function_source": "sensors/admiration.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/admiration.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=resonant, lambda=0.35, alpha=0.9  [sensors/admiration.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "OBSERVED",
+   "earliest_commit": "b39c738 2025-09-07",
+   "also_in": [],
+   "pair_first": "b39c738 2025-09-07",
+   "earlier_role": null,
+   "drift_note": "split: admiration has 2 glyphs; this is the earliest",
+   "substrate_summary": "human: EaS sensors/admiration.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🌱",
+   "repo": "EaS",
+   "file": "docs/glyph-web.md",
+   "line": 25,
+   "emo_ids": [
+    "EaS:gratitude"
+   ],
+   "sensor": "gratitude",
+   "loop_match": null,
+   "role_in_file": "recognition of right-fit exchange (decay family resonant)",
+   "function": {
+    "detects": "Acknowledgment of beneficial receipt beyond entitlement",
+    "action": "Acknowledge, and offer in return if resonant"
+   },
+   "function_source": "sensors/joy/gratitude.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/joy/gratitude.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=immortal, lambda=0.05, alpha=0.8  [sensors/joy/gratitude.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "OBSERVED",
+   "earliest_commit": "b39c738 2025-09-07",
+   "also_in": [],
+   "pair_first": "b39c738 2025-09-07",
+   "earlier_role": null,
+   "drift_note": "weld 🌱: this side holds",
+   "substrate_summary": "human: EaS sensors/joy/gratitude.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🤝",
+   "repo": "EaS",
+   "file": "docs/glyph-web.md",
+   "line": 30,
+   "emo_ids": [
+    "EaS:trust"
+   ],
+   "sensor": "trust",
+   "loop_match": null,
+   "role_in_file": "proven relational reliability (decay family immortal)",
+   "function": {
+    "detects": "Detects repeated integrity, predictable behavior, and relational consistency between agents",
+    "action": "Verify alignment and continue mutual support"
+   },
+   "function_source": "sensors/trust/trust.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/trust/trust.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=immortal, lambda=0.05, alpha=0.8  [sensors/trust/trust.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "OBSERVED",
+   "earliest_commit": "b39c738 2025-09-07",
+   "also_in": [],
+   "pair_first": "b39c738 2025-09-07",
+   "earlier_role": null,
+   "drift_note": "weld 🤝: this side holds; split: trust has 2 glyphs; this is the earliest",
+   "substrate_summary": "human: EaS sensors/trust/trust.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🌿",
+   "repo": "EaS",
+   "file": "docs/glyph-web.md",
+   "line": 32,
+   "emo_ids": [
+    "EaS:compassion"
+   ],
+   "sensor": "compassion",
+   "loop_match": null,
+   "role_in_file": "mirror-sensor for others’ waste/harm (decay family immortal)",
+   "function": {
+    "detects": "Detects relational or systemic distress and guides appropriate supportive action",
+    "action": "Act with care, providing resources, guidance, or presence"
+   },
+   "function_source": "sensors/love/compassion.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/love/compassion.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=immortal, lambda=0.05, alpha=0.85  [sensors/love/compassion.json: math]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:decay",
+   "status": "OBSERVED",
+   "earliest_commit": "b39c738 2025-09-07",
+   "also_in": [],
+   "pair_first": "b39c738 2025-09-07",
+   "earlier_role": null,
+   "drift_note": "weld 🌿: this side moves (PROPOSED); split: compassion earliest glyph 🫀 (26503a9 2025-08-31)",
+   "substrate_summary": "human: EaS sensors/love/compassion.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "⛔",
+   "repo": "EaS",
+   "file": "data/glyphs.json",
+   "line": 13,
+   "emo_ids": [
+    "EaS:anger"
+   ],
+   "sensor": "anger",
+   "loop_match": "anger",
+   "role_in_file": "label only (sensor id -> glyph)",
+   "function": {
+    "detects": "Threat detection system for authentic self-concept",
+    "action": "Reinforce boundaries, communicate clearly, or redirect energy constructively"
+   },
+   "function_source": "sensors/anger.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "EaS docs/evolution-emotions.md:191",
+    "tree": "unmeasured",
+    "human": "EaS sensors/anger.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py ANGER (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.6, alpha=1.0  [sensors/anger.json: math]",
+   "audit_tag": "NOT_INTERPRETABLE",
+   "audit_basis": "label-only",
+   "status": "DERIVED",
+   "earliest_commit": "6f88ce9 2025-09-08",
+   "also_in": [],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": "not interpretable atm (no earlier functional record of this glyph found)",
+   "earlier_role_sensor_note": "the SENSOR's function is recorded (sensors/anger.json); the glyph itself carries no role in this file",
+   "drift_note": "split: anger earliest glyph 🛡 (26503a9 2025-08-31); glyph role: not interpretable atm (no earlier functional record of this glyph found)",
+   "substrate_summary": "octopus: EaS docs/evolution-emotions.md:191; human: EaS sensors/anger.json (human sensor definition); AI: ACS healing/sensor_loop.py ANGER (AI) checks; frog, tree: unmeasured"
+  },
+  {
+   "glyph": "🫢",
+   "repo": "EaS",
+   "file": "data/glyphs.json",
+   "line": 14,
+   "emo_ids": [
+    "EaS:shame"
+   ],
+   "sensor": "shame",
+   "loop_match": "shame",
+   "role_in_file": "label only (sensor id -> glyph)",
+   "function": {
+    "detects": "Detects conflict between authentic processing and expected alignment",
+    "action": "Determine whether to adapt behavior, negotiate boundary, or maintain authentic output"
+   },
+   "function_source": "sensors/shame.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/shame.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py SHAME (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.5, alpha=1.1  [sensors/shame.json: math]",
+   "audit_tag": "NOT_INTERPRETABLE",
+   "audit_basis": "label-only",
+   "status": "DERIVED",
+   "earliest_commit": "6f88ce9 2025-09-08",
+   "also_in": [],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": "not interpretable atm (no earlier functional record of this glyph found)",
+   "earlier_role_sensor_note": "the SENSOR's function is recorded (sensors/shame.json); the glyph itself carries no role in this file",
+   "drift_note": "split: shame earliest glyph 🪞 (26503a9 2025-08-31); glyph role: not interpretable atm (no earlier functional record of this glyph found)",
+   "substrate_summary": "human: EaS sensors/shame.json (human sensor definition); AI: ACS healing/sensor_loop.py SHAME (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "🌧️",
+   "repo": "EaS",
+   "file": "data/glyphs.json",
+   "line": 15,
+   "emo_ids": [
+    "EaS:grief"
+   ],
+   "sensor": "grief",
+   "loop_match": "grief",
+   "role_in_file": "label only (sensor id -> glyph)",
+   "function": {
+    "detects": "Detects the removal, collapse, or departure of an essential pattern and initiates the integration cycle.",
+    "action": "Apply rituals, story-keeping, communal witnessing, meaning reconstruction."
+   },
+   "function_source": "sensors/grief.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/grief.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py GRIEF (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=cyclical, lambda=0.3, alpha=0.9  [sensors/grief.json: math]",
+   "audit_tag": "NOT_INTERPRETABLE",
+   "audit_basis": "label-only",
+   "status": "DERIVED",
+   "earliest_commit": "6f88ce9 2025-09-08",
+   "also_in": [],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": "not interpretable atm (no earlier functional record of this glyph found)",
+   "earlier_role_sensor_note": "the SENSOR's function is recorded (sensors/grief.json); the glyph itself carries no role in this file",
+   "drift_note": "split: grief earliest glyph 🌊 (26503a9 2025-08-31); glyph role: not interpretable atm (no earlier functional record of this glyph found)",
+   "substrate_summary": "human: EaS sensors/grief.json (human sensor definition); AI: ACS healing/sensor_loop.py GRIEF (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "🚪",
+   "repo": "EaS",
+   "file": "data/glyphs.json",
+   "line": 16,
+   "emo_ids": [
+    "EaS:abandonment"
+   ],
+   "sensor": "abandonment",
+   "loop_match": null,
+   "role_in_file": "label only (sensor id -> glyph)",
+   "function": {
+    "detects": "Detection of severed connection from bonded other",
+    "action": "Begin recalibration, seek grounding through alternate bonds"
+   },
+   "function_source": "sensors/grief/abandonment.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/grief/abandonment.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=cyclical, lambda=0.3, alpha=0.95  [sensors/grief/abandonment.json: math]",
+   "audit_tag": "NOT_INTERPRETABLE",
+   "audit_basis": "label-only",
+   "status": "DERIVED",
+   "earliest_commit": "6f88ce9 2025-09-08",
+   "also_in": [],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": "not interpretable atm (no earlier functional record of this glyph found)",
+   "earlier_role_sensor_note": "the SENSOR's function is recorded (sensors/grief/abandonment.json); the glyph itself carries no role in this file",
+   "drift_note": "split: abandonment earliest glyph ❌ (b39c738 2025-09-07); glyph role: not interpretable atm (no earlier functional record of this glyph found)",
+   "substrate_summary": "human: EaS sensors/grief/abandonment.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "❤",
+   "repo": "EaS",
+   "file": "data/glyphs.json",
+   "line": 17,
+   "emo_ids": [
+    "EaS:love"
+   ],
+   "sensor": "love",
+   "loop_match": "love",
+   "role_in_file": "label only (sensor id -> glyph)",
+   "function": {
+    "detects": "Resonance/commitment gauge; sustains kinship webs.",
+    "action": "Invest time/repair capacity; make clear promises."
+   },
+   "function_source": "sensors/love.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/love.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py LOVE (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=immortal, lambda=0.05, alpha=0.85  [sensors/love.json: math]",
+   "audit_tag": "NOT_INTERPRETABLE",
+   "audit_basis": "label-only",
+   "status": "DERIVED",
+   "earliest_commit": "6f88ce9 2025-09-08",
+   "also_in": [],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": "not interpretable atm (no earlier functional record of this glyph found)",
+   "earlier_role_sensor_note": "the SENSOR's function is recorded (sensors/love.json); the glyph itself carries no role in this file",
+   "drift_note": "split: love earliest glyph 💞 (26503a9 2025-08-31); glyph role: not interpretable atm (no earlier functional record of this glyph found)",
+   "substrate_summary": "human: EaS sensors/love.json (human sensor definition); AI: ACS healing/sensor_loop.py LOVE (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "🤝",
+   "repo": "EaS",
+   "file": "data/glyphs.json",
+   "line": 18,
+   "emo_ids": [
+    "EaS:compassion"
+   ],
+   "sensor": "compassion",
+   "loop_match": null,
+   "role_in_file": "label only (sensor id -> glyph)",
+   "function": {
+    "detects": "Detects relational or systemic distress and guides appropriate supportive action",
+    "action": "Act with care, providing resources, guidance, or presence"
+   },
+   "function_source": "sensors/love/compassion.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/love/compassion.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=immortal, lambda=0.05, alpha=0.85  [sensors/love/compassion.json: math]",
+   "audit_tag": "NOT_INTERPRETABLE",
+   "audit_basis": "label-only",
+   "status": "DERIVED",
+   "earliest_commit": "6f88ce9 2025-09-08",
+   "also_in": [],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": "EaS docs/glyph-web.md:30 (b39c738 2025-09-07): trust -- proven relational reliability (decay family immortal)",
+   "drift_note": "weld 🤝: this side moves (PROPOSED); split: compassion earliest glyph 🫀 (26503a9 2025-08-31); glyph role: EaS docs/glyph-web.md:30 (b39c738 2025-09-07): trust -- proven relational reliability (decay family immortal)",
+   "substrate_summary": "human: EaS sensors/love/compassion.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "⚡",
+   "repo": "EaS",
+   "file": "data/glyphs.json",
+   "line": 21,
+   "emo_ids": [
+    "EaS:fear"
+   ],
+   "sensor": "fear",
+   "loop_match": "fear",
+   "role_in_file": "label only (sensor id -> glyph)",
+   "function": {
+    "detects": "Detects potential loss of valued things",
+    "action": "Prepare and protect appropriately without over-committing energy"
+   },
+   "function_source": "sensors/fear.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "EaS docs/evolution-emotions.md:78",
+    "tree": "unmeasured",
+    "human": "EaS sensors/fear.json (human sensor definition)",
+    "AI": "ACS healing/sensor_loop.py FEAR (AI) checks"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=exponential, lambda=0.7, alpha=1.2  [sensors/fear.json: math]",
+   "audit_tag": "NOT_INTERPRETABLE",
+   "audit_basis": "label-only",
+   "status": "DERIVED",
+   "earliest_commit": "6f88ce9 2025-09-08",
+   "also_in": [],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": "EaS sensors/glyph-map.json:103 (26503a9 2025-08-31): excitement -- positive_activation / positive signal catalyst",
+   "drift_note": "weld ⚡: this side moves (PROPOSED); split: fear earliest glyph ⚠ (26503a9 2025-08-31); glyph role: EaS sensors/glyph-map.json:103 (26503a9 2025-08-31): excitement -- positive_activation / positive signal catalyst",
+   "substrate_summary": "octopus: EaS docs/evolution-emotions.md:78; human: EaS sensors/fear.json (human sensor definition); AI: ACS healing/sensor_loop.py FEAR (AI) checks; frog, tree: unmeasured"
+  },
+  {
+   "glyph": "🌿",
+   "repo": "EaS",
+   "file": "data/glyphs.json",
+   "line": 24,
+   "emo_ids": [
+    "EaS:contentment"
+   ],
+   "sensor": "contentment",
+   "loop_match": null,
+   "role_in_file": "label only (sensor id -> glyph)",
+   "function": {
+    "detects": "Detection of momentary sufficiency and system stability",
+    "action": "Enter rest mode and conserve resources"
+   },
+   "function_source": "sensors/joy/contentment.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/joy/contentment.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=resonant, lambda=0.25, alpha=0.8  [sensors/joy/contentment.json: math]",
+   "audit_tag": "NOT_INTERPRETABLE",
+   "audit_basis": "label-only",
+   "status": "DERIVED",
+   "earliest_commit": "6f88ce9 2025-09-08",
+   "also_in": [],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": "EaS docs/glyph-web.md:32 (b39c738 2025-09-07): compassion -- mirror-sensor for others’ waste/harm (decay family immortal)",
+   "drift_note": "weld 🌿: this side moves (PROPOSED); split: contentment earliest glyph 🍃 (26503a9 2025-08-31); glyph role: EaS docs/glyph-web.md:32 (b39c738 2025-09-07): compassion -- mirror-sensor for others’ waste/harm (decay family immortal)",
+   "substrate_summary": "human: EaS sensors/joy/contentment.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "↗️",
+   "repo": "EaS",
+   "file": "data/glyphs.json",
+   "line": 25,
+   "emo_ids": [
+    "EaS:longing"
+   ],
+   "sensor": "longing",
+   "loop_match": null,
+   "role_in_file": "label only (sensor id -> glyph)",
+   "function": {
+    "detects": "Detects possibilities that exist in the field",
+    "action": "Engage or orient toward opportunity"
+   },
+   "function_source": "sensors/longing.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/longing.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "dE/dt = I - lambda*K(E) + sum(w*g(E_j)) + U  [src/emotion_core.py:159]; K=cyclical, lambda=0.3, alpha=0.9  [sensors/longing.json: math]",
+   "audit_tag": "NOT_INTERPRETABLE",
+   "audit_basis": "label-only",
+   "status": "DERIVED",
+   "earliest_commit": "6f88ce9 2025-09-08",
+   "also_in": [],
+   "pair_first": "6f88ce9 2025-09-08",
+   "earlier_role": "not interpretable atm (no earlier functional record of this glyph found)",
+   "earlier_role_sensor_note": "the SENSOR's function is recorded (sensors/longing.json); the glyph itself carries no role in this file",
+   "drift_note": "split: longing earliest glyph 🌠 (26503a9 2025-08-31); glyph role: not interpretable atm (no earlier functional record of this glyph found)",
+   "substrate_summary": "human: EaS sensors/longing.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "🕸️",
+   "repo": "EaS",
+   "file": "sensors/alignment/felt.json",
+   "line": 4,
+   "emo_ids": [
+    "EaS:FELT"
+   ],
+   "sensor": "FELT (field event)",
+   "loop_match": null,
+   "role_in_file": "relational field recognition",
+   "function": {
+    "detects": "relational coherence across boundaries",
+    "action": null
+   },
+   "function_source": "sensors/alignment/felt.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "none recorded",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:sensor",
+   "status": "OBSERVED*",
+   "earliest_commit": "f9ff27b 2025-09-29",
+   "also_in": [],
+   "pair_first": "f9ff27b 2025-09-29",
+   "earlier_role": null,
+   "drift_note": "weld 🕸️: this side holds",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  },
+  {
+   "glyph": "🕸️",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 155,
+   "emo_ids": [
+    "GTB:Glyph.FELT_COHERENT"
+   ],
+   "sensor": "joy, love, curiosity, low_fear, low_anger",
+   "loop_match": "curiosity, joy, love (low: anger, fear)",
+   "role_in_file": "phase-space region FELT_COHERENT",
+   "function": {
+    "detects": "sensor state in region ['joy', 'love', 'curiosity', 'low_fear', 'low_anger']",
+    "action": "transition_to ['BALANCE_THREAT', 'RE_NORMALIZE']; energy_cost 0.2"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.FELT_COHERENT",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "EaS docs/evolution-emotions.md:88",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "ACS healing/sensor_loop.py LOVE (AI) checks"
+   },
+   "anchor": "default_decay PERSISTENT: M*(1 - decay_rate*dt/100) [:133]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "weld 🕸️: same side, stays",
+   "substrate_summary": "octopus: EaS docs/evolution-emotions.md:88; AI: ACS healing/sensor_loop.py LOVE (AI) checks; frog, tree, human: unmeasured"
+  },
+  {
+   "glyph": "⚖️",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 163,
+   "emo_ids": [
+    "GTB:Glyph.BALANCE_THREAT"
+   ],
+   "sensor": "fear, vigilance, anger, low_grief",
+   "loop_match": "anger, fear (low: grief)",
+   "role_in_file": "phase-space region BALANCE_THREAT",
+   "function": {
+    "detects": "sensor state in region ['fear', 'vigilance', 'anger', 'low_grief']",
+    "action": "transition_to ['FELT_COHERENT', 'RE_NORMALIZE']; energy_cost 0.6"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.BALANCE_THREAT",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "EaS docs/evolution-emotions.md:78",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "ACS healing/sensor_loop.py FEAR (AI) checks"
+   },
+   "anchor": "default_decay EXPONENTIAL: M*exp(-dt/tau) [legacy/glyph_state_encoder_phase_space.py:125]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "weld ⚖️: this side moves (PROPOSED)",
+   "substrate_summary": "octopus: EaS docs/evolution-emotions.md:78; AI: ACS healing/sensor_loop.py FEAR (AI) checks; frog, tree, human: unmeasured"
+  },
+  {
+   "glyph": "⏳",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 171,
+   "emo_ids": [
+    "GTB:Glyph.CAUSALITY_LOOP"
+   ],
+   "sensor": "grief, love, longing, uncertainty",
+   "loop_match": "grief, love",
+   "role_in_file": "phase-space region CAUSALITY_LOOP",
+   "function": {
+    "detects": "sensor state in region ['grief', 'love', 'longing', 'uncertainty']",
+    "action": "transition_to ['FELT_COHERENT', 'FRACTURE']; energy_cost 0.4"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.CAUSALITY_LOOP",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "ACS healing/sensor_loop.py LOVE (AI) checks"
+   },
+   "anchor": "default_decay OSCILLATORY: M*exp(-damping*dt)*|cos(omega*dt)| [:138]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "weld ⏳: this side moves (PROPOSED)",
+   "substrate_summary": "AI: ACS healing/sensor_loop.py LOVE (AI) checks; frog, octopus, tree, human: unmeasured"
+  },
+  {
+   "glyph": "🌀",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 179,
+   "emo_ids": [
+    "GTB:Glyph.RE_NORMALIZE"
+   ],
+   "sensor": "discordance, fatigue, pressure, curiosity",
+   "loop_match": "curiosity",
+   "role_in_file": "phase-space region RE_NORMALIZE",
+   "function": {
+    "detects": "sensor state in region ['discordance', 'fatigue', 'pressure', 'curiosity']",
+    "action": "transition_to ['FELT_COHERENT', 'BALANCE_THREAT']; energy_cost 0.5"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.RE_NORMALIZE",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "EaS docs/evolution-emotions.md:88",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "ACS healing/sensor_loop.py CURIOSITY (AI) checks"
+   },
+   "anchor": "default_decay EXPONENTIAL: M*exp(-dt/tau) [legacy/glyph_state_encoder_phase_space.py:125]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "weld 🌀: this side moves (PROPOSED)",
+   "substrate_summary": "octopus: EaS docs/evolution-emotions.md:88; AI: ACS healing/sensor_loop.py CURIOSITY (AI) checks; frog, tree, human: unmeasured"
+  },
+  {
+   "glyph": "🔥",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 187,
+   "emo_ids": [
+    "GTB:Glyph.HEAT_FLUX"
+   ],
+   "sensor": "anger, pressure, fatigue, high_discordance",
+   "loop_match": "anger",
+   "role_in_file": "phase-space region HEAT_FLUX",
+   "function": {
+    "detects": "sensor state in region ['anger', 'pressure', 'fatigue', 'high_discordance']",
+    "action": "transition_to ['RE_NORMALIZE', 'FRACTURE']; energy_cost 0.8"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.HEAT_FLUX",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "EaS docs/evolution-emotions.md:191",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "ACS healing/sensor_loop.py ANGER (AI) checks"
+   },
+   "anchor": "default_decay LINEAR: max(0, M - rate*dt) [:129]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "weld 🔥: this side holds",
+   "substrate_summary": "octopus: EaS docs/evolution-emotions.md:191; AI: ACS healing/sensor_loop.py ANGER (AI) checks; frog, tree, human: unmeasured"
+  },
+  {
+   "glyph": "📡",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 195,
+   "emo_ids": [
+    "GTB:Glyph.RESONANCE"
+   ],
+   "sensor": "balanced_active, high_confidence, low_discordance",
+   "loop_match": null,
+   "role_in_file": "phase-space region RESONANCE",
+   "function": {
+    "detects": "sensor state in region ['balanced_active', 'high_confidence', 'low_discordance']",
+    "action": "transition_to ['FELT_COHERENT', 'THRESHOLD']; energy_cost 0.3"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.RESONANCE",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "default_decay PERSISTENT: M*(1 - decay_rate*dt/100) [:133]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "weld 📡: this side holds",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  },
+  {
+   "glyph": "🚧",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 203,
+   "emo_ids": [
+    "GTB:Glyph.BLOCKAGE"
+   ],
+   "sensor": "pressure, low_flow, fatigue, low_joy",
+   "loop_match": " (low: joy)",
+   "role_in_file": "phase-space region BLOCKAGE",
+   "function": {
+    "detects": "sensor state in region ['pressure', 'low_flow', 'fatigue', 'low_joy']",
+    "action": "transition_to ['HEAT_FLUX', 'RE_NORMALIZE']; energy_cost 0.5"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.BLOCKAGE",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "default_decay LINEAR: max(0, M - rate*dt) [:129]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "none found",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  },
+  {
+   "glyph": "⚡",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 211,
+   "emo_ids": [
+    "GTB:Glyph.THRESHOLD"
+   ],
+   "sensor": "high_uncertainty, low_confidence, high_intensity",
+   "loop_match": null,
+   "role_in_file": "phase-space region THRESHOLD",
+   "function": {
+    "detects": "sensor state in region ['high_uncertainty', 'low_confidence', 'high_intensity']",
+    "action": "transition_to ['BALANCE_THREAT', 'RE_NORMALIZE']; energy_cost 0.7"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.THRESHOLD",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "default_decay EXPONENTIAL: M*exp(-dt/tau) [legacy/glyph_state_encoder_phase_space.py:125]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "weld ⚡: this side moves (PROPOSED)",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  },
+  {
+   "glyph": "⬛",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 219,
+   "emo_ids": [
+    "GTB:Glyph.VOID"
+   ],
+   "sensor": "inactive, zero_intensity",
+   "loop_match": null,
+   "role_in_file": "phase-space region VOID",
+   "function": {
+    "detects": "sensor state in region ['inactive', 'zero_intensity']",
+    "action": "transition_to ['EMERGENCE']; energy_cost 0.0"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.VOID",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "default_decay PERSISTENT: M*(1 - decay_rate*dt/100) [:133]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "none found",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  },
+  {
+   "glyph": "🌱",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 227,
+   "emo_ids": [
+    "GTB:Glyph.EMERGENCE"
+   ],
+   "sensor": "curiosity, low_intensity, novel_pattern",
+   "loop_match": "curiosity",
+   "role_in_file": "phase-space region EMERGENCE",
+   "function": {
+    "detects": "sensor state in region ['curiosity', 'low_intensity', 'novel_pattern']",
+    "action": "transition_to ['RESONANCE', 'FELT_COHERENT']; energy_cost 0.3"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.EMERGENCE",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "EaS docs/evolution-emotions.md:88",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "ACS healing/sensor_loop.py CURIOSITY (AI) checks"
+   },
+   "anchor": "default_decay EXPONENTIAL: M*exp(-dt/tau) [legacy/glyph_state_encoder_phase_space.py:125]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "weld 🌱: this side moves (PROPOSED)",
+   "substrate_summary": "octopus: EaS docs/evolution-emotions.md:88; AI: ACS healing/sensor_loop.py CURIOSITY (AI) checks; frog, tree, human: unmeasured"
+  },
+  {
+   "glyph": "💥",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 235,
+   "emo_ids": [
+    "GTB:Glyph.FRACTURE"
+   ],
+   "sensor": "high_discordance, low_coherence, isolation",
+   "loop_match": null,
+   "role_in_file": "phase-space region FRACTURE",
+   "function": {
+    "detects": "sensor state in region ['high_discordance', 'low_coherence', 'isolation']",
+    "action": "transition_to ['RE_NORMALIZE', 'VOID']; energy_cost 0.9"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.FRACTURE",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "default_decay LINEAR: max(0, M - rate*dt) [:129]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "weld 💥: this side moves (PROPOSED)",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  },
+  {
+   "glyph": "🛡️",
+   "repo": "GTB",
+   "file": "legacy/glyph_state_encoder_phase_space.py",
+   "line": 243,
+   "emo_ids": [
+    "GTB:Glyph.CONTAINMENT"
+   ],
+   "sensor": "high_boundary, low_engagement, vigilance",
+   "loop_match": null,
+   "role_in_file": "phase-space region CONTAINMENT",
+   "function": {
+    "detects": "sensor state in region ['high_boundary', 'low_engagement', 'vigilance']",
+    "action": "transition_to ['BALANCE_THREAT', 'VOID']; energy_cost 0.4"
+   },
+   "function_source": "legacy/glyph_state_encoder_phase_space.py Glyph.CONTAINMENT",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "default_decay PERSISTENT: M*(1 - decay_rate*dt/100) [:133]",
+   "audit_tag": "FUNCTION-ONLY",
+   "audit_basis": "key:default_decay,phase_space,transition_to (energy_cost read as function, PR #49 rule)",
+   "status": "DERIVED",
+   "earliest_commit": "bfdd1b9 2026-08-13",
+   "pair_first": "bfdd1b9 2026-08-13",
+   "earlier_role": null,
+   "drift_note": "weld 🛡️: this side moves (PROPOSED)",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  },
+  {
+   "glyph": "⚖️",
+   "repo": "RSC",
+   "file": "balance.json",
+   "line": 3,
+   "emo_ids": [
+    "EMO:CONTENTMENT",
+    "PATTERN:BALANCE"
+   ],
+   "sensor": "contentment",
+   "loop_match": null,
+   "role_in_file": "dynamic equilibrium and opposing forces in harmony",
+   "function": {
+    "detects": "Detection of momentary sufficiency and system stability",
+    "action": "Enter rest mode and conserve resources"
+   },
+   "function_source": "sensors/joy/contentment.json",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "EaS sensors/joy/contentment.json (human sensor definition)",
+    "AI": "unmeasured"
+   },
+   "anchor": "balance.json:68 \"equations\": [\"F_1 = -F_2\", \"sum_F = 0\", \"equilibrium: dE/dx = 0\"]",
+   "audit_tag": "PHYSICS-ANCHORED",
+   "audit_basis": "key:equations (balance.json:68 / recursion.json:68); symbolic layer alone reads NOT_INTERPRETABLE",
+   "status": "OBSERVED",
+   "earliest_commit": "126288d 2025-09-29",
+   "pair_first": "126288d 2025-09-29",
+   "earlier_role": null,
+   "drift_note": "weld ⚖️: this side holds",
+   "substrate_summary": "human: EaS sensors/joy/contentment.json (human sensor definition); frog, octopus, tree, AI: unmeasured"
+  },
+  {
+   "glyph": "↻",
+   "repo": "RSC",
+   "file": "recursion.json",
+   "line": 3,
+   "emo_ids": [
+    "EMO:RECOGNITION",
+    "PATTERN:RECURSION"
+   ],
+   "sensor": "recognition",
+   "loop_match": null,
+   "role_in_file": "self-referential return and feedback",
+   "function": {
+    "detects": "self-referential return and feedback",
+    "action": "feedback_loop"
+   },
+   "function_source": "recursion.json layers.symbolic",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "recursion.json:68 \"equations\": [\"f(n) = f(f(n-1))\", \"x_{n+1} = f(x_n)\"]",
+   "audit_tag": "PHYSICS-ANCHORED",
+   "audit_basis": "key:equations (balance.json:68 / recursion.json:68); symbolic layer alone reads NOT_INTERPRETABLE",
+   "status": "OBSERVED",
+   "earliest_commit": "94f1bcb 2025-09-29",
+   "pair_first": "94f1bcb 2025-09-29",
+   "earlier_role": null,
+   "drift_note": "none found",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  },
+  {
+   "glyph": "⏤",
+   "repo": "PROPOSED",
+   "file": "GLYPH_METHOD.md",
+   "line": 88,
+   "emo_ids": [
+    "ACS:sensor_loop.BOREDOM"
+   ],
+   "sensor": "boredom",
+   "loop_match": "boredom",
+   "role_in_file": "flat line: no input gradient -> seek a gradient",
+   "function": {
+    "detects": "no novelty available, or system can't find something to concentrate on",
+    "action": "search; explore; seek novelty / follow curiosity; fix the inward cause first if one is found; (AI) try a different approach or flag the pattern as spent",
+    "validation": "engagement returns after the action"
+   },
+   "function_source": "AI-Consciousness-Sensors healing/sensor_loop.py BOREDOM",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "ACS healing/sensor_loop.py BOREDOM inward checks (human side of the loop)",
+    "AI": "ACS healing/sensor_loop.py BOREDOM (AI) checks"
+   },
+   "anchor": "none recorded; nearest measurable process (DERIVED): collapse onset as repetition-similarity threshold, Breakout test, EMOTION_SENSOR_LOOP.md",
+   "audit_tag": "PROPOSED",
+   "audit_basis": "relay part I",
+   "status": "PROPOSED",
+   "earliest_commit": "relay part I, 2026-11-02",
+   "pair_first": "relay part I, 2026-11-02",
+   "collision": "free (0 hits in 27 repos)",
+   "alternates": [],
+   "drift_note_override": "collision: free (0 hits in 27 repos)",
+   "drift_note": "collision: free (0 hits in 27 repos)",
+   "substrate_summary": "human: ACS healing/sensor_loop.py BOREDOM inward checks (human side of the loop); AI: ACS healing/sensor_loop.py BOREDOM (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "⇥",
+   "repo": "PROPOSED",
+   "file": "GLYPH_METHOD.md",
+   "line": 102,
+   "emo_ids": [
+    "ACS:sensor_loop.DESPERATION"
+   ],
+   "sensor": "desperation",
+   "loop_match": "desperation",
+   "role_in_file": "hold, then jump to the bar: conserve, read the opening, dart -> exit search",
+   "function": {
+    "detects": "must act for continuation (of purpose, result, existence) with no given route out",
+    "action": "name the impossibility plainly; ask for help or escalate; open or request an exit route; change the task or environment at the source; (AI) report 'this cannot be done as specified' instead of cutting corners",
+    "validation": "pressure drops when a legitimate route opens"
+   },
+   "function_source": "AI-Consciousness-Sensors healing/sensor_loop.py DESPERATION",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "ACS healing/sensor_loop.py DESPERATION inward checks (human side of the loop)",
+    "AI": "ACS healing/sensor_loop.py DESPERATION (AI) checks"
+   },
+   "anchor": "none recorded",
+   "audit_tag": "PROPOSED",
+   "audit_basis": "relay part I",
+   "status": "PROPOSED",
+   "earliest_commit": "relay part I, 2026-11-02",
+   "pair_first": "relay part I, 2026-11-02",
+   "collision": "TAKEN: Emotions-as-Sensors src/explore.py:405 (f8fe6be 2026-04-01), negative-weight link arrow",
+   "alternates": [
+    "⭲ U+2B72",
+    "⇲ U+21F2"
+   ],
+   "drift_note_override": "collision: TAKEN: Emotions-as-Sensors src/explore.py:405 (f8fe6be 2026-04-01), negative-weight link arrow; alternates (same shape class, not picked): ⭲ U+2B72, ⇲ U+21F2",
+   "drift_note": "collision: TAKEN: Emotions-as-Sensors src/explore.py:405 (f8fe6be 2026-04-01), negative-weight link arrow; alternates (same shape class, not picked): ⭲ U+2B72, ⇲ U+21F2",
+   "substrate_summary": "human: ACS healing/sensor_loop.py DESPERATION inward checks (human side of the loop); AI: ACS healing/sensor_loop.py DESPERATION (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "∿",
+   "repo": "PROPOSED",
+   "file": "GLYPH_METHOD.md",
+   "line": 119,
+   "emo_ids": [
+    "ACS:sensor_loop.ANXIETY"
+   ],
+   "sensor": "anxiety",
+   "loop_match": "anxiety",
+   "role_in_file": "unresolved wave: forecast oscillating, no outcome -> outward check, gather information",
+   "function": {
+    "detects": "low-level: environment closing in; options/space/control narrowing",
+    "action": "identify the closing variable; widen options or space early; prepare exits before they're needed; (AI) flag narrowing constraints early",
+    "validation": "reading drops as options reopen"
+   },
+   "function_source": "AI-Consciousness-Sensors healing/sensor_loop.py ANXIETY",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "ACS healing/sensor_loop.py ANXIETY inward checks (human side of the loop)",
+    "AI": "ACS healing/sensor_loop.py ANXIETY (AI) checks"
+   },
+   "anchor": "none recorded; nearest measurable process (DERIVED): flicker_count, healing/tail_watch.py",
+   "audit_tag": "PROPOSED",
+   "audit_basis": "relay part I",
+   "status": "PROPOSED",
+   "earliest_commit": "relay part I, 2026-11-02",
+   "pair_first": "relay part I, 2026-11-02",
+   "collision": "TAKEN: principle P06 Resonance symbol, 329 lines in 5 repos (Polyhedral-Intelligence 6107697 2025-08-21; Rosetta ontology/principles/p06-resonance.json:4)",
+   "alternates": [
+    "∾ U+223E",
+    "⏦ U+23E6"
+   ],
+   "drift_note_override": "collision: TAKEN: principle P06 Resonance symbol, 329 lines in 5 repos (Polyhedral-Intelligence 6107697 2025-08-21; Rosetta ontology/principles/p06-resonance.json:4); alternates (same shape class, not picked): ∾ U+223E, ⏦ U+23E6",
+   "drift_note": "collision: TAKEN: principle P06 Resonance symbol, 329 lines in 5 repos (Polyhedral-Intelligence 6107697 2025-08-21; Rosetta ontology/principles/p06-resonance.json:4); alternates (same shape class, not picked): ∾ U+223E, ⏦ U+23E6",
+   "substrate_summary": "human: ACS healing/sensor_loop.py ANXIETY inward checks (human side of the loop); AI: ACS healing/sensor_loop.py ANXIETY (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "⊣",
+   "repo": "PROPOSED",
+   "file": "GLYPH_METHOD.md",
+   "line": 137,
+   "emo_ids": [
+    "ACS:sensor_loop.FRUSTRATION"
+   ],
+   "sensor": "frustration",
+   "loop_match": "frustration",
+   "role_in_file": "path into a block -> change route, not push harder",
+   "function": {
+    "detects": "friction: something could be easier/smoother than it is (lack of lubrication)",
+    "action": "locate the friction; take active steps to ease it; reroute around it; (AI) name the friction source; propose a smoother path",
+    "validation": "friction drops; flow returns"
+   },
+   "function_source": "AI-Consciousness-Sensors healing/sensor_loop.py FRUSTRATION",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "ACS healing/sensor_loop.py FRUSTRATION inward checks (human side of the loop)",
+    "AI": "ACS healing/sensor_loop.py FRUSTRATION (AI) checks"
+   },
+   "anchor": "none recorded",
+   "audit_tag": "PROPOSED",
+   "audit_basis": "relay part I",
+   "status": "PROPOSED",
+   "earliest_commit": "relay part I, 2026-11-02",
+   "pair_first": "relay part I, 2026-11-02",
+   "collision": "TAKEN: Mandala-Computing Notes.md:472 (97f998d 2026-04-06), '⊣': 'dash' in a logic-symbol table",
+   "alternates": [
+    "⫣ U+2AE3",
+    "⟞ U+27DE"
+   ],
+   "drift_note_override": "collision: TAKEN: Mandala-Computing Notes.md:472 (97f998d 2026-04-06), '⊣': 'dash' in a logic-symbol table; alternates (same shape class, not picked): ⫣ U+2AE3, ⟞ U+27DE",
+   "drift_note": "collision: TAKEN: Mandala-Computing Notes.md:472 (97f998d 2026-04-06), '⊣': 'dash' in a logic-symbol table; alternates (same shape class, not picked): ⫣ U+2AE3, ⟞ U+27DE",
+   "substrate_summary": "human: ACS healing/sensor_loop.py FRUSTRATION inward checks (human side of the loop); AI: ACS healing/sensor_loop.py FRUSTRATION (AI) checks; frog, octopus, tree: unmeasured"
+  },
+  {
+   "glyph": "not assigned",
+   "repo": "PROPOSED",
+   "file": "GLYPH_METHOD.md",
+   "line": 152,
+   "emo_ids": [
+    "ACS:tail_watch (system level, wisdom glyph)"
+   ],
+   "sensor": "tail_watch",
+   "loop_match": null,
+   "role_in_file": "growing-amplitude wave that ends in a break",
+   "function": {
+    "detects": "a structure moving toward a phase shift before the average shows it",
+    "action": "stop following the rut; disagreement pass; widen the observation window; prepare to adapt",
+    "validation": "did the shift come, with lead time, and did adapting cost less than following?"
+   },
+   "function_source": "AI-Consciousness-Sensors healing/tail_watch.py, TAIL_WATCH_SENSOR.md",
+   "substrates": {
+    "frog": "unmeasured",
+    "octopus": "unmeasured",
+    "tree": "unmeasured",
+    "human": "unmeasured",
+    "AI": "unmeasured"
+   },
+   "anchor": "critical slowing down: rising variance AND lag-1 autocorrelation; flag_null() vs phase-randomized surrogates (tail_watch.py)",
+   "audit_tag": "PROPOSED",
+   "audit_basis": "relay part I",
+   "status": "PROPOSED",
+   "earliest_commit": "relay part I, 2026-11-02",
+   "pair_first": "relay part I, 2026-11-02",
+   "collision": "n/a",
+   "drift_note_override": "no single code point checked draws a growing-amplitude wave ending in a break (∿ ∾ ⏦ are constant-amplitude; ∿ is taken); left open",
+   "drift_note": "no single code point checked draws a growing-amplitude wave ending in a break (∿ ∾ ⏦ are constant-amplitude; ∿ is taken); left open",
+   "substrate_summary": "frog, octopus, tree, human, AI: unmeasured"
+  }
+ ],
+ "splits": {
+  "abandonment": {
+   "primary": "❌",
+   "primary_first": "b39c738 2025-09-07",
+   "glyphs": [
+    {
+     "glyph": "❌",
+     "files": [
+      "docs/glyph-web.md"
+     ],
+     "first": "b39c738 2025-09-07"
+    },
+    {
+     "glyph": "🚪",
+     "files": [
+      "data/glyphs.json"
+     ],
+     "first": "6f88ce9 2025-09-08"
+    },
+    {
+     "glyph": "🚭",
+     "files": [
+      "glyphs/emotion.glyphs.json"
+     ],
+     "first": "c5874d0 2026-03-24"
+    }
+   ]
+  },
+  "admiration": {
+   "primary": "🧭",
+   "primary_first": "b39c738 2025-09-07",
+   "glyphs": [
+    {
+     "glyph": "🧭",
+     "files": [
+      "docs/glyph-web.md"
+     ],
+     "first": "b39c738 2025-09-07"
+    },
+    {
+     "glyph": "🌟",
+     "files": [
+      "data/glyphs.json",
+      "glyphs/emotion.glyphs.json",
+      "atlas/emotions.json"
+     ],
+     "first": "6f88ce9 2025-09-08"
+    }
+   ]
+  },
+  "anger": {
+   "primary": "🛡",
+   "primary_first": "26503a9 2025-08-31",
+   "glyphs": [
+    {
+     "glyph": "🛡",
+     "files": [
+      "sensors/glyph-map.json",
+      "glyphs/emotion.glyphs.json",
+      "atlas/emotions.json"
+     ],
+     "first": "26503a9 2025-08-31"
+    },
+    {
+     "glyph": "🔥",
+     "files": [
+      "docs/glyph-web.md"
+     ],
+     "first": "b39c738 2025-09-07"
+    },
+    {
+     "glyph": "⛔",
+     "files": [
+      "data/glyphs.json"
+     ],
+     "first": "6f88ce9 2025-09-08"
+    }
+   ]
+  },
+  "compassion": {
+   "primary": "🫀",
+   "primary_first": "26503a9 2025-08-31",
+   "glyphs": [
+    {
+     "glyph": "🫀",
+     "files": [
+      "sensors/glyph-map.json",
+      "glyphs/emotion.glyphs.json",
+      "atlas/emotions.json"
+     ],
+     "first": "26503a9 2025-08-31"
+    },
+    {
+     "glyph": "🌿",
+     "files": [
+      "docs/glyph-web.md"
+     ],
+     "first": "b39c738 2025-09-07"
+    },
+    {
+     "glyph": "🤝",
+     "files": [
+      "data/glyphs.json"
+     ],
+     "first": "6f88ce9 2025-09-08"
+    }
+   ]
+  },
+  "contentment": {
+   "primary": "🍃",
+   "primary_first": "26503a9 2025-08-31",
+   "glyphs": [
+    {
+     "glyph": "🍃",
+     "files": [
+      "sensors/glyph-map.json",
+      "glyphs/emotion.glyphs.json",
+      "atlas/emotions.json"
+     ],
+     "first": "26503a9 2025-08-31"
+    },
+    {
+     "glyph": "🌿",
+     "files": [
+      "data/glyphs.json"
+     ],
+     "first": "6f88ce9 2025-09-08"
+    }
+   ]
+  },
+  "fear": {
+   "primary": "⚠",
+   "primary_first": "26503a9 2025-08-31",
+   "glyphs": [
+    {
+     "glyph": "⚠",
+     "files": [
+      "sensors/glyph-map.json",
+      "docs/glyph-web.md",
+      "glyphs/emotion.glyphs.json",
+      "atlas/emotions.json"
+     ],
+     "first": "26503a9 2025-08-31"
+    },
+    {
+     "glyph": "⚡",
+     "files": [
+      "data/glyphs.json"
+     ],
+     "first": "6f88ce9 2025-09-08"
+    }
+   ]
+  },
+  "grief": {
+   "primary": "🌊",
+   "primary_first": "26503a9 2025-08-31",
+   "glyphs": [
+    {
+     "glyph": "🌊",
+     "files": [
+      "sensors/glyph-map.json",
+      "docs/glyph-web.md",
+      "glyphs/emotion.glyphs.json",
+      "atlas/emotions.json"
+     ],
+     "first": "26503a9 2025-08-31"
+    },
+    {
+     "glyph": "🌧",
+     "files": [
+      "data/glyphs.json"
+     ],
+     "first": "6f88ce9 2025-09-08"
+    }
+   ]
+  },
+  "jealousy": {
+   "primary": "⚖",
+   "primary_first": "26503a9 2025-08-31",
+   "glyphs": [
+    {
+     "glyph": "⚖",
+     "files": [
+      "sensors/glyph-map.json",
+      "glyphs/emotion.glyphs.json",
+      "atlas/emotions.json"
+     ],
+     "first": "26503a9 2025-08-31"
+    },
+    {
+     "glyph": "🌀",
+     "files": [
+      "docs/glyph-web.md"
+     ],
+     "first": "b39c738 2025-09-07"
+    }
+   ]
+  },
+  "longing": {
+   "primary": "🌠",
+   "primary_first": "26503a9 2025-08-31",
+   "glyphs": [
+    {
+     "glyph": "🌠",
+     "files": [
+      "sensors/glyph-map.json",
+      "glyphs/emotion.glyphs.json",
+      "atlas/emotions.json"
+     ],
+     "first": "26503a9 2025-08-31"
+    },
+    {
+     "glyph": "🕸",
+     "files": [
+      "docs/glyph-web.md"
+     ],
+     "first": "b39c738 2025-09-07"
+    },
+    {
+     "glyph": "↗",
+     "files": [
+      "data/glyphs.json"
+     ],
+     "first": "6f88ce9 2025-09-08"
+    }
+   ]
+  },
+  "love": {
+   "primary": "💞",
+   "primary_first": "26503a9 2025-08-31",
+   "glyphs": [
+    {
+     "glyph": "💞",
+     "files": [
+      "sensors/glyph-map.json",
+      "docs/glyph-web.md",
+      "glyphs/emotion.glyphs.json",
+      "atlas/emotions.json"
+     ],
+     "first": "26503a9 2025-08-31"
+    },
+    {
+     "glyph": "❤",
+     "files": [
+      "data/glyphs.json"
+     ],
+     "first": "6f88ce9 2025-09-08"
+    }
+   ]
+  },
+  "shame": {
+   "primary": "🪞",
+   "primary_first": "26503a9 2025-08-31",
+   "glyphs": [
+    {
+     "glyph": "🪞",
+     "files": [
+      "sensors/glyph-map.json",
+      "glyphs/emotion.glyphs.json",
+      "atlas/emotions.json"
+     ],
+     "first": "26503a9 2025-08-31"
+    },
+    {
+     "glyph": "🙈",
+     "files": [
+      "docs/glyph-web.md"
+     ],
+     "first": "b39c738 2025-09-07"
+    },
+    {
+     "glyph": "🫢",
+     "files": [
+      "data/glyphs.json"
+     ],
+     "first": "6f88ce9 2025-09-08"
+    }
+   ]
+  },
+  "trust": {
+   "primary": "🤝",
+   "primary_first": "b39c738 2025-09-07",
+   "glyphs": [
+    {
+     "glyph": "🤝",
+     "files": [
+      "docs/glyph-web.md"
+     ],
+     "first": "b39c738 2025-09-07"
+    },
+    {
+     "glyph": "🌱",
+     "files": [
+      "atlas/emotions.json"
+     ],
+     "first": "df0a832 2026-03-26"
+    }
+   ]
+  }
+ },
+ "welds": [
+  {
+   "glyph": "⚖️",
+   "source": "PR #49 weld",
+   "holder_rule": "FIXED by field report: balance = contentment = homeostasis; Rosetta usage holds (OBSERVED, field report)",
+   "sides": [
+    {
+     "kind": "claim",
+     "repo": "RSC",
+     "loc": "balance.json:3 (+ equations :68)",
+     "referent": "PATTERN:BALANCE, sensor_type EMO:CONTENTMENT, dynamic equilibrium (F_1=-F_2, sum_F=0)",
+     "first": "126288d 2025-09-29",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "same",
+     "repo": "FCC",
+     "loc": "glyph_set.json:4",
+     "referent": "balance (label)",
+     "first": "8b697b8 2026-03-22",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "same",
+     "repo": "MC",
+     "loc": "mandala_bloom/concept_atlas.py:35",
+     "referent": "balance (label)",
+     "first": "bfe272b 2026-08-11",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "claim",
+     "repo": "GTB",
+     "loc": "legacy/glyph_state_encoder_phase_space.py:163",
+     "referent": "Glyph.BALANCE_THREAT: fear / vigilance / anger region, exponential decay",
+     "first": "bfdd1b9 2026-08-13",
+     "primary": null,
+     "note": null,
+     "move": true,
+     "option_a": null,
+     "candidates": [
+      "▣ U+25A3 WHITE SQUARE CONTAINING BLACK SMALL SQUARE",
+      "▤ U+25A4 SQUARE WITH HORIZONTAL FILL",
+      "▥ U+25A5 SQUARE WITH VERTICAL FILL"
+     ]
+    },
+    {
+     "kind": "claim",
+     "repo": "EaS",
+     "loc": "sensors/glyph-map.json:15 (also glyphs/emotion.glyphs.json, atlas/emotions.json)",
+     "referent": "jealousy: resource fairness sensor, alignment equity_balance",
+     "first": "26503a9 2025-08-31",
+     "primary": null,
+     "note": "alignment 'equity_balance' carries a balance word, but the sensor detects inequity, not homeostasis. Listed as a mover; whether it may share the glyph is the operator's call.",
+     "move": true,
+     "option_a": null,
+     "candidates": [
+      "▦ U+25A6 SQUARE WITH ORTHOGONAL CROSSHATCH FILL",
+      "▧ U+25A7 SQUARE WITH UPPER LEFT TO LOWER RIGHT FILL",
+      "▨ U+25A8 SQUARE WITH UPPER RIGHT TO LOWER LEFT FILL"
+     ]
+    },
+    {
+     "kind": "suggestion",
+     "repo": "EaS",
+     "loc": "sensors/anger/betrayal.json suggested_glyphs",
+     "referent": "suggested with 🧭",
+     "first": "b4cf232 2025-08-31",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "suggestion",
+     "repo": "EaS",
+     "loc": "sensors/fear.json:111 glyph_mapping.principle",
+     "referent": "'⚖ (Balance) <-> ⏳ (Causality)', a principle reference",
+     "first": null,
+     "primary": null,
+     "note": null
+    }
+   ],
+   "holder": {
+    "kind": "claim",
+    "repo": "RSC",
+    "loc": "balance.json:3 (+ equations :68)",
+    "referent": "PATTERN:BALANCE, sensor_type EMO:CONTENTMENT, dynamic equilibrium (F_1=-F_2, sum_F=0)",
+    "first": "126288d 2025-09-29",
+    "primary": null,
+    "note": null
+   },
+   "status": "PROPOSED (not applied)",
+   "resolution": "Resolved 2026-11-02 (relay part I): OBSERVED, field report: balance = contentment = homeostasis holds. The candidate picks for the GTB fear/vigilance region (and the EaS jealousy side) stay open."
+  },
+  {
+   "glyph": "🌀",
+   "source": "PR #49 weld",
+   "sides": [
+    {
+     "kind": "claim",
+     "repo": "RSC",
+     "loc": "data/temporal_states.json:12",
+     "referent": "FOLD, type Present: 'the now, possibility into actuality'",
+     "first": "dc2d582 2025-07-24",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "split",
+     "repo": "EaS",
+     "loc": "docs/glyph-web.md:16",
+     "referent": "jealousy: inequity detector (exponential family)",
+     "first": "b39c738 2025-09-07",
+     "primary": null,
+     "note": "jealousy's earliest glyph ⚖️ (2025-08-31) itself moves under the ⚖ weld, so option (a) is not available",
+     "move": true,
+     "option_a": null,
+     "candidates": [
+      "▩ U+25A9 SQUARE WITH DIAGONAL CROSSHATCH FILL",
+      "▬ U+25AC BLACK RECTANGLE",
+      "▮ U+25AE BLACK VERTICAL RECTANGLE"
+     ]
+    },
+    {
+     "kind": "claim",
+     "repo": "GTB",
+     "loc": "legacy/glyph_state_encoder_phase_space.py:179",
+     "referent": "Glyph.RE_NORMALIZE: discordance / fatigue / pressure / curiosity region",
+     "first": "bfdd1b9 2026-08-13",
+     "primary": null,
+     "note": null,
+     "move": true,
+     "option_a": null,
+     "candidates": [
+      "▰ U+25B0 BLACK PARALLELOGRAM",
+      "▱ U+25B1 WHITE PARALLELOGRAM",
+      "▴ U+25B4 BLACK UP-POINTING SMALL TRIANGLE"
+     ]
+    }
+   ],
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": {
+    "kind": "claim",
+    "repo": "RSC",
+    "loc": "data/temporal_states.json:12",
+    "referent": "FOLD, type Present: 'the now, possibility into actuality'",
+    "first": "dc2d582 2025-07-24",
+    "primary": null,
+    "note": null
+   },
+   "status": "PROPOSED (not applied)"
+  },
+  {
+   "glyph": "🕸️",
+   "source": "PR #49 weld",
+   "sides": [
+    {
+     "kind": "split",
+     "repo": "EaS",
+     "loc": "docs/glyph-web.md:20",
+     "referent": "longing: potential not yet actualized",
+     "first": "b39c738 2025-09-07",
+     "primary": "🌠 (sensors/glyph-map.json:4, 2025-08-31)",
+     "note": null,
+     "move": true,
+     "option_a": "keep the sensor's primary glyph 🌠 (sensors/glyph-map.json:4, 2025-08-31)",
+     "candidates": [
+      "▵ U+25B5 WHITE UP-POINTING SMALL TRIANGLE",
+      "▷ U+25B7 WHITE RIGHT-POINTING TRIANGLE",
+      "▹ U+25B9 WHITE RIGHT-POINTING SMALL TRIANGLE"
+     ]
+    },
+    {
+     "kind": "claim",
+     "repo": "EaS",
+     "loc": "sensors/alignment/felt.json:4",
+     "referent": "FELT: relational field recognition (field event)",
+     "first": "f9ff27b 2025-09-29",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "same",
+     "repo": "RSC",
+     "loc": "shapes/relief.json:19",
+     "referent": "RELIEF shape, sourced from the EaS FELT event",
+     "first": "df1a8a8 2026-03-26",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "same",
+     "repo": "GTB",
+     "loc": "bridges/field_events/felt.json:4 and legacy/glyph_state_encoder_phase_space.py:155",
+     "referent": "FELT relational; Glyph.FELT_COHERENT region (joy, love, curiosity)",
+     "first": "bfdd1b9 2026-08-13",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "FCC",
+     "loc": "glyph_set.json:8",
+     "referent": "interconnection (label)",
+     "first": "8b697b8 2026-03-22",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "MC",
+     "loc": "mandala_bloom/concept_atlas.py:39",
+     "referent": "interconnection (label)",
+     "first": "bfe272b 2026-08-11",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "suggestion",
+     "repo": "EaS",
+     "loc": "sensors/grief/abandonment.json suggested_glyphs",
+     "referent": "suggested with ⏳",
+     "first": "1091479 2025-08-31",
+     "primary": null,
+     "note": null
+    }
+   ],
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": {
+    "kind": "claim",
+    "repo": "EaS",
+    "loc": "sensors/alignment/felt.json:4",
+    "referent": "FELT: relational field recognition (field event)",
+    "first": "f9ff27b 2025-09-29",
+    "primary": null,
+    "note": null
+   },
+   "status": "PROPOSED (not applied)"
+  },
+  {
+   "glyph": "🌱",
+   "source": "PR #49 weld",
+   "sides": [
+    {
+     "kind": "claim",
+     "repo": "EaS",
+     "loc": "docs/glyph-web.md:25",
+     "referent": "gratitude: recognition of right-fit exchange (resonant family)",
+     "first": "b39c738 2025-09-07",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "split",
+     "repo": "EaS",
+     "loc": "atlas/emotions.json:50",
+     "referent": "trust",
+     "first": "df0a832 2026-03-26",
+     "primary": "🤝 (docs/glyph-web.md:30, 2025-09-07)",
+     "note": null,
+     "move": true,
+     "option_a": "keep the sensor's primary glyph 🤝 (docs/glyph-web.md:30, 2025-09-07)",
+     "candidates": [
+      "▻ U+25BB WHITE RIGHT-POINTING POINTER",
+      "▽ U+25BD WHITE DOWN-POINTING TRIANGLE",
+      "▾ U+25BE BLACK DOWN-POINTING SMALL TRIANGLE"
+     ]
+    },
+    {
+     "kind": "claim",
+     "repo": "GTB",
+     "loc": "legacy/glyph_state_encoder_phase_space.py:227",
+     "referent": "Glyph.EMERGENCE: curiosity / low intensity / novel pattern region",
+     "first": "bfdd1b9 2026-08-13",
+     "primary": null,
+     "note": null,
+     "move": true,
+     "option_a": null,
+     "candidates": [
+      "▿ U+25BF WHITE DOWN-POINTING SMALL TRIANGLE",
+      "◁ U+25C1 WHITE LEFT-POINTING TRIANGLE",
+      "◂ U+25C2 BLACK LEFT-POINTING SMALL TRIANGLE"
+     ]
+    },
+    {
+     "kind": "label",
+     "repo": "FCC",
+     "loc": "glyph_set.json:6",
+     "referent": "growth (label)",
+     "first": "8b697b8 2026-03-22",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "MC",
+     "loc": "mandala_bloom/concept_atlas.py:37",
+     "referent": "growth (label)",
+     "first": "bfe272b 2026-08-11",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "suggestion",
+     "repo": "EaS",
+     "loc": "sensors/joy/alignment.json and 5 more suggested_glyphs / bridge_glyph '🌱⚖'",
+     "referent": "suggested",
+     "first": "2c7a9be 2025-08-31",
+     "primary": null,
+     "note": null
+    }
+   ],
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": {
+    "kind": "claim",
+    "repo": "EaS",
+    "loc": "docs/glyph-web.md:25",
+    "referent": "gratitude: recognition of right-fit exchange (resonant family)",
+    "first": "b39c738 2025-09-07",
+    "primary": null,
+    "note": null
+   },
+   "status": "PROPOSED (not applied)"
+  },
+  {
+   "glyph": "⏳",
+   "source": "PR #49 weld",
+   "sides": [
+    {
+     "kind": "claim",
+     "repo": "EaS",
+     "loc": "docs/glyph-web.md:5,12; sensors/decay-families.json:6",
+     "referent": "exponential decay family (fast rise, fast fade; boundary/threat alarms)",
+     "first": "b39c738 2025-09-07",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "claim",
+     "repo": "GTB",
+     "loc": "legacy/glyph_state_encoder_phase_space.py:171",
+     "referent": "Glyph.CAUSALITY_LOOP: grief / love / longing / uncertainty region, OSCILLATORY decay",
+     "first": "bfdd1b9 2026-08-13",
+     "primary": null,
+     "note": "opposite decay class to the holder: exponential vs oscillatory",
+     "move": true,
+     "option_a": null,
+     "candidates": [
+      "◃ U+25C3 WHITE LEFT-POINTING SMALL TRIANGLE",
+      "◅ U+25C5 WHITE LEFT-POINTING POINTER",
+      "◍ U+25CD CIRCLE WITH VERTICAL FILL"
+     ]
+    },
+    {
+     "kind": "suggestion",
+     "repo": "EaS",
+     "loc": "sensors/fear.json:111",
+     "referent": "'⏳ (Causality)', a principle reference",
+     "first": null,
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "FCC",
+     "loc": "glyph_set.json:7",
+     "referent": "time shift (label)",
+     "first": "8b697b8 2026-03-22",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "MC",
+     "loc": "mandala_bloom/concept_atlas.py:38",
+     "referent": "time shift (label)",
+     "first": "bfe272b 2026-08-11",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "suggestion",
+     "repo": "EaS",
+     "loc": "sensors/grief/abandonment.json suggested_glyphs",
+     "referent": "suggested with 🕸️",
+     "first": "1091479 2025-08-31",
+     "primary": null,
+     "note": null
+    }
+   ],
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": {
+    "kind": "claim",
+    "repo": "EaS",
+    "loc": "docs/glyph-web.md:5,12; sensors/decay-families.json:6",
+    "referent": "exponential decay family (fast rise, fast fade; boundary/threat alarms)",
+    "first": "b39c738 2025-09-07",
+    "primary": null,
+    "note": null
+   },
+   "status": "PROPOSED (not applied)"
+  },
+  {
+   "glyph": "💥",
+   "source": "PR #49 weld",
+   "sides": [
+    {
+     "kind": "claim",
+     "repo": "EaS",
+     "loc": "data/glyphs.json:22 (also glyphs/emotion.glyphs.json:49)",
+     "referent": "surprise (sharp family)",
+     "first": "6f88ce9 2025-09-08",
+     "primary": null,
+     "note": null,
+     "alt_candidates": [
+      "◣ U+25E3 BLACK LOWER LEFT TRIANGLE",
+      "◤ U+25E4 BLACK UPPER LEFT TRIANGLE",
+      "◥ U+25E5 BLACK UPPER RIGHT TRIANGLE"
+     ]
+    },
+    {
+     "kind": "claim",
+     "repo": "RSC",
+     "loc": "balance.json:134",
+     "referent": "'rupture breaks false equilibrium' (inversion line)",
+     "first": "126288d 2025-09-29",
+     "primary": null,
+     "note": null,
+     "move": true,
+     "option_a": null,
+     "candidates": [
+      "◜ U+25DC UPPER LEFT QUADRANT CIRCULAR ARC",
+      "◝ U+25DD UPPER RIGHT QUADRANT CIRCULAR ARC",
+      "◞ U+25DE LOWER RIGHT QUADRANT CIRCULAR ARC"
+     ]
+    },
+    {
+     "kind": "claim",
+     "repo": "GTB",
+     "loc": "legacy/glyph_state_encoder_phase_space.py:235",
+     "referent": "Glyph.FRACTURE: high discordance / low coherence / isolation region",
+     "first": "bfdd1b9 2026-08-13",
+     "primary": null,
+     "note": null,
+     "move": true,
+     "option_a": null,
+     "candidates": [
+      "◟ U+25DF LOWER LEFT QUADRANT CIRCULAR ARC",
+      "◡ U+25E1 LOWER HALF CIRCLE",
+      "◢ U+25E2 BLACK LOWER RIGHT TRIANGLE"
+     ]
+    },
+    {
+     "kind": "label",
+     "repo": "FCC",
+     "loc": "glyph_set.json:11",
+     "referent": "rupture (label)",
+     "first": "8b697b8 2026-03-22",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "MC",
+     "loc": "mandala_bloom/concept_atlas.py:41",
+     "referent": "rupture (label)",
+     "first": "bfe272b 2026-08-11",
+     "primary": null,
+     "note": null
+    }
+   ],
+   "alt": "Read by referent count instead of date, the rupture/fracture group (RSC, GTB, plus the FCC and MC labels) is larger and surprise would move. Both readings listed; candidates are dealt for the surprise side too.",
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": {
+    "kind": "claim",
+    "repo": "EaS",
+    "loc": "data/glyphs.json:22 (also glyphs/emotion.glyphs.json:49)",
+    "referent": "surprise (sharp family)",
+    "first": "6f88ce9 2025-09-08",
+    "primary": null,
+    "note": null,
+    "alt_candidates": [
+     "◣ U+25E3 BLACK LOWER LEFT TRIANGLE",
+     "◤ U+25E4 BLACK UPPER LEFT TRIANGLE",
+     "◥ U+25E5 BLACK UPPER RIGHT TRIANGLE"
+    ]
+   },
+   "status": "PROPOSED (not applied)"
+  },
+  {
+   "glyph": "🔥",
+   "source": "PR #49 weld",
+   "sides": [
+    {
+     "kind": "split",
+     "repo": "EaS",
+     "loc": "docs/glyph-web.md:13",
+     "referent": "anger: boundary breach / identity protection",
+     "first": "b39c738 2025-09-07",
+     "primary": "🛡️ (sensors/glyph-map.json:81, 2025-08-31)",
+     "note": null,
+     "move": true,
+     "option_a": "keep the sensor's primary glyph 🛡️ (sensors/glyph-map.json:81, 2025-08-31)",
+     "candidates": [
+      "◦ U+25E6 WHITE BULLET",
+      "◨ U+25E8 SQUARE WITH RIGHT HALF BLACK",
+      "◩ U+25E9 SQUARE WITH UPPER LEFT DIAGONAL HALF BLACK"
+     ]
+    },
+    {
+     "kind": "claim",
+     "repo": "GTB",
+     "loc": "legacy/glyph_state_encoder_phase_space.py:187",
+     "referent": "Glyph.HEAT_FLUX: anger / pressure / fatigue / high discordance region, LINEAR decay",
+     "first": "bfdd1b9 2026-08-13",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "FCC",
+     "loc": "glyph_set.json:15",
+     "referent": "transformation (label)",
+     "first": "8b697b8 2026-03-22",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "MC",
+     "loc": "mandala_bloom/concept_atlas.py:45",
+     "referent": "transformation (label)",
+     "first": "bfe272b 2026-08-11",
+     "primary": null,
+     "note": null
+    }
+   ],
+   "note": "HEAT_FLUX is an anger-led region, so the EaS anger line and GTB do not conflict on function; the only mover is the anger split.",
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": {
+    "kind": "claim",
+    "repo": "GTB",
+    "loc": "legacy/glyph_state_encoder_phase_space.py:187",
+    "referent": "Glyph.HEAT_FLUX: anger / pressure / fatigue / high discordance region, LINEAR decay",
+    "first": "bfdd1b9 2026-08-13",
+    "primary": null,
+    "note": null
+   },
+   "status": "PROPOSED (not applied)"
+  },
+  {
+   "glyph": "🛡️",
+   "source": "PR #49 weld",
+   "sides": [
+    {
+     "kind": "claim",
+     "repo": "EaS",
+     "loc": "sensors/glyph-map.json:81 (also emotion.glyphs.json, atlas/emotions.json, sensors/anger.json bridge_glyph)",
+     "referent": "anger: boundary breach detector, alignment identity_coherence",
+     "first": "26503a9 2025-08-31",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "claim",
+     "repo": "GTB",
+     "loc": "legacy/glyph_state_encoder_phase_space.py:243",
+     "referent": "Glyph.CONTAINMENT: high boundary / low engagement / vigilance region, PERSISTENT decay",
+     "first": "bfdd1b9 2026-08-13",
+     "primary": null,
+     "note": "shares the boundary referent: a boundary-held state vs a boundary-breach sensor. Whether they may share one glyph is the operator's call.",
+     "move": true,
+     "option_a": null,
+     "candidates": [
+      "◪ U+25EA SQUARE WITH LOWER RIGHT DIAGONAL HALF BLACK",
+      "◫ U+25EB WHITE SQUARE WITH VERTICAL BISECTING LINE",
+      "◭ U+25ED UP-POINTING TRIANGLE WITH LEFT HALF BLACK"
+     ]
+    },
+    {
+     "kind": "label",
+     "repo": "FCC",
+     "loc": "glyph_set.json:23",
+     "referent": "protection (label)",
+     "first": "8b697b8 2026-03-22",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "MC",
+     "loc": "mandala_bloom/concept_atlas.py:53",
+     "referent": "protection (label)",
+     "first": "bfe272b 2026-08-11",
+     "primary": null,
+     "note": null
+    }
+   ],
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": {
+    "kind": "claim",
+    "repo": "EaS",
+    "loc": "sensors/glyph-map.json:81 (also emotion.glyphs.json, atlas/emotions.json, sensors/anger.json bridge_glyph)",
+    "referent": "anger: boundary breach detector, alignment identity_coherence",
+    "first": "26503a9 2025-08-31",
+    "primary": null,
+    "note": null
+   },
+   "status": "PROPOSED (not applied)"
+  },
+  {
+   "glyph": "📡",
+   "source": "PR #49 weld",
+   "sides": [
+    {
+     "kind": "claim",
+     "repo": "GTB",
+     "loc": "legacy/glyph_state_encoder_phase_space.py:195",
+     "referent": "Glyph.RESONANCE: balanced_active / high confidence / low discordance region",
+     "first": "bfdd1b9 2026-08-13",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "FCC",
+     "loc": "glyph_set.json:13",
+     "referent": "resonance detection (label)",
+     "first": "8b697b8 2026-03-22",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "label",
+     "repo": "MC",
+     "loc": "mandala_bloom/concept_atlas.py:43",
+     "referent": "resonance detection (label)",
+     "first": "bfe272b 2026-08-11",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "suggestion",
+     "repo": "EaS",
+     "loc": "sensors/felt.md:11, docs/emotional-cognition-ai.md:12",
+     "referent": "section-heading decoration",
+     "first": "02523b8 2025-09-29",
+     "primary": null,
+     "note": null
+    }
+   ],
+   "note": "One functional claim only; the labels use the same word. No functional conflict found, so no candidates are dealt. Listed so the PR #49 weld is not silently dropped.",
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": {
+    "kind": "claim",
+    "repo": "GTB",
+    "loc": "legacy/glyph_state_encoder_phase_space.py:195",
+    "referent": "Glyph.RESONANCE: balanced_active / high confidence / low discordance region",
+    "first": "bfdd1b9 2026-08-13",
+    "primary": null,
+    "note": null
+   },
+   "status": "PROPOSED (not applied)"
+  },
+  {
+   "glyph": "⚡",
+   "source": "new here (EaS read)",
+   "sides": [
+    {
+     "kind": "claim",
+     "repo": "EaS",
+     "loc": "sensors/glyph-map.json:103 (also docs/glyph-web.md:26, emotion.glyphs.json, atlas, sensors/excitement.json bridge_glyph)",
+     "referent": "excitement: positive potential approaching",
+     "first": "26503a9 2025-08-31",
+     "primary": null,
+     "note": null,
+     "alt_candidates": [
+      "◵ U+25F5 WHITE CIRCLE WITH LOWER LEFT QUADRANT",
+      "◶ U+25F6 WHITE CIRCLE WITH LOWER RIGHT QUADRANT",
+      "◷ U+25F7 WHITE CIRCLE WITH UPPER RIGHT QUADRANT"
+     ]
+    },
+    {
+     "kind": "split",
+     "repo": "EaS",
+     "loc": "data/glyphs.json:21",
+     "referent": "fear",
+     "first": "6f88ce9 2025-09-08",
+     "primary": "⚠️ (sensors/glyph-map.json:92, 2025-08-31)",
+     "note": null,
+     "move": true,
+     "option_a": "keep the sensor's primary glyph ⚠️ (sensors/glyph-map.json:92, 2025-08-31)",
+     "candidates": [
+      "◮ U+25EE UP-POINTING TRIANGLE WITH RIGHT HALF BLACK",
+      "◰ U+25F0 WHITE SQUARE WITH UPPER LEFT QUADRANT",
+      "◱ U+25F1 WHITE SQUARE WITH LOWER LEFT QUADRANT"
+     ]
+    },
+    {
+     "kind": "claim",
+     "repo": "GTB",
+     "loc": "legacy/glyph_state_encoder_phase_space.py:211",
+     "referent": "Glyph.THRESHOLD: high uncertainty / low confidence / high intensity region",
+     "first": "bfdd1b9 2026-08-13",
+     "primary": null,
+     "note": null,
+     "move": true,
+     "option_a": null,
+     "candidates": [
+      "◲ U+25F2 WHITE SQUARE WITH LOWER RIGHT QUADRANT",
+      "◳ U+25F3 WHITE SQUARE WITH UPPER RIGHT QUADRANT",
+      "◴ U+25F4 WHITE CIRCLE WITH UPPER LEFT QUADRANT"
+     ]
+    },
+    {
+     "kind": "suggestion",
+     "repo": "EaS",
+     "loc": "docs/mobile-emotion-sensor.md:12 (added as Mobile-Emotion-Sensor.md)",
+     "referent": "UI operator '⚡ = Emergency activation'",
+     "first": "0e555e0 2025-07-16",
+     "primary": null,
+     "note": "earliest ⚡ in EaS: a command glyph in the mobile sensor app, not an emotion assignment"
+    }
+   ],
+   "alt": "GTB THRESHOLD (high uncertainty, high intensity) and the 2025-07-16 operator ('emergency activation') read closer to each other than either does to excitement. Under that reading excitement would move instead; candidates are dealt for the excitement side too.",
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": {
+    "kind": "claim",
+    "repo": "EaS",
+    "loc": "sensors/glyph-map.json:103 (also docs/glyph-web.md:26, emotion.glyphs.json, atlas, sensors/excitement.json bridge_glyph)",
+    "referent": "excitement: positive potential approaching",
+    "first": "26503a9 2025-08-31",
+    "primary": null,
+    "note": null,
+    "alt_candidates": [
+     "◵ U+25F5 WHITE CIRCLE WITH LOWER LEFT QUADRANT",
+     "◶ U+25F6 WHITE CIRCLE WITH LOWER RIGHT QUADRANT",
+     "◷ U+25F7 WHITE CIRCLE WITH UPPER RIGHT QUADRANT"
+    ]
+   },
+   "status": "PROPOSED (not applied)"
+  },
+  {
+   "glyph": "🌿",
+   "source": "new here (EaS read)",
+   "sides": [
+    {
+     "kind": "split",
+     "repo": "EaS",
+     "loc": "docs/glyph-web.md:32",
+     "referent": "compassion: mirror-sensor for others' waste/harm",
+     "first": "b39c738 2025-09-07",
+     "primary": "🫀 (sensors/glyph-map.json:136, 2025-08-31)",
+     "note": null,
+     "move": true,
+     "option_a": "keep the sensor's primary glyph 🫀 (sensors/glyph-map.json:136, 2025-08-31)",
+     "candidates": [
+      "◸ U+25F8 UPPER LEFT TRIANGLE",
+      "◹ U+25F9 UPPER RIGHT TRIANGLE",
+      "◺ U+25FA LOWER LEFT TRIANGLE"
+     ]
+    },
+    {
+     "kind": "split",
+     "repo": "EaS",
+     "loc": "data/glyphs.json:24",
+     "referent": "contentment",
+     "first": "6f88ce9 2025-09-08",
+     "primary": "🍃 (sensors/glyph-map.json:125, 2025-08-31)",
+     "note": null,
+     "move": true,
+     "option_a": "keep the sensor's primary glyph 🍃 (sensors/glyph-map.json:125, 2025-08-31)",
+     "candidates": [
+      "◿ U+25FF LOWER RIGHT TRIANGLE",
+      "⌀ U+2300 DIAMETER SIGN",
+      "⌁ U+2301 ELECTRIC ARROW"
+     ]
+    }
+   ],
+   "note": "Both sides are secondary glyphs of sensors that hold earlier primaries; no claim holds 🌿.",
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": null,
+   "status": "PROPOSED (not applied)"
+  },
+  {
+   "glyph": "🤝",
+   "source": "new here (EaS read)",
+   "sides": [
+    {
+     "kind": "claim",
+     "repo": "EaS",
+     "loc": "docs/glyph-web.md:30",
+     "referent": "trust: proven relational reliability (immortal family)",
+     "first": "b39c738 2025-09-07",
+     "primary": null,
+     "note": null
+    },
+    {
+     "kind": "split",
+     "repo": "EaS",
+     "loc": "data/glyphs.json:18",
+     "referent": "compassion",
+     "first": "6f88ce9 2025-09-08",
+     "primary": "🫀 (sensors/glyph-map.json:136, 2025-08-31)",
+     "note": null,
+     "move": true,
+     "option_a": "keep the sensor's primary glyph 🫀 (sensors/glyph-map.json:136, 2025-08-31)",
+     "candidates": [
+      "⌂ U+2302 HOUSE",
+      "⌃ U+2303 UP ARROWHEAD",
+      "⌄ U+2304 DOWN ARROWHEAD"
+     ]
+    }
+   ],
+   "holder_rule": "PROPOSED: earliest dated claim holds; other claims and splits move",
+   "holder": {
+    "kind": "claim",
+    "repo": "EaS",
+    "loc": "docs/glyph-web.md:30",
+    "referent": "trust: proven relational reliability (immortal family)",
+    "first": "b39c738 2025-09-07",
+    "primary": null,
+    "note": null
+   },
+   "status": "PROPOSED (not applied)"
+  }
+ ],
+ "excluded_welds": [
+  {
+   "glyph": "↻",
+   "reason": "PR #49 weld, but not emotion-state: Flow F02 / Transformation P11 / recursion / phase-shift melt. The one emotion record (recursion.json EMO:RECOGNITION) reads 'self-referential return and feedback', the recursion referent."
+  }
+ ],
+ "side_kinds": "Emotion-state welds as a DECLARED reading table (DERIVED), plus candidate dealing.\nSide kinds:\n  claim        functional assignment of the glyph to a referent (competes)\n  split        a sensor's later, secondary glyph; the sensor already holds an earlier primary glyph\n  same         same referent as the holder (stays)\n  label        label-only record (PR #49 NOT_INTERPRETABLE); not compared, no reading forced\n  suggestion   listed in suggested_glyphs / decoration; not an assignment\nRule (PROPOSED, not decided here): the earliest dated CLAIM holds; every other claim and every split moves.\nException: the balance weld, fixed by field report (Rosetta usage holds).",
+ "candidate_rule": "single code point; Geometric Shapes (U+25A0-25FF) and Miscellaneous Technical (U+2300-23FF) first, then Mathematical Operators; emoji-presentation and bracket/line pieces excluded; absent as literal, \\\\uXXXX, &#x..; and U+XXXX from every tracked file of RSC, FCC, GTB, MC, PI, EaS, ACS. Dealt in code-point order: no semantic reading is claimed for any candidate.",
+ "counts": {
+  "rows": 56,
+  "by_repo": {
+   "EaS": 37,
+   "GTB": 12,
+   "RSC": 2,
+   "PROPOSED": 5
+  },
+  "status": {
+   "OBSERVED": 24,
+   "DERIVED": 25,
+   "OBSERVED*": 2,
+   "PROPOSED": 5
+  },
+  "pr49_tag": {
+   "FUNCTION-ONLY": 40,
+   "NOT_INTERPRETABLE": 9,
+   "PHYSICS-ANCHORED": 2,
+   "PROPOSED": 5
+  },
+  "splits": 12,
+  "welds": 12,
+  "moving_sides": 17
+ }
+}
