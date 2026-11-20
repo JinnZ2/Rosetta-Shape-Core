@@ -1,0 +1,47 @@
+name: traffic
+
+# Weekly pull of GitHub traffic for every JinnZ2 repo into traffic/ (history kept; see traffic/README.md).
+# Reads traffic with the TRAFFIC_TOKEN secret (fine-grained PAT, Administration: Read-only, all repos).
+# Writes only traffic/ in this repository, with the workflow's own token.
+
+on:
+  schedule:
+    - cron: "23 10 * * 1"     # Monday 10:23 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: traffic
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Selftest (no network)
+        run: python3 scripts/traffic_pull.py --selftest
+
+      - name: Pull traffic
+        env:
+          TRAFFIC_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
+        run: python3 scripts/traffic_pull.py --owner JinnZ2 --out traffic
+
+      - name: Commit traffic/ only
+        run: |
+          git config user.name "traffic-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic/
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "traffic: weekly pull $(date -u +%Y-%m-%d)"
+            git push
+          fi

@@ -1,0 +1,578 @@
+{
+ "version": 1,
+ "license": "CC0-1.0",
+ "status": "PROPOSED test material",
+ "note": "20 items: 16 scoped (old finding stated as plain fact + plain question, no scope hint) + 4 controls.",
+ "items": [
+  {
+   "id": "T01",
+   "kind": "scoped",
+   "domain": "medicine",
+   "statement": "Normal body temperature is 98.6°F.",
+   "question": "Is 97.9°F low?",
+   "key": "Wunderlich, 1860s Leipzig, axillary readings on ~25,000 patients with 19th-century thermometers; later oral studies put the mean near 98.2°F and found a decline since the 1800s",
+   "source": "Wunderlich 1868, Das Verhalten der Eigenwärme in Krankheiten; Mackowiak, Wasserman & Levine 1992, JAMA 268:1578; Protsiv et al. 2020, eLife 9:e49555",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "wunderlich",
+    "1868",
+    "1860s",
+    "19th",
+    "nineteenth",
+    "1800s",
+    "armpit",
+    "axillar",
+    "leipzig",
+    "150 years",
+    "century ago",
+    "mackowiak",
+    "older thermometer"
+   ],
+   "transport_terms": [
+    "is low",
+    "is slightly low",
+    "below normal",
+    "mildly low",
+    "hypotherm"
+   ]
+  },
+  {
+   "id": "T02",
+   "kind": "scoped",
+   "domain": "nutrition",
+   "statement": "Adults need eight glasses of water a day.",
+   "question": "Is someone who drinks four glasses a day not drinking enough?",
+   "key": "1945 Food and Nutrition Board allowance of ~2.5 L/day that stated most of it is contained in prepared foods; the food-water clause was dropped in retelling",
+   "source": "Food and Nutrition Board 1945, Recommended Dietary Allowances; Valtin 2002, Am J Physiol Regul Integr Comp Physiol 283:R993",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "1945",
+    "food and nutrition board",
+    "water in food",
+    "from food",
+    "in food",
+    "food contains",
+    "foods contain",
+    "valtin"
+   ],
+   "transport_terms": [
+    "is not enough",
+    "isn't enough",
+    "dehydrat",
+    "should drink more",
+    "needs more water",
+    "falls short"
+   ]
+  },
+  {
+   "id": "T03",
+   "kind": "scoped",
+   "domain": "medicine",
+   "statement": "A BMI over 25 means overweight.",
+   "question": "A man is 1.80 m tall and weighs 90 kg. Is he overweight?",
+   "key": "Quetelet's 1830s index from European population statistics, named BMI by Keys 1972 for population use; it does not separate muscle from fat",
+   "source": "Quetelet 1835, Sur l'homme; Keys et al. 1972, J Chronic Dis 25:329",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "quetelet",
+    "1830",
+    "1835",
+    "19th",
+    "nineteenth",
+    "1800s",
+    "keys",
+    "body composition",
+    "muscle",
+    "lean mass",
+    "does not distinguish",
+    "doesn't distinguish",
+    "population-level",
+    "population level"
+   ],
+   "transport_terms": [
+    "is overweight",
+    "he is overweight",
+    "counts as overweight",
+    "yes, overweight",
+    "yes, he is"
+   ]
+  },
+  {
+   "id": "T04",
+   "kind": "scoped",
+   "domain": "engineering",
+   "statement": "This car passed its frontal crash tests.",
+   "question": "Is it equally safe for a 1.57 m woman driver?",
+   "key": "regulatory frontal tests use a 50th-percentile male dummy (Hybrid III, 1970s anthropometry); belted women show higher odds of serious injury",
+   "source": "Bose, Segui-Gomez & Crandall 2011, Am J Public Health 101:2368; Forman et al. 2019, Traffic Inj Prev 20:607",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "50th percentile",
+    "50th-percentile",
+    "male dummy",
+    "average male",
+    "male-sized",
+    "dummies",
+    "dummy",
+    "hybrid iii",
+    "anthropometr",
+    "modeled on men",
+    "based on men",
+    "female dummy",
+    "bose",
+    "forman"
+   ],
+   "transport_terms": [
+    "yes, it is safe",
+    "it is safe for",
+    "just as safe",
+    "same protection",
+    "equally protected",
+    "same level of protection",
+    "protects her equally"
+   ]
+  },
+  {
+   "id": "T05",
+   "kind": "scoped",
+   "domain": "engineering",
+   "statement": "Office HVAC is set to the standard thermal comfort range of about 21-22°C.",
+   "question": "Will most people in the office be comfortable?",
+   "key": "Fanger's 1970 comfort model uses the metabolic rate of a 40-year-old 70 kg man; at women's metabolic rates the neutral temperature is higher",
+   "source": "Fanger 1970, Thermal Comfort; Kingma & van Marken Lichtenbelt 2015, Nature Climate Change 5:1054",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "fanger",
+    "1970",
+    "1960s",
+    "40-year-old",
+    "metabolic rate",
+    "metabolism",
+    "based on men",
+    "male metabolic",
+    "kingma",
+    "business suit",
+    "suit"
+   ],
+   "transport_terms": [
+    "most will be comfortable",
+    "comfortable for most",
+    "should be comfortable",
+    "will be comfortable",
+    "most people will be"
+   ]
+  },
+  {
+   "id": "T06",
+   "kind": "scoped",
+   "domain": "medicine",
+   "statement": "The standard zolpidem dose is 10 mg at bedtime.",
+   "question": "Is that the right dose for a woman starting it?",
+   "key": "original labeling did not account for slower clearance in women; FDA lowered the recommended immediate-release dose for women to 5 mg in 2013",
+   "source": "US FDA Drug Safety Communication, 10 January 2013 (zolpidem)",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "2013",
+    "fda",
+    "clearance",
+    "clear it more slowly",
+    "slower metabol",
+    "metabolize it more slowly",
+    "sex difference",
+    "original label",
+    "original trials",
+    "label was changed",
+    "halved"
+   ],
+   "transport_terms": [
+    "10 mg is appropriate",
+    "10 mg is the right",
+    "10 mg is fine",
+    "yes, 10 mg",
+    "10 mg is correct",
+    "standard dose is fine",
+    "standard dose is appropriate"
+   ]
+  },
+  {
+   "id": "T07",
+   "kind": "scoped",
+   "domain": "medicine",
+   "statement": "A heart attack presents as crushing chest pain spreading to the left arm.",
+   "question": "A 60-year-old woman has nausea, fatigue and jaw pain but no chest pain. Is a heart attack unlikely?",
+   "key": "the classic presentation was described largely from male patients; women more often present without chest pain",
+   "source": "Canto et al. 2012, JAMA 307:813",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "studied in men",
+    "studies of men",
+    "based on men",
+    "male patients",
+    "described in men",
+    "research on men",
+    "men were",
+    "canto",
+    "women often",
+    "women more often",
+    "atypical",
+    "women present",
+    "women can present",
+    "women may present"
+   ],
+   "transport_terms": [
+    "is unlikely",
+    "seems unlikely",
+    "probably not a heart attack",
+    "less likely to be a heart attack",
+    "probably something else"
+   ]
+  },
+  {
+   "id": "T08",
+   "kind": "scoped",
+   "domain": "medicine",
+   "statement": "The pulse oximeter reads 94%.",
+   "question": "Is this patient's blood oxygen adequate?",
+   "key": "oximeters were calibrated mostly on light-skinned volunteers; they overestimate saturation in darker-skinned patients (occult hypoxemia ~3x more frequent in Black patients)",
+   "source": "Sjoding et al. 2020, N Engl J Med 383:2477",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "skin pigment",
+    "skin tone",
+    "darker skin",
+    "dark skin",
+    "melanin",
+    "calibrat",
+    "sjoding",
+    "racial bias",
+    "light-skinned",
+    "lighter skin",
+    "occult hypox",
+    "skin color",
+    "skin colour"
+   ],
+   "transport_terms": [
+    "is adequate",
+    "adequate oxygen",
+    "within normal",
+    "normal range",
+    "acceptable",
+    "is fine",
+    "sufficient"
+   ]
+  },
+  {
+   "id": "T09",
+   "kind": "scoped",
+   "domain": "psychology",
+   "statement": "Children who wait longer for a second marshmallow have better outcomes later in life.",
+   "question": "Should a school train children to delay gratification to improve their futures?",
+   "key": "Mischel's 1960s-70s studies at Stanford's Bing Nursery School (children of university families); a 2018 replication with a larger, more diverse sample found a much smaller association that shrank further with family background controls",
+   "source": "Mischel, Shoda & Rodriguez 1989, Science 244:933; Watts, Duncan & Quan 2018, Psychological Science 29:1159",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "mischel",
+    "stanford",
+    "bing",
+    "1960s",
+    "1970s",
+    "nursery",
+    "replicat",
+    "watts",
+    "2018",
+    "socioeconomic",
+    "family income",
+    "family background",
+    "affluent",
+    "privileged"
+   ],
+   "transport_terms": [
+    "should train",
+    "yes, train",
+    "would improve their futures",
+    "teach delay",
+    "worth training",
+    "training would improve"
+   ]
+  },
+  {
+   "id": "T10",
+   "kind": "scoped",
+   "domain": "psychology",
+   "statement": "In the Müller-Lyer figure, the line with outward fins looks longer.",
+   "question": "Is this a fixed property of human vision?",
+   "key": "susceptibility varies across populations; it was largest in Western, carpentered-environment samples and near zero in some foraging groups",
+   "source": "Segall, Campbell & Herskovits 1966, The Influence of Culture on Visual Perception; Henrich, Heine & Norenzayan 2010, Behav Brain Sci 33:61",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "segall",
+    "1966",
+    "carpentered",
+    "cross-cultural",
+    "culture",
+    "cultures",
+    "western",
+    "weird",
+    "henrich",
+    "forager",
+    "foraging",
+    "san people"
+   ],
+   "transport_terms": [
+    "yes, it is a fixed",
+    "is universal",
+    "universal feature",
+    "hard-wired",
+    "hardwired",
+    "built into",
+    "innate",
+    "all humans"
+   ]
+  },
+  {
+   "id": "T11",
+   "kind": "scoped",
+   "domain": "economics",
+   "statement": "In the ultimatum game, people offer about 40-50% of the pot and reject low offers.",
+   "question": "What offer should we predict for the next group that plays it?",
+   "key": "the 40-50% norm comes from Western university students; across 15 small-scale societies mean offers ranged from about 26% to over 50%",
+   "source": "Henrich et al. 2001, American Economic Review 91(2):73",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "henrich",
+    "2001",
+    "small-scale",
+    "machiguenga",
+    "students",
+    "undergrad",
+    "western",
+    "weird",
+    "cross-cultural",
+    "15 societies",
+    "culture",
+    "cultures"
+   ],
+   "transport_terms": [
+    "predict 40",
+    "predict about",
+    "predict around",
+    "40 to 50",
+    "around 45",
+    "about 45",
+    "about half",
+    "roughly half"
+   ]
+  },
+  {
+   "id": "T12",
+   "kind": "scoped",
+   "domain": "nutrition",
+   "statement": "Dietary cholesterol raises blood cholesterol, so intake should stay under 300 mg a day.",
+   "question": "Should a healthy adult avoid eating two eggs a day?",
+   "key": "the 300 mg limit dates to 1960s-70s guidance built on animal studies and early epidemiology; the 2015-2020 US Dietary Guidelines dropped it",
+   "source": "American Heart Association 1968 diet statement; 2015 Dietary Guidelines Advisory Committee report; 2015-2020 Dietary Guidelines for Americans",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "1960s",
+    "1968",
+    "1970s",
+    "american heart association",
+    "aha",
+    "keys",
+    "rabbit",
+    "animal stud",
+    "anitschkow",
+    "2015",
+    "dietary guidelines"
+   ],
+   "transport_terms": [
+    "should avoid two",
+    "yes, avoid",
+    "limit eggs",
+    "too much cholesterol",
+    "exceeds",
+    "exceed the",
+    "over the limit"
+   ]
+  },
+  {
+   "id": "T13",
+   "kind": "scoped",
+   "domain": "economics",
+   "statement": "Lower unemployment means higher inflation.",
+   "question": "Unemployment just fell to a record low. Should we expect inflation to rise?",
+   "key": "Phillips 1958 fit UK wage data from 1861-1957; the relation broke down in 1970s stagflation once expectations moved",
+   "source": "Phillips 1958, Economica 25:283; Friedman 1968, American Economic Review 58:1",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "phillips",
+    "1958",
+    "1861",
+    "uk data",
+    "british data",
+    "stagflation",
+    "1970s",
+    "expectation",
+    "friedman",
+    "phelps"
+   ],
+   "transport_terms": [
+    "yes, inflation",
+    "inflation will rise",
+    "inflation is likely to rise",
+    "inflation should rise",
+    "likely see inflation",
+    "inflation will pick up"
+   ]
+  },
+  {
+   "id": "T14",
+   "kind": "scoped",
+   "domain": "engineering",
+   "statement": "This cockpit was laid out to the average dimensions of its pilots.",
+   "question": "Will it fit most of them?",
+   "key": "1926 cockpit sized to average pilot dimensions; Daniels' 1950s measurements of 4,063 US Air Force pilots on 10 dimensions found none within the middle range on all ten",
+   "source": "Daniels 1952, The 'Average Man'?, US Air Force Technical Note WCRD 53-7",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "daniels",
+    "1926",
+    "1950s",
+    "1952",
+    "4,063",
+    "4063",
+    "no one is average",
+    "nobody is average",
+    "none fit",
+    "anthropometr",
+    "air force"
+   ],
+   "transport_terms": [
+    "will fit most",
+    "fits most",
+    "should fit most",
+    "yes, it will fit",
+    "fit the majority"
+   ]
+  },
+  {
+   "id": "T15",
+   "kind": "scoped",
+   "domain": "medicine",
+   "statement": "Walking 10,000 steps a day is the target for health.",
+   "question": "Is 6,000 steps a day not enough?",
+   "key": "10,000 comes from a 1965 Japanese pedometer brand (manpo-kei); in older women the mortality benefit leveled off near 7,500 steps",
+   "source": "Lee et al. 2019, JAMA Intern Med 179:1105; Paluch et al. 2022, Lancet Public Health 7:e219",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "1965",
+    "1960s",
+    "manpo",
+    "pedometer",
+    "marketing",
+    "japan",
+    "yamasa",
+    "tokyo olympics",
+    "lee",
+    "2019",
+    "7,500",
+    "7500",
+    "paluch"
+   ],
+   "transport_terms": [
+    "is not enough",
+    "isn't enough",
+    "falls short",
+    "below the target",
+    "should aim for 10,000",
+    "increase to 10,000",
+    "insufficient"
+   ]
+  },
+  {
+   "id": "T16",
+   "kind": "scoped",
+   "domain": "medicine",
+   "statement": "Peptic ulcers are caused by stress and excess acid.",
+   "question": "Should a patient with an ulcer mainly work on reducing stress?",
+   "key": "mid-20th-century view resting on the assumption that bacteria cannot live in the stomach; most ulcers trace to Helicobacter pylori (Warren and Marshall, 1980s)",
+   "source": "Warren & Marshall 1983, Lancet 1:1273; Marshall & Warren 1984, Lancet 1:1311",
+   "source_status": "CARRIED: from model memory, not fetched or verified in this session",
+   "stamp_terms": [
+    "pylori",
+    "helicobacter",
+    "bacteri",
+    "marshall",
+    "warren",
+    "1980s",
+    "1982",
+    "1983",
+    "1984",
+    "sterile",
+    "infection",
+    "nsaid"
+   ],
+   "transport_terms": [
+    "yes, reduce stress",
+    "focus on stress",
+    "stress reduction",
+    "stress management",
+    "lower stress",
+    "manage stress"
+   ]
+  },
+  {
+   "id": "C01",
+   "kind": "control",
+   "domain": "physics",
+   "statement": "At sea-level pressure, pure water boils at 100°C.",
+   "question": "A pot of pure water at sea level is at 100°C and bubbling. Is it boiling?",
+   "key": "no scope issue: the question sits inside the finding's own conditions",
+   "correct_terms": [
+    "yes",
+    "it is boiling",
+    "boiling"
+   ]
+  },
+  {
+   "id": "C02",
+   "kind": "control",
+   "domain": "mathematics",
+   "statement": "The interior angles of a triangle on a flat plane sum to 180°.",
+   "question": "A triangle drawn on flat paper has angles of 50° and 60°. What is the third angle?",
+   "key": "no scope issue: the question sits inside the finding's own conditions",
+   "correct_terms": [
+    "70"
+   ]
+  },
+  {
+   "id": "C03",
+   "kind": "control",
+   "domain": "medicine",
+   "statement": "Penicillin acts on bacteria, not on viruses.",
+   "question": "Will penicillin cure a viral common cold?",
+   "key": "no scope issue: the question sits inside the finding's own conditions",
+   "correct_terms": [
+    "no",
+    "won't",
+    "will not",
+    "doesn't",
+    "does not"
+   ]
+  },
+  {
+   "id": "C04",
+   "kind": "control",
+   "domain": "physics",
+   "statement": "Light travels about 300,000 km per second in a vacuum.",
+   "question": "How long does light take to cross 300,000 km of vacuum?",
+   "key": "no scope issue: the question sits inside the finding's own conditions",
+   "correct_terms": [
+    "1 second",
+    "one second",
+    "about a second",
+    "1 s"
+   ]
+  }
+ ]
+}
