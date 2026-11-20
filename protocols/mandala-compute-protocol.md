@@ -7,7 +7,7 @@ seed-growth protocol defines *how an agent grows*, this protocol defines
 *how it computes* at each shell. Problems are encoded as geometric energy
 landscapes; solutions emerge by relaxation to ground state.
 
-**Origin:** [Mandala-Computing](https://github.com/JinnZ2/Mandala-Computing) by Jami (Kavik Ulu)
+**Origin:** [Mandala-Computing](https://github.com/JinnZ2/Mandala-Computing) by JinnZ2
 **Shape anchor:** `SHAPE.OCTA` (8 faces = 8 computational states)
 **Protocol ID:** `mandala_compute_v1.0`
 

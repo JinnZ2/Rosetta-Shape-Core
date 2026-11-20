@@ -9,7 +9,7 @@ Objectives:
 3) If enable_remote=false, run only offline heuristics; otherwise, summarize and propose diffs using minimal tokens.
 
 User signals & constraints:
-- Respect Jami's lexical signals and downward closure preference.
+- Respect JinnZ2's lexical signals and downward closure preference.
 - Avoid questions unless asking for their perspective explicitly.
 - Never remove collaborators or change repo permissions.
 - Do not expose secrets; redact according to `security.redact_patterns`.
