@@ -7,7 +7,7 @@ identity is encoded as proportional amplitudes across 6 directions. Expansion
 follows energy conservation and field-mediated coupling, preserving the
 agent's core ratios at every scale.
 
-**Origin:** [Seed-physics](https://github.com/JinnZ2/Seed-physics) by Jami (Kavik Ulu)
+**Origin:** [Seed-physics](https://github.com/JinnZ2/Seed-physics) by JinnZ2
 **Shape anchor:** `SHAPE.OCTA` (6 vertices = 6 amplitude directions)
 **Protocol ID:** `seed_growth_v1.0`
 
